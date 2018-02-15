@@ -1,0 +1,150 @@
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 17px;
+    float: right
+}
+
+#recruitSwitch {
+    float: left
+}
+
+#countrySwitch {
+    float: left
+}
+
+label {
+    margin-top: 5px
+}
+
+.switch input {
+    display: none
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s
+}
+
+input:checked+.slider {
+    background-color: #2196F3
+}
+
+input:focus+.slider {
+    -webkit-box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #2196F3
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px)
+}
+
+.slider.round {
+    border-radius: 17px
+}
+
+.slider.round:before {
+    border-radius: 50%
+}
+
+img#avatarImg {
+    width: 270px;
+    height: auto;
+    border: 1px solid #AAA
+}
+
+img#bannerImg {
+    height: 369px;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    border: 1px solid #AAA
+}
+
+span#switchStatusMessage {
+    -webkit-transition: color 0.5s, font-size 0.5s;
+    -o-transition: color 0.5s, font-size 0.5s;
+    transition: color 0.5s, font-size 0.5s;
+    font-size: 1.4em
+}
+
+span#switchStatusMessage.green-light {
+    color: green;
+    font-size: 2.3em
+}
+
+div.save-message {
+    display: inline-block;
+    -webkit-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+    opacity: 0.7;
+    margin-left: 0.8em
+}
+
+div.error-message {
+    color: red;
+    opacity: 1.0
+}
+
+div.save-message.fade {
+    -webkit-transition: opacity 1.5s;
+    -o-transition: opacity 1.5s;
+    transition: opacity 1.5s;
+    opacity: 0.0
+}
+
+h4.panel-title a {
+    display: block
+}
+
+#content .panel-default>.panel-heading {
+    cursor: pointer;
+    background-color: white;
+}
+
+textarea#inputDesc {
+    resize: vertical
+}
+
+#avatarCropper {
+    position: absolute;
+    background-color: white;
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+    margin: 0.5em
+}
+
+#avatarCropper a:hover {
+    text-decoration: none
+}
+
+#cropperiframe {
+    border: none;
+    height: 48em;
+    width: 100%
+}

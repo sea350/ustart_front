@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ustart</title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="css/profile.css" rel="stylesheet" type="text/css" />
+    <link href="css/layout1.css" rel="stylesheet" type="text/css" />
+    <link href="css/followers.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://rawgit.com/fredwu/jquery-endless-scroll/master/js/jquery.endless-scroll.js"></script>
+    <script src="js/bootstrap-confirmation.min.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/following.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $("#navBar-placeholder").load("template.html");
+    });
+    </script>
+</head>
+
+<body>
+    <div id="navBar-placeholder"></div>
+    <div id="centering">
+        <!-- Vertical content -->
+        <div id="content">
+			<img id="head-image" src="https://pbs.twimg.com/profile_banners/902011022202064896/1504391964/1500x500">
+			<div class="dashboard-left col-xs-3">
+				<div class="user-info">
+					<img class="user-img" alt="User Profile Image" src="http://images6.fanpop.com/image/photos/33800000/Rick-Grimes-the-walking-dead-33819418-349-466.jpg">
+					<div id="user-brief-info">
+						<div id="info-wrap">
+							<div id="name-cont">
+								<h2 style="margin-bottom: 0;">
+									<strong id="name">Rick Grimes</strong>
+									<span class="dot">
+										<span class="active">
+											<i class="fa fa-circle" aria-hidden="true" data-toggle="tooltip" title="Active"></i>
+										</span>
+									</span>
+								</h2>
+							</div>
+						</div>
+						<div id="location-cont">
+							<i class="fa fa-map-marker" aria-hidden="true"></i> <span id="location">New York City, New York, USA</span>
+						</div>
+					</div>
+					<hr>
+					<div class="user-desc">
+						<p style="margin-bottom: 0;"><span id="description">A highly motivated, trustworthy, detail oriented Computer Engineering student at NYU Tandon with a passion for problem identification and problem solving, with aspirations of helping people.</span></p>
+					</div>
+					<hr>
+					<div id="user-nums">
+						<div id="followers">
+							<a href="followers.html#followers"><span id="num-followers" style="font-weight: bold">20</span> Followers</a>
+						</div>
+						<div id="following">
+							<a href="followers.html#following"><span id="num-following" style="font-weight: bold">20</span> Following</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="grid col-xs-8">
+				<ul class="nav nav-tabs nav-justified proj-tabs">
+					<li class="active"><a data-toggle="tab" href="#followersPane">Followers</a></li>
+					<li><a data-toggle="tab" href="#followingPane">Following</a></li>
+				</ul>
+				<div class="tab-content">
+					<div id="followersPane" class="tab-pane fade in active">
+						<div class="card">
+							<div class="container-s">
+								<img class="image" src="img/Profiles/Avatar10.png" alt="Avatar"/>
+								<h4><b>Haldun Hadimioglu</b></h4> 
+								<div class="middle">
+									<div class="text"><a href="profile.html"> Follow </a></div>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="container-s">
+								<img class="image" src="img/Profiles/Avatar11.jpg" alt="Avatar"/>
+								<h4><b>Fred Strauss</b></h4> 
+								<div class="middle">
+									<div class="text"><a href="profile.html"> Follow </a></div>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="container-s">
+								<img class="image" src="img/Profiles/Avatar12.jpg" alt="Avatar"/>
+								<h4><b>Gary Vaynerchuk</b></h4> 
+								<div class="middle">
+									<div class="text"><a href="profile.html"> Follow </a></div>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="container-s">
+								<img class="image" src="img/Profiles/Avatar13.jpeg" alt="Avatar"/>
+								<h4><b>Mark Zuckerberg</b></h4> 
+								<div class="middle">
+									<div class="text"><a href="profile.html"> Follow </a></div>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="container-s">
+								<img class="image" src="img/Profiles/Avatar14.jpg" alt="Avatar"/>
+								<h4><b>Gal Gadot</b></h4> 
+								<div class="middle">
+									<div class="text"><a href="profile.html"> Follow </a></div>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="container-s">
+								<img class="image" src="img/Profiles/Avatar15.jpg" alt="Avatar"/>
+								<h4><b>Barack Obama</b></h4> 
+								<div class="middle">
+									<div class="text"><a href="profile.html"> Follow </a></div>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="container-s">
+								<img class="image" src="img/Profiles/Avatar16.jpg" alt="Avatar"/>
+								<h4><b>Stephen Colbert</b></h4> 
+								<div class="middle">
+									<div class="text"><a href="profile.html"> Follow </a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="followingPane" class="tab-pane fade in">
+						<div class="card">
+							<div class="container-s">
+								<img class="image" src="img/Profiles/Avatar16.jpg" alt="Avatar"/>
+								<h4><b>Stephen Colbert</b></h4> 
+								<div class="middle">
+									<div class="text"><a href="profile.html"> Unfollow </a></div>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="container-s">
+								<img class="image" src="img/Profiles/Avatar15.jpg" alt="Avatar"/>
+								<h4><b>Barack Obama</b></h4> 
+								<div class="middle">
+									<div class="text"><a href="profile.html"> Unfollow </a></div>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="container-s">
+								<img class="image" src="img/Profiles/Avatar14.jpg" alt="Avatar"/>
+								<h4><b>Gal Gadot</b></h4> 
+								<div class="middle">
+									<div class="text"><a href="profile.html"> Unfollow </a></div>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="container-s">
+								<img class="image" src="img/Profiles/Avatar10.png" alt="Avatar"/>
+								<h4><b>Haldun Hadimioglu</b></h4> 
+								<div class="middle">
+									<div class="text"><a href="profile.html"> Unfollow </a></div>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="container-s">
+								<img class="image" src="img/Profiles/Avatar12.jpg" alt="Avatar"/>
+								<h4><b>Gary Vaynerchuk</b></h4> 
+								<div class="middle">
+									<div class="text"><a href="profile.html"> Unfollow </a></div>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="container-s">
+								<img class="image" src="img/Profiles/Avatar11.jpg" alt="Avatar"/>
+								<h4><b>Fred Strauss</b></h4> 
+								<div class="middle">
+									<div class="text"><a href="profile.html"> Unfollow </a></div>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="container-s">
+								<img class="image" src="img/Profiles/Avatar13.jpeg" alt="Avatar"/>
+								<h4><b>Mark Zuckerberg</b></h4> 
+								<div class="middle">
+									<div class="text"><a href="profile.html"> Unfollow </a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+        <!-- end content -->
+    <div id="footer-placeholder"></div>
+</body>
+
+</html>

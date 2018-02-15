@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ustart</title>
+    <link href="css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="css/normalize.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/dashboard.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+
+    </script>
+    <script src="js/profile.js"></script>
+    <script src="js/bootstrap-confirmation.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#navBar-placeholder").load("template.html");
+            $("#LeftNavBar-placeholder").load("leftNavbarTemplate.html", function (e) {
+                $("#leftNavDash").addClass("theActive");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="navBar-placeholder"></div>
+    <div id="centering">
+        <div id="content" style="max-width: 100%; padding:1.5em; margin: 0 auto;">
+            <div class="row">
+                <div id="LeftNavBar-placeholder"></div>
+                <div class="col-md-4">
+                    <div class="feedPost">
+                        <div class="feedPostHead">
+                            <div class="feedPostHeadTitle">
+                                Sample Post Title
+                            </div>
+                            <div class="feedPostHeadIcon">
+                                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+                            </div>
+                            <div class="feedPostHeadTime">
+                                2hr
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="feedPostBody">
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
+                            ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
+                            magni dolores eos qui ratione voluptatem sequi nesciunt.
+                            <img src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/p720x720/21688266_730990057111568_180200817155786334_o.jpg?oh=5cf911c1dbc8c777e0fe0d7b369ec1e2&oe=5A51BA20">
+                        </div>
+                        <hr>
+                        <div class="feedPostComments">
+                            <div class="media">
+                                <a class="pull-left" href="#">
+                <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&amp;oe=5A2D7F0D">
+            </a>
+                                <div class="dropdown pull-right">
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span><span class="caret"></span></a>
+                                    <ul class="dropdown-menu" style="min-width: 0px !important; padding:0px !important;">
+                                        <li>
+                                            <a class="dropdown-item " data-toggle="modal" data-target="#EditModal">
+                                                <h6>Edit</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item " data-toggle="modal" data-target="#confirm-delete">
+                                                <h6>Delete</h6>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="media-body">
+                                    <h6 class="pull-right text-muted time" style="padding-right:4px;">3 hours ago</h6>
+                                    <h5 class="mt-0" style="color:cadetblue;">Ryan Rozbiani</h5>
+                                    <p>Hey guys! We're working on UStart! Watch out for us!
+                                    </p>
+                                </div>
+                                <ul>
+                                    <li><a class="btn btn-danger btn-sm btn-hover like-btn" data-toggle="tooltip" title="" data-original-title="5">Like</a></li>
+                                    <li><a class="btn btn-primary btn-sm btn-hover comment-btn" style="margin-left:5px;" data-toggle="tooltip"
+                                            title="" data-original-title="3">Comment</a></li>
+                                    <li><a class="btn btn-info btn-sm btn-hover share-btn" style="margin-left:5px;" data-toggle="tooltip"
+                                            title="" data-original-title="2">Share</a></li>
+                                </ul>
+                            </div>
+                            <hr>
+                            <div class="dropdown pull-right">
+                                <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span><span class="caret"></span></a>
+                                <ul class="dropdown-menu" style="min-width: 0px !important; padding:0px !important;">
+                                    <li>
+                                        <a class="dropdown-item " data-toggle="modal" data-target="#EditModal">
+                                            <h6>Edit</h6>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" data-toggle="modal" data-target="#confirm-delete">
+                                            <h6>Delete</h6>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <h6 class="pull-right text-muted time" style="padding-right:4px;">13 hours ago</h6>
+                            <h5 class="mt-0" style="color:cadetblue">You shared a post:</h5>
+                            <p style="margin-left:2em">Backend Team making moves!</p>
+                            <div class="media">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="media">
+                                            <a class="pull-left" href="#">
+                            <img class="media-object img-rounded" src="http://ustart.today/img/Profiles/Picture2.jpg" alt="40x40">
+                        </a>
+                                            <div class="media-body">
+                                                <h6 class="pull-right text-muted time">13 hours ago</h6>
+                                                <h5 class="mt-0" style="color:cadetblue;">Steven Armanios</h5>
+                                                <p>Finally! The elastic search is working!!! YES!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li><a class="btn btn-danger btn-sm btn-hover like-btn" data-toggle="tooltip" title="" data-original-title="5">Like</a></li>
+                                    <li><a class="btn btn-primary btn-sm btn-hover comment-btn" style="margin-left:5px;" data-toggle="tooltip"
+                                            title="" data-original-title="3">Comment</a></li>
+                                    <li><a class="btn btn-info btn-sm btn-hover share-btn" style="margin-left:5px;" data-toggle="tooltip"
+                                            title="" data-original-title="2">Share</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedPost">
+                        <div class="feedPostHead">
+                            <div class="feedPostHeadTitle">
+                                Sample Post Title
+                            </div>
+                            <div class="feedPostHeadIcon">
+                                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+                            </div>
+                            <div class="feedPostHeadTime">
+                                2hr
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="feedPostBody">
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
+                            ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
+                            magni dolores eos qui ratione voluptatem sequi nesciunt.
+                        </div>
+                        <hr>
+                        <div class="feedPostComments">
+                        </div>
+                    </div>
+                    <div class="feedPost">
+                        <div class="feedPostHead">
+                            <div class="feedPostHeadTitle">
+                                Sample Post Title
+                            </div>
+                            <div class="feedPostHeadIcon">
+                                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+                            </div>
+                            <div class="feedPostHeadTime">
+                                2hr
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="feedPostBody">
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
+                            ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
+                            magni dolores eos qui ratione voluptatem sequi nesciunt.
+                            <img src="http://www.indiewire.com/wp-content/uploads/2017/07/rick-and-morty.png?w=780">
+                        </div>
+                        <hr>
+                        <div class="feedPostComments">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feedPost">
+                        <div class="feedPostHead">
+                            <div class="feedPostHeadTitle">
+                                Sample Post Title
+                            </div>
+                            <div class="feedPostHeadIcon">
+                                <img src="https://pbs.twimg.com/profile_images/904111545906585601/_H7tRXZx_400x400.jpg">
+                            </div>
+                            <div class="feedPostHeadTime">
+                                2hr
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="feedPostBody">
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
+                            ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                        </div>
+                        <hr>
+                        <div class="feedPostComments">
+                            <div class="media">
+                                <a class="pull-left" href="#">
+                        <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&amp;oe=5A2D7F0D">
+                    </a>
+                                <div class="dropdown pull-right">
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span><span class="caret"></span></a>
+                                    <ul class="dropdown-menu" style="min-width: 0px !important; padding:0px !important;">
+                                        <li>
+                                            <a class="dropdown-item " data-toggle="modal" data-target="#EditModal">
+                                                <h6>Edit</h6>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item " data-toggle="modal" data-target="#confirm-delete">
+                                                <h6>Delete</h6>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="media-body">
+                                    <h6 class="pull-right text-muted time" style="padding-right:4px;">3 hours ago</h6>
+                                    <h5 class="mt-0" style="color:cadetblue;">Ryan Rozbiani</h5>
+                                    <p>Hey guys! We're working on UStart! Watch out for us!
+                                    </p>
+                                </div>
+                                <ul>
+                                    <li><a class="btn btn-danger btn-sm btn-hover like-btn" data-toggle="tooltip" title="" data-original-title="5">Like</a></li>
+                                    <li><a class="btn btn-primary btn-sm btn-hover comment-btn" style="margin-left:5px;" data-toggle="tooltip"
+                                            title="" data-original-title="3">Comment</a></li>
+                                    <li><a class="btn btn-info btn-sm btn-hover share-btn" style="margin-left:5px;" data-toggle="tooltip"
+                                            title="" data-original-title="2">Share</a></li>
+                                </ul>
+                            </div>
+                            <hr>
+                            <div class="dropdown pull-right">
+                                <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span><span class="caret"></span></a>
+                                <ul class="dropdown-menu" style="min-width: 0px !important; padding:0px !important;">
+                                    <li>
+                                        <a class="dropdown-item " data-toggle="modal" data-target="#EditModal">
+                                            <h6>Edit</h6>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" data-toggle="modal" data-target="#confirm-delete">
+                                            <h6>Delete</h6>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <h6 class="pull-right text-muted time" style="padding-right:4px;">13 hours ago</h6>
+                            <h5 class="mt-0" style="color:cadetblue">You shared a post:</h5>
+                            <p style="margin-left:2em">Backend Team making moves!</p>
+                            <div class="media">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="media">
+                                            <a class="pull-left" href="#">
+                                    <img class="media-object img-rounded" src="http://ustart.today/img/Profiles/Picture2.jpg" alt="40x40">
+                                </a>
+                                            <div class="media-body">
+                                                <h6 class="pull-right text-muted time">13 hours ago</h6>
+                                                <h5 class="mt-0" style="color:cadetblue;">Steven Armanios</h5>
+                                                <p>Finally! The elastic search is working!!! YES!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li><a class="btn btn-danger btn-sm btn-hover like-btn" data-toggle="tooltip" title="" data-original-title="5">Like</a></li>
+                                    <li><a class="btn btn-primary btn-sm btn-hover comment-btn" style="margin-left:5px;" data-toggle="tooltip"
+                                            title="" data-original-title="3">Comment</a></li>
+                                    <li><a class="btn btn-info btn-sm btn-hover share-btn" style="margin-left:5px;" data-toggle="tooltip"
+                                            title="" data-original-title="2">Share</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedPost">
+                        <div class="feedPostHead">
+                            <div class="feedPostHeadTitle">
+                                Sample Post Title
+                            </div>
+                            <div class="feedPostHeadIcon">
+                                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+                            </div>
+                            <div class="feedPostHeadTime">
+                                2hr
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="feedPostBody">
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
+                            ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
+                            magni dolores eos qui ratione voluptatem sequi nesciunt.
+                            <img src="https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/21433037_728917267318847_3110982964792261951_n.png?oh=da5e8127a07edcefb37b7805750eb17e&oe=5A46819E">
+                        </div>
+                        <hr>
+                        <div class="feedPostComments">
+                        </div>
+                    </div>
+                    <div class="feedPost">
+                        <div class="feedPostHead">
+                            <div class="feedPostHeadTitle">
+                                Sample Post Title
+                            </div>
+                            <div class="feedPostHeadIcon">
+                                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+                            </div>
+                            <div class="feedPostHeadTime">
+                                2hr
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="feedPostBody">
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
+                            ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
+                            magni dolores eos qui ratione voluptatem sequi nesciunt.
+                            <img src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/p720x720/21688266_730990057111568_180200817155786334_o.jpg?oh=5cf911c1dbc8c777e0fe0d7b369ec1e2&oe=5A51BA20">
+                        </div>
+                        <hr>
+                        <div class="feedPostComments">
+                        </div>
+                    </div>
+                    <div class="feedPost">
+                        <div class="feedPostHead">
+                            <div class="feedPostHeadTitle">
+                                Sample Post Title
+                            </div>
+                            <div class="feedPostHeadIcon">
+                                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+                            </div>
+                            <div class="feedPostHeadTime">
+                                2hr
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="feedPostBody">
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
+                            ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
+                            magni dolores eos qui ratione voluptatem sequi nesciunt.
+                        </div>
+                        <hr>
+                        <div class="feedPostComments">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div id="suggestedUser">
+                        <div class="dashboard panel panel-default">
+                            <div id="dash-header">
+                                <h4 style="padding-left: 10px;">Suggested Users</h4>
+                                <div class="suggested-users-cont">
+                                    <div class="user-card">
+                                        <div class="dismiss">
+                                            <span id="dismiss">&times;</span>
+                                        </div>
+                                        <div class="content">
+                                            <img class="avatar" src="http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-126.jpg">
+                                            <div class="user-card-info">
+                                                <a href="profile.html">
+                                                        <strong class="user-card-name">Fred Strauss</strong>
+                                                    </a>
+                                                <br/>
+                                                <button id="btn-small" class="btn btnX" rel="6">Follow</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="user-card">
+                                        <div class="dismiss">
+                                            <span id="dismiss">&times;</span>
+                                        </div>
+                                        <div class="content">
+                                            <img class="avatar" src="http://engineering.nyu.edu/files/imagecache/img_half/ftp/images/mdabaie/sterling_john2.jpg">
+                                            <div class="user-card-info">
+                                                <a href="profile.html">
+                                                        <strong class="user-card-name">John Sterling</strong>
+                                                    </a>
+                                                <br/>
+                                                <button id="btn-small" class="btn btnX" rel="6">Follow</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="user-card">
+                                        <div class="dismiss">
+                                            <span id="dismiss">&times;</span>
+                                        </div>
+                                        <div class="content">
+                                            <img class="avatar" src="http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-341.jpg">
+                                            <div class="user-card-info">
+                                                <a href="profile.html">
+                                                        <strong class="user-card-name">Haldun Hadimioglu</strong>
+                                                    </a>
+                                                <br/>
+                                                <button id="btn-small" class="btn btnX" rel="6">Follow</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="suggestedProj" class="margin-top">
+                        <div class="dashboard panel panel-default">
+                            <div id="dash-header">
+                                <h4 style="padding-left: 10px;">Suggested Projects</h4>
+                                <div class="suggested-projects-cont">
+                                    <div class="proj-card">
+                                        <div class="dismiss">
+                                            <span id="dismiss">&times;</span>
+                                        </div>
+                                        <div class="content">
+                                            <img class="avatar" src="https://pbs.twimg.com/profile_images/898391736078262272/oHO_LQmH_400x400.jpg">
+                                            <div class="proj-card-info">
+                                                <a href="projects.html">
+                                                        <strong class="proj-card-name">U●Start </strong>
+                                                    </a>
+                                                <br/>
+                                                <button id="btn-small" class="btn btnY" rel="6">Follow</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="proj-card">
+                                        <div class="dismiss">
+                                            <span id="dismiss">&times;</span>
+                                        </div>
+                                        <div class="content">
+                                            <img class="avatar" src="https://pbs.twimg.com/profile_images/758427355920621568/8ouHUoFi_400x400.jpg">
+                                            <div class="proj-card-info">
+                                                <a href="projects.html">
+                                                        <strong class="proj-card-name">NYU Future Labs</strong>
+                                                    </a>
+                                                <br/>
+                                                <button id="btn-small" class="btn btnY" rel="6">Follow</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="proj-card">
+                                        <div class="dismiss">
+                                            <span id="dismiss">&times;</span>
+                                        </div>
+                                        <div class="content">
+                                            <img class="avatar" src="https://pbs.twimg.com/profile_images/773317101012586496/q8sc1KuZ_400x400.jpg">
+                                            <div class="proj-card-info">
+                                                <a href="projects.html">
+                                                        <strong class="proj-card-name">TensorFlow</strong>
+                                                    </a>
+                                                <br/>
+                                                <button id="btn-small" class="btn btnY" rel="6">Follow</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

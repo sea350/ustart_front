@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>ustart payment</title>
+    <link href="/www/ustart.tech/css/layout1.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+    <style>
+    .loadOver {
+        background-color: white;
+        z-index: 500;
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+    </style>
+
+</head>
+
+<body>
+    <!-- <div id="loadOverId" class="loadOver"></div> -->
+    <div id="navBar-placeholder"></div>
+    <div id="centering">
+        <div id="payment-wrap" style="text-align: center;">
+            <div id="payment-text">
+                <h2>Payment</h2>
+                <p>Please pay through PayPal to complete your registration</p>
+                <div id="paypal-button-container"></div>
+                <!--<script>
+                paypal.Button.render({
+
+                    env: 'production', // sandbox | production
+
+                    // PayPal Client IDs - replace with your own
+                    // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+                    client: {
+                        sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+                        production: 'ATg8DhmDduKKBZHJT7OMlEUfk5clYZSz4IO0A1e_phR4jbTeMcbYQ_j4G0zHCjfdBgnto2DXUV61_SRZ'
+                    },
+
+                    // Show the buyer a 'Pay Now' button in the checkout flow
+                    commit: true,
+
+                    // payment() is called when the button is clicked
+                    payment: function(data, actions) {
+
+                        // Make a call to the REST api to create the payment
+                        return actions.payment.create({
+                            transactions: [{
+                                amount: {
+                                    total: '0.01',
+                                    currency: 'USD'
+                                }
+                            }]
+                        });
+                    },
+
+                    // onAuthorize() is called when the buyer approves the payment
+                    onAuthorize: function(data, actions) {
+
+                        // Make a call to the REST api to execute the payment
+                        return actions.payment.execute().then(function() {
+                            window.alert('Payment Complete!');
+                        });
+                    },
+                    style: {
+                        size: 'responsive'
+                    }
+
+                }, '#paypal-button-container');
+                </script>-->
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="RAJK64JRASAQL">
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                </form>
+            </div>
+        </div>
+    </div>
+<h1> Hi {{.FirstName}} </h1>
+</body>

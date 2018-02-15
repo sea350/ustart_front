@@ -1,0 +1,101 @@
+body {
+	margin-top: 6em !important;
+}
+
+.plan-logo {
+	width: 12em;
+	height: 12em;
+	margin-left: 1em;
+}
+
+.selector-free-plan,
+.selector-ultimate-plan {
+	padding: 2.5em !important;
+	border-radius: 0.5em;
+}
+
+.selector-ultimate-plan {
+	background-color: white;
+}
+
+.selector-free-plan hr {
+	border-color: #B0BEC5;
+	border-width: 2px;
+}
+
+.selector-ultimate-plan hr {
+	border-color: #00ac7d;
+	border-width: 2px;
+}
+
+.btn-green {
+	background: #00ac7d;
+	color: white;
+	height: 4em;
+	width: 100%;
+	max-width: 15em;
+	transition: color 0.5s;
+	opacity: 0.9;
+}
+
+a .btn-green:hover {
+	color: white;
+	margin-top: -2px;
+	opacity: 1;
+	-webkit-box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+
+}
+
+.flex-stretch {
+	flex-grow: 1;
+	align-self: center;
+}
+
+.plan-pricing {
+	display: flex;
+}
+
+.math-superscript {
+	vertical-align: top;
+	align-self: flex-start;
+}
+
+.math-subscript {
+	vertical-align: top;
+	align-self: flex-end;
+}
+
+.math-amount-lg {
+	font-size: 600%;
+	line-height: normal;
+}
+
+.list-features {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+.plan-description,
+.plan-pricing,
+.list-header,
+.list-features li {
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+.list-features li {
+	border-top: 1px #B0BEC5 solid;
+	display: flex;
+}
+
+.list-features li>.fa {
+	margin-top: 0.2em;
+	margin-right: 1em;
+}
+
+.plan-description,
+.list-header,
+.list-features {
+	color: #455A64;
+}

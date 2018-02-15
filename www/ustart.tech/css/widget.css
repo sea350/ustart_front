@@ -1,0 +1,179 @@
+#sortable li {
+    margin: 1em 0;
+    position: relative;
+    border-radius: 0.4em;
+}
+
+#sortable li h4 {
+    margin: 0.2em;
+}
+
+#projSortable li {
+	display: inline-block;
+}
+
+.projectsWidgetCont {
+    position: relative;
+}
+
+.columnTitle {
+    font-weight: bold;
+}
+.widgetBody {
+    min-height: 4em;
+}
+#sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 1em;
+    border-radius: 0.4em
+}
+
+span.ui-icon {
+    margin-top: 0.5em;
+    z-index: 1;
+}
+
+.columnImage img {
+    width: 80px;
+    margin-bottom: 1em;
+}
+#content .ui-state-default {
+    background-color:white;
+    overflow: hidden;
+}
+.widgetTitle {
+    width: 100%;
+    top: 0;
+    background-color: white;
+    padding: 0.5em 1em;
+    margin: 0;
+    border-bottom: solid 1px #c5c5c5;
+}
+#content .widgetTitle .pull-right {
+    color:#607D8B;
+    font-size: 1.5em;
+    padding: 0.2em 0.4em;
+}
+.projectsColumn {
+    margin: 0.5em;
+	margin-bottom: 0.5em !important;
+    padding: 1em;
+    border-color: #c5c5c5;
+    border-style: solid;
+    border-width: 1px;
+    background: #f5f5f5;
+    border-radius: 0.4em;
+    display: inline-block;
+    /* max-width: 8em; */
+}
+
+.sort-project {
+	margin: 0.5em !important;
+	padding: 1em;
+	border: solid 1px;
+	border-radius: 0.5em;
+	background-color: white;
+}
+.sort-project.invisible-tag {
+	background-color: dimgray;
+}
+.sort-project.invisible-tag img {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+
+.numLinks {
+    padding: 1em
+}
+.spotifyIframe {
+    height: 6em;
+}
+
+#sc-edit-list,
+#ig-edit-list,
+#pin-edit-list,
+#spot-edit-list,
+#tumblr-edit-list {
+	padding-left: 0;
+}
+
+#sc-edit-list>li,
+#ig-edit-list>li,
+#pin-edit-list>li,
+#spot-edit-list>li,
+#tumblr-edit-list>li {
+	display: flex;
+	list-style: none;
+	padding: 0.5em;
+	justify-content: space-between;
+	
+	background-color: #fff;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	-webkit-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+	transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#sc-edit-list>li::after,
+#ig-edit-list>li::after,
+#pin-edit-list>li::after,
+#spot-edit-list>li::after,
+#tumblr-edit-list>li::after {
+	content: "";
+	border-radius: 5px;
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	box-shadow: 0 1px 15px rgba(0, 0, 0, 0.3);
+	opacity: 0;
+}
+
+#sc-edit-list>li:hover,
+#ig-edit-list>li:hover,
+#pin-edit-list>li:hover,
+#spot-edit-list>li:hover,
+#tumblr-edit-list>li:hover {
+	-webkit-transform: scale(1.03, 1.03);
+	transform: scale(1.03, 1.03);
+}
+
+#sc-edit-list>li:hover::after,
+#ig-edit-list>li:hover::after,
+#pin-edit-list>li:hover::after,
+#spot-edit-list>li:hover::after,
+#tumblr-edit-list>li:hover::after {
+	opacity: 1;
+}
+
+#sc-edit-list>li .fa-times,
+#ig-edit-list>li .fa-times,
+#pin-edit-list>li .fa-times,
+#spot-edit-list>li .fa-times,
+#tumblr-edit-list>li .fa-times {
+	align-self: center;
+}
+
+#widgetBodyMed ul {
+    list-style: none;
+    padding: 0 0.5em 0.5em 0.5em;
+}
+
+#widgetBodyMed ul li {
+	background-size: cover;
+    display: inline-block;
+	border: black 1px solid;
+    width: 20em;
+    vertical-align: top;
+	margin: 0.5em;
+}
+
+.medium-body {
+	background-color: rgba(255, 255, 255, 0.75);
+	margin-bottom: 1.5em;
+	padding: 0 0.5em;
+}

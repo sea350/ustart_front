@@ -1,0 +1,193 @@
+.btn.btn-default {
+	transition: background-color 0.3s;
+}
+
+.dashboard-top .panel-body {
+    padding: 0;
+}
+
+.dashboard-top-mid {
+    text-align: center;
+}
+
+#proj-team {
+    text-align: center;
+}
+
+.detail-content {
+    overflow-wrap: break-word;
+}
+
+#head-image {
+    width: 100%;
+    max-height: 20em;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-grow {
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.flex-center {
+    align-self: center;
+}
+
+#project-name {
+    color: #455a64;
+    text-align: center;
+    margin: 0;
+    border-top: solid 1px #b0cec5;
+    padding: .5em;
+}
+
+#project-desc {
+    padding: 0;
+    line-height: 2;
+}
+
+#project-logo {
+    width: 14em;
+    height: 14em;
+    object-fit: cover;
+    margin-top: -8em;
+    border-radius: 50%;
+    display: inline-block;
+    -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.detail-head {
+    color: #00ac7d;
+}
+
+.project-message i.fa,
+.project-btn-followers>span,
+.project-btn-followers>strong {
+    color: #00ac7d;
+}
+
+button.followButton {
+    width: 8em;
+    -webkit-transition: background-color 0.2s, color 0.2s, width 0.5s;
+    -o-transition: background-color 0.2s, color 0.2s, width 0.5s;
+    transition: background-color 0.2s, color 0.2s, width 0.5s;
+}
+
+button.followButton.following {
+    background-color: #00C085;
+    color: white
+}
+
+button.followButton.unfollow {
+    background-color: #EB2323!important;
+    color: white
+}
+
+#btn1 {
+    cursor: pointer;
+    border-radius: 0.4em;
+    border: 1px solid lightgray;
+    background-color: white;
+    color: #00ac7d;
+    text-align: center;
+    text-decoration: none;
+}
+
+#btn1:hover {
+    background-color: #00ac7d;
+    color: white;
+    border: none
+}
+
+#btn1:focus {
+    outline: none
+}
+
+.dashboard-top-left,
+.dashboard-top-right {
+	padding-top: 0.5em;
+	padding-left: 1.5em;
+	padding-right: 1.5em;
+}
+
+.followers-cont {
+    width: calc(100% - 30px);
+    position: absolute;
+    top: 20em;
+	justify-content: space-between;
+}
+.followers-link-cont {
+	height: 4em;
+	overflow: hidden;
+}
+
+ul#proj-modal-followers-list {
+	padding-left: 0;
+	text-align: center;
+}
+
+#proj-modal-followers-list>li {
+	display: inline-block;
+	border: black solid 1px;
+	box-shadow: 0 0 2px black;
+}
+
+#proj-modal-followers-list>li>a>img {
+	width: 8em;
+	height: 8em;
+	object-fit: cover;
+}
+
+.proj-modal-followers-name {
+	text-align: center;
+	padding: 0.5em;
+	background-color: #EEE;
+}
+
+.project-toolbar {
+	align-self: center;
+	margin-right: 1em;
+}
+.followers-link-cont {
+    max-width: 36%;
+    margin-left: 0.5em;
+}
+
+.dropdown-btn {
+	display: inline-block;
+}
+
+.followers-link {
+    height: 3em;
+    width: 3em;
+    margin: 0.5em;
+    border-radius: 50%;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.followers-mini {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.tab-pane {
+    margin-top: 1em;
+}
+
+.dropdown-menu>li>a {
+    display: block;
+    padding: 0.5em 1em;
+}
+.dropdown-menu>li>a:hover {
+    color: #00ac7d;
+}

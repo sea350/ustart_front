@@ -1,0 +1,114 @@
+#linkModal .modal-dialog {
+    width: 624px
+}
+
+.links-container>a {
+    vertical-align: top;
+    display: inline-block;
+    width: 128px;
+    margin: 0.7em;
+    text-align: center
+}
+
+.links-container a {
+    text-decoration: none
+}
+
+.links-container>a>img {
+    max-width: 128px;
+    min-height: 128px;
+    -o-object-fit: contain;
+    object-fit: contain
+}
+
+#addLinkBtn {
+    height: 128px
+}
+
+.links-container>a>img:hover,.links-website-title:hover {
+    border-color: #666666;
+    color: #222222
+}
+
+.links-container>a>img,.links-website-title {
+    -o-transition: border-color 0.5s, color 0.5s;
+    transition: border-color 0.5s, color 0.5s;
+    -webkit-transition: border-color 0.5s, color 0.5s;
+    border: 1px solid #CCCCCC;
+    color: #AAAAAA
+}
+
+.cross-mark:hover {
+    border-color: #666666;
+    color: #FF2222
+}
+
+.cross-mark {
+    border: 1px solid #CCCCCC;
+    color: #222222
+}
+
+.links-container a:hover .cross-mark {
+    opacity: 1;
+    -webkit-transition-delay: 0.3s;
+    -o-transition-delay: 0.3s;
+    transition-delay: 0.3s
+}
+
+.links-container .btn span {
+    position: relative;
+    top: 10%;
+    font-size: 64px
+}
+
+.cross-mark {
+    position: absolute;
+    -webkit-transform: translate(7.3em, 0.3em);
+    -ms-transform: translate(7.3em, 0.3em);
+    transform: translate(7.3em, 0.3em);
+    background-color: white;
+    width: 23px;
+    text-align: center;
+    border-radius: 1.8em;
+    opacity: 0;
+    -webkit-transition: opacity 0.3s;
+    -o-transition: opacity 0.3s;
+    transition: opacity 0.3s
+}
+
+.links-website-title {
+    margin-top: 0.4em;
+    text-align: center;
+    border-radius: 0 0 0.7em 0.7em;
+    padding: 0.2em;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden
+}
+
+#hashtags>span {
+    cursor: pointer;
+    background: #607D8B;
+    padding: 0.5em 1em;
+    display: inline-block;
+    color: white;
+    margin: 0.5em;
+    border-radius: 0.4em;
+    vertical-align: top;
+}
+
+#hashtags>span:hover {
+    opacity: 0.8
+}
+.deleteTagBtn {
+    height: 1.5em;
+    width: 1.5em;
+    position: absolute;
+    background: #F44336;
+    border-radius: 50%;
+    margin: -1.5em;
+    box-shadow: 0 0 0.1em #607D8B;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+}

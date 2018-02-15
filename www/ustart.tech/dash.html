@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ustart</title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="css/layout1.css" rel="stylesheet" type="text/css" />
+    <link href="css/dash.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+    <script src="js/bootstrap-confirmation.min.js"></script>
+    <style>
+    .loadOver {
+        background-color: white;
+        z-index: 500;
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+    </style>
+    <script type="text/javascript">
+    $(function() {
+        $("#navBar-placeholder").load("template.html");
+    });
+    </script>
+</head>
+
+<body>
+    <div id="navBar-placeholder"></div>
+    <div id="centering">
+        <div id="content" style="max-width: 53em; padding:1.5em; margin: 0 auto;">
+            <h1 style="margin-top: 0;"> Dashboard </h1>
+            <script type="text/javascript">
+            $(document).ready(function() {
+                $("#filter").click(function() {
+
+                    $("#search-filter").toggle();
+
+                });
+            });
+            </script>
+            <h3 style="padding-left: 10px;"> <a id="filter" href="#"> Filters </a></h3>
+            <div id="search-filter" style="display: none;">
+                <div class="extra">
+                    <div id="filOptions">
+                        <form style="padding: 1em;" action="" method="post">
+                            <div class="filDiv"><span class="filTitle">Type</span></div>
+                            <input type="radio" name="status" value="True"> People
+                            <input type="radio" name="status" value="False"> Project
+                            <input type="radio" name="status" value="lastUpdated"> All
+                            <br>
+                            <br>
+                            <div class="filDiv"><span class="filTitle">Order</span></div>
+                            <input type="radio" name="order" value="mostRelevant"> Most Relevant
+                            <input type="radio" name="order" value="lastUpdated"> Most Recent
+                            <input type="radio" name="order" value="lastUpdated"> All
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="search-results-container">
+                <div class="search-result">
+                    <div class="search-result-pic">
+                        <img src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-5952.jpg" alt="profile pic">
+                    </div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">Itay Tal</div>
+                        <div class="search-result-description">
+                            These are some crazy snakes. HAHAHH get it?
+                        </div>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="search-result-pic">
+                        <img src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-5952.jpg" alt="profile pic">
+                    </div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">Boris Aronov</div>
+                        <div class="search-result-description">I guess P is really equal to NP!!!
+                        </div>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="search-result-pic">
+                        <img src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-5952.jpg" alt="profile pic">
+                    </div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">John Sterling</div>
+                        <div class="search-result-description">
+                            Training the warriors and nobles for battle this September.
+                        </div>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="search-result-pic">
+                        <img src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-5952.jpg" alt="profile pic">
+                    </div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">Haldun Hadimioglu</div>
+                        <div class="search-result-description">
+                            First day of classes! Really excited to teach the next generation about Computer Architecture and Digital Logic!
+                        </div>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="search-result-pic">
+                        <img src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-5952.jpg" alt="profile pic">
+                    </div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">Phyllis Frankyl</div>
+                        <div class="search-result-description">Is it time for MongoDB yet?
+                        </div>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="search-result-pic">
+                        <img src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-5952.jpg" alt="profile pic">
+                    </div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">Evan Gallager</div>
+                        <div class="search-result-description">Can anyone come to my concert tonight?
+                        </div>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="search-result-pic">
+                        <img src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-5952.jpg" alt="profile pic">
+                    </div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">Nasir Memon</div>
+                        <div class="search-result-description">
+                            We're looking for students to join OSIRIS!!!
+                        </div>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="search-result-pic">
+                        <img src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-5952.jpg" alt="profile pic">
+                    </div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">Haldun Hadmioglu</div>
+                        <div class="search-result-description">
+                            MIPS is the answer everybody!!! #MIPSALLDAY
+                        </div>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="search-result-pic">
+                        <img src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-5952.jpg" alt="profile pic">
+                    </div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">Lisa Hellerstein</div>
+                        <div class="search-result-description"> P = NP?!?!?!? WHATTTTT?!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

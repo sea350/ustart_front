@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ustart</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="js/createProject.js"></script>
+    <script src="js/countries.js"></script>
+</head>
+<script type="text/javascript">
+$(function() {
+    $("#navBar-placeholder").load("template.html");
+});
+</script>
+
+<body>
+    <div id="navBar-placeholder"></div>
+    <div id="centering" style="top: 6em;">
+        <div id="content">
+            <div class="container">
+				<button style="margin-left: 1em;" class="btn btn-danger" id="back-button" onclick="location.replace('manage_projects.html')"><i class="fa fa-angle-left"></i> Back</button>
+                <form id="form-project">
+                    <h2 style="padding:0;">Create A Project</h2>
+                    <br>
+                    <div class="row">
+                        <div class="dropdown col-sm-12">
+                            <label for="fName" class="sr-only">Title of Project</label>
+                            <input type="text" id="fName" name="firstName" class="form-control" placeholder="Title of Project" required autofocus>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="dropdown col-sm-6">
+                            <label for="curl" class="sr-only">Custom URL</label>
+                            <input type="text" id="curl" name="curl" class="form-control" placeholder="Custom URL" required>
+                        </div>
+                        <div class="dropdown col-sm-6">
+                            <label for="proj-loc" class="sr-only">Location</label>
+                            <select type="text" id="proj-loc" name="proj-loc" class="form-control" placeholder="Country" required>
+								<option></option>
+							</select>
+                            <select type="text" id="proj-loc-state" name="proj-loc-state" class="form-control" placeholder="State" style="display: none;">
+								<option></option>
+							</select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="dropdown col-sm-6">
+                            <label for="category" class="sr-only">Category</label>
+                            <input type="text" id="category" name="category" class="form-control" placeholder="Category" required>
+                        </div>
+                        <div class="dropdown col-sm-6">
+                            <label for="lName" class="sr-only">Members</label>
+                            <input type="text" id="lName" name="lastName" class="form-control" placeholder="Members">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="dropdown col-sm-12">
+                            <label for="lName" class="sr-only">About</label>
+                            <textarea maxlength="1100" style="resize: none;" type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Put a small description of your project here:"></textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit" name="send" id="finished">Continue</button>
+                </form>
+				<script>
+					populateCountries('proj-loc', 'proj-loc-state');
+				</script>
+            </div>
+        </div>
+    </div>
+    <footer id="foot"></footer>
+</body>
+
+</html>

@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<!-- Missing Closing DIVS, FIX ASAP -->
+
+<html>
+
+<head>
+    <script src="https://rawgit.com/pklauzinski/jscroll/master/jquery.jscroll.js"></script>
+
+<!--
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>UStart Profile</title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="css/profile.css" rel="stylesheet" type="text/css" />
+    <link href="css/layout1.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://rawgit.com/pklauzinski/jscroll/master/jquery.jscroll.js"></script>
+    <script src="js/bootstrap-confirmation.min.js"></script>
+    <script src="js/profile.js"></script>
+    <script type="text/javascript">
+-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ustart</title>
+    <link href="/www/ustart.tech/css/profile.css" rel="stylesheet" type="text/css">
+    <link href="/www/ustart.tech/css/widget.css" rel="stylesheet" type="text/css">
+    <link href="/www/ustart.tech/css/modal-links.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!--    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" type="text/css" href="/www/ustart.tech/css/socialMedia.css">
+    <link rel="stylesheet" type="text/css" href="/www/ustart.tech/css/widget-gallery.css">
+    <link rel="stylesheet" type="text/css" href="/www/ustart.tech/css/widget-text.css">
+  
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/www/ustart.tech/js/profile-nil.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.7.1/slick/slick.min.js"></script>
+    <script src="/www/ustart.tech/ckeditor/ckeditor.js"></script>
+    <script src="/www/ustart.tech/ckeditor/config.js"></script>
+
+    <script src="/www/ustart.tech/js/widgets.js"></script>
+    <script src="/www/ustart.tech/js/ascii-convert.js"></script>
+    <script src="/www/ustart.tech/js/widget-gallery.js"></script>
+    <script src="/www/ustart.tech/js/widget-text.js"></script>
+    <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
+    <script>
+        $(function () {
+            // Enables drag-n-drop list items (using the header)
+            $("#sortable").sortable({
+                handle: ".widgetTitle",
+                revert: true,
+                tolerance: "pointer"
+            });
+            // Enables resizable list items
+            $("#sortable>li").resizable({
+                animate: true,
+                ghost: true,
+                resize: function (event, ui) {
+                    ui.size.width = ui.originalSize.width;
+                }
+            });
+        });
+    </script>
+
+
+</head>
+
+<body style="display: none;">
+    <div id="navBar-placeholder"></div>
+     <input type="hidden" id="pageiden" value='{{.Page}}'>
+     <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
+    <div id="centering">
+        <!-- Vertical content -->
+        <div id="content">
+            <img id="head-image" src="https://www.besthdwallpaper.com/download/colorful-triangles-wallpaper-800x480-47_12.jpg">
+            <div class="dashboard-left col-xs-3">
+                <div class="user-info">
+                    <img class="user-img" alt="User Profile Image" src=d{{.UserInfo.Avatar}}>
+                    <div id="user-brief-info">
+                        <div id="info-wrap">
+                            <div id="name-cont">
+                                <h3 style="margin-bottom: 0.2em;">
+                                    <strong id="name">{{.UserInfo.FirstName}} {{.UserInfo.LastName}} <!-- {{.DOCID}} {{.Page}} page is viewingDOCID--></strong>
+                                    <span class="dot">
+                                        <span class="active">
+                                            <i class="fa fa-circle" aria-hidden="true" data-toggle="tooltip" title="Active"></i>
+                                        </span>
+                                    </span>
+                                </h3>
+                            </div>
+                        </div>
+                        <div id="breif-info" style="text-align: left; padding: 1em 1em 0 1em;">
+                            <div id="location-cont" style="color:#00C085">
+                                <i class="fa fa-map-marker" aria-hidden="true" style="color:#00C085;"></i> Location
+                                <p id="location" style="color:black">{{.UserInfo.Location.City}}, {{.UserInfo.Location.State}}, {{.UserInfo.Location.Country}}</p>
+                            </div>
+                            <div id="edu-link" style="color:#00C085;">
+                                <i class="fa fa-graduation-cap" aria-hidden="true" style="color:#00C085;"></i> Education
+                                <p style="color:black">{{.UserInfo.University}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="user-desc">
+                        <p style="margin-bottom: 0;">
+                            <span id="description">I have a passion for web design and love to create for web and mobile devices.</span>
+                        </p>
+                    </div>
+                    <hr>
+                    <div id="user-nums">
+                        <div id="followers">
+                            <a href="http://ustart.today:5000/followers/">
+                                <span id="num-followers" style="font-weight: bold">{{.Followers}}</span> Followers</a> 
+                        </div>
+                        
+                        <div id="following">
+                            <a href="http://ustart.today:5000/following/">
+                                <span id="num-following" style="font-weight: bold">{{.Following}}</span> Following</a>
+                        </div>
+                        <button id="btn1" class="btn followButton following" rel="6">Follow</button>
+                        <script type="text/javascript">
+                               $(document).ready(function() { 
+                                    var pageID= document.getElementById("pageiden").value;
+                                    var followstatus=document.getElementById("followstat").value;
+                                    if(followstatus == "yes"){
+                                         $('#btn1').attr('class', 'btn followButton following');
+                                         $('#btn1').text('Following');
+                                    }
+                                    else{
+                                        $('#btn1').attr('class', 'btn followButton');
+                                        $('#btn1').text('Follow');
+                                    } 
+                                       $('#btn1').hover(function () {
+                                        $button = $(this);
+                                        if ($button.hasClass('following')) {
+                                            $button.addClass('unfollow');
+                                            $button.text('Unfollow');
+                                        }
+                                        }, function () {
+                                        if ($button.hasClass('following')) {
+                                            $button.removeClass('unfollow');
+                                            $button.text('Following');
+                                        }
+                                    });
+                                    
+                                     $('#btn1').click(function(e) {
+                                        //e.preventDefault();
+                                        var Pikachu = {{.DOCID}}
+                                        $.ajax({
+                                            type: 'GET',  
+                                            url: 'http://ustart.today:5000/callme/',
+                                            contentType: "application/json; charset=utf-8",
+                                            data: {userID:pageID, Following:followstatus,Pikachu:Pikachu},
+                                            success: function(data) {
+                                                $("#responsenil").html(data);
+                                                console.log('hello');
+                                                var totalFollowers = parseInt($('#num-followers').html());
+                                                 if ($('#btn1').hasClass('following')) {
+                                                        //$.ajax(); Do Unfollow
+                                                        $('#btn1').removeClass('following');
+                                                        $('#btn1').removeClass('unfollow');
+                                                        $('#btn1').text('Follow');
+                                                        $('#num-followers').html(totalFollowers-1);
+                                                 }else {
+                                                    // $.ajax(); Do Follow
+                                                    $('#btn1').addClass('following');
+                                                    $('#btn1').text('Following');
+                                                    $('#num-followers').html(totalFollowers+1);
+                                                }
+                                            }
+                                        });
+                                    });
+
+                                        $('#Wall-loadAJAX').click(function(e) {
+                                        //e.preventDefault();
+                                        var entryIDs = ""+{{.UserInfo.EntryIDs}}
+                                      //  console.log("entryIDs are"+entryIDs)
+                                        $.ajax({
+                                            type: 'GET',  
+                                            url: 'http://ustart.today:5000/loadWall/',
+                                            contentType: "application/json; charset=utf-8",
+                                            data: {entryIDs:entryIDs,pageID:pageID},
+                                            success: function(data) {
+                                                $("#wall-dataF").html(data);
+                                                console.log('hello');
+                                               /*$("#wall-dataF").find("script").each(function(i) {
+                                                    eval($(this).text());
+                                                });*/
+                                                    /*$("#post-msg").focus(function (e) {
+                                                        var textbox = $("#post-msg");
+                                                        textbox.animate({
+                                                            height: "100px"
+                                                        }, 690);
+                                                        if (textbox.val().length == 0) {
+                                                            $("#new-postSubmit").prop("disabled", true);
+                                                        } else {
+                                                            $("#new-postSubmit").removeAttr("disabled");
+                                                        }
+                                                    });
+                                                    $("#post-msg").keyup(function (e) {
+                                                        var textbox = $("#post-msg");
+                                                        if (textbox.val().length == 0) {
+                                                            $("#new-postSubmit").prop("disabled", true);
+                                                        } else {
+                                                            $("#new-postSubmit").removeAttr("disabled");
+                                                        }
+                                                    });
+
+                                                    $("#post-msg").blur(function (e) {
+                                                        var textbox = $("#post-msg");
+                                                        textbox.animate({
+                                                            height: "50px"
+                                                        }, 690);
+                                                    });*/
+
+                                            }//end success
+                                        });
+                                    });
+
+ 
+                                    $('.comment-btn').click(function(e) {
+                                        var postId= $(this).attr("id");
+                                        var modified ="#"+postId;
+                                     //   console.log(modified);
+                                        console.log("profilenilversion");
+                                        var Pikachu = {{.DOCID}}
+                                        //e.preventDefault();
+                                        $.ajax({
+                                            type: 'GET',  
+                                            url: 'http://ustart.today:5000/getComments/',
+                                            contentType: "application/json; charset=utf-8",
+                                            data: {userID:pageID, PostID:postId,Pikachu:Pikachu},
+                                            success: function(data) {
+                                            	$("#commentnil").html(data);
+                                                $(modified).modal('show');
+                                            }
+                                        });
+                                    });
+
+                                   
+                                });
+
+                        </script>
+                        <div class="profile-menu dropdown">
+                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a id="block-user" href="#">
+                                        <i class="fa fa-ban"></i> Block
+                                        <span class="block-user-text"></span> User</a>
+                                </li>
+                                <li>
+                                    <a href="settings.html">
+                                        <i class="fa fa-gear"></i> Settings</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <!-- Prevent overlapping elements for bigger screens -->
+                </div>
+                <div class="dashboard-right">
+                    <div id="suggestedUser">
+                        <div class="dashboard panel panel-default">
+                            <div id="dash-header">
+                                <h4>Suggested Users</h4>
+                                <div class="suggested-users-cont">
+                                    <div class="user-card">
+                                        <div class="dismiss">
+                                            <span id="dismiss">&times;</span>
+                                        </div>
+                                        <div class="content">
+                                            <img class="avatar" src="http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-126.jpg">
+                                            <div class="user-card-info">
+                                                <a href="profile.html">
+                                                    <strong class="user-card-name">Fred Strauss</strong>
+                                                </a>
+                                                <br/>
+                                                <button id="btn-small" class="btn btnX" rel="6">Follow</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="user-card">
+                                        <div class="dismiss">
+                                            <span id="dismiss">&times;</span>
+                                        </div>
+                                        <div class="content">
+                                            <img class="avatar" src="http://engineering.nyu.edu/files/imagecache/img_half/ftp/images/mdabaie/sterling_john2.jpg">
+                                            <div class="user-card-info">
+                                                <a href="profile.html">
+                                                    <strong class="user-card-name">John Sterling</strong>
+                                                </a>
+                                                <br/>
+                                                <button id="btn-small" class="btn btnX" rel="6">Follow</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="user-card">
+                                        <div class="dismiss">
+                                            <span id="dismiss">&times;</span>
+                                        </div>
+                                        <div class="content">
+                                            <img class="avatar" src="http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-341.jpg">
+                                            <div class="user-card-info">
+                                                <a href="profile.html">
+                                                    <strong class="user-card-name">Haldun Hadimioglu</strong>
+                                                </a>
+                                                <br/>
+                                                <button id="btn-small" class="btn btnX" rel="6">Follow</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="suggestedProj" class="margin-top">
+                        <div class="dashboard panel panel-default">
+                            <div id="dash-header">
+                                <h4>Suggested Projects</h4>
+                                <div class="suggested-projects-cont">
+                                    <div class="proj-card">
+                                        <div class="dismiss">
+                                            <span id="dismiss">&times;</span>
+                                        </div>
+                                        <div class="content">
+                                            <img class="avatar" src="https://pbs.twimg.com/profile_images/898391736078262272/oHO_LQmH_400x400.jpg">
+                                            <div class="proj-card-info">
+                                                <a href="projects.html">
+                                                    <strong class="proj-card-name">U●Start </strong>
+                                                </a>
+                                                <br/>
+                                                <button id="btn-small" class="btn btnY" rel="6">Follow</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="proj-card">
+                                        <div class="dismiss">
+                                            <span id="dismiss">&times;</span>
+                                        </div>
+                                        <div class="content">
+                                            <img class="avatar" src="https://pbs.twimg.com/profile_images/758427355920621568/8ouHUoFi_400x400.jpg">
+                                            <div class="proj-card-info">
+                                                <a href="projects.html">
+                                                    <strong class="proj-card-name">NYU Future Labs</strong>
+                                                </a>
+                                                <br/>
+                                                <button id="btn-small" class="btn btnY" rel="6">Follow</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="proj-card">
+                                        <div class="dismiss">
+                                            <span id="dismiss">&times;</span>
+                                        </div>
+                                        <div class="content">
+                                            <img class="avatar" src="https://pbs.twimg.com/profile_images/773317101012586496/q8sc1KuZ_400x400.jpg">
+                                            <div class="proj-card-info">
+                                                <a href="projects.html">
+                                                    <strong class="proj-card-name">TensorFlow</strong>
+                                                </a>
+                                                <br/>
+                                                <button id="btn-small" class="btn btnY" rel="6">Follow</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of grid for right -->
+                </div>
+            </div>
+            <div class="menu-wrap col-xs-8">
+                <div id="floating-widget-editor">
+                    <span id="widget-status">Edit Mode </span>
+                    <button class="btn btn-info">
+                        <i class="fa fa-pencil-square-o"></i>
+                    </button>
+                </div>
+                <br/>
+                <ul class="nav nav-tabs nav-justified proj-tabs">
+                    <li class="active DannyTan">
+                        <a data-toggle="tab" href="#prof-about">Showcase</a>
+                    </li>
+                    <li class="DannyTan">
+                        <a data-toggle="tab" id="Wall-loadAJAX" href="#prof-wall">Posts</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="prof-about" class="tab-pane fade in active">
+                        <ul id="sortable">
+                            <li id="widget-insert" class="ui-state-default">
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <h4>Insert new widget</h4>
+                                    </div>
+                                    <div class="widgetBody">
+                                        <button id="addTextWidget" class="btn btn-default projectsColumn">
+                                            <div class="columnImage">
+                                                <img src="/www/ustart.tech/img/png/text.png" />
+                                                <div class="columnTitle">
+                                                    Text
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <!-- <button id="addLinksWidget" class="btn btn-default projectsColumn">
+                        <div class="columnImage">
+                            <img src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_link_48px-128.png" />
+                            <div class="columnTitle">
+                                Links
+                            </div>
+                        </div>
+                    </button> -->
+                                        <button id="linksWidgetBtn" class="btn btn-default projectsColumn">
+                                            <div class="columnImage">
+                                                <img src="/www/ustart.tech/img/png/links.png" />
+                                                <div class="columnTitle">
+                                                    Links
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <button id="galleryWidgetBtn" class="btn btn-default projectsColumn">
+                                            <div class="columnImage">
+                                                <img src="/www/ustart.tech/img/png/gallery.png" />
+                                                <div class="columnTitle">
+                                                    Gallery
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <button id="igWidgetBtn" class="btn btn-default projectsColumn" data-dismiss="modal">
+                                            <div class="columnImage">
+                                                <img src="/www/ustart.tech/img/png/instagram.png" />
+                                                <div class="columnTitle">
+                                                    Instagram
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <button id="scWidgetBtn" class="btn btn-default projectsColumn" data-dismiss="modal">
+                                            <div class="columnImage">
+                                                <img src="/www/ustart.tech/img/png/soundcloud.png" />
+                                                <div class="columnTitle">
+                                                    SoundCloud
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <button id="ytWidgetBtn" class="btn btn-default projectsColumn" data-dismiss="modal">
+                                            <div class="columnImage">
+                                                <img src="/www/ustart.tech/img/png/youtube-1.png" />
+                                                <div class="columnTitle">
+                                                    YouTube
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <button id="addCodePenWidget" class="btn btn-default projectsColumn">
+                                            <div class="columnImage">
+                                                <img src="https://blog.codepen.io/wp-content/uploads/2012/06/Button-Fill-Black-Large.png" />
+                                                <div class="columnTitle">
+                                                    CodePen
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <button id="addPinterestWidget" class="btn btn-default projectsColumn">
+                                            <div class="columnImage">
+                                                <img src="/www/ustart.tech/img/png/pinterest.png" />
+                                                <div class="columnTitle">
+                                                    Pinterest
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <button id="addTumblrWidget" class="btn btn-default projectsColumn">
+                                            <div class="columnImage">
+                                                <img src="/www/ustart.tech/img/png/twitter-2.png" />
+                                                <div class="columnTitle">
+                                                    Tumblr
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <button id="addSpotifyWidget" class="btn btn-default projectsColumn">
+                                            <div class="columnImage">
+                                                <img src="/www/ustart.tech/img/png/spotify.png" />
+                                                <div class="columnTitle">
+                                                    Spotify
+                                                </div>
+                                            </div>
+                                        </button>                                        
+
+                                        <!--
+                                        <button class="btn btn-default projectsColumn" data-toggle="modal" data-target="#addMoreModal">
+                        <div class="columnImage">
+                            <img src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_now_widgets_48px-128.png" alt="Featured Project Image" />
+                            <div class="columnTitle">
+                                More
+                            </div>
+                        </div>
+                    </button>
+                                        <div id="addMoreModal" class="modal fade" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">More Widgets</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="ui-state-default">
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <script>
+                                            function focusDesc() {
+                                                document.getElementById('text-box').focus();
+                                            }
+                                        </script>
+                                        <span class="pull-right fa fa-2x fa-pencil" onclick="focusDesc()"></span>
+                                        <h4 id="text-title" name="textEditorHeader">
+                                            Description
+                                        </h4>
+                                    </div>
+                                    <div class="widgetBody">
+                                        <div id="text-box" class="text-box" name="textEditorBody">
+                                            {{.Description}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="ui-state-default">
+                                <div id="projectWidget" class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#projModal"></span>
+                                        <h4>Projects</h4>
+                                    </div>
+                                    <div class="widgetBody">
+                                        <button class="btn btn-default projectsColumn" id="project1">
+                                            <div class="columnImage">
+                                                <a href="projects.html">
+                                                    <img src="https://cdn2.iconfinder.com/data/icons/social-flat-buttons-3/512/zerply-128.png" alt="Featured Project Image" />
+                                                    <div class="columnTitle">
+                                                        Project Name
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </button>
+                                        <button class="btn btn-default projectsColumn" id="project1">
+                                            <div class="columnImage">
+                                                <a href="projects.html">
+                                                    <img src="https://cdn4.iconfinder.com/data/icons/flat-services-icons/128/social_media.png" alt="Featured Project Image" />
+                                                    <div class="columnTitle">
+                                                        Project Name
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </button>
+                                        <button class="btn btn-default projectsColumn" id="project1">
+                                            <div class="columnImage">
+                                                <a href="projects.html">
+                                                    <img src="https://cdn4.iconfinder.com/data/icons/flat-services-icons/128/idea.png" alt="Featured Project Image" />
+                                                    <div class="columnTitle">
+                                                        Project Name
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </button>
+                                        <button class="btn btn-default projectsColumn" id="project1">
+                                            <div class="columnImage">
+                                                <a href="projects.html">
+                                                    <img src="https://cdn2.iconfinder.com/data/icons/social-flat-buttons-3/512/smugmug-128.png" alt="Featured Project Image"
+                                                    />
+                                                    <div class="columnTitle">
+                                                        Project Name
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </button>
+                                        <button class="btn btn-default projectsColumn" id="project1">
+                                            <div class="columnImage">
+                                                <a href="projects.html">
+                                                    <img src="https://cdn4.iconfinder.com/data/icons/flat-services-icons/128/illustration.png" alt="Featured Project Image" />
+                                                    <div class="columnTitle">
+                                                        Project Name
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="projModal" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h3>Projects</h3>
+                                            </div>
+                                            <div class="modal-body">
+                                                List of projects (sortable) + toggle to show each individual proj
+                                                <ul id="projSortable">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="ui-state-default">
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#tagModal"></span>
+                                        <h4>Skills</h4>
+                                    </div>
+                                    <div id="hashTagsBody" class="widgetBody">
+                                        <button class="btn btn-default projectsColumn" id="project1">
+                                            <div class="columnImage">
+                                                <div class="columnTitle">HTML5</div>
+                                            </div>
+                                        </button>
+                                        <button class="btn btn-default projectsColumn" id="project2">
+                                            <div class="columnImage">
+                                                <div class="columnTitle">Python</div>
+                                            </div>
+                                        </button>
+                                        <button class="btn btn-default projectsColumn" id="project3">
+                                            <div class="columnImage">
+                                                <div class="columnTitle">Bootstrap</div>
+                                            </div>
+                                        </button>
+                                        <button class="btn btn-default projectsColumn" id="project4">
+                                            <div class="columnImage">
+                                                <div class="columnTitle">NodeJS</div>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="ui-state-default widgetListItem sortable">
+                                <div id="linksWidget" class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#editLinkModal"></span>
+                                        <h4>Links</h4>
+                                    </div>
+                                    <div class="widgetBody">
+                                        <div class="links-container">
+                                            <a id="addLinkBtn" class="btn btn-default" data-toggle="modal" data-target="#addLinkModal">
+                                                <span>&plus;</span>
+                                            </a>
+                                        </div>
+                                        <div class="numLinks">
+                                            <span id="linkCountIndicator">16 Links Remaining</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade" id="editLinkModal" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h3>Links</h3>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Reorder/edit link address/remove links
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Add Link Modal -->
+                                    <div class="modal fade" id="addLinkModal" role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Add Link</h4>
+                                                </div>
+                                                <form class="addLinkForm">
+                                                    <div class="modal-body">
+                                                        <p>
+                                                            <span class="modal-cell">URL</span>
+                                                            <input type="url" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false"
+                                                                autofocus required/>
+                                                        </p>
+                                                        <p>
+                                                            <span class="modal-cell">Title</span>
+                                                            <input type="text" class="link-input-read" name="webTitle" placeholder="example: 'My LinkedIn'" spellcheck="false" required/>
+                                                        </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <div class="btn-group">
+                                                            <input type="submit" class="btn btn-primary btn-add-link" />
+                                                            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- End of Modals for user -->
+                                    </div>
+                                    <script src="/www/ustart.tech/js/jquery.validate.min.js"></script>
+                                    <script src="/www/ustart.tech/js/layout_links.js"></script>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="prof-wall" class="tab-pane fade">
+                        <div class="grid">
+                            <!-- main Modal -->
+                            <div id= "commentnil" role="dialog"> </div>
+                            <div id= "sharenil" role="dialog"> </div>
+                            
+                            <div class="modal fade" id="main-modal" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <div class="media">
+                                                <a class="pull-left" href="#">
+                                                    <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D">
+                                                </a>
+                                                <div class="media-body">
+                                                    <h6 class="pull-right text-muted time">3 hours ago</h6>
+                                                    <h5 class="mt-0" style="color:cadetblue;">Ryan Rozbiani</h5>
+                                                    <p>Hey guys! We're launching UStart! Watch out for us!</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- write a comment-->
+                                            <div class="input-group">
+                                                <form id="commentform">
+                                                    <input class="form-control" name="commentz" placeholder="Add a comment" type="text">
+                                                </form>
+                                                <span class="input-group-addon">
+                                                    <a onclick="document.getElementById('commentform').submit();">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <br>
+                                            <!--comment list starts here -->
+                                            <div class="comments-list">
+                                                <!-- sample comment list -->
+                                                <div class="media">
+                                                    <h6 class="pull-right text-muted time">2 hours ago</h6>
+                                                    <a class="media-left" href="#">
+                                                        <img style="height:40px;" class="img-rounded" src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-310.jpg">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <h5 class="media-heading user_name" style="color:cadetblue;">Phyllis Frankyl</h5>
+                                                        <p> Are you going to use MongoDB?</p>
+                                                        <p>
+                                                            <small>
+                                                                <a class="comment-like">Like</a>
+                                                            </small> -
+                                                            <small>
+                                                                <a class="confirmation-callback">Remove</a>
+                                                            </small>
+                                                        </p>
+                                                        <p>
+                                                             <small>
+                                                                <a class="view-replies" onclick="document.getElementById('replies').style.display = 'block'; this.style.display = 'none'">View 2 Replies</a>
+                                                            </small>
+                                                            <script>
+                                                               $(document).ready(function (){
+                                                                   $(".commentOfComment").css("display","none");
+                                                                });
+                                                            </script>
+                                                        </p>
+                                                         <div class="commentOfComment" id="replies">
+                                                             <!-- first reply of comment-->
+                                                             <div class="media">
+                                                                 <a class="media-left" href="#">
+                                                                    <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D">
+                                                                </a>
+                                                                <div class="media-body">
+                                                                    <h5 class="media-heading user_name" style="color:cadetblue;">Bryan Brosbyani</h5>
+                                                                    <p> Hell No!</p>
+                                                                </div>
+                                                            </div>
+                                                             <!-- second reply of comment-->
+                                                             <div class="media">
+                                                                <a class="media-left" href="#">
+                                                                    <img class="media-object img-rounded" src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-310.jpg">
+                                                                </a>
+                                                                <div class="media-body">
+                                                                    <h5 class="media-heading user_name" style="color:cadetblue;">Phyllis Frankyl</h5>
+                                                                    <p> Naughty boii</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group pull-right">
+                                                        <form id="innercommentform">
+                                                            <input class="form-control" placeholder="Add a reply" type="text">
+                                                        </form>
+                                                        <span class="input-group-addon">
+                                                            <a onclick="document.getElementById('innercommentform').submit();">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end sample comment list -->
+                                                <div class="media">
+                                                    <h6 class="pull-right text-muted time">22 minutes ago</h6>
+                                                    <a class="media-left" href="#">
+                                                        <img class="img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <h5 class="media-heading user_name" style="color:cadetblue;">Ryan Rozbiani</h5>
+                                                        <p>Haha! Not yet, Professor!</p>
+                                                        <p>
+                                                            <small>
+                                                                <a class="comment-like">Like</a>
+                                                            </small> -
+                                                            <small>
+                                                                <a class="confirmation-callback">Remove</a>
+                                                            </small>
+                                                        </p>
+                                                        <p>
+                                                             <small>
+                                                                 <a class="view-replies" onclick="document.getElementById('replies1').style.display = 'block'; this.style.display = 'none'">View 2 Replies</a>
+                                                            </small>
+                                                        </p>
+                                                         <div class="commentOfComment" id=replies1>
+                                                             <!-- first reply of comment-->
+                                                             <div class="media">
+                                                                 <a class="media-left" href="#">
+                                                                    <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D">
+                                                                </a>
+                                                                <div class="media-body">
+                                                                    <h5 class="media-heading user_name" style="color:cadetblue;">Bryan Brosbyani</h5>
+                                                                    <p> Hell No!</p>
+                                                                </div>
+                                                            </div>
+                                                             <!-- second reply of comment-->
+                                                             <div class="media">
+                                                                <a class="media-left" href="#">
+                                                                    <img class="media-object img-rounded" src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-310.jpg">
+                                                                </a>
+                                                                <div class="media-body">
+                                                                    <h5 class="media-heading user_name" style="color:cadetblue;">Phyllis Frankyl</h5>
+                                                                    <p> Naughty boii</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group pull-right">
+                                                        <form id="innercommentform">
+                                                            <input class="form-control" placeholder="Add a reply" type="text">
+                                                        </form>
+                                                        <span class="input-group-addon">
+                                                            <a onclick="document.getElementById('innercommentform').submit();">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <h6 class="pull-right text-muted time">20 minutes ago</h6>
+                                                    <a class="media-left" href="#">
+                                                        <img class="img-rounded" src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-192.jpg">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <h5 class="media-heading user_name" style="color:cadetblue;">John Sterling</h5>
+                                                        <p>Does it have warriors and nobles?</p>
+                                                        <p>
+                                                            <small>
+                                                                <a class="comment-like ">Like</a> - </small>
+                                                            <small>
+                                                                <a class="confirmation-callback">Remove</a>
+                                                            </small>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- comment list ends-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <!-- end Main Modal -->
+                            <!-- /************************/ -->
+                            <!-- share Modal-->
+                            <div class="modal fade" id="share-modal" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Share On Your Profile</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="media">
+                                                <a class="pull-left" href="#">
+                                                    <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D"
+                                                        alt="64x64">
+                                                </a>
+                                                <div class="media-body">
+                                                    <h6 class="pull-right text-muted time">1 minute ago</h6>
+                                                    <h5 class="mt-0" style="color:cadetblue;">Ryan Rozbiani</h5>
+                                                    <p>Hey guys! We're working on UStart! Watch out for us!</p>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="form-group">
+                                                <form id="shareCommentForm">
+                                                    <textarea class="form-control" id="comment-msg" placeholder="Say Something about this..."></textarea>
+                                                    <!--What is 'odom-submit'? If it's not used, remove it-->
+                                                    <button class="btn btn-primary odom-submit">Post</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end share Modal -->
+                            <!-- delete confirmation modal -->
+                            <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <span style="font-size:20px;">Confirm Deletion</span>
+                                        </div>
+                                        <div class="modal-body">
+                                            <span style="font-size:15px;">Are you sure you want to delete this post?</span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                            <a class="btn btn-danger btn-ok">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end delete confirmation modal -->
+                            <!-- main (wall) -->
+                             <div id="main">
+                                <!-- new post -->
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="media">
+                                            <a class="pull-left" href="#">
+                                                <img class="media-object img-rounded" src=d{{.UserInfo.Avatar}}>
+                                            </a>
+                                            <div class="media-body">
+                                                <div class="form-group">
+                                                   <!-- <form id="New-Post-Form" method="POST" action="http://ustart.today:5000/New/Post/" > -->
+                                                        <textarea class="form-control" id="post-msg" name="block" style="resize:none;" placeholder="Share what's new"></textarea>
+
+                                                        <button id="new-postSubmit" type="submit" class="btn btn-primary pull-right">Post</button>
+                                                <!--    </form> -->
+                                                </div>
+                                            <!--    <button id="new-postSubmit" class="btn btn-primary pull-right">Post</button> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <!-- end new post -->
+                            <div id="wallNewPost"></div>
+                            <div id="wall-dataF"></div>
+                                    
+
+                                </div> <!-- closes grid-->
+                               </div>
+                                <!-- end main -->
+                            
+                            </div> <!-- closes prof-wall --> 
+
+
+                          
+                        <!-- end grid -->
+                    
+                    <div id="prof-about" class="tab-pane fade in active">
+                    </div>
+                    <div id="prof-proj" class="tab-pane fade">
+                    </div>
+                </div>
+            </div>
+            <div id="modal-box">
+                <script type="text/javascript">
+                                            $('#menu-item-about').hover(function () {
+                                                $(this).fadeOut(100);
+                                                $(this).fadeIn(100);
+                                                $("#box").text("About");
+                                                $("#box").css('max-width', '30em');
+                                            }, function () {
+                                                $("#box").css('max-width', '0');
+                                            });
+                                            $('#menu-item-proj').hover(function () {
+                                                $(this).fadeOut(100);
+                                                $(this).fadeIn(100);
+                                                $("#box").text("Projects");
+                                                $("#box").css('max-width', '30em');
+                                            }, function () {
+                                                $("#box").css('max-width', '0');
+                                            });
+                                            $('#menu-item-link').hover(function () {
+                                                $(this).fadeOut(100);
+                                                $(this).fadeIn(100);
+                                                $("#box").text("Links");
+                                                $("#box").css('max-width', '30em');
+                                            }, function () {
+                                                $("#box").css('max-width', '0');
+                                            });
+                                            $('#menu-item-tags').hover(function () {
+                                                $(this).fadeOut(100);
+                                                $(this).fadeIn(100);
+                                                $("#box").text("Tags");
+                                                $("#box").css('max-width', '30em');
+                                            }, function () {
+                                                $("#box").css('max-width', '0');
+                                            });
+                                            $('#menu-item-message').hover(function () {
+                                                $(this).fadeOut(100);
+                                                $(this).fadeIn(100);
+                                                $("#box").text("Message");
+                                                $("#box").css('max-width', '30em');
+                                            }, function () {
+                                                $("#box").css('max-width', '0');
+                                            });
+                </script>
+                <!-- MODALS -->
+                <!-- edit modal -->
+                <div class="modal fade" id="EditModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Edit Post</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D"
+                                            alt="64x64">
+                                    </a>
+                                    <div class="media-body">
+                                        <div class="form-group">
+                                            <form id="Edit-Post-Form">
+                                                <textarea class="form-control" id="post-msg" style="resize:none;" placeholder=""></textarea>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="edit-postSubmit" class="btn btn-primary pull-right">Post</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end edit modal -->
+                <!-- About Modal  -->
+                <div class="modal fade" id="aboutModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">About</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="about-container">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <th class="no-border-top" scope="row">Name</th>
+                                                <td class="no-border-top">
+                                                    <span id="full-name">Ryan Rozbiani</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Location</th>
+                                                <td>
+                                                    <span id="locat">New York City, New York, United States</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">College</th>
+                                                <td>
+                                                    <span id="college">New York University</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Class</th>
+                                                <td>
+                                                    <span id="class">Undergraduate</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Major</th>
+                                                <td>
+                                                    <span id="major">Computer Engineering</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Birthday</th>
+                                                <td>
+                                                    <span id="dob">April 5, 1995</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Phone</th>
+                                                <td>
+                                                    <span id="phone-num">(877)-393-4448</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">E-mail</th>
+                                                <td>
+                                                    <span id="email">rr2396@nyu.edu</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Gender</th>
+                                                <td>
+                                                    <span id="gender">Male</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Account Created</th>
+                                                <td>
+                                                    <span id="date-start">June 23, 2017</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Full Description</th>
+                                                <td>
+                                                    <span id="desc">
+                                                        something something
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tag Modal -->
+                <div class="modal fade" id="tagModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Skills</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div id="hashtags" class="form-group">You haven't added any tags yet.</div>
+                                <hr/>
+                                <input class="form-control" type="text" id="tagLineInput" placeholder="Type to add tags" autofocus />
+                            </div>
+                            <div class="modal-footer">
+                                <span class="pull-left" id="tagCountIndicator">16 Tags Remaining</span>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary" id="addTagButton">Add</button>
+                                    <button type="button" class="btn btn-warning" id="editTagButton" data-toggle="tooltip" data-placement="top" title="Delete a Tag">
+                                        <i class="fa fa-cog fa-lg"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-info" data-dismiss="modal">Done</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script src="/www/ustart.tech/js/layout_tags.js"></script>
+                <!-- Youtube Modal -->
+                <div class="modal fade" id="youtubeModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Youtube</h4>
+                            </div>
+                            <div class="modal-body">
+                                <input id="youtubeLink" class="form-control" type="text" placeholder="Youtube Link" autofocus />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-info btn-done" data-dismiss="modal">Done</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end content -->
+        </div>
+    </div>
+    <div id="footer-placeholder"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () { window.scrollTo(0, 200) });
+    </script>
+    <script src="/www/ustart.tech/js/fadebody.js"></script>
+</body>
+
+</html>

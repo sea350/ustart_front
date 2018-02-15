@@ -1,0 +1,28 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://rawgit.com/jfhovinne/jFeed/master/build/dist/jquery.jfeed.pack.js"></script>
+	<script src="https://rawgit.com/adrianengine/jquery-spectragram/master/spectragram.min.js"></script>
+	<script>
+		var gramclientid = '7f55c80b9bf846d485e78331ba7e7772';
+		var redirectlink = "http://www.ustart.today/instagram.html";
+		var gramlink = "https://instagram.com/oauth/authorize/?client_id=" + gramclientid + "&redirect_uri=" + redirectlink + "&response_type=token";
+		var hashurl = window.location.hash;
+		var astoken = hashurl.substring(hashurl.indexOf('=') + 1);
+		$(document).ready(function() {
+			$("#instagram-invoke").click(function() {
+				window.location.href = gramlink;
+			});
+			$("#instagram-fetch").click(function() {
+				window.location.href = "https://api.instagram.com/v1/users/search?q=chickbug&access_token=" + astoken;
+			});
+		});
+		
+	</script>
+</head>
+<body>
+	<button id="instagram-invoke">Instagram</button>
+	<button id="instagram-fetch">Get Feed</button>
+	<iframe src="//users.instush.com/accordion/?w=700&size=50&border=4&shadow=true&crowded=false&sl=true&bg_item=ffffff&bg=transparent&lpc=ffffff&hc=e72476&ltc=3f3f3f&user_id=6180525724&username=chickbug&sid=-1&susername=-1&tag=-1&stype=mine&t=999999v9AffsPl8ow3g-j23TsN38AOJoT1k_deSrwoZz9t3ll2voPfbutTj20zwv5cnd_IVTpfdQLxogY" allowtransparency="true" frameborder="0" scrolling="no"  style="display:block;width:700px;height:208px;border:none;overflow:visible;" ></iframe>
+</body>
+</html>

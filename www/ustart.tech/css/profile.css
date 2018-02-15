@@ -1,0 +1,464 @@
+.modal-dialog {
+	top: 4em;
+}
+
+a:focus,
+a:hover {
+    text-decoration: none!important;
+}
+
+.like-btn img{
+   height:30px;
+}
+.comment-btn img{
+   height:30px;
+}
+.share-btn img{
+   height:30px;
+}
+
+
+.like-btn:focus,.like-btn.active,.like-btn:active,.comment-btn:focus,.comment-btn.active,.comment-btn:active,.share-btn:focus,.share-btn.active,.share-btn:active {
+  outline: none !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+} {
+  outline: none !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+} {
+  outline: none !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+li>a {
+    color: black;
+}
+
+#content .nav-tabs.nav-justified>li>a {
+    border-bottom: 2px solid #607D8B;
+}
+.dot .active {
+    color: #00C085;
+    font-size: 11px;
+    vertical-align: middle;
+}
+
+#main {
+    margin-top: 1em;
+}
+#main ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 150%;
+    margin-bottom: 0;
+    margin-top: 1em
+}
+
+#main ul:not(.dropdown-menu) li {
+    display: inline-block
+}
+
+#main ul li a.btn {
+    font-size: 70%
+}
+
+.menu a {
+    color: #018a65
+}
+
+.menu a:hover {
+    color: #00C085
+}
+
+.menu #box {
+    color: #00C085;
+    text-transform: uppercase;
+    font-size: 150%;
+    padding-left: 1em;
+    overflow: hidden;
+    display: inline-block;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s
+}
+
+ul#menu {
+    padding: 0
+}
+
+ul#menu li {
+    display: inline-block;
+    padding: 0.5em;
+    vertical-align: middle
+}
+
+div#content div.dashboard-left,
+div#content div.dashboard-right,
+div#content div.menu-wrap {
+    display: inline-block;
+    vertical-align: top;
+    text-align: initial
+}
+
+div#content div.dashboard-left {
+    min-width: 285px;
+    text-align: right
+}
+
+#info-wrap h2 {
+    font-size: 28px;
+    word-wrap: break-word
+}
+
+img#head-image {
+    width: 100%;
+    max-height: 24em;
+    min-height: 24em;
+    -o-object-fit: cover;
+    object-fit: cover;
+    border-radius: 0em;
+    background-color: #018a65
+}
+
+div.user-info {
+    padding: 0.5em;
+    background-color: white;
+    min-width: 285px;
+    text-align: initial;
+    border-radius: 0.4em;
+    border-color: #c5c5c5;
+    border-style: solid;
+    border-width: 1px
+}
+
+div.dashboard-left {
+    position: relative;
+    top: -8em
+}
+
+div#main,
+div.dashboard-left {
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s
+}
+
+div#user-brief-info {
+    text-align: center
+}
+
+h2 span.dot {
+    font-size: 70%
+}
+
+#desc-link,
+#followers span,
+#following span {
+    color: #00C085
+}
+
+div#user-nums {
+    margin-bottom: 1em
+}
+
+div.user-info img.user-img {
+    width: 270px;
+    height: 270px;
+    border-radius: 8px;
+    -o-object-fit: cover;
+    object-fit: cover
+}
+
+div#main img.img-rounded,
+div.modal img.img-rounded {
+    margin-top: 0.5em;
+    width: 40px;
+    height: 40px;
+    -o-object-fit: cover;
+    object-fit: cover
+}
+
+div.proj-card-info,
+div.user-card-info {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.user-card:last-child,
+.proj-card:last-child {
+    border: none
+}
+
+img.avatar {
+    border: solid rgba(0, 0, 0, 0.1) 1px;
+    border-radius: 50%;
+    margin-left: 0.2em;
+    width: 60px;
+    height: 60px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    margin-top: -2em;
+}
+
+div.proj-card,
+div.user-card {
+    border-bottom: solid #BBB 1px;
+    padding: 0.5em
+}
+
+div.dashboard {
+    padding: 0.5em;
+    width: 285px;
+    margin-top: 1.5em
+}
+
+#location-cont i,
+#location-cont span {
+    font-size: 16px;
+    color: #00C085
+}
+
+#user-nums {
+    text-align: center;
+    font-size: 16px;
+}
+
+#user-nums #followers,
+#user-nums #following {
+	text-transform: uppercase;
+}
+
+#btn1 {
+    cursor: pointer;
+    border-radius: 0.4em;
+    border: 1px solid lightgray;
+    background-color: white;
+    color: #00ac7d;
+    text-align: center;
+    text-decoration: none;
+}
+
+#btn1:hover {
+    background-color: #00ac7d;
+    color: white;
+    border: none
+}
+
+#btn1:focus {
+    outline: none
+}
+
+.profile-menu {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#block-user {
+	color: #B00;
+	transition: color 0.5s, background-color 0.5s;
+}
+#block-user:hover {
+	color: #FFF;
+	background-color: #B00;
+}
+
+.nav>.DannyTan {
+    color: black;
+    background-color: #CFD8DC !important;
+}
+
+#content .nav-tabs.nav-justified>.active>a {
+    border-bottom: none;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+    color: #00C085!important;
+}
+
+.nav.DannyTan:hover {
+    background-color: #ECEFF1;
+}
+
+#btn-small {
+    cursor: pointer;
+    border-radius: 0.4em;
+    background-color: white;
+    color: #00C085;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border: 1px #00C085 solid;
+    height: 30px;
+    padding: 0;
+    margin: 0.5em 0;
+    width: 100px;
+    -webkit-transition: background-color 0.2s, color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+#btn-small:hover {
+    background-color: #00C085;
+    color: white;
+    border: none
+}
+
+div.dismiss {
+    float: right;
+    cursor: pointer
+}
+
+button.followButton {
+    width: 160px;
+    -webkit-transition: background-color 0.2s, color 0.2s, width 0.5s;
+    -o-transition: background-color 0.2s, color 0.2s, width 0.5s;
+    transition: background-color 0.2s, color 0.2s, width 0.5s;
+}
+
+button.followButton.following {
+    background-color: #00C085;
+    color: white
+}
+
+button.followButton.unfollow {
+    background-color: #EB2323!important;
+    color: white
+}
+
+div#info-wrap {
+    padding-left: 0.9em
+}
+
+div.user-desc {
+    padding-left: 1em;
+    padding-right: 1em
+}
+
+form#shareCommentForm {
+    text-align: right
+}
+
+form#shareCommentForm .btn {
+    margin-top: 1em
+}
+#content .menu-wrap {
+    margin-left: 0;
+}
+.text-box {
+    line-height: 2;
+    margin: 1.5em;
+}
+
+@media (min-width: 992px) {
+    div.user-info {
+        width: 285px;
+        display: inline-block
+    }
+    div.dashboard-right {
+        padding-top: 0;
+        padding-left: 0
+    }
+}
+
+@media (min-width: 500px) {
+    div#content {
+        min-width: 992px
+    }
+    #content .menu-wrap {
+        margin-left: 1em;
+    }
+}
+
+@media (max-width: 1199px) {
+    div.dashboard-right {
+        /* padding-top: 1.5em; */
+        /* padding-left: 0.2em; */
+    }
+}
+
+@media (max-width: 499px) {
+    img#head-image {
+        max-height: 12em;
+        min-height: 12em;
+    }
+    div.dashboard-left {
+        top: 0
+    }
+    div.user-info {
+        text-align: center;
+		margin-top: -5em;
+    }
+    div.user-desc {
+        text-align: initial
+    }
+    div#content div.dashboard-left,
+    div#content div.menu-wrap {
+        width: 100%;
+        top: 0
+    }
+    div#content div.dashboard-left img.user-img {
+        width: 80px;
+        height: 80px;
+        vertical-align: top
+    }
+    div#content div.dashboard-right {
+        display: none
+    }
+    div#user-brief-info {
+        display: inline-block;
+        margin-left: 1em
+    }
+    div#user-brief-info h2 {
+        margin-top: 0.5em
+    }
+    div.menu-wrap {
+        position: relative
+    }
+    div.menu-wrap-inner {
+        padding: 0
+    }
+    div.menu {
+        text-align: center
+    }
+    #menu {
+        font-size: 90%
+    }
+    button#btn1 {
+        width: auto;
+        height: auto;
+        margin: initial
+    }
+    .menu #box {
+        display: block
+    }
+}
+
+@media (max-width: 399px) {
+    div.dashboard-left {
+        text-align: center
+    }
+    div.dashboard-left div.user-desc {
+        text-align: initial
+    }
+}
+
+#floating-widget-editor {
+    background-color: white;
+    padding: 0.5em;
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    z-index: 5;
+    border-radius: 0.2em;
+    border: solid 1px #cbcbcb
+}
+.modal-header h3 {
+     margin: 0;
+}
