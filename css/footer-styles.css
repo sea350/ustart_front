@@ -1,0 +1,205 @@
+#footer {
+    position: relative;
+    width: 100%;
+    background-color: #263238;
+    color: white;
+    padding-top: 0.5em;
+    margin-top: 0;
+    min-height: 10em
+}
+
+#footer table a {
+    color: white
+}
+
+#footer table tr td a#aboutUsButton,#footer table tr td a#helpCenterButton,#footer table tr td a#ourGoalButton,#footer table tr td a#termsButton {
+}
+
+#footer table a:hover {
+    text-decoration: none;
+    color: gray
+}
+
+#footer table tr td a#aboutUsButton:hover,#footer table tr td a#helpCenterButton:hover,#footer table tr td a#ourGoalButton:hover,#footer table tr td a#termsButton:hover {
+    background-color: rgba(1, 138, 101, 0.5)!important
+}
+
+.logo {
+    display: inline-block
+}
+
+.footer-links {
+    display: inline-block
+}
+
+.footer-links a {
+    display: inline-block;
+    margin: 0.5em;
+    margin-right: 2em;
+    text-align: left;
+    color: white;
+    font-size: 1em;
+    padding: 0.5em;
+    border-radius: 8px;
+}
+
+.footer-links a:hover {
+    text-decoration: none;
+    color: #00ac7d
+}
+
+.social-links {
+    display: inline-block;
+    margin: 0.5em
+}
+
+.social-links a {
+    display: inline-block;
+    margin-left: 0.5em;
+    text-align: left
+}
+
+.social-links a:hover {
+    text-decoration: none;
+    color: gray
+}
+
+.social-links a:active {
+    text-decoration: none
+}
+
+.social-links a:focus {
+    text-decoration: none;
+    color: white
+}
+
+.social-links a:focus:hover {
+    text-decoration: none;
+    color: gray
+}
+
+#footer table {
+    width: 100%
+}
+
+#footer table th {
+    font-size: 1em;
+    height: 2em;
+    margin: 0 auto
+}
+
+#footer table th,td {
+    margin: 0 auto
+}
+
+#imgIcon img table td {
+    padding-top: 0.5em
+}
+
+.wordsRow td {
+    width: 5em;
+    padding-top: 0.5em
+}
+
+.iconsRow td {
+    width: 2em
+}
+
+.fa {
+    width: 20px;
+    text-align: center;
+    text-decoration: none
+}
+
+#facebookIcon,#instagramIcon,#snapchatIcon,#soundcloudIcon,#twitterIcon,#youtubeIcon {
+    font-size: 1.5em;
+    width: 30px;
+    margin: 0.5em
+}
+
+.main-footer,.nav-header,.overlay {
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    -ms-flex: none;
+    flex: none
+}
+
+@media only screen and (max-device-width: 480px) {
+}
+
+@media only screen and (max-device-width: 1024px) {
+}
+
+@media only screen and (max-device-width: 768px) {
+}
+
+@media only screen and (max-device-width: 576px) {
+    #footer {
+        padding-top:0.5em;
+        margin-top: 0
+    }
+
+    .footer-links {
+        display: block;
+        padding-top: 0.5em
+    }
+
+    .footer-links a {
+        display: block;
+        text-align: center;
+        margin-right: 0.5em
+    }
+
+    .footer-links a#aboutUsButton {
+        margin-top: 0
+    }
+
+    .social-links {
+        display: block;
+        padding: 0.5em;
+        border-radius: 8px;
+        text-align: center
+    }
+
+    .social-links a {
+        font-size: 1em!important
+    }
+
+    .social-links a#facebookIcon {
+        margin-left: 0
+    }
+
+    .logo {
+        display: block
+    }
+}
+
+@media only screen and (max-device-width: 320px) {
+}
+
+@media only screen and (min-device-width: 577px) {
+    .social-links {
+        vertical-align:middle;
+        margin-left: 3em;
+        margin-right: 4em;
+        padding: 0.5em;
+        border-radius: 8px
+    }
+
+    .footer-links {
+        margin-left: 2em;
+        vertical-align: middle
+    }
+
+    .footer-links a {
+        margin-right: 0.5em
+    }
+
+    #soundcloudIcon {
+        padding-right: 2em
+    }
+}
+
+.footer-links a,.social-links a {
+    color: #ECEFF1
+}

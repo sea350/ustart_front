@@ -1,0 +1,262 @@
+#content hr {
+    margin: 0.5em;
+}
+
+#content .row .col-md-4 {
+    min-width: 16em;
+    margin: 1em 0;
+}
+
+#content .row .col-md-2 {
+    display: none;
+}
+
+.dashboardMenu {
+    margin: 1em 0;
+}
+
+.dashboardMenu div:hover {
+    color: #00ac7d;
+    cursor: pointer;
+}
+
+.dashboardMenu #theDashboard {
+    background: #455A64;
+    color: #ECEFF1;
+    border-radius: 0.4em;
+}
+
+div .user-card-info,
+div .proj-card-info {
+    display: inline-block;
+}
+
+#content .row .col-md-4 .feedPost {
+    background: white;
+    padding: 1em 1.5em;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 0.4em;
+    border-color: #B0BEC5;
+    margin-bottom: 1em;
+    position: relative;
+}
+
+.feedPost>.feedPostHead {
+    font-size: 1.2em;
+}
+
+.feedPostHead .feedPostHeadTitle {
+    margin-left: 3.5em;
+    line-height: 2.4;
+    height: 2.4em;
+    overflow: hidden;
+}
+
+.feedPostHead .feedPostHeadIcon {
+    height: 2.6em;
+    width: 2.6em;
+    overflow: hidden;
+    border-radius: 1.3em;
+    position: absolute;
+    top: 0.6em;
+    left: 1.2em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #B0BEC5;
+}
+
+.feedPostHeadIcon img {
+    height: 2.6em;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.feedPostHead .feedPostHeadTime {
+    font-size: 0.8em;
+    position: absolute;
+    top: 0.8em;
+    right: 0.5em;
+    color: #90A4AE;
+    background: white;
+    padding: 1em;
+}
+
+.feedPost>.feedPostBody {
+    font-size: 1em;
+}
+
+.feedPostBody img {
+    margin: 1em 0;
+    width: 100%;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 0.4em;
+    border-color: #B0BEC5;
+    margin-bottom: 1em;
+}
+
+.dashboardMenu>div {
+    padding: 0.5em 1em;
+}
+
+.dashboardMenu div .fa {
+    margin-right: 0.5em;
+}
+
+.dashboardFooter {
+    display: none;
+}
+
+.dashboardFooter div {
+    padding: 0.2em 1.5em;
+    font-size: 0.9em;
+    color: #455A64;
+}
+
+#suggestedUser .panel-default,
+#suggestedProj .panel-default {
+    border-color: #B0BEC5;
+    margin-bottom: 0.8em;
+}
+
+#suggestedUser,
+#suggestedProj {
+    width: 22em;
+    overflow: hidden;
+}
+
+img.avatar {
+    border: solid rgba(0, 0, 0, 0.1) 1px;
+    border-radius: 50%;
+    margin-left: 10px;
+    width: 60px;
+    height: 60px;
+    -o-object-fit: cover;
+    object-fit: cover
+}
+
+#btn-small {
+    cursor: pointer;
+    border-radius: 20px;
+    background-color: white;
+    color: #00C085;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border: 1px #00C085 solid;
+    height: 30px;
+    padding: 3px 5px 3px 5px;
+    width: 100px;
+    -webkit-transition: background-color 0.2s, color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.2s, color 0.2s
+}
+
+#btn-small:hover {
+    background-color: #00C085;
+    color: white;
+    border: none
+}
+
+div.dismiss {
+    float: right;
+    cursor: pointer
+}
+
+button.followButton {
+    width: 160px;
+    -webkit-transition: background-color 0.2s, color 0.2s;
+    -o-transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.2s, color 0.2s
+}
+
+button.followButton.following {
+    background-color: #00C085;
+    color: white
+}
+
+button.followButton.unfollow {
+    background-color: #EB2323!important;
+    color: white
+}
+@media (min-width: 500px) {
+    #content .row .col-md-4 {
+        width: 48%;
+        float: left;
+        padding-right: 0;
+    }
+}
+@media (min-width: 992px) {
+    #content .row .col-md-4 {
+        width: 28%;
+        padding-right: 0;
+    }
+    #content .row .col-md-2 {
+        display: block;
+        top: 1em;
+    }
+    .dashboardFooter {
+        display: block;
+    }
+}
+
+.feedPostComments ul li {
+    display: inline-block;
+}
+
+.feedPostComments .img-rounded {
+    height: 40px;
+    width: 40px;
+}
+
+div.user-info img.user-img {
+    width: 270px;
+    height: 270px;
+    border-radius: 8px;
+    -o-object-fit: cover;
+    object-fit: cover
+}
+
+div#main img.img-rounded,
+div.modal img.img-rounded {
+    margin-top: 0.5em;
+    width: 40px;
+    height: 40px;
+    -o-object-fit: cover;
+    object-fit: cover
+}
+
+div.proj-card-info,
+div.user-card-info {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.user-card:last-child,
+.proj-card:last-child {
+    border: none
+}
+
+div.proj-card,
+div.user-card {
+    border-bottom: solid #BBB 1px;
+    padding: 0.5em
+}
+
+div.dashboard {
+    padding: 0.5em;
+    width: 300px;
+}
+
+img.avatar {
+    border: solid rgba(0, 0, 0, 0.1) 1px;
+    border-radius: 50%;
+    margin-left: 10px;
+    width: 60px;
+    height: 60px;
+    -o-object-fit: cover;
+    object-fit: cover
+}

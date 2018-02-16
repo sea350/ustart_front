@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>USTART Project</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ustart</title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="css/user-v3.css" rel="stylesheet" type="text/css" />
+    <link href="css/proj.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="js/userEdit.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="/css/flag-icon.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="ckeditor/ckeditor.js"></script>
+    <script src="ckeditor/config.js"></script>
+    <script src="js/bootstrap-confirmation.min.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/projects_u.js"></script>
+    <script src="gly/theme.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#images").fileinput({
+                uploadAsync: false,
+                uploadUrl: "uploadFileInput.php", // your upload server url
+                uploadExtraData: function () {
+                    return {
+                        userid: $("#userid").val(),
+                        username: $("#username").val()
+                    };
+                },
+                maxFileCount: 5,
+                showBrowse: false,
+                browseOnZoneClick: true
+            });
+        });
+        $(function () {
+            $("#navBar-placeholder").load("template.html");
+        });
+    </script>
+    <script type="text/template" id="qq-template-manual-trigger">
+        <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
+            <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
+                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+            </div>
+            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+                <span class="qq-upload-drop-area-text-selector"></span>
+            </div>
+            <div class="buttons">
+                <div class="qq-upload-button-selector qq-upload-button">
+                    <div>Select files</div>
+                </div>
+                <button type="button" id="trigger-upload" class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i> Upload
+                </button>
+            </div>
+            <span class="qq-drop-processing-selector qq-drop-processing">
+                <span>Processing dropped files...</span>
+            <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+            </span>
+            <ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals">
+                <li>
+                    <div class="qq-progress-bar-container-selector">
+                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                    </div>
+                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                    <img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale>
+                    <span class="qq-upload-file-selector qq-upload-file"></span>
+                    <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
+                    <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                    <span class="qq-upload-size-selector qq-upload-size"></span>
+                    <button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel">Cancel</button>
+                    <button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry">Retry</button>
+                    <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">Delete</button>
+                    <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                </li>
+            </ul>
+            <dialog class="qq-alert-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Close</button>
+                </div>
+            </dialog>
+            <dialog class="qq-confirm-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">No</button>
+                    <button type="button" class="qq-ok-button-selector">Yes</button>
+                </div>
+            </dialog>
+            <dialog class="qq-prompt-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <input type="text">
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Cancel</button>
+                    <button type="button" class="qq-ok-button-selector">Ok</button>
+                </div>
+            </dialog>
+        </div>
+    </script>
+    <style>
+        #trigger-upload {
+            color: white;
+            background-color: #00ABC7;
+            font-size: 14px;
+            padding: 7px 20px;
+            background-image: none;
+        }
+
+        #fine-uploader-manual-trigger .qq-upload-button {
+            margin-right: 15px;
+        }
+
+        #fine-uploader-manual-trigger .buttons {
+            width: 36%;
+        }
+
+        #fine-uploader-manual-trigger .qq-uploader .qq-total-progress-bar-container {
+            width: 60%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navBar-placeholder"></div>
+    <div id="centering" style="top: 5em;">
+        <div class="container-fluid extra-padding">
+            <!-- <div class="page-header"> -->
+            <div class="row" id="first-row">
+                <button class="btn btn-danger" id="back-button" onclick="location.replace('manage_projects.html')"><i class="fa fa-angle-left"></i> Projects</button>
+                <div id="proj-cont">
+                    <span id="project-name"></span>
+                </div>
+                <div class="dot">
+                    <span id="active"> <i id="dot-icon" class="fa fa-circle" aria-hidden="true" data-toggle="tooltip" title="Active"></i></span>
+                </div>
+                <div class="button-cont pull-right">
+                    <button id="btn3" class="btn display" style="margin-right:2px;"><i id="mailbox-ico" class="fa fa-envelope fa-2x" aria-hidden="true" style="color:#00C085; line-height: 62%"></i></button>
+                    <button id="btn2" class="btn followButton" rel="6" style="margin-right:5px;">Follow <span id="followers"> 20 </span></button>
+                    <div class="dropdown pull-right">
+                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="color:#00C085;"><i class="fa fa-gear"></i></button>
+                        <ul class="dropdown-menu" style="min-width: 0px !important; padding:0px !important;">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-7" id="img-cont">
+                    <img id="proj-img" class="img-responsive" src="https://preview.ibb.co/muqZWv/Untitled_2.jpg">
+                </div>
+                <div class="col-lg-5">
+                    <div id="projOverview" class="row">
+                        <div class="col-lg-11 col-lg-offset-1">
+                            <div id="custom-url">
+                                <p class="projOverviewTitle">Website</p>
+                                <p href="ustart.today"> http://www.ustart.today</p>
+                            </div>
+                            <div id="location">
+                                <p class="projOverviewTitle">Location</p>
+                                <p> <span class="flag-icon flag-icon-us"></span> United States </p>
+                            </div>
+                            <div id="creation-date">
+                                <p class="projOverviewTitle">Date created</p>
+                                <p> October 13, 2069</p>
+                            </div>
+                            <div id="category">
+                                <p class="projOverviewTitle">Category</p>
+                                <p> Entertainment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <ul class="nav nav-tabs nav-justified proj-tabs">
+                <li class="active"><a data-toggle="tab" href="#proj-about">About</a></li>
+                <li><a data-toggle="tab" href="#proj-wall">Wall</a></li>
+                <li><a data-toggle="tab" href="#proj-members">Members</a></li>
+                <li><a data-toggle="tab" href="#proj-contact">Contact</a></li>
+            </ul>
+            <br/>
+            <div class="tab-content well">
+                <div id="proj-about" class="tab-pane fade in active">
+                    <div id="header">
+                        <h3>
+                            About
+                            <button id="edit-btn" class="btn btn-default pull-right">
+								<i class="fa fa-pencil"></i>
+							</button>
+                        </h3>
+                    </div>
+                    <form id="about-form">
+                        <div id="about-text"></div>
+                        <textarea id="text-box" name="editor1"></textarea>
+                        <button id="submit-btn" type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                    <script>
+                        $('#about-form').submit(function (event) {
+                            event.preventDefault();
+
+                            // Allow user to edit again after submit
+                            $('#edit-btn').css('display', 'block');
+                            // Cannot submit in non-Edit window
+                            $('#submit-btn').css('display', 'none');
+
+                            // alert('submit clicked');
+                            $('#about-text').html(CKEDITOR.instances['text-box'].getData());
+                            // Close out CDKEditor
+                            CKEDITOR.instances['text-box'].destroy();
+                            // De-Display HTML textbox
+                            $('#text-box').css('display', 'none');
+                            $('#about-text').css('display', 'block');
+                        });
+                        $('#edit-btn').click(function () {
+
+                            CKEDITOR.replace('editor1', {
+                                disableNativeSpellChecker: false
+                            });
+                            $('#about-text').css('display', 'none');
+                            // Submit any changes
+                            $('#submit-btn').css('display', 'block');
+                            // User should not be able to edit in edit again.
+                            $('#edit-btn').css('display', 'none');
+
+                            // Check to display CKEditor text
+                            // if (CKEDITOR.instances['text-box'].getData() != "") {
+
+                            var existing_txt = $('#about-text').html();
+                            // console.log(existing_txt);
+
+                            if (CKEDITOR.instances['text-box'].getData() != "") {
+
+                                CKEDITOR.instances['text-box'].setData(CKEDITOR.instances['text-box'].getData());
+                            } else {
+                                // Automated Text
+
+                                CKEDITOR.instances['text-box'].setData(existing_txt);
+                            }
+
+                            // For submission, the value of the editor can be retrieved with the following line.
+                            console.log("About Editor: " + CKEDITOR.instances['text-box'].getData());
+                        });
+                    </script>
+                </div>
+                <div id="proj-wall" class="tab-pane fade" style="">
+                    <!-- main (wall) -->
+                    <div id="main">
+                        <!-- new post -->
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-rounded" src="https://pbs.twimg.com/profile_images/898391736078262272/oHO_LQmH_400x400.jpg" alt="64x64">
+                                    </a>
+                                    <div class="media-body">
+                                        <div class="form-group">
+                                            <!--  <form method="POST" id="myAwesomeDropzone" class="dropzone" role="form" enctype="multipart/form-data" style="border: none;" action="upload.php"> -->
+                                            <input id="images" name="images[]" type="file" multiple>
+                                            <input id="userid" name="userid" type="hidden">
+                                            <input id="username" name="username" type="text">
+                                            <!-- <form id=myAwesomeDropzone class="dropzone">
+                                                <textarea class="form-control" id="post-msg" style="resize:none;" placeholder="What's Up?"></textarea>
+                                                <br>
+                                                <div id="fine-uploader-manual-trigger"></div>
+                                                <script>
+                                                var manualUploader = new qq.FineUploader({
+                                                    element: document.getElementById('fine-uploader-manual-trigger'),
+                                                    template: 'qq-template-manual-trigger',
+                                                    request: {
+                                                        endpoint: '/uploaded/'
+                                                    },
+                                                    thumbnails: {
+                                                        placeholders: {
+                                                            waitingPath: '/placeholders/waiting-generic.png',
+                                                            notAvailablePath: '/placeholders/not_available-generic.png'
+                                                        }
+                                                    },
+                                                    autoUpload: false,
+                                                    debug: true
+                                                });
+
+                                                qq(document.getElementById("trigger-upload")).attach("click", function() {
+                                                    manualUploader.uploadStoredFiles();
+                                                });
+                                                </script>
+                                            </form> -->
+                                        </div>
+                                        <button id="new-postSubmit" class="btn btn-primary pull-right">Post</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end new post -->
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <!-- regular post sample -->
+                            <div class="media">
+                                <a class="pull-left" href="#">
+                                        <img class="media-object img-rounded" src="https://pbs.twimg.com/profile_images/898391736078262272/oHO_LQmH_400x400.jpg" alt="64x64">
+                                    </a>
+                                <!--edit dropdown -->
+                                <div class="dropdown pull-right">
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span><span class="caret"></span></a>
+                                    <ul class="dropdown-menu" style="min-width: 0px !important; padding:0px !important;">
+                                        <li>
+                                            <a class="dropdown-item " data-toggle="modal" data-target="#confirm-delete">
+                                                <H6>Delete</H6>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--end edit dropdown -->
+                                <div class="media-body">
+                                    <h6 class="pull-right text-muted time" style="padding-right:4px;">1 day ago</h6>
+                                    <h5 class="mt-0" style="color:cadetblue;">U●Start </h5>
+                                    <p>We're presenting to future CS geniuses tomorrow! Super excited!</p>
+                                </div>
+                                <br>
+                                <ul class="nav nav-pills">
+                                    <li><a class="btn btn-danger btn-sm btn-hover pull-left like-btn" data-toggle="tooltip" title="6">Like</a></li>
+                                    <li><a class="btn-primary btn-sm btn-hover pull-left comment-btn" style="margin-left:5px;"
+                                            data-toggle="tooltip" title="4">Comment</a></li>
+                                    <li><a class="btn-info btn-sm btn-hover pull-left share-btn" style="margin-left:5px;" data-toggle="tooltip"
+                                            title="3">Share</a></li>
+                                </ul>
+                            </div>
+                            <!-- end regular post -->
+                            <hr>
+                            <!-- shared post sample-->
+                            <!--edit dropdown -->
+                            <div class="dropdown pull-right">
+                                <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span><span class="caret"></span></a>
+                                <ul class="dropdown-menu" style="min-width: 0px !important; padding:0px !important;">
+                                    <li>
+                                        <a class="dropdown-item" data-toggle="modal" data-target="#confirm-delete">
+                                            <H6>Delete</H6>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--end edit dropdown -->
+                            <h6 class="pull-right text-muted time" style="padding-right:4px;">3 hours ago</h6>
+                            <h5 class="mt-0" style="color:cadetblue">You shared a post:</h5>
+                            <p style="margin-left:2em">haHAA</p>
+                            <div class="media">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="media">
+                                            <a class="pull-left" href="#">
+                                                    <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D" alt="40x40">
+                                                </a>
+                                            <div class="media-body">
+                                                <h6 class="pull-right text-muted time">3 hours ago</h6>
+                                                <h5 class="mt-0" style="color:cadetblue;">Ryan Rozbiani</h5>
+                                                <p>Hey guys! We're working on UStart! Watch out for us!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="nav nav-pills">
+                                    <li><a class="btn btn-danger btn-sm btn-hover pull-left like-btn" data-toggle="tooltip" title="6">Like</a></li>
+                                    <li><a class="btn-primary btn-sm btn-hover pull-left comment-btn" style="margin-left:5px;"
+                                            data-toggle="tooltip" title="69">Comment</a></li>
+                                    <li><a class="btn-info btn-sm btn-hover pull-left share-btn" style="margin-left:5px;" data-toggle="tooltip"
+                                            title="6969">Share</a></li>
+                                </ul>
+                            </div>
+                            <!-- end shared Post -->
+                        </div>
+                    </div>
+                </div>
+                <!-- end main -->
+                <div id="proj-members" class="tab-pane fade">
+                    <h3>Members</h3>
+                    <a class="member" href="profile.html">
+                            <img class="img-rounded img-responsive" src="https://www.fillmurray.com/200/200">
+                            <div class="member-name">Mac Frappy Frapalicious</div>
+                            <div class="member-name">C.E.O.</div>
+                            <div class="member-name">888 Fame</div>
+                            <div class="member-name">25 Collaborations</div>
+                        </a></div>
+                <div id="proj-contact" class="tab-pane fade">
+                    <h3>Links</h3>
+                    <!--                        <a href="#addLinkModal" data-toggle="modal">Click to add links </a>-->
+                    <div class="links-container">
+                        <a id="addLinkBtn" class="btn btn-default" data-toggle="modal" data-target="#addLinkModal">
+                                        <span>&plus;</span>
+                                    </a>
+                    </div>
+                    <span id="linkCountIndicator">16 Links Remaining</span>
+                    <hr/>
+                    <h3>Tags</h3>
+                    <div id="hashtags" class="form-group">You haven't added any tags yet.</div>
+                    <hr/>
+                    <input class="form-control" type="text" id="tagLineInput" placeholder="Type to add tags" autofocus />
+                    <br/>
+                    <span id="tagCountIndicator">16 Tags Remaining</span>
+                    <div class="pull-right btn-group">
+                        <button type="button" class="btn btn-primary" id="addTagButton">Add</button>
+                        <button type="button" class="btn btn-warning" id="editTagButton" data-toggle="tooltip" data-placement="top" title="Delete a Tag">
+                            <i class="fa fa-cog fa-lg"></i>
+                        </button>
+                    </div>
+                    <div class="modal fade" id="addLinkModal" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Add Link</h4>
+                                </div>
+                                <form class="addLinkForm">
+                                    <div class="modal-body">
+                                        <p>
+                                            <span class="modal-cell">URL</span>
+                                            <input type="text" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false"
+                                                autofocus required/>
+                                        </p>
+                                        <p>
+                                            <span class="modal-cell">Title</span>
+                                            <input type="text" class="link-input-read" name="webTitle" placeholder="example: 'My LinkedIn'" spellcheck="false" required/>
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="btn-group">
+                                            <input type="submit" class="btn btn-primary btn-add-link" />
+                                            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="js/layout_links.js"></script>
+            <script src="js/layout_tags.js"></script>
+        </div>
+        <!-- MODALS -->
+        <div class="modal fade" id="main-modal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                            <img class="media-object img-rounded" src="http://placehold.it/64x64" alt="64x64">
+                                        </a>
+                            <div class="media-body">
+                                <h6 class="pull-right text-muted time">1 minute ago</h6>
+                                <h5 class="mt-0" style="color:cadetblue;">Minhazaurus</h5>
+                                <p>Hello MY NAME is minazazaour.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <form id="commentform">
+                                <input class="form-control" placeholder="Add a comment" type="text">
+                            </form>
+                            <span class="input-group-addon">
+                            <a onclick="document.getElementById('commentform').submit();"><i class="fa fa-edit"></i></a>  
+                        </span>
+                        </div>
+                        <br>
+                        <!--comment list starts here -->
+                        <div class="comments-list">
+                            <!-- sample comment list -->
+                            <div class="media">
+                                <h6 class="pull-right text-muted time">Less than 1 minute ago</h6>
+                                <a class="media-left" href="#">
+                                                <img class="img-rounded" src="http://placehold.it/40x40">
+                                            </a>
+                                <div class="media-body">
+                                    <h5 class="media-heading user_name" style="color:cadetblue;">Emilia Clarke</h5> Wow!SYO👌
+                                    <p><small><a class="comment-like">Like</a></small> - <small><a class="confirmation-callback" >Remove</a></small></p>
+                                </div>
+                            </div>
+                            <!-- end sample comment list -->
+                            <div class="media">
+                                <h6 class="pull-right text-muted time">Less than 1 minute ago</h6>
+                                <a class="media-left" href="#">
+                                                <img class="img-rounded" src="http://placehold.it/40x40">
+                                            </a>
+                                <div class="media-body">
+                                    <h5 class="media-heading user_name" style="color:cadetblue;">Monica</h5> Min
+                                    <p><small><a class="comment-like">Like</a></small> - <small><a class="confirmation-callback" >Remove</a></small></p>
+                                </div>
+                            </div>
+                            <div class="media">
+                                <h6 class="pull-right text-muted time">Less than 1 minute ago</h6>
+                                <a class="media-left" href="#">
+                                                <img class="img-rounded" src="http://placehold.it/40x40">
+                                            </a>
+                                <div class="media-body">
+                                    <h5 class="media-heading user_name" style="color:cadetblue;">Helen</h5> Wow.
+                                    <p><small><a class="comment-like ">Like</a> - </small><small><a class="confirmation-callback">Remove</a></small></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- comment list ends-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end Main Modal -->
+        <!-- /************************/ -->
+        <!-- share Modal-->
+        <div class="modal fade" id="share-modal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Share On Your Profile</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                            <img class="media-object img-rounded" src="http://placehold.it/64x64" alt="64x64">
+                                        </a>
+                            <div class="media-body">
+                                <h6 class="pull-right text-muted time">1 minute ago</h6>
+                                <h5 class="mt-0" style="color:cadetblue;">Minhazaurus</h5>
+                                <p>Hello MY NAME is minazazaour.</p>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <form id="shareCommentForm">
+                                <textarea class="form-control" id="comment-msg" placeholder="Say Something about this..."></textarea>
+                            </form>
+                        </div>
+                        <button class="btn btn-primary odom-submit pull-right">Post</button>
+                    </div>
+                    <div class="modal-footer" id="RemoveFooterline">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end share Modal -->
+        <!-- delete confirmation modal -->
+        <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span style="font-size:20px;">Confirm Deletion</span>
+                    </div>
+                    <div class="modal-body">
+                        <span style="font-size:15px;">Are you sure you want to delete this post?</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-danger btn-ok">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end delete confirmation modal -->
+        <!-- END OF MODALS -->
+    </div>
+</body>
+
+</html>

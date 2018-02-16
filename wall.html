@@ -1,0 +1,218 @@
+<div class="grid">
+	<!-- main Modal -->
+	<div class="modal fade" id="main-modal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<div class="media">
+						<a class="pull-left" href="#">
+							<img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D">
+						</a>
+						<div class="media-body">
+							<h6 class="pull-right text-muted time">3 hours ago</h6>
+							<h5 class="mt-0" style="color:cadetblue;">Ryan Rozbiani</h5>
+							<p>Hey guys! We're launching UStart! Watch out for us!</p>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">
+					<div class="input-group">
+						<form id="commentform">
+							<input class="form-control" placeholder="Add a comment" type="text">
+						</form>
+						<span class="input-group-addon">
+							<a onclick="document.getElementById('commentform').submit();"><i class="fa fa-edit"></i></a>  
+						</span>
+					</div>
+					<br>
+					<!--comment list starts here -->
+					<div class="comments-list">
+						<!-- sample comment list -->
+						<div class="media">
+							<h6 class="pull-right text-muted time">2 hours ago</h6>
+							<a class="media-left" href="#">
+								<img style="height:40px;" class="img-rounded" src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-310.jpg">
+							</a>
+							<div class="media-body">
+								<h5 class="media-heading user_name" style="color:cadetblue;">Phyllis Frankyl</h5>
+								<p> Are you going to use MongoDB?</p>
+								<p><small><a class="comment-like">Like</a></small> - <small><a class="confirmation-callback" >Remove</a></small></p>
+							</div>
+						</div>
+						<!-- end sample comment list -->
+						<div class="media">
+							<h6 class="pull-right text-muted time">22 minutes ago</h6>
+							<a class="media-left" href="#">
+								<img class="img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D">
+							</a>
+							<div class="media-body">
+								<h5 class="media-heading user_name" style="color:cadetblue;">Ryan Rozbiani</h5>
+								<p>Haha! Not yet, Professor!</p>
+								<p><small><a class="comment-like">Like</a></small> - <small><a class="confirmation-callback" >Remove</a></small></p>
+							</div>
+						</div>
+						<div class="media">
+							<h6 class="pull-right text-muted time">20 minutes ago</h6>
+							<a class="media-left" href="#">
+								<img class="img-rounded" src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-192.jpg">
+							</a>
+							<div class="media-body">
+								<h5 class="media-heading user_name" style="color:cadetblue;">John Sterling</h5>
+								<p>Does it have warriors and nobles?</p>
+								<p><small><a class="comment-like ">Like</a> - </small><small><a class="confirmation-callback">Remove</a></small></p>
+							</div>
+						</div>
+					</div>
+					<!-- comment list ends-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end Main Modal -->
+	<!-- /************************/ -->
+	<!-- share Modal-->
+	<div class="modal fade" id="share-modal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Share On Your Profile</h4>
+				</div>
+				<div class="modal-body">
+					<div class="media">
+						<a class="pull-left" href="#">
+							<img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D" alt="64x64">
+						</a>
+						<div class="media-body">
+							<h6 class="pull-right text-muted time">1 minute ago</h6>
+							<h5 class="mt-0" style="color:cadetblue;">Ryan Rozbiani</h5>
+							<p>Hey guys! We're working on UStart! Watch out for us!</p>
+						</div>
+					</div>
+					<br>
+					<div class="form-group">
+						<form id="shareCommentForm">
+							<textarea class="form-control" id="comment-msg" placeholder="Say Something about this..."></textarea>
+						</form>
+					</div>
+					<button class="btn btn-primary odom-submit pull-right">Post</button>
+				</div>
+				<div class="modal-footer" id="RemoveFooterline">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end share Modal -->
+	<!-- delete confirmation modal -->
+	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<span style="font-size:20px;">Confirm Deletion</span>
+				</div>
+				<div class="modal-body">
+					<span style="font-size:15px;">Are you sure you want to delete this post?</span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<a class="btn btn-danger btn-ok">Delete</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end delete confirmation modal -->
+	<!-- main (wall) -->
+	<div id="main">
+		<!-- new post -->
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="media">
+					<a class="pull-left" href="#">
+						<img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D">
+					</a>
+					<div class="media-body">
+						<div class="form-group">
+							<form id="New-Post-Form">
+								<textarea class="form-control" id="post-msg" style="resize:none;" placeholder="What's Up?"></textarea>
+							</form>
+						</div>
+						<button id="new-postSubmit" class="btn btn-primary pull-right">Post</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end new post -->
+		<div class="panel panel-default">
+			<div id="wallPosts" class="panel-body">
+				<!-- regular post sample -->
+				<div class="media">
+					<a class="pull-left" href="#">
+						<img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D">
+					</a>
+					<!--edit dropdown -->
+					<div class="dropdown pull-right">
+						<a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span><span class="caret"></span></a>
+						<ul class="dropdown-menu" style="min-width: 0px !important; padding:0px !important;">
+							<li><a class="dropdown-item " data-toggle="modal" data-target="#EditModal"><H6>Edit</H6></a></li>
+							<li><a class="dropdown-item " data-toggle="modal" data-target="#confirm-delete"><H6>Delete</H6></a></li>
+						</ul>
+					</div>
+					<!--end edit dropdown -->
+					<div class="media-body">
+						<h6 class="pull-right text-muted time" style="padding-right:4px;">3 hours ago</h6>
+						<h5 class="mt-0" style="color:cadetblue;">Ryan Rozbiani</h5>
+						<p>Hey guys! We're working on UStart! Watch out for us!
+						</p>
+					</div>
+					<ul>
+						<li><a class="btn btn-danger btn-sm btn-hover like-btn" data-toggle="tooltip" title="5">Like</a></li>
+						<li><a class="btn btn-primary btn-sm btn-hover comment-btn" style="margin-left:5px;" data-toggle="tooltip" title="3">Comment</a></li>
+						<li><a class="btn btn-info btn-sm btn-hover share-btn" style="margin-left:5px;" data-toggle="tooltip" title="2">Share</a></li>
+					</ul>
+				</div>
+				<!-- end regular post -->
+				<hr>
+				<!-- shared post sample-->
+				<!--edit dropdown -->
+				<div class="dropdown pull-right">
+					<a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span><span class="caret"></span></a>
+					<ul class="dropdown-menu" style="min-width: 0px !important; padding:0px !important;">
+						<li><a class="dropdown-item " data-toggle="modal" data-target="#EditModal"><H6>Edit</H6></a></li>
+						<li><a class="dropdown-item" data-toggle="modal" data-target="#confirm-delete"><H6>Delete</H6></a></li>
+					</ul>
+				</div>
+				<!--end edit dropdown -->
+				<h6 class="pull-right text-muted time" style="padding-right:4px;">13 hours ago</h6>
+				<h5 class="mt-0" style="color:cadetblue">You shared a post:</h5>
+				<p style="margin-left:2em">Backend Team making moves!</p>
+				<div class="media">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="media">
+								<a class="pull-left" href="#">
+									<img class="media-object img-rounded" src="http://ustart.today/img/Profiles/Picture2.jpg" alt="40x40">
+								</a>
+								<div class="media-body">
+									<h6 class="pull-right text-muted time">13 hours ago</h6>
+									<h5 class="mt-0" style="color:cadetblue;">Steven Armanios</h5>
+									<p>Finally! The elastic search is working!!! YES!</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<ul>
+						<li><a class="btn btn-danger btn-sm btn-hover like-btn" data-toggle="tooltip" title="5">Like</a></li>
+						<li><a class="btn btn-primary btn-sm btn-hover comment-btn" style="margin-left:5px;" data-toggle="tooltip" title="3">Comment</a></li>
+						<li><a class="btn btn-info btn-sm btn-hover share-btn" style="margin-left:5px;" data-toggle="tooltip" title="2">Share</a></li>
+					</ul>
+				</div>
+				<!-- end shared Post -->
+			</div>
+		</div>
+	</div>
+	<!-- end main -->
+</div>
+<!-- end grid -->

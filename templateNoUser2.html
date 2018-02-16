@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/www/ustart.tech/bower_components/moment/min/moment.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script type="text/javascript" src="/www/ustart.tech/js/zxcvbn.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <link href="/www/ustart.tech/css/index2.css" rel="stylesheet" type="text/css" />
+        <link href="/www/ustart.tech/css/footer-styles.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="/www/ustart.tech/js/layout.js"></script>
+    <script src="/www/ustart.tech/js/majors.js"></script>
+    <script src="/www/ustart.tech/js/countries.js"></script>
+    <script src="/www/ustart.tech/js/reg-check.js"></script>
+         <link href="/www/ustart.tech/css/layout.css" rel="stylesheet" type="text/css" /> 
+    <link rel="stylesheet" href="/www/ustart.tech/css/register.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+</head>
+<body>
+    <nav class="navbar navbar-fixed-top" style="margin-bottom: 0; border-radius: 0;">
+        <div class="navbar-header">
+            <div class="navbar-filler navbar-left"></div>
+            <a id="logo-brand" class="navbar-brand" href="http://ustart.today:5000/~" style="font-family: 'Roboto';"><span style="font-size: 24px;">U</span>∙S<span style="font-size: 24px;">TART</span></a>
+            <ul id="options" class="nav navbar-nav navbar-right">
+                <li class="navbar-btn nav-item dropdown">
+                    <a onclick="toggleLogIn()" class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Log In
+                    </a>
+                </li>
+                <li class="navbar-btn nav-item">
+                    <a id="sign-up" href="http://ustart.today:5000/Registration/Type">
+                        Sign Up
+                    </a>
+                </li>
+            </ul>
+            <div id="theLogIn" style="display: none">
+                <form action="http://ustart.today:5000/profilelogin/" method="post">
+                    <table>
+                        <tr>
+                            <td id="spaced" colspan="2">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    <input id="email" type="text" class="form-control" name="email" placeholder="Email" required>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="spaced" colspan="2">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                    <input id="pass" type="password" class="form-control" name="password" placeholder="Password" required>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="spaced" colspan="2">
+                                <span class="help-block" style="color:#d9534f;">
+                                    <span>Invalid Information!</span>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label><input type="checkbox"> Remember me</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><button type="button" onclick="myFunction()" class="btn btn-link">Forgot password?</button></td>
+                            <td style="text-align:right;">
+                                <label style="" id="loginbutton">
+                                    <input class="btn btn-success" value="Log In" type="submit" >
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $('[data-toggle="tooltip"]').tooltip();
+                });
+                function myFunction() {
+                    alert("For help, please contact ryan@ustart.today");
+                };
+            </script>
+        </div>
+    </nav>
+</body>
+
+</html>

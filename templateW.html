@@ -1,0 +1,199 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="js/layout.js"></script>
+    <link href="css/layout1.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Gudea" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-fixed-top">
+        <div class="navbar-header">
+            <a id="logo-brand" class="navbar-brand" href="#">U&#x025CFStart</a>
+            <form class="navbar-form navbar-left nav-item">
+                <div class="input-group" id="search-box">
+                    <input type="text" class="form-control" id="form-search" placeholder="Search">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="navbar-btn nav-item dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell fa-2x" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Notifications" onclick="notifUpdate()" style="color:white;"></i>
+                        <span class="badge notifBadge">1</span>
+                    </a>
+                    <ul id="drop" class="dropdown-menu padded">
+                        <li><i class="fa fa-user fa-2x" aria-hidden="true"></i><span>Username messaged you</span></li>
+                        <li class="divider"></li>
+                        <li>
+                            <span>Message</span>
+                        </li>
+                    </ul>
+                </li>
+                <li class="navbar-btn nav-item dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-caret-square-o-down fa-2x" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Options" onclick="burgerUpdate()" style="color:white;"></i>
+                    </a>
+                    <ul id="drop" class="dropdown-menu">
+                        <li><a href="#" data-toggle="modal" data-target="#aboutModal">Profile<i class="fa fa-user fa-2x" aria-hidden="true"></i></a></li>
+                        <li><a href="#">Projects<i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#linkModal">Links<i class="fa fa-link fa-2x" aria-hidden="true"></i></a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#tagModal">Tags<i class="fa fa-tags fa-2x" aria-hidden="true"></i></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Logout<i class="fa fa-power-off fa-2x" aria-hidden="true"></i></a></li>
+                    </ul>
+                </li>
+            </ul>
+            <script>
+            $(document).ready(function() {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+            </script>
+        </div>
+    </nav>
+    <!-- About Modal  -->
+    <div class="modal fade" id="aboutModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">About</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="about-container">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th class="no-border-top" scope="row">College</th>
+                                    <td class="no-border-top"><span id="college">New York University</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Major</th>
+                                    <td><span id="major">Computer Science</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Birthday</th>
+                                    <td><span id="dob">June 24, 2017</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Full Description</th>
+                                    <td><span id="desc">I like McDonalds. I Like Fraps. I Love Fraps. Fraps are cool. Don't talk shit about Fraps. McDonalds Fraps are cooler than Starbucks Fraps. Take that Starbucks!</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Link Modal -->
+    <div class="modal fade" id="linkModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Your Links</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="links-container">
+                        <a id="addLinkBtn" class="btn btn-default" data-toggle="modal" data-target="#addLinkModal">
+                            <span>&plus;</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Link Modal -->
+    <div class="modal fade" id="addLinkModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Link</h4>
+                </div>
+                <form class="addLinkForm">
+                    <div class="modal-body">
+                        <p>
+							<span class="modal-cell">URL</span>
+                            <input type="text" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" autofocus required/>
+                        </p>
+                        <p>
+							<span class="modal-cell">Title</span>
+                            <input type="text" class="link-input-read" name="webTitle" placeholder="example: 'My LinkedIn'" spellcheck="false" required/>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary btn-add-link" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="js/layout_links.js"></script>
+    <!-- Tag Modal -->
+    <script type="text/javascript">
+    $(function() {
+        $("#hashtags input").on({
+            focusout: function() {
+                //Adds tags
+                var tag = this.value.replace(/[^a-z0-9\+\-\.\#]/ig, '');
+                if (tag != "")
+                    $("<span/>", {
+                        text: tag.toLowerCase(),
+                        insertBefore: this
+                    });
+                this.value = "";
+            },
+            keyup: function(ev) {
+                //Comma separate to create tags
+                if (/(188|13)/.test(ev.which))
+                    $(this).focusout();
+            }
+        });
+        //Handling removal of tag
+        $('#hashtags').on('click', 'span', function() {
+            $(this).remove();
+        });
+    });
+    </script>
+    <div class="modal fade" id="tagModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Tags</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="hashtags" class="form-group">
+                        <input type="text" value="" placeholder="Type to add tag" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

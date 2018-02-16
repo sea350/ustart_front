@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ustart</title>
+    <link href="css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="css/normalize.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/search.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+
+    </script>
+    <script src="js/bootstrap-confirmation.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#navBar-placeholder").load("template.html");
+            $("#LeftNavBar-placeholder").load("leftNavbarTemplate.html", function (e) {
+                $("#leftNavSearch").addClass("theActive");
+            });
+            //$("#filOptions").accordion();
+        });
+    </script>
+    <script src="js/search.js"></script>
+</head>
+
+<body>
+    <div id="navBar-placeholder"></div>
+    <div id="centering">
+        <div id="content" style="padding: 1em; margin: auto;">
+            <div id="LeftNavBar-placeholder"></div>
+            <div id="search-filter">
+                <h3> Filters </h3>
+                <div class="extra">
+                    <div id="filOptions" class="panel-group">
+						<div class="panel panel-default">
+							<h4 class="panel-heading panel-title" data-toggle="collapse" data-parent="#filOptions" href="#filter-category">Category</h4>
+							<div id="filter-category" class="panel-collapse collapse in">
+								<ul>
+									<li>
+										<input type="checkbox" name="category" value=""> Design </li>
+									<li>
+										<input type="checkbox" name="category" value=""> Entertainment </li>
+									<li>
+										<input type="checkbox" name="category" value=""> Finance </li>
+									<li>
+										<input type="checkbox" name="category" value=""> Graphics </li>
+									<li>
+										<input type="checkbox" name="category" value=""> Music </li>
+									<li>
+										<input type="checkbox" name="category" value=""> Technology </li>
+									<li>
+										<input type="checkbox" name="category" value=""> Environment </li>
+									<li>
+										<input type="checkbox" name="category" value=""> Nonprofit </li>
+									<li>
+										<input type="checkbox" name="category" value=""> Technology </li>
+									<li>
+										<input type="checkbox" name="category" value=""> Food </li>
+									<li>
+										<input type="checkbox" name="category" value=""> Engineering </li>
+									<li>
+										<input type="checkbox" name="category" value=""> Software </li>
+									<li>
+										<input type="checkbox" name="category" value=""> Travel </li>
+									<li>
+										<input type="checkbox" name="category" value=""> Nonprofit </li>
+									<li>
+										<input type="checkbox" name="category" value=""> Technology </li>
+								</ul>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<h4 class="panel-heading panel-title" data-toggle="collapse" data-parent="#filOptions" href="#filter-major">Major</h4>
+							<div id="filter-major" class="panel-collapse collapse">
+								<select>
+									<option value="">Accounting</option>
+									<option value=""></option>
+									<option value=""></option>
+									<option value=""></option>
+								</select>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<h4 class="panel-heading panel-title" data-toggle="collapse" data-parent="#filOptions" href="#filter-location">Location</h4>
+							<div id="filter-location" class="panel-collapse collapse">
+								<input type="text" placeholder="City">
+								<input type="text" placeholder="State">
+								<select>
+									<option value="">United States</option>
+									<option value=""></option>
+									<option value=""></option>
+									<option value=""></option>
+								</select>
+							</div>
+                        </div>
+						<div class="panel panel-default">
+							<h4 class="panel-heading panel-title" data-toggle="collapse" data-parent="#filOptions" href="#filter-skills">Skills</h4>
+							<div id="filter-skills" class="panel-collapse collapse">
+								<input type="text" placeholder="Keywords, tags, interests">
+							</div>
+                        </div>
+						<div class="panel panel-default">
+							<h4 class="panel-heading panel-title" data-toggle="collapse" data-parent="#filOptions" href="#filter-order">Order</h4>
+							<div id="filter-order" class="panel-collapse collapse">
+								<ul>
+									<li>
+										<input type="radio" name="sortOrder" value="relevance" checked> Most Relevant </li>
+									<li>
+										<input type="radio" name="sortOrder" value="popular"> Most Popular</li>
+									<li>
+										<input type="radio" name="sortOrder" value="newest"> Newest</li>
+								</ul>
+							</div>
+                        </div>
+                    </div>
+                    <button id="filApply" type="button">Apply</button>
+                </div>
+            </div>
+            <div id="search-results-container">
+                <div class="search-result">
+                    <div class="search-result-pic"></div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">Sample search result title</div>
+                        <div class="search-result-description">Sample search result description I may be a digimon fan but if I see a thicc 🍑 roserade 🌹 my metapod's
+                            gonna mega evolve 💦💦💦 am tired of racism on roblox, I am tired of dealing with this. I can't
+                            stand it anymore. What is wrong with roblox. They can't even control there own players. I had
+                            to leave the game i was playing today because of racism. My avatar had a shirt with the mexican
+                            flag on it and everyone launched at me and started to bully me on my race. I have never ever
+                            had to deal with something like this, it is such a shame roblox is turning into a place like
+                            hell, where no one is safe because of your nationality. I had people telling me that i should
+                            get DEPORTED! Does anyone know how it feels. I am an American citizen born and raised here with
+                            mexican blood and i have the same rights as everyone my race should NOT matter at ALL! People
+                            started to tell me that my race is crap! I have never in my life been so offended like this.
+                            The game was a small server consisting of 11 players at least half of them where offending me.
+                        </div>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="search-result-pic"></div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">Sample search result title</div>
+                        <div class="search-result-description">Sample search result description I may be a digimon fan but if I see a thicc 🍑 roserade 🌹 my metapod's
+                            gonna mega evolve 💦💦💦 am tired of racism on roblox, I am tired of dealing with this. I can't
+                            stand it anymore. What is wrong with roblox. They can't even control there own players. I had
+                            to leave the game i was playing today because of racism. My avatar had a shirt with the mexican
+                            flag on it and everyone launched at me and started to bully me on my race. I have never ever
+                            had to deal with something like this, it is such a shame roblox is turning into a place like
+                            hell, where no one is safe because of your nationality. I had people telling me that i should
+                            get DEPORTED! Does anyone know how it feels. I am an American citizen born and raised here with
+                            mexican blood and i have the same rights as everyone my race should NOT matter at ALL! People
+                            started to tell me that my race is crap! I have never in my life been so offended like this.
+                            The game was a small server consisting of 11 players at least half of them where offending me.
+                        </div>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="search-result-pic"></div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">Sample search result title</div>
+                        <div class="search-result-description">Sample search result description I may be a digimon fan but if I see a thicc 🍑 roserade 🌹 my metapod's
+                            gonna mega evolve 💦💦💦 am tired of racism on roblox, I am tired of dealing with this. I can't
+                            stand it anymore. What is wrong with roblox. They can't even control there own players. I had
+                            to leave the game i was playing today because of racism. My avatar had a shirt with the mexican
+                            flag on it and everyone launched at me and started to bully me on my race. I have never ever
+                            had to deal with something like this, it is such a shame roblox is turning into a place like
+                            hell, where no one is safe because of your nationality. I had people telling me that i should
+                            get DEPORTED! Does anyone know how it feels. I am an American citizen born and raised here with
+                            mexican blood and i have the same rights as everyone my race should NOT matter at ALL! People
+                            started to tell me that my race is crap! I have never in my life been so offended like this.
+                            The game was a small server consisting of 11 players at least half of them where offending me.
+                        </div>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="search-result-pic"></div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">Sample search result title</div>
+                        <div class="search-result-description">Sample search result description I may be a digimon fan but if I see a thicc 🍑 roserade 🌹 my metapod's
+                            gonna mega evolve 💦💦💦 am tired of racism on roblox, I am tired of dealing with this. I can't
+                            stand it anymore. What is wrong with roblox. They can't even control there own players. I had
+                            to leave the game i was playing today because of racism. My avatar had a shirt with the mexican
+                            flag on it and everyone launched at me and started to bully me on my race. I have never ever
+                            had to deal with something like this, it is such a shame roblox is turning into a place like
+                            hell, where no one is safe because of your nationality. I had people telling me that i should
+                            get DEPORTED! Does anyone know how it feels. I am an American citizen born and raised here with
+                            mexican blood and i have the same rights as everyone my race should NOT matter at ALL! People
+                            started to tell me that my race is crap! I have never in my life been so offended like this.
+                            The game was a small server consisting of 11 players at least half of them where offending me.
+                        </div>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="search-result-pic"></div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">Sample search result title</div>
+                        <div class="search-result-description">Sample search result description I may be a digimon fan but if I see a thicc 🍑 roserade 🌹 my metapod's
+                            gonna mega evolve 💦💦💦 am tired of racism on roblox, I am tired of dealing with this. I can't
+                            stand it anymore. What is wrong with roblox. They can't even control there own players. I had
+                            to leave the game i was playing today because of racism. My avatar had a shirt with the mexican
+                            flag on it and everyone launched at me and started to bully me on my race. I have never ever
+                            had to deal with something like this, it is such a shame roblox is turning into a place like
+                            hell, where no one is safe because of your nationality. I had people telling me that i should
+                            get DEPORTED! Does anyone know how it feels. I am an American citizen born and raised here with
+                            mexican blood and i have the same rights as everyone my race should NOT matter at ALL! People
+                            started to tell me that my race is crap! I have never in my life been so offended like this.
+                            The game was a small server consisting of 11 players at least half of them where offending me.
+                        </div>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="search-result-pic"></div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">Sample search result title</div>
+                        <div class="search-result-description">Sample search result description I may be a digimon fan but if I see a thicc 🍑 roserade 🌹 my metapod's
+                            gonna mega evolve 💦💦💦 am tired of racism on roblox, I am tired of dealing with this. I can't
+                            stand it anymore. What is wrong with roblox. They can't even control there own players. I had
+                            to leave the game i was playing today because of racism. My avatar had a shirt with the mexican
+                            flag on it and everyone launched at me and started to bully me on my race. I have never ever
+                            had to deal with something like this, it is such a shame roblox is turning into a place like
+                            hell, where no one is safe because of your nationality. I had people telling me that i should
+                            get DEPORTED! Does anyone know how it feels. I am an American citizen born and raised here with
+                            mexican blood and i have the same rights as everyone my race should NOT matter at ALL! People
+                            started to tell me that my race is crap! I have never in my life been so offended like this.
+                            The game was a small server consisting of 11 players at least half of them where offending me.
+                        </div>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="search-result-pic"></div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">Sample search result title</div>
+                        <div class="search-result-description">Sample search result description I may be a digimon fan but if I see a thicc 🍑 roserade 🌹 my metapod's
+                            gonna mega evolve 💦💦💦 am tired of racism on roblox, I am tired of dealing with this. I can't
+                            stand it anymore. What is wrong with roblox. They can't even control there own players. I had
+                            to leave the game i was playing today because of racism. My avatar had a shirt with the mexican
+                            flag on it and everyone launched at me and started to bully me on my race. I have never ever
+                            had to deal with something like this, it is such a shame roblox is turning into a place like
+                            hell, where no one is safe because of your nationality. I had people telling me that i should
+                            get DEPORTED! Does anyone know how it feels. I am an American citizen born and raised here with
+                            mexican blood and i have the same rights as everyone my race should NOT matter at ALL! People
+                            started to tell me that my race is crap! I have never in my life been so offended like this.
+                            The game was a small server consisting of 11 players at least half of them where offending me.
+                        </div>
+                    </div>
+                </div>
+                <div class="search-result">
+                    <div class="search-result-pic"></div>
+                    <div class="search-result-text">
+                        <div class="search-result-title">Sample search result title</div>
+                        <div class="search-result-description">Sample search result description I may be a digimon fan but if I see a thicc 🍑 roserade 🌹 my metapod's
+                            gonna mega evolve 💦💦💦 am tired of racism on roblox, I am tired of dealing with this. I can't
+                            stand it anymore. What is wrong with roblox. They can't even control there own players. I had
+                            to leave the game i was playing today because of racism. My avatar had a shirt with the mexican
+                            flag on it and everyone launched at me and started to bully me on my race. I have never ever
+                            had to deal with something like this, it is such a shame roblox is turning into a place like
+                            hell, where no one is safe because of your nationality. I had people telling me that i should
+                            get DEPORTED! Does anyone know how it feels. I am an American citizen born and raised here with
+                            mexican blood and i have the same rights as everyone my race should NOT matter at ALL! People
+                            started to tell me that my race is crap! I have never in my life been so offended like this.
+                            The game was a small server consisting of 11 players at least half of them where offending me.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

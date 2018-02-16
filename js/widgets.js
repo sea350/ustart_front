@@ -1,0 +1,1257 @@
+var currentItem;
+var twitterSetting;
+var twitterSettingDown = '<i class="glyphicon glyphicon-menu-down"></i>';
+var widgetScrollSpeed = 400;
+var medUrlType = 0;
+var galleryDefaultRemoveOption = '<option default selected>Select from your list of pictures here</option>';
+
+function attachRemoveWidgetFunction() {
+    $(".fa-trash").unbind('click');
+    $(".fa-trash").click(function(e) {
+        var el = $(e.target);
+        el = el.parent().parent().parent();
+        el.remove();
+    });
+}
+
+function YouTubeGetID(url) {
+    var ID = '';
+    url = url.replace(/(>|<)/gi, '').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+    if (url[2] !== undefined) {
+        ID = url[2].split(/[^0-9a-z_\-]/i);
+        ID = ID[0];
+    } else {
+        ID = url;
+    }
+    return ID;
+}
+
+$(document).ready(function() {
+	CKEDITOR.replace('customContent');
+	$('#customTextForm').submit(function(event) {
+		event.preventDefault();
+		
+		$(currentItem).find('[name="textEditorHeader"]').text($('#customHeader').val());
+		$(currentItem).find('[name="textEditorBody"]').html(CKEDITOR.instances['customContent'].getData());
+		$('#customTextModal').modal('hide');
+	});
+	
+    attachRemoveWidgetFunction();
+    $('#addTextWidget').click(function() {
+        var htmlText = `<li class="ui-state-default widgetListItem sortable">
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <span class="pull-right fa fa-2x fa-trash"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil"></span>
+                                        <h4 name="textEditorHeader">
+                                            Custom Text
+                                        </h4>
+                                    </div>
+                                    <div class="widgetBody">
+                                        <div class="text-box" name="textEditorBody">
+                                            Edit this text by clicking on the Pencil icon.
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            `;
+        currentItem = addWidgetByHTML(htmlText)
+		currentItem.find('.fa-pencil').click(function() {
+			currentItem = $(this).parent().parent().parent();	// return to the list item
+			$('#customTextModal').modal();
+		});
+		$('#customTextModal').modal();
+        //textEditFun();
+    });
+    $('#addCodePenWidget').click(function() {
+		if($('#code-modal').length > 0) {
+			$('html, body').animate({
+				scrollTop: $("#code-modal").parents('li').offset().top - 50
+				}, widgetScrollSpeed, function() {
+					$('#code-modal').modal();
+				});
+			return;
+		}
+        var htmlText = `<li class="ui-state-default widgetListItem sortable">
+                            <div class="projectsWidgetCont">
+                            <div class="widgetTitle">
+                                <span class="pull-right fa fa-2x fa-sort"></span>
+                                <span class="pull-right fa fa-2x fa-trash"></span>
+                                <span class="pull-right fa fa-2x fa-pencil id="code-edit" data-toggle="modal" data-target="#code-modal""></span>
+                                <h4 name="textEditorHeader">
+                                    CodePen
+                                </h4>
+                            </div>
+
+                            <div class="modal fade" id="code-modal" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Embed CodePen</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Please paste the CodePen embed code in here:</p>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="code-embed-input">
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" id="code-submit-btn" class="btn btn-default" data-dismiss="modal">Submit</button>
+
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="widgetBodyCode" class="widgetBody cpEmbeded">
+                                <p data-height="265" data-theme-id="dark" data-slug-hash="gGWbQB" data-default-tab="result" data-user="short" data-embed-version="2" data-pen-title="campfire" class="codepen">See the Pen <a href="https://codepen.io/short/pen/gGWbQB/">campfire</a> by Short (<a href="https://codepen.io/short">@short</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+								<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+                            </div>
+                        </div>
+                        </li>
+                        `;
+        addWidgetByHTML(htmlText);
+        $('#code-submit-btn').click(function() {
+            var value = $('#code-embed-input').val();
+            //alert(value);
+			$('#widgetBodyCode').html(value);
+            //$(value).appendTo($('#widgetBodyCode'));
+            $('#code-embed-input').val('');
+        });
+		$('#code-modal').on('shown.bs.modal', function() {
+            $('#code-embed-input').focus();
+		});
+    });
+    $('#addTumblrWidget').click(function() {
+		if($('#tumblr-modal').length > 0) {
+			$('html, body').animate({
+				scrollTop: $("#tumblr-modal").parents('li').offset().top - 50
+				}, widgetScrollSpeed, function() {
+					$('#tumblr-modal').modal();
+				});
+			return;
+		}
+        var htmlText = `<li class="ui-state-default widgetListItem sortable">
+                            <div class="projectsWidgetCont">
+                            <div class="widgetTitle">
+                                <span class="pull-right fa fa-2x fa-sort"></span>
+                                <span class="pull-right fa fa-2x fa-trash"></span>
+                                <span class="pull-right fa fa-2x fa-pencil id="tumblr-edit" data-toggle="modal" data-target="#tumblr-modal"></span>
+                                <h4 name="textEditorHeader">
+                                    Tumblr
+                                </h4>
+                            </div>
+
+                            <div class="modal fade" id="tumblr-modal" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Embed Tumblr</h4>
+                                        </div>
+                                        <div class="modal-body">
+											<span id="tumblr-list-title">Removable Tumblr Posts</span>
+											<ul id="tumblr-edit-list"></ul>
+                                            <p>Please paste the Tumblr embed code in here:</p>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="tumblr-embed-input">
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" id="tumblr-submit-btn" class="btn btn-default" data-dismiss="modal">Submit</button>
+
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+							<div id= "widgetBodyTumblr" class="widgetBody"></div>
+                        </li>
+                        `;
+        addWidgetByHTML(htmlText);
+        $('#tumblr-submit-btn').click(function() {
+            var value = $('#tumblr-embed-input').val();
+            alert(value);
+            $(value).appendTo($('#widgetBodyTumblr'));
+            $('#tumblr-embed-input').val('');
+        });
+		$('#tumblr-modal').on('show.bs.modal', function() {
+			// Clean List Items
+			$('#tumblr-edit-list').children('li').remove();
+			
+			// Add List Items
+			$('.tumblr-embed').each(function(idx, element) {
+				var tbSource = $(this).attr('src');
+				var tbListItem = '<li><span>' + tbSource + '</span> <i class="fa fa-times"></i></li>';
+				$('#tumblr-edit-list').append(tbListItem);
+			});
+			
+			// Show/hide the text above the list if empty or active
+			if ($('#tumblr-edit-list').children('li').length == 0) {
+				$('#tumblr-list-title').hide();
+			} else {
+				$('#tumblr-list-title').show();
+			}
+			
+			// Add the Remove functionality for each Instagram Item
+			$('#tumblr-edit-list').find('.fa-times').click(function(){
+				var idx = $('#tumblr-edit-list').find('.fa-times').index(this);
+				$('.tumblr-embed').eq(idx).remove();
+				$('#tumblr-edit-list').children('li').eq(idx).hide('slow', function() {
+					$(this).remove();
+				});
+				
+				if ($('#tumblr-edit-list').children('li').length == 0) {
+					$('#tumblr-list-title').hide();
+				} else {
+					$('#tumblr-list-title').show();
+				}
+			});
+		});
+		$('#tumblr-modal').on('shown.bs.modal', function() {
+            $('#tumblr-embed-input').focus();
+		});
+		$('#tumblr-modal').modal();
+    });
+    $('#addPinterestWidget').click(function() {
+		if($('#pin-modal').length > 0) {
+			$('html, body').animate({
+				scrollTop: $("#pin-modal").parents('li').offset().top - 50
+				}, widgetScrollSpeed, function() {
+					$('#pin-modal').modal();
+				});
+			return;
+		}
+        var htmlText = `<li class="ui-state-default widgetListItem sortable">
+                            <div class="projectsWidgetCont">
+                            <div class="widgetTitle">
+                                <span class="pull-right fa fa-2x fa-sort"></span>
+                                <span class="pull-right fa fa-2x fa-trash"></span>
+                                <span class="pull-right fa fa-2x fa-pencil id="pin-edit" data-toggle="modal" data-target="#pin-modal"></span>
+                                <h4 name="textEditorHeader">
+                                    Pinterest
+                                </h4>
+                            </div>
+
+
+
+                            <div class="modal fade" id="pin-modal" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Embed Pinterest</h4>
+                                        </div>
+                                        <div class="modal-body">
+											<span id="pin-list-title">Removable Pins</span>
+											<ul id="pin-edit-list"></ul>
+                                            <p>Please paste the Pinterest Pin URL here:</p>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="pin-embed-input">
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" id="pin-submit-btn" class="btn btn-default" data-dismiss="modal">Submit</button>
+
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div id="widgetBodyPin" class="widgetBody">
+							
+                            </div>
+                        </div>
+                        </li>
+
+                        `;
+        addWidgetByHTML(htmlText);
+        $('#pin-submit-btn').click(function() {
+            var pinembed = $('#pin-embed-input').val();
+			if (pinembed.indexOf('/pin/') >= 0) {
+				$('#widgetBodyPin').append('<a data-pin-do="embedPin" href="' + pinembed + '"></a>');
+			} else {
+				$('#widgetBodyPin').append('<a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="240" data-pin-scale-width="80" href="' + pinembed + '"></a>');
+			}
+            $('#pin-embed-input').val('');
+			doBuild();
+        });
+		$('#pin-modal').on('show.bs.modal', function() {
+			// Clean List Items
+			$('#pin-edit-list').children('li').remove();
+			
+			// Add List Items
+			$('#widgetBodyPin>span').each(function(idx, element) {
+				var igSource = $(this).children('span').attr('data-pin-href');
+				var igListItem = '<li><span>' + igSource + '</span> <i class="fa fa-times"></i></li>';
+				$('#pin-edit-list').append(igListItem);
+			});
+			
+			// Show/hide the text above the list
+			if ($('#pin-edit-list').children('li').length == 0) {
+				$('#pin-list-title').hide();
+			} else {
+				$('#pin-list-title').show();
+			}
+			
+			// Add the Remove functionality for each Instagram Item
+			$('#pin-edit-list').find('.fa-times').click(function(){
+				var idx = $('#pin-edit-list').find('.fa-times').index(this);
+				$('#widgetBodyPin>span').eq(idx).remove();
+				$('#pin-edit-list').children('li').eq(idx).hide('fast', function() {
+					$(this).remove();
+				});
+				
+				if ($('#pin-edit-list').children('li').length == 0) {
+					$('#pin-list-title').hide();
+				} else {
+					$('#pin-list-title').show();
+				}
+			});
+		});
+		$('#pin-modal').on('shown.bs.modal', function() {
+            $('#pin-embed-input').focus();
+		});
+		$('#pin-modal').modal();
+    });
+    // $("#addGooglePlusWidget").click(function() {
+    //     var htmlText = `<li class="ui-state-default widgetListItem sortable">
+    //                         <div class="projectsWidgetCont">
+    //                             <div class="widgetTitle">
+    //                                 <span class="pull-right fa fa-2x fa-sort"></span>
+    //                                 <span class="pull-right fa fa-2x fa-trash"></span>
+    //                                 <span class="pull-right fa fa-2x fa-pencil"></span>
+    //                                 <h4 name="textEditorHeader">
+    //                                     Pinterest
+    //                                 </h4>
+    //                             </div>
+    //                             <div class="widgetBody">
+    //                                 <div id="google-widg"></div>
+    //                             </div>
+    //                         </div>
+    //                     </li>
+    // `;
+    //     gapi.post.render("google-widg", { 'href': 'https://plus.google.com/109813896768294978296/posts/hdbPtrsqMXQ' });
+    // });
+    $('#addSpotifyWidget').click(function() {
+		if($('#spot-modal').length > 0) {
+			$('html, body').animate({
+				scrollTop: $("#spot-modal").parents('li').offset().top - 50
+				}, widgetScrollSpeed, function() {
+					$('#spot-modal').modal();
+				});
+			return;
+		}
+        var htmlText = `<li class="ui-state-default widgetListItem sortable">
+                            <div class="projectsWidgetCont">
+                            <div class="widgetTitle">
+                                <span class="pull-right fa fa-2x fa-sort"></span>
+                                <span class="pull-right fa fa-2x fa-trash"></span>
+                                <span class="pull-right fa fa-2x fa-pencil id="spot-edit" data-toggle="modal" data-target="#spot-modal"></span>
+
+                                    <div class="modal fade" id="spot-modal" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Embed Spotify</h4>
+                                                </div>
+                                                <div class="modal-body">
+													<span id="spot-list-title">Removable Spotify Sounds</span>
+													<ul id="spot-edit-list"></ul>
+                                                    <p>Please paste the Spotify embed code in here:</p>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="spot-embed-input">
+
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" id="spot-submit-btn" class="btn btn-default" data-dismiss="modal">Submit</button>
+
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+
+
+                                <h4 name="textEditorHeader">
+                                    Spotify
+                                </h4>
+                            </div>
+                            <div id="widgetBodySpot" class="widgetBody"></div>
+                        </li>
+                        `;
+        addWidgetByHTML(htmlText);
+        $('#spot-submit-btn').click(function() {
+            var value = $('#spot-embed-input').val();
+            $(value).appendTo($('#widgetBodySpot'));
+            $('#spot-embed-input').val('');
+        });
+		$('#spot-modal').on('show.bs.modal', function() {
+			// Clean List Items
+			$('#spot-edit-list').children('li').remove();
+			
+			// Add List Items
+			$('.spotifyIframe').each(function(idx, element) {
+				var spotSource = $(this).attr('src');
+				var spotListItem = '<li><span>' + spotSource + '</span> <i class="fa fa-times"></i></li>';
+				$('#spot-edit-list').append(spotListItem);
+			});
+			
+			// Show/hide the text above the list
+			if ($('#spot-edit-list').children('li').length == 0) {
+				$('#spot-list-title').hide();
+			} else {
+				$('#spot-list-title').show();
+			}
+			
+			// Add the Remove functionality for each Instagram Item
+			$('#spot-edit-list').find('.fa-times').click(function(){
+				var idx = $('#spot-edit-list').find('.fa-times').index(this);
+				$('.spotifyIframe').eq(idx).remove();
+				$('#spot-edit-list').children('li').eq(idx).hide('fast', function() {
+					$(this).remove();
+				});;
+				
+				if ($('#spot-edit-list').children('li').length == 0) {
+					$('#spot-list-title').hide();
+				} else {
+					$('#spot-list-title').show();
+				}
+			});
+		});
+		$('#spot-modal').on('shown.bs.modal', function() {
+            $('#spot-embed-input').focus();
+		});
+		$('#spot-modal').modal();
+    });
+
+    $('#addLinksWidget').click(function() {
+		if($('#linksWidget').length > 0) {
+			$('html, body').animate({
+				scrollTop: $("#linksWidget").parents('li').offset().top - 50
+				}, widgetScrollSpeed, function() {
+					$('#linksWidget').modal();
+				});
+			return;
+		}
+        var htmlLinks = `<li class="ui-state-default widgetListItem sortable">
+                                <div id="linksWidget" class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <span class="pull-right fa fa-2x fa-trash"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#addLinkModal"></span>
+                                        <h4>Links</h4>
+                                    </div>
+                                    <div class="widgetBody">
+                                        <div class="links-container"></div>
+                                        <div class="numLinks">
+                                            <span id="linkCountIndicator">16 Links Remaining</span>
+                                        </div>
+                                    </div>
+                                    <!-- Add Link Modal -->
+                                    <div class="modal fade" id="addLinkModal" role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Add Link</h4>
+                                                </div>
+                                                <form id="addLinkForm">
+                                                    <div class="modal-body">
+                                                        <p>
+                                                            <span class="modal-cell">Title</span>
+                                                            <input type="text" class="link-input-read" name="webTitle" placeholder="example: 'My LinkedIn'" spellcheck="false" required autofocus/>
+                                                        </p>
+                                                        <p>
+                                                            <span class="modal-cell">URL</span>
+                                                            <input type="text" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" required/>
+                                                        </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <div class="btn-group">
+                                                            <input type="submit" class="btn btn-primary btn-add-link" />
+                                                            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- End of Modals for user -->
+                                    </div>
+                                    <script src="js/jquery.validate.min.js"></script>
+                                    <script src="js/layout_links.js"></script>
+                                </div>
+                            </li>
+                            `;
+
+
+        addWidgetByHTML(htmlLinks);
+
+		$('.links-container').sortable({
+			cancel: ''
+		}).disableSelection();
+		$('#addLinkModal').on('shown.bs.modal', function() {
+            $('#link-input-read').focus();
+		});
+    });
+    $('#igWidgetBtn').click(function() {
+		if($('#ig-modal').length > 0) {
+			$('html, body').animate({
+				scrollTop: $("#ig-modal").parents('li').offset().top - 50
+				}, widgetScrollSpeed, function() {
+					$('#ig-modal').modal();
+				});
+			return;
+		}
+        var htmlIG = `<li class="ui-state-default widgetListItem sortable">
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <span class="pull-right fa fa-2x fa-trash"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil" id="ig-edit" data-toggle="modal" data-target="#ig-modal"></span>
+                                        <h4>Instagram</h4>
+                                    </div>
+                                    <div class="modal fade" id="ig-modal" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Embed Instagram Posts</h4>
+                                                </div>
+												<form>
+													<div class="modal-body">
+														<span id="ig-list-title">Removable Instagram posts</span>
+														<ul id="ig-edit-list"></ul>
+														<label>Please paste the Instagram post here</label>
+														<input type="text" class="form-control" id="ig-embed-input" placeholder="https://www.instagram.com/p/BageGbgD05c/" required/>
+														<label>Captions</label>
+														<input type="checkbox" class="form-check" id="ig-embed-caption" checked/>
+													</div>
+													<div class="modal-footer">
+														<button type="submit" id="ig-submit-btn" class="btn btn-default">Submit</button>
+													</div>
+												</form>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div id="widgetBodyID" class="widgetBody">
+                                    </div>
+                                </div>
+                            </li>`;
+        addWidgetByHTML(htmlIG);
+        $('#ig-modal form').submit(function(event) {
+			// Submission
+			event.preventDefault();
+			
+            var embedValue = $('#ig-embed-input').val();
+			var htmlIGpost;
+			if ($('#ig-embed-caption').prop("checked")) {
+				// Has caption under
+				htmlIGpost = '<div class="insta-feed"><blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:50.0% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="' + embedValue + '" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_blank"></a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A post shared by DIY CRAFTS FOOD LIFE HACKS ?? (@diy.learning) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2017-10-20T04:28:48+00:00">Oct 19, 2017 at 9:28pm PDT</time></p></div></blockquote> <script async defer src="//platform.instagram.com/en_US/embeds.js"></script></div>';
+            } else {
+				// Exclude caption under
+				htmlIGpost = '<div class="insta-feed"><blockquote class="instagram-media" data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:62.5% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="' + embedValue + '" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by Bosslogic (@bosslogic)</a> on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2017-10-20T04:10:48+00:00">Oct 19, 2017 at 9:10pm PDT</time></p></div></blockquote> <script async defer src="//platform.instagram.com/en_US/embeds.js"></script></div>';
+			}
+			$(htmlIGpost).appendTo($('#widgetBodyID'));
+            $('#ig-embed-input').val('');
+			
+			instgrm.Embeds.process();
+			$('#ig-modal').modal('hide');
+        });
+		$('#ig-modal').on('show.bs.modal', function() {
+			// Clean List Items
+			$('#ig-edit-list').children('li').remove();
+			
+			// Add List Items
+			$('.insta-feed').each(function(idx, element) {
+				var igSource = $(this).children('iframe')[0].src;
+				var igListItem = '<li><span>' + igSource.substring(0, igSource.indexOf('embed')) + '</span> <i class="fa fa-times"></i></li>';
+				$('#ig-edit-list').append(igListItem);
+			});
+			
+			// Show/hide the text above the list
+			if ($('#ig-edit-list').children('li').length == 0) {
+				$('#ig-list-title').hide();
+			} else {
+				$('#ig-list-title').show();
+			}
+			
+			// Add the Remove functionality for each Instagram Item
+			$('#ig-edit-list').find('.fa-times').click(function(){
+				var idx = $('#ig-edit-list').find('.fa-times').index(this);
+				$('.insta-feed').eq(idx).remove();
+				$('#ig-edit-list').children('li').eq(idx).hide('fast', function() {
+					$(this).remove();
+				});;
+				
+				if ($('#ig-edit-list').children('li').length == 0) {
+					$('#ig-list-title').hide();
+				} else {
+					$('#ig-list-title').show();
+				}
+			});
+		});
+		$('#ig-modal').on('shown.bs.modal', function() {
+            $('#ig-embed-input').focus();
+		});
+		$('#ig-modal').modal();
+    });
+
+    $('#scWidgetBtn').click(function() {
+		if($('#sc-modal').length > 0) {
+			$('html, body').animate({
+				scrollTop: $("#sc-modal").parents('li').offset().top - 50
+				}, widgetScrollSpeed, function() {
+					$('#sc-modal').modal();
+				});
+			return;
+		}
+        var htmlSc = `<li class="ui-state-default widgetListItem sortable">
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-trash"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="sc-edit" data-toggle="modal" data-target="#sc-modal"></span>
+                                        <h4>Soundcloud</h4>
+                                    </div>
+
+                                    <div class="modal fade" id="sc-modal" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Embed Soundclouds</h4>
+                                                </div>
+                                                <div class="modal-body">
+													<span id="sc-list-title">Removable Soundclouds</span>
+													<ul id="sc-edit-list"></ul>
+                                                    <p>Insert the Soundcloud URL:</p>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="sc-embed-input">
+
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" id="sc-submit-btn" class="btn btn-default" data-dismiss="modal">Submit</button>
+
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+
+                                    <div id= "widgetBodySC" class="widgetBody"></div>
+                                </div>
+                            </li>`;
+
+        addWidgetByHTML(htmlSc);
+        $('#sc-submit-btn').click(function() {
+			// Frame Add
+            var scURL = $('#sc-embed-input').val();
+            var htmlIGpost = '<div class="soundcloud-feed"><iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=' + scURL + '&amp;color=00cc11&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe></div>';
+            $(htmlIGpost).appendTo($('#widgetBodySC'));
+            $('#sc-embed-input').val('');
+        });
+		$('#sc-modal').on('show.bs.modal', function() {
+			// Clean List Items
+			$('#sc-edit-list').children('li').remove();
+			
+			// Add List Items
+			$('.soundcloud-feed').each(function(idx, element) {
+				var scSource = new URL($(this).children('iframe').attr('src'));
+				var scListItem = '<li><span>' + scSource.searchParams.get('url') + '</span> <i class="fa fa-times"></i></li>';
+				$('#sc-edit-list').append(scListItem);
+			});
+			
+			// Show/hide the text above the list
+			if ($('#sc-edit-list').children('li').length == 0) {
+				$('#sc-list-title').hide();
+			} else {
+				$('#sc-list-title').show();
+			}
+			
+			// Add the Remove functionality for each Soundcloud Item
+			$('#sc-edit-list').find('.fa-times').click(function(){
+				var idx = $('#sc-edit-list').find('.fa-times').index(this);
+				$('.soundcloud-feed').eq(idx).remove();
+				$('#sc-edit-list').children('li').eq(idx).hide('fast', function() {
+					$(this).remove();
+				});;
+				
+				if ($('#sc-edit-list').children('li').length == 0) {
+					$('#sc-list-title').hide();
+				} else {
+					$('#sc-list-title').show();
+				}
+			});
+		});
+		$('#sc-modal').on('shown.bs.modal', function() {
+            $('#sc-embed-input').focus();
+		});
+		$('#sc-modal').modal();
+    });
+
+    $('#ytWidgetBtn').click(function() {
+        $('#youtubeModal').modal();
+        $('#youtubeLink').val('');
+        $('#youtubeModal .btn-done').unbind().click(function() {
+            var embedcode = YouTubeGetID($('#youtubeLink').val());
+
+            if (embedcode !== '') {
+                var htmlYT = `<li class="ui-state-default widgetListItem sortable">
+                                        <div class="projectsWidgetCont">
+                                            <div class="widgetTitle">
+												<span class="pull-right fa fa-2x fa-sort"></span>
+												<span class="pull-right fa fa-2x fa-trash"></span>
+												<span class="pull-right fa fa-2x fa-pencil" code="` + embedcode + `"></span>
+                                                <h4>Youtube</h4>
+                                            </div>
+                                            <div class="widgetBody">
+                                                <div class="youtube-feed">
+                                                    <iframe src="https://www.youtube.com/embed/` + embedcode + `" frameborder="0" allowfullscreen></iframe>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>`;
+                htmlYT = addWidgetByHTML(htmlYT);
+                htmlYT.find('.fa-pencil').click(function() {
+					currentItem = this;
+                    $('#youtubeModal').modal();
+                    $('#youtubeLink').val("https://www.youtube.com/embed/" + $(this).attr('code'));
+                    $('#youtubeModal .btn-done').unbind().click(function() {
+                        $(currentItem).parent().parent().find('.youtube-feed iframe').attr('src', "https://www.youtube.com/embed/" + YouTubeGetID($('#youtubeLink').val()));
+                    });
+                });
+            }
+        });
+    });
+	$('#youtubeModal').on('shown.bs.modal', function() {
+        $('#youtubeLink').focus();
+	});
+	
+    $('#twitWidgetBtn').click(function() {
+		if($('#twit-modal').length > 0) {
+			$('html, body').animate({
+				scrollTop: $("#twit-modal").parents('li').offset().top - 50
+				}, widgetScrollSpeed, function() {
+					$('#twit-modal').modal();
+				});
+			return;
+		}
+        var htmlSc = `<li class="ui-state-default widgetListItem sortable">
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-trash"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="twit-edit" data-toggle="modal" data-target="#twit-modal"></span>
+                                        <h4>Twitter</h4>
+                                    </div>
+
+                                    <div class="modal fade" id="twit-modal" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Twitter</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <label for="twit-embed-input">Place your Twitter content below</label>
+                                                    <div class="input-group">
+														<div class="input-group-btn">
+															<button id="twitter-setting" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																Profile Timeline
+																<i class="glyphicon glyphicon-menu-down"></i>
+															</button>
+															<div class="dropdown-menu">
+																<a id="twitter-setting-prof" class="dropdown-item" style="display:block;">Profile Timeline</a>
+																<a id="twitter-setting-list" class="dropdown-item" style="display:block;">List Timeline</a>
+																<a id="twitter-setting-colt" class="dropdown-item" style="display:block;">Collection</a>
+																<a id="twitter-setting-momt" class="dropdown-item" style="display:block;">Moments</a>
+															</div>
+														</div>
+                                                        <input type="text" class="form-control" id="twit-embed-input" required/>
+                                                    </div>
+													<br/>
+													<label for="twit-embed-list-hash">
+                                                    <div class="input-group">
+														<span class="input-group-addon">Hashtag</span>
+														<input type="text" class="form-control" id="twit-embed-list-hash" required disabled placeholder="Without the #"/>
+                                                    </div>
+													<br/>
+													<label>Dark Theme</label>
+													<input type="checkbox" class="form-check" id="twit-dark"/>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" id="twit-submit-btn" class="btn btn-default" data-dismiss="modal">Submit</button>
+
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+
+                                    <div id= "widgetBodyTwit" class="widgetBody">
+                                    </div>
+                                </div>
+                            </li>`;
+
+        htmlSc = addWidgetByHTML(htmlSc);
+		twitterSetting = "prof-time";
+		$("#twit-embed-list-hash").parent().hide();
+		$("#twitter-setting-prof").click(function() {
+			twitterSetting = "prof-time";
+			$("#twitter-setting").html('Profile Timeline ' + twitterSettingDown);
+			$("#twit-embed-list-hash").parent().hide('fast');
+			$("#twit-embed-list-hash").attr('disabled', 'disabled');
+			$('#twit-embed-input').val('');
+			$('#twit-embed-input').attr('placeholder', 'Twitter Username');
+		});
+		$("#twitter-setting-list").click(function() {
+			twitterSetting = "list-time";
+			$("#twitter-setting").html('List Timeline ' + twitterSettingDown);
+			$("#twit-embed-list-hash").val('');
+			$("#twit-embed-list-hash").parent().show('fast');
+			$("#twit-embed-list-hash").removeAttr('disabled');
+			$('#twit-embed-input').val('');
+			$('#twit-embed-input').attr('placeholder', 'Twitter Username');
+		});
+		$("#twitter-setting-colt").click(function() {
+			twitterSetting = "twit-colt";
+			$("#twitter-setting").html('Collection ' + twitterSettingDown);
+			$("#twit-embed-list-hash").parent().hide('fast');
+			$("#twit-embed-list-hash").attr('disabled', 'disabled');
+			$('#twit-embed-input').val('');
+			$('#twit-embed-input').attr('placeholder', 'Twitter Collection ID');
+		});
+		$("#twitter-setting-momt").click(function() {
+			twitterSetting = "twit-momt";
+			$("#twitter-setting").html('Moments ' + twitterSettingDown);
+			$("#twit-embed-list-hash").parent().hide('fast');
+			$("#twit-embed-list-hash").attr('disabled', 'disabled');
+			$('#twit-embed-input').val('');
+			$('#twit-embed-input').attr('placeholder', 'Twitter Moment ID');
+		});
+		
+        $('#twit-submit-btn').click(function() {
+			var themeType = ($('#twit-dark').prop("checked") ? "dark" : "light");
+			// Frame Add
+            var scURL = $('#twit-embed-input').val();
+			var widgetHeight = 400;
+			$('#widgetBodyTwit').html('');
+			switch(twitterSetting) {
+				case "prof-time":
+					twttr.widgets.createTimeline(
+					  {
+						sourceType: "profile",
+						screenName: scURL
+					  },
+					  $('#widgetBodyTwit')[0],
+					  {
+						height: widgetHeight,
+						chrome: "nofooter",
+						linkColor: "#820bbb",
+						borderColor: "#a80000",
+						theme: themeType
+					  }
+					);
+					break;
+				case "list-time":
+					twttr.widgets.createTimeline(
+					  {
+						sourceType: "list",
+						screenName: scURL,
+						slug: $("#twit-embed-list-hash").val()
+					  },
+					  $('#widgetBodyTwit')[0],
+					  {
+						height: widgetHeight,
+						chrome: "nofooter",
+						linkColor: "#820bbb",
+						borderColor: "#a80000",
+						theme: themeType
+					  }
+					);
+					break;
+				case "twit-colt":
+					twttr.widgets.createTimeline(
+					  {
+						sourceType: "collection",
+						id: scURL
+					  },
+					  $('#widgetBodyTwit')[0],
+					  {
+						height: widgetHeight,
+						chrome: "nofooter",
+						linkColor: "#820bbb",
+						borderColor: "#a80000",
+						theme: themeType
+					  }
+					);
+					break;
+				case "twit-momt":
+					twttr.widgets.createMoment(
+					  scURL,
+					  $('#widgetBodyTwit')[0],
+					  {
+						height: widgetHeight,
+						chrome: "nofooter",
+						linkColor: "#820bbb",
+						borderColor: "#a80000",
+						theme: themeType
+					  }, {
+						limit: 3
+					  }
+					);
+					break;
+			}
+            $('#twit-embed-input').val('');
+        });
+		$('#twit-modal').on('shown.bs.modal', function() {
+            $('#twit-embed-input').focus();
+		});
+		$('#twit-modal').modal();
+    });
+
+	// Anchor Widget (Radio)
+    $('#arWidgetBtn').click(function() {
+		if($('#ar-modal').length > 0) {
+			$('html, body').animate({
+				scrollTop: $("#ar-modal").parents('li').offset().top - 50
+				}, widgetScrollSpeed, function() {
+					$('#ar-modal').modal();
+				});
+			return;
+		}
+        var htmlAR = `<li class="ui-state-default widgetListItem sortable">
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-trash"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="ar-edit" data-toggle="modal" data-target="#ar-modal"></span>
+                                        <h4>Anchor</h4>
+                                    </div>
+
+                                    <div class="modal fade" id="ar-modal" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Embed Anchors</h4>
+                                                </div>
+                                                <div class="modal-body">
+													<span id="ar-list-title">Removable Anchors</span>
+													<ul id="ar-edit-list"></ul>
+                                                    <p>Insert the Anchor Code in the URL:</p>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="ar-embed-input">
+
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" id="ar-submit-btn" class="btn btn-default" data-dismiss="modal">Submit</button>
+
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+
+                                    <div id= "widgetBodyAR" class="widgetBody"></div>
+                                </div>
+                            </li>`;
+
+        addWidgetByHTML(htmlAR);
+        $('#ar-submit-btn').click(function() {
+			// Frame Add
+            var arURL = $('#ar-embed-input').val();
+            var htmlARpost = '<div class="anchor-feed"><iframe src="https://anchor.fm/e/' + arURL + '" height="270px" width="400px" frameborder="0" scrolling="no"></iframe></div>';
+            $(htmlARpost).appendTo($('#widgetBodyAR'));
+            $('#ar-embed-input').val('');
+        });
+		$('#ar-modal').on('show.bs.modal', function() {
+			// Clean List Items
+			$('#ar-edit-list').children('li').remove();
+			
+			// Add List Items
+			$('.anchor-feed').each(function(idx, element) {
+				var arSource = new URL($(this).children('iframe').attr('src'));
+				var arListItem = '<li><span>' + arSource.pathname + '</span> <i class="fa fa-times"></i></li>';
+				$('#ar-edit-list').append(arListItem);
+			});
+			
+			// Show/hide the text above the list
+			if ($('#ar-edit-list').children('li').length == 0) {
+				$('#ar-list-title').hide();
+			} else {
+				$('#ar-list-title').show();
+			}
+			
+			// Add the Remove functionality for each Anchor Item
+			$('#ar-edit-list').find('.fa-times').click(function(){
+				var idx = $('#ar-edit-list').find('.fa-times').index(this);
+				$('.anchor-feed').eq(idx).remove();
+				$('#ar-edit-list').children('li').eq(idx).hide('fast', function() {
+					$(this).remove();
+				});;
+				
+				if ($('#ar-edit-list').children('li').length == 0) {
+					$('#ar-list-title').hide();
+				} else {
+					$('#ar-list-title').show();
+				}
+			});
+		});
+		$('#ar-modal').on('shown.bs.modal', function() {
+            $('#ar-embed-input').focus();
+		});
+		$('#ar-modal').modal();
+    });
+
+	// Medium Widget (Writer Blogs)
+    $('#mediumWidgetBtn').click(function() {
+		if($('#med-modal').length > 0) {
+			$('html, body').animate({
+				scrollTop: $("#med-modal").parents('li').offset().top - 50
+				}, widgetScrollSpeed, function() {
+					$('#med-modal').modal();
+				});
+			return;
+		}
+        var htmlMed = `<li class="ui-state-default widgetListItem sortable">
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-trash"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="med-edit" data-toggle="modal" data-target="#med-modal"></span>
+                                        <h4>Medium</h4>
+                                    </div>
+
+                                    <div class="modal fade" id="med-modal" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Embed Medium</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Select a Medium import option, either your username, or your publication name</p>
+                                                    <div class="input-group">
+														<div class="input-group-btn">
+															<button id="med-setting" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																Username <i class="glyphicon glyphicon-menu-down"></i>
+															</button>
+															<div class="dropdown-menu">
+																<a id="med-setting-user" class="dropdown-item" style="display:block;">Username</a>
+																<a id="med-setting-pub" class="dropdown-item" style="display:block;">Publication</a>
+															</div>
+														</div>
+                                                        <input type="text" class="form-control" id="med-embed-username"/>
+                                                        <input type="text" class="form-control" id="med-embed-publication" disabled/>
+                                                    </div>
+													<br/>
+                                                    <div class="input-group">
+														<span class="input-group-addon">Publication Tag</span>
+														<input type="text" class="form-control" id="med-embed-tag" disabled placeholder="(Optional)"/>
+                                                    </div>
+													<br/>
+                                                    <div class="input-group">
+														<span class="input-group-addon">Article Count</span>
+														<input type="number" class="form-control" id="med-count" min='1' max='12' value='4'/>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" id="med-submit-btn" class="btn btn-default" data-dismiss="modal">Submit</button>
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+
+                                    <div id="widgetBodyMed" class="widgetBody"></div>
+                                </div>
+                            </li>`;
+
+        addWidgetByHTML(htmlMed);
+		$('#med-embed-publication').hide();
+		$('#med-embed-tag').parent().hide();
+			
+		$('#med-setting-user').click(function() {
+			$('#med-setting').html('Username <i class="glyphicon glyphicon-menu-down"></i>');
+			$('#med-embed-username').prop('disabled', false).show();
+			$('#med-embed-publication').prop('disabled', true).hide();
+			$('#med-embed-tag').prop('disabled', true).parent().hide();
+			medUrlType = 0;
+		});
+		$('#med-setting-pub').click(function() {
+			$('#med-setting').html('Publication <i class="glyphicon glyphicon-menu-down"></i>');
+			$('#med-embed-username').prop('disabled', true).hide();
+			$('#med-embed-publication').prop('disabled', false).show();
+			$('#med-embed-tag').prop('disabled', false).parent().show();
+			medUrlType = 1;
+		});
+		
+        $('#med-submit-btn').click(function() {
+			$('#widgetBodyMed').html('');
+			
+			if (medUrlType === 0) {
+				var medUsername = $('#med-embed-username').val();
+				$('#widgetBodyMed').rss("https://medium.com/feed/@" + medUsername, {
+					limit: $('#med-count').val(),
+					layoutTemplate: '<ul data-med-username="' + medUsername + '">{entries}</ul>',
+					entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="medium-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+					dateFormat: 'MMM Do, YYYY',
+					effect: 'slideFastSynced'
+				});
+			} else if (medUrlType === 1) {
+				var medPublication = $('#med-embed-publication').val();
+				var medTag = $('#med-embed-tag').val();
+				if (medTag === '') {
+					$('#widgetBodyMed').rss("https://medium.com/feed/" + medPublication, {
+						limit: $('#med-count').val(),
+						layoutTemplate: '<ul data-med-publication="' + medPublication + '">{entries}</ul>',
+						entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="medium-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+						dateFormat: 'MMM Do, YYYY',
+						effect: 'slideFastSynced'
+					});
+				} else {
+					$('#widgetBodyMed').rss("https://medium.com/feed/" + medPublication + "/tagged/" + medTag, {
+						limit: $('#med-count').val(),
+						layoutTemplate: '<ul data-med-publication="' + medPublication + '" data-med-tag="' + medTag + '">{entries}</ul>',
+						entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="medium-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+						dateFormat: 'MMM Do, YYYY',
+						effect: 'slideFastSynced'
+					});
+				}
+			}
+            $('#med-embed-input').val('');
+        });
+		$('#med-modal').on('show.bs.modal', function() {
+			// Add the Remove functionality for each Medium Item
+			$('#med-edit-list').find('.fa-times').click(function(){
+				var idx = $('#med-edit-list').find('.fa-times').index(this);
+				$('.med-feed').eq(idx).remove();
+				$('#med-edit-list').children('li').eq(idx).hide('fast', function() {
+					$(this).remove();
+				});;
+				
+				if ($('#med-edit-list').children('li').length == 0) {
+					$('#med-list-title').hide();
+				} else {
+					$('#med-list-title').show();
+				}
+			});
+		});
+		$('#med-modal').on('shown.bs.modal', function() {
+            $('#med-embed-input').focus();
+		});
+		$('#med-modal').modal();
+    });
+
+    $('#galleryWidgetBtn').click(function() {
+		if($('#editGalleryModal').length > 0) {
+			$('html, body').animate({
+				scrollTop: $("#editGalleryModal").parents('li').offset().top - 50
+				}, widgetScrollSpeed, function() {
+					$('#editGalleryModal').modal();
+				});
+			return;
+		}
+        var htmlGallery = `<li class="ui-state-default widgetListItem sortable">
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <span class="pull-right fa fa-2x fa-trash"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#editGalleryModal"></span>
+                                        <span id="galleryPause" class="pull-right fa fa-2x fa-pause"></span>
+                                        <span id="galleryPlay" class="pull-right fa fa-2x fa-play"></span>
+                                        <h4>Gallery</h4>
+                                    </div>
+                                    <div class="widgetBody">
+										<div class="gallery-display">
+											<img/>
+										</div>
+                                        <div class="gallery-slider slider-nav">
+                                            <div><img src="https://img00.deviantart.net/96b0/i/2010/222/1/f/little_swallow_by_knites.png" /></div>
+                                            <div><img src="https://img00.deviantart.net/759e/i/2012/170/d/a/spring_memories_by_eliseenchanted-d540nqm.jpg" /></div>
+                                            <div><img src="https://i.pinimg.com/originals/66/e7/c9/66e7c920ea4efcb7abe935769bd19265.jpg" /></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="editGalleryModal" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h3>Gallery</h3>
+                                            </div>
+                                            <div class="modal-body">
+												<label for="galleryURL">Add Pictures</label>
+												<div class="input-group">
+													<input id="galleryURL" class="form-control" type="text" placeholder="Place your image URL here"/>
+													<span class="input-group-btn">
+														<button id="galleryAdd" class="btn btn-default"><i class="fa fa-plus"></i></button>
+													</span>
+												</div>
+												<label for="gallerySelect">Removes Pictures</label>
+												<div class="input-group">
+													<select id="gallerySelect" class="form-control" type="text"></select>
+													<span class="input-group-btn">
+														<button id="gallerySub" class="btn btn-default"><i class="fa fa-minus"></i></button>
+													</span>
+												</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>`;
+        addWidgetByHTML(htmlGallery);
+        buildGalleryWidget();
+		
+		$('#editGalleryModal').on('show.bs.modal', function() {
+			buildGalleryList();
+		});
+		$('#editGalleryModal').modal();
+    });
+
+    $('.widgetTitle .fa-trash-o').click(function() {
+        $(this).parents('.ui-state-default').remove();
+    });
+
+    var projectWidgetItems = $('#projectWidget .columnImage');
+    projectWidgetItems.each(function(idx) {
+        var liItemProject = $("<li class='sort-project'></li>");
+        liItemProject.append(projectWidgetItems.eq(idx).clone());
+        $('#projSortable').append(liItemProject);
+
+        liItemProject.find('a').replaceWith(function() {
+            return $('<span/>', {
+                html: this.innerHTML
+            });
+        });
+
+        liItemProject.bind('click', function() {
+            $(this).toggleClass('invisible-tag');
+        });
+    });
+});
+
+function addWidgetByHTML(h) {
+    h = $(h).appendTo($('#sortable'));
+    var widgetListItems = document.getElementsByClassName('widgetListItem');
+    widgetListItems[widgetListItems.length - 1].scrollIntoView();
+
+    $(h).find('.fa-trash').click(function() {
+        $(this).parents('.ui-state-default').remove();
+    });
+    //attachRemoveWidgetFunction();
+	
+	return h;
+}

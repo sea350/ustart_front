@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>ustart</title>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/settings.css" />
+	<link rel="stylesheet" href="css/followers.css" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="js/bootstrap-confirmation.min.js"></script>
+	<script src="js/countries.js"></script>
+	<script src="js/majors.js"></script>
+	<script src="js/settings.js"></script>
+	<script src="js/jquery.cropit.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$("#navBar-placeholder").load("template.html");
+			$("#LeftNavBar-placeholder").load("leftNavbarTemplate.html", function (e) {
+				$("#leftNavProjects").addClass("theActive");
+			});
+		});
+	</script>
+	<style>
+		#content .panel,
+		#content .panel-group {
+			margin-bottom: 0.5em;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="navBar-placeholder"></div>
+	<div id="centering">
+		<!-- Vertical content -->
+		<div id="content">
+			<div id="LeftNavBar-placeholder"></div>
+			<div id="settings-container" class="container col-md-6">
+				<h3>Project Settings</h3>
+				<div class="panel-group" id="accordion">
+					<div class="panel panel-default">
+						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#avatarcollapse">
+							<h4 class="panel-title">Change Name and Description</h4>
+						</div>
+						<div id="avatarcollapse" class="panel-collapse collapse">
+							<div class="panel-body">
+								<div class="form-group">
+									<form id="nameChange">
+										<div class="row">
+											<div class="col-sm-6">
+												<label for="pname">Name</label>
+												<input type="text" class="form-control" id="pname" name="pname" placeholder="Peter Parker" required />
+											</div>
+											<div class="col-sm-6">
+											</div>
+											<div class="col-sm-12">
+												<label for="inputDesc">Description</label>
+												<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe yourself."></textarea>
+											</div>
+											<div class="col-sm-12">
+												<label for="recruitSwitch">Recruitment</label>
+												<br>
+												<label class="switch" id="recruitSwitch">
+                                                  <input type="checkbox">
+                                                  <span class="slider round"></span>
+                                                </label>
+											</div>
+										</div>
+										<hr/>
+										<input type="submit" class="btn btn-info" name="name_submit" value="Change" />
+										<div class="save-message fade"></div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#loccollapse">
+							<h4 class="panel-title">Change Location</h4>
+						</div>
+						<div id="loccollapse" class="panel-collapse collapse">
+							<div class="panel-body">
+								<form id="locChange">
+									<!-- Country, State / City, Zip -->
+									<div class="row">
+										<div class="col-sm-4">
+											<label for="country">Country</label>
+											<!--<label class="switch usr-vis-opt"><input type="checkbox" id="countryVis" name="countryVis" checked><span class="slider round"></span></label>-->
+											<select id="country" class="form-control" name="country" required></select>
+										</div>
+										<div class="col-sm-3">
+											<label for="state">State</label>
+											<!--<label class="switch usr-vis-opt"><input type="checkbox" id="stateVis" name="stateVis" checked><span class="slider round"></span></label>-->
+											<select id="state" class="form-control" name="state" required></select>
+										</div>
+										<script language="javascript">
+											populateCountries("country", "state");
+										</script>
+										<div class="col-sm-3">
+											<label for="city">City</label>
+											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="cityVis" id="cityVis" checked><span class="slider round"></span></label>-->
+											<input id="city" class="form-control" name="city" placeholder="City" required />
+										</div>
+										<div class="col-sm-2">
+											<label for="zip">Zip</label>
+											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis" id="zipVis"  checked><span class="slider round"></span></label>-->
+											<input id="zip" class="form-control" name="zip" placeholder="Zip" required />
+										</div>
+										<div class="col-sm-12">
+											<label for="recruitSwitch">Display on Profile</label>
+											<br>
+											<label class="switch" id="countrySwitch">
+													<input type="checkbox">
+													<span class="slider round"></span>
+												</label>
+										</div>
+									</div>
+									<hr/>
+									<input type="submit" class="btn btn-info" name="name_submit" value="Change Location" />
+									<div class="save-message fade"></div>
+								</form>
+							</div>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#catecollapse">
+							<h4 class="panel-title">Change Category</h4>
+						</div>
+						<div id="catecollapse" class="panel-collapse collapse">
+							<div class="panel-body">
+								<form id="category-form">
+
+									<div class="row">
+										<div class="col-sm-3">
+											<label for="type_select">Category</label>
+											<select id="type_select" class="form-control" name="type_select" required>
+													<option disabled selected hidden>Select Category</option>
+													<option>Art</option>
+													<option>Comics</option>
+													<option>Craft</option>
+													<option>Dancing</option>
+													<option>Design</option>
+													<option>Fashion</option>
+													<option>Film & Video</option>
+													<option>Food</option>
+													<option>Games</option>
+													<option>Jounalism</option>
+													<option>Music</option>
+													<option>Photography</option>
+													<option>Publishing</option>
+													<option>Technology</option>
+													<option>Theater</option>
+												</select>
+										</div>
+										<div class="col-sm-9">
+										</div>
+									</div>
+									<hr/>
+									<input type="submit" class="btn btn-info" name="name_submit" value="Change Category" />
+									<div class="save-message fade"></div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#urlcollapse">
+							<h4 class="panel-title">Custom URL</h4>
+						</div>
+						<div id="urlcollapse" class="panel-collapse collapse">
+							<div class="panel-body">
+								<form id="urlChange">
+									<div class="row">
+										<div class="col-sm-12">
+											ustart.today/projects/ <input type="text" class="form-control" id="purl" name="purl" placeholder="url" style="width:auto; display:inline-block;" required />
+										</div>
+									</div>
+									<hr/>
+									<input type="submit" class="btn btn-info" name="name_submit" value="Change url" />
+									<div class="save-message fade"></div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#logocollapse">
+							<h4 class="panel-title">Upload Logo</h4>
+						</div>
+						<div id="logocollapse" class="panel-collapse collapse">
+							<div class="panel-body">
+								<form id="logoChange">
+									<div class="row">
+										<div class="col-sm-12">
+											<input type="text" class="form-control" id="purl" name="purl" placeholder="url" style="width:auto; display:inline-block;" required />
+										</div>
+									</div>
+									<hr/>
+									<input type="submit" class="btn btn-info" name="name_submit" value="Change url" />
+									<div class="save-message fade"></div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#bannercollapse">
+							<h4 class="panel-title">Upload Banner</h4>
+						</div>
+						<div id="bannercollapse" class="panel-collapse collapse">
+							<div class="panel-body">
+								<form id="bannerChange">
+									<div class="row">
+										<div class="col-sm-12">
+											<input type="text" class="form-control" id="purl" name="purl" placeholder="url" style="width:auto; display:inline-block;" required />
+										</div>
+									</div>
+									<hr/>
+									<input type="submit" class="btn btn-info" name="name_submit" value="Change url" />
+									<div class="save-message fade"></div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#membcollapse">
+							<h4 class="panel-title">Manage Members</h4>
+						</div>
+						<div id="membcollapse" class="panel-collapse collapse">
+							<div class="panel-body">
+								<div id="home">
+									<div class="card" style="height:auto">
+										<div class="container-s">
+											<img class="image" src="img/Profiles/Avatar10.png" alt="Avatar" />
+											<h4><b>Haldun Hadimioglu</b></h4>
+											<select id="role_select" class="form-control" name="type_select" style="margin: 0 auto; width:10em;">
+													<option disabled selected hidden>Select Role</option>
+													<option>Creator</option>
+													<option>Moderator</option>
+													<option>Member</option>
+												</select>
+											<div class="middle">
+												<div class="text"><a href="profile.html"> Remove </a></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<hr/>
+								<input type="submit" class="btn btn-info" name="members_submit" value="Change Role" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="avatarCropperModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Crop avatar</h4>
+				</div>
+				<div class="modal-body">
+					<iframe src="swagCrop/index.html" id="cropperiframe"> </iframe>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer-placeholder"></div>
+</body>
+
+</html>

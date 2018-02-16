@@ -1,0 +1,3 @@
+<Limit GET DELETE>
+    deny from all
+</Limit>
