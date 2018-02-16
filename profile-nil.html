@@ -1,28 +1,8 @@
 <!DOCTYPE html>
-<!-- Missing Closing DIVS, FIX ASAP -->
 
 <html>
 
 <head>
-    <script src="https://rawgit.com/pklauzinski/jscroll/master/jquery.jscroll.js"></script>
-
-<!--
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>UStart Profile</title>
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link href="css/profile.css" rel="stylesheet" type="text/css" />
-    <link href="css/layout1.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://rawgit.com/pklauzinski/jscroll/master/jquery.jscroll.js"></script>
-    <script src="js/bootstrap-confirmation.min.js"></script>
-    <script src="js/profile.js"></script>
-    <script type="text/javascript">
--->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>ustart</title>
@@ -30,27 +10,30 @@
     <link href="/www/ustart.tech/css/widget.css" rel="stylesheet" type="text/css">
     <link href="/www/ustart.tech/css/modal-links.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!--    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick-theme.min.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" type="text/css" href="/www/ustart.tech/css/socialMedia.css">
     <link rel="stylesheet" type="text/css" href="/www/ustart.tech/css/widget-gallery.css">
-    <link rel="stylesheet" type="text/css" href="/www/ustart.tech/css/widget-text.css">
-  
+    <link rel="stylesheet" type="text/css" href="/www/ustart.tech/css/widget-text.css">   
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="/www/ustart.tech/js/profile-nil.js"></script> 
-    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.7.1/slick/slick.min.js"></script>
     <script src="/www/ustart.tech/ckeditor/ckeditor.js"></script>
     <script src="/www/ustart.tech/ckeditor/config.js"></script>
-
+    <script src="/www/ustart.tech/js/layout_tags.js"></script>
+    <script src="https://rawgit.com/pklauzinski/jscroll/master/jquery.jscroll.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.7.1/slick/slick.min.js"></script>
+    <!--<script src="/www/ustart.tech/js/bootstrap-confirmation.min.js"></script>-->
+    <script src="/www/ustart.tech/js/moment.min.js"></script>
+    <script src="/www/ustart.tech/js/jquery.rss.min.js"></script>
+    <script src="/www/ustart.tech/js/profile-nil.js"></script>
     <script src="/www/ustart.tech/js/widgets.js"></script>
-    <script src="/www/ustart.tech/js/ascii-convert.js"></script>
+    <script src="/www/ustart.tech/js/widget-calendar.js"></script>
     <script src="/www/ustart.tech/js/widget-gallery.js"></script>
-    <script src="/www/ustart.tech/js/widget-text.js"></script>
-    <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
+    <script src="/www/ustart.tech/js/notify.min.js"></script>
+   <!-- <script src="/www/ustart.tech/js/widget-text.js"></script>-->
+	<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js" data-pin-build="doBuild"></script>
     <script>
+        window.___gcfg = { "parsetags": "explicit" };
         $(function () {
             // Enables drag-n-drop list items (using the header)
             $("#sortable").sortable({
@@ -58,6 +41,18 @@
                 revert: true,
                 tolerance: "pointer"
             });
+			$('#projSortable').sortable();
+			$('#projectWidget .widgetBody').sortable({
+				cancel: ''
+			}).disableSelection();
+			$('#hashTagsBody').sortable({
+				cancel: ''
+			}).disableSelection();
+
+			$('.links-container').sortable({
+				cancel: ''
+			}).disableSelection();
+            /*
             // Enables resizable list items
             $("#sortable>li").resizable({
                 animate: true,
@@ -66,14 +61,17 @@
                     ui.size.width = ui.originalSize.width;
                 }
             });
+            */
         });
     </script>
+    <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script async defer src="//assets.pinterest.com/js/pinit.js" data-pin-build="parsePins"></script>
 
 
 </head>
 
 <body style="display: none;">
-    <div id="navBar-placeholder"></div>
      <input type="hidden" id="pageiden" value='{{.Page}}'>
      <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
     <div id="centering">
@@ -124,7 +122,10 @@
                             <a href="http://ustart.today:5000/following/">
                                 <span id="num-following" style="font-weight: bold">{{.Following}}</span> Following</a>
                         </div>
+                        <!-- if user is visiting the page -->
+                        {{if ne ($.Page) ($.DOCID)}}
                         <button id="btn1" class="btn followButton following" rel="6">Follow</button>
+                        {{end}}
                         <script type="text/javascript">
                                $(document).ready(function() { 
                                     var pageID= document.getElementById("pageiden").value;
@@ -178,7 +179,7 @@
                                         });
                                     });
 
-                                        $('#Wall-loadAJAX').click(function(e) {
+                                     $('#Wall-loadAJAX').click(function(e) {
                                         //e.preventDefault();
                                         var entryIDs = ""+{{.UserInfo.EntryIDs}}
                                       //  console.log("entryIDs are"+entryIDs)
@@ -190,41 +191,12 @@
                                             success: function(data) {
                                                 $("#wall-dataF").html(data);
                                                 console.log('hello');
-                                               /*$("#wall-dataF").find("script").each(function(i) {
-                                                    eval($(this).text());
-                                                });*/
-                                                    /*$("#post-msg").focus(function (e) {
-                                                        var textbox = $("#post-msg");
-                                                        textbox.animate({
-                                                            height: "100px"
-                                                        }, 690);
-                                                        if (textbox.val().length == 0) {
-                                                            $("#new-postSubmit").prop("disabled", true);
-                                                        } else {
-                                                            $("#new-postSubmit").removeAttr("disabled");
-                                                        }
-                                                    });
-                                                    $("#post-msg").keyup(function (e) {
-                                                        var textbox = $("#post-msg");
-                                                        if (textbox.val().length == 0) {
-                                                            $("#new-postSubmit").prop("disabled", true);
-                                                        } else {
-                                                            $("#new-postSubmit").removeAttr("disabled");
-                                                        }
-                                                    });
-
-                                                    $("#post-msg").blur(function (e) {
-                                                        var textbox = $("#post-msg");
-                                                        textbox.animate({
-                                                            height: "50px"
-                                                        }, 690);
-                                                    });*/
+                                                console.log(data);
 
                                             }//end success
                                         });
                                     });
 
- 
                                     $('.comment-btn').click(function(e) {
                                         var postId= $(this).attr("id");
                                         var modified ="#"+postId;
@@ -248,6 +220,7 @@
                                 });
 
                         </script>
+                        {{if ne ($.Page) ($.DOCID)}}
                         <div class="profile-menu dropdown">
                             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-ellipsis-v"></i>
@@ -264,6 +237,7 @@
                                 </li>
                             </ul>
                         </div>
+                        {{end}}
                     </div>
                 </div>
                 <div>
@@ -389,6 +363,7 @@
                     </button>
                 </div>
                 <br/>
+                <div class="mid-content">
                 <ul class="nav nav-tabs nav-justified proj-tabs">
                     <li class="active DannyTan">
                         <a data-toggle="tab" href="#prof-about">Showcase</a>
@@ -401,328 +376,455 @@
                     <div id="prof-about" class="tab-pane fade in active">
                         <ul id="sortable">
                             <li id="widget-insert" class="ui-state-default">
+									<div class="projectsWidgetCont">
+										<div class="widgetTitle">
+											<span class="pull-right fa fa-2x fa-sort"></span>
+											<h4>Insert new widget</h4>
+										</div>
+										<div class="widgetBody">
+											<button id="addTextWidget" class="btn btn-default projectsColumn">
+												<div class="columnImage">
+													<img src="/www/ustart.tech/img/png/text.png" />
+													<div class="columnTitle">
+														Text
+													</div>
+												</div>
+											</button>
+											<button id="calendarWidgetBtn" class="btn btn-default projectsColumn">
+												<div class="columnImage">
+													<img src="/www/ustart.tech/img/png/calendar.png" />
+													<div class="columnTitle">
+														Calendar
+													</div>
+												</div>
+											</button>
+											<button id="PollWidgetBtn" class="btn btn-default projectsColumn">
+												<div class="columnImage">
+													<img src="/www/ustart.tech/img/png/poll.png" />
+													<div class="columnTitle">
+														Poll
+													</div>
+												</div>
+											</button>
+											<button id="igWidgetBtn" class="btn btn-default projectsColumn" data-dismiss="modal">
+												<div class="columnImage">
+													<img src="/www/ustart.tech/img/png/instagram.png" />
+													<div class="columnTitle">
+														Instagram
+													</div>
+												</div>
+											</button>
+											<button id="scWidgetBtn" class="btn btn-default projectsColumn" data-dismiss="modal">
+												<div class="columnImage">
+													<img src="/www/ustart.tech/img/png/soundcloud.png" />
+													<div class="columnTitle">
+														SoundCloud
+													</div>
+												</div>
+											</button>
+											<button id="ytWidgetBtn" class="btn btn-default projectsColumn" data-dismiss="modal">
+												<div class="columnImage">
+													<img src="/www/ustart.tech/img/png/youtube-1.png" />
+													<div class="columnTitle">
+														YouTube
+													</div>
+												</div>
+											</button>
+											<button id="addCodePenWidget" class="btn btn-default projectsColumn">
+												<div class="columnImage">
+													<img src="/www/ustart.tech/img/png/codepen.png" />
+													<div class="columnTitle">
+														CodePen
+													</div>
+												</div>
+											</button>
+											<button id="addPinterestWidget" class="btn btn-default projectsColumn">
+												<div class="columnImage">
+													<img src="/www/ustart.tech/img/png/pinterest.png" />
+													<div class="columnTitle">
+														Pinterest
+													</div>
+												</div>
+											</button>
+											<button id="addTumblrWidget" class="btn btn-default projectsColumn">
+												<div class="columnImage">
+													<img src="/www/ustart.tech/img/png/twitter-2.png" />
+													<div class="columnTitle">
+														Tumblr
+													</div>
+												</div>
+											</button>
+											<button id="addSpotifyWidget" class="btn btn-default projectsColumn">
+												<div class="columnImage">
+													<img src="/www/ustart.tech/img/png/spotify.png" />
+													<div class="columnTitle">
+														Spotify
+													</div>
+												</div>
+											</button>
+											<button id="arWidgetBtn" class="btn btn-default projectsColumn">
+												<div class="columnImage">
+													<img src="/www/ustart.tech/img/png/anchor.png" />
+													<div class="columnTitle">
+														Anchor
+													</div>
+												</div>
+											</button>
+											<button id="mediumWidgetBtn" class="btn btn-default projectsColumn">
+												<div class="columnImage">
+													<img src="/www/ustart.tech/img/png/medium.png" />
+													<div class="columnTitle">
+														Medium
+													</div>
+												</div>
+											</button>
+											<button id="daWidgetBtn" class="btn btn-default projectsColumn">
+												<div class="columnImage">
+													<img src="/www/ustart.tech/img/png/deviantart.png" />
+													<div class="columnTitle">
+														DeviantArt
+													</div>
+												</div>
+											</button>
+											<button id="twitchWidgetBtn" class="btn btn-default projectsColumn">
+												<div class="columnImage">
+													<img src="/www/ustart.tech/img/png/twitch.png" />
+													<div class="columnTitle">
+														Twitch
+													</div>
+												</div>
+											</button>
+										</div>
+									</div>
+								</li>
+                            
+                            <!-- skill widget-->
+                          <li class="ui-state-default">
+									<div class="projectsWidgetCont">
+										<div class="widgetTitle">
+                                            {{if eq ($.Page) ($.DOCID)}}
+											<span class="pull-right fa fa-2x fa-sort"></span>
+											<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#tagModal"></span>
+                                            {{end}}
+											<h4>Skills</h4>
+										</div>
+										<div id="hashTagsBody" class="widgetBody">
+										</div>       
+                                        {{range $loop := .UserInfo.Tags}}
+                                        {{if ne ($loop) ""}}
+										<script>
+											$(document).ready(function() {
+                                                createTagWidgetElement({{$loop}});
+											});
+										</script>
+                                        {{end}}
+                                        {{end}}
+									</div>
+				        </li> <!--end skill widget -->
+                        <!-- link widget-->
+				        <script src="/www/ustart.tech/js/layout_links.js"></script>
+                            <li class="ui-state-default widgetListItem sortable">
+									<div id="linksWidget" class="projectsWidgetCont">
+										<div class="widgetTitle">
+                                            {{if eq ($.Page) ($.DOCID)}}
+											<span class="pull-right fa fa-2x fa-sort"></span>
+											<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#addLinkModal"></span>
+                                            {{end}}
+											<h4>Links</h4>
+										</div>
+										<div class="widgetBody">
+                                        <div class="links-container"></div>
+                                        <div class=numLinks>
+                                            <span id="linkCountIndicator"></span>
+                                        </div>
+                                        {{range $loop := .UserInfo.QuickLinks}}
+                                            <script>
+                                                createLink({{$loop.URL}},{{$loop.Name}});
+                                            </script>
+                                        {{end}}
+											
+										</div>
+									</div>
+				        </li><!--end link widget -->
+                            <!-- for loop goes here -->
+                        {{range $loop := .Widgets }}
+                         {{if eq $loop.Classification 0}}<!-- if is text -->  
+                            <li class="text ui-state-default" id="{{index $loop.ID}}">
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
-                                        <span class="pull-right fa fa-2x fa-sort"></span>
-                                        <h4>Insert new widget</h4>
-                                    </div>
-                                    <div class="widgetBody">
-                                        <button id="addTextWidget" class="btn btn-default projectsColumn">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/text.png" />
-                                                <div class="columnTitle">
-                                                    Text
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <!-- <button id="addLinksWidget" class="btn btn-default projectsColumn">
-                        <div class="columnImage">
-                            <img src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_link_48px-128.png" />
-                            <div class="columnTitle">
-                                Links
-                            </div>
-                        </div>
-                    </button> -->
-                                        <button id="linksWidgetBtn" class="btn btn-default projectsColumn">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/links.png" />
-                                                <div class="columnTitle">
-                                                    Links
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="galleryWidgetBtn" class="btn btn-default projectsColumn">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/gallery.png" />
-                                                <div class="columnTitle">
-                                                    Gallery
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="igWidgetBtn" class="btn btn-default projectsColumn" data-dismiss="modal">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/instagram.png" />
-                                                <div class="columnTitle">
-                                                    Instagram
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="scWidgetBtn" class="btn btn-default projectsColumn" data-dismiss="modal">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/soundcloud.png" />
-                                                <div class="columnTitle">
-                                                    SoundCloud
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="ytWidgetBtn" class="btn btn-default projectsColumn" data-dismiss="modal">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/youtube-1.png" />
-                                                <div class="columnTitle">
-                                                    YouTube
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="addCodePenWidget" class="btn btn-default projectsColumn">
-                                            <div class="columnImage">
-                                                <img src="https://blog.codepen.io/wp-content/uploads/2012/06/Button-Fill-Black-Large.png" />
-                                                <div class="columnTitle">
-                                                    CodePen
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="addPinterestWidget" class="btn btn-default projectsColumn">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/pinterest.png" />
-                                                <div class="columnTitle">
-                                                    Pinterest
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="addTumblrWidget" class="btn btn-default projectsColumn">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/twitter-2.png" />
-                                                <div class="columnTitle">
-                                                    Tumblr
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="addSpotifyWidget" class="btn btn-default projectsColumn">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/spotify.png" />
-                                                <div class="columnTitle">
-                                                    Spotify
-                                                </div>
-                                            </div>
-                                        </button>                                        
-
-                                        <!--
-                                        <button class="btn btn-default projectsColumn" data-toggle="modal" data-target="#addMoreModal">
-                        <div class="columnImage">
-                            <img src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_now_widgets_48px-128.png" alt="Featured Project Image" />
-                            <div class="columnTitle">
-                                More
-                            </div>
-                        </div>
-                    </button>
-                                        <div id="addMoreModal" class="modal fade" role="dialog">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        <h4 class="modal-title">More Widgets</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>-->
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="ui-state-default">
-                                <div class="projectsWidgetCont">
-                                    <div class="widgetTitle">
-                                        <span class="pull-right fa fa-2x fa-sort"></span>
-                                        <script>
-                                            function focusDesc() {
-                                                document.getElementById('text-box').focus();
-                                            }
-                                        </script>
-                                        <span class="pull-right fa fa-2x fa-pencil" onclick="focusDesc()"></span>
+                                        {{if eq ($.Page) ($.DOCID)}}
+                                            <span class="pull-right fa fa-2x fa-sort"></span>
+                                            <script>
+                                                function focusDesc() {
+                                                    document.getElementById('text-box').focus();
+                                                }
+                                            </script>
+                                            <span class="pull-right fa fa-2x fa-pencil" onclick="ApplyTextModalID(this)"></span>
+                                            <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                                <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                                <span name="delete" class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                            </form>
+                                        {{end}}
                                         <h4 id="text-title" name="textEditorHeader">
-                                            Description
+                                             {{index $loop.Data 0}}
                                         </h4>
                                     </div>
                                     <div class="widgetBody">
                                         <div id="text-box" class="text-box" name="textEditorBody">
-                                            {{.Description}}
+                                           {{index $loop.Data 1}}
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                            <li class="ui-state-default">
-                                <div id="projectWidget" class="projectsWidgetCont">
-                                    <div class="widgetTitle">
-                                        <span class="pull-right fa fa-2x fa-sort"></span>
-                                        <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#projModal"></span>
-                                        <h4>Projects</h4>
-                                    </div>
-                                    <div class="widgetBody">
-                                        <button class="btn btn-default projectsColumn" id="project1">
-                                            <div class="columnImage">
-                                                <a href="projects.html">
-                                                    <img src="https://cdn2.iconfinder.com/data/icons/social-flat-buttons-3/512/zerply-128.png" alt="Featured Project Image" />
-                                                    <div class="columnTitle">
-                                                        Project Name
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </button>
-                                        <button class="btn btn-default projectsColumn" id="project1">
-                                            <div class="columnImage">
-                                                <a href="projects.html">
-                                                    <img src="https://cdn4.iconfinder.com/data/icons/flat-services-icons/128/social_media.png" alt="Featured Project Image" />
-                                                    <div class="columnTitle">
-                                                        Project Name
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </button>
-                                        <button class="btn btn-default projectsColumn" id="project1">
-                                            <div class="columnImage">
-                                                <a href="projects.html">
-                                                    <img src="https://cdn4.iconfinder.com/data/icons/flat-services-icons/128/idea.png" alt="Featured Project Image" />
-                                                    <div class="columnTitle">
-                                                        Project Name
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </button>
-                                        <button class="btn btn-default projectsColumn" id="project1">
-                                            <div class="columnImage">
-                                                <a href="projects.html">
-                                                    <img src="https://cdn2.iconfinder.com/data/icons/social-flat-buttons-3/512/smugmug-128.png" alt="Featured Project Image"
-                                                    />
-                                                    <div class="columnTitle">
-                                                        Project Name
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </button>
-                                        <button class="btn btn-default projectsColumn" id="project1">
-                                            <div class="columnImage">
-                                                <a href="projects.html">
-                                                    <img src="https://cdn4.iconfinder.com/data/icons/flat-services-icons/128/illustration.png" alt="Featured Project Image" />
-                                                    <div class="columnTitle">
-                                                        Project Name
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="modal fade" id="projModal" role="dialog">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h3>Projects</h3>
-                                            </div>
-                                            <div class="modal-body">
-                                                List of projects (sortable) + toggle to show each individual proj
-                                                <ul id="projSortable">
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="ui-state-default">
+                        {{end}}<!-- end text -->
+                        {{if eq $loop.Classification 4}}
+                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
+                                        {{if eq ($.Page) ($.DOCID)}}
                                         <span class="pull-right fa fa-2x fa-sort"></span>
-                                        <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#tagModal"></span>
-                                        <h4>Skills</h4>
+                                        <span class="pull-right fa fa-2x fa-pencil" id="ig-edit" onclick="instagramEditor(this)"></span>
+                                        <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                            <span name="delete" class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                        </form>
+                                        {{end}}
+                                        <h4>Instagram</h4>
                                     </div>
-                                    <div id="hashTagsBody" class="widgetBody">
-                                        <button class="btn btn-default projectsColumn" id="project1">
-                                            <div class="columnImage">
-                                                <div class="columnTitle">HTML5</div>
-                                            </div>
-                                        </button>
-                                        <button class="btn btn-default projectsColumn" id="project2">
-                                            <div class="columnImage">
-                                                <div class="columnTitle">Python</div>
-                                            </div>
-                                        </button>
-                                        <button class="btn btn-default projectsColumn" id="project3">
-                                            <div class="columnImage">
-                                                <div class="columnTitle">Bootstrap</div>
-                                            </div>
-                                        </button>
-                                        <button class="btn btn-default projectsColumn" id="project4">
-                                            <div class="columnImage">
-                                                <div class="columnTitle">NodeJS</div>
-                                            </div>
-                                        </button>
+                                    <div id="widgetBodyID" class="widgetBody">
+                                         {{range $loop2 := $loop.Data }}
+                                         <!-- loop through the data loop for multiple instagram posts -->
+                                        <div class="insta-feed"><blockquote class="instagram-media" data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:62.5% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="{{$loop2}}" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank"></a></p></div></blockquote> <script async defer src="//platform.instagram.com/en_US/embeds.js"></script></div>
+                                        {{end}} <!--end data loop -->
                                     </div>
                                 </div>
                             </li>
-                            <li class="ui-state-default widgetListItem sortable">
-                                <div id="linksWidget" class="projectsWidgetCont">
+                        {{end}}<!--end instagram -->
+                    
+                        {{if eq $loop.Classification 5}}   
+                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                                <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
+                                        {{if eq ($.Page) ($.DOCID)}}
                                         <span class="pull-right fa fa-2x fa-sort"></span>
-                                        <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#editLinkModal"></span>
-                                        <h4>Links</h4>
+                                        <span class="pull-right fa fa-2x fa-pencil" id="sc-edit" onclick="ApplyIDToModal('sc-modal', this)"></span>
+                                        <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                            <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                            <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                        </form>
+                                        {{end}}
+                                        <h4>Soundcloud</h4>
+                                    </div>
+                                    <div id= "widgetBodySC" class="widgetBody">
+                                        {{index $loop.Data 0}}
+                                    </div>
+                                </div>
+                            </li>
+                        {{end}}<!--end soundcloud -->
+                         {{if eq $loop.Classification 6}}   
+                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                        {{if eq ($.Page) ($.DOCID)}}
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil" id="yt-edit" onclick="ApplyIDToModal('youtubeModal', this)"></span>
+                                        <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                         <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                        </form>
+                                        {{end}}
+                                        <h4>Youtube</h4>
                                     </div>
                                     <div class="widgetBody">
-                                        <div class="links-container">
-                                            <a id="addLinkBtn" class="btn btn-default" data-toggle="modal" data-target="#addLinkModal">
-                                                <span>&plus;</span>
-                                            </a>
-                                        </div>
-                                        <div class="numLinks">
-                                            <span id="linkCountIndicator">16 Links Remaining</span>
+                                        <div class="youtube-feed">
+                                            <script>
+                                                var youtubeEmbedded= YouTubeGetID({{index $loop.Data 0}});
+                                                document.write(' <iframe width="560" height="315" src="https://www.youtube.com/embed/'+youtubeEmbedded+'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>');
+                                            </script>
                                         </div>
                                     </div>
-
-                                    <div class="modal fade" id="editLinkModal" role="dialog">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h3>Links</h3>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Reorder/edit link address/remove links
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Add Link Modal -->
-                                    <div class="modal fade" id="addLinkModal" role="dialog">
-                                        <div class="modal-dialog">
-                                            <!-- Modal content-->
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Add Link</h4>
-                                                </div>
-                                                <form class="addLinkForm">
-                                                    <div class="modal-body">
-                                                        <p>
-                                                            <span class="modal-cell">URL</span>
-                                                            <input type="url" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false"
-                                                                autofocus required/>
-                                                        </p>
-                                                        <p>
-                                                            <span class="modal-cell">Title</span>
-                                                            <input type="text" class="link-input-read" name="webTitle" placeholder="example: 'My LinkedIn'" spellcheck="false" required/>
-                                                        </p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <div class="btn-group">
-                                                            <input type="submit" class="btn btn-primary btn-add-link" />
-                                                            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <!-- End of Modals for user -->
-                                    </div>
-                                    <script src="/www/ustart.tech/js/jquery.validate.min.js"></script>
-                                    <script src="/www/ustart.tech/js/layout_links.js"></script>
                                 </div>
                             </li>
-                        </ul>
-                    </div>
+                        {{end}}<!--end youtube -->
+                        {{if eq $loop.Classification 7}}  
+                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                        {{if eq ($.Page) ($.DOCID)}}
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil" id="code-edit" onclick="ApplyIDToModal('code-modal', this)"></span>
+                                        <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                            <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                        </form>
+                                        {{end}}
+                                        <h4 name="textEditorHeader">CodePen</h4>
+                                    </div>
+                                    <div id="widgetBodyCode" class="widgetBody cpEmbeded">
+                                       {{index $loop.Data 0}}
+                                    </div>
+                                </div>
+                            </li>
+                        {{end}}<!--end codePen -->
+                        {{if eq $loop.Classification 9}}  
+                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                        {{if eq ($.Page) ($.DOCID)}}
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil" id="tumblr-edit"onclick="ApplyIDToModal('tumblr-modal', this)"></span>
+                                        <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                            <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                        </form>
+                                        {{end}}
+                                        <h4 name="textEditorHeader">Tumblr</h4>
+                                    </div>
+                                    <div id= "widgetBodyTumblr" class="widgetBody">
+                                        <script>
+											tumblrRender({{index $loop.Data 0}});
+										</script>
+                                    </div>
+                                </div>
+                            </li>
+                        {{end}} <!--end Tumblr -->
+                        {{if eq $loop.Classification 8}} <!--pinterest-->
+                        <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                            <div class="projectsWidgetCont">
+                            <div class="widgetTitle">
+                                {{if eq ($.Page) ($.DOCID)}}
+                                <span class="pull-right fa fa-2x fa-sort"></span>
+                                <span class="pull-right fa fa-2x fa-pencil" id="pin-edit" onclick="pinterestEditor(this)"></span>
+                                <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                    <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                    <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                </form>
+                                {{end}}
+                                <h4 name="textEditorHeader">
+                                    Pinterest
+                                </h4>
+                            </div>
+                            <div id="widgetBodyPin" class="widgetBody">
+                                <script>
+                                    {{range $loop2 := $loop.Data }}
+                                        pinRender({{$loop2}});
+                                    {{end}}
+                                </script>
+                            </div>
+                        </div>
+                        </li>
+                        {{end}}<!-- end pinterest-->
+                        {{if eq $loop.Classification 10}} <!--spotify-->
+                            <li class="ui-state-default widgetListItem sortable" id="{{index $loop.ID}}">
+                            <div class="projectsWidgetCont">
+                            <div class="widgetTitle">
+                                {{if eq ($.Page) ($.DOCID)}}
+                                <span class="pull-right fa fa-2x fa-sort"></span>
+                                <span class="pull-right fa fa-2x fa-pencil" id="spot-edit" onclick="spotifyEditor(this)"></span>
+                                <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                    <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                    <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                </form>
+                                {{end}}
+                                <h4 name="textEditorHeader">Spotify</h4>
+                            </div>
+                            <div id="widgetBodySpot" class="widgetBody">
+                                 {{range $loop2 := $loop.Data }}
+                                        {{$loop2}}
+                                 {{end}}
+                            </div>
+                            </div>
+                        </li>
+                        {{end}} <!-- end spotify -->
+                        {{if eq $loop.Classification 14}}  <!--twitch-->
+                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                    {{if eq ($.Page) ($.DOCID)}}
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="twitch-edit" onclick="ApplyIDToModal('twitch-modal', this)"></span>
+                                    <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                        <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                        <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                    </form>
+                                    {{end}}
+                                    <h4>Twitch</h4>
+                                    </div>
+                                     <div id="widgetBodyTwitch" class="widgetBody">
+                                        <iframe src="https://player.twitch.tv/?channel={{index $loop.Data 0}}" frameborder="0" allowfullscreen="true" scrolling="no" height="640" width="100%"></iframe>
+                                    </div>
+                                </div>
+                            </li>
+                        {{end}}<!--end twitch -->
+                        {{if eq $loop.Classification 11}}  <!--anchor--> 
+                        <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                    {{if eq ($.Page) ($.DOCID)}}
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="ar-edit" onclick="anchorEditor(this)"></span>
+                                    <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                        <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                        <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                    </form>
+                                    {{end}}
+                                    <h4>Anchor</h4>
+                                    </div>
+                                    <div id= "widgetBodyAR" class="widgetBody">
+                                        {{range $loop2 := $loop.Data }}
+                                        <div class="anchor-feed"><iframe src="https://anchor.fm/e/{{$loop2}}" height="270px" width="400px" frameborder="0" scrolling="no"></iframe></div>
+                                        {{end}}
+                                    </div>
+                                </div>
+                           </li>  
+                        {{end}} <!-- end anchor-->
+                         {{if eq $loop.Classification 12}}
+                        <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                     {{if eq ($.Page) ($.DOCID)}}
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="med-edit" onclick="ApplyIDToModal('med-modal', this)"></span>
+                                    <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                        <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                        <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                    </form>
+                                    {{end}}
+                                    <h4>Medium</h4>
+                                    </div>
+                                    <div id="widgetBodyMed" class="widgetBody"></div>
+                                        <script>
+                                            mediumRender({{index $loop.Data 0}},{{index $loop.Data 1}},{{index $loop.Data 2}},{{index $loop.Data 3}});
+                                        </script>
+                                </div>
+                            </li>
+                        {{end}}
+                        {{if eq $loop.Classification 13}} <!--deviant art-->
+                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="da-edit"  onclick="ApplyIDToModal('da-modal', this)"></span>
+                                    <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                        <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                        <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                    </form>
+                                    <h4>DeviantArt</h4>
+                                    </div>
 
-                    <div id="prof-wall" class="tab-pane fade">
+                                    <div id="widgetBodyDA" class="widgetBody">
+                                    </div>
+                                    <script>
+                                        daRender({{index $loop.Data 0}},{{index $loop.Data 1}});
+                                    </script>
+                                </div>
+                            </li>
+                            {{end}}<!--end deviant art-->
+                        
+                     {{end}}<!-- end for looper -->
+                    </ul>
+                    </div>
+  <div id="prof-wall" class="tab-pane fade">
                         <div class="grid">
                             <!-- main Modal -->
                             <div id= "commentnil" role="dialog"> </div>
@@ -986,16 +1088,14 @@
                                </div>
                                 <!-- end main -->
                             
-                            </div> <!-- closes prof-wall --> 
-
-
-                          
+                            </div>                    
                         <!-- end grid -->
                     
                     <div id="prof-about" class="tab-pane fade in active">
                     </div>
                     <div id="prof-proj" class="tab-pane fade">
                     </div>
+                </div>
                 </div>
             </div>
             <div id="modal-box">
@@ -1173,25 +1273,22 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">Skills</h4>
                             </div>
+
                             <div class="modal-body">
                                 <div id="hashtags" class="form-group">You haven't added any tags yet.</div>
                                 <hr/>
-                                <input class="form-control" type="text" id="tagLineInput" placeholder="Type to add tags" autofocus />
+                                <input class="form-control" type="text" id="tagLineInput" name="tagInput" placeholder="Type to add tags" autofocus />
                             </div>
                             <div class="modal-footer">
                                 <span class="pull-left" id="tagCountIndicator">16 Tags Remaining</span>
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-primary" id="addTagButton">Add</button>
-                                    <button type="button" class="btn btn-warning" id="editTagButton" data-toggle="tooltip" data-placement="top" title="Delete a Tag">
-                                        <i class="fa fa-cog fa-lg"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-info" data-dismiss="modal">Done</button>
+                                     <button type="button" class="btn btn-primary" id="addTagButton">Add</button>
+                                    <button type="button" id="tag-submit" class="btn btn-info btn-done">Done</button>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                     </div>
                 </div>
-                <script src="/www/ustart.tech/js/layout_tags.js"></script>
                 <!-- Youtube Modal -->
                 <div class="modal fade" id="youtubeModal" role="dialog">
                     <div class="modal-dialog">
@@ -1201,18 +1298,351 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">Youtube</h4>
                             </div>
+							<form id="customYoutubeForm" action="/addWidget/" method="POST">
+                                <div class="modal-body">
+                                     <label>Please paste the Youtube URL here</label>
+                                    <input id="youtubeLink" class="form-control" name="ytInput" placeholder="Youtube URL" autofocus />
+                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-info btn-done" name="widgetSubmit" value="6" >Done</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div><!--end youtube Modal -->
+                <!--text modal-->
+                <div class="modal fade" id="customTextModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Edit Custom Text</h4>
+                            </div>
+							<form id="customTextForm" action="/addWidget/" method="POST">
+								<div class="modal-body">
+									<label>Custom Header</label>
+									<input id="customHeader"  name="customHeader" class="form-control" type="text" placeholder="Header" autofocus required/>
+									<label>Custom Content</label>
+									<textarea id="customContent" name="customContent"></textarea>
+                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+								</div>
+								<div class="modal-footer">
+                                    <button type="submit" name="widgetSubmit" value="0" class="btn btn-info btn-done"> Done</button>
+								</div>
+							</form>
+                        </div>
+                    </div>
+                </div><!-- end text modal-->
+                <!-- instagram modal -->
+                <div class="modal fade" id="ig-modal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Embed Instagram Posts</h4>
+                            </div>
+                            <form id="customInstagramForm" action="/addWidget/" method="POST">
+                                <div class="modal-body">
+                                    <span id="ig-list-title">Removable Instagram posts</span>
+                                    <ul id="ig-edit-list"></ul>
+                                    <label>Please paste the Instagram post URL here</label>
+                                    <input type="url" class="form-control" name="instagramInput" id="ig-embed-input" placeholder="https://www.instagram.com/p/BageGbgD05c/" pattern="https?:\/\/www\.instagram\.com\/.+" required/>
+                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" id="ig-submit-btn" name="widgetSubmit" value="4" class="btn btn-default">Done</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> <!--end instagram modal-->
+                <!--sound cloud widget-->
+                  <div class="modal fade" id="sc-modal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Embed Soundclouds</h4>
+                            </div>
+                            <form id="customSoundcloudForm" action="/addWidget/" method="POST">
                             <div class="modal-body">
-                                <input id="youtubeLink" class="form-control" type="text" placeholder="Youtube Link" autofocus />
+                                <p>Insert the Soundcloud Embed Code here:</p>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="sc-embed-input" name="scInput" placeholder="Embedded code">
+                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-info btn-done" data-dismiss="modal">Done</button>
+                                <button type="submit" class="btn btn-info btn-done" id="sc-submit-btn" name="widgetSubmit" value="5" class="btn btn-default">Done</button>
                             </div>
+                            </form>
+                        </div>
+                    </div>
+                </div><!--end soundcloud widget -->
+                <!-- codepen widget -->
+                 <div class="modal fade" id="code-modal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Embed CodePen</h4>
+                            </div>
+                            <form id="customCodePenForm" action="/addWidget/" method="POST">
+                            <div class="modal-body">
+                                <p>Please paste the CodePen embed code in here:</p>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="code-embed-input" name="codepenInput">
+                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" id="code-submit-btn" class="btn btn-info btn-done" name="widgetSubmit" value="7">Done</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- end codepen widget-->
+                <!--twitch widget -->
+                <div class="modal fade" id="twitch-modal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Embed Twitch</h4>
+                            </div>
+                            <form id="customTwitchForm" action="/addWidget/" method="POST">
+                                <div class="modal-body">
+                                    <p>Put your Twitch username here to broadcast yourself whenever you stream live:</p>
+                                    <div class="input-group">
+                                        <div class="input-group-btn">
+                                            <button id="twitch-setting" type="button" class="btn btn-secondary" aria-expanded="false">
+                                                Username
+                                            </button>
+                                        </div>
+                                        <input type="text" class="form-control" name="twitchInput" id="twitch-embed-username"/>
+                                        <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                    </div>
+                                </div>
+								<div class="modal-footer">
+									<button type="submit" id="twitch-submit-btn" class="btn btn-info btn-done" name="widgetSubmit" value="14">Done</button>
+								</div>
+                            </form>
+                        </div>
+                    </div>
+                </div> <!--end twitch widget -->
+                <!-- tumblr widget -->
+				<div class="modal fade" id="tumblr-modal" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Embed Tumblr</h4>
+							</div>
+							<form id="customTumblrForm" action="/addWidget/" method="POST">
+								<div class="modal-body">
+									<p>Insert Tumblr Username here:</p>
+									<div class="form-group">
+										<input type="text" class="form-control" name="tumblrInput" id="medium-embed-input" placeholder="ustart">
+										<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="submit" id="tumblr-submit-btn" class="btn btn-info btn-done" name="widgetSubmit" value="9">Done</button>
+								</div>
+							</form>
+						</div>
+					</div>
+                </div> <!--end tumblr widget -->
+                <!-- spotify widget -->
+                <div class="modal fade" id="spot-modal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Embed Spotify</h4>
+                            </div>
+							<form id="customSpotifyForm" action="/addWidget/" method="POST">
+                            <div class="modal-body">
+                                <span id="spot-list-title">Removable Spotify Sounds</span>
+                                <ul id="spot-edit-list"></ul>
+                                <p>Please paste the Spotify embed code in here:</p>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="spotInput" id="spot-embed-input">
+                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" id="spot-submit-btn" class="btn btn-info btn-done" name="widgetSubmit" value="10">Done</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> 
+            </div> <!-- end spotify widget -->
+            <!--pinterest Widget -->
+            <div class="modal fade" id="pin-modal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Embed Pinterest</h4>
+                        </div>
+                        <div class="modal-body">
+                            <span id="pin-list-title">Removable Pins</span>
+                            <ul id="pin-edit-list"></ul>
+                            <p>Please paste the Pinterest Pin URL here:</p>
+                            <form id="customPinterestForm" action="/addWidget/" method="POST">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="pin-embed-input" name="pinInput">
+                                <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                            </div>
+                             </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="pin-submit-btn" class="btn btn-info btn-done" form="customPinterestForm" name="widgetSubmit" value="8">Done</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div> <!--end pinterest widget-->
+            <!-- link modal-->
+            <div class="modal fade" id="addLinkModal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add Link</h4>
+                        </div>
+                        
+                            <div class="modal-body">
+                                <p>
+                                    <span class="modal-cell">Title</span>
+                                    <input type="text" class="link-input-read" name="webTitle" placeholder="example: 'My LinkedIn'" spellcheck="false" required autofocus />
+                                </p>
+                                <p>
+                                    <span class="modal-cell">URL</span>
+                                    <input type="url" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" required/>
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" id="link-submit-btn" class="btn btn-info btn-done">Done</button>
+
+                            </div>
+                    </div>
+                </div>
+            </div><!-- end linkmodal-->
+            <!-- anchor modal-->
+            <div class="modal fade" id="ar-modal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Embed Anchors</h4>
+                        </div>
+                        <div class="modal-body">
+                            <span id="ar-list-title">Removable Anchors</span>
+                            <ul id="ar-edit-list"></ul>
+                            <p>Insert the Anchor Code in the URL:</p>
+                            <form id="customArForm" action="/addWidget/" method="POST">
+                            
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="arInput" id="ar-embed-input">
+                                <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                            </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                             <button type="submit" id="ar-submit-btn" class="btn btn-info btn-done" form="customArForm" name="widgetSubmit" value="11">Done</button>
+
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- end content -->
-        </div>
+            </div> <!--end anchor modal-->
+            <!--medium modal-->
+            <div class="modal fade" id="med-modal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Embed Medium</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Enter Your Medium username:</p>
+                            <form id="customMedForm" action="/addWidget/" method="POST">
+                                <p>Select a Medium import option, either your username, or your publication name</p>
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button id="med-setting" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Username <i class="glyphicon glyphicon-menu-down"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a id="med-setting-user" class="dropdown-item" style="display:block;">Username</a>
+                                            <a id="med-setting-pub" class="dropdown-item" style="display:block;">Publication</a>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" name="medInput" id="med-embed-username"/>
+                                    <input type="text" class="form-control" name="medInput2" id="med-embed-publication"/>
+                                <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                    
+                                </div>
+                                <br/>
+                                <div class="input-group">
+                                    <span class="input-group-addon">Publication Tag</span>
+                                    <input type="text" class="form-control" name="medInput3" id="med-embed-tag" disabled placeholder="(Optional)"/>
+                                </div>
+                                <br/>
+                                <div class="input-group">
+				                    <span class="input-group-addon">Article Count</span>
+				                    <input type="number" class="form-control" name="medInput4" id="med-count" min='1' max='12' value='4'/>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="ar-submit-btn" class="btn btn-info btn-done" form="customMedForm" name="widgetSubmit" value="12">Done</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div> <!--end medium-->
+            <!-- deviant art modal-->
+            <div class="modal fade" id="da-modal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Embed DeviantArt</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Put your DeviantArt username here to share your newest deviations:</p>
+                            <form id="customMedForm" action="/addWidget/" method="POST">
+                            
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button id="da-setting" type="button" class="btn btn-secondary" aria-expanded="false">
+                                        Username
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control" name="daInput" id="da-embed-username"/>
+                                <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                
+                            </div>
+                            <br/>
+                            <div class="input-group">
+                                <span class="input-group-addon">Article Count</span>
+                                <input type="number" class="form-control"  name="daInput2" id="da-count" min='1' max='12' value='4'/>
+                            </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                             <button type="submit" id="da-submit-btn" class="btn btn-info btn-done" form="customdaForm" name="widgetSubmit" value="13">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div> <!-- end content -->
     </div>
     <div id="footer-placeholder"></div>
     <script>

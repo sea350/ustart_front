@@ -5,13 +5,54 @@ var widgetScrollSpeed = 400;
 var medUrlType = 0;
 var galleryDefaultRemoveOption = '<option default selected>Select from your list of pictures here</option>';
 
-function attachRemoveWidgetFunction() {
+/*function attachRemoveWidgetFunction() {
     $(".fa-trash").unbind('click');
     $(".fa-trash").click(function(e) {
         var el = $(e.target);
         el = el.parent().parent().parent();
         el.remove();
     });
+}*/
+
+function daRender(daUsername, daCount) {
+	console.log("DevArt: " + daUsername);
+	$('#widgetBodyDA').rss("https://backend.deviantart.com/rss.xml?q=gallery%3A" + daUsername, {
+		limit: daCount,
+		layoutTemplate: '<ul data-da-username="' + daUsername + '">{entries}</ul>',
+		entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="dArt-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+		dateFormat: 'MMM Do, YYYY',
+		effect: 'slideFastSynced',
+		tokens: {
+			imageURL: function(entry, tokens) { return entry.mediaContent }
+		}
+	});
+}
+
+function pinRender(pinURL) {
+	var pinembed = pinURL;
+	if (pinembed.indexOf('/pin/') >= 0) {
+		$('#widgetBodyPin').append('<a data-pin-do="embedPin" href="' + pinembed + '"></a>');
+	} else {
+		$('#widgetBodyPin').append('<a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="240" data-pin-scale-width="80" href="' + pinembed + '"></a>');
+	}
+}
+
+// ApplyTextModalID(this)
+
+function ApplyTextModalID(element) {
+	var parentElement = $(element).closest('li');
+	$('#customTextModal input#editID').val(parentElement.attr('id'));
+	$('#customTextModal input#customHeader').val(parentElement.find('#text-title')[0].innerText);
+	$('#customTextModal input#customContent').html(parentElement.find('#text-box')[0].innerHTML);
+	CKEDITOR.instances['customContent'].setData(parentElement.find('#text-box')[0].innerHTML);
+	
+	$('#customTextModal').modal();
+}
+
+function ApplyIDToModal(elementModal, elementWidget) {
+	var listElement = $(elementWidget).closest('li');
+	$('#' + elementModal + ' input#editID').val(listElement.attr('id'));
+	$('#' + elementModal).modal();
 }
 
 function YouTubeGetID(url) {
@@ -26,46 +67,293 @@ function YouTubeGetID(url) {
     return ID;
 }
 
-$(document).ready(function() {
-	CKEDITOR.replace('customContent');
-	$('#customTextForm').submit(function(event) {
-		event.preventDefault();
-		
-		$(currentItem).find('[name="textEditorHeader"]').text($('#customHeader').val());
-		$(currentItem).find('[name="textEditorBody"]').html(CKEDITOR.instances['customContent'].getData());
-		$('#customTextModal').modal('hide');
-	});
+function mediumRender (medUsername, medPublication, medTag, medCount) {
+	//$('#widgetBodyMed').html('');
 	
-    attachRemoveWidgetFunction();
-    $('#addTextWidget').click(function() {
-        var htmlText = `<li class="ui-state-default widgetListItem sortable">
-                                <div class="projectsWidgetCont">
-                                    <div class="widgetTitle">
-                                        <span class="pull-right fa fa-2x fa-sort"></span>
-                                        <span class="pull-right fa fa-2x fa-trash"></span>
-                                        <span class="pull-right fa fa-2x fa-pencil"></span>
-                                        <h4 name="textEditorHeader">
-                                            Custom Text
-                                        </h4>
-                                    </div>
-                                    <div class="widgetBody">
-                                        <div class="text-box" name="textEditorBody">
-                                            Edit this text by clicking on the Pencil icon.
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            `;
-        currentItem = addWidgetByHTML(htmlText)
-		currentItem.find('.fa-pencil').click(function() {
-			currentItem = $(this).parent().parent().parent();	// return to the list item
-			$('#customTextModal').modal();
+	if (medUsername !== '') {
+		$('#widgetBodyMed').rss("https://medium.com/feed/@" + medUsername, {
+			limit: medCount,
+			layoutTemplate: '<ul data-med-username="' + medUsername + '">{entries}</ul>',
+			entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="medium-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+			dateFormat: 'MMM Do, YYYY',
+			effect: 'slideFastSynced'
 		});
+	} else {
+		var medTag = $('#med-embed-tag').val();
+		if (medTag === '') {
+			$('#widgetBodyMed').rss("https://medium.com/feed/@" + medPublication, {
+				limit: medCount,
+				layoutTemplate: '<ul data-med-publication="' + medPublication + '">{entries}</ul>',
+				entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="medium-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+				dateFormat: 'MMM Do, YYYY',
+				effect: 'slideFastSynced'
+			});
+		} else {
+			$('#widgetBodyMed').rss("https://medium.com/feed/@" + medPublication + "/tagged/" + medTag, {
+				limit: medCount,
+				layoutTemplate: '<ul data-med-publication="' + medPublication + '" data-med-tag="' + medTag + '">{entries}</ul>',
+				entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="medium-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+				dateFormat: 'MMM Do, YYYY',
+				effect: 'slideFastSynced'
+			});
+		}
+	}
+	//$('#med-embed-input').val('');
+}
+
+function tumblrRender (tumblrUsername) {
+	// Using RSS to render custom containers
+	$('#widgetBodyTumblr').rss("https://" + tumblrUsername + ".tumblr.com/rss", {
+		limit: 6,
+		layoutTemplate: '<ul data-tumblr-username="' + tumblrUsername + '">{entries}</ul>',
+		entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="tumblr-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+		dateFormat: 'MMM Do, YYYY',
+		effect: 'slideFastSynced'
+	});
+}
+
+function anchorEditor(element) {
+	if ($('.anchor-feed').length > 0)
+		$('#ar-modal #editID').val($('.anchor-feed').closest('li').attr('id'));
+	else
+		$('#ar-modal #editID').val(0);
+	
+	$('#ar-modal').on('show.bs.modal', function() {
+		// Clean List Items
+		$('#ar-edit-list').children('li').remove();
+		
+		// Add List Items
+		$('.anchor-feed').each(function(idx, element) {
+			var arSource = new URL($(this).children('iframe').attr('src'));
+			var arListItem = '<li><form action="/deleteLinkFromWidget/" method="POST"><input name="deleteURL" type="text" value="'+ arSource.pathname +'"/> <input name="editID" type="hidden" value="' + $('#ar-modal #editID').val() + '" readonly="readonly" /><button type="submit"><i class="fa fa-times"></i></button></form></li>'
+			$('#ar-edit-list').append(arListItem);
+		});
+		
+		// Show/hide the text above the list
+		if ($('#ar-edit-list').children('li').length == 0) {
+			$('#ar-list-title').hide();
+		} else {
+			$('#ar-list-title').show();
+		}
+		
+		// Add the Remove functionality for each Anchor Item
+		$('#ar-edit-list').find('.fa-times').click(function(){
+			var idx = $('#ar-edit-list').find('.fa-times').index(this);
+			$('.anchor-feed').eq(idx).remove();
+			$('#ar-edit-list').children('li').eq(idx).hide('fast', function() {
+				$(this).remove();
+			});;
+			
+			if ($('#ar-edit-list').children('li').length == 0) {
+				$('#ar-list-title').hide();
+			} else {
+				$('#ar-list-title').show();
+			}
+		});
+	});
+	$('#ar-modal').on('shown.bs.modal', function() {
+		$('#ar-embed-input').focus();
+	});
+	$('#ar-modal').modal();
+}
+
+function pinterestEditor(element) {
+	if ($('#widgetBodyPin>span').length > 0)
+		$('#pin-modal #editID').val($('#widgetBodyPin>span').closest('li').attr('id'));
+	else
+		$('#pin-modal #editID').val(0);
+	
+	$('#pin-modal').on('show.bs.modal', function() {
+		// Clean List Items
+		$('#pin-edit-list').children('li').remove();
+		
+		// Add List Items
+		$('#widgetBodyPin>span').each(function(idx, element) {
+			var igSource = $(element).children('span').attr('data-pin-href');
+            console.log(igSource);
+			var igListItem = '<li><form action="/deleteLinkFromWidget/" method="POST"><input name="deleteURL" type="text" value="'+ igSource +'"/> <input name="editID" type="hidden" value="' + $('#pin-modal #editID').val() + '" readonly="readonly" /><button type="submit"><i class="fa fa-times"></i></button></form></li>';
+			$('#pin-edit-list').append(igListItem);
+		});
+		
+		// Show/hide the text above the list
+		if ($('#pin-edit-list').children('li').length == 0) {
+			$('#pin-list-title').hide();
+		} else {
+			$('#pin-list-title').show();
+		}
+		
+		// Add the Remove functionality for each Pinterest Item
+		$('#pin-edit-list').find('.fa-times').click(function(){
+			var idx = $('#pin-edit-list').find('.fa-times').index(this);
+			$('#widgetBodyPin>span').eq(idx).remove();
+			$('#pin-edit-list').children('li').eq(idx).hide('fast', function() {
+				$(this).remove();
+			});
+			
+			if ($('#pin-edit-list').children('li').length == 0) {
+				$('#pin-list-title').hide();
+			} else {
+				$('#pin-list-title').show();
+			}
+		});
+	});
+	$('#pin-modal').on('shown.bs.modal', function() {
+		$('#pin-embed-input').focus();
+	});
+	$('#pin-modal').modal();
+}
+
+function instagramEditor(element) {
+	if ($('.insta-feed').length > 0)
+		$('#ig-modal #editID').val($('.insta-feed').closest('li').attr('id'));
+	else
+		$('#ig-modal #editID').val(0);
+	
+	$('#ig-modal').on('show.bs.modal', function() {
+		// Clean List Items
+		$('#ig-edit-list').children('li').remove();
+		
+		// Add List Items
+		$('.insta-feed').each(function(idx, element) {
+			var igSource = $(this).children('iframe')[0].src;
+			var igListItem = '<li><form action="/deleteLinkFromWidget/"><input name="deleteURL" type="text" value="' + igSource.substring(0, igSource.indexOf('embed')) + '" readonly="readonly"/> <button type="submit"><i class="fa fa-times"></i></button><input name="editID" type="hidden" value="' + $('#ig-modal #editID').val() + '" /></form></li>';
+			$('#ig-edit-list').append(igListItem);
+		});
+		
+		// Show/hide the text above the list
+		if ($('#ig-edit-list').children('li').length == 0) {
+			$('#ig-list-title').hide();
+		} else {
+			$('#ig-list-title').show();
+		}
+		
+		// Add the Remove functionality for each Instagram Item
+		$('#ig-edit-list').find('.fa-times').click(function(){
+			var idx = $('#ig-edit-list').find('.fa-times').index(this);
+			$('.insta-feed').eq(idx).remove();
+			$('#ig-edit-list').children('li').eq(idx).hide('fast', function() {
+				$(this).remove();
+			});;
+			
+			if ($('#ig-edit-list').children('li').length == 0) {
+				$('#ig-list-title').hide();
+			} else {
+				$('#ig-list-title').show();
+			}
+		});
+	});
+	$('#ig-modal').on('shown.bs.modal', function() {
+		$('#ig-embed-input').focus();
+	});
+	$('#ig-modal').modal();
+}
+
+function spotifyEditor(element) {
+	if ($('#widgetBodySpot iframe').length > 0)
+		$('#spot-modal #editID').val($('#widgetBodySpot').closest('li').attr('id'));
+	else
+		$('#spot-modal #editID').val(0);
+	
+	$('#spot-modal').on('show.bs.modal', function() {
+		// Clean List Items
+		$('#spot-edit-list').children('li').remove();
+		
+		// Add List Items
+		$('#widgetBodySpot iframe').each(function(idx, element) {
+			var spotSource = $(this).attr('src');
+			var spotListItem = '<li><form action="/deleteLinkFromWidget/"><input name="deleteURL" type="text" value="' + spotSource + '" readonly="readonly"/> <button type="submit"><i class="fa fa-times"></i></button><input name="editID" type="hidden" value="' + $('#spot-modal #editID').val() + '" /></form></li>';
+			$('#spot-edit-list').append(spotListItem);
+		});
+		
+		// Show/hide the text above the list
+		if ($('#spot-edit-list').children('li').length == 0) {
+			$('#spot-list-title').hide();
+		} else {
+			$('#spot-list-title').show();
+		}
+		
+		// Add the Remove functionality for each Spotify Item
+		$('#spot-edit-list').find('.fa-times').click(function(){
+			var idx = $('#spot-edit-list').find('.fa-times').index(this);
+			$('#widgetBodySpot iframe').eq(idx).remove();
+			$('#spot-edit-list').children('li').eq(idx).hide('fast', function() {
+				$(this).remove();
+			});;
+			
+			if ($('#spot-edit-list').children('li').length == 0) {
+				$('#spot-list-title').hide();
+			} else {
+				$('#spot-list-title').show();
+			}
+		});
+	});
+	$('#spot-modal').on('shown.bs.modal', function() {
+		$('#spot-embed-input').focus();
+	});
+	$('#spot-modal').modal();
+}
+
+$(document).ready(function() {
+    CKEDITOR.replace('customContent');
+    
+    
+    //submit button handling for text widget
+	$('#customTextForm').submit(function(event) {	
+        //header to be stored into database
+        //var textHeader =$('#customHeader').val();
+        //content to be stored into database, note this is in html
+        //var textContent =CKEDITOR.instances['customContent'].getData();
+       /* var pageID= $('#pageiden').val();
+        $('#pageID').val(pageID);*/
+         /*$.ajax({
+            type: 'GET',  
+            url: 'http://ustart.today:5000/addWidget/',
+            contentType: "application/json; charset=utf-8",
+            data: {userID:pageID, title:textHeader, description:textContent},
+            success: function(data) {
+                 //show it on the widget
+                var htmlText = `<li class="ui-state-default widgetListItem sortable">
+                        <div class="projectsWidgetCont">
+                            <div class="widgetTitle">
+                                <span class="pull-right fa fa-2x fa-sort"></span>
+                                <span class="pull-right fa fa-2x fa-trash"></span>
+                                <span class="pull-right fa fa-2x fa-pencil"></span>
+                                <h4 name="textEditorHeader">
+                                    Custom Text
+                                </h4>
+                            </div>
+                            <div class="widgetBody">
+                                <div class="text-box" name="textEditorBody">
+                                    Edit this text by clicking on the Pencil icon.
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    `;
+                currentItem = addWidgetByHTML(htmlText)
+                currentItem.find('.fa-pencil').click(function() {
+                    currentItem = $(this).parent().parent().parent();	// return to the list item
+                    $('#customTextModal').modal();
+                });
+                $(currentItem).find('[name="textEditorHeader"]').text($('#customHeader').val());
+                $(currentItem).find('[name="textEditorBody"]').html(CKEDITOR.instances['customContent'].getData());
+                $('#customTextModal').modal('hide');
+                alert("overhere");
+            }//end success function
+        }); //end ajax  */
+        
+	});
+    
+
+	
+    //attachRemoveWidgetFunction();
+    $('#addTextWidget').click(function() {
 		$('#customTextModal').modal();
         //textEditFun();
     });
     $('#addCodePenWidget').click(function() {
-		if($('#code-modal').length > 0) {
+        $('#code-modal').modal();
+		/*if($('#code-modal').length > 0) {
 			$('html, body').animate({
 				scrollTop: $("#code-modal").parents('li').offset().top - 50
 				}, widgetScrollSpeed, function() {
@@ -107,7 +395,7 @@ $(document).ready(function() {
                                 </div>
                             </div>
                             <div id="widgetBodyCode" class="widgetBody cpEmbeded">
-                                <p data-height="265" data-theme-id="dark" data-slug-hash="gGWbQB" data-default-tab="result" data-user="short" data-embed-version="2" data-pen-title="campfire" class="codepen">See the Pen <a href="https://codepen.io/short/pen/gGWbQB/">campfire</a> by Short (<a href="https://codepen.io/short">@short</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+                                <p data-height="265" data-theme-id="dark" data-slug-hash="gGWbQB" data-default-tab="result" data-user="short" data-embed-version="2" data-pen-title="campfire" class="codepen"></p>
 								<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
                             </div>
                         </div>
@@ -115,17 +403,20 @@ $(document).ready(function() {
                         `;
         addWidgetByHTML(htmlText);
         $('#code-submit-btn').click(function() {
+
             var value = $('#code-embed-input').val();
             //alert(value);
 			$('#widgetBodyCode').html(value);
             //$(value).appendTo($('#widgetBodyCode'));
             $('#code-embed-input').val('');
-        });
+        });*/
 		$('#code-modal').on('shown.bs.modal', function() {
             $('#code-embed-input').focus();
 		});
     });
     $('#addTumblrWidget').click(function() {
+        $('#tumblr-modal').modal();
+        /*
 		if($('#tumblr-modal').length > 0) {
 			$('html, body').animate({
 				scrollTop: $("#tumblr-modal").parents('li').offset().top - 50
@@ -139,7 +430,7 @@ $(document).ready(function() {
                             <div class="widgetTitle">
                                 <span class="pull-right fa fa-2x fa-sort"></span>
                                 <span class="pull-right fa fa-2x fa-trash"></span>
-                                <span class="pull-right fa fa-2x fa-pencil id="tumblr-edit" data-toggle="modal" data-target="#tumblr-modal"></span>
+                                <span class="pull-right fa fa-2x fa-pencil" id="tumblr-edit" data-toggle="modal" data-target="#tumblr-modal"></span>
                                 <h4 name="textEditorHeader">
                                     Tumblr
                                 </h4>
@@ -170,6 +461,7 @@ $(document).ready(function() {
                                 </div>
                             </div>
 							<div id= "widgetBodyTumblr" class="widgetBody"></div>
+                            </div>
                         </li>
                         `;
         addWidgetByHTML(htmlText);
@@ -178,47 +470,11 @@ $(document).ready(function() {
             alert(value);
             $(value).appendTo($('#widgetBodyTumblr'));
             $('#tumblr-embed-input').val('');
-        });
-		$('#tumblr-modal').on('show.bs.modal', function() {
-			// Clean List Items
-			$('#tumblr-edit-list').children('li').remove();
-			
-			// Add List Items
-			$('.tumblr-embed').each(function(idx, element) {
-				var tbSource = $(this).attr('src');
-				var tbListItem = '<li><span>' + tbSource + '</span> <i class="fa fa-times"></i></li>';
-				$('#tumblr-edit-list').append(tbListItem);
-			});
-			
-			// Show/hide the text above the list if empty or active
-			if ($('#tumblr-edit-list').children('li').length == 0) {
-				$('#tumblr-list-title').hide();
-			} else {
-				$('#tumblr-list-title').show();
-			}
-			
-			// Add the Remove functionality for each Instagram Item
-			$('#tumblr-edit-list').find('.fa-times').click(function(){
-				var idx = $('#tumblr-edit-list').find('.fa-times').index(this);
-				$('.tumblr-embed').eq(idx).remove();
-				$('#tumblr-edit-list').children('li').eq(idx).hide('slow', function() {
-					$(this).remove();
-				});
-				
-				if ($('#tumblr-edit-list').children('li').length == 0) {
-					$('#tumblr-list-title').hide();
-				} else {
-					$('#tumblr-list-title').show();
-				}
-			});
-		});
-		$('#tumblr-modal').on('shown.bs.modal', function() {
-            $('#tumblr-embed-input').focus();
-		});
-		$('#tumblr-modal').modal();
+        });*/
     });
     $('#addPinterestWidget').click(function() {
-		if($('#pin-modal').length > 0) {
+        $('#pin-modal').modal();
+		/*if($('#pin-modal').length > 0) {
 			$('html, body').animate({
 				scrollTop: $("#pin-modal").parents('li').offset().top - 50
 				}, widgetScrollSpeed, function() {
@@ -231,13 +487,11 @@ $(document).ready(function() {
                             <div class="widgetTitle">
                                 <span class="pull-right fa fa-2x fa-sort"></span>
                                 <span class="pull-right fa fa-2x fa-trash"></span>
-                                <span class="pull-right fa fa-2x fa-pencil id="pin-edit" data-toggle="modal" data-target="#pin-modal"></span>
+                                <span class="pull-right fa fa-2x fa-pencil" id="pin-edit" data-toggle="modal" data-target="#pin-modal"></span>
                                 <h4 name="textEditorHeader">
                                     Pinterest
                                 </h4>
                             </div>
-
-
 
                             <div class="modal fade" id="pin-modal" role="dialog">
                                 <div class="modal-dialog">
@@ -281,6 +535,7 @@ $(document).ready(function() {
             $('#pin-embed-input').val('');
 			doBuild();
         });
+		
 		$('#pin-modal').on('show.bs.modal', function() {
 			// Clean List Items
 			$('#pin-edit-list').children('li').remove();
@@ -299,7 +554,7 @@ $(document).ready(function() {
 				$('#pin-list-title').show();
 			}
 			
-			// Add the Remove functionality for each Instagram Item
+			// Add the Remove functionality for each Pinterest Item
 			$('#pin-edit-list').find('.fa-times').click(function(){
 				var idx = $('#pin-edit-list').find('.fa-times').index(this);
 				$('#widgetBodyPin>span').eq(idx).remove();
@@ -317,7 +572,7 @@ $(document).ready(function() {
 		$('#pin-modal').on('shown.bs.modal', function() {
             $('#pin-embed-input').focus();
 		});
-		$('#pin-modal').modal();
+		$('#pin-modal').modal();*/
     });
     // $("#addGooglePlusWidget").click(function() {
     //     var htmlText = `<li class="ui-state-default widgetListItem sortable">
@@ -339,20 +594,21 @@ $(document).ready(function() {
     //     gapi.post.render("google-widg", { 'href': 'https://plus.google.com/109813896768294978296/posts/hdbPtrsqMXQ' });
     // });
     $('#addSpotifyWidget').click(function() {
-		if($('#spot-modal').length > 0) {
+       spotifyEditor(this);
+		/*if($('#spot-modal').length > 0) {
 			$('html, body').animate({
 				scrollTop: $("#spot-modal").parents('li').offset().top - 50
 				}, widgetScrollSpeed, function() {
 					$('#spot-modal').modal();
 				});
 			return;
-		}
-        var htmlText = `<li class="ui-state-default widgetListItem sortable">
+		}*/
+        /*var htmlText = `<li class="ui-state-default widgetListItem sortable">
                             <div class="projectsWidgetCont">
                             <div class="widgetTitle">
                                 <span class="pull-right fa fa-2x fa-sort"></span>
                                 <span class="pull-right fa fa-2x fa-trash"></span>
-                                <span class="pull-right fa fa-2x fa-pencil id="spot-edit" data-toggle="modal" data-target="#spot-modal"></span>
+                                <span class="pull-right fa fa-2x fa-pencil" id="spot-edit" data-toggle="modal" data-target="#spot-modal"></span>
 
                                     <div class="modal fade" id="spot-modal" role="dialog">
                                         <div class="modal-dialog">
@@ -385,6 +641,7 @@ $(document).ready(function() {
                                 </h4>
                             </div>
                             <div id="widgetBodySpot" class="widgetBody"></div>
+                            </div>
                         </li>
                         `;
         addWidgetByHTML(htmlText);
@@ -392,8 +649,8 @@ $(document).ready(function() {
             var value = $('#spot-embed-input').val();
             $(value).appendTo($('#widgetBodySpot'));
             $('#spot-embed-input').val('');
-        });
-		$('#spot-modal').on('show.bs.modal', function() {
+        });*/
+		/*$('#spot-modal').on('show.bs.modal', function() {
 			// Clean List Items
 			$('#spot-edit-list').children('li').remove();
 			
@@ -411,7 +668,7 @@ $(document).ready(function() {
 				$('#spot-list-title').show();
 			}
 			
-			// Add the Remove functionality for each Instagram Item
+			// Add the Remove functionality for each Spotify Item
 			$('#spot-edit-list').find('.fa-times').click(function(){
 				var idx = $('#spot-edit-list').find('.fa-times').index(this);
 				$('.spotifyIframe').eq(idx).remove();
@@ -429,7 +686,7 @@ $(document).ready(function() {
 		$('#spot-modal').on('shown.bs.modal', function() {
             $('#spot-embed-input').focus();
 		});
-		$('#spot-modal').modal();
+		$('#spot-modal').modal();*/
     });
 
     $('#addLinksWidget').click(function() {
@@ -503,6 +760,8 @@ $(document).ready(function() {
 		});
     });
     $('#igWidgetBtn').click(function() {
+        instagramEditor(this);
+		/*
 		if($('#ig-modal').length > 0) {
 			$('html, body').animate({
 				scrollTop: $("#ig-modal").parents('li').offset().top - 50
@@ -532,8 +791,6 @@ $(document).ready(function() {
 														<ul id="ig-edit-list"></ul>
 														<label>Please paste the Instagram post here</label>
 														<input type="text" class="form-control" id="ig-embed-input" placeholder="https://www.instagram.com/p/BageGbgD05c/" required/>
-														<label>Captions</label>
-														<input type="checkbox" class="form-check" id="ig-embed-caption" checked/>
 													</div>
 													<div class="modal-footer">
 														<button type="submit" id="ig-submit-btn" class="btn btn-default">Submit</button>
@@ -547,9 +804,10 @@ $(document).ready(function() {
                                 </div>
                             </li>`;
         addWidgetByHTML(htmlIG);
+		*/
         $('#ig-modal form').submit(function(event) {
 			// Submission
-			event.preventDefault();
+			/*event.preventDefault();
 			
             var embedValue = $('#ig-embed-input').val();
 			var htmlIGpost;
@@ -564,49 +822,12 @@ $(document).ready(function() {
             $('#ig-embed-input').val('');
 			
 			instgrm.Embeds.process();
-			$('#ig-modal').modal('hide');
+			$('#ig-modal').modal('hide');*/
         });
-		$('#ig-modal').on('show.bs.modal', function() {
-			// Clean List Items
-			$('#ig-edit-list').children('li').remove();
-			
-			// Add List Items
-			$('.insta-feed').each(function(idx, element) {
-				var igSource = $(this).children('iframe')[0].src;
-				var igListItem = '<li><span>' + igSource.substring(0, igSource.indexOf('embed')) + '</span> <i class="fa fa-times"></i></li>';
-				$('#ig-edit-list').append(igListItem);
-			});
-			
-			// Show/hide the text above the list
-			if ($('#ig-edit-list').children('li').length == 0) {
-				$('#ig-list-title').hide();
-			} else {
-				$('#ig-list-title').show();
-			}
-			
-			// Add the Remove functionality for each Instagram Item
-			$('#ig-edit-list').find('.fa-times').click(function(){
-				var idx = $('#ig-edit-list').find('.fa-times').index(this);
-				$('.insta-feed').eq(idx).remove();
-				$('#ig-edit-list').children('li').eq(idx).hide('fast', function() {
-					$(this).remove();
-				});;
-				
-				if ($('#ig-edit-list').children('li').length == 0) {
-					$('#ig-list-title').hide();
-				} else {
-					$('#ig-list-title').show();
-				}
-			});
-		});
-		$('#ig-modal').on('shown.bs.modal', function() {
-            $('#ig-embed-input').focus();
-		});
-		$('#ig-modal').modal();
     });
 
     $('#scWidgetBtn').click(function() {
-		if($('#sc-modal').length > 0) {
+		/*if($('#sc-modal').length > 0) {
 			$('html, body').animate({
 				scrollTop: $("#sc-modal").parents('li').offset().top - 50
 				}, widgetScrollSpeed, function() {
@@ -635,8 +856,7 @@ $(document).ready(function() {
 													<ul id="sc-edit-list"></ul>
                                                     <p>Insert the Soundcloud URL:</p>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" id="sc-embed-input">
-
+                                                        <input type="text" class="form-control" id="sc-embed-input" placeholder="ex: https://soundcloud.com/user-808868756">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -652,13 +872,13 @@ $(document).ready(function() {
                                 </div>
                             </li>`;
 
-        addWidgetByHTML(htmlSc);
+        addWidgetByHTML(htmlSc);*/
         $('#sc-submit-btn').click(function() {
-			// Frame Add
+			/*// Frame Add
             var scURL = $('#sc-embed-input').val();
-            var htmlIGpost = '<div class="soundcloud-feed"><iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=' + scURL + '&amp;color=00cc11&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe></div>';
+            var htmlIGpost = '<div class="soundcloud-feed"><iframe width="100%" height="300" scrolling="yes" frameborder="no" src="https://w.soundcloud.com/player/?url=' + scURL + '&amp;color=00cc11&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe></div>';
             $(htmlIGpost).appendTo($('#widgetBodySC'));
-            $('#sc-embed-input').val('');
+            $('#sc-embed-input').val(''); */
         });
 		$('#sc-modal').on('show.bs.modal', function() {
 			// Clean List Items
@@ -701,7 +921,7 @@ $(document).ready(function() {
 
     $('#ytWidgetBtn').click(function() {
         $('#youtubeModal').modal();
-        $('#youtubeLink').val('');
+        /*$('#youtubeLink').val('');
         $('#youtubeModal .btn-done').unbind().click(function() {
             var embedcode = YouTubeGetID($('#youtubeLink').val());
 
@@ -731,11 +951,11 @@ $(document).ready(function() {
                     });
                 });
             }
-        });
+        });*/
+		$('#youtubeModal').on('shown.bs.modal', function() {
+			$('#youtubeLink').focus();
+		});
     });
-	$('#youtubeModal').on('shown.bs.modal', function() {
-        $('#youtubeLink').focus();
-	});
 	
     $('#twitWidgetBtn').click(function() {
 		if($('#twit-modal').length > 0) {
@@ -780,7 +1000,7 @@ $(document).ready(function() {
                                                         <input type="text" class="form-control" id="twit-embed-input" required/>
                                                     </div>
 													<br/>
-													<label for="twit-embed-list-hash">
+													<label for="twit-embed-list-hash"></label>
                                                     <div class="input-group">
 														<span class="input-group-addon">Hashtag</span>
 														<input type="text" class="form-control" id="twit-embed-list-hash" required disabled placeholder="Without the #"/>
@@ -922,6 +1142,8 @@ $(document).ready(function() {
 
 	// Anchor Widget (Radio)
     $('#arWidgetBtn').click(function() {
+		anchorEditor(this);
+		/*
 		if($('#ar-modal').length > 0) {
 			$('html, body').animate({
 				scrollTop: $("#ar-modal").parents('li').offset().top - 50
@@ -1008,15 +1230,16 @@ $(document).ready(function() {
 					$('#ar-list-title').show();
 				}
 			});
-		});
+		});*/
 		$('#ar-modal').on('shown.bs.modal', function() {
             $('#ar-embed-input').focus();
 		});
-		$('#ar-modal').modal();
+		//$('#ar-modal').modal();
     });
 
 	// Medium Widget (Writer Blogs)
     $('#mediumWidgetBtn').click(function() {
+		/*
 		if($('#med-modal').length > 0) {
 			$('html, body').animate({
 				scrollTop: $("#med-modal").parents('li').offset().top - 50
@@ -1079,59 +1302,29 @@ $(document).ready(function() {
                                 </div>
                             </li>`;
 
-        addWidgetByHTML(htmlMed);
+        addWidgetByHTML(htmlMed);*/
 		$('#med-embed-publication').hide();
 		$('#med-embed-tag').parent().hide();
-			
+		
 		$('#med-setting-user').click(function() {
 			$('#med-setting').html('Username <i class="glyphicon glyphicon-menu-down"></i>');
 			$('#med-embed-username').prop('disabled', false).show();
 			$('#med-embed-publication').prop('disabled', true).hide();
 			$('#med-embed-tag').prop('disabled', true).parent().hide();
-			medUrlType = 0;
 		});
 		$('#med-setting-pub').click(function() {
 			$('#med-setting').html('Publication <i class="glyphicon glyphicon-menu-down"></i>');
 			$('#med-embed-username').prop('disabled', true).hide();
 			$('#med-embed-publication').prop('disabled', false).show();
 			$('#med-embed-tag').prop('disabled', false).parent().show();
-			medUrlType = 1;
+			$('#med-embed-publication').val('');
 		});
 		
         $('#med-submit-btn').click(function() {
-			$('#widgetBodyMed').html('');
-			
-			if (medUrlType === 0) {
-				var medUsername = $('#med-embed-username').val();
-				$('#widgetBodyMed').rss("https://medium.com/feed/@" + medUsername, {
-					limit: $('#med-count').val(),
-					layoutTemplate: '<ul data-med-username="' + medUsername + '">{entries}</ul>',
-					entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="medium-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
-					dateFormat: 'MMM Do, YYYY',
-					effect: 'slideFastSynced'
-				});
-			} else if (medUrlType === 1) {
-				var medPublication = $('#med-embed-publication').val();
-				var medTag = $('#med-embed-tag').val();
-				if (medTag === '') {
-					$('#widgetBodyMed').rss("https://medium.com/feed/" + medPublication, {
-						limit: $('#med-count').val(),
-						layoutTemplate: '<ul data-med-publication="' + medPublication + '">{entries}</ul>',
-						entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="medium-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
-						dateFormat: 'MMM Do, YYYY',
-						effect: 'slideFastSynced'
-					});
-				} else {
-					$('#widgetBodyMed').rss("https://medium.com/feed/" + medPublication + "/tagged/" + medTag, {
-						limit: $('#med-count').val(),
-						layoutTemplate: '<ul data-med-publication="' + medPublication + '" data-med-tag="' + medTag + '">{entries}</ul>',
-						entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="medium-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
-						dateFormat: 'MMM Do, YYYY',
-						effect: 'slideFastSynced'
-					});
-				}
-			}
-            $('#med-embed-input').val('');
+			var medUsername = $('#med-embed-username').val();
+			var medPublication = $('#med-embed-publication').val();
+			var medCount = $('#med-count').val();
+			mediumRender(medUsername);
         });
 		$('#med-modal').on('show.bs.modal', function() {
 			// Add the Remove functionality for each Medium Item
@@ -1154,7 +1347,228 @@ $(document).ready(function() {
 		});
 		$('#med-modal').modal();
     });
+	
+	// DeviantArt Widget
+    $('#daWidgetBtn').click(function() {
+		/*
+		if($('#da-modal').length > 0) {
+			$('html, body').animate({
+				scrollTop: $("#da-modal").parents('li').offset().top - 50
+				}, widgetScrollSpeed, function() {
+					$('#da-modal').modal();
+				});
+			return;
+		}
+        var htmlDA = `<li class="ui-state-default widgetListItem sortable">
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-trash"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="da-edit" data-toggle="modal" data-target="#da-modal"></span>
+                                        <h4>DeviantArt</h4>
+                                    </div>
 
+                                    <div class="modal fade" id="da-modal" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Embed DeviantArt</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Put your DeviantArt username here to share your newest deviations:</p>
+                                                    <div class="input-group">
+														<div class="input-group-btn">
+															<button id="da-setting" type="button" class="btn btn-secondary" aria-expanded="false">
+																Username
+															</button>
+														</div>
+                                                        <input type="text" class="form-control" id="da-embed-username"/>
+                                                    </div>
+													<br/>
+                                                    <div class="input-group">
+														<span class="input-group-addon">Article Count</span>
+														<input type="number" class="form-control" id="da-count" min='1' max='12' value='4'/>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" id="da-submit-btn" class="btn btn-default" data-dismiss="modal">Submit</button>
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+
+                                    <div id="widgetBodyDA" class="widgetBody"></div>
+                                </div>
+                            </li>`;
+        addWidgetByHTML(htmlDA);
+		
+        $('#da-submit-btn').click(function() {
+			$('#widgetBodyDA').html('');
+			
+			var daUsername = $('#da-embed-username').val();
+			$('#widgetBodyDA').rss("https://backend.deviantart.com/rss.xml?q=gallery%3A" + daUsername, {
+				limit: $('#da-count').val(),
+				layoutTemplate: '<ul data-da-username="' + daUsername + '">{entries}</ul>',
+				entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="dArt-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+				dateFormat: 'MMM Do, YYYY',
+				effect: 'slideFastSynced'
+			});
+			
+            $('#da-embed-input').val('');
+        });*/
+		$('#da-modal').on('shown.bs.modal', function() {
+            $('#da-embed-input').focus();
+		});
+		$('#da-modal').modal();
+    });
+	
+	// Twitch Widget
+    $('#twitchWidgetBtn').click(function() {
+		/*if($('#twitch-modal').length > 0) {
+			$('html, body').animate({
+				scrollTop: $("#twitch-modal").parents('li').offset().top - 50
+				}, widgetScrollSpeed, function() {
+					$('#twitch-modal').modal();
+				});
+			return;
+		}
+        var htmlTwitch = `<li class="ui-state-default widgetListItem sortable">
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-trash"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="twitch-edit" data-toggle="modal" data-target="#twitch-modal"></span>
+                                        <h4>Twitch</h4>
+                                    </div>
+
+                                    <div class="modal fade" id="twitch-modal" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Embed Twitch</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Put your Twitch username here to broadcast yourself whenever you stream live:</p>
+                                                    <div class="input-group">
+														<div class="input-group-btn">
+															<button id="twitch-setting" type="button" class="btn btn-secondary" aria-expanded="false">
+																Username
+															</button>
+														</div>
+                                                        <input type="text" class="form-control" id="twitch-embed-username"/>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" id="twitch-submit-btn" class="btn btn-default" data-dismiss="modal">Submit</button>
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+
+                                    <div id="widgetBodyTwitch" class="widgetBody"></div>
+                                </div>
+                            </li>`;
+        addWidgetByHTML(htmlTwitch);
+		
+        $('#twitch-submit-btn').click(function() {
+			var twitchUsername = $('#twitch-embed-username').val();
+			
+			$('#widgetBodyTwitch').html('<iframe src="https://player.twitch.tv/?channel=' + twitchUsername + '" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe><a href="https://www.twitch.tv/' + twitchUsername + '?tt_content=text_link&tt_medium=live_embed" style="padding:2px 0px 4px; display:inline-block; width:345px; font-weight:normal; font-size:10px; text-decoration:underline;">Watch live video from ' + twitchUsername + ' on www.twitch.tv</a>');
+			
+            $('#twitch-embed-input').val('');
+        });*/
+		$('#twitch-modal').on('shown.bs.modal', function() {
+            $('#twitch-embed-input').focus();
+		});
+		$('#twitch-modal').modal();
+    });
+
+	$('#addGithubWidget').click(function() {
+		if($('#git-modal').length > 0) {
+			$('html, body').animate({
+				scrollTop: $("#git-modal").parents('li').offset().top - 50
+				}, widgetScrollSpeed, function() {
+					$('#git-modal').modal();
+				});
+			return;
+		}
+		
+		// Do Edits for Github
+        var htmlGit = `<li class="ui-state-default widgetListItem sortable">
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-trash"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="git-edit" data-toggle="modal" data-target="#git-modal"></span>
+                                        <h4>Github</h4>
+                                    </div>
+
+                                    <div class="modal fade" id="da-modal" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Embed Github</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Put your Github username here to publish your code:</p>
+                                                    <div class="input-group">
+														<div class="input-group-btn">
+															<button id="git-setting" type="button" class="btn btn-secondary" aria-expanded="false">
+																Username
+															</button>
+														</div>
+                                                        <input type="text" class="form-control" id="git-embed-username"/>
+                                                    </div>
+													<br/>
+                                                    <div class="input-group">
+														<span class="input-group-addon">Shown Projects Count</span>
+														<input type="number" class="form-control" id="da-count" min='1' max='12' value='4'/>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" id="git-submit-btn" class="btn btn-default" data-dismiss="modal">Submit</button>
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+
+                                    <div id="widgetBodyGit" class="widgetBody"></div>
+                                </div>
+                            </li>`;
+        addWidgetByHTML(htmlGit);
+		
+        $('#git-submit-btn').click(function() {
+			$('#widgetBodyGit').html('');
+			
+			var gitUsername = $('#git-embed-username').val();
+			
+			$.ajax({
+				url : 'https://api.github.com/users/tastyegg/repos',
+				dataType: 'json',
+				success: function(data) {
+					$(data).each(function(index, element) {
+						
+					});
+				},
+				error: function(err) {
+					$('#widgetBodyGit').html('Git Username not found');
+				}
+			});
+			
+            $('#git-embed-input').val('');
+        });
+		$('#git-modal').on('shown.bs.modal', function() {
+            $('#git-embed-input').focus();
+		});
+		$('#git-modal').modal();
+	});
+	
     $('#galleryWidgetBtn').click(function() {
 		if($('#editGalleryModal').length > 0) {
 			$('html, body').animate({
@@ -1241,6 +1655,23 @@ $(document).ready(function() {
             $(this).toggleClass('invisible-tag');
         });
     });
+	
+	$('#med-embed-publication').hide();
+		$('#med-embed-tag').parent().hide();
+		
+		$('#med-setting-user').click(function() {
+			$('#med-setting').html('Username <i class="glyphicon glyphicon-menu-down"></i>');
+			$('#med-embed-username').prop('disabled', false).show();
+			$('#med-embed-publication').prop('disabled', true).hide();
+			$('#med-embed-tag').prop('disabled', true).parent().hide();
+		});
+		$('#med-setting-pub').click(function() {
+			$('#med-setting').html('Publication <i class="glyphicon glyphicon-menu-down"></i>');
+			$('#med-embed-username').prop('disabled', true).hide();
+			$('#med-embed-publication').prop('disabled', false).show();
+			$('#med-embed-tag').prop('disabled', false).parent().show();
+			$('#med-embed-publication').val('');
+		});
 });
 
 function addWidgetByHTML(h) {
