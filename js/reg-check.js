@@ -46,21 +46,38 @@ function validateEmail() {
     }
 }
 
+function saveInputs() {
+	sessionStorage.setItem('firstName', $('#fName').val());
+	sessionStorage.setItem('lastName', $('#lName').val());
+	sessionStorage.setItem('username', $('#uName').val());
+	sessionStorage.setItem('inputEmail', $('#inputEmail').val());
+	sessionStorage.setItem('country', $('#country option:selected').index());
+	sessionStorage.setItem('state', $('#state option:selected').index());
+	sessionStorage.setItem('city', $('#city').val());
+	sessionStorage.setItem('zip', $('#zip').val());
+	sessionStorage.setItem('universityName', $('#uni').val());
+	sessionStorage.setItem('majors', $('#maj').val());
+	sessionStorage.setItem('year', $('#inYr option:selected').index());
+	sessionStorage.setItem('dob', $('#datetimepicker4').val());
+}
+function loadInputs() {
+	$('#fName').val(sessionStorage.getItem('firstName'));
+	$('#lName').val(sessionStorage.getItem('lastName'));
+	$('#uName').val(sessionStorage.getItem('username'));
+	$('#inputEmail').val(sessionStorage.getItem('inputEmail'));
+	$('#country option').eq(sessionStorage.getItem('country')).prop('selected', true);
+	$('#state option').eq(sessionStorage.getItem('state')).prop('selected', true);
+	$('#city').val(sessionStorage.getItem('city'));
+	$('#zip').val(sessionStorage.getItem('zip'));
+	$('#uni').val(sessionStorage.getItem('universityName'));
+	$('#maj').val(sessionStorage.getItem('majors'));
+	$('#inYr option').eq(sessionStorage.getItem('year')).prop('selected', true);
+	$('#datetimepicker4').val(sessionStorage.getItem('dob'));
+}
+
 $(document).ready(function() {
-    $('#eNoMatch').ready(function() {});
-    $('#inputEmail').keyup(function() {
-        if ($(this).val() == $('#confirmEmail').val()) {
-            $('#eNoMatch').css('display', 'none');
-
-        } else {
-            if ($('#confirmEmail').val() == '') {
-                $('#eNoMatch').css('display', 'none');
-            } else {
-                $('#eNoMatch').css('display', 'block');
-            }
-        }
-    });
-
+    $('#uDup').hide();
+	/* Removed as of Jan 15
     $('#confirmEmail').keyup(function() {
         if ($(this).val() == $('#inputEmail').val()) {
             $('#eNoMatch').css('display', 'none');
@@ -74,6 +91,7 @@ $(document).ready(function() {
 
         }
     });
+	*/
 	
     $('#inputPassword').keyup(function() {
 
@@ -106,15 +124,19 @@ $(document).ready(function() {
 
         }
     });
+	
+	$('button#finished').click(function() {
+		saveInputs();
+	});
+
+	loadInputs();
 });
 
 // verifies everything is correct after document submit button is clicked
 $(document).on('click', '#finished', function(e){
     var email = $("#inputEmail").val(), confirmEm = $("#confirmEmail").val(),
         pass = $('#inputPassword').val(), conPass = $('#confirmPassword').val();
-    if (email != confirmEm){
-        e.preventDefault();
-    } else if (pass != conPass){
+    if (pass != conPass){
         e.preventDefault();
     }
     

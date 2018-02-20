@@ -15,7 +15,6 @@ var galleryDefaultRemoveOption = '<option default selected>Select from your list
 }*/
 
 function daRender(daUsername, daCount) {
-	console.log("DevArt: " + daUsername);
 	$('#widgetBodyDA').rss("https://backend.deviantart.com/rss.xml?q=gallery%3A" + daUsername, {
 		limit: daCount,
 		layoutTemplate: '<ul data-da-username="' + daUsername + '">{entries}</ul>',
@@ -294,8 +293,9 @@ function spotifyEditor(element) {
 }
 
 $(document).ready(function() {
-    CKEDITOR.replace('customContent');
-    
+	if($('#customContent').length) {
+		CKEDITOR.replace('customContent');
+    }
     
     //submit button handling for text widget
 	$('#customTextForm').submit(function(event) {	
@@ -804,10 +804,9 @@ $(document).ready(function() {
                                 </div>
                             </li>`;
         addWidgetByHTML(htmlIG);
-		*/
         $('#ig-modal form').submit(function(event) {
 			// Submission
-			/*event.preventDefault();
+			event.preventDefault();
 			
             var embedValue = $('#ig-embed-input').val();
 			var htmlIGpost;
@@ -822,9 +821,15 @@ $(document).ready(function() {
             $('#ig-embed-input').val('');
 			
 			instgrm.Embeds.process();
-			$('#ig-modal').modal('hide');*/
+			$('#ig-modal').modal('hide');
         });
+		*/
     });
+	$('#ig-modal form').submit(function(event) {
+		if ($('.insta-feed').length >= 12) {
+			event.preventDefault();
+		}
+	});
 
     $('#scWidgetBtn').click(function() {
 		/*if($('#sc-modal').length > 0) {

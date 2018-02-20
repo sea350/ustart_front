@@ -1,7 +1,20 @@
 var linkList = [];
 var linkDesc = [];
 
-var removeLink = function() {
+var removeLink = function(element) {
+	$.ajax({
+		type: 'GET',  
+		url: 'http://ustart.today:5000/removeLink/',
+		contentType: "application/json; charset=utf-8",
+		data: {userLink:httpURL, userLinkDesc:userlinkdesc},
+		success: function(data) {
+			createLink(httpURL, $('input[name$="webTitle"]').val());
+			linkList.push(httpURL);
+			linkDesc.push($('input[name$="webTitle"]').val());
+			$('#linkCountIndicator').html("" + (16 - linkList.length) + " Link" + (16 - linkList.length == 1 ? "" : "s") + " Remaining");
+			$('#addLinkModal').modal('hide');
+		}
+	});
 	$(this).parent().hide("slow", function() {
 		linkList.splice($.inArray($(this).href, linkList),1);
 		$(this).tooltip('hide');
@@ -10,30 +23,8 @@ var removeLink = function() {
 	});
 };
 
-jQuery.validator.addMethod("full_url", function(val, elem) {
-    // if no url, don't do anything
-    if (val.length == 0) { return true; }
-	
-    // if user has not entered http:// https:// or ftp:// assume they mean http://
-    if(!/^(https?|ftp):\/\//i.test(val)) {
-        val = 'http://'+val; // set both the value
-        $(elem).val(val); // also update the form element
-    }
-	
-	return /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(val);    
-});
-
-function urlHTTP(url) {
-	try {
-		return new URL(url);
-	} catch (e) {
-		alert('Invalid link. Please try with another link.');
-		$('input[name$="webURL"]').focus();
-		return '';
-	}
-}
-
 function urlHTTP_OLD(url) {
+	// Attempts to check the URL via character check
 	url = url.toLowerCase();
 	if (url.startsWith("http://")) {
 		if (url.startsWith("www.", 7)) {
@@ -63,7 +54,38 @@ function importLinks() {
 }
 
 function createLink(existingSite, siteDescription) {
+	
 	if (existingSite) {
+        var htmlText = $('<a target="_blank" href="'+existingSite+'" data-toggle="tooltip" data-placement="top" title="" data-original-title="https://google.com">'
+					+ '<span class="cross-mark">x</span>' + '<img src="//logo.clearbit.com/' + existingSite + '">'
+					+ '<div class="links-website-title">' + siteDescription + '</div>' + '</a>');
+		
+		var linkObject = htmlText.appendTo($(".links-container"));
+		linkObject.children('img').on('error', function() {
+			$(this).on('error', function() {});	//Remove error body
+			$(this).attr('src', '/ustart_front/img/ie.png');
+		}).tooltip();
+		linkObject.children('.cross-mark').mousedown(removeLink);
+		/*
+        var htmlText = `<li class="ui-state-default widgetListItem sortable">
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <span class="pull-right fa fa-2x fa-trash"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil"></span>
+                                        <h4 name="textEditorHeader">
+                                            Custom Text
+                                        </h4>
+                                    </div>
+                                    <div class="widgetBody">
+                                        <div class="text-box" name="textEditorBody">
+                                            Edit this text by clicking on the Pencil icon.
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            `;
+		
 		var linkElement = document.createElement('a');
 		var websiteLogo = document.createElement('img');
 		var websiteTitle = document.createElement('div');
@@ -90,32 +112,41 @@ function createLink(existingSite, siteDescription) {
 		crossMark.innerHTML = "x";
 
 		$(linkElement).appendTo($(".links-container"));
+		*/
 	} else {
 		console.log("Site doesn't exist");
 	}
 }
 
-$('#addLinkForm').on('submit', function(event) {
-	event.preventDefault();
-	if (!$('input[name$="webURL"]').valid()) {
-		return;
-	}
-	var httpURL = $('input[name$="webURL"]').val();
-	if (linkList.length < 16) {
-		if ($.inArray(httpURL, linkList) == -1) {
-			createLink(httpURL, $('input[name$="webTitle"]').val());
-			linkList.push(httpURL);
-			linkDesc.push($('input[name$="webTitle"]').val());
-			$('#linkCountIndicator').html("" + (16 - linkList.length) + " Link" + (16 - linkList.length == 1 ? "" : "s") + " Remaining");
-			$('#addLinkModal').modal('toggle');
+$(document).ready(function() {
+	$('#link-submit-btn').click(function(event) {
+		var httpURL = $('input[name$="webURL"]').val();
+		var userlinkdesc = $('input[name$="webTitle"]').val();
+		if (linkList.length < 16) {
+			if ($.inArray(httpURL, linkList) == -1) {
+				$.ajax({
+					type: 'GET',  
+					url: 'http://ustart.today:5000/addLink/',
+					contentType: "application/json; charset=utf-8",
+					data: {userLink:httpURL, userLinkDesc:userlinkdesc},
+					success: function(data) {
+						console.log("AJAX WORKS");
+						createLink(httpURL, $('input[name$="webTitle"]').val());
+						linkList.push(httpURL);
+						linkDesc.push($('input[name$="webTitle"]').val());
+						$('#linkCountIndicator').html("" + (16 - linkList.length) + " Link" + (16 - linkList.length == 1 ? "" : "s") + " Remaining");
+						$('#addLinkModal').modal('hide');
+					}
+				});
+			} else {
+				alert("You have already added " + httpURL);
+			}
 		} else {
-			alert("You have already added " + httpURL);
+			alert("Maximum amount of links is 16.");
 		}
-	} else {
-		alert("Maximum amount of links is 16.");
-	}
-	$('.link-input-read').val('');
-	$('input[name$="webTitle"]').val('');
+		$('.link-input-read').val('');
+		$('input[name$="webTitle"]').val('');
+	});
 });
 
 $('#addLinkModal').on('shown.bs.modal', function() {

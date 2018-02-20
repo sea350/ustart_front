@@ -37,7 +37,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 	
 	// Remove Youtube Configuration
-	config.youtube_disabled_fields = ['chkAutoplay'];
+	// config.youtube_disabled_fields = ['chkAutoplay'];
 	
 	// Embed URL
 	config.embed_provider = '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}'
