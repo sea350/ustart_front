@@ -6,36 +6,38 @@
     <meta name="viewport" content="width=device-width">
     <title>ustart</title>
     <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!--<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick-theme.min.css">
     <link rel="stylesheet" type="text/css" href="https://rawgit.com/swisnl/jQuery-contextMenu/master/dist/jquery.contextMenu.min.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
-    <link rel="stylesheet" type="text/css" href="/ustart_front/css/profile.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/modal-links.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-gallery.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-text.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/socialMedia.css">
-    <link rel="stylesheet" type="text/css" href="/ustart_front/css/proj.css" />
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/proj.css"/>
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/projects.css">
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/profile.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.7.1/slick/slick.min.js"></script>
     <script src="https://rawgit.com/swisnl/jQuery-contextMenu/master/dist/jquery.contextMenu.min.js"></script>
-    <script src="/ustart_front/js/profile.js"></script>
     <script src="/ustart_front/ckeditor/ckeditor.js"></script>
     <script src="/ustart_front/ckeditor/config.js"></script>
+    <script src="/ustart_front/js/profile.js"></script>
+	<script src="/ustart_front/js/layout_tags.js"></script>
     <script src="/ustart_front/js/widgets.js"></script>
     <script src="/ustart_front/js/widget-gallery.js"></script>
     <script src="/ustart_front/js/notify.min.js"></script>
     <script src="/ustart_front/js/widget-text.js"></script>
     <script src="/ustart_front/js/projects.js"></script>
+    <script src="/ustart_front/js/ascii-convert.js"></script>
     <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js" data-pin-build="doBuild"></script>
     <script type="text/javascript">
         $(function () {
-            $("#LeftNavBar-placeholder").load("/ustart_front/leftNavbarTemplate.html", function (e) {
+            $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
                 $("#leftNavProjects").addClass("theActive");
             });
 
@@ -57,13 +59,14 @@
     </script>
 </head>
 
-<body style="display: none">
+<body>
+    <input type="hidden" id="pageiden" value='{{.Page}}'>
     <div id="centering" style="top: 3.3em;">
         <!-- Vertical content -->
         <div id="content">
             <div id="LeftNavBar-placeholder"></div>
             <div class="col-md-9">
-                <img id="head-image" src="https://www.besthdwallpaper.com/download/colorful-triangles-wallpaper-800x480-47_12.jpg">
+                <img id="head-image" src="{{.Project.ProjectData.Banner}}">
                 <div class="followers-cont flex">
                     <div class="followers-link-cont">
                         <a class="followers-link"><img class="followers-mini" src="https://www.grinnell.edu/sites/default/files/styles/gallery_slideshow/public/Kumail-Nanjiani-2016.jpg?itok=VUG-aDTr"
@@ -88,8 +91,8 @@
                         <button class="project-message btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
                         <button class="project-btn-follow btn btn-default">
                             <div class="project-btn-text-followers">
+                                <strong id="project-follow-count">{{len .Project.ProjectData.Members}}</strong>
                                 <span>Followers</span>
-                                <strong id="project-follow-count">1.5K</strong>
                             </div>
                         </button>
                         <div class="dropdown dropdown-btn">
@@ -107,11 +110,13 @@
                     <div class="panel-body flex">
                         <div class="dashboard-top-left flex flex-grow flex-col">
                             <div class="detail-head">Tagline</div>
-                            <div id="project-desc" class="flex-grow">Our Magic Description Box is now available to say that all this text is completely valid in size
-                                for </div>
+                            <div id="project-desc" class="flex-grow">
+								<!-- ADDDESCRIPTION -->
+								<script>readRuneArray({{.Project.ProjectData.Description}});</script>
+							</div>
                         </div>
                         <div class="dashboard-top-mid">
-                            <img id="project-logo" src="https://ih1.redbubble.net/image.364444718.7193/sticker,375x360-bg,ffffff.u2.jpg" />
+                            <img id="project-logo" src="{{.Project.ProjectData.Avatar}}" />
                         </div>
                         <div class="dashboard-top-right flex-grow">
                             <!-- <div> -->
@@ -123,18 +128,23 @@
                             <div>
                                 <div class="detail-head"><i class="fa fa-map-marker" aria-hidden="true"></i> Location</div>
                                 <div id="project-location" class="detail-content">
-                                    New York City, New York
+                                    <!-- ADDLOCATION -->
+									{{.Project.ProjectData.Location.City}}, {{.Project.ProjectData.Location.State}}, {{.Project.ProjectData.Location.Country}} {{.Project.ProjectData.Location.Zip}}
                                 </div>
                             </div>
                             <div>
                                 <div class="detail-head"><i class="fa fa-list-ul" aria-hidden="true"></i> Category</div>
                                 <div id="project-category" class="detail-content">
-                                    Entertainment
+                                    <!-- ADDCATEGORY -->
+									{{.Project.ProjectData.Category}}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <h3 id="project-name">Project U∙Start</h3>
+                    <h3 id="project-name">
+						<!-- ADDPROJECTNAME -->
+						{{.Project.ProjectData.Name}}
+					</h3>
                 </div>
                 <ul class="nav nav-tabs nav-justified proj-tabs">
                     <li class="active"><a data-toggle="tab" href="#proj-about">Showcase</a></li>
@@ -154,113 +164,128 @@
                                         <span class="pull-right fa fa-2x fa-sort"></span>
                                         <h4>Insert new widget</h4>
                                     </div>
-                                    <div class="widgetBody">
-                                        <button id="addTextWidget" class="btn btn-default projectsColumn">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/text.png" alt="Featured Project Image" />
-                                                <div class="columnTitle">
-                                                    Text
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="addLinksWidget" class="btn btn-default projectsColumn">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/links.png" alt="Featured Project Image" />
-                                                <div class="columnTitle">
-                                                    Links
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="galleryWidgetBtn" class="btn btn-default projectsColumn">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/gallery.png" alt="Featured Project Image" />
-                                                <div class="columnTitle">
-                                                    Gallery
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="igWidgetBtn" class="btn btn-default projectsColumn" data-dismiss="modal">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/instagram.png" alt="Featured Project Image" />
-                                                <div class="columnTitle">
-                                                    Instagram
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="scWidgetBtn" class="btn btn-default projectsColumn" data-dismiss="modal">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/soundcloud.png" alt="Featured Project Image" />
-                                                <div class="columnTitle">
-                                                    SoundCloud
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="ytWidgetBtn" class="btn btn-default projectsColumn" data-dismiss="modal">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/youtube-1.png" alt="Featured Project Image" />
-                                                <div class="columnTitle">
-                                                    YouTube
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="addCodePenWidget" class="btn btn-default projectsColumn" data-dismiss="modal">
-                                            <div class="columnImage">
-                                                <img src="https://blog.codepen.io/wp-content/uploads/2012/06/Button-Fill-Black-Large.png" alt="Featured Project Image" />
-                                                <div class="columnTitle">
-                                                    CodePen
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="addPinterestWidget" class="btn btn-default projectsColumn" data-dismiss="modal">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/pinterest.png" alt="Featured Project Image" />
-                                                <div class="columnTitle">
-                                                    Pinterest
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="addTumblrWidget" class="btn btn-default projectsColumn" data-dismiss="modal">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/twitter-2.png" alt="Featured Project Image" />
-                                                <div class="columnTitle">
-                                                    Tumblr
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <button id="addSpotifyWidget" class="btn btn-default projectsColumn" data-dismiss="modal">
-                                            <div class="columnImage">
-                                                <img src="/www/ustart.tech/img/png/spotify.png" alt="Featured Project Image" />
-                                                <div class="columnTitle">
-                                                    Spotify
-                                                </div>
-                                            </div>
-                                        </button>
-                                        <!-- <button class="btn btn-default projectsColumn" data-toggle="modal" data-target="#addMoreModal"> -->
-                                            <!-- <div class="columnImage"> -->
-                                                <!-- <img src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_now_widgets_48px-128.png" alt="Featured Project Image" /> -->
-                                                <!-- <div class="columnTitle"> -->
-                                                    <!-- More -->
-                                                <!-- </div> -->
-                                            <!-- </div> -->
-                                        <!-- </button> -->
-                                        <!-- IG, SC, YT Add Widget modal -->
-                                        <div id="addMoreModal" class="modal fade" role="dialog">
-                                            <div class="modal-dialog">
-                                                <!-- Modal content-->
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        <h4 class="modal-title">More Widgets</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+									<div class="widgetBody">
+										<button id="addTextWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/text.png" />
+												<div class="columnTitle">
+													Text
+												</div>
+											</div>
+										</button>
+										<button id="calendarWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/calendar.png" />
+												<div class="columnTitle">
+													Calendar
+												</div>
+											</div>
+										</button>
+										<button id="PollWidgetBtn" class="btn btn-default projectsColumn" style="display:none">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/poll.png" />
+												<div class="columnTitle">
+													Poll
+												</div>
+											</div>
+										</button>
+										<button id="igWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/instagram.png" />
+												<div class="columnTitle">
+													Instagram
+												</div>
+											</div>
+										</button>
+										<button id="scWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/soundcloud.png" />
+												<div class="columnTitle">
+													SoundCloud
+												</div>
+											</div>
+										</button>
+										<button id="ytWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/youtube-1.png" />
+												<div class="columnTitle">
+													YouTube
+												</div>
+											</div>
+										</button>
+										<button id="addCodePenWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/codepen.png" />
+												<div class="columnTitle">
+													CodePen
+												</div>
+											</div>
+										</button>
+										<button id="addPinterestWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/pinterest.png" />
+												<div class="columnTitle">
+													Pinterest
+												</div>
+											</div>
+										</button>
+										<button id="addTumblrWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/twitter-2.png" />
+												<div class="columnTitle">
+													Tumblr
+												</div>
+											</div>
+										</button>
+										<button id="addSpotifyWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/spotify.png" />
+												<div class="columnTitle">
+													Spotify
+												</div>
+											</div>
+										</button>
+										<button id="arWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/anchor.png" />
+												<div class="columnTitle">
+													Anchor
+												</div>
+											</div>
+										</button>
+										<button id="mediumWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/medium.png" />
+												<div class="columnTitle">
+													Medium
+												</div>
+											</div>
+										</button>
+										<button id="daWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/deviantart.png" />
+												<div class="columnTitle">
+													DeviantArt
+												</div>
+											</div>
+										</button>
+										<button id="twitchWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/twitch.png" />
+												<div class="columnTitle">
+													Twitch
+												</div>
+											</div>
+										</button>
+										<button id="addGithubWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/github.png" />
+												<div class="columnTitle">
+													Github
+												</div>
+											</div>
+										</button>
+									</div>
                                 </div>
                             </li>
                             <li class="ui-state-default">
@@ -716,7 +741,6 @@
                                 </div>
                             </div>
                         </div>
-                        <script src="js/layout_tags.js"></script>
                         <!-- Youtube Modal -->
                         <div class="modal fade" id="youtubeModal" role="dialog">
                             <div class="modal-dialog">
@@ -819,7 +843,7 @@
             </div>
         </div>
     </div>
-    <script src="/www/ustart.tech/js/fadebody.js"></script>
+    <script src="/ustart_front/js/fadebody.js"></script>
 </body>
 
 </html>
