@@ -139,7 +139,7 @@ $(document).ready(function() {
             
 		});
 	});
-	loadUserData();
+	//loadUserData();
 	alterStatus();
 	eduCheck($('select#type_select option:selected').val());
 	
@@ -193,4 +193,9 @@ $(document).ready(function() {
 			window.location.replace("http://ustart.tech/index2.html");
 		}
 	});
+	
+    if(location.hash != null && location.hash != ""){
+        $('.collapse').removeClass('in');
+        $(location.hash + '.collapse').collapse('show');
+    }
 });

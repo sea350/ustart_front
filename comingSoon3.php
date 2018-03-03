@@ -1,5 +1,23 @@
 <!DOCTYPE html>
 <html>
+<?php
+$conn_string = "host= ustart.today port=5432 dbname=ustart user=ustart password=~m3lanKollymemes";
+$dbconn = pg_connect($conn_string) or die("Connection failed");
+if (isset($_POST['postsubmit'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $result = pg_query($dbconn,"SELECT COUNT(uid) FROM newsletter WHERE email = '$email'");
+    $row = pg_fetch_array($result);
+    if ($row['count'] > 0) {
+        //echo "That email is already being used.";
+        $error = true;
+    }
+    else {
+        $result2 = pg_query($dbconn,"insert into newsletter (uname, email) values ('$name', '$email')");
+        //echo "submitted";
+    }
+}
+?>
 <head>
         <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
         <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
@@ -32,27 +50,11 @@
         	<a><img src="img/Background/ustartBackground.png" style="width: 75%; height: 100%; cursor: default; user-select: none; -moz-user-select: none;"></a>
                 <div id= "theBox"> 
                     <form method="post" style="user-select: none; -moz-user-select: none;">
-                    	<input type="text" name="name" placeholder="Name: " required>
-                    	<input type="text" name="email" placeholder="Email:" required>
-                    	<input type="submit" name="submit-btn" value="Submit">
-                    </form>
-                    <?php
-                        /*error_reporting(-1);
-                        ini_set('display_errors', 'On');
-                        set_error_handler("var_dump");
-                        $to = 'coolcrater2@gmail.com';
-                        $subject = 'Urgent Message!';
-                        $message = 'hello';
-                        $headers = 'X-Mailer: PHP/'.phpversion();
-                        if (isset($_POST['submit-btn'])) {
-                              if (mail($to, $subject, $message, $headers)){
-                                   echo '<p>Your message has been sent!</p>'; 
-                              }
-                            else{
-                                echo("<script>alert('$message');</script>");
-                            }
-                        }*/
-                    ?>
+							<input id="textName" type="text" name="name" class="form-control" placeholder="Name:" required autofocus>
+							<input id="emailName" type="email" name="email" class="form-control" placeholder="Email:" required>
+							<input id="submitButton" type="submit" name="postsubmit" value="Submit" disabled>
+							<br/><br/>
+				    </form>
                 </div>
                 <a><img src="img/Background/19125491_721752691330368_2091258245_o.png" style="width: 75%; height: 100%; padding-left: 1em; cursor: default; user-select: none; -moz-user-select: none;"></a>
                 	<div id="socialsBox">

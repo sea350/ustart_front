@@ -66,6 +66,7 @@ function loadInputs() {
 	$('#uName').val(sessionStorage.getItem('username'));
 	$('#inputEmail').val(sessionStorage.getItem('inputEmail'));
 	$('#country option').eq(sessionStorage.getItem('country')).prop('selected', true);
+	populateStates("country", "states");
 	$('#state option').eq(sessionStorage.getItem('state')).prop('selected', true);
 	$('#city').val(sessionStorage.getItem('city'));
 	$('#zip').val(sessionStorage.getItem('zip'));
@@ -134,7 +135,7 @@ $(document).ready(function() {
 
 // verifies everything is correct after document submit button is clicked
 $(document).on('click', '#finished', function(e){
-    var email = $("#inputEmail").val(), confirmEm = $("#confirmEmail").val(),
+    var email = $("#inputEmail").val(),
         pass = $('#inputPassword').val(), conPass = $('#confirmPassword').val();
     if (pass != conPass){
         e.preventDefault();

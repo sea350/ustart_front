@@ -462,3 +462,35 @@ form#shareCommentForm .btn {
 .modal-header h3 {
      margin: 0;
 }
+
+.user-img-container {
+	position: relative;
+	overflow: hidden;
+}
+
+.user-img-option {
+	position: absolute;
+	width: 100%;
+	transform: translateY(0);
+	transition: transform 0.2s, opacity 0.2s;
+	background-color: black;
+	padding: 1em;
+	text-align: center;
+	border-radius: 0 0 8px 8px;
+	opacity: 0;
+}
+
+.user-img-option a {
+	width: 100%;
+	height: 100%;
+	font-size: 120%;
+	text-align: center;
+	color: white;
+	padding: 1em;
+}
+
+.user-img-container:hover .user-img-option {
+	transform: translateY(-100%);
+	opacity: 0.8;
+	transition: transform 0.5s, opacity 0.5s;
+}

@@ -35,7 +35,6 @@ $(document).ready(function() {
                                                 <input type="text" class="form-control" id="cal-embed-input">
 
                                             </div>
-											Incomplete :D
                                         </div>
                                         <div class="modal-footer">
                                             <button type="submit" id="cal-submit-btn" class="btn btn-default" data-dismiss="modal">Submit</button>

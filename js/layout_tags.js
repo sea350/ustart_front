@@ -1,5 +1,9 @@
 var taglist = [];
 
+function updateCounter() {
+	$('#tagCountIndicator').html("" + (16 - taglist.length) + " Tag(s) Remaining");
+}
+
 function addTag(tag) {
 	//if (!$("#addTagButton").prop("disabled")) {
 		if (tag != "" && taglist.length < 16 && $.inArray(tag.toUpperCase(), taglist) == -1) {
@@ -42,14 +46,19 @@ function createTagModalElement(tag) {
 					</button>
 					`;
 			$("#hashtags").append(tagHTML);
+			$(tagHTML).children('.deleteTagBtn').click(function() {
+				tagList.splice($.inArray($(tagHTML).children('.columnTitle').text()),1);
+				$(this).remove();
+				updateCounter();
+			});
 			taglist.push(tag);
 			if (taglist.length >= 16) {
 				$('#tagModal .modal-footer button[name="widgetSubmit"]').attr('disabled', 'true');
 			}
 		}
-		$('#tagCountIndicator').html("" + (16 - taglist.length) + " Tag(s) Remaining");
+		updateCounter();
 		$('#tagLineInput').val('');
-	}
+	});
 }
 
 $(document).ready(function () {
@@ -78,7 +87,9 @@ $(document).ready(function () {
 		createTagModalElement($('#tagLineInput').val());
 	});
 
-	$('#tagModal').on('shown.bs.modal', function () {;
+	$('#tagModal').on('shown.bs.modal', function () {
+		updateCounter();
+		
 		$("#hashtags").html("");
 		while(taglist.length > 0) {
 			taglist.pop();
@@ -90,8 +101,9 @@ $(document).ready(function () {
 		});
 		
 		$('#hashTags>button').click(function() {
+			tagList.splice($.inArray($(tagHTML).children('.columnTitle').text()),1);
 			$(this).remove();
-			
+			updateCounter();
 		});
 		
 		if ($("#hashtags").html() === "") {

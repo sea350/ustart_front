@@ -30,6 +30,7 @@
     <script src="/ustart_front/js/widget-calendar.js"></script>
     <script src="/ustart_front/js/widget-gallery.js"></script>
     <script src="/ustart_front/js/notify.min.js"></script>
+	<script src="/ustart_front/js/masonry.pkgd.min.js"></script>
    <!-- <script src="ustart_front/js/widget-text.js"></script>-->
 	<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js" data-pin-build="doBuild"></script>
     <script>
@@ -72,15 +73,30 @@
 </head>
 
 <body style="display: none;">
-     <input type="hidden" id="pageiden" value='{{.Page}}'>
-     <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
+    <input type="hidden" id="pageiden" value='{{.Page}}'>
+    <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
     <div id="centering">
         <!-- Vertical content -->
         <div id="content">
-            <img id="head-image" src="https://www.besthdwallpaper.com/download/colorful-triangles-wallpaper-800x480-47_12.jpg">
+            <img id="head-image" alt="User Banner">
+             <script>
+                $( document ).ready(function() {
+                    $("#head-image").attr("src",{{.UserInfo.Banner}});
+                });
+            </script>
             <div class="dashboard-left col-xs-3">
                 <div class="user-info">
-                    <img class="user-img" alt="User Profile Image" src=d{{.UserInfo.Avatar}}>
+					<div class="user-img-container">
+						<img class="user-img" id="user-avatar" alt="User Profile Image">
+						<div class="user-img-option">
+							<a href="/Settings/#avatarcollapse">Change Profile Image</a>
+						</div>
+					</div>
+                    <script>
+                        $( document ).ready(function() {
+                            $("#user-avatar").attr("src",{{.UserInfo.Avatar}});
+                        });
+                    </script>
                     <div id="user-brief-info">
                         <div id="info-wrap">
                             <div id="name-cont">
@@ -192,10 +208,17 @@
                                                 $("#wall-dataF").html(data);
                                                 console.log('hello');
                                                 console.log(data);
-
+                                                  $('.editEntry').click(function(e) {
+                                                        var postId= $(this).attr("id");
+                                                        var modified ="#"+postId;
+                                                        console.log(modified);
+                                                        $(modified).modal('show');
+                                                    });
+                                         
                                             }//end success
                                         });
                                     });
+                            
 
                                     $('.comment-btn').click(function(e) {
                                         var postId= $(this).attr("id");
@@ -298,6 +321,7 @@
                             </div>
                         </div>
                     </div>
+                    <!--div for left side-->
                     <div id="suggestedProj" class="margin-top">
                         <div class="dashboard panel panel-default">
                             <div id="dash-header">
@@ -308,7 +332,7 @@
                                             <span id="dismiss">&times;</span>
                                         </div>
                                         <div class="content">
-                                            <img class="avatar" src="https://pbs.twimg.com/profile_images/898391736078262272/oHO_LQmH_400x400.jpg">
+                                            <img class="avatar" src="/ustart_front/img/logo.png">
                                             <div class="proj-card-info">
                                                 <a href="projects.html">
                                                     <strong class="proj-card-name">U●Start </strong>
@@ -352,7 +376,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End of grid for right -->
+                    <!-- End of div for left side-->
                 </div>
             </div>
             <div class="menu-wrap col-xs-8">
@@ -398,7 +422,7 @@
 													</div>
 												</div>
 											</button>
-											<button id="PollWidgetBtn" class="btn btn-default projectsColumn">
+											<button id="PollWidgetBtn" class="btn btn-default projectsColumn" style="display:none">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/poll.png" />
 													<div class="columnTitle">
@@ -406,7 +430,7 @@
 													</div>
 												</div>
 											</button>
-											<button id="igWidgetBtn" class="btn btn-default projectsColumn" data-dismiss="modal">
+											<button id="igWidgetBtn" class="btn btn-default projectsColumn">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/instagram.png" />
 													<div class="columnTitle">
@@ -414,7 +438,7 @@
 													</div>
 												</div>
 											</button>
-											<button id="scWidgetBtn" class="btn btn-default projectsColumn" data-dismiss="modal">
+											<button id="scWidgetBtn" class="btn btn-default projectsColumn">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/soundcloud.png" />
 													<div class="columnTitle">
@@ -422,7 +446,7 @@
 													</div>
 												</div>
 											</button>
-											<button id="ytWidgetBtn" class="btn btn-default projectsColumn" data-dismiss="modal">
+											<button id="ytWidgetBtn" class="btn btn-default projectsColumn">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/youtube-1.png" />
 													<div class="columnTitle">
@@ -494,6 +518,14 @@
 													</div>
 												</div>
 											</button>
+											<button id="addGithubWidget" class="btn btn-default projectsColumn">
+												<div class="columnImage">
+													<img src="/ustart_front/img/png/github.png" />
+													<div class="columnTitle">
+														Github
+													</div>
+												</div>
+											</button>
 										</div>
 									</div>
 								</li>
@@ -534,9 +566,6 @@
 										</div>
 										<div class="widgetBody">
                                         <div class="links-container"></div>
-                                        <div class=numLinks>
-                                            <span id="linkCountIndicator"></span>
-                                        </div>
                                         {{range $loop := .UserInfo.QuickLinks}}
                                             {{if ne ($loop.URL) ""}}
                                             <script>
@@ -678,7 +707,7 @@
                                         <span class="pull-right fa fa-2x fa-sort"></span>
                                         <span class="pull-right fa fa-2x fa-pencil" id="tumblr-edit"onclick="ApplyIDToModal('tumblr-modal', this)"></span>
                                         <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
-                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                            <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                             <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                         </form>
                                         {{end}}
@@ -686,7 +715,9 @@
                                     </div>
                                     <div id= "widgetBodyTumblr" class="widgetBody">
                                         <script>
-											tumblrRender({{index $loop.Data 0}});
+                                            $( document ).ready(function() {
+											   tumblrRender({{index $loop.Data 0}});
+                                            });
 										</script>
                                     </div>
                                 </div>
@@ -710,9 +741,11 @@
                             </div>
                             <div id="widgetBodyPin" class="widgetBody">
                                 <script>
+                                    $( document ).ready(function() {
                                     {{range $loop2 := $loop.Data }}
                                         pinRender({{$loop2}});
                                     {{end}}
+                                    });
                                 </script>
                             </div>
                         </div>
@@ -776,7 +809,7 @@
                                     </div>
                                     <div id= "widgetBodyAR" class="widgetBody">
                                         {{range $loop2 := $loop.Data }}
-                                        <div class="anchor-feed"><iframe src="https://anchor.fm/e/{{$loop2}}" height="270px" width="400px" frameborder="0" scrolling="no"></iframe></div>
+                                        <div class="anchor-feed"><iframe src="{{$loop2}}" height="270px" width="400px" frameborder="0" scrolling="no"></iframe></div>
                                         {{end}}
                                     </div>
                                 </div>
@@ -798,7 +831,9 @@
                                     </div>
                                     <div id="widgetBodyMed" class="widgetBody"></div>
                                         <script>
+                                            $( document ).ready(function() {
                                             mediumRender({{index $loop.Data 0}},{{index $loop.Data 1}},{{index $loop.Data 2}},{{index $loop.Data 3}});
+                                            });
                                         </script>
                                 </div>
                             </li>
@@ -819,7 +854,9 @@
                                     <div id="widgetBodyDA" class="widgetBody">
                                     </div>
                                     <script>
-                                        daRender({{index $loop.Data 0}},{{index $loop.Data 1}});
+                                        $( document ).ready(function() {
+                                            daRender({{index $loop.Data 0}},{{index $loop.Data 1}});
+                                        });
                                     </script>
                                 </div>
                             </li>
@@ -1055,7 +1092,10 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                            <a class="btn btn-danger btn-ok">Delete</a>
+                                            <form action ="http://ustart.today:5000/deletePost" method ="POST"> 
+<!--                                                 <input type="text" name="postid" value=(this).attr("id")>  
+ -->                                            <button type="submit"><a class="btn btn-danger btn-ok">Delete</a></button>
+                                        </form>
                                         </div>
                                     </div>
                                 </div>
@@ -1104,6 +1144,7 @@
             </div>
             <div id="modal-box">
                 <script type="text/javascript">
+                    $( document ).ready(function() {
                                             $('#menu-item-about').hover(function () {
                                                 $(this).fadeOut(100);
                                                 $(this).fadeIn(100);
@@ -1144,12 +1185,12 @@
                                             }, function () {
                                                 $("#box").css('max-width', '0');
                                             });
+                    });
                 </script>
                 <!-- MODALS -->
                 <!-- edit modal -->
-                <div class="modal fade" id="EditModal" role="dialog">
+                <!-- <div class="modal fade" id="EditModal" role="dialog">
                     <div class="modal-dialog">
-                        <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -1176,7 +1217,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- end edit modal -->
+                -->
                 <!-- About Modal  -->
                 <div class="modal fade" id="aboutModal" role="dialog">
                     <div class="modal-dialog">
@@ -1448,7 +1489,7 @@
 								<div class="modal-body">
 									<p>Insert Tumblr Username here:</p>
 									<div class="form-group">
-										<input type="text" class="form-control" name="tumblrInput" id="medium-embed-input" placeholder="ustart" required>
+										<input type="text" class="form-control" name="tumblrInput" id="medium-embed-input" placeholder="ustart" pattern='[A-Za-z0-9\-]{1,32}' required>
 										<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
 									</div>
 								</div>
@@ -1499,7 +1540,7 @@
                             <p>Please paste the Pinterest Pin URL here:</p>
                             <form id="customPinterestForm" action="/addWidget/" method="POST">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="pin-embed-input" name="pinInput" required>
+                                <input type="text" class="form-control" id="pin-embed-input" name="pinInput" pattern='https:\/\/www\.pinterest\.com\/pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/' required>
                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
                             </div>
                              </form>
@@ -1531,9 +1572,12 @@
                                     <input type="url" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" required/>
                                 </p>
                             </div>
+                            
                             <div class="modal-footer">
+                                <div class=numLinks>
+                                    <span id="linkCountIndicator"></span>
+                                </div>
                                 <button type="submit" id="link-submit-btn" class="btn btn-info btn-done">Done</button>
-
                             </div>
                     </div>
                 </div>
@@ -1549,11 +1593,11 @@
                         <div class="modal-body">
                             <span id="ar-list-title">Removable Anchors</span>
                             <ul id="ar-edit-list"></ul>
-                            <p>Insert the Anchor Code in the URL:</p>
+                            <p>Insert the Anchor URL:</p>
                             <form id="customArForm" action="/addWidget/" method="POST">
                             
                             <div class="form-group">
-                                <input type="text" class="form-control" name="arInput" id="ar-embed-input" required>
+                                <input type="text" class="form-control" name="arInput" id="ar-embed-input" pattern='https:\/\/anchor\.fm\/.*\/' required>
                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
                             </div>
                             </form>

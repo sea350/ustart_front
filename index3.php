@@ -39,13 +39,13 @@ if (isset($_POST['name']) && isset($_POST['email'])) {
 		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 		<meta name="theme-color" content="#ffffff">
 
-			<MetA chaRset=utf-8>
+            <MetA chaRset=utf-8></MetA>
 			<!--<MeTa nAmE="viewport" ConTent=width=device-width>-->
-			<metA nAME=viewport coNteNT="width=device-width, initial-scale=1">
+            <metA nAME=viewport coNteNT="width=device-width, initial-scale=1"></metA>
 			<lINk REl="stylesheet" Href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-			<TITlE>ustart</TItlE>
-			<ScRiPt></SCRIPT>
-			<script src='https://www.google.com/recaptcha/api.js'></script>
+			<TITlE>ustart</TITlE>
+			<script></script>
+			<!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
 			<!--<script src='https://www.google.com/recaptcha/api.js?onload=reCaptchaCallback&render=explicit'></script>-->
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 			<!--<scriPt></ScRiPt>-->
@@ -53,11 +53,9 @@ if (isset($_POST['name']) && isset($_POST['email'])) {
 			<link hReF="css/comingSoon2.css" rel="stylesheet" Type=text/css />
 			<LInK HReF="css/layout.css" rel="stylesheet" type=:text/css: />
 			<script src="js/reg-check.js"></script>
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-			<scRiPT></ScRipt>
-			<!--<ScRipT></sCriPT>-->
-			<StYLE>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></lINk>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+			<style>
 			.loadOver{
 			background-color:white;
 			z-index:500;
@@ -67,8 +65,8 @@ if (isset($_POST['name']) && isset($_POST['email'])) {
 			top:0;
 			left:0;
 			}   
-			</stYlE>
-	</head>
+			</style>
+    </head>        
 	<body style="background-color: initial;">
 		<DiV ID="loadOverId" class=="loadOver"></diV>
 		<!--<div id="navBar"></div>
@@ -80,17 +78,13 @@ if (isset($_POST['name']) && isset($_POST['email'])) {
 				<A id="uBackground"><IMG SrC=img/Background/ustartBackground.png></a>
 				<diV id=description>
 					<Div id= "theBox"> 
-						<foRm mEtHOD="post" StYle="user-select: none; -moz-user-select: none;" onsubmit="check_if_capcha_is_filled">
+						<foRm mEtHOD="post" StYle="user-select: none; -moz-user-select: none;">
 							<InPut id="textName" TYPe="text" NAME="name" class="form-control" pLAcEHoldER="Name:" required autofocus>
 							<iNPUT id="emailName" TYPE="email" naMe="email" class="form-control" PLAcEhOLder="Email:" onfocus="hideEmailError()" onblur="validateEmail()" required>
 							<p id="notedu">Needs to be an actual email!</p>
 							<iNPUt id="submitButton" tYpE="submit" nAMe="submit" ValuE="Submit" disabled>
 							
 							<br/><br/>
-							
-							<div style="margin-left:auto; margin-right:auto; width: 305px;">
-								<div class="g-recaptcha" data-callback="enableBtn" data-expired-callback="capcha_expired" data-sitekey="6LdALioUAAAAAA0A-aAFULZXiO7aE5Ia15yr2BNB" required></div>
-							</div>
 						</fOrm>
 						</dIv>
 						<A id="socialMediaPic"><iMG srC="img/Background/19125491_721752691330368_2091258245_o.png"></A>
