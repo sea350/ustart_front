@@ -7,45 +7,45 @@
     <title>ustart</title>
 
     <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
-    <script src="bower_components/moment/min/moment.min.js"></script>
-    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <!-- <script src="bower_components/moment/min/moment.min.js"></script> -->
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <script type="text/javascript" src="/ustart_front/js/zxcvbn.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="/ustart_front/css/layout1.css">
     <link rel="stylesheet" href="/ustart_front/css/register.css">
     <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 </head>
-
     <div id="centering" style="top: 6em;">
         <div id="content">
             <div class="container">
+				<!-- Missing Go Index -->
+			
 				<button style="margin-left: 1em;" class="btn btn-danger" id="back-button" onclick="location.replace('http://ustart.today:5000/MyProjects')"><i class="fa fa-angle-left"></i> Back</button>
-                <form class="form-signup" id="form1" action="" method="post">
+                <form class="form-signup" id="projectCreateForm" action="http://ustart.today:5000/CreateProject/" method="post">
                     <h2 style="padding:0; text-align: center;">Create A Project</h2>
-                    <br>                    
+                    <br>
                     <!-- Name -->
                     <div class="row">
                         <div class="dropdown col-sm-6">
-                            <label for="fName" class="sr-only">Title of Project</label>
-                            <input type="text" id="fName" name="firstName" class="form-control" placeholder="Title of Project:" required autofocus>
+                            <label for="project_title" class="sr-only">Title of Project</label>
+                            <input type="text" id="project_title" name="project_title" class="form-control" placeholder="Title of Project" required autofocus>
                         </div>
                         <div class="dropdown col-sm-6">
-                            <label for="lName" class="sr-only">Members</label>
-                            <input type="text" id="lName" name="lastName" class="form-control" placeholder="Members:" required autofocus>
+                            <label for="project_members" class="sr-only">Project Members</label>
+                            <input type="text" id="project_members" name="project_members" class="form-control" placeholder="Members">
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="dropdown col-sm-12">
-                            <label for="lName" class="sr-only">About</label>
-                            <textarea maxlength="1100" style="resize: none;" type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Put a small description of your project here:"></textarea>
+                            <label for="project_desc" class="sr-only">Project Description</label>
+                            <textarea maxlength="1100" style="resize: none;" type="text" class="form-control" id="project_desc" name="project_desc" rows="4" placeholder="Please describe your project goal" required></textarea>
                         </div>
                         <!--<div class="dropdown col-sm-6">
                             <label for="fName" class="sr-only">Description</label>
                             <textarea style="resize: none;" type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Put a big description of your project here:"></textarea>
                         </div>-->
                     </div>
-                    <br>             
                     <br>
                     <!--     -------------------------------------NOT MY EDITS-----------------------------------------         -->
                     <!-- Email -->
@@ -230,7 +230,7 @@
                     <!--<div style="margin-left:auto; margin-right:auto; width: 305px;">
                         <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6LcfqSkUAAAAADjI1KDj68LZHCM_-q5XMAsAACPn"></div>
                     </div>-->
-                    <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit" name="send" id="finished" disabled>Continue</button>
+                    <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit" name="send" id="finished" >Continue</button>
                     <!--<script>
                     function recaptchaCallback() {
                         $('#finished').removeAttr('disabled');

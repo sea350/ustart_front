@@ -38,14 +38,13 @@ if (isset($_POST['name']) && isset($_POST['email'])) {
 		<meta name="msapplication-TileColor" content="#ffffff">
 		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 		<meta name="theme-color" content="#ffffff">
-
-			<MetA chaRset=utf-8>
+        <MetA chaRset=utf-8></MetA>
 			<!--<MeTa nAmE="viewport" ConTent=width=device-width>-->
-			<metA nAME=viewport coNteNT="width=device-width, initial-scale=1">
-			<lINk REl="stylesheet" Href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-			<TITlE>ustart</TItlE>
-			<ScRiPt></SCRIPT>
-			<script src='https://www.google.com/recaptcha/api.js'></script>
+            <metA nAME=viewport coNteNT="width=device-width, initial-scale=1"></metA>
+			<link REl="stylesheet" Href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <title>ustart Coming Soon</title>
+			<script></script>
+			<!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
 			<!--<script src='https://www.google.com/recaptcha/api.js?onload=reCaptchaCallback&render=explicit'></script>-->
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 			<!--<scriPt></ScRiPt>-->
@@ -55,9 +54,9 @@ if (isset($_POST['name']) && isset($_POST['email'])) {
 			<script src="js/reg-check.js"></script>
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-			<script src="js/splash.js"></ScRipt>
+			<script src="js/splash.js"></script>
 			<!--<ScRipT></sCriPT>-->
-			<StYLE>
+			<style>
 			.loadOver{
 			background-color:white;
 			z-index:500;
@@ -67,86 +66,32 @@ if (isset($_POST['name']) && isset($_POST['email'])) {
 			top:0;
 			left:0;
 			}   
-			</stYlE>
+			</style>
 	</head>
 	<body style="background-color: initial;">
-		<DiV ID="loadOverId" class=="loadOver"></diV>
-		<!--<div id="navBar"></div>
-		<dIV id="notifPan"></Div>-->
-		<dIv iD=centering>
-			<DIv id="ustartPicture"></dIV>
-			<dIV id="content">
-			<!--<Div iD=title>Coming Soon!</dIV>-->
-				<A id="uBackground"><IMG SrC=img/Background/ustartBackground.png></a>
-				<diV id=description>
-					<Div id= "theBox"> 
-						<foRm mEtHOD="post" StYle="user-select: none; -moz-user-select: none;" onsubmit="check_if_capcha_is_filled">
-							<InPut id="textName" TYPe="text" NAME="name" class="form-control" pLAcEHoldER="Name:" required autofocus>
-							<iNPUT id="emailName" TYPE="email" naMe="email" class="form-control" PLAcEhOLder="Email:" onfocus="hideEmailError()" onblur="validateEmail()" required>
-							<p id="notedu">Needs to be an actual email!</p>
-							<iNPUt id="submitButton" tYpE="submit" nAMe="submit" ValuE="Submit" disabled>
-							
+		<div id="centering">
+        	<a><img src="img/Background/ustartBackground.png" style="width: 75%; height: 100%; cursor: default; user-select: none; -moz-user-select: none;"></a>
+                <div id= "theBox"> 
+                    <form method="post" style="user-select: none; -moz-user-select: none;">
+							<input id="textName" type="text" name="name" class="form-control" placeholder="Name:" required autofocus>
+							<input id="emailName" type="email" name="email" class="form-control" placeholder="Email:" required>
+							<input id="submitButton" type="submit" name="postsubmit" value="Submit" disabled>
 							<br/><br/>
-							
-							<div style="margin-left:auto; margin-right:auto; width: 305px;">
-								<div class="g-recaptcha" data-callback="enableBtn" data-expired-callback="capcha_expired" data-sitekey="6LdALioUAAAAAA0A-aAFULZXiO7aE5Ia15yr2BNB" required></div>
-							</div>
-						</fOrm>
-						</dIv>
-						<A id="socialMediaPic"><iMG srC="img/Background/19125491_721752691330368_2091258245_o.png"></A>
-						<diV id="socialsBox">
-							<TABlE Id=socialsBox stYLE="user-select: none; -moz-user-select: none;">
-								<tR id="social_Media1">
-									<td id="insta_Icon"><a style="text-decoration: none;" Id="instagramIcon" HREF="https://www.instagram.com/ustart.today" ClAss="fa fa-instagram" tArGET="_blank"></a></TD>
-									<tD><A style="text-decoration: none;" iD="snapchatIcon" href="https://www.snapchat.com/add/ustarttoday" ClAss="fa fa-snapchat-ghost" targEt="_blank"></A>
-									<td id="fb_Icon"><a style="text-decoration: none;" ID="facebookIcon" hRef="https://www.facebook.com/ustarttoday/" cLASS="fa fa-facebook" Target=_blank></A></td>
-									<TD id="twit_Icon"><a style="text-decoration: none;" Id="twitterIcon" hrEF="https://twitter.com/ustarttoday" cLAss="fa fa-twitter" TargET="_blank"></a>
-									<TD id="yt_Icon"><A style="text-decoration: none;" id="youtubeIcon" HREf="https://www.youtube.com/channel/UCRoiCAIzBr6VpPj-d7rjEJA" ClASS="fa fa-youtube" targET="_blank"></A></Td>
-									<tD id="sc_Icon"><A style="text-decoration: none;" ID="soundcloudIcon" hREF="https://soundcloud.com/user-808868756" clAss="fa fa-soundcloud" TarGET=_blank></a></TD>
-								</TR>
-								<tr id="social_Media2">
-								</tr>
-							</TabLE>
-							</DiV>
-						</Div>
-						<!--<BLOCkquotE ClAss="instagram-media" data-instgrm-captioned data-instgrm-VerSIOn=7 StYlE=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><dIv sTyLe="padding:8px;"> <dIV sTyLe=" background:#F8F8F8; line-height:0; margin-top:40px; padding:50.0% 0; text-align:center; width:100%;"> <dIV stYle=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></Div></Div> <P Style=" margin:8px 0 0 0; padding:0 4px;"> <a hREf=https://www.instagram.com/p/BUy_NBtj-p2/ StyLe=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" taRgEt=_blank>YOU ARE #LIMITLESS #hustle #workhard #create #patience #wontstop #mindset #freedom #ambition #thinkbig #success #startup #inspire #work #love #entrepreneur #entrepreneurship #leadership #life #insperationalquotes #inspire #morningmotivation</a></p> <P sTYle=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A post shared by U•START (@ustarttech) on <TImE STyLE=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" DateTImE=2017-06-01T12:18:26+00:00>Jun 1, 2017 at 5:18am PDT</Time></dIv></bLOCkquoTe>-->
-					<bR><bR><Br>             
-				</Div>                      
-			</diV>
-		</dIv>
-		<!--<dIV id=theLogIn stYle="visibility:hidden"></dIV>-->
-			<!--<div Id="foot">
-			<taBle>
-			<tr>
-				<th>Check Us
-				<TH>Learn More
-				<TH>Our Company
-			
-			<Tr>
-				<td><a HREf=https://www.facebook.com/ustarttoday/ tArget=_blank>Facebook</a>
-				<TD>Our Goal</TD>
-				<Td><a href="aboutUs.php">About Us</a>
-			
-			<TR>
-				<tD><A hrEF="https://twitter.com/ustarttoday/" tArGET=_blank>Twitter</a>
-				<tD> <A href = "http://memes.ucoz.com/_nw/32/08173924.jpg" target = "_blank">Help Center</a></tD>
-				<a HREf=https://i.imgur.com/Y7o0mdSh.jpg tarGet=_blank>
-				<TD>Careers
-			</tr>
-			<tr>
-				<tD><a hrEf="https://www.youtube.com/channel/UCUyqXnQeM-M19waKEbrDrwg" tarGEt=_blank>Youtube</A></td>
-				<tD>Terms</td>
-				<TD><a href = "https://img.clipartfest.com/7fb7fbcb33899412bc3a006435cab1fd_trump-meme-trump-meme_610-457.png" tARget="_blank">Investors</a></tD>
-			</tR>
-			<TR>
-				<TD><a hreF=https://www.instagram.com/ustart.today target=_blank>Instagram</A></tD>
-				<Td></td>
-				<Td></TD>
-			</Tr>
-			<tr>
-				<TD><a HrEf="https://www.snapchat.com/add/ustarttoday" TargEt="_blank">Snapchat</A></Td>
-				<tD>
-				<td>
-			-->
+				    </form>
+                </div>
+                <a><img src="img/Background/19125491_721752691330368_2091258245_o.png" style="width: 75%; height: 100%; padding-left: 1em; cursor: default; user-select: none; -moz-user-select: none;"></a>
+                	<div id="socialsBox">
+                		<table id="socialsBox" style="user-select: none; -moz-user-select: none; overflow-x:auto;">
+                			<tr>
+                				<td><a id="instagramIcon" href="https://www.instagram.com/ustarttech" class="fa fa-instagram" target="_blank"></a></td>
+                				<td><a id="snapchatIcon" href="https://www.snapchat.com/add/ustarttech" class="fa fa-snapchat-ghost" target="_blank"></a></td>
+                				<td><a id="facebookIcon" href="https://www.facebook.com/ustarttech/" class="fa fa-facebook" target="_blank"></a></td>
+                				<td><a id="twitterIcon" href="https://twitter.com/ustarttech" class="fa fa-twitter" target="_blank"></a></td>
+                				<td><a id="youtubeIcon" href="https://www.youtube.com/channel/UCUyqXnQeM-M19waKEbrDrwg" class="fa fa-youtube" target="_blank"></a></td>
+                                <td><a id="soundcloudIcon" href="https://soundcloud.com/user-808868756" class="fa fa-soundcloud" target="_blank"></a></td>
+                			</tr>
+                		</table>
+                    </div>          
+        </div>
 	</body>
 </html>

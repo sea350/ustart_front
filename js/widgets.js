@@ -103,7 +103,7 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 function tumblrRender (tumblrUsername) {
 	// Using RSS to render custom containers
 	$('#widgetBodyTumblr').rss("https://" + tumblrUsername + ".tumblr.com/rss", {
-		limit: 6,
+		limit: 12,
 		layoutTemplate: '<ul data-tumblr-username="' + tumblrUsername + '">{entries}</ul>',
 		entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="tumblr-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
 		dateFormat: 'MMM Do, YYYY',
@@ -825,11 +825,6 @@ $(document).ready(function() {
         });
 		*/
     });
-	$('#ig-modal form').submit(function(event) {
-		if ($('.insta-feed').length >= 12) {
-			event.preventDefault();
-		}
-	});
 
     $('#scWidgetBtn').click(function() {
 		/*if($('#sc-modal').length > 0) {
@@ -1512,7 +1507,7 @@ $(document).ready(function() {
                                         <h4>Github</h4>
                                     </div>
 
-                                    <div class="modal fade" id="da-modal" role="dialog">
+                                    <div class="modal fade" id="git-modal" role="dialog">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -1532,7 +1527,7 @@ $(document).ready(function() {
 													<br/>
                                                     <div class="input-group">
 														<span class="input-group-addon">Shown Projects Count</span>
-														<input type="number" class="form-control" id="da-count" min='1' max='12' value='4'/>
+														<input type="number" class="form-control" id="git-count" min='1' max='12' value='4'/>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -1554,11 +1549,18 @@ $(document).ready(function() {
 			var gitUsername = $('#git-embed-username').val();
 			
 			$.ajax({
-				url : 'https://api.github.com/users/tastyegg/repos',
+				url : 'https://api.github.com/users/' + gitUsername + '/repos',
 				dataType: 'json',
 				success: function(data) {
+					$('#widgetBodyGit').html('<ul></ul>');
+					var countvar = $('#git-count').val();
 					$(data).each(function(index, element) {
-						
+						if (index >= countvar) {
+							break;
+						}
+						var projectDateTime = new Date(element.created_at);
+						gitRepo = '<li style="background-image:url(\'/ustart_front/img/png/github.png\')"><a href="' + element.html_url + '"><div class="git-body"><h3>' + element.name + '</h3><h4>Created on ' + projectDateTime.toDateString + '</h4></a>' + element.description + '</div></li>';
+						$('#widgetBodyGit ul').append($(gitRepo));
 					});
 				},
 				error: function(err) {
@@ -1662,21 +1664,79 @@ $(document).ready(function() {
     });
 	
 	$('#med-embed-publication').hide();
-		$('#med-embed-tag').parent().hide();
+	$('#med-embed-tag').parent().hide();
+	
+	$('#med-setting-user').click(function() {
+		$('#med-setting').html('Username <i class="glyphicon glyphicon-menu-down"></i>');
+		$('#med-embed-username').prop('disabled', false).show();
+		$('#med-embed-publication').prop('disabled', true).hide();
+		$('#med-embed-tag').prop('disabled', true).parent().hide();
+	});
+	$('#med-setting-pub').click(function() {
+		$('#med-setting').html('Publication <i class="glyphicon glyphicon-menu-down"></i>');
+		$('#med-embed-username').prop('disabled', true).hide();
+		$('#med-embed-publication').prop('disabled', false).show();
+		$('#med-embed-tag').prop('disabled', false).parent().show();
+		$('#med-embed-publication').val('');
+	});
+	
+	//Limit Posts
+	$('#ig-modal form').submit(function(event) {
+		if ($('.insta-feed').length >= 12) {
+			event.preventDefault();
+		}
+	});
+	$('#ar-modal form').submit(function(event) {
+		if ($('#ar-edit-list li').length >= 2) {
+			event.preventDefault();
+		}
+	});
+	
+	try {
+		$('.widgetBodyInstagram').masonry({
+			itemSelector: '.insta-feed'
+		});
+		$('.widgetBodyPin').masonry({
+			itemSelector: '.widgetBodyPin a'
+		});
+	} catch (error) {
 		
-		$('#med-setting-user').click(function() {
-			$('#med-setting').html('Username <i class="glyphicon glyphicon-menu-down"></i>');
-			$('#med-embed-username').prop('disabled', false).show();
-			$('#med-embed-publication').prop('disabled', true).hide();
-			$('#med-embed-tag').prop('disabled', true).parent().hide();
-		});
-		$('#med-setting-pub').click(function() {
-			$('#med-setting').html('Publication <i class="glyphicon glyphicon-menu-down"></i>');
-			$('#med-embed-username').prop('disabled', true).hide();
-			$('#med-embed-publication').prop('disabled', false).show();
-			$('#med-embed-tag').prop('disabled', false).parent().show();
-			$('#med-embed-publication').val('');
-		});
+	}
+	
+	// Limit form versions
+	$('#customInstagramForm').submit(function(event) {
+		if ($('ul#ig-edit-list li').length() >= 12) {
+			event.preventDefault();
+			alert('We cannot add anymore Instagram posts!');
+		}
+	});
+	$('#customSpotifyForm').submit(function(event) {
+		if ($('ul#spot-edit-list li').length() >= 12) {
+			event.preventDefault();
+			alert('We cannot add anymore Spotify posts!');
+		}
+	});
+	$('#customPinterestForm').submit(function(event) {
+		if ($('ul#pin-edit-list li').length() >= 12) {
+			event.preventDefault();
+			alert('We cannot add anymore Pinterest posts!');
+		}
+	});
+	$('#customTumblrForm').submit(function(event) {
+		if ($('#widgetBodyTumblr ul li').length() >= 12) {
+			event.preventDefault();
+			alert('We cannot add anymore Tumblr posts!');
+		}
+	});
+}).delay(2000).queue(function() {
+	// Jank code in order to reload Masonry (fit elements)
+	try {
+		$('.widgetBodyInstagram').masonry();
+		$('.widgetBodyPin').masonry();
+	} catch (error) {
+		
+	}
+	$(this).dequeue();
 });
 
 function addWidgetByHTML(h) {

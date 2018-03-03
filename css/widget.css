@@ -150,6 +150,23 @@ span.ui-icon {
 	opacity: 1;
 }
 
+#sc-edit-list>li form,
+#ig-edit-list>li form,
+#pin-edit-list>li form,
+#spot-edit-list>li form,
+#tumblr-edit-list>li form {
+	width: 100%;
+	margin-bottom: 0;
+}
+
+#sc-edit-list>li form>input,
+#ig-edit-list>li form>input,
+#pin-edit-list>li form>input,
+#spot-edit-list>li form>input,
+#tumblr-edit-list>li form>input {
+	width: 94%;
+}
+
 #sc-edit-list>li .fa-times,
 #ig-edit-list>li .fa-times,
 #pin-edit-list>li .fa-times,
@@ -159,12 +176,14 @@ span.ui-icon {
 }
 
 #widgetBodyMed ul,
+#widgetBodyGit ul,
 #widgetBodyDA ul {
     list-style: none;
     padding: 0 0.5em 0.5em 0.5em;
 }
 
 #widgetBodyMed ul li,
+#widgetBodyGit ul li,
 #widgetBodyDA ul li {
 	background-size: cover;
     display: inline-block;
@@ -175,7 +194,8 @@ span.ui-icon {
 }
 
 .medium-body,
-.dArt-body {
+.dArt-body,
+.git-body {
 	background-color: rgba(255, 255, 255, 0.75);
 	margin-bottom: 1.5em;
 	padding: 0 0.5em;
