@@ -8,14 +8,12 @@
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/profile.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/modal-links.css">
-    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick-theme.min.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/socialMedia.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-gallery.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-text.css">   
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/ustart_front/ckeditor/ckeditor.js"></script>
     <script src="/ustart_front/ckeditor/config.js"></script>
     <script src="/ustart_front/js/layout_tags.js"></script>
@@ -72,7 +70,7 @@
 
 </head>
 
-<body style="display: none;">
+<body>
     <input type="hidden" id="pageiden" value='{{.Page}}'>
     <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
     <div id="centering">
@@ -1541,7 +1539,7 @@
 								<p>Please paste the Pinterest Pin URL here:</p>
 								<form id="customPinterestForm" action="/addWidget/" method="POST">
 								<div class="form-group">
-									<input type="text" class="form-control" id="pin-embed-input" name="pinInput" pattern='https:\/\/www\.pinterest\.com\/pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/' required>
+									<input type="text" class="form-control" id="pin-embed-input" name="pinInput" pattern='https:\/\/www\.pinterest\.com\/pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/?' required>
 									<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
 								</div>
 								 </form>
