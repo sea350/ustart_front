@@ -30,9 +30,9 @@ function daRender(daUsername, daCount) {
 function pinRender(pinURL) {
 	var pinembed = pinURL;
 	if (pinembed.indexOf('/pin/') >= 0) {
-		$('#widgetBodyPin').append('<a data-pin-do="embedPin" href="' + pinembed + '"></a>');
+		$('#widgetBodyPin').append('<a data-pin-do="embed_pin" href="' + pinembed + '"></a>');
 	} else {
-		$('#widgetBodyPin').append('<a data-pin-do="embedBoard" data-pin-board-width="400" data-pin-scale-height="240" data-pin-scale-width="80" href="' + pinembed + '"></a>');
+		$('#widgetBodyPin').append('<a data-pin-do="embedUser" data-pin-board-width="100%" data-pin-scale-height="280" data-pin-scale-width="80" href="' + pinembed + '"></a>');
 	}
 }
 
@@ -65,6 +65,19 @@ function YouTubeGetID(url) {
     }
     return ID;
 }
+
+function AnchorGetID(url) {
+    var anchrarray = url.split("/");
+    for (i=0; i< anchrarray.length; i++){
+        if (anchrarray[i]=="episodes"){
+            var result = "https://anchor.fm/"+anchrarray[i-1]+"/embed/episodes/"+anchrarray[i+1]+"/"+anchrarray[i+2];
+            return result;
+        }
+    }
+    var result = url;
+    return result;
+}
+
 
 function mediumRender (medUsername, medPublication, medTag, medCount) {
 	//$('#widgetBodyMed').html('');

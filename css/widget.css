@@ -175,16 +175,26 @@ span.ui-icon {
 	align-self: center;
 }
 
+#widgetBodyMed,
+#widgetBodyGit,
+#widgetBodyDA,
+#widgetBodyTumblr {
+	max-height: 30em;
+	overflow-y: auto;
+}
+
 #widgetBodyMed ul,
 #widgetBodyGit ul,
-#widgetBodyDA ul {
+#widgetBodyDA ul,
+#widgetBodyTumblr ul {
     list-style: none;
     padding: 0 0.5em 0.5em 0.5em;
 }
 
 #widgetBodyMed ul li,
 #widgetBodyGit ul li,
-#widgetBodyDA ul li {
+#widgetBodyDA ul li,
+#widgetBodyTumblr ul li {
 	background-size: cover;
     display: inline-block;
 	border: black 1px solid;
@@ -195,10 +205,21 @@ span.ui-icon {
 
 .medium-body,
 .dArt-body,
-.git-body {
+.git-body,
+.tumblr-body {
 	background-color: rgba(255, 255, 255, 0.75);
 	margin-bottom: 1.5em;
 	padding: 0 0.5em;
+}
+
+#widgetBodyPin {
+	text-align: center;
+	margin: 0.5em;
+}
+
+#widgetBodyPin>span {
+	width: 100%;
+	max-width: 100vw;
 }
 
 #widgetBodyTwitch {

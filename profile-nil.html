@@ -30,7 +30,6 @@
 	<script src="/ustart_front/js/masonry.pkgd.min.js"></script>
 	<script src="/ustart_front/js/ascii-convert.js"></script>
    <!-- <script src="ustart_front/js/widget-text.js"></script>-->
-	<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js" data-pin-build="doBuild"></script>
     <script>
         window.___gcfg = { "parsetags": "explicit" };
         $(function () {
@@ -65,7 +64,6 @@
     </script>
     <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script async defer src="//assets.pinterest.com/js/pinit.js" data-pin-build="parsePins"></script>
 
 
 </head>
@@ -218,6 +216,28 @@
                                             }//end success
                                         });
                                     });
+
+                                    $('#confirm-delete').click(function(e) {
+                                        //e.preventDefault();
+                                        $.ajax({
+                                            type: 'GET',  
+                                            url: 'http://ustart.today:5000/deleteModal/',
+                                            contentType: "application/json; charset=utf-8",
+                                            data: {},
+                                            success: function(data) {
+                                                $("#post-delete").html(data);
+                                                
+                                                  // $('.editEntry').click(function(e) {
+                                                  //       var postId= $(this).attr("id");
+                                                  //       var modified ="#"+postId;
+                                                  //       console.log(modified);
+                                                  //       $(modified).modal('show');
+                                                  //   });
+                                         
+                                            }//end success
+                                        });
+                                    });
+                             
                             
 
                                     $('.comment-btn').click(function(e) {
@@ -809,7 +829,9 @@
                                     </div>
                                     <div id= "widgetBodyAR" class="widgetBody">
                                         {{range $loop2 := $loop.Data }}
-                                        <div class="anchor-feed"><iframe src="{{$loop2}}" height="270px" width="400px" frameborder="0" scrolling="no"></iframe></div>
+                                        <script>
+                                                document.write('<div class="anchor-feed"><iframe src="'+AnchorGetID({{$loop2}})+'"width="450px" frameborder="0" scrolling="no"></iframe></div>');
+                                        </script>
                                         {{end}}
                                     </div>
                                 </div>
@@ -1081,7 +1103,8 @@
                             </div>
                             <!-- end share Modal -->
                             <!-- delete confirmation modal -->
-                            <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                           <div id=" #post-delete" > </div>
+ <!--                            <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -1093,13 +1116,13 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                             <form action ="http://ustart.today:5000/deletePost" method ="POST"> 
-<!--                                                 <input type="text" name="postid" value=(this).attr("id")>  
+                                                 <input type="text" name="postid" value=(this).attr("id")>  
  -->                                            <button type="submit"><a class="btn btn-danger btn-ok">Delete</a></button>
                                         </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- end delete confirmation modal -->
                             <!-- main (wall) -->
                              <div id="main">
@@ -1536,10 +1559,11 @@
 							<div class="modal-body">
 								<span id="pin-list-title">Removable Pins</span>
 								<ul id="pin-edit-list"></ul>
-								<p>Please paste the Pinterest Pin URL here:</p>
+								<p>Please paste your Pinterest Profile URL here:</p>
 								<form id="customPinterestForm" action="/addWidget/" method="POST">
 								<div class="form-group">
-									<input type="text" class="form-control" id="pin-embed-input" name="pinInput" pattern='https:\/\/www\.pinterest\.com\/pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/?' required>
+									<input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="http://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+\/' required>
+									<!-- Regexp: pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/? -->
 									<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
 								</div>
 								 </form>
@@ -1596,7 +1620,7 @@
 								<form id="customArForm" action="/addWidget/" method="POST">
 								
 								<div class="form-group">
-									<input type="text" class="form-control" name="arInput" id="ar-embed-input" pattern='https:\/\/anchor\.fm\/.*\/' required>
+									<input type="text" class="form-control" name="arInput" id="ar-embed-input" pattern='https:\/\/anchor\.fm\/.*\/+' required>
 									<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
 								</div>
 								</form>
@@ -1696,6 +1720,8 @@
         document.addEventListener('DOMContentLoaded', function () { window.scrollTo(0, 200) });
     </script>
     <script src="/ustart_front/js/fadebody.js"></script>
+    <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
+    </div>
 </body>
 
 </html>
