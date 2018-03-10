@@ -1,22 +1,19 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>ustart</title>
-    <link href="/ustart_front/css/profile.css" rel="stylesheet" type="text/css">
-    <link href="/ustart_front/css/widget.css" rel="stylesheet" type="text/css">
-    <link href="/ustart_front/css/modal-links.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget.css">
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/modal-links.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick-theme.min.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/socialMedia.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-gallery.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-text.css">   
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/ustart_front/ckeditor/ckeditor.js"></script>
     <script src="/ustart_front/ckeditor/config.js"></script>
     <script src="/ustart_front/js/layout_tags.js"></script>
@@ -31,8 +28,8 @@
     <script src="/ustart_front/js/widget-gallery.js"></script>
     <script src="/ustart_front/js/notify.min.js"></script>
 	<script src="/ustart_front/js/masonry.pkgd.min.js"></script>
+	<script src="/ustart_front/js/ascii-convert.js"></script>
    <!-- <script src="ustart_front/js/widget-text.js"></script>-->
-	<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js" data-pin-build="doBuild"></script>
     <script>
         window.___gcfg = { "parsetags": "explicit" };
         $(function () {
@@ -67,12 +64,11 @@
     </script>
     <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script async defer src="//assets.pinterest.com/js/pinit.js" data-pin-build="parsePins"></script>
 
 
 </head>
 
-<body style="display: none;">
+<body>
     <input type="hidden" id="pageiden" value='{{.Page}}'>
     <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
     <div id="centering">
@@ -124,7 +120,9 @@
                     <hr>
                     <div class="user-desc">
                         <p style="margin-bottom: 0;">
-                            <span id="description">I have a passion for web design and love to create for web and mobile devices.</span>
+                            <span id="description">
+								<script>readRuneArray({{.UserInfo.Description}});</script>
+							</span>
                         </p>
                     </div>
                     <hr>
@@ -218,6 +216,28 @@
                                             }//end success
                                         });
                                     });
+
+                                    $('#confirm-delete').click(function(e) {
+                                        //e.preventDefault();
+                                        $.ajax({
+                                            type: 'GET',  
+                                            url: 'http://ustart.today:5000/deleteModal/',
+                                            contentType: "application/json; charset=utf-8",
+                                            data: {},
+                                            success: function(data) {
+                                                $("#post-delete").html(data);
+                                                
+                                                  // $('.editEntry').click(function(e) {
+                                                  //       var postId= $(this).attr("id");
+                                                  //       var modified ="#"+postId;
+                                                  //       console.log(modified);
+                                                  //       $(modified).modal('show');
+                                                  //   });
+                                         
+                                            }//end success
+                                        });
+                                    });
+                             
                             
 
                                     $('.comment-btn').click(function(e) {
@@ -809,7 +829,9 @@
                                     </div>
                                     <div id= "widgetBodyAR" class="widgetBody">
                                         {{range $loop2 := $loop.Data }}
-                                        <div class="anchor-feed"><iframe src="{{$loop2}}" height="270px" width="400px" frameborder="0" scrolling="no"></iframe></div>
+                                        <script>
+                                                document.write('<div class="anchor-feed"><iframe src="'+AnchorGetID({{$loop2}})+'"width="450px" frameborder="0" scrolling="no"></iframe></div>');
+                                        </script>
                                         {{end}}
                                     </div>
                                 </div>
@@ -1081,7 +1103,8 @@
                             </div>
                             <!-- end share Modal -->
                             <!-- delete confirmation modal -->
-                            <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                           <div id=" #post-delete" > </div>
+ <!--                            <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -1093,13 +1116,13 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                             <form action ="http://ustart.today:5000/deletePost" method ="POST"> 
-<!--                                                 <input type="text" name="postid" value=(this).attr("id")>  
+                                                 <input type="text" name="postid" value=(this).attr("id")>  
  -->                                            <button type="submit"><a class="btn btn-danger btn-ok">Delete</a></button>
                                         </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- end delete confirmation modal -->
                             <!-- main (wall) -->
                              <div id="main">
@@ -1466,7 +1489,7 @@
                                                 Username
                                             </button>
                                         </div>
-                                        <input type="text" class="form-control" name="twitchInput" id="twitch-embed-username" required/>
+                                        <input type="text" class="form-control" name="twitchInput" id="twitch-embed-username" required pattern='[0-9A-Za-z_]{1,25}'/>
                                         <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
                                     </div>
                                 </div>
@@ -1524,172 +1547,172 @@
                             </form>
                         </div>
                     </div>
-                </div> 
-            </div> <!-- end spotify widget -->
-            <!--pinterest Widget -->
-            <div class="modal fade" id="pin-modal" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Embed Pinterest</h4>
-                        </div>
-                        <div class="modal-body">
-                            <span id="pin-list-title">Removable Pins</span>
-                            <ul id="pin-edit-list"></ul>
-                            <p>Please paste the Pinterest Pin URL here:</p>
-                            <form id="customPinterestForm" action="/addWidget/" method="POST">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="pin-embed-input" name="pinInput" pattern='https:\/\/www\.pinterest\.com\/pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/' required>
-                                <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                            </div>
-                             </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" id="pin-submit-btn" class="btn btn-info btn-done" form="customPinterestForm" name="widgetSubmit" value="8">Done</button>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div> <!--end pinterest widget-->
-            <!-- link modal-->
-            <div class="modal fade" id="addLinkModal" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Add Link</h4>
-                        </div>
-                        
-                            <div class="modal-body">
-                                <p>
-                                    <span class="modal-cell">Title</span>
-                                    <input type="text" class="link-input-read" name="webTitle" placeholder="example: 'My LinkedIn'" spellcheck="false" required autofocus />
-                                </p>
-                                <p>
-                                    <span class="modal-cell">URL</span>
-                                    <input type="url" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" required/>
-                                </p>
-                            </div>
-                            
-                            <div class="modal-footer">
-                                <div class=numLinks>
-                                    <span id="linkCountIndicator"></span>
-                                </div>
-                                <button type="submit" id="link-submit-btn" class="btn btn-info btn-done">Done</button>
-                            </div>
-                    </div>
-                </div>
-            </div><!-- end linkmodal-->
-            <!-- anchor modal-->
-            <div class="modal fade" id="ar-modal" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Embed Anchors</h4>
-                        </div>
-                        <div class="modal-body">
-                            <span id="ar-list-title">Removable Anchors</span>
-                            <ul id="ar-edit-list"></ul>
-                            <p>Insert the Anchor URL:</p>
-                            <form id="customArForm" action="/addWidget/" method="POST">
-                            
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="arInput" id="ar-embed-input" pattern='https:\/\/anchor\.fm\/.*\/' required>
-                                <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                            </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                             <button type="submit" id="ar-submit-btn" class="btn btn-info btn-done" form="customArForm" name="widgetSubmit" value="11">Done</button>
+                </div> <!-- end spotify widget -->
+				<!--pinterest Widget -->
+				<div class="modal fade" id="pin-modal" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Embed Pinterest</h4>
+							</div>
+							<div class="modal-body">
+								<span id="pin-list-title">Removable Pins</span>
+								<ul id="pin-edit-list"></ul>
+								<p>Please paste your Pinterest Profile URL here:</p>
+								<form id="customPinterestForm" action="/addWidget/" method="POST">
+								<div class="form-group">
+									<input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="http://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+\/' required>
+									<!-- Regexp: pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/? -->
+									<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+								</div>
+								 </form>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" id="pin-submit-btn" class="btn btn-info btn-done" form="customPinterestForm" name="widgetSubmit" value="8">Done</button>
+							</div>
+							
+						</div>
+					</div>
+				</div> <!--end pinterest widget-->
+				<!-- link modal-->
+				<div class="modal fade" id="addLinkModal" role="dialog">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Add Link</h4>
+							</div>
+							
+								<div class="modal-body">
+									<p>
+										<span class="modal-cell">Title</span>
+										<input type="text" class="link-input-read" name="webTitle" placeholder="example: 'My LinkedIn'" spellcheck="false" required autofocus />
+									</p>
+									<p>
+										<span class="modal-cell">URL</span>
+										<input type="url" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" required/>
+									</p>
+								</div>
+								
+								<div class="modal-footer">
+									<div class=numLinks>
+										<span id="linkCountIndicator"></span>
+									</div>
+									<button type="submit" id="link-submit-btn" class="btn btn-info btn-done">Done</button>
+								</div>
+						</div>
+					</div>
+				</div><!-- end linkmodal-->
+				<!-- anchor modal-->
+				<div class="modal fade" id="ar-modal" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Embed Anchors</h4>
+							</div>
+							<div class="modal-body">
+								<span id="ar-list-title">Removable Anchors</span>
+								<ul id="ar-edit-list"></ul>
+								<p>Insert the Anchor URL:</p>
+								<form id="customArForm" action="/addWidget/" method="POST">
+								
+								<div class="form-group">
+									<input type="text" class="form-control" name="arInput" id="ar-embed-input" pattern='https:\/\/anchor\.fm\/.*\/+' required>
+									<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+								</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								 <button type="submit" id="ar-submit-btn" class="btn btn-info btn-done" form="customArForm" name="widgetSubmit" value="11">Done</button>
 
-                        </div>
-                    </div>
-                </div>
-            </div> <!--end anchor modal-->
-            <!--medium modal-->
-            <div class="modal fade" id="med-modal" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Embed Medium</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>Enter Your Medium username:</p>
-                            <form id="customMedForm" action="/addWidget/" method="POST">
-                                <p>Select a Medium import option, either your username, or your publication name</p>
-                                <div class="input-group">
-                                    <div class="input-group-btn">
-                                        <button id="med-setting" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Username <i class="glyphicon glyphicon-menu-down"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a id="med-setting-user" class="dropdown-item" style="display:block;">Username</a>
-                                            <a id="med-setting-pub" class="dropdown-item" style="display:block;">Publication</a>
-                                        </div>
-                                    </div>
-                                    <input type="text" class="form-control" name="medInput" id="med-embed-username"/>
-                                    <input type="text" class="form-control" name="medInput2" id="med-embed-publication"/>
-                                <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                    
-                                </div>
-                                <br/>
-                                <div class="input-group">
-                                    <span class="input-group-addon">Publication Tag</span>
-                                    <input type="text" class="form-control" name="medInput3" id="med-embed-tag" disabled placeholder="(Optional)"/>
-                                </div>
-                                <br/>
-                                <div class="input-group">
-				                    <span class="input-group-addon">Article Count</span>
-				                    <input type="number" class="form-control" name="medInput4" id="med-count" min='1' max='12' value='4'/>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" id="ar-submit-btn" class="btn btn-info btn-done" form="customMedForm" name="widgetSubmit" value="12">Done</button>
+							</div>
+						</div>
+					</div>
+				</div> <!--end anchor modal-->
+				<!--medium modal-->
+				<div class="modal fade" id="med-modal" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Embed Medium</h4>
+							</div>
+							<div class="modal-body">
+								<p>Enter Your Medium username:</p>
+								<form id="customMedForm" action="/addWidget/" method="POST">
+									<p>Select a Medium import option, either your username, or your publication name</p>
+									<div class="input-group">
+										<div class="input-group-btn">
+											<button id="med-setting" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												Username <i class="glyphicon glyphicon-menu-down"></i>
+											</button>
+											<div class="dropdown-menu">
+												<a id="med-setting-user" class="dropdown-item" style="display:block;">Username</a>
+												<a id="med-setting-pub" class="dropdown-item" style="display:block;">Publication</a>
+											</div>
+										</div>
+										<input type="text" class="form-control" name="medInput" id="med-embed-username" pattern='[0-9A-Za-z\-]{1,32}'/>
+										<input type="text" class="form-control" name="medInput2" id="med-embed-publication"/>
+									<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+										
+									</div>
+									<br/>
+									<div class="input-group">
+										<span class="input-group-addon">Publication Tag</span>
+										<input type="text" class="form-control" name="medInput3" id="med-embed-tag" disabled placeholder="(Optional)"/>
+									</div>
+									<br/>
+									<div class="input-group">
+										<span class="input-group-addon">Article Count</span>
+										<input type="number" class="form-control" name="medInput4" id="med-count" min='1' max='12' value='4'/>
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" id="ar-submit-btn" class="btn btn-info btn-done" form="customMedForm" name="widgetSubmit" value="12">Done</button>
 
-                        </div>
-                    </div>
-                </div>
-            </div> <!--end medium-->
-            <!-- deviant art modal-->
-            <div class="modal fade" id="da-modal" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Embed DeviantArt</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>Put your DeviantArt username here to share your newest deviations:</p>
-                            <form id="customMedForm" action="/addWidget/" method="POST">
-                            
-                            <div class="input-group">
-                                <div class="input-group-btn">
-                                    <button id="da-setting" type="button" class="btn btn-secondary" aria-expanded="false">
-                                        Username
-                                    </button>
-                                </div>
-                                <input type="text" class="form-control" name="daInput" id="da-embed-username" required/>
-                                <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                
-                            </div>
-                            <br/>
-                            <div class="input-group">
-                                <span class="input-group-addon">Article Count</span>
-                                <input type="number" class="form-control"  name="daInput2" id="da-count" min='1' max='12' value='4'/>
-                            </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                             <button type="submit" id="da-submit-btn" class="btn btn-info btn-done" form="customdaForm" name="widgetSubmit" value="13">Done</button>
-                        </div>
-                    </div>
-                </div>
-            </div> 
+							</div>
+						</div>
+					</div>
+				</div> <!--end medium-->
+				<!-- deviant art modal-->
+				<div class="modal fade" id="da-modal" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Embed DeviantArt</h4>
+							</div>
+							<div class="modal-body">
+								<p>Put your DeviantArt username here to share your newest deviations:</p>
+								<form id="customMedForm" action="/addWidget/" method="POST">
+								
+								<div class="input-group">
+									<div class="input-group-btn">
+										<button id="da-setting" type="button" class="btn btn-secondary" aria-expanded="false">
+											Username
+										</button>
+									</div>
+									<input type="text" class="form-control" name="daInput" id="da-embed-username" required/>
+									<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+									
+								</div>
+								<br/>
+								<div class="input-group">
+									<span class="input-group-addon">Article Count</span>
+									<input type="number" class="form-control"  name="daInput2" id="da-count" min='1' max='12' value='4'/>
+								</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								 <button type="submit" id="da-submit-btn" class="btn btn-info btn-done" form="customdaForm" name="widgetSubmit" value="13">Done</button>
+							</div>
+						</div>
+					</div>
+				</div>
         </div> <!-- end content -->
     </div>
     <div id="footer-placeholder"></div>
@@ -1697,6 +1720,8 @@
         document.addEventListener('DOMContentLoaded', function () { window.scrollTo(0, 200) });
     </script>
     <script src="/ustart_front/js/fadebody.js"></script>
+    <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
+    </div>
 </body>
 
 </html>

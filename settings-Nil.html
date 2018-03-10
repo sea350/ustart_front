@@ -5,12 +5,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<title>ustart</title>
-	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-	<link rel="stylesheet" href="/ustart_front/css/settings.css" />
-    <link rel="stylesheet" href="/ustart_front/css/croppie.css" />
-	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/ustart_front/css/settings.css" />
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/croppie.css" />
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
 	<script src="/ustart_front/js/countries.js"></script>
 	<script src="/ustart_front/js/majors.js"></script>
 	<script src="/ustart_front/js/settings.js"></script>
@@ -471,7 +468,7 @@
 					<h4 class="modal-title">Crop avatar</h4>
 				</div>
 				<div class="modal-body">
-					<iframe src="swagCrop/index.html" id="cropperiframe"> </iframe>
+					<iframe id="cropperiframe"> </iframe>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
@@ -480,6 +477,13 @@
 		</div>
 	</div>
 	<div id="footer-placeholder"></div>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			if(location.hash != null && location.hash != ""){
+				$('.collapse').removeClass('in');
+				$(location.hash + '.collapse').collapse('show');
+			}
+		});
+	</script>
 </body>
-
 </html>

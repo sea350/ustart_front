@@ -51,6 +51,8 @@
 #project-desc {
     padding: 0;
     line-height: 2;
+	width: 20em;
+	overflow-x: auto;
 }
 
 #project-logo {
