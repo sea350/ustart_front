@@ -68,107 +68,107 @@
 						<div id="avatarcollapse" class="panel-collapse collapse">
 							<div class="panel-body">
 								<div class="form-group">
-
-										<div class="row">
-											<div class="col-sm-4">
-                                                 <form id="img-form" action="http://ustart.today:5000/ImageUpload/" method="POST">
-                                                       <div id="upload-demo" style="width:300px; height:350px"></div>
-                                                       <input type="file" id="upload" accept="image/*">
-                                                       <input type="hidden" name="image-data" id="hidden-image-data" />
-                                                       <button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
-                                                     <script type="text/javascript">
-                                                        $uploadCrop = $('#upload-demo').croppie({
-                                                            enableExif: true,
-                                                            viewport: {
-                                                                width: 250,
-                                                                height: 250,
-                                                            },
-                                                            boundary: {
-                                                                width: 300,
-                                                                height: 300
-                                                            }
-                                                        });
-                                                        $('#upload').on('change', function () { 
-                                                            var reader = new FileReader();
-                                                            reader.onload = function (e) {
-                                                                $uploadCrop.croppie('bind', {
-                                                                    url: e.target.result
-                                                                }).then(function(){
-                                                                    console.log('jQuery bind complete');
-                                                                });
-                                                            }
-                                                            reader.readAsDataURL(this.files[0]);
-                                                        });
-                                                         $('#upload-result').on('click', function (ev) {
-                                                            $uploadCrop.croppie('result', {
-                                                                type: 'canvas',
-                                                                size: 'viewport'
-                                                            }).then(function (resp) {
-                                                                $('#hidden-image-data').val(resp);
-                                                                console.log($('#hidden-image-data').val());
-                                                                $('#img-form').submit();
-                                                            });
-                                                        });
-                                                     </script>
-                                                    </form>
-                                                </div>
-											     
-											<div class="col-sm-4">
-												<label for="work_availability">Work Status</label>
-												<br/>
-												<label class="switch" style="float: none">
-														<input id="work_availability" name="work_availability" type="checkbox" onchange="alterStatus()" checked>
-														<span class="slider round"></span>
-													</label>
-												<br/>
-												<span id="switchStatusMessage">Available</span>
-											</div>
-											<div class="col-sm-12">
-												<hr/>
-                                                 <form id="banner-form" action="http://ustart.today:5000/BannerUpload/" method="POST">
-                                                     <div id="upload-demo2" style="width:1100px; height:380px"></div>
-                                                     <input type="file" id="upload2" accept="image/*">
-                                                     <input type="hidden" name="banner-data" id="hidden-image-data2" />
-                                                     <button type="button" class="btn btn-info" id="upload-result2">Upload Image</button>
-                                                     <script type="text/javascript">
-                                                        $uploadCrop2 = $('#upload-demo2').croppie({
-                                                            enableExif: true,
-                                                            viewport: {
-                                                                width: 1000,
-                                                                height: 300,
-                                                            },
-                                                            boundary: {
-                                                                width: 1050,
-                                                                height: 350
-                                                            }
-                                                        });
-                                                        $('#upload2').on('change', function () { 
-                                                            var reader2 = new FileReader();
-                                                            reader2.onload = function (e) {
-                                                                $uploadCrop2.croppie('bind', {
-                                                                    url: e.target.result
-                                                                }).then(function(){
-                                                                    console.log('jQuery bind complete');
-                                                                });
-                                                            }
-                                                            reader2.readAsDataURL(this.files[0]);
-                                                        });
-                                                         $('#upload-result2').on('click', function (ev) {
-                                                            $uploadCrop2.croppie('result', {
-                                                                type: 'canvas',
-                                                                size: 'viewport'
-                                                            }).then(function (resp) {
-                                                                $('#hidden-image-data2').val(resp);
-                                                                console.log($('#hidden-image-data2').val());
-                                                                $('#banner-form').submit();
-                                                            });
-                                                        });
-                                                     </script>
-                                                </form>
-											</div>
+									<div class="row">
+										<div class="col-sm-4">
+											<form id="img-form" action="http://ustart.today:5000/ImageUpload/" method="POST">
+												<div id="upload-demo" style="width:300px; height:350px"></div>
+												<input type="file" id="upload" accept="image/*">
+												<input type="hidden" name="image-data" id="hidden-image-data" />
+												<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
+												<script type="text/javascript">
+													$uploadCrop = $('#upload-demo').croppie({
+														url: "{{.UserInfo.Avatar}}",
+														enableExif: true,
+														viewport: {
+															width: 250,
+															height: 250,
+														},
+														boundary: {
+															width: 300,
+															height: 300
+														}
+													});
+													$('#upload').on('change', function () { 
+														var reader = new FileReader();
+														reader.onload = function (e) {
+															$uploadCrop.croppie('bind', {
+																url: e.target.result
+															}).then(function(){
+																console.log('jQuery bind complete');
+															});
+														}
+														reader.readAsDataURL(this.files[0]);
+													});
+													 $('#upload-result').on('click', function (ev) {
+														$uploadCrop.croppie('result', {
+															type: 'canvas',
+															size: 'viewport'
+														}).then(function (resp) {
+															$('#hidden-image-data').val(resp);
+															console.log($('#hidden-image-data').val());
+															$('#img-form').submit();
+														});
+													});
+												</script>
+											</form>
 										</div>
-										<hr/>
-										<div class="save-message fade"></div>
+										<div class="col-sm-4">
+											<label for="work_availability">Work Status</label>
+											<br/>
+											<label class="switch" style="float: none">
+													<input id="work_availability" name="work_availability" type="checkbox" onchange="alterStatus()" checked>
+													<span class="slider round"></span>
+												</label>
+											<br/>
+											<span id="switchStatusMessage">Available</span>
+										</div>
+										<div class="col-sm-12">
+											<hr/>
+											<form id="banner-form" action="http://ustart.today:5000/BannerUpload/" method="POST">
+												<div id="upload-demo2" style="width:1100px; height:380px"></div>
+												<input type="file" id="upload2" accept="image/*">
+												<input type="hidden" name="banner-data" id="hidden-image-data2" />
+												<button type="button" class="btn btn-info" id="upload-result2">Upload Image</button>
+												<script type="text/javascript">
+													$uploadCrop2 = $('#upload-demo2').croppie({
+														url: "{{.UserInfo.Banner}}",
+														enableExif: true,
+														viewport: {
+															width: 1000,
+															height: 300,
+														},
+														boundary: {
+															width: 1050,
+															height: 350
+														}
+													});
+													$('#upload2').on('change', function () { 
+														var reader2 = new FileReader();
+														reader2.onload = function (e) {
+															$uploadCrop2.croppie('bind', {
+																url: e.target.result
+															}).then(function(){
+																console.log('jQuery bind complete');
+															});
+														}
+														reader2.readAsDataURL(this.files[0]);
+													});
+													 $('#upload-result2').on('click', function (ev) {
+														$uploadCrop2.croppie('result', {
+															type: 'canvas',
+															size: 'viewport'
+														}).then(function (resp) {
+															$('#hidden-image-data2').val(resp);
+															console.log($('#hidden-image-data2').val());
+															$('#banner-form').submit();
+														});
+													});
+												</script>
+											</form>
+										</div>
+									</div>
+									<hr/>
+									<div class="save-message fade"></div>
 								</div>
 							</div>
 						</div>
@@ -187,27 +187,28 @@
 								<div class="form-group">
 									<form id="contactChange" action="http://ustart.today:5000/UpdateDescription/" method="POST">
 										<div class="row">
-											<div class="col-sm-3">
+											<div class="col-sm-6">
 												<label for="pnumber">Phone Number</label>
 												<label class="switch usr-vis-opt"><input type="checkbox" name="pnumberVis" checked><span class="slider round"></span></label>
-												<input type="text" class="form-control" id="pnumber" name="pnumber" placeholder="Phone Number" required />
+												<input type="text" class="form-control" id="pnumber" name="pnumber" placeholder="Phone Number" value="{{.UserInfo.Phone}}" required />
 											</div>
-											<div class="col-sm-3">
+											<div class="col-sm-6">
 												<label for="gender_select">Gender</label>
 												<label class="switch usr-vis-opt"><input type="checkbox" name="gender_selectVis" checked><span class="slider round"></span></label>
+												<!-- Gender is handled via script -->
 												<select id="gender_select" class="form-control" name="gender_select" required>
-														<option disabled selected hidden>Select Gender</option>
-														<option>Male</option>
-														<option>Female</option>
-														<option>Unspecified</option>
-													</select>
+													<option disabled selected hidden>Select Gender</option>
+													<option>Male</option>
+													<option>Female</option>
+													<option>Unspecified</option>
+												</select>
 											</div>
 											<div class="col-sm-6">
 											</div>
 											<div class="col-sm-12">
 												<label for="inputDesc">Description</label>
-												<label class="switch usr-vis-opt"><input type="checkbox" name="inputDescVis" checked><span class="slider round"></span></label>
-												<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe yourself."></textarea>
+												<!-- <label class="switch usr-vis-opt"><input type="checkbox" name="inputDescVis" checked><span class="slider round"></span></label> -->
+												<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe yourself." value="{{.UserInfo.Description}}"></textarea>
 											</div>
 										</div>
 										<hr/>
@@ -236,13 +237,13 @@
 										<div class="row">
 											<div class="col-sm-6">
 												<label for="fname">First Name</label>
-												<label class="switch usr-vis-opt"><input type="checkbox" name="fnameVis" checked><span class="slider round"></span></label>
-												<input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" required>
+												<!-- <label class="switch usr-vis-opt"><input type="checkbox" name="fnameVis" checked><span class="slider round"></span></label> -->
+												<input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" value="{{.UserInfo.FirstName}}" required>
 											</div>
 											<div class="col-sm-6">
 												<label for="lname">Last Name</label>
-												<label class="switch usr-vis-opt"><input type="checkbox" name="lnameVis" checked><span class="slider round"></span></label>
-												<input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" required>
+												<!-- <label class="switch usr-vis-opt"><input type="checkbox" name="lnameVis" checked><span class="slider round"></span></label> -->
+												<input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" value="{{.UserInfo.LastName}}" required>
 											</div>
 										</div>
 										<hr/>
@@ -297,26 +298,29 @@
 									<div class="row">
 										<div class="col-sm-4">
 											<label for="country">Country</label>
-											<label class="switch usr-vis-opt"><input type="checkbox" name="countryVis" checked><span class="slider round"></span></label>
+											<!-- <label class="switch usr-vis-opt"><input type="checkbox" name="countryVis" checked><span class="slider round"></span></label> -->
 											<select id="country" class="form-control" name="country" required></select>
 										</div>
 										<div class="col-sm-3">
 											<label for="state">State</label>
-											<label class="switch usr-vis-opt"><input type="checkbox" name="stateVis" checked><span class="slider round"></span></label>
+											<!-- <label class="switch usr-vis-opt"><input type="checkbox" name="stateVis" checked><span class="slider round"></span></label> -->
 											<select id="state" class="form-control" name="state" required></select>
 										</div>
 										<script language="javascript">
 											populateCountries("country", "state");
+											$('select#country').val({{.UserInfo.Location.Country}});
+											populateStates("country", "state");
+											$('select#state').val({{.UserInfo.Location.State}});
 										</script>
 										<div class="col-sm-3">
 											<label for="city">City</label>
-											<label class="switch usr-vis-opt"><input type="checkbox" name="cityVis" checked><span class="slider round"></span></label>
-											<input id="city" class="form-control" name="city" placeholder="City" required />
+											<!-- <label class="switch usr-vis-opt"><input type="checkbox" name="cityVis" checked><span class="slider round"></span></label> -->
+											<input id="city" class="form-control" name="city" value="{{.UserInfo.Location.City}}" placeholder="City" required />
 										</div>
 										<div class="col-sm-2">
 											<label for="zip">Zip</label>
-											<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis" checked><span class="slider round"></span></label>
-											<input id="zip" class="form-control" name="zip" placeholder="Zip" required />
+											<!-- <label class="switch usr-vis-opt"><input type="checkbox" name="zipVis" checked><span class="slider round"></span></label> -->
+											<input id="zip" class="form-control" name="zip" value="{{.UserInfo.Location.Zip}}" placeholder="Zip" required />
 										</div>
 									</div>
 									<hr/>
@@ -337,23 +341,23 @@
 									<div>
 										<label for="type_select">User Type</label>
 										<select id="type_select" class="form-control" name="type_select">
-												<option disabled selected hidden>Select User Type</option>
-												<option>High School Student</option>
-												<option>College Student</option>
-												<option>Finished Education</option>
-											</select>
+											<option disabled selected hidden>Select User Type</option>
+											<option>High School Student</option>
+											<option>College Student</option>
+											<option>Finished Education</option>
+										</select>
 									</div>
 									<hr/>
 									<!-- High School -->
 									<div class="row">
 										<div class="dropdown col-sm-7">
 											<label for="schoolname">High School</label>
-											<input type="text" name="schoolname" class="form-control" id="schoolname" placeholder="High School Name" />
+											<input type="text" name="schoolname" class="form-control" id="schoolname" placeholder="High School Name" value="{{.UserInfo.HighSchool}}" />
 										</div>
 										<div class="dropdown col-sm-5">
-											<label for="schoolname" style="visibility: hidden">?</label>
-											<input type='text' placeholder="Graduation Date (MM/DD/YYYY)" class="form-control" id='highSchoolGradDate' name="highSchoolGradDate"
-											 disabled value="06/15/2000" />
+											<label for="highSchoolGradDate" >Grad Date</label>
+											<input type='text' placeholder="Graduation Date (MM/DD/YYYY)" class="form-control" id="highSchoolGradDate" name="highSchoolGradDate"
+											 disabled value="{{.UserInfo.HSGradDate}}" />
 										</div>
 										<script type="text/javascript">
 											$('#highSchoolGradDate').datepicker({
@@ -368,7 +372,7 @@
 									<div class="row">
 										<div class="dropdown col-sm-7">
 											<label for="universityName">University/College</label>
-											<input type="text" name="universityName" class="form-control" id="uni" placeholder="University/College Name" />
+											<input type="text" name="universityName" class="form-control" id="uni" placeholder="University/College Name" value="{{.UserInfo.University}}"/>
 											<script type="text/javascript">
 												$(document).ready(function () {
 													$("#uni").autocomplete({
@@ -381,7 +385,7 @@
 											</script>
 										</div>
 										<div class="dropdown col-sm-5">
-											<label for="majors" style="visibility: hidden">?</label>
+											<label for="majors">Major</label>
 											<input type="text" id="maj" name="majors" class="form-control" placeholder="Major" />
 											<script type="text/javascript">
 												$(document).ready(function () {
@@ -390,7 +394,7 @@
 															var results = $.ui.autocomplete.filter(major, request.term);
 															response(results.slice(0, 10));
 														}
-													});
+													}).val("{{.UserInfo.Majors}}".replace(/\[|\]/g, ''));
 												});
 											</script>
 										</div>
@@ -400,26 +404,27 @@
 									<div class="row">
 										<div class="dropdown col-sm-7">
 											<select id="inYr" name="year" class="form-control">
-													<option value='' disabled selected hidden>Select Class Level</option>
-													<option value="Freshman">Freshman</option>
-													<option value="Sophomore">Sophomore</option>
-													<option value="Junior">Junior</option>
-													<option value="Senior">Senior</option>
-													<option value="Graduate">Graduate</option>
-													<option value="PHD">PHD</option>
-													<option value="Professor">Professor</option>
-													<option value="Staff">Staff</option>
-												</select>
+												<option value='' disabled selected hidden>Select Class Level</option>
+												<option value="Freshman">Freshman</option>
+												<option value="Sophomore">Sophomore</option>
+												<option value="Junior">Junior</option>
+												<option value="Senior">Senior</option>
+												<option value="Graduate">Graduate</option>
+												<option value="PHD">PHD</option>
+												<option value="Professor">Professor</option>
+												<option value="Staff">Staff</option>
+											</select>
 										</div>
 										<div class="dropdown col-sm-5">
-											<input type='text' placeholder="Graduation Date (MM/DD/YYYY)" class="form-control" id='uniGradDate' name="uniGradDate" />
+											<input type='text' placeholder="Graduation Date (MM/DD/YYYY)" class="form-control" id="uniGradDate" name="uniGradDate" value="{{.UserInfo.CollegeGradDate}}"/>
 										</div>
 										<script type="text/javascript">
-												$('#uniGradDate').datepicker({
-													format: 'MM/DD/YYYY',
-													changeYear: true,
-													yearRange: "-100:+0"
-												});
+											$('select#inYr').prop('selectedIndex', {{.UserInfo.Class}});
+											$('#uniGradDate').datepicker({
+												format: 'MM/DD/YYYY',
+												changeYear: true,
+												yearRange: "-100:+0"
+											});
 										</script>
 									</div>
 									<hr/>
@@ -483,6 +488,9 @@
 				$('.collapse').removeClass('in');
 				$(location.hash + '.collapse').collapse('show');
 			}
+			
+			$("select#gender_select").val('{{.UserInfo.Gender}}');
+			$("select#type_select").prop('selectedIndex', {{.UserInfo.AccType}});
 		});
 	</script>
 </body>

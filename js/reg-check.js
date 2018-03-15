@@ -65,9 +65,11 @@ function loadInputs() {
 	$('#lName').val(sessionStorage.getItem('lastName'));
 	$('#uName').val(sessionStorage.getItem('username'));
 	$('#inputEmail').val(sessionStorage.getItem('inputEmail'));
-	$('#country option').eq(sessionStorage.getItem('country')).prop('selected', true);
-	populateStates("country", "states");
-	$('#state option').eq(sessionStorage.getItem('state')).prop('selected', true);
+	if (sessionStorage.getItem('country')) {
+		$('#country option').eq(sessionStorage.getItem('country')).prop('selected', true);
+		populateStates("country", "states");
+		$('#state option').eq(sessionStorage.getItem('state')).prop('selected', true);
+	}
 	$('#city').val(sessionStorage.getItem('city'));
 	$('#zip').val(sessionStorage.getItem('zip'));
 	$('#uni').val(sessionStorage.getItem('universityName'));

@@ -23,6 +23,7 @@
     <script src="/ustart_front/ckeditor/config.js"></script>
     <script src="/ustart_front/js/profile.js"></script>
 	<script src="/ustart_front/js/layout_tags.js"></script>
+    <script src="/ustart_front/js/jquery.rss.min.js"></script>
     <script src="/ustart_front/js/widgets.js"></script>
     <script src="/ustart_front/js/widget-gallery.js"></script>
     <script src="/ustart_front/js/notify.min.js"></script>
@@ -57,10 +58,10 @@
 <body>
     <input type="hidden" id="pageiden" value='{{.Page}}'>
     <div id="centering" style="top: 3.3em;">
+        <div id="LeftNavBar-placeholder"></div>
         <!-- Vertical content -->
         <div id="content">
-            <div id="LeftNavBar-placeholder"></div>
-            <div class="col-md-9">
+            <div>
                 <img id="head-image" src="{{.Project.ProjectData.Banner}}">
                 <div class="followers-cont flex">
                     <div class="followers-link-cont">
@@ -96,7 +97,12 @@
                                 <li><a href="#" data-toggle="modal" data-target="#project-member-add"><i class="fa fa-user-plus"></i> Add Member To Project</a></li>
                                 <li><a href="#"><i class="fa fa-camera"></i> Upload New Logo</a></li>
                                 <li><a href="#"><i class="fa fa-camera-retro"></i> Upload New Banner</a></li>
-                                <li><a href="project_settings.html"><i class="fa fa-gear"></i> Settings</a></li>
+                                <li>
+									<form action="/ProjectSettings/" method="POST">
+										<input type="hidden" name="ProjectURL" value="{{.Project.ProjectData.URLName}}">
+										<a href="#" onclick="$(this).closest('form').submit();"><i class="fa fa-gear"></i> Settings</a>
+									</form>
+								</li>
                             </ul>
                         </div>
                     </div>
@@ -316,10 +322,8 @@
 						<li class="ui-state-default">
 							<div class="projectsWidgetCont">
 								<div class="widgetTitle">
-									{{if eq ($.Project.DocID) ($.DOCID)}}
 									<span class="pull-right fa fa-2x fa-sort"></span>
 									<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#tagModal"></span>
-									{{end}}
 									<h4>Skills Wanted</h4>
 								</div>
 								<div id="hashTagsBody" class="widgetBody">
@@ -340,10 +344,8 @@
 						<li class="ui-state-default widgetListItem sortable">
 							<div id="linksWidget" class="projectsWidgetCont">
 								<div class="widgetTitle">
-									{{if eq ($.Project.DocID) ($.DOCID)}}
 									<span class="pull-right fa fa-2x fa-sort"></span>
 									<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#addLinkModal"></span>
-									{{end}}
 									<h4>Links</h4>
 								</div>
 								<div class="widgetBody">
@@ -361,24 +363,24 @@
 							</div>
 				        </li><!--end link widget -->
                             <!-- for loop goes here -->
+						{{$projecturl := .Project.ProjectData.URLName}}
                         {{range $loop := .Widgets }}
                          {{if eq $loop.Classification 0}}<!-- if is text -->  
                             <li class="text ui-state-default" id="{{index $loop.ID}}">
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
-                                        {{if eq ($.Project.DocID) ($.DOCID)}}
-                                            <span class="pull-right fa fa-2x fa-sort"></span>
-                                            <script>
-                                                function focusDesc() {
-                                                    document.getElementById('text-box').focus();
-                                                }
-                                            </script>
-                                            <span class="pull-right fa fa-2x fa-pencil" onclick="ApplyTextModalID(this)"></span>
-                                            <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
-                                                <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                                <span name="delete" class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
-                                            </form>
-                                        {{end}}
+										<span class="pull-right fa fa-2x fa-sort"></span>
+										<script>
+											function focusDesc() {
+												document.getElementById('text-box').focus();
+											}
+										</script>
+										<span class="pull-right fa fa-2x fa-pencil" onclick="ApplyTextModalID(this)"></span>
+										<form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                            <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
+											<input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+											<span name="delete" class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+										</form>
                                         <h4 id="text-title" name="textEditorHeader">
                                              {{index $loop.Data 0}}
                                         </h4>
@@ -395,14 +397,13 @@
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
-                                        {{if eq ($.Project.DocID) ($.DOCID)}}
                                         <span class="pull-right fa fa-2x fa-sort"></span>
                                         <span class="pull-right fa fa-2x fa-pencil" id="ig-edit" onclick="instagramEditor(this)"></span>
-                                        <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                        <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                            <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                              <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                             <span name="delete" class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                         </form>
-                                        {{end}}
                                         <h4>Instagram</h4>
                                     </div>
                                     <div id="widgetBodyID" class="widgetBody widgetBodyInstagram">
@@ -419,14 +420,13 @@
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
-                                        {{if eq ($.Project.DocID) ($.DOCID)}}
                                         <span class="pull-right fa fa-2x fa-sort"></span>
                                         <span class="pull-right fa fa-2x fa-pencil" id="sc-edit" onclick="ApplyIDToModal('sc-modal', this)"></span>
-                                        <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                        <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                            <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                             <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                         </form>
-                                        {{end}}
                                         <h4>Soundcloud</h4>
                                     </div>
                                     <div id= "widgetBodySC" class="widgetBody">
@@ -439,14 +439,13 @@
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
-                                        {{if eq ($.Project.DocID) ($.DOCID)}}
                                         <span class="pull-right fa fa-2x fa-sort"></span>
                                         <span class="pull-right fa fa-2x fa-pencil" id="yt-edit" onclick="ApplyIDToModal('youtubeModal', this)"></span>
-                                        <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
-                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                         <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                        <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                            <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
+											<input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+											<span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                         </form>
-                                        {{end}}
                                         <h4>Youtube</h4>
                                     </div>
                                     <div class="widgetBody">
@@ -464,14 +463,13 @@
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
-                                        {{if eq ($.Project.DocID) ($.DOCID)}}
                                         <span class="pull-right fa fa-2x fa-sort"></span>
                                         <span class="pull-right fa fa-2x fa-pencil" id="code-edit" onclick="ApplyIDToModal('code-modal', this)"></span>
-                                        <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
-                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                        <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                            <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
+                                            <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                             <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                         </form>
-                                        {{end}}
                                         <h4 name="textEditorHeader">CodePen</h4>
                                     </div>
                                     <div id="widgetBodyCode" class="widgetBody cpEmbeded">
@@ -484,14 +482,13 @@
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
-                                        {{if eq ($.Project.DocID) ($.DOCID)}}
                                         <span class="pull-right fa fa-2x fa-sort"></span>
                                         <span class="pull-right fa fa-2x fa-pencil" id="tumblr-edit"onclick="ApplyIDToModal('tumblr-modal', this)"></span>
-                                        <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                        <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                            <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                             <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                         </form>
-                                        {{end}}
                                         <h4 name="textEditorHeader">Tumblr</h4>
                                     </div>
                                     <div id= "widgetBodyTumblr" class="widgetBody">
@@ -508,14 +505,13 @@
                         <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                             <div class="projectsWidgetCont">
                             <div class="widgetTitle">
-                                {{if eq ($.Project.DocID) ($.DOCID)}}
                                 <span class="pull-right fa fa-2x fa-sort"></span>
                                 <span class="pull-right fa fa-2x fa-pencil" id="pin-edit" onclick="pinterestEditor(this)"></span>
-                                <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                            <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                     <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                     <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                 </form>
-                                {{end}}
                                 <h4 name="textEditorHeader">
                                     Pinterest
                                 </h4>
@@ -536,14 +532,13 @@
                             <li class="ui-state-default widgetListItem sortable" id="{{index $loop.ID}}">
                             <div class="projectsWidgetCont">
                             <div class="widgetTitle">
-                                {{if eq ($.Project.DocID) ($.DOCID)}}
                                 <span class="pull-right fa fa-2x fa-sort"></span>
                                 <span class="pull-right fa fa-2x fa-pencil" id="spot-edit" onclick="spotifyEditor(this)"></span>
-                                <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                            <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                     <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                     <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                 </form>
-                                {{end}}
                                 <h4 name="textEditorHeader">Spotify</h4>
                             </div>
                             <div id="widgetBodySpot" class="widgetBody">
@@ -558,14 +553,13 @@
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
-                                    {{if eq ($.Project.DocID) ($.DOCID)}}
                                     <span class="pull-right fa fa-2x fa-sort"></span>
                                     <span class="pull-right fa fa-2x fa-pencil" id="twitch-edit" onclick="ApplyIDToModal('twitch-modal', this)"></span>
-                                    <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                    <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                            <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                         <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                     </form>
-                                    {{end}}
                                     <h4>Twitch</h4>
                                     </div>
                                      <div id="widgetBodyTwitch" class="widgetBody">
@@ -578,14 +572,13 @@
                         <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
-                                    {{if eq ($.Project.DocID) ($.DOCID)}}
                                     <span class="pull-right fa fa-2x fa-sort"></span>
                                     <span class="pull-right fa fa-2x fa-pencil" id="ar-edit" onclick="anchorEditor(this)"></span>
-                                    <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                    <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                            <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                         <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                     </form>
-                                    {{end}}
                                     <h4>Anchor</h4>
                                     </div>
                                     <div id= "widgetBodyAR" class="widgetBody">
@@ -600,14 +593,13 @@
                         <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
-                                     {{if eq ($.Project.DocID) ($.DOCID)}}
                                     <span class="pull-right fa fa-2x fa-sort"></span>
                                     <span class="pull-right fa fa-2x fa-pencil" id="med-edit" onclick="ApplyIDToModal('med-modal', this)"></span>
-                                    <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                    <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                            <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                         <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                     </form>
-                                    {{end}}
                                     <h4>Medium</h4>
                                     </div>
                                     <div id="widgetBodyMed" class="widgetBody"></div>
@@ -625,7 +617,8 @@
                                     <div class="widgetTitle">
                                     <span class="pull-right fa fa-2x fa-sort"></span>
                                     <span class="pull-right fa fa-2x fa-pencil" id="da-edit"  onclick="ApplyIDToModal('da-modal', this)"></span>
-                                    <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+                                    <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                            <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                         <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                     </form>
@@ -888,13 +881,17 @@
                         <!-- end grid -->
                     </div>
                     <div id="proj-team" class="tab-pane panel panel-default panel-body fade">
-                        <a class="member" href="profile.html">
-                                <img class="img-circle img-responsive" src="https://www.fillmurray.com/200/200">
-                                <div class="member-name">Mac Frappy Frapalicious</div>
+						{{range $member := .Project.MemberData}}
+                        <a class="member" href="/profile/{{$member.Username}}">
+                                <img class="img-circle img-responsive" src="{{$member.Image}}">
+                                <div class="member-name">{{$member.FirstName}} {{$member.LastName}}</div>
+								<!--
                                 <div class="member-title">C.E.O.</div>
                                 <div class="member-followers">888 Followers</div>
                                 <div class="member-projects">25 Projects</div>
+								-->
                         </a>
+						{{end}}
                     </div>
                     <div id="modal-box">
                         <script type="text/javascript">
@@ -1055,13 +1052,13 @@
 										<div id="hashtags" class="form-group">You haven't added any tags yet.</div>
 										<hr/>
 										<input class="form-control" type="text" id="tagLineInput" name="tagInput" placeholder="Type to add tags" autofocus required />
-										<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.DOCID}}" required/>
+										<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
 									</div>
 									<div class="modal-footer">
 										<span class="pull-left" id="tagCountIndicator">16 Tags Remaining</span>
 										<div class="btn-group">
 											 <button type="button" class="btn btn-primary" id="addTagButton">Add</button>
-											<button type="button" id="tag-submit" class="btn btn-info btn-done">Done</button>
+											<button type="button" id="tag-project-submit" class="btn btn-info btn-done">Done</button>
 										</div>
 									</div>  
 								</div>
@@ -1076,12 +1073,12 @@
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 										<h4 class="modal-title">Youtube</h4>
 									</div>
-									<form id="customYoutubeForm" action="/addWidget/" method="POST">
+									<form id="customYoutubeForm" action="/addProjectWidget/" method="POST">
 										<div class="modal-body">
 											 <label>Please paste the Youtube URL here</label>
 											<input id="youtubeLink" class="form-control" name="ytInput" placeholder="Youtube URL" autofocus required />
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.DOCID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
 										</div>
 										<div class="modal-footer">
 											<button type="submit" class="btn btn-info btn-done" name="widgetSubmit" value="6" >Done</button>
@@ -1099,14 +1096,14 @@
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 										<h4 class="modal-title">Edit Custom Text</h4>
 									</div>
-									<form id="customTextForm" action="/addWidget/" method="POST">
+									<form id="customTextForm" action="/addProjectWidget/" method="POST">
 										<div class="modal-body">
 											<label>Custom Header</label>
 											<input id="customHeader"  name="customHeader" class="form-control" type="text" placeholder="Header" autofocus required/>
 											<label>Custom Content</label>
 											<textarea id="customContent" name="customContent" required></textarea>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.DOCID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
 										</div>
 										<div class="modal-footer">
 											<button type="submit" name="widgetSubmit" value="0" class="btn btn-info btn-done"> Done</button>
@@ -1123,14 +1120,14 @@
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 										<h4 class="modal-title">Embed Instagram Posts</h4>
 									</div>
-									<form id="customInstagramForm" action="/addWidget/" method="POST">
+									<form id="customInstagramForm" action="/addProjectWidget/" method="POST">
 										<div class="modal-body">
 											<span id="ig-list-title">Removable Instagram posts</span>
 											<ul id="ig-edit-list"></ul>
 											<label>Please paste the Instagram post URL here</label>
 											<input type="url" class="form-control" name="instagramInput" id="ig-embed-input" placeholder="https://www.instagram.com/p/BageGbgD05c/" pattern="https?:\/\/www\.instagram\.com\/p\/[A-Za-z\-\_]{10}\/*+" required/>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.DOCID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
 										</div>
 										<div class="modal-footer">
 											<button type="submit" id="ig-submit-btn" name="widgetSubmit" value="4" class="btn btn-default">Done</button>
@@ -1147,13 +1144,13 @@
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 										<h4 class="modal-title">Embed Soundclouds</h4>
 									</div>
-									<form id="customSoundcloudForm" action="/addWidget/" method="POST">
+									<form id="customSoundcloudForm" action="/addProjectWidget/" method="POST">
 									<div class="modal-body">
 										<p>Insert the Soundcloud Embed Code here:</p>
 										<div class="form-group">
 											<input type="text" class="form-control" id="sc-embed-input" name="scInput" placeholder="Embedded code" pattern='<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https:\/\/w\.soundcloud\.com\/player\/\?url=https%3A\/\/api\.soundcloud\.com\/users\/[0-9]{9}&amp;color=%23[0-9a-f]{6}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true"\>\<\/iframe\>' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.DOCID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -1171,13 +1168,13 @@
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 										<h4 class="modal-title">Embed CodePen</h4>
 									</div>
-									<form id="customCodePenForm" action="/addWidget/" method="POST">
+									<form id="customCodePenForm" action="/addProjectWidget/" method="POST">
 									<div class="modal-body">
 										<p>Please paste the CodePen embed code in here:</p>
 										<div class="form-group">
 											<input type="text" class="form-control" id="code-embed-input" name="codepenInput" pattern='<p data-height="265" data-theme-id="0" data-slug-hash="[A-Za-z]{6}" data-default-tab="css,result" data-user="[^"]+" data-embed-version="2" data-pen-title="[^"]+" class="codepen"\>[^<]+\<a href="https:\/\/codepen\.io\/[^\/]+\/pen\/[A-Za-z]{6}\/">[^<]+<\/a> by [^(]+\(<a href="https:\/\/codepen\.io\/[^"]+">@[^<]+<\/a>\) on <a href="https:\/\/codepen\.io">CodePen<\/a>\.<\/p>\n<script async src="https:\/\/static\.codepen\.io\/assets\/embed\/ei\.js"><\/script>' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.DOCID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -1195,7 +1192,7 @@
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 										<h4 class="modal-title">Embed Twitch</h4>
 									</div>
-									<form id="customTwitchForm" action="/addWidget/" method="POST">
+									<form id="customTwitchForm" action="/addProjectWidget/" method="POST">
 										<div class="modal-body">
 											<p>Put your Twitch username here to broadcast yourself whenever you stream live:</p>
 											<div class="input-group">
@@ -1206,7 +1203,7 @@
 												</div>
 												<input type="text" class="form-control" name="twitchInput" id="twitch-embed-username" required pattern='[0-9A-Za-z_]{1,25}'/>
 												<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-												<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.DOCID}}" required/>
+												<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
 											</div>
 										</div>
 										<div class="modal-footer">
@@ -1224,13 +1221,13 @@
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 										<h4 class="modal-title">Embed Tumblr</h4>
 									</div>
-									<form id="customTumblrForm" action="/addWidget/" method="POST">
+									<form id="customTumblrForm" action="/addProjectWidget/" method="POST">
 										<div class="modal-body">
 											<p>Insert Tumblr Username here:</p>
 											<div class="form-group">
 												<input type="text" class="form-control" name="tumblrInput" id="medium-embed-input" placeholder="ustart" pattern='[A-Za-z0-9\-]{1,32}' required>
 												<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.DOCID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
 											</div>
 										</div>
 										<div class="modal-footer">
@@ -1248,7 +1245,7 @@
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 										<h4 class="modal-title">Embed Spotify</h4>
 									</div>
-									<form id="customSpotifyForm" action="/addWidget/" method="POST">
+									<form id="customSpotifyForm" action="/addProjectWidget/" method="POST">
 									<div class="modal-body">
 										<span id="spot-list-title">Removable Spotify Sounds</span>
 										<ul id="spot-edit-list"></ul>
@@ -1256,7 +1253,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" name="spotInput" id="spot-embed-input" pattern='<iframe src="https:\/\/open\.spotify\.com\/embed\/[^"]+" width="300" height="380" frameborder="0" allowtransparency="true"><\/iframe>' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.DOCID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -1278,12 +1275,12 @@
 										<span id="pin-list-title">Removable Pins</span>
 										<ul id="pin-edit-list"></ul>
 										<p>Please paste your Pinterest Profile URL here:</p>
-										<form id="customPinterestForm" action="/addWidget/" method="POST">
+										<form id="customPinterestForm" action="/addProjectWidget/" method="POST">
 										<div class="form-group">
 											<input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="http://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+\/' required>
 											<!-- Regexp: pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/? -->
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.DOCID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
 										</div>
 										 </form>
 									</div>
@@ -1336,12 +1333,12 @@
 										<span id="ar-list-title">Removable Anchors</span>
 										<ul id="ar-edit-list"></ul>
 										<p>Insert the Anchor URL:</p>
-										<form id="customArForm" action="/addWidget/" method="POST">
+										<form id="customArForm" action="/addProjectWidget/" method="POST">
 										
 										<div class="form-group">
 											<input type="text" class="form-control" name="arInput" id="ar-embed-input" pattern='https:\/\/anchor\.fm\/.*\/+' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.DOCID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
 										</div>
 										</form>
 									</div>
@@ -1362,7 +1359,7 @@
 									</div>
 									<div class="modal-body">
 										<p>Enter Your Medium username:</p>
-										<form id="customMedForm" action="/addWidget/" method="POST">
+										<form id="customMedForm" action="/addProjectWidget/" method="POST">
 											<p>Select a Medium import option, either your username, or your publication name</p>
 											<div class="input-group">
 												<div class="input-group-btn">
@@ -1377,7 +1374,7 @@
 												<input type="text" class="form-control" name="medInput" id="med-embed-username" pattern='[0-9A-Za-z\-]{1,32}'/>
 												<input type="text" class="form-control" name="medInput2" id="med-embed-publication"/>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.DOCID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
 												
 											</div>
 											<br/>
@@ -1409,7 +1406,7 @@
 									</div>
 									<div class="modal-body">
 										<p>Put your DeviantArt username here to share your newest deviations:</p>
-										<form id="customMedForm" action="/addWidget/" method="POST">
+										<form id="customMedForm" action="/addProjectWidget/" method="POST">
 										
 										<div class="input-group">
 											<div class="input-group-btn">
@@ -1419,7 +1416,7 @@
 											</div>
 											<input type="text" class="form-control" name="daInput" id="da-embed-username" required/>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.DOCID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
 											
 										</div>
 										<br/>
@@ -1495,6 +1492,9 @@
         </div>
     </div>
     <script src="/ustart_front/js/fadebody.js"></script>
+	<script>
+		console.log("Project DOCID: " + {{.Project.DocID}});
+	</script>
 </body>
 
 </html>

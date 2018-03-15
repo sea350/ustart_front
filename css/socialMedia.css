@@ -1,7 +1,6 @@
 .insta-feed,
 .soundcloud-feed {
     max-width: 300px;
-    display: inline-block;
     -webkit-transform: scale(0.95);
     -ms-transform: scale(0.95);
     transform: scale(0.95)

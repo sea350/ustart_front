@@ -27,40 +27,82 @@
     margin-right: 0.5em;
 }
 
-.dashboardFooter {
-    display: none;
-}
-
 .dashboardFooter div {
     padding: 0.2em 1.5em;
     font-size: 0.9em;
     color: #455A64;
 }
 
-.col-md-2 {
-    display: none;
-    min-width: 12em;
-}
-#LeftNavBar-placeholder {
-    width: 0;
-    height: 0;
-    float: left;
-}
-#content .row .kevin, #content .kevin {
-    position: fixed;
-    top: 5em;
+#centering {
+	display: flex;
 }
 
-@media (min-width: 992px) {
-    .col-md-2 {
-        display: block;
-        top: 1em;
-    }
-    .dashboardFooter {
-        display: block;
-    }
-    #LeftNavBar-placeholder {
-        width: 18%;
-        height: 1em;
-    }
+#content {
+	flex: 1;
+}
+
+#LeftNavBar-placeholder {
+	width: 18em;
+	padding: 1em;
+	height: 100%;
+	background-color: rgba(232, 232, 232, 0.8);
+	transition: width 0.5s, padding 0.5s;
+	overflow: hidden;
+	flex-shrink: 0;
+}
+
+.leftNavPop {
+	font-size: 150%;
+	position: absolute;
+    left: -100vw;
+    top: 2em;
+    background-color: rgba(225, 225, 225, 0.8);
+    padding: 0.5em 0.5em 0.5em 0.8em;
+    border-radius: 0 1em 1em 0;
+	overflow: hidden;
+}
+
+.leftNavPush {
+	display: none;
+	font-size: 150%;
+	position: absolute;
+    right: 0;
+    top: 2em;
+    background-color: #c8c8c8;
+    padding: 0.5em 0.8em 0.5em 0.5em;
+    border-radius: 1em 0 0 1em;
+	overflow: hidden;
+}
+
+#LeftNavBar-placeholder.reveal {
+	width: 18em;
+	padding: 1em;
+	position: relative;
+}
+
+.leftNavPop.reveal {
+	left: -100vw;
+	transition-delay: 0s;
+}
+
+@media (max-width: 1180px) {
+	#LeftNavBar-placeholder {
+		width: 0em;
+		padding: 0em;
+		z-index: 1;
+	}
+	.leftNavPop {
+		left: 0;
+		transition: left 0.5s;
+		transition-delay: 0.5s;
+	}
+	.leftNavPush.reveal {
+		display: initial;
+	}
+}
+
+@media (max-width: 600px) {
+	#LeftNavBar-placeholder.reveal {
+		width: 100%;
+	}
 }
