@@ -65,23 +65,12 @@
                 <img id="head-image" src="{{.Project.ProjectData.Banner}}">
                 <div class="followers-cont flex">
                     <div class="followers-link-cont">
-                        <a class="followers-link"><img class="followers-mini" src="https://www.grinnell.edu/sites/default/files/styles/gallery_slideshow/public/Kumail-Nanjiani-2016.jpg?itok=VUG-aDTr"
-                            alt="Project Image"></a>
-                        <a class="followers-link"><img class="followers-mini" src="https://www.grinnell.edu/sites/default/files/styles/gallery_slideshow/public/Kumail-Nanjiani-2016.jpg?itok=VUG-aDTr"
-                            alt="Project Image"></a>
-                        <a class="followers-link"><img class="followers-mini" src="https://www.grinnell.edu/sites/default/files/styles/gallery_slideshow/public/Kumail-Nanjiani-2016.jpg?itok=VUG-aDTr"
-                            alt="Project Image"></a>
-                        <a class="followers-link"><img class="followers-mini" src="https://www.grinnell.edu/sites/default/files/styles/gallery_slideshow/public/Kumail-Nanjiani-2016.jpg?itok=VUG-aDTr"
-                            alt="Project Image"></a>
-                        <a class="followers-link"><img class="followers-mini" src="https://www.grinnell.edu/sites/default/files/styles/gallery_slideshow/public/Kumail-Nanjiani-2016.jpg?itok=VUG-aDTr"
-                            alt="Project Image"></a>
-                        <a class="followers-link"><img class="followers-mini" src="https://www.grinnell.edu/sites/default/files/styles/gallery_slideshow/public/Kumail-Nanjiani-2016.jpg?itok=VUG-aDTr"
-                            alt="Project Image"></a>
-                        <a class="followers-link"><img class="followers-mini" src="https://www.grinnell.edu/sites/default/files/styles/gallery_slideshow/public/Kumail-Nanjiani-2016.jpg?itok=VUG-aDTr"
-                            alt="Project Image"></a>
-                        <a class="followers-link"><img class="followers-mini" src="https://www.grinnell.edu/sites/default/files/styles/gallery_slideshow/public/Kumail-Nanjiani-2016.jpg?itok=VUG-aDTr"
-                            alt="Project Image"></a>
-
+						{{range $member := .Project.MemberData}}
+                        <a href="/profile/{{$member.Username}}" class="followers-link"><img id="imgFollow{{$member.Username}}" class="followers-mini" alt="Project Image"></a>
+						<script>
+							$('#imgFollow{{$member.Username}}').attr('src', {{$member.Image}});
+						</script>
+						{{end}}
                     </div>
                     <div class="project-toolbar">
                         <button class="project-message btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
@@ -92,15 +81,15 @@
                             </div>
                         </button>
                         <div class="dropdown dropdown-btn">
-                            <button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-right"></i></button>
+                            <button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li><a href="#" data-toggle="modal" data-target="#project-member-add"><i class="fa fa-user-plus"></i> Add Member To Project</a></li>
                                 <li><a href="#"><i class="fa fa-camera"></i> Upload New Logo</a></li>
                                 <li><a href="#"><i class="fa fa-camera-retro"></i> Upload New Banner</a></li>
                                 <li>
 									<form action="/ProjectSettings/" method="POST">
-										<input type="hidden" name="ProjectURL" value="{{.Project.ProjectData.URLName}}">
-										<a href="#" onclick="$(this).closest('form').submit();"><i class="fa fa-gear"></i> Settings</a>
+										<input type="hidden" name="ProjectURL" value="{{.Project.DocID}}">
+										<a href="#" onclick="$(this).closest('form').submit();"><i class="fa fa-gear"></i> Edit Settings</a>
 									</form>
 								</li>
                             </ul>
@@ -126,6 +115,7 @@
                                     <!-- <p><a id="project-website" href="http://www.ustart.today/">http://www.ustart.today/</a></p> -->
                                 <!-- </div> -->
                             <!-- </div> -->
+							{{if .Project.ProjectData.Location.Country}}
                             <div>
                                 <div class="detail-head"><i class="fa fa-map-marker" aria-hidden="true"></i> Location</div>
                                 <div id="project-location" class="detail-content">
@@ -133,6 +123,8 @@
 									{{.Project.ProjectData.Location.City}}, {{.Project.ProjectData.Location.State}}, {{.Project.ProjectData.Location.Country}} {{.Project.ProjectData.Location.Zip}}
                                 </div>
                             </div>
+							{{end}}
+							{{if .Project.ProjectData.Category}}
                             <div>
                                 <div class="detail-head"><i class="fa fa-list-ul" aria-hidden="true"></i> Category</div>
                                 <div id="project-category" class="detail-content">
@@ -140,6 +132,7 @@
 									{{.Project.ProjectData.Category}}
                                 </div>
                             </div>
+							{{end}}
                         </div>
                     </div>
                     <h3 id="project-name">
@@ -363,7 +356,7 @@
 							</div>
 				        </li><!--end link widget -->
                             <!-- for loop goes here -->
-						{{$projecturl := .Project.ProjectData.URLName}}
+						{{$projecturl := .Project.DocID}}
                         {{range $loop := .Widgets }}
                          {{if eq $loop.Classification 0}}<!-- if is text -->  
                             <li class="text ui-state-default" id="{{index $loop.ID}}">
@@ -883,8 +876,11 @@
                     <div id="proj-team" class="tab-pane panel panel-default panel-body fade">
 						{{range $member := .Project.MemberData}}
                         <a class="member" href="/profile/{{$member.Username}}">
-                                <img class="img-circle img-responsive" src="{{$member.Image}}">
+                                <img id="img{{$member.Username}}" class="img-circle img-responsive">
                                 <div class="member-name">{{$member.FirstName}} {{$member.LastName}}</div>
+								<script>
+									$('img#img{{$member.Username}}').attr('src', {{$member.Image}});
+								</script>
 								<!--
                                 <div class="member-title">C.E.O.</div>
                                 <div class="member-followers">888 Followers</div>
@@ -1052,7 +1048,7 @@
 										<div id="hashtags" class="form-group">You haven't added any tags yet.</div>
 										<hr/>
 										<input class="form-control" type="text" id="tagLineInput" name="tagInput" placeholder="Type to add tags" autofocus required />
-										<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
+										<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
 									</div>
 									<div class="modal-footer">
 										<span class="pull-left" id="tagCountIndicator">16 Tags Remaining</span>
@@ -1078,7 +1074,7 @@
 											 <label>Please paste the Youtube URL here</label>
 											<input id="youtubeLink" class="form-control" name="ytInput" placeholder="Youtube URL" autofocus required />
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
 										</div>
 										<div class="modal-footer">
 											<button type="submit" class="btn btn-info btn-done" name="widgetSubmit" value="6" >Done</button>
@@ -1103,7 +1099,7 @@
 											<label>Custom Content</label>
 											<textarea id="customContent" name="customContent" required></textarea>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
 										</div>
 										<div class="modal-footer">
 											<button type="submit" name="widgetSubmit" value="0" class="btn btn-info btn-done"> Done</button>
@@ -1127,7 +1123,7 @@
 											<label>Please paste the Instagram post URL here</label>
 											<input type="url" class="form-control" name="instagramInput" id="ig-embed-input" placeholder="https://www.instagram.com/p/BageGbgD05c/" pattern="https?:\/\/www\.instagram\.com\/p\/[A-Za-z\-\_]{10}\/*+" required/>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
 										</div>
 										<div class="modal-footer">
 											<button type="submit" id="ig-submit-btn" name="widgetSubmit" value="4" class="btn btn-default">Done</button>
@@ -1150,7 +1146,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" id="sc-embed-input" name="scInput" placeholder="Embedded code" pattern='<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https:\/\/w\.soundcloud\.com\/player\/\?url=https%3A\/\/api\.soundcloud\.com\/users\/[0-9]{9}&amp;color=%23[0-9a-f]{6}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true"\>\<\/iframe\>' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -1174,7 +1170,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" id="code-embed-input" name="codepenInput" pattern='<p data-height="265" data-theme-id="0" data-slug-hash="[A-Za-z]{6}" data-default-tab="css,result" data-user="[^"]+" data-embed-version="2" data-pen-title="[^"]+" class="codepen"\>[^<]+\<a href="https:\/\/codepen\.io\/[^\/]+\/pen\/[A-Za-z]{6}\/">[^<]+<\/a> by [^(]+\(<a href="https:\/\/codepen\.io\/[^"]+">@[^<]+<\/a>\) on <a href="https:\/\/codepen\.io">CodePen<\/a>\.<\/p>\n<script async src="https:\/\/static\.codepen\.io\/assets\/embed\/ei\.js"><\/script>' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -1203,7 +1199,7 @@
 												</div>
 												<input type="text" class="form-control" name="twitchInput" id="twitch-embed-username" required pattern='[0-9A-Za-z_]{1,25}'/>
 												<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-												<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
+												<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
 											</div>
 										</div>
 										<div class="modal-footer">
@@ -1227,7 +1223,7 @@
 											<div class="form-group">
 												<input type="text" class="form-control" name="tumblrInput" id="medium-embed-input" placeholder="ustart" pattern='[A-Za-z0-9\-]{1,32}' required>
 												<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
 											</div>
 										</div>
 										<div class="modal-footer">
@@ -1253,7 +1249,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" name="spotInput" id="spot-embed-input" pattern='<iframe src="https:\/\/open\.spotify\.com\/embed\/[^"]+" width="300" height="380" frameborder="0" allowtransparency="true"><\/iframe>' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -1280,7 +1276,7 @@
 											<input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="http://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+\/' required>
 											<!-- Regexp: pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/? -->
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
 										</div>
 										 </form>
 									</div>
@@ -1310,13 +1306,14 @@
 												<span class="modal-cell">URL</span>
 												<input type="url" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" required/>
 											</p>
+											<input type="hidden" name="projectID" value="{{$projecturl}}" required/>
 										</div>
 										
 										<div class="modal-footer">
 											<div class="numLinks">
 												<span id="linkCountIndicator"></span>
 											</div>
-											<button type="submit" id="link-submit-btn" class="btn btn-info btn-done">Done</button>
+											<button type="submit" id="link-project-submit-btn" class="btn btn-info btn-done">Done</button>
 										</div>
 								</div>
 							</div>
@@ -1338,7 +1335,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" name="arInput" id="ar-embed-input" pattern='https:\/\/anchor\.fm\/.*\/+' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
 										</div>
 										</form>
 									</div>
@@ -1374,7 +1371,7 @@
 												<input type="text" class="form-control" name="medInput" id="med-embed-username" pattern='[0-9A-Za-z\-]{1,32}'/>
 												<input type="text" class="form-control" name="medInput2" id="med-embed-publication"/>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
 												
 											</div>
 											<br/>
@@ -1416,7 +1413,7 @@
 											</div>
 											<input type="text" class="form-control" name="daInput" id="da-embed-username" required/>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.ProjectData.URLName}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
 											
 										</div>
 										<br/>

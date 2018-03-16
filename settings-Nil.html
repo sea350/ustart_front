@@ -340,12 +340,14 @@
 								<form id="eduChange" action="http://ustart.today:5000/changeEDU/" method="POST">
 									<div>
 										<label for="type_select">User Type</label>
-										<select id="type_select" class="form-control" name="type_select">
+										<select id="type_select" class="form-control" name="type_selector">
 											<option disabled selected hidden>Select User Type</option>
 											<option>High School Student</option>
 											<option>College Student</option>
 											<option>Finished Education</option>
 										</select>
+										<!-- Convert selected option to index temporary (for backend submission) -->
+										<input type="hidden" name="type_select" value="0">
 									</div>
 									<hr/>
 									<!-- High School -->
@@ -459,7 +461,6 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -490,7 +491,10 @@
 			}
 			
 			$("select#gender_select").val('{{.UserInfo.Gender}}');
-			$("select#type_select").prop('selectedIndex', {{.UserInfo.AccType}});
+			$("select[name='type_selector']").prop('selectedIndex', {{.UserInfo.AccType}});
+			$("form#eduChange").submit(function() {
+				$("input[name='type_select']").val($("select[name='type_selector']").prop('selectedIndex'));
+			});
 		});
 	</script>
 </body>

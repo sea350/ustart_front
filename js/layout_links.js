@@ -8,19 +8,36 @@ function updateCounter() {
 function removeLink(element) {
 	var httpURL = element.parent().attr('href');
 	var userlinkdesc = element.parent().find('.links-website-title').text();
-	$.ajax({
-		type: 'GET',  
-		url: 'http://ustart.today:5000/deleteLink/',
-		contentType: "application/json; charset=utf-8",
-		data: {userLink:httpURL, userLinkDesc:userlinkdesc},
-		success: function(data) {
-			$(element).parent().hide("slow", function() {
-				linkList.splice($.inArray($(element).href, linkList),1);
-				$(element).remove();
-				updateCounter();
-			});
-		}
-	});
+	var projectInputID = $('input[name="projectID"]');
+	if (projectInputID) {
+		$.ajax({
+			type: 'GET',  
+			url: 'http://ustart.today:5000/DeleteProjectLink/',
+			contentType: "application/json; charset=utf-8",
+			data: {deleteProjectLink:httpURL, deleteProjectLinkDesc:userlinkdesc, projectID:projectInputID.val()},
+			success: function(data) {
+				$(element).parent().hide("slow", function() {
+					linkList.splice($.inArray($(element).href, linkList),1);
+					$(element).remove();
+					updateCounter();
+				});
+			}
+		});
+	} else {
+		$.ajax({
+			type: 'GET',  
+			url: 'http://ustart.today:5000/deleteLink/',
+			contentType: "application/json; charset=utf-8",
+			data: {userLink:httpURL, userLinkDesc:userlinkdesc},
+			success: function(data) {
+				$(element).parent().hide("slow", function() {
+					linkList.splice($.inArray($(element).href, linkList),1);
+					$(element).remove();
+					updateCounter();
+				});
+			}
+		});
+	}
 };
 
 function urlHTTP_OLD(url) {
@@ -52,10 +69,14 @@ function importLinks() {
 }
 
 function createLink(existingSite, siteDescription) {
-	
 	if (existingSite) {
-        var htmlText = $('<a target="_blank" href="'+existingSite+'" data-toggle="tooltip" data-placement="top" title="" data-original-title="https://google.com">'
-					+ '<span class="cross-mark">x</span>' + '<img src="//logo.clearbit.com/' + existingSite + '">'
+		var siteLogo = existingSite.replace(/(https:\/\/)|(http:\/\/)|(www\.)/g, '');
+		var siteLogoSlashIndex = siteLogo.indexOf('/');
+		if (siteLogoSlashIndex > 0) {
+			siteLogo = siteLogo.substring(0, siteLogoSlashIndex);
+        }
+		var htmlText = $('<a target="_blank" href="'+existingSite+'" data-toggle="tooltip" data-placement="top" title="" data-original-title="https://google.com">'
+					+ '<span class="cross-mark">x</span>' + '<img src="//logo.clearbit.com/' + siteLogo + '">'
 					+ '<div class="links-website-title">' + siteDescription + '</div>' + '</a>');
 		
 		var linkObject = htmlText.appendTo($(".links-container"));
@@ -84,7 +105,6 @@ $(document).ready(function() {
 					contentType: "application/json; charset=utf-8",
 					data: {userLink:httpURL, userLinkDesc:userlinkdesc},
 					success: function(data) {
-                        console.log(userlinkdesc);
 						createLink(httpURL, userlinkdesc);
 						linkList.push(httpURL);
 						linkDesc.push(userlinkdesc);
@@ -98,7 +118,36 @@ $(document).ready(function() {
 		} else {
 			alert("Maximum amount of links is 16.");
 		}
-		$('.link-input-read').val('');
+		$('input[name$="webURL"]').val('');
+		$('input[name$="webTitle"]').val('');
+	});
+	$('#link-project-submit-btn').click(function(event) {
+		var httpURL = $('input[name$="webURL"]').val();
+		var projectlinkdesc = $('input[name$="webTitle"]').val();
+		var projectid = $('input[name$="projectID"]').val();
+		if (linkList.length < 16) {
+			if ($.inArray(httpURL, linkList) == -1) {
+				$.ajax({
+					type: 'GET',
+					url: 'http://ustart.today:5000/AddProjectLink/',
+					contentType: "application/json; charset=utf-8",
+					data: {projectLink:httpURL, projectLinkDesc:projectlinkdesc, projectID:projectid},
+					success: function(data) {
+						console.log('ProjectID ' + projectid);
+						createLink(httpURL, projectlinkdesc);
+						linkList.push(httpURL);
+						linkDesc.push(projectlinkdesc);
+						updateCounter();
+						$('#addLinkModal').modal('hide');
+					}
+				});
+			} else {
+				alert("You have already added " + httpURL);
+			}
+		} else {
+			alert("Maximum amount of links is 16.");
+		}
+		$('input[name$="webURL"]').val('');
 		$('input[name$="webTitle"]').val('');
 	});
 

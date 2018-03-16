@@ -7,18 +7,21 @@
 	<title>ustart</title>
 	<link rel="stylesheet" type="text/css" href="/ustart_front/css/settings.css" />
 	<link rel="stylesheet" type="text/css" href="/ustart_front/css/followers.css" />
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/croppie.css" />
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
 	<script src="/ustart_front/js/countries.js"></script>
 	<script src="/ustart_front/js/majors.js"></script>
 	<script src="/ustart_front/js/settings.js"></script>
-	<script src="/ustart_front/js/jquery.cropit.js"></script>
+    <script src="/ustart_front/js/jquery.cropit.js"></script>
     <script src="/ustart_front/js/croppie.min.js"></script>
+    <script src="/ustart_front/js/ascii-convert.js"></script>
 	<style>
 		#content .panel,
 		#content .panel-group {
 			margin-bottom: 0.5em;
 		}
 	</style>
+	{{$projecturl := .Project.DocID}}
 </head>
 
 <body>
@@ -37,17 +40,19 @@
 						<div id="avatarcollapse" class="panel-collapse collapse">
 							<div class="panel-body">
 								<div class="form-group">
-									<form id="nameChange">
+									<form id="nameChange" action="http://ustart.today:5000/projectName/" method="POST">
 										<div class="row">
 											<div class="col-sm-6">
 												<label for="pname">Name</label>
 												<input type="text" class="form-control" id="pname" name="pname" placeholder="Project Name" value="{{.Project.ProjectData.Name}}" required />
+                                                <input type="hidden" name="projectID" value="{{$projecturl}}" />
 											</div>
 											<div class="col-sm-6">
 											</div>
 											<div class="col-sm-12">
 												<label for="inputDesc">Description</label>
-												<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe the goals of your project" value="{{.Project.ProjectData.Description}}"></textarea>
+												<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe the goals of your project"></textarea>
+												<script>$('textarea[name="inputDesc"]').text(defineRuneArray({{.Project.ProjectData.Description}}));</script>
 											</div>
 											<div class="col-sm-12">
 												<label for="recruitSwitch">Recruitment</label>
@@ -63,6 +68,7 @@
 										<div class="save-message fade"></div>
 									</form>
 								</div>
+                                
 							</div>
 						</div>
 					</div>
@@ -73,7 +79,8 @@
 						</div>
 						<div id="loccollapse" class="panel-collapse collapse">
 							<div class="panel-body">
-								<form id="locChange">
+								<form id="locChange" action="http://ustart.today:5000/projectLocation/" method="POST">
+									<input type="hidden" name="projectID" value="{{$projecturl}}" />
 									<!-- Country, State / City, Zip -->
 									<div class="row">
 										<div class="col-sm-4">
@@ -125,7 +132,8 @@
 						</div>
 						<div id="catecollapse" class="panel-collapse collapse">
 							<div class="panel-body">
-								<form id="category-form">
+								<form id="category-form" action="http://ustart.today:5000/projectCategory/">
+									<input type="hidden" name="projectID" value="{{$projecturl}}" />
 
 									<div class="row">
 										<div class="col-sm-3">
@@ -166,7 +174,8 @@
 						</div>
 						<div id="urlcollapse" class="panel-collapse collapse">
 							<div class="panel-body">
-								<form id="urlChange">
+								<form id="urlChange" action="http://ustart.today:5000/projectCustomURL/">
+									<input type="hidden" name="projectID" value="{{$projecturl}}" />
 									<div class="row">
 										<div class="col-sm-12">
 											ustart.today/Projects/ <input type="text" class="form-control" id="purl" name="purl" placeholder="url" style="width:auto; display:inline-block;" value="{{.Project.ProjectData.URLName}}" required />
@@ -186,6 +195,7 @@
 						<div id="logocollapse" class="panel-collapse collapse">
 							<div class="panel-body">
 								<form id="img-form" action="http://ustart.today:5000/ImageUpload/" method="POST">
+									<input type="hidden" name="projectID" value="{{$projecturl}}" />
 									<div id="upload-demo" style="width:300px; height:350px"></div>
 									<input type="file" id="upload" accept="image/*">
 									<input type="hidden" name="image-data" id="hidden-image-data" />
@@ -235,7 +245,8 @@
 						</div>
 						<div id="bannercollapse" class="panel-collapse collapse">
 							<div class="panel-body">
-								<form id="banner-form" action="http://ustart.today:5000/BannerUpload/" method="POST">
+								<form id="banner-form" action="http://ustart.today:5000/projectBannerUpload/" method="POST">
+									<input type="hidden" name="projectID" value="{{$projecturl}}" />
 									<div id="upload-demo2" style="width:1100px; height:380px"></div>
 									<input type="file" id="upload2" accept="image/*">
 									<input type="hidden" name="banner-data" id="hidden-image-data2" />
@@ -288,17 +299,26 @@
 								<div id="home">
 									<div class="card" style="height:auto">
 										<div class="container-s">
-											<img class="image" src="img/Profiles/Avatar10.png" alt="Avatar" />
-											<h4><b>Haldun Hadimioglu</b></h4>
+										{{range $member := .Project.MemberData}}
+											<img id="img{{$member.Username}}" class="image" src="{{$member.Image}}" alt="Avatar" onclick="location.href='/profile/{{$member.Username}}'" />
+											<h4><b>{{$member.FirstName}} {{$member.LastName}}</b></h4>
 											<select id="role_select" class="form-control" name="type_select" style="margin: 0 auto; width:10em;">
-													<option disabled selected hidden>Select Role</option>
-													<option>Creator</option>
-													<option>Moderator</option>
-													<option>Member</option>
-												</select>
+												<option disabled selected hidden>Select Role</option>
+												<option>Creator</option>
+												<option>Moderator</option>
+												<option>Member</option>
+											</select>
 											<div class="middle">
-												<div class="text"><a href="profile.html"> Remove </a></div>
-											</div>
+												<form action="/removeMember/">
+													<input type="hidden" name="projectID" value="{{$projecturl}}" />
+													<button type="submit">Remove</button>
+													<input type="hidden" name="removeUsername" value="{{$member.Username}}">
+													<input type="hidden" name="removeFromProject" value="{{$projecturl}}">
+												</form>
+											<script>
+												$('img#img{{$member.Username}}').attr('src', {{$member.Image}});
+											</script>
+										{{end}}
 										</div>
 									</div>
 								</div>
@@ -329,6 +349,14 @@
 		</div>
 	</div>
 	<div id="footer-placeholder"></div>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			if(location.hash != null && location.hash != ""){
+				$('.collapse').removeClass('in');
+				$(location.hash + '.collapse').collapse('show');
+			}
+		});
+	</script>
 </body>
 
 </html>

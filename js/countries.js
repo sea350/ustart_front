@@ -269,6 +269,8 @@ function populateStates(countryElementId, stateElementId) {
     stateElement.options[0] = new Option('Select State', '');
     stateElement.selectedIndex = 0;
 
+	if (!s_a[selectedCountryIndex])
+		return;
     var state_arr = s_a[selectedCountryIndex].split("|");
 
     for (var i = 0; i < state_arr.length; i++) {
