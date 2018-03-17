@@ -1,7 +1,12 @@
 var taglist = [];
+var MAXTAGS = 16;
 
 function updateTagsCounter() {
-	$('#tagCountIndicator').html("" + (16 - taglist.length) + " Tag(s) Remaining");
+	if (taglist.length == MAXTAGS - 1) {
+		$('#tagCountIndicator').html("" + (MAXTAGS - taglist.length) + " Tag Remaining");
+	} else {
+		$('#tagCountIndicator').html("" + (MAXTAGS - taglist.length) + " Tags Remaining");
+	}
 }
 
 function addTag(tag) {
@@ -30,6 +35,12 @@ function createTagWidgetElement(tag) {
 //	console.log('REturn')
 }
 
+function removeTag(tagElement) {
+	taglist.splice($.inArray($(tagElement).siblings().children('.columnTitle').text()),1);
+	$(tagElement).parent().remove();
+	updateTagsCounter();
+}
+
 function createTagModalElement(tag) {
 	var tagArray = tag.split(',');
 	tagArray.forEach(function(tag) {
@@ -39,18 +50,13 @@ function createTagModalElement(tag) {
 			}
 			var tagHTML = `
 					<button type="submit" name="instaURL" class="btn btn-default projectsColumn" id="skill-`+ tag + `" value="`+ tag +`">
-						<div class="deleteTagBtn">x</div>
+						<div class="deleteTagBtn" onclick="removeTag(this)">x</div>
 						<div class="columnImage">
 							<div class="columnTitle">`+tag+`</div>
 						</div>
 					</button>
 					`;
 			$("#hashtags").append(tagHTML);
-			$(tagHTML).children('.deleteTagBtn').click(function() {
-				tagList.splice($.inArray($(this).siblings().children('.columnTitle').text()),1);
-				$(this).remove();
-				updateTagsCounter();
-			});
 			taglist.push(tag);
 			if (taglist.length >= 16) {
 				$('#tagModal .modal-footer button[name="widgetSubmit"]').attr('disabled', 'true');
@@ -81,14 +87,19 @@ $(document).ready(function () {
 			createTagModalElement($('#tagLineInput').val());
 			e.preventDefault();
 		}
+		
+		if ($('#tagLineInput').val().length > 0) {
+			$('#tag-submit').text('Add');
+		} else {
+			$('#tag-submit').text('Done');
+		}
 	});
 
 	$('#addTagButton').click(function () {
 		createTagModalElement($('#tagLineInput').val());
-	});
+	}).hide();
 
 	$('#tagModal').on('shown.bs.modal', function () {
-		updateTagsCounter();
 		
 		$("#hashtags").html("");
 		taglist = [];
@@ -98,12 +109,10 @@ $(document).ready(function () {
 			createTagModalElement($(element).text());
 		});
 		
+		updateTagsCounter();
+		
 		$('#hashTags .deleteTagBtn').click(function() {
-			tagList.splice($.inArray($(this).siblings().children('.columnTitle').text()),1);
-			$(this).parent().remove().queue(function() {
-				updateTagsCounter();
-				$(this).dequeue();
-			});
+			removeTag(this);
 		});
 		
 		if ($("#hashtags").html() === "") {
@@ -122,6 +131,11 @@ $(document).ready(function () {
 		$('#tagTextArea').find('[autofocus]').focus(); // changed from this
 	});
     $('#tag-submit').click(function(e) {
+		if ($('#tagLineInput').val().length > 0) {
+			createTagModalElement($('#tagLineInput').val());
+			return;
+		}
+		
         var skillList = [];
 
         $('#hashTags .columnTitle').each(function(index, element) {
@@ -132,6 +146,33 @@ $(document).ready(function () {
             url: 'http://ustart.today:5000/addSkill/',
             contentType: "application/json; charset=utf-8",
             data: {skillArray:JSON.stringify(skillList)},
+            success: function(data) {
+                $("#hashtags").html('');
+                $("#hashTagsBody").html('');
+                $(skillList).each(function(index, element) {
+                    var tag = element;
+					createTagWidgetElement(tag);
+                });
+                $("#tagModal").modal('hide');
+            }
+        });
+    });
+    $('#tag-project-submit').click(function(e) {
+		if ($('#tagLineInput').val().length > 0) {
+			createTagModalElement($('#tagLineInput').val());
+			return;
+		}
+		
+        var skillList = [];
+
+        $('#hashTags .columnTitle').each(function(index, element) {
+            skillList.push($(element).text());
+        });
+        $.ajax({
+            type: 'GET',
+            url: 'http://ustart.today:5000/UpdateProjectTags/',
+            contentType: "application/json; charset=utf-8",
+            data: {skillArray:JSON.stringify(skillList), projectWidget: $('#tagModal .projectWidget').val()},
             success: function(data) {
                 $("#hashtags").html('');
                 $("#hashTagsBody").html('');

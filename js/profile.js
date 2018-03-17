@@ -457,7 +457,7 @@ $(document).ready(function () {
 			});
 			
 			// Replace Dummy Values
-			loadPost(0, 'default', 'Poster Name', '0 Minutes Ago', 'postMessage', 3000, 30, 300);
+			//loadPost(0, 'default', 'Poster Name', '0 Minutes Ago', 'postMessage', 3000, 30, 300);
 			// Replace Dummy Values
         }
     });

@@ -88,9 +88,15 @@ li>a {
 }
 
 ul#menu {
-    padding: 0
+    padding: 0;
 }
 
+.mid-content{
+    float:left;
+    margin-left:16px;
+    width:calc(100% - 316px);
+    margin-top:100px;
+}
 ul#menu li {
     display: inline-block;
     padding: 0.5em;
@@ -102,12 +108,15 @@ div#content div.dashboard-right,
 div#content div.menu-wrap {
     display: inline-block;
     vertical-align: top;
-    text-align: initial
+    text-align: initial;
+    float:left;
 }
 
 div#content div.dashboard-left {
-    min-width: 285px;
-    text-align: right
+    min-width: 300px;
+   /* text-align: right;*/
+    padding-left: 1vw;
+    padding-right:1vw;
 }
 
 #info-wrap h2 {
@@ -128,7 +137,7 @@ img#head-image {
 div.user-info {
     padding: 0.5em;
     background-color: white;
-    min-width: 285px;
+    min-width: 300px;
     text-align: initial;
     border-radius: 0.4em;
     border-color: #c5c5c5;
@@ -167,8 +176,8 @@ div#user-nums {
 }
 
 div.user-info img.user-img {
-    width: 270px;
-    height: 270px;
+    width: 285px;
+    height: 285px;
     border-radius: 8px;
     -o-object-fit: cover;
     object-fit: cover
@@ -213,7 +222,7 @@ div.user-card {
 
 div.dashboard {
     padding: 0.5em;
-    width: 285px;
+    width: 300px;
     margin-top: 1.5em
 }
 
@@ -350,6 +359,8 @@ form#shareCommentForm .btn {
 }
 #content .menu-wrap {
     margin-left: 0;
+    padding-left:0;
+    padding-right:0;
 }
 .text-box {
     line-height: 2;
@@ -358,12 +369,12 @@ form#shareCommentForm .btn {
 
 @media (min-width: 992px) {
     div.user-info {
-        width: 285px;
+        width: 300px;
         display: inline-block
     }
     div.dashboard-right {
         padding-top: 0;
-        padding-left: 0
+        padding-left: 0;
     }
 }
 
@@ -372,11 +383,13 @@ form#shareCommentForm .btn {
         min-width: 992px
     }
     #content .menu-wrap {
-        margin-left: 1em;
+        /*margin-left: 1em;*/
+        padding-left:0;
+        padding-right:0;
     }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1200px) {
     div.dashboard-right {
         /* padding-top: 1.5em; */
         /* padding-left: 0.2em; */
@@ -396,8 +409,12 @@ form#shareCommentForm .btn {
 		margin-top: -5em;
     }
     div.user-desc {
-        text-align: initial
+        text-align: initial;
     }
+	div#content div.dashboard-left {
+		padding-left: 1em;
+		padding-right: 1em;
+	}
     div#content div.dashboard-left,
     div#content div.menu-wrap {
         width: 100%;
@@ -406,10 +423,10 @@ form#shareCommentForm .btn {
     div#content div.dashboard-left img.user-img {
         width: 80px;
         height: 80px;
-        vertical-align: top
+        vertical-align: top;
     }
     div#content div.dashboard-right {
-        display: none
+        display: none;
     }
     div#user-brief-info {
         display: inline-block;
@@ -419,33 +436,35 @@ form#shareCommentForm .btn {
         margin-top: 0.5em
     }
     div.menu-wrap {
-        position: relative
+        position: relative;
+        padding-left: 0;
+        padding-right: 0;
     }
     div.menu-wrap-inner {
-        padding: 0
+        padding: 0;
     }
     div.menu {
-        text-align: center
+        text-align: center;
     }
     #menu {
-        font-size: 90%
+        font-size: 90%;
     }
     button#btn1 {
         width: auto;
         height: auto;
-        margin: initial
+        margin: initial;
     }
     .menu #box {
-        display: block
+        display: block;
     }
 }
 
 @media (max-width: 399px) {
     div.dashboard-left {
-        text-align: center
+        text-align: center;
     }
     div.dashboard-left div.user-desc {
-        text-align: initial
+        text-align: initial;
     }
 }
 
@@ -457,7 +476,7 @@ form#shareCommentForm .btn {
     right: 1em;
     z-index: 5;
     border-radius: 0.2em;
-    border: solid 1px #cbcbcb
+    border: solid 1px #cbcbcb;
 }
 .modal-header h3 {
      margin: 0;
@@ -493,4 +512,10 @@ form#shareCommentForm .btn {
 	transform: translateY(-100%);
 	opacity: 0.8;
 	transition: transform 0.5s, opacity 0.5s;
+}
+
+.dashboard-left-filler,
+.dashboard-mid-filler,
+.dashboard-right-filler {
+	float: left;
 }

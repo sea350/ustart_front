@@ -7,3 +7,14 @@ function readRuneArray(runeArray) {
 		document.write(runeOutput);
 	}
 }
+
+function defineRuneArray(runeArray) {
+	if (runeArray) {
+		var runeOutput = '';
+		runeArray.forEach(function(element) {
+			runeOutput += String.fromCharCode(element);
+		});
+		return runeOutput;
+	}
+	return 0;
+}

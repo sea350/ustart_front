@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/socialMedia.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-gallery.css">
-    <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-text.css">   
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-text.css">  
     <script src="/ustart_front/ckeditor/ckeditor.js"></script>
     <script src="/ustart_front/ckeditor/config.js"></script>
     <script src="/ustart_front/js/layout_tags.js"></script>
@@ -33,6 +33,9 @@
     <script>
         window.___gcfg = { "parsetags": "explicit" };
         $(function () {
+            $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
+                $("#leftNavProjects").addClass("theActive");
+            });
             // Enables drag-n-drop list items (using the header)
             $("#sortable").sortable({
                 handle: ".widgetTitle",
@@ -73,14 +76,15 @@
     <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
     <div id="centering">
         <!-- Vertical content -->
+		<div id="LeftNavBar-placeholder"></div>
         <div id="content">
             <img id="head-image" alt="User Banner">
-             <script>
+            <script>
                 $( document ).ready(function() {
                     $("#head-image").attr("src",{{.UserInfo.Banner}});
                 });
             </script>
-            <div class="dashboard-left col-xs-3">
+			<div class="dashboard-left">
                 <div class="user-info">
 					<div class="user-img-container">
 						<img class="user-img" id="user-avatar" alt="User Profile Image">
@@ -93,7 +97,7 @@
                             $("#user-avatar").attr("src",{{.UserInfo.Avatar}});
                         });
                     </script>
-                    <div id="user-brief-info">
+					<div id="user-brief-info">
                         <div id="info-wrap">
                             <div id="name-cont">
                                 <h3 style="margin-bottom: 0.2em;">
@@ -128,19 +132,20 @@
                     <hr>
                     <div id="user-nums">
                         <div id="followers">
-                            <a href="http://ustart.today:5000/followers/">
-                                <span id="num-followers" style="font-weight: bold">{{.Followers}}</span> Followers</a> 
+                            <a href="followers.html#followers">
+                                <span id="num-followers" style="font-weight: bold">{{.Followers}}</span> Followers</a>
                         </div>
                         
                         <div id="following">
-                            <a href="http://ustart.today:5000/following/">
+                            <a href="followers.html#following">
                                 <span id="num-following" style="font-weight: bold">{{.Following}}</span> Following</a>
                         </div>
+                        <button id="btn-message" class="btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
                         <!-- if user is visiting the page -->
                         {{if ne ($.Page) ($.DOCID)}}
-                        <button id="btn1" class="btn followButton following" rel="6">Follow</button>
+                        <button id="btn1" class="btn followButton" rel="6">Follow</button>
                         {{end}}
-                        <script type="text/javascript">
+						<script type="text/javascript">
                                $(document).ready(function() { 
                                     var pageID= document.getElementById("pageiden").value;
                                     var followstatus=document.getElementById("followstat").value;
@@ -341,7 +346,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--div for left side-->
                     <div id="suggestedProj" class="margin-top">
                         <div class="dashboard panel panel-default">
                             <div id="dash-header">
@@ -352,7 +356,7 @@
                                             <span id="dismiss">&times;</span>
                                         </div>
                                         <div class="content">
-                                            <img class="avatar" src="/ustart_front/img/logo.png">
+                                            <img class="avatar" src="https://pbs.twimg.com/profile_images/898391736078262272/oHO_LQmH_400x400.jpg">
                                             <div class="proj-card-info">
                                                 <a href="projects.html">
                                                     <strong class="proj-card-name">U●Start </strong>
@@ -396,9 +400,9 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End of div for left side-->
+                    <!-- End of grid for right -->
                 </div>
-            </div>
+			</div>
             <div class="menu-wrap col-xs-8">
                 <div id="floating-widget-editor">
                     <span id="widget-status">Edit Mode </span>
@@ -407,7 +411,7 @@
                     </button>
                 </div>
                 <br/>
-                <div class="mid-content">
+                <div>
                 <ul class="nav nav-tabs nav-justified proj-tabs">
                     <li class="active DannyTan">
                         <a data-toggle="tab" href="#prof-about">Showcase</a>
@@ -615,7 +619,7 @@
                                             <span class="pull-right fa fa-2x fa-pencil" onclick="ApplyTextModalID(this)"></span>
                                             <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
                                                 <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                                <span name="delete" class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                                <span name="delete" class="pull-right fa fa-2x fa-trash" onclick="preventSpam('delete{{index $loop.ID}}')"></span>
                                             </form>
                                         {{end}}
                                         <h4 id="text-title" name="textEditorHeader">
@@ -639,7 +643,7 @@
                                         <span class="pull-right fa fa-2x fa-pencil" id="ig-edit" onclick="instagramEditor(this)"></span>
                                         <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
                                              <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                            <span name="delete" class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                            <span name="delete" class="pull-right fa fa-2x fa-trash" onclick="preventSpam('delete{{index $loop.ID}}')"></span>
                                         </form>
                                         {{end}}
                                         <h4>Instagram</h4>
@@ -663,7 +667,7 @@
                                         <span class="pull-right fa fa-2x fa-pencil" id="sc-edit" onclick="ApplyIDToModal('sc-modal', this)"></span>
                                         <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                            <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                            <span class="pull-right fa fa-2x fa-trash" onclick="preventSpam('delete{{index $loop.ID}}')"></span>
                                         </form>
                                         {{end}}
                                         <h4>Soundcloud</h4>
@@ -683,7 +687,7 @@
                                         <span class="pull-right fa fa-2x fa-pencil" id="yt-edit" onclick="ApplyIDToModal('youtubeModal', this)"></span>
                                         <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
                                          <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                         <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                         <span class="pull-right fa fa-2x fa-trash" onclick="preventSpam('delete{{index $loop.ID}}')"></span>
                                         </form>
                                         {{end}}
                                         <h4>Youtube</h4>
@@ -708,7 +712,7 @@
                                         <span class="pull-right fa fa-2x fa-pencil" id="code-edit" onclick="ApplyIDToModal('code-modal', this)"></span>
                                         <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
                                              <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                            <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                            <span class="pull-right fa fa-2x fa-trash" onclick="preventSpam('delete{{index $loop.ID}}')"></span>
                                         </form>
                                         {{end}}
                                         <h4 name="textEditorHeader">CodePen</h4>
@@ -728,7 +732,7 @@
                                         <span class="pull-right fa fa-2x fa-pencil" id="tumblr-edit"onclick="ApplyIDToModal('tumblr-modal', this)"></span>
                                         <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                            <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                            <span class="pull-right fa fa-2x fa-trash" onclick="preventSpam('delete{{index $loop.ID}}')"></span>
                                         </form>
                                         {{end}}
                                         <h4 name="textEditorHeader">Tumblr</h4>
@@ -752,7 +756,7 @@
                                 <span class="pull-right fa fa-2x fa-pencil" id="pin-edit" onclick="pinterestEditor(this)"></span>
                                 <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
                                     <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                    <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                    <span class="pull-right fa fa-2x fa-trash" onclick="preventSpam('delete{{index $loop.ID}}')"></span>
                                 </form>
                                 {{end}}
                                 <h4 name="textEditorHeader">
@@ -780,7 +784,7 @@
                                 <span class="pull-right fa fa-2x fa-pencil" id="spot-edit" onclick="spotifyEditor(this)"></span>
                                 <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
                                     <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                    <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                    <span class="pull-right fa fa-2x fa-trash" onclick="preventSpam('delete{{index $loop.ID}}')"></span>
                                 </form>
                                 {{end}}
                                 <h4 name="textEditorHeader">Spotify</h4>
@@ -802,7 +806,7 @@
                                     <span class="pull-right fa fa-2x fa-pencil" id="twitch-edit" onclick="ApplyIDToModal('twitch-modal', this)"></span>
                                     <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                        <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                        <span class="pull-right fa fa-2x fa-trash" onclick="preventSpam('delete{{index $loop.ID}}')"></span>
                                     </form>
                                     {{end}}
                                     <h4>Twitch</h4>
@@ -822,7 +826,7 @@
                                     <span class="pull-right fa fa-2x fa-pencil" id="ar-edit" onclick="anchorEditor(this)"></span>
                                     <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                        <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                        <span class="pull-right fa fa-2x fa-trash" onclick="preventSpam('delete{{index $loop.ID}}')"></span>
                                     </form>
                                     {{end}}
                                     <h4>Anchor</h4>
@@ -830,7 +834,7 @@
                                     <div id= "widgetBodyAR" class="widgetBody">
                                         {{range $loop2 := $loop.Data }}
                                         <script>
-                                                document.write('<div class="anchor-feed"><iframe src="'+AnchorGetID({{$loop2}})+'"width="450px" frameborder="0" scrolling="no"></iframe></div>');
+                                                document.write('<div class="anchor-feed"><iframe src="'+AnchorGetID({{$loop2}})+'" style="dislay:inline-block; margin-bottom: 0.5em" width="450px" frameborder="0" scrolling="no"></iframe></div>');
                                         </script>
                                         {{end}}
                                     </div>
@@ -846,7 +850,7 @@
                                     <span class="pull-right fa fa-2x fa-pencil" id="med-edit" onclick="ApplyIDToModal('med-modal', this)"></span>
                                     <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                        <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                        <span class="pull-right fa fa-2x fa-trash" onclick="preventSpam('delete{{index $loop.ID}}')"></span>
                                     </form>
                                     {{end}}
                                     <h4>Medium</h4>
@@ -868,7 +872,7 @@
                                     <span class="pull-right fa fa-2x fa-pencil" id="da-edit"  onclick="ApplyIDToModal('da-modal', this)"></span>
                                     <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                        <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                        <span class="pull-right fa fa-2x fa-trash" onclick="preventSpam('delete{{index $loop.ID}}')"></span>
                                     </form>
                                     <h4>DeviantArt</h4>
                                     </div>
@@ -1165,7 +1169,8 @@
                     </div>
                 </div>
                 </div>
-            </div>
+            </div> 
+            <!-- end menu-wrap-->
             <div id="modal-box">
                 <script type="text/javascript">
                     $( document ).ready(function() {
@@ -1563,7 +1568,7 @@
 								<p>Please paste your Pinterest Profile URL here:</p>
 								<form id="customPinterestForm" action="/addWidget/" method="POST">
 								<div class="form-group">
-									<input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="http://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+\/' required>
+									<input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="https://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+\/' required>
 									<!-- Regexp: pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/? -->
 									<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
 								</div>
@@ -1689,7 +1694,7 @@
 							</div>
 							<div class="modal-body">
 								<p>Put your DeviantArt username here to share your newest deviations:</p>
-								<form id="customMedForm" action="/addWidget/" method="POST">
+								<form id="customDaForm" action="/addWidget/" method="POST">
 								
 								<div class="input-group">
 									<div class="input-group-btn">
