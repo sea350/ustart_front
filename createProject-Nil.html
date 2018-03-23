@@ -13,158 +13,49 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="/ustart_front/css/layout1.css">
     <link rel="stylesheet" href="/ustart_front/css/register.css">
+    <script src="/ustart_front/js/createProject.js"></script>
+    <script src="/ustart_front/js/universities.js"></script>
+    <script src="/ustart_front/js/categories.js"></script>
     <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+    <script type="text/javascript">
+    $(function() {
+          $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
+                $("#leftNavProjects").addClass("theActive");
+            }); 
+    </script>
 </head>
+<body>
     <div id="centering" style="top: 6em;">
-        <div id="content">
-            <div class="container">
+        <div id="LeftNavBar-placeholder">
+        </div>
+         <div id="content">
+            <div class="container col-md-6 col-md-offset-3" >
 				<!-- Missing Go Index -->
 			
-				<button style="margin-left: 1em;" class="btn btn-danger" id="back-button" onclick="location.replace('http://ustart.today:5000/MyProjects')"><i class="fa fa-angle-left"></i> Back</button>
+				<!--<button style="margin-left: 1em;" class="btn btn-danger" id="back-button" onclick="location.replace('http://ustart.today:5000/MyProjects')"><i class="fa fa-angle-left"></i> Back</button> -->
                 <form class="form-signup" id="projectCreateForm" action="http://ustart.today:5000/CreateProject/" method="post">
                     <h2 style="padding:0; text-align: center;">Create A Project</h2>
                     <br>
                     <!-- Name -->
                     <div class="row">
-                        <div class="dropdown col-sm-12">
-                            <label for="project_title" class="sr-only">Title of Project</label>
-                            <input type="text" id="project_title" name="project_title" class="form-control" placeholder="Title of Project" required autofocus>
+                        <div class="dropdown col-md-6"> 
+                            <label for="fName" class="sr-only">Title of Project</label>
+                            <input type="text" id="fName" name="project_title" class="form-control" placeholder="Title of Project" required autofocus>
+                        </div>
+                        <div class="dropdown col-md-6">
+                            <label for="category" class="sr-only">Category</label>
+                            <select type="text" id="category" name="category" class="form-control" placeholder="Category" required>
+                                <option></option>
+                            </select>
                         </div>
                     </div>
                     <br>
                     <div class="row">
-                        <div class="dropdown col-sm-12">
-                            <label for="project_desc" class="sr-only">Project Description</label>
-                            <textarea maxlength="1100" style="resize: none;" type="text" class="form-control" id="project_desc" name="project_desc" rows="4" placeholder="Please describe your project goal" required></textarea>
+                        <div class="dropdown col-md-6">
+                            <label for="curl" class="sr-only">Custom URL</label>
+                            <input type="text" id="curl" name="curl" class="form-control" placeholder="Custom URL" required>
                         </div>
-                        <!--<div class="dropdown col-sm-6">
-                            <label for="fName" class="sr-only">Description</label>
-                            <textarea style="resize: none;" type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Put a big description of your project here:"></textarea>
-                        </div>-->
-                    </div>
-                    <br>
-                    <!--     -------------------------------------NOT MY EDITS-----------------------------------------         -->
-                    <!-- Email -->
-                    <!--<div class="row">
-                        <div class="dropdown col-sm-6">
-                            <label for="inEmail" class="sr-only">Email address</label>
-                            <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" onblur="validateEmail()" required autofocus>
-                            <p id="notedu" style="color: red;">You need an '.edu' email.</p>
-                        </div>
-                        <div class="dropdown col-sm-6">
-                            <label for="confirmEmail" class="sr-only">Confirm Email</label>
-                            <input type="email" id="confirmEmail" name="confirmEmail" class="form-control" placeholder="Confirm Email" autocomplete="off" required autofocus>
-                            <p id="eNoMatch" style="color:red;">Sorry, emails do not match.</p>
-                        </div>
-                    </div>-->
-                    <!-- Password -->
-                    <!--<div class="row">
-                        <div class="dropdown col-sm-6">
-                            <label for="inPassword" class="sr-only">Password</label>
-                            <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required autofocus>
-                            <div id="meter-cont" class="progress password-progress" style=" margin-top: 5px; margin-bottom: 5px;">
-                                <div id="meter" class="progress-bar" role="progressbar" style="width: 0;"></div>
-                            </div>
-                            <div id="bad-pass" style="display: none">
-                                <p style="color: red;">Password not strong enough.</p>
-                            </div>
-                            <div id="left-empty" style="display: none">
-                                <p style="color: red;">You must enter a password.</p>
-                            </div>
-                            <script type="text/javascript">
-                            // Password strength script
-
-                            var pass = document.getElementById('inputPassword');
-                            var mcont = document.getElementById('meter-cont');
-                            var meter = document.getElementById('meter');
-                            var empty = document.getElementById('left-empty');
-                            var bad = document.getElementById('bad-pass');
-                            meter.style.display = "none";
-                            empty.style.display = "none";
-                            bad.style.display = "none";
-                            mcont.style.display = "none";
-                            pass.addEventListener('input', function() {
-
-                                var val = pass.value;
-
-                                meter.style.display = "block";
-                                if (val == '') {
-                                    empty.style.display = "block";
-                                    bad.style.display = "none";
-                                    meter.style.display = "none";
-                                    mcont.style.display = "none";
-
-                                }
-                                // pass into function to measure strength
-                                var result = zxcvbn(val);
-
-                                // Password progress bar
-                                var $bar = $('#meter');
-
-                                if (result.score == 0) {
-                                    if (val == '') {
-                                        empty.style.display = "block";
-                                        bad.style.display = "none";
-                                        meter.style.display = "none";
-                                        mcont.style.display = "block";
-
-                                    } else {
-                                        $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '0%');
-                                        bad.style.display = "block";
-                                        empty.style.display = "none";
-                                        mcont.style.display = "block";
-                                    }
-
-                                } else if (result.score == 1) {
-                                    $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '25%');
-                                    bad.style.display = "block";
-                                    empty.style.display = "none";
-
-                                } else if (result.score == 2) {
-
-                                    $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '50%');
-                                    bad.style.display = "block";
-                                    empty.style.display = "none";
-                                } else if (result.score == 3) {
-
-                                    $bar.attr('class', 'progress-bar progress-bar-warning').css('width', '75%');
-                                    bad.style.display = "none";
-                                    empty.style.display = "none";
-                                } else { // score == 4
-                                    $bar.attr('class', 'progress-bar progress-bar-success').css('width', '100%');
-                                    bad.style.display = "none";
-                                    empty.style.display = "none";
-                                }
-                            });
-                            </script>
-                        </div>
-                        <div class="dropdown col-sm-6">
-                            <label for="confirmPass" class="sr-only">Confirm Password</label>
-                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm Password" required autofocus>
-                            <p id="pwNoMatch" style="color:red;">Sorry, passwords do not match.</p>
-                        </div>
-                    </div>-->
-                    <!-- Country, State / City, Zip -->
-                    <!--<div class="row">
-                        <div class="dropdown col-sm-3">
-                            <select id="country" name="country" class="form-control"></select>
-                        </div>
-                        <div class="dropdown col-sm-3">
-                            <select name="state" id="state" class="form-control"></select>
-                        </div>
-                        <script language="javascript">
-                        populateCountries("country", "state");
-                        </script>
-                        <div class="dropdown col-sm-3">
-                            <input id="city" name="city" class="form-control" placeholder="City" autofocus>
-                        </div>
-                        <div class="dropdown col-sm-3">
-                            <input id="zip" name="zip" class="form-control" placeholder="Zip" autofocus>
-                        </div>
-                    </div>-->
-                    <!-- School / Majors -->
-                    <!--<div class="row">
-                        <div class="dropdown col-sm-6">
+                        <div class="dropdown col-md-6">
                             <input name="universityName" class="form-control" id="uni" placeholder="University/College" required autofocus>
                             <script type="text/javascript">
                             $(document).ready(function() {
@@ -177,65 +68,28 @@
                             });
                             </script>
                         </div>
-                        <div class="dropdown col-sm-6">
-                            <input type="text" id="maj" name="majors" class="form-control" placeholder="Major" / required autofocus>
-                            <script type="text/javascript">
-                            $(document).ready(function() {
-
-                                $("#maj").autocomplete({
-                                    source: function(request, response) {
-                                        var results = $.ui.autocomplete.filter(major, request.term);
-                                        response(results.slice(0, 10));
-                                    }
-                                });
-                            });
-                            </script>
-                        </div>
-                    </div>-->
-                    <!-- Year / DOB -->
-                    <!--<div class="row">
-                        <div class="dropdown col-sm-6">
-                            <select id="inYr" name="year" class="form-control">
-                                <option value=''>Select Year</option>
-                                <option value="Freshman">Freshman</option>
-                                <option value="Sophomore">Sophomore</option>
-                                <option value="Junior">Junior</option>
-                                <option value="Senior">Senior</option>
-                                <option value="Graduate">Graduate</option>
-                                <option value="Post-Graduate">Post-Graduate</option>
-                            </select>
-                        </div>
-                        <div class="dropdown col-sm-6">
-                            <input type='text' placeholder="Date of Birth (MM/DD/YYYY)" class="form-control" id='datetimepicker4' name="dob" / required autofocus>
-                        </div>
-                        <script type="text/javascript">
-                        $(function() {
-
-                            $('#datetimepicker4').datepicker({
-                                format: 'MM/DD/YYYY',
-                                changeYear: true,
-                                yearRange: "-100:+0"
-                            });
-
-
-                        });
-                        </script>
                     </div>
-                    <br>-->
-                    <!-- captcha check -->
-                    <!--<div style="margin-left:auto; margin-right:auto; width: 305px;">
-                        <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6LcfqSkUAAAAADjI1KDj68LZHCM_-q5XMAsAACPn"></div>
-                    </div>-->
-                    <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit" name="send" id="finished" >Continue</button>
-                    <!--<script>
-                    function recaptchaCallback() {
-                        $('#finished').removeAttr('disabled');
-                    }
-                    </script>-->
                     <br>
+                    <div class="row">
+                        <div class="dropdown col-sm-12">
+                            <label for="project_desc" class="sr-only">Project Description</label>
+                            <textarea maxlength="1100" style="resize: none;" type="text" class="form-control" id="project_desc" name="project_desc" rows="4" placeholder="Please describe your project goal" required></textarea>
+                        </div>
+                    </div>
                     <br>
+                    <div class="row">
+                            <div class="col-md-4">
+                                <button class="btn btn-danger btn-lg btn-block" id="back-button" onclick="location.replace('http://ustart.today:5000/MyProjects')"><i class="fa fa-angle-left" style="display: inline-block"></i> Back</button>
+                            </div>
+                            <div class="col-md-8">
+                                <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit" name="send" id="finished" style="display: inline-block">Continue</button>
+                            </div>
+                    </div>
                     <br>
                 </form>
+                <script>
+                    list_categories('category');
+				</script>
             </div>
         </div>
     </div>

@@ -57,6 +57,12 @@
 	<div id="navBar-placeholder"></div>
 	<div id="centering">
 		<!-- Vertical content -->
+		<div id="LeftNavBar-placeholder"></div>
+		<script>
+            $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
+                $("#leftNavSettings").addClass("theActive");
+            });
+		</script>
 		<div id="content" style="width: 96.9%; min-width: 96.9%;">
 			<div id="settings-container" class="container">
 				<h1>Settings</h1>
@@ -485,10 +491,12 @@
 	<div id="footer-placeholder"></div>
 	<script type="text/javascript">
 		$(document).ready(function () {
+			<!-- Automatically open the approriate tab based on the URL -->
 			if(location.hash != null && location.hash != ""){
 				$('.collapse').removeClass('in');
 				$(location.hash + '.collapse').collapse('show');
 			}
+			<!-- end of auto-tab -->
 			
 			$("select#gender_select").val('{{.UserInfo.Gender}}');
 			$("select[name='type_selector']").prop('selectedIndex', {{.UserInfo.AccType}});

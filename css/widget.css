@@ -236,6 +236,8 @@ span.ui-icon {
 }
 
 .widgetBodyInstagram {
+	overflow-y: auto;
+	max-height: 38em;
 	-moz-column-width: 18em;
 	-webkit-column-width: 18em;
 }

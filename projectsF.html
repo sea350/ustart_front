@@ -62,7 +62,10 @@
         <!-- Vertical content -->
         <div id="content">
             <div>
-                <img id="head-image" src="{{.Project.ProjectData.Banner}}">
+                <img id="head-image">
+				<script>
+					$('#head-image').attr('src', {{.Project.ProjectData.Banner}});
+				</script>
                 <div class="followers-cont flex">
                     <div class="followers-link-cont">
 						{{range $member := .Project.MemberData}}
@@ -88,7 +91,7 @@
                                 <li><a href="#"><i class="fa fa-camera-retro"></i> Upload New Banner</a></li>
                                 <li>
 									<form action="/ProjectSettings/" method="POST">
-										<input type="hidden" name="ProjectURL" value="{{.Project.DocID}}">
+										<input type="hidden" name="ProjectURL" value="{{.Project.ProjectData.URLName}}">
 										<a href="#" onclick="$(this).closest('form').submit();"><i class="fa fa-gear"></i> Edit Settings</a>
 									</form>
 								</li>
@@ -106,7 +109,10 @@
 							</div>
                         </div>
                         <div class="dashboard-top-mid">
-                            <img id="project-logo" src="{{.Project.ProjectData.Avatar}}" />
+                            <img id="project-logo"/>
+							<script>
+								$('#project-logo').attr('src', {{.Project.ProjectData.Avatar}});
+							</script>
                         </div>
                         <div class="dashboard-top-right flex-grow">
                             <!-- <div> -->
@@ -115,20 +121,26 @@
                                     <!-- <p><a id="project-website" href="http://www.ustart.today/">http://www.ustart.today/</a></p> -->
                                 <!-- </div> -->
                             <!-- </div> -->
+                            <div class="col-xs-6">
+                                <div class="detail-head"><i class="fa fa-clock-o" aria-hidden="true"></i> Creation Date</div>
+                                <div id="project-create-date" class="detail-content">
+									<script>
+										document.write(new Date({{.Project.ProjectData.CreationDate}}).toLocaleDateString());
+									</script>
+                                </div>
+                            </div>
 							{{if .Project.ProjectData.Location.Country}}
-                            <div>
+                            <div class="col-xs-6">
                                 <div class="detail-head"><i class="fa fa-map-marker" aria-hidden="true"></i> Location</div>
                                 <div id="project-location" class="detail-content">
-                                    <!-- ADDLOCATION -->
 									{{.Project.ProjectData.Location.City}}, {{.Project.ProjectData.Location.State}}, {{.Project.ProjectData.Location.Country}} {{.Project.ProjectData.Location.Zip}}
                                 </div>
                             </div>
 							{{end}}
 							{{if .Project.ProjectData.Category}}
-                            <div>
+                            <div class="col-xs-6">
                                 <div class="detail-head"><i class="fa fa-list-ul" aria-hidden="true"></i> Category</div>
                                 <div id="project-category" class="detail-content">
-                                    <!-- ADDCATEGORY -->
 									{{.Project.ProjectData.Category}}
                                 </div>
                             </div>
@@ -1403,7 +1415,7 @@
 									</div>
 									<div class="modal-body">
 										<p>Put your DeviantArt username here to share your newest deviations:</p>
-										<form id="customMedForm" action="/addProjectWidget/" method="POST">
+										<form id="customDaForm" action="/addProjectWidget/" method="POST">
 										
 										<div class="input-group">
 											<div class="input-group-btn">
@@ -1424,7 +1436,7 @@
 										</form>
 									</div>
 									<div class="modal-footer">
-										 <button type="submit" id="da-submit-btn" class="btn btn-info btn-done" form="customdaForm" name="widgetSubmit" value="13">Done</button>
+										 <button type="submit" id="da-submit-btn" class="btn btn-info btn-done" form="customDaForm" name="widgetSubmit" value="13">Done</button>
 									</div>
 								</div>
 							</div>
