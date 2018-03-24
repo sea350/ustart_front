@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 
@@ -369,4 +370,377 @@
 	</script>
 </body>
 
+=======
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>ustart</title>
+	<link rel="stylesheet" type="text/css" href="/ustart_front/css/settings.css" />
+	<link rel="stylesheet" type="text/css" href="/ustart_front/css/followers.css" />
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/croppie.css" />
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
+	<script src="/ustart_front/js/countries.js"></script>
+	<script src="/ustart_front/js/majors.js"></script>
+	<script src="/ustart_front/js/settings.js"></script>
+    <script src="/ustart_front/js/jquery.cropit.js"></script>
+    <script src="/ustart_front/js/croppie.min.js"></script>
+    <script src="/ustart_front/js/ascii-convert.js"></script>
+	<style>
+		#content .panel,
+		#content .panel-group {
+			margin-bottom: 0.5em;
+		}
+	</style>
+	{{$projectid := .Project.DocID}}
+</head>
+
+<body>
+	<div id="navBar-placeholder"></div>
+	<div id="centering">
+		<!-- Vertical content -->
+		<div id="LeftNavBar-placeholder"></div>
+		<script>
+			$("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
+				$("#leftNavProjects").addClass("theActive");
+			});
+		</script>
+		<div id="content">
+			<div id="settings-container" class="container">
+				<h3>Project Settings</h3>
+				<div class="panel-group" id="accordion">
+					<div class="panel panel-default">
+						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#avatarcollapse">
+							<h4 class="panel-title">Change Name and Description</h4>
+						</div>
+						<div id="avatarcollapse" class="panel-collapse collapse">
+							<div class="panel-body">
+								<div class="form-group">
+									<form id="nameChange" action="http://ustart.today:5000/projectName/" method="POST">
+										<div class="row">
+											<div class="col-sm-6">
+												<label for="pname">Name</label>
+												<input type="text" class="form-control" id="pname" name="pname" placeholder="Project Name" value="{{.Project.ProjectData.Name}}" required />
+                                                <input type="hidden" name="projectID" value="{{$projectid}}" />
+											</div>
+											<div class="col-sm-6">
+											</div>
+											<div class="col-sm-12">
+												<label for="inputDesc">Description</label>
+												<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe the goals of your project"></textarea>
+												<script>$('textarea[name="inputDesc"]').text(defineRuneArray({{.Project.ProjectData.Description}}));</script>
+											</div>
+											<div class="col-sm-12">
+												<label for="recruitSwitch">Recruitment</label>
+												<br>
+												<label class="switch" id="recruitSwitch">
+                                                  <input type="checkbox" checked>
+                                                  <span class="slider round"></span>
+                                                </label>
+											</div>
+										</div>
+										<hr/>
+										<input type="submit" class="btn btn-info" name="name_submit" value="Change" />
+										<div class="save-message fade"></div>
+									</form>
+								</div>
+                                
+							</div>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#loccollapse">
+							<h4 class="panel-title">Change Location</h4>
+						</div>
+						<div id="loccollapse" class="panel-collapse collapse">
+							<div class="panel-body">
+								<form id="locChange" action="http://ustart.today:5000/projectLocation/" method="POST">
+									<input type="hidden" name="projectID" value="{{$projectid}}" />
+									<!-- Country, State / City, Zip -->
+									<div class="row">
+										<div class="col-sm-4">
+											<label for="country">Country</label>
+											<!--<label class="switch usr-vis-opt"><input type="checkbox" id="countryVis" name="countryVis" checked><span class="slider round"></span></label>-->
+											<select id="country" class="form-control" name="country" required></select>
+										</div>
+										<div class="col-sm-3">
+											<label for="state">State</label>
+											<!--<label class="switch usr-vis-opt"><input type="checkbox" id="stateVis" name="stateVis" checked><span class="slider round"></span></label>-->
+											<select id="state" class="form-control" name="state" required></select>
+										</div>
+										<script language="javascript">
+											populateCountries("country", "state");
+											$('select#country').val({{.Project.ProjectData.Location.Country}});
+											populateStates("country", "state");
+											$('select#state').val({{.Project.ProjectData.Location.State}});
+										</script>
+										<div class="col-sm-3">
+											<label for="city">City</label>
+											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="cityVis" id="cityVis" checked><span class="slider round"></span></label>-->
+											<input id="city" class="form-control" name="city" placeholder="City" value="{{.Project.ProjectData.Location.City}}" required/>
+										</div>
+										<div class="col-sm-2">
+											<label for="zip">Zip</label>
+											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis" id="zipVis"  checked><span class="slider round"></span></label>-->
+											<input id="zip" class="form-control" name="zip" placeholder="Zip" value="{{.Project.ProjectData.Location.Zip}}" required />
+										</div>
+										<div class="col-sm-12">
+											<label for="recruitSwitch">Display on Profile</label>
+											<br>
+											<label class="switch" id="countrySwitch">
+													<input type="checkbox" checked>
+													<span class="slider round"></span>
+												</label>
+										</div>
+									</div>
+									<hr/>
+									<input type="submit" class="btn btn-info" name="name_submit" value="Change Location" />
+									<div class="save-message fade"></div>
+								</form>
+							</div>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#catecollapse">
+							<h4 class="panel-title">Change Category</h4>
+						</div>
+						<div id="catecollapse" class="panel-collapse collapse">
+							<div class="panel-body">
+								<form id="category-form" action="http://ustart.today:5000/projectCategory/">
+									<input type="hidden" name="projectID" value="{{$projectid}}" />
+
+									<div class="row">
+										<div class="col-sm-3">
+											<label for="type_select">Category</label>
+											<select id="type_select" class="form-control" name="type_select" required>
+													<option disabled selected hidden>Select Category</option>
+													<option>Art</option>
+													<option>Comics</option>
+													<option>Craft</option>
+													<option>Dancing</option>
+													<option>Design</option>
+													<option>Fashion</option>
+													<option>Film & Video</option>
+													<option>Food</option>
+													<option>Games</option>
+													<option>Jounalism</option>
+													<option>Music</option>
+													<option>Photography</option>
+													<option>Publishing</option>
+													<option>Technology</option>
+													<option>Theater</option>
+												</select>
+										</div>
+										<script>
+											$('select#type_select').val('{{.Project.ProjectData.Category}}');
+										</script>
+									</div>
+									<hr/>
+									<input type="submit" class="btn btn-info" name="name_submit" value="Change Category" />
+									<div class="save-message fade"></div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#urlcollapse">
+							<h4 class="panel-title">Custom URL</h4>
+						</div>
+						<div id="urlcollapse" class="panel-collapse collapse">
+							<div class="panel-body">
+								<form id="urlChange" action="http://ustart.today:5000/projectCustomURL/">
+									<input type="hidden" name="projectID" value="{{$projectid}}" />
+									<div class="row">
+										<div class="col-sm-12">
+											ustart.today/Projects/ <input type="text" class="form-control" id="purl" name="purl" placeholder="url" style="width:auto; display:inline-block;" value="{{.Project.ProjectData.URLName}}" required />
+										</div>
+									</div>
+									<hr/>
+									<input type="submit" class="btn btn-info" name="name_submit" value="Change url" />
+									<div class="save-message fade"></div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#logocollapse">
+							<h4 class="panel-title">Upload Logo</h4>
+						</div>
+						<div id="logocollapse" class="panel-collapse collapse">
+							<div class="panel-body">
+								<form id="img-form" action="http://ustart.today:5000/projectLogo/" method="POST">
+									<input type="hidden" name="projectID" value="{{$projectid}}" />
+									<div id="upload-demo" style="width:300px; height:350px"></div>
+									<input type="file" id="upload" accept="image/*">
+									<input type="hidden" name="image-data" id="hidden-image-data" />
+									<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
+									<script type="text/javascript">
+										$uploadCrop = $('#upload-demo').croppie({
+											url: "{{.Project.ProjectData.Avatar}}",
+											enableExif: true,
+											viewport: {
+												width: 250,
+												height: 250,
+											},
+											boundary: {
+												width: 300,
+												height: 300
+											}
+										});
+										$('#upload').on('change', function () { 
+											var reader = new FileReader();
+											reader.onload = function (e) {
+												$uploadCrop.croppie('bind', {
+													url: e.target.result
+												}).then(function(){
+													console.log('jQuery bind complete');
+												});
+											}
+											reader.readAsDataURL(this.files[0]);
+										});
+										 $('#upload-result').on('click', function (ev) {
+											$uploadCrop.croppie('result', {
+												type: 'canvas',
+												size: 'viewport'
+											}).then(function (resp) {
+												$('#hidden-image-data').val(resp);
+												console.log($('#hidden-image-data').val());
+												$('#img-form').submit();
+											});
+										});
+									</script>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#bannercollapse">
+							<h4 class="panel-title">Upload Banner</h4>
+						</div>
+						<div id="bannercollapse" class="panel-collapse collapse">
+							<div class="panel-body">
+								<form id="banner-form" action="http://ustart.today:5000/projectBannerUpload/" method="POST">
+									<div id="upload-demo2" style="width:1100px; height:380px"></div>
+									<input type="file" id="upload2" accept="image/*">
+									<input type="hidden" name="projectID" value="{{$projectid}}" />
+									<input type="hidden" name="banner-data" id="hidden-image-data2" />
+									<button type="button" class="btn btn-info" id="upload-result2">Upload Image</button>
+									<script type="text/javascript">
+										$uploadCrop2 = $('#upload-demo2').croppie({
+											url: "{{.Project.ProjectData.Banner}}",
+											enableExif: true,
+											viewport: {
+												width: 1000,
+												height: 300,
+											},
+											boundary: {
+												width: 1050,
+												height: 350
+											}
+										});
+										$('#upload2').on('change', function () { 
+											var reader2 = new FileReader();
+											reader2.onload = function (e) {
+												$uploadCrop2.croppie('bind', {
+													url: e.target.result
+												}).then(function(){
+													console.log('jQuery bind complete');
+												});
+											}
+											reader2.readAsDataURL(this.files[0]);
+										});
+										 $('#upload-result2').on('click', function (ev) {
+											$uploadCrop2.croppie('result', {
+												type: 'canvas',
+												size: 'viewport'
+											}).then(function (resp) {
+												$('#hidden-image-data2').val(resp);
+												console.log($('#hidden-image-data2').val());
+												$('#banner-form').submit();
+											});
+										});
+									</script>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#membcollapse">
+							<h4 class="panel-title">Manage Members</h4>
+						</div>
+						<div id="membcollapse" class="panel-collapse collapse">
+							<div class="panel-body">
+								<div id="home">
+									{{range $member := .Project.MemberData}}
+									<div class="card" style="height:auto">
+										<div class="container-s">
+											<img id="img{{$member.Username}}" class="image" src="{{$member.Image}}" alt="Avatar" onclick="location.href='/profile/{{$member.Username}}'" />
+											<h4><b>{{$member.FirstName}} {{$member.LastName}}</b></h4>
+											<form action="/changeRole/">
+												<input type="hidden" name="username" value="{{$member.Username}}">
+												<select id="role_select" class="form-control" name="role_select" style="margin: 0 auto; width:10em;"
+													onchange="$(this).closest('form').submit();">
+													<option disabled selected hidden>Select Role</option>
+													<option>Creator</option>
+													<option>Moderator</option>
+													<option>Member</option>
+												</select>
+											</form>
+											<div class="middle">
+												<form action="/removeMember/">
+													<button type="submit">Remove</button>
+													<input type="hidden" name="removeUser" value="{{$member.Username}}">
+													<input type="hidden" name="removeFromProject" value="{{$projectid}}">
+												</form>
+											<script>
+												$('img#img{{$member.Username}}').attr('src', {{$member.Image}});
+											</script>
+										</div>
+									</div>
+									{{end}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="avatarCropperModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Crop avatar</h4>
+				</div>
+				<div class="modal-body">
+					<iframe id="cropperiframe"> </iframe>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer-placeholder"></div>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			<!-- Automatically open the approriate tab based on the URL -->
+			if(location.hash != null && location.hash != ""){
+				$('.collapse').removeClass('in');
+				$(location.hash + '.collapse').collapse('show');
+			} else {
+				$('#avatarcollapse.collapse').collapse('show');
+			}
+			<!-- end of auto-tab -->
+		});
+	</script>
+</body>
+
+>>>>>>> 2c8377d00f7d5894e116ffa46a57e32e73a59f56
 </html>
