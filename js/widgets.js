@@ -978,6 +978,10 @@ $(document).ready(function() {
 			alert('We cannot add anymore Tumblr posts!');
 		}
 	});
+	
+	// Arranging & Sorting Widgets
+	
+	
 }).delay(2000).queue(function() {
 	// Jank code in order to reload Masonry (fit elements)
 	try {

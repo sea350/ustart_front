@@ -28,8 +28,13 @@
 	<div id="navBar-placeholder"></div>
 	<div id="centering">
 		<!-- Vertical content -->
+		<div id="LeftNavBar-placeholder"></div>
+		<script>
+			$("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
+				$("#leftNavProjects").addClass("theActive");
+			});
+		</script>
 		<div id="content">
-			<div id="LeftNavBar-placeholder"></div>
 			<div id="settings-container" class="container">
 				<h3>Project Settings</h3>
 				<div class="panel-group" id="accordion">
@@ -194,7 +199,7 @@
 						</div>
 						<div id="logocollapse" class="panel-collapse collapse">
 							<div class="panel-body">
-								<form id="img-form" action="http://ustart.today:5000/projectImageUpload/" method="POST">
+								<form id="img-form" action="http://ustart.today:5000/projectLogo/" method="POST">
 									<input type="hidden" name="projectID" value="{{$projectid}}" />
 									<div id="upload-demo" style="width:300px; height:350px"></div>
 									<input type="file" id="upload" accept="image/*">
@@ -315,7 +320,7 @@
 											<div class="middle">
 												<form action="/removeMember/">
 													<button type="submit">Remove</button>
-													<input type="hidden" name="removeUsername" value="{{$member.Username}}">
+													<input type="hidden" name="removeUser" value="{{$member.Username}}">
 													<input type="hidden" name="removeFromProject" value="{{$projectid}}">
 												</form>
 											<script>
@@ -352,10 +357,14 @@
 	<div id="footer-placeholder"></div>
 	<script type="text/javascript">
 		$(document).ready(function () {
+			<!-- Automatically open the approriate tab based on the URL -->
 			if(location.hash != null && location.hash != ""){
 				$('.collapse').removeClass('in');
 				$(location.hash + '.collapse').collapse('show');
+			} else {
+				$('#avatarcollapse.collapse').collapse('show');
 			}
+			<!-- end of auto-tab -->
 		});
 	</script>
 </body>

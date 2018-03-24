@@ -50,6 +50,8 @@ h3 {
     overflow: hidden;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
+	font-size: 160%;
+	margin-left: 0.5em;
 }
 
 .project-obj-description {
