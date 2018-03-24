@@ -412,12 +412,14 @@
                 </div>
 			</div>
             <div class="menu-wrap col-xs-8">
+				{{if ne ($.Page) ($.DOCID)}}
                 <div id="floating-widget-editor">
                     <span id="widget-status">Edit Mode </span>
                     <button class="btn btn-info">
                         <i class="fa fa-pencil-square-o"></i>
                     </button>
                 </div>
+				{{end}}
                 <br/>
                 <div>
                 <ul class="nav nav-tabs nav-justified proj-tabs">
