@@ -3,11 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
     <link href="/ustart_front/css/leftNavbarTemplate.css" rel="stylesheet" type="text/css" />
 </head>
-
-<body>
+    <div id="centering">
+    <div id="LeftNavBar-placeholder">
 	<div class="leftNavPop">
 		<!-- Show Nav -->
 		<span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
@@ -36,9 +35,9 @@
             </div>
         </div>
     </div>
+    </div>
 	<script>
 		$('.leftNavPop, .leftNavPush').click(function() {
 			$('#LeftNavBar-placeholder, .leftNavPop, .leftNavPush').toggleClass('reveal');
 		});
 	</script>
-</body>

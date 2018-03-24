@@ -8,7 +8,23 @@ function redirectTimed() {
 	}
 }
 
+function clearSession() {
+	sessionStorage.setItem('firstName', '');
+	sessionStorage.setItem('lastName', '');
+	sessionStorage.setItem('username', '');
+	sessionStorage.setItem('inputEmail', '');
+	sessionStorage.setItem('country', '');
+	sessionStorage.setItem('state', -1);
+	sessionStorage.setItem('city', '');
+	sessionStorage.setItem('zip', '');
+	sessionStorage.setItem('universityName', '');
+	sessionStorage.setItem('majors', '');
+	sessionStorage.setItem('year', -1);
+	sessionStorage.setItem('dob', '');
+}
+
 $(document).ready(function () {
+	clearSession();
 	$(document).mousemove(function() {
 		redirectBool = true;
 	});

@@ -13,7 +13,7 @@
 	<script src="/ustart_front/js/settings.js"></script>
     <script src="/ustart_front/js/jquery.cropit.js"></script>
     <script src="/ustart_front/js/croppie.min.js"></script>
-
+    <script src="/ustart_front/js/ascii-convert.js"></script>
     <style>
         #img-preview {
         background-color: #f8f8f8;
@@ -214,7 +214,13 @@
 											<div class="col-sm-12">
 												<label for="inputDesc">Description</label>
 												<!-- <label class="switch usr-vis-opt"><input type="checkbox" name="inputDescVis" checked><span class="slider round"></span></label> -->
-												<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe yourself." value="{{.UserInfo.Description}}"></textarea>
+												<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe yourself."></textarea>
+                                                <script>
+                                                    $(document).ready(function () {
+                                                    $("textarea#inputDesc").text( readRuneArrayThatWorks({{.UserInfo.Description}})
+                                                    )
+                                                    });
+                                                </script>
 											</div>
 										</div>
 										<hr/>

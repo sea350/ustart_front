@@ -42,9 +42,9 @@
 }
 
 #LeftNavBar-placeholder {
-	width: 18em;
-	padding: 1em;
+	width: 0em;
 	height: 90vh;
+	padding: 0em;
 	background-color: rgba(212, 212, 212, 0.9);
 	transition: width 0.5s, padding 0.5s;
 	overflow: hidden;
@@ -57,12 +57,13 @@
 .leftNavPop {
 	font-size: 150%;
 	position: absolute;
-    left: -100vw;
+    left: 0;
     top: 2em;
     background-color: rgba(225, 225, 225, 0.8);
-    padding: 0.5em 0.5em 0.5em 0.8em;
+	padding: 0.5em 0.8em 0.5em 0.5em;
     border-radius: 0 1em 1em 0;
 	overflow: hidden;
+	z-index: 2;
 }
 
 .leftNavPush {
@@ -88,6 +89,10 @@
 	transition-delay: 0s;
 }
 
+.leftNavPush.reveal {
+	display: initial;
+}
+
 .leftNavMain {
 	display: flex;
 	flex-direction: column;
@@ -108,8 +113,6 @@
 
 @media (max-width: 1180px) {
 	#LeftNavBar-placeholder {
-		width: 0em;
-		padding: 0em;
 		z-index: 1;
 	}
 	.leftNavPop {

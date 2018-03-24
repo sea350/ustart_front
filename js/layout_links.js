@@ -9,7 +9,8 @@ function removeLink(element) {
 	var httpURL = element.parent().attr('href');
 	var userlinkdesc = element.parent().find('.links-website-title').text();
 	var projectInputID = $('input[name="projectID"]');
-	if (projectInputID) {
+	
+	if (projectInputID.length) {
 		$.ajax({
 			type: 'GET',  
 			url: 'http://ustart.today:5000/DeleteProjectLink/',
@@ -76,7 +77,7 @@ function createLink(existingSite, siteDescription) {
 			siteLogo = siteLogo.substring(0, siteLogoSlashIndex);
         }
 		var htmlText = $('<a target="_blank" href="'+existingSite+'" data-toggle="tooltip" data-placement="top" title="" data-original-title="https://google.com">'
-					+ '<span class="cross-mark">x</span>' + '<img src="//logo.clearbit.com/' + siteLogo + '">'
+					+ ($('#linksWidget .fa-pencil').length ? '<span class="cross-mark">x</span>' : '') + '<img src="//logo.clearbit.com/' + siteLogo + '">'
 					+ '<div class="links-website-title">' + siteDescription + '</div>' + '</a>');
 		
 		var linkObject = htmlText.appendTo($(".links-container"));

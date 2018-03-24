@@ -49,12 +49,12 @@ function createTagModalElement(tag) {
 				$("#hashtags").html("");
 			}
 			var tagHTML = `
-					<button type="submit" name="instaURL" class="btn btn-default projectsColumn" id="skill-`+ tag + `" value="`+ tag +`">
+					<span name="instaURL" class="btn btn-default projectsColumn" id="skill-`+ tag + `" value="`+ tag +`">
 						<div class="deleteTagBtn" onclick="removeTag(this)">x</div>
 						<div class="columnImage">
 							<div class="columnTitle">`+tag+`</div>
 						</div>
-					</button>
+					</span>
 					`;
 			$("#hashtags").append(tagHTML);
 			taglist.push(tag);

@@ -68,7 +68,8 @@ function loadInputs() {
 	if (sessionStorage.getItem('country')) {
 		$('#country option').eq(sessionStorage.getItem('country')).prop('selected', true);
 		populateStates("country", "states");
-		$('#state option').eq(sessionStorage.getItem('state')).prop('selected', true);
+		$('#state').val(sessionStorage.getItem('state'));
+		//$('#state option').eq(sessionStorage.getItem('state')).prop('selected', true);
 	}
 	$('#city').val(sessionStorage.getItem('city'));
 	$('#zip').val(sessionStorage.getItem('zip'));

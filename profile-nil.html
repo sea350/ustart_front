@@ -33,15 +33,36 @@
     <script>
         window.___gcfg = { "parsetags": "explicit" };
         $(function () {
-            $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
+           /* $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
                 $("#leftNavProfile").addClass("theActive");
-            });
+            });*/
             // Enables drag-n-drop list items (using the header)
             $("#sortable").sortable({
                 handle: ".widgetTitle",
                 revert: true,
-                tolerance: "pointer"
+                tolerance: "pointer",
+				items: "> li.sortable",
+				update: function(event, ui) {
+					// Update {{.UserInfo.UserWidgets}} with $("#sortable").sortable("toArray")
+					var asortedWidgets = $("#sortable").sortable("toArray");
+					$.ajax({
+						type: 'GET',
+						url: 'http://ustart.today:5000/sortUserWidgets/',
+						contentType: "application/json; charset=utf-8",
+						data: {sortedWidgets: JSON.stringify(asortedWidgets)},
+						success: function(data) {
+							console.log('Sorted Widgets are probably saved: ');
+							console.log(data);
+						},
+						error: function(err) {
+							console.log('Sorted Widgets failed: ');
+							console.log(err);
+						}
+					});
+				}
             });
+			
+			
 			$('#projSortable').sortable();
 			$('#projectWidget .widgetBody').sortable({
 				cancel: ''
@@ -67,20 +88,18 @@
     </script>
     <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-
-
 </head>
 
 <body>
     <input type="hidden" id="pageiden" value='{{.Page}}'>
     <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
-    <div id="centering">
         <!-- Vertical content -->
-		<div id="LeftNavBar-placeholder"></div>
+		<!--<div id="LeftNavBar-placeholder"></div>-->
         <div id="content">
             <img id="head-image" alt="User Banner">
             <script>
                 $( document ).ready(function() {
+                    $("#leftNavProfile").addClass("theActive");
                     $("#head-image").attr("src",{{.UserInfo.Banner}});
                 });
             </script>
@@ -133,12 +152,12 @@
                     <div id="user-nums">
                         <div id="followers">
                             <a href="/Followers/{{.UserInfo.Username}}">
-                                <span id="num-followers" style="font-weight: bold">{{.Followers}}</span> Followers</a>
+                                <span id="num-followers" style="font-weight: bold">{{len .UserInfo.Followers}}</span> Followers</a>
                         </div>
                         
                         <div id="following">
                             <a href="/Following/{{.UserInfo.Username}}">
-                                <span id="num-following" style="font-weight: bold">{{.Following}}</span> Following</a>
+                                <span id="num-following" style="font-weight: bold">{{len .UserInfo.Following}}</span> Following</a>
                         </div>
                         <button id="btn-message" class="btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
                         <!-- if user is visiting the page -->
@@ -157,7 +176,7 @@
                                         $('#btn1').attr('class', 'btn followButton');
                                         $('#btn1').text('Follow');
                                     } 
-                                       $('#btn1').hover(function () {
+									$('#btn1').hover(function () {
                                         $button = $(this);
                                         if ($button.hasClass('following')) {
                                             $button.addClass('unfollow');
@@ -171,17 +190,15 @@
                                     });
                                     
                                      $('#btn1').click(function(e) {
-                                        //e.preventDefault();
                                         var Pikachu = {{.DOCID}};
-										console.log("We are doing Follow logic");
+                                        console.log('follow clicked');
                                         $.ajax({
                                             type: 'GET',  
                                             url: 'http://ustart.today:5000/callme/',
                                             contentType: "application/json; charset=utf-8",
                                             data: {userID:pageID, Following:followstatus,Pikachu:Pikachu},
                                             success: function(data) {
-                                                $("#responsenil").html(data);
-                                                console.log('hello');
+                                                console.log(data);
                                                 var totalFollowers = parseInt($('#num-followers').html());
 												if ($('#btn1').hasClass('following')) {
 													console.log("Let's Unfollow");
@@ -190,12 +207,16 @@
 													$('#btn1').removeClass('unfollow');
 													$('#btn1').text('Follow');
 													$('#num-followers').html(totalFollowers-1);
+                                                    $("#followstat").val("no");
+                                                    followstatus ="no";
 												} else {
 													console.log("Let's follow");
 													// $.ajax(); Do Follow
 													$('#btn1').addClass('following');
 													$('#btn1').text('Following');
 													$('#num-followers').html(totalFollowers+1);
+                                                    $("#followstat").val("yes");
+                                                    followstatus ="yes";
                                                 }
                                             },
 											error: function(error) {
@@ -411,12 +432,34 @@
                 </div>
 			</div>
             <div class="menu-wrap col-xs-8">
+				{{if eq ($.Page) ($.DOCID)}}
                 <div id="floating-widget-editor">
-                    <span id="widget-status">Edit Mode </span>
+                    <span id="widget-status">Edit Mode</span>
                     <button class="btn btn-info">
                         <i class="fa fa-pencil-square-o"></i>
                     </button>
                 </div>
+				<script>
+					var editMode = true;
+					$('#floating-widget-editor .btn').click(function() {
+						$('#widget-insert, .widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort').toggle();
+						if (editMode) {
+							// Change to View Mode
+							$('#widget-status').text('View Mode');
+							editMode = false;
+						} else {
+							$('#widget-status').text('Edit Mode');
+							editMode = true;
+						}
+					});
+				</script>
+				{{else}}
+				<script>
+					$(document).ready(function() {
+						$('#widget-insert, .widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort').remove();
+					});
+				</script>
+				{{end}}
                 <br/>
                 <div>
                 <ul class="nav nav-tabs nav-justified proj-tabs">
@@ -433,7 +476,6 @@
                             <li id="widget-insert" class="ui-state-default">
 									<div class="projectsWidgetCont">
 										<div class="widgetTitle">
-											<span class="pull-right fa fa-2x fa-sort"></span>
 											<h4>Insert new widget</h4>
 										</div>
 										<div class="widgetBody">
@@ -549,7 +591,7 @@
 													</div>
 												</div>
 											</button>
-											<button id="addGithubWidget" class="btn btn-default projectsColumn">
+											<button id="addGithubWidget" class="btn btn-default projectsColumn" style="display:none">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/github.png" />
 													<div class="columnTitle">
@@ -562,67 +604,65 @@
 								</li>
                             
                             <!-- skill widget-->
-                          <li class="ui-state-default">
-									<div class="projectsWidgetCont">
-										<div class="widgetTitle">
-                                            {{if eq ($.Page) ($.DOCID)}}
-											<span class="pull-right fa fa-2x fa-sort"></span>
-											<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#tagModal"></span>
-                                            {{end}}
-											<h4>Skills</h4>
-										</div>
-										<div id="hashTagsBody" class="widgetBody">
-										</div>       
-                                        {{range $loop := .UserInfo.Tags}}
-                                        {{if ne ($loop) ""}}
+							<li class="ui-state-default widgetListItem">
+								<div class="projectsWidgetCont">
+									<div class="widgetTitle">
+										{{if eq ($.Page) ($.DOCID)}}
+										<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#tagModal"></span>
+										{{end}}
+										<h4>Skills</h4>
+									</div>
+									<div id="hashTagsBody" class="widgetBody">
+									</div>       
+									{{range $loop := .UserInfo.Tags}}
+									{{if ne ($loop) ""}}
+									<script>
+										$(document).ready(function() {
+											createTagWidgetElement({{$loop}});
+										});
+									</script>
+									{{end}}
+									{{end}}
+								</div>
+							</li> <!--end skill widget -->
+							<!-- link widget-->
+							<script src="/ustart_front/js/layout_links.js"></script>
+                            <li class="ui-state-default widgetListItem">
+								<div id="linksWidget" class="projectsWidgetCont">
+									<div class="widgetTitle">
+										{{if eq ($.Page) ($.DOCID)}}
+										<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#addLinkModal"></span>
+										{{end}}
+										<h4>Links</h4>
+									</div>
+									<div class="widgetBody">
+									<div class="links-container"></div>
+									{{range $loop := .UserInfo.QuickLinks}}
+										{{if ne ($loop.URL) ""}}
 										<script>
 											$(document).ready(function() {
-                                                createTagWidgetElement({{$loop}});
+												createLink({{$loop.URL}},{{$loop.Name}});
 											});
 										</script>
-                                        {{end}}
-                                        {{end}}
+										{{end}}
+									{{end}}
+										
 									</div>
-				        </li> <!--end skill widget -->
-                        <!-- link widget-->
-				        <script src="/ustart_front/js/layout_links.js"></script>
-                            <li class="ui-state-default widgetListItem sortable">
-									<div id="linksWidget" class="projectsWidgetCont">
-										<div class="widgetTitle">
-                                            {{if eq ($.Page) ($.DOCID)}}
-											<span class="pull-right fa fa-2x fa-sort"></span>
-											<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#addLinkModal"></span>
-                                            {{end}}
-											<h4>Links</h4>
-										</div>
-										<div class="widgetBody">
-                                        <div class="links-container"></div>
-                                        {{range $loop := .UserInfo.QuickLinks}}
-                                            {{if ne ($loop.URL) ""}}
-                                            <script>
-                                                $(document).ready(function() {
-                                                    createLink({{$loop.URL}},{{$loop.Name}});
-                                                });
-                                            </script>
-                                            {{end}}
-                                        {{end}}
-											
-										</div>
-									</div>
-				        </li><!--end link widget -->
+								</div>
+							</li><!--end link widget -->
                             <!-- for loop goes here -->
-                        {{range $loop := .Widgets }}
-                         {{if eq $loop.Classification 0}}<!-- if is text -->  
-                            <li class="text ui-state-default" id="{{index $loop.ID}}">
+							{{range $loop := .Widgets }}
+							{{if eq $loop.Classification 0}}<!-- if is text -->  
+                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
                                         {{if eq ($.Page) ($.DOCID)}}
-                                            <span class="pull-right fa fa-2x fa-sort"></span>
                                             <script>
                                                 function focusDesc() {
                                                     document.getElementById('text-box').focus();
                                                 }
                                             </script>
+											<span class="pull-right fa fa-2x fa-sort"></span>
                                             <span class="pull-right fa fa-2x fa-pencil" onclick="ApplyTextModalID(this)"></span>
                                             <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
                                                 <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
@@ -640,8 +680,8 @@
                                     </div>
                                 </div>
                             </li>
-                        {{end}}<!-- end text -->
-                        {{if eq $loop.Classification 4}}
+							{{end}}<!-- end text -->
+							{{if eq $loop.Classification 4}}
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
@@ -663,9 +703,9 @@
                                     </div>
                                 </div>
                             </li>
-                        {{end}}<!--end instagram -->
-                    
-                        {{if eq $loop.Classification 5}}   
+							{{end}}<!--end instagram -->
+						
+							{{if eq $loop.Classification 5}}   
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
@@ -684,8 +724,8 @@
                                     </div>
                                 </div>
                             </li>
-                        {{end}}<!--end soundcloud -->
-                         {{if eq $loop.Classification 6}}   
+							{{end}}<!--end soundcloud -->
+							{{if eq $loop.Classification 6}}
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
@@ -709,8 +749,8 @@
                                     </div>
                                 </div>
                             </li>
-                        {{end}}<!--end youtube -->
-                        {{if eq $loop.Classification 7}}  
+							{{end}}<!--end youtube -->
+							{{if eq $loop.Classification 7}}  
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
@@ -729,8 +769,8 @@
                                     </div>
                                 </div>
                             </li>
-                        {{end}}<!--end codePen -->
-                        {{if eq $loop.Classification 9}}  
+							{{end}}<!--end codePen -->
+							{{if eq $loop.Classification 9}}  
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
@@ -753,59 +793,59 @@
                                     </div>
                                 </div>
                             </li>
-                        {{end}} <!--end Tumblr -->
-                        {{if eq $loop.Classification 8}} <!--pinterest-->
-                        <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-                            <div class="projectsWidgetCont">
-                            <div class="widgetTitle">
-                                {{if eq ($.Page) ($.DOCID)}}
-                                <span class="pull-right fa fa-2x fa-sort"></span>
-                                <span class="pull-right fa fa-2x fa-pencil" id="pin-edit" onclick="pinterestEditor(this)"></span>
-                                <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
-                                    <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                    <span class="pull-right fa fa-2x fa-trash" onclick="preventSpam('delete{{index $loop.ID}}')"></span>
-                                </form>
-                                {{end}}
-                                <h4 name="textEditorHeader">
-                                    Pinterest
-                                </h4>
-                            </div>
-                            <div id="widgetBodyPin" class="widgetBody">
-                                <script>
-                                    $( document ).ready(function() {
-                                    {{range $loop2 := $loop.Data }}
-                                        pinRender({{$loop2}});
-                                    {{end}}
-                                    });
-                                </script>
-                            </div>
-                        </div>
-                        </li>
-                        {{end}}<!-- end pinterest-->
-                        {{if eq $loop.Classification 10}} <!--spotify-->
+							{{end}} <!--end Tumblr -->
+							{{if eq $loop.Classification 8}} <!--pinterest-->
+							<li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+								<div class="projectsWidgetCont">
+								<div class="widgetTitle">
+									{{if eq ($.Page) ($.DOCID)}}
+									<span class="pull-right fa fa-2x fa-sort"></span>
+									<span class="pull-right fa fa-2x fa-pencil" id="pin-edit" onclick="pinterestEditor(this)"></span>
+									<form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+										<input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+										<span class="pull-right fa fa-2x fa-trash" onclick="preventSpam('delete{{index $loop.ID}}')"></span>
+									</form>
+									{{end}}
+									<h4 name="textEditorHeader">
+										Pinterest
+									</h4>
+								</div>
+								<div id="widgetBodyPin" class="widgetBody">
+									<script>
+										$( document ).ready(function() {
+										{{range $loop2 := $loop.Data }}
+											pinRender({{$loop2}});
+										{{end}}
+										});
+									</script>
+								</div>
+							</div>
+							</li>
+							{{end}}<!-- end pinterest-->
+							{{if eq $loop.Classification 10}} <!--spotify-->
                             <li class="ui-state-default widgetListItem sortable" id="{{index $loop.ID}}">
-                            <div class="projectsWidgetCont">
-                            <div class="widgetTitle">
-                                {{if eq ($.Page) ($.DOCID)}}
-                                <span class="pull-right fa fa-2x fa-sort"></span>
-                                <span class="pull-right fa fa-2x fa-pencil" id="spot-edit" onclick="spotifyEditor(this)"></span>
-                                <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
-                                    <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                    <span class="pull-right fa fa-2x fa-trash" onclick="preventSpam('delete{{index $loop.ID}}')"></span>
-                                </form>
-                                {{end}}
-                                <h4 name="textEditorHeader">Spotify</h4>
-                            </div>
-                            <div id="widgetBodySpot" class="widgetBody">
-                                 {{range $loop2 := $loop.Data }}
-                                        {{$loop2}}
-                                 {{end}}
-                            </div>
-                            </div>
-                        </li>
-                        {{end}} <!-- end spotify -->
-                        {{if eq $loop.Classification 14}}  <!--twitch-->
-                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+								<div class="projectsWidgetCont">
+								<div class="widgetTitle">
+									{{if eq ($.Page) ($.DOCID)}}
+									<span class="pull-right fa fa-2x fa-sort"></span>
+									<span class="pull-right fa fa-2x fa-pencil" id="spot-edit" onclick="spotifyEditor(this)"></span>
+									<form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">
+										<input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+										<span class="pull-right fa fa-2x fa-trash" onclick="preventSpam('delete{{index $loop.ID}}')"></span>
+									</form>
+									{{end}}
+									<h4 name="textEditorHeader">Spotify</h4>
+								</div>
+								<div id="widgetBodySpot" class="widgetBody">
+									 {{range $loop2 := $loop.Data }}
+											{{$loop2}}
+									 {{end}}
+								</div>
+								</div>
+							</li>
+							{{end}} <!-- end spotify -->
+							{{if eq $loop.Classification 14}}  <!--twitch-->
+							<li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
                                     {{if eq ($.Page) ($.DOCID)}}
@@ -823,9 +863,9 @@
                                     </div>
                                 </div>
                             </li>
-                        {{end}}<!--end twitch -->
-                        {{if eq $loop.Classification 11}}  <!--anchor--> 
-                        <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+							{{end}}<!--end twitch -->
+							{{if eq $loop.Classification 11}}  <!--anchor--> 
+							<li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
                                     {{if eq ($.Page) ($.DOCID)}}
@@ -846,10 +886,10 @@
                                         {{end}}
                                     </div>
                                 </div>
-                           </li>  
-                        {{end}} <!-- end anchor-->
-                         {{if eq $loop.Classification 12}}
-                        <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+							</li>  
+							{{end}} <!-- end anchor-->
+							{{if eq $loop.Classification 12}}
+							<li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
                                      {{if eq ($.Page) ($.DOCID)}}
@@ -870,8 +910,8 @@
                                         </script>
                                 </div>
                             </li>
-                        {{end}}
-                        {{if eq $loop.Classification 13}} <!--deviant art-->
+							{{end}}
+							{{if eq $loop.Classification 13}} <!--deviant art-->
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
@@ -895,8 +935,8 @@
                             </li>
                             {{end}}<!--end deviant art-->
                         
-                     {{end}}<!-- end for looper -->
-                    </ul>
+						{{end}}<!-- end for looper -->
+						</ul>
                     </div>
                     <div id="prof-wall" class="tab-pane fade">
                         <div class="grid">
@@ -1748,13 +1788,14 @@
 				</div>
         </div> <!-- end content -->
     </div>
+    </div> 
+    <!-- end centering inside left navbar  THIS IS NORMAL!!!--> 
     <div id="footer-placeholder"></div>
     <script>
         document.addEventListener('DOMContentLoaded', function () { window.scrollTo(0, 200) });
     </script>
     <script src="/ustart_front/js/fadebody.js"></script>
     <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
-    </div>
 </body>
 
 </html>
