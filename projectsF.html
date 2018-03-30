@@ -33,10 +33,6 @@
     <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js" data-pin-build="doBuild"></script>
     <script type="text/javascript">
         $(function () {
-            $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
-                $("#leftNavProjects").addClass("theActive");
-            });
-
             // Enables drag-n-drop list items (using the header)
             $("#sortable").sortable({
                 handle: ".widgetTitle",
@@ -56,9 +52,8 @@
 </head>
 
 <body>
-    <input type="hidden" id="pageiden" value='{{.Page}}'>
+    <input type="hidden" id="pageiden" value='{{.Project.DocID}}'>
     <div id="centering" style="top: 3.3em;">
-        <div id="LeftNavBar-placeholder"></div>
         <!-- Vertical content -->
         <div id="content">
             <div>
@@ -77,6 +72,14 @@
                     </div>
                     <div class="project-toolbar">
                         <button class="project-message btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
+                        {{if eq ($.Project.RequestAllowed) true}}
+                         <form action="/RequestToJoin/" method="POST">
+                            <input type="hidden" name="projID" value='{{.Project.DocID}}'>
+                            <button class="project-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
+                                <span>Request to join</span>
+                            </button>
+                        </form>
+                        {{end}}
                         <button class="project-btn-follow btn btn-default">
                             <div class="project-btn-text-followers">
                                 <strong id="project-follow-count">{{len .Project.ProjectData.Members}}</strong>

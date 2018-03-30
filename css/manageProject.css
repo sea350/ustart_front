@@ -60,3 +60,38 @@
     margin: 0.5em;
     display:inline-block;
 }
+
+#request-groups {
+    margin: 0;
+    padding: 0;
+    list-style-type: none
+}
+
+.request-group {
+    height: 5em;
+    padding: 1em;
+    -webkit-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    transition: background-color 0.5s;
+}
+
+.request-group span {
+    float: left;
+    margin-left: 0.5em
+}
+
+.request-group.active, .request-group.active:hover {
+    background-color: #607D8B;
+    color: white;
+}
+
+.request-group {
+    color: #37474F;
+}
+.request-group:hover {
+    background-color: #CFD8DC;
+}
+
+.request-group.active .group-header {
+    font-weight: bolder
+}

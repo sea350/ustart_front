@@ -6,19 +6,15 @@
     <meta name="viewport" content="width=device-width">
     <title>ustart</title>
     <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link href="ustart_front/css/profile.css" rel="stylesheet" type="text/css" />
-    <link href="ustart_front/css/layout1.css" rel="stylesheet" type="text/css" />
-    <link href="ustart_front/css/followers.css" rel="stylesheet" type="text/css" />
+    <link href="/ustart_front/css/profile.css" rel="stylesheet" type="text/css" />
+    <link href="/ustart_front/css/followers.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-
-	<script>
-		$("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
-			$("#leftNavProjects").addClass("theActive");
-		});
-	</script>
+	<script src="/ustart_front/js/ascii-convert.js"></script>
 </head>
 
 <body>
+    <input type="hidden" id="pageiden" value='{{.Page}}'>
+    <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
     <div id="centering">
         <!-- Vertical content -->
         <div id="content">
@@ -76,12 +72,12 @@
                     <hr>
                     <div id="user-nums">
                         <div id="followers">
-                            <a href="/Followers/{{.UserInfo.Username}}">
+                            <a href="/followers/{{.UserInfo.Username}}">
                                 <span id="num-followers" style="font-weight: bold">{{.Followers}}</span> Followers</a>
                         </div>
                         
                         <div id="following">
-                            <a href="/Following/{{.UserInfo.Username}}">
+                            <a href="/followers/{{.UserInfo.Username}}#following">
                                 <span id="num-following" style="font-weight: bold">{{.Following}}</span> Following</a>
                         </div>
                         <button id="btn-message" class="btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
@@ -172,26 +168,46 @@
 				</ul>
 				<div class="tab-content">
 					<div id="followersMenu" class="tab-pane fade in active">
+						{{range $follower := .ListOfHeads}}
 						<div class="card">
 							<div class="container-s">
-								<img class="image" src="img/Profiles/Avatar10.png" alt="Avatar"/>
-								<h4><b>Haldun Hadimioglu</b></h4> 
+								<img id="followerAvatar{{$follower.Username}}" class="image"
+									onclick="location.href('/profile/{{$follower.Username}}')"/>
+								<h4><b>{{$follower.FirstName}} {{$follower.LastName}}</b></h4> 
 								<div class="middle">
-									<div class="text"><a href="profile.html"> Follow </a></div>
+								{{if not $follower.Followed}}
+									<div class="text"><a href="/profile/{{$follower.Username}}"> Follow </a></div>
+								{{else}}
+									<div class="text"><a href="/profile/{{$follower.Username}}"> Followed </a></div>
+								{{end}}
 								</div>
+								<script>
+									$('#followerAvatar{{$follower.Username}}').attr('src', '{{$follower.Image}}');
+								</script>
 							</div>
 						</div>
+						{{end}}
 					</div>
 					<div id="followingMenu" class="tab-pane fade in">
+						{{range $following := .ListOfHeads2}}
 						<div class="card">
 							<div class="container-s">
-								<img class="image" src="img/Profiles/Avatar16.jpg" alt="Avatar"/>
-								<h4><b>Stephen Colbert</b></h4> 
+								<img id="followingAvatar{{$following.Username}}" class="image"
+									onclick="location.href('/profile/{{$following.Username}}')"/>
+								<h4><b>{{$following.FirstName}} {{$following.LastName}}</b></h4> 
 								<div class="middle">
-									<div class="text"><a href="profile.html"> Follow </a></div>
+								{{if not $following.Followed}}
+									<div class="text"><a href="/profile/{{$following.Username}}"> Follow </a></div>
+								{{else}}
+									<div class="text"><a href="/profile/{{$following.Username}}"> Followed </a></div>
+								{{end}}
 								</div>
+								<script>
+									$('#followingAvatar{{$following.Username}}').attr('src', '{{$following.Image}}');
+								</script>
 							</div>
 						</div>
+						{{end}}
 					</div>
 				</div>
 			</div>

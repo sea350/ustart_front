@@ -39,23 +39,23 @@
                     <div class="row">
                         <div class="dropdown col-sm-6">
                             <label for="fName" class="sr-only">First Name</label>
-                            <input type="text" id="fName" name="firstName" class="form-control" placeholder="First Name" required autofocus>
+                            <input type="text" id="fName" name="firstName" class="form-control" placeholder="First Name" required  autocomplete="given-name">
                         </div>
                         <div class="dropdown col-sm-6">
                             <label for="lName" class="sr-only">Last Name</label>
-                            <input type="text" id="lName" name="lastName" class="form-control" placeholder="Last Name" required autofocus>
+                            <input type="text" id="lName" name="lastName" class="form-control" placeholder="Last Name" required  autocomplete="family-name">
                         </div>
                     </div>
                     <!-- Username/Email -->
                     <div class="row">
                         <div class="dropdown col-sm-6">
                             <label for="uName" class="sr-only">Username</label>
-                            <input type="text" id="uName" name="username" class="form-control" placeholder="Username" autocomplete="off" pattern="[a-zA-Z0-9][a-zA-Z0-9_]+[a-zA-Z0-9]" required autofocus/>
+                            <input type="text" id="uName" name="username" class="form-control" placeholder="Username" autocomplete="username" pattern="[a-zA-Z0-9][a-zA-Z0-9_]+[a-zA-Z0-9]" required />
                             <p id="uDup" style="color:red;">Username is already being used. Try another username.</p>
                         </div>
                         <div class="dropdown col-sm-6">
                             <label for="inEmail" class="sr-only">Email address</label>
-                            <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" onblur="validateEmail()" required autofocus>
+                            <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" onblur="validateEmail()" required   autocomplete="email">
                             <p id="notedu" style="color: red;">You need an '.edu' email.</p>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                     <div class="row">
                         <div class="dropdown col-sm-6">
                             <label for="inPassword" class="sr-only">Password</label>
-                            <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required autofocus>
+                            <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required  autocomplete="new-password">
                             <div id="meter-cont" class="progress password-progress" style=" margin-top: 5px; margin-bottom: 5px;">
                                 <div id="meter" class="progress-bar" role="progressbar" style="width: 0;"></div>
                             </div>
@@ -142,32 +142,32 @@
                         </div>
                         <div class="dropdown col-sm-6">
                             <label for="confirmPass" class="sr-only">Confirm Password</label>
-                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm Password" required autofocus>
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm Password" required>
                             <p id="pwNoMatch" style="color:red;">Sorry, passwords do not match.</p>
                         </div>
                     </div>
                     <!-- Country, State / City, Zip -->
                     <div class="row">
                         <div class="dropdown col-sm-3">
-                            <select id="country" name="country" class="form-control"></select>
+                            <select id="country" name="country" class="form-control" autocomplete="country-name"></select>
                         </div>
                         <div class="dropdown col-sm-3">
-                            <select name="state" id="state" class="form-control"></select>
+                            <select name="state" id="state" class="form-control" autocomplete="state"></select>
                         </div>
                         <script language="javascript">
                         populateCountries("country", "state");
                         </script>
                         <div class="dropdown col-sm-3">
-                            <input id="city" name="city" class="form-control" placeholder="City" autofocus>
+                            <input id="city" name="city" class="form-control" placeholder="City" autocomplete="city">
                         </div>
                         <div class="dropdown col-sm-3">
-                            <input id="zip" name="zip" class="form-control" placeholder="Zip" autofocus>
+                            <input id="zip" name="zip" class="form-control" placeholder="Zip" autocomplete="postal-code">
                         </div>
                     </div>
                     <!-- School / Majors -->
                     <div class="row">
                         <div class="dropdown col-sm-6">
-                            <input name="universityName" class="form-control" id="uni" placeholder="University/College" required autofocus>
+                            <input name="universityName" class="form-control" id="uni" placeholder="University/College" required >
                             <script type="text/javascript">
                             $(document).ready(function() {
                                 $("#uni").autocomplete({
@@ -180,7 +180,7 @@
                             </script>
                         </div>
                         <div class="dropdown col-sm-6">
-                            <input type="text" id="maj" name="majors" class="form-control" placeholder="Major" / required autofocus>
+                            <input type="text" id="maj" name="majors" class="form-control" placeholder="Major" / required >
                             <script type="text/javascript">
                             $(document).ready(function() {
 
@@ -208,7 +208,7 @@
                             </select>
                         </div>
                         <div class="dropdown col-sm-6">
-                            <input type='text' placeholder="Date of Birth (MM/DD/YYYY)" class="form-control" id='datetimepicker4' name="dob" / required autofocus>
+                            <input type='text' placeholder="Date of Birth (MM/DD/YYYY)" class="form-control" id='datetimepicker4' name="dob" / required >
                         </div>
                         <script type="text/javascript">
                         $(function() {

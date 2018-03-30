@@ -12,12 +12,13 @@ h3 {
 #content .col-md-8{
     width: 80%;
 }
-#project-container,#project-container-2 {
+#project-container, #project-container-2 {
     background-color:white;
     border-width: 1px;
     border-style: solid;
     border-radius: 0.4em;
     border-color: #B0BEC5;
+	padding: 1em;
 }
 @media (min-width: 768px) {
     #centering .col-sm-5 {
@@ -31,8 +32,7 @@ h3 {
     border: 1px solid #777777;
     border-radius: 0.5em;
     display: inline-block;
-    margin: 1.2em 0.8em;
-    padding: 0!important;
+    padding: 1em;
     overflow: hidden;
     text-align: left;
     float: none
@@ -51,7 +51,9 @@ h3 {
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
 	font-size: 160%;
-	margin-left: 0.5em;
+	background-color: rgba(230, 230, 230, 0.8);
+	border-radius: 2em;
+	padding: 0.5em;
 }
 
 .project-obj-description {
@@ -59,12 +61,18 @@ h3 {
     overflow: hidden;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
+	background-color: rgba(230, 230, 230, 0.8);
+	border-radius: 2em;
+	padding: 0.5em;
 }
 
 .project-obj-timestamp {
     position: absolute;
     bottom: 1.5em;
-    right: 1.5em
+    right: 1.5em;
+	background-color: rgba(230, 230, 230, 0.8);
+	border-radius: 2em;
+	padding: 0.5em;
 }
 
 .project-obj .project-obj-content {

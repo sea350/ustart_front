@@ -93,8 +93,8 @@
 <body>
     <input type="hidden" id="pageiden" value='{{.Page}}'>
     <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
+	<div id="centering">
         <!-- Vertical content -->
-		<!--<div id="LeftNavBar-placeholder"></div>-->
         <div id="content">
             <img id="head-image" alt="User Banner">
             <script>
@@ -151,12 +151,12 @@
                     <hr>
                     <div id="user-nums">
                         <div id="followers">
-                            <a href="/Followers/{{.UserInfo.Username}}">
+                            <a href="/followers/{{.UserInfo.Username}}">
                                 <span id="num-followers" style="font-weight: bold">{{len .UserInfo.Followers}}</span> Followers</a>
                         </div>
                         
                         <div id="following">
-                            <a href="/Following/{{.UserInfo.Username}}">
+                            <a href="/following/{{.UserInfo.Username}}#Following">
                                 <span id="num-following" style="font-weight: bold">{{len .UserInfo.Following}}</span> Following</a>
                         </div>
                         <button id="btn-message" class="btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
@@ -1786,8 +1786,8 @@
 						</div>
 					</div>
 				</div>
-        </div> <!-- end content -->
-    </div>
+			</div> <!-- end content -->
+		</div>
     </div> 
     <!-- end centering inside left navbar  THIS IS NORMAL!!!--> 
     <div id="footer-placeholder"></div>

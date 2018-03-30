@@ -67,11 +67,12 @@
     width: 21%;
     min-width: 16em;
     margin-right: 0.5em;
-    overflow: auto;
+    overflow: scroll;
 }
 .container-right {
 	flex-grow: 1;
 	max-width: 80em;
+    overflow: scroll;
 }
 
 .inbox-search-box {
@@ -127,7 +128,7 @@ span.group-message-time {
     border-radius: 1.4em;
 }
 
-.box-chat,.box-section,.section-left,.section-right {
+.box-chat,.box-section,.section-left,.section-right,.inner-section-left {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -135,7 +136,7 @@ span.group-message-time {
     height: 100%
 }
 
-.box-chat,.section-left,.section-right {
+.box-chat,.section-left,.section-right,.inner-section-left {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
@@ -160,6 +161,13 @@ span.group-message-time {
     flex: 1 1 auto
 }
 
+.inner-section-left{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto
+}
+
 .section-left {
     padding-top: 1em;
     -webkit-box-flex: 1;
@@ -167,6 +175,7 @@ span.group-message-time {
     -ms-flex: 1 1 auto;
     flex: 1 1 auto
 }
+
 
 .section-right {
     /* margin-left: 1em; */
@@ -266,6 +275,12 @@ span.group-message-time {
 }
 .group-message {
     width: 10em;
+    text-align: left;
+    overflow: hidden;
+    height: 1.5em;
+    word-break: break-all;
+}
+.invitation-message{
     text-align: left;
     overflow: hidden;
     height: 1.5em;
