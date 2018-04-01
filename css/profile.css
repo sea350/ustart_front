@@ -106,17 +106,24 @@ ul#menu li {
 div#content div.dashboard-left,
 div#content div.dashboard-right,
 div#content div.menu-wrap {
-    display: inline-block;
-    vertical-align: top;
     text-align: initial;
-    float:left;
+}
+
+/* Mobile-First Flexbox */
+div.flex-box {
+	display: block;
+}
+
+div.flex-box div.dashboard-left {
+	flex: 0;
+}
+div.flex-box div.menu-wrap {
+	flex: 1;
 }
 
 div#content div.dashboard-left {
-    min-width: 300px;
-   /* text-align: right;*/
-    padding-left: 1vw;
-    padding-right:1vw;
+	padding-left: 1em;
+	padding-right: 1em;
 }
 
 #info-wrap h2 {
@@ -518,4 +525,10 @@ form#shareCommentForm .btn {
 .dashboard-mid-filler,
 .dashboard-right-filler {
 	float: left;
+}
+
+@media (min-width: 500px) {
+	div.flex-box {
+		display: flex;
+	}
 }

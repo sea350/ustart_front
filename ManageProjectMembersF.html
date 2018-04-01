@@ -6,15 +6,9 @@
 	<meta name="viewport" content="width=device-width">
 	<title>ustart</title>
 	<link href="/ustart_front/css/normalize.min.css" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/ustart_front/css/inbox.css">
     <link rel="stylesheet" href="/ustart_front/css/manageProject.css">
-	<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="/ustart_front/js/ascii-convert.js"></script>
 	<script src="/ustart_front/js/manageProject.js"></script>
 	<script type="text/javascript">
         $("#leftNavMessages").addClass("theActive");
@@ -38,37 +32,40 @@
 					<ul id="inbox-groups">
                         {{range $loop := .ListOfHeads}}
                         <!-- for loop for project list here -->
-						<li class="inbox-group" id="{{$loop.DocID}}">
+						<li class="inbox-group projectList" id="{{$loop.DocID}}">
 							<img class="inbox-icon" id="img{{$loop.DocID}}" src="" />
                             <script>
 								$('img#img{{$loop.DocID}}').attr('src', {{$loop.Image}});
 				            </script>
 							<span class="group-header">{{$loop.FirstName}}</span>      
 						</li>
+                        {{end}}
                         <script>
-                             $(document).ready(function () {
-                                $('#{{$loop.DocID}}').on( "click", function() {
-                                    var projectID = '{{$loop.DocID}}';
-                                    console.log(projectID);
+                                //GET THE REQUESTS FOR A SPECIFIC PROJECT
+                                $('.projectList').on( "click", function(e) {
+                                    var projectID = e.target.id;
                                     $.ajax({
                                         type: 'GET',
                                         url: 'http://ustart.today:5000/LoadJoinRequests/',
                                         contentType: "application/json; charset=utf-8",
                                         data: {projID:projectID},
                                         success: function(data) {
-											console.log(data);
-                                           if ($('#request-groups').contents().length == 0){
-                                                console.log("first time running");
-                                                for (i=0; i < data.length; i++){
-                                                // makeProjectApplications(data[i][0], data[i][3]);
+                                            var temp = JSON.parse(data);
+                                            if (temp != null){
+                                                if ($('#request-groups').contents().length == 0){
+                                                    for (i=0; i < temp.length; i++){
+                                                        makeProjectApplications(temp[i].FirstName, temp[i].Image,temp[i].DocID,projectID);
+                                                    }
+                                                }
+                                                else{
+                                                    $("#request-groups").empty();
+                                                     for (i=0; i < temp.length; i++){
+                                                        makeProjectApplications(temp[i].FirstName, temp[i].Image,temp[i].DocID,projectID);
+                                                    }
                                                 }
                                             }
                                             else{
-                                                console.log("second time running");
                                                 $("#request-groups").empty();
-                                                 for (i=0; i < data.length; i++){
-                                                   // makeProjectApplications(data[i][0], data[i][3]);
-                                                }
                                             }
                                         },
                                         error: function(err) {
@@ -77,9 +74,49 @@
                                         }
                                     });
                                 });
-                             });
+                                //HANDLE ACCEPT REQUEST
+                               $('body').on("click", ".y-btn", function(e) {
+                                    var temp = e.target.id;
+                                    var usrID=temp.replace("accept", "");
+                                   
+                                   var projID = $(e.target).closest('.parentID').attr('id');
+                                   console.log(projID);
+                                   $.ajax({
+                                        type: 'GET',
+                                        url: 'http://ustart.today:5000/AcceptJoinRequest/',
+                                        contentType: "application/json; charset=utf-8",
+                                        data: {userID:usrID, projectID: projID},
+                                        success: function(result) {
+                                            console.log(result);
+                                            $("#"+result).empty();
+                                            $("#"+result).remove();
+                                        },
+                                        error: function(err) {
+                                            console.log('Request failed: ');
+                                            console.log(err);
+                                        }
+                                     });
+                                });
+                                $('body').on("click", ".x-btn", function(e) {
+                                    var temp = e.target.id;
+                                    var usrID=temp.replace("reject", "");
+                                    var projID = $(e.target).closest('.parentID').attr('id');
+                                     $.ajax({
+                                        type: 'GET',
+                                        url: 'http://ustart.today:5000/RejectJoinRequest/',
+                                        contentType: "application/json; charset=utf-8",
+                                        data: {userID:usrID, projectID: projID},
+                                        success: function(result) {
+                                             $("#"+result).empty();
+                                             $("#"+result).remove();
+                                        },
+                                        error: function(err) {
+                                            console.log('Request failed: ');
+                                            console.log(err);
+                                        }
+                                     });
+                                });
                         </script>
-                        {{end}}
                         <!-- end for loop -->
 					</ul>
 				</div>
@@ -94,7 +131,7 @@
                         </h3>
                         <div class="box-section">
 							<div class="inner-section-left">
-                                <ul id="inbox-groups">
+                                 <ul id="request-groups">
                                     <!-- example code for request of project 
                                     <li class="inbox-group active">
                                         <div class="input-group-btn" style="float:right; width:auto;">

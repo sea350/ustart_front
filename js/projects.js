@@ -65,7 +65,8 @@ function fitDashboard() {
 		$('.dashboard-top-right').after($('.followers-cont'));
 		$('.followers-cont').css('position', 'static');
 		$('.followers-cont').css('min-width', '100%');
-		$('#content').prepend($('#head-image'));
+		$('.dashboard-top-mid').after($('#project-name'));
+		//$('#content').prepend($('#head-image'));
     } else {
 		// Reset to initial values
 		$('#project-logo').css('margin-top', '-9em');
@@ -75,7 +76,8 @@ function fitDashboard() {
 		$('.dashboard-top').before($('.followers-cont'));
 		$('.followers-cont').css('position', 'absolute');
 		$('.followers-cont').css('min-width', '0');
-		$('.followers-cont').before($('#head-image'));
+		$('.dashboard-top .panel-body').after($('#project-name'));
+		//$('.followers-cont').before($('#head-image'));
     }
 }
 

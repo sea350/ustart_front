@@ -49,18 +49,26 @@
             }); */
         });
     </script>
+	{{$userid := .DOCID}}
+	{{$memberValidity := 3}}
+	{{range $member := .Project.MemberData}}
+		{{if eq $userid $member.DocID}}
+			{{$memberValidity := $member.Classification}}
+		{{end}}
+	{{end}}
+	<script>console.log('{{$memberValidity}}')</script>
 </head>
 
 <body>
     <input type="hidden" id="pageiden" value='{{.Project.DocID}}'>
-    <div id="centering" style="top: 3.3em;">
+    <div id="centering">
+		<img id="head-image">
+		<script>
+			$('#head-image').attr('src', {{.Project.ProjectData.Banner}});
+		</script>
         <!-- Vertical content -->
-        <div id="content">
+        <div id="content" class="container">
             <div>
-                <img id="head-image">
-				<script>
-					$('#head-image').attr('src', {{.Project.ProjectData.Banner}});
-				</script>
                 <div class="followers-cont flex">
                     <div class="followers-link-cont">
 						{{range $member := .Project.MemberData}}
@@ -89,15 +97,13 @@
                         <div class="dropdown dropdown-btn">
                             <button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
                             <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#"><i class="fa fa-paw"></i> Request to Join</a></li>
                                 <li><a href="#" data-toggle="modal" data-target="#project-member-add"><i class="fa fa-user-plus"></i> Add Member To Project</a></li>
                                 <li><a href="#"><i class="fa fa-camera"></i> Upload New Logo</a></li>
                                 <li><a href="#"><i class="fa fa-camera-retro"></i> Upload New Banner</a></li>
-                                <li>
-									<form action="/ProjectSettings/" method="POST">
-										<input type="hidden" name="ProjectURL" value="{{.Project.ProjectData.URLName}}">
-										<a href="#" onclick="$(this).closest('form').submit();"><i class="fa fa-gear"></i> Edit Settings</a>
-									</form>
-								</li>
+                                <li><a href="/ProjectSettings/{{.Project.ProjectData.URLName}}"><i class="fa fa-gear"></i> Edit Settings</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#project-leave"><i class="fa fa-fire"></i> Leave Project</a></li>
+								
                             </ul>
                         </div>
                     </div>
@@ -124,7 +130,7 @@
                                     <!-- <p><a id="project-website" href="http://www.ustart.today/">http://www.ustart.today/</a></p> -->
                                 <!-- </div> -->
                             <!-- </div> -->
-                            <div class="col-xs-6">
+                            <div class="col-xs-4">
                                 <div class="detail-head"><i class="fa fa-clock-o" aria-hidden="true"></i> Creation Date</div>
                                 <div id="project-create-date" class="detail-content">
 									<script>
@@ -132,19 +138,19 @@
 									</script>
                                 </div>
                             </div>
-							{{if .Project.ProjectData.Location.Country}}
-                            <div class="col-xs-6">
-                                <div class="detail-head"><i class="fa fa-map-marker" aria-hidden="true"></i> Location</div>
-                                <div id="project-location" class="detail-content">
-									{{.Project.ProjectData.Location.City}}, {{.Project.ProjectData.Location.State}}, {{.Project.ProjectData.Location.Country}} {{.Project.ProjectData.Location.Zip}}
-                                </div>
-                            </div>
-							{{end}}
 							{{if .Project.ProjectData.Category}}
-                            <div class="col-xs-6">
+                            <div class="col-xs-4">
                                 <div class="detail-head"><i class="fa fa-list-ul" aria-hidden="true"></i> Category</div>
                                 <div id="project-category" class="detail-content">
 									{{.Project.ProjectData.Category}}
+                                </div>
+                            </div>
+							{{end}}
+							{{if .Project.ProjectData.Location.Country}}
+                            <div class="col-xs-4">
+                                <div class="detail-head"><i class="fa fa-map-marker" aria-hidden="true"></i> Location</div>
+                                <div id="project-location" class="detail-content">
+									{{.Project.ProjectData.Location.City}}, {{.Project.ProjectData.Location.State}}, {{.Project.ProjectData.Location.Country}} {{.Project.ProjectData.Location.Zip}}
                                 </div>
                             </div>
 							{{end}}
@@ -371,7 +377,7 @@
 							</div>
 				        </li><!--end link widget -->
                             <!-- for loop goes here -->
-						{{$projecturl := .Project.DocID}}
+						{{$projecturl := .Project.ProjectData.URLName}}
                         {{range $loop := .Widgets }}
                          {{if eq $loop.Classification 0}}<!-- if is text -->  
                             <li class="text ui-state-default" id="{{index $loop.ID}}">
@@ -1321,7 +1327,7 @@
 												<span class="modal-cell">URL</span>
 												<input type="url" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" required/>
 											</p>
-											<input type="hidden" name="projectID" value="{{$projecturl}}" required/>
+											<input type="hidden" name="projectID" value="{{.Project.DocID}}" required/>
 										</div>
 										
 										<div class="modal-footer">
@@ -1492,6 +1498,24 @@
                                 });
                             });
                         </script>
+
+                        <div id="project-leave" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Leave Project</h4>
+                                    </div>
+                                    <div class="modal-body">
+										Hi
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary" data-dismiss="modal">Leave</button>
+                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <style>
                             .ui-autocomplete {
                                 z-index: 30000 !important;

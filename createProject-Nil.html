@@ -7,33 +7,30 @@
     <title>ustart</title>
 
     <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
-    <!-- <script src="bower_components/moment/min/moment.min.js"></script> -->
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <script type="text/javascript" src="/ustart_front/js/zxcvbn.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="/ustart_front/css/layout1.css">
     <link rel="stylesheet" href="/ustart_front/css/register.css">
     <script src="/ustart_front/js/createProject.js"></script>
     <script src="/ustart_front/js/universities.js"></script>
     <script src="/ustart_front/js/categories.js"></script>
-    <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
-    <script type="text/javascript">
-    $(function() {
-          $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
-                $("#leftNavProjects").addClass("theActive");
-            }); 
-    </script>
 </head>
 <body>
     <div id="centering" style="top: 6em;">
-        <div id="LeftNavBar-placeholder">
-        </div>
          <div id="content">
             <div class="container col-md-6 col-md-offset-3" >
+                {{ if .ErrorOutput }}
+                <div id="dup-email-alert" class="alert alert-danger alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
+                </div>
+				{{end}}
 				<!-- Missing Go Index -->
 			
 				<!--<button style="margin-left: 1em;" class="btn btn-danger" id="back-button" onclick="location.replace('http://ustart.today:5000/MyProjects')"><i class="fa fa-angle-left"></i> Back</button> -->
-                <form class="form-signup" id="projectCreateForm" action="http://ustart.today:5000/CreateProject/" method="post">
+                <form class="form-signup" id="projectCreateForm" action="/CreateProjectPage/" method="post">
                     <h2 style="padding:0; text-align: center;">Create A Project</h2>
                     <br>
                     <!-- Name -->
@@ -79,7 +76,7 @@
                     <br>
                     <div class="row">
                             <div class="col-md-4">
-                                <button class="btn btn-danger btn-lg btn-block" id="back-button" onclick="location.replace('http://ustart.today:5000/MyProjects')"><i class="fa fa-angle-left" style="display: inline-block"></i> Back</button>
+                                <button class="btn btn-danger btn-lg btn-block" id="back-button" onclick="window.history.back();"><i class="fa fa-angle-left" style="display: inline-block"></i> Back</button>
                             </div>
                             <div class="col-md-8">
                                 <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit" name="send" id="finished" style="display: inline-block">Continue</button>

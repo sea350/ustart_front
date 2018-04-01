@@ -33,7 +33,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
-                </div> {{end}}
+                </div>
+				{{end}}
                <form class="form-signup" id="form1" action="/welcome/" method="post">
                     <!-- Name -->
                     <div class="row">
@@ -208,13 +209,13 @@
                             </select>
                         </div>
                         <div class="dropdown col-sm-6">
-                            <input type='text' placeholder="Date of Birth (MM/DD/YYYY)" class="form-control" id='datetimepicker4' name="dob" / required >
+                            <input type='date' placeholder="Date of Birth (MM/DD/YYYY)" class="form-control" id='datetimepicker4' name="dob" / required >
                         </div>
                         <script type="text/javascript">
                         $(function() {
 
                             $('#datetimepicker4').datepicker({
-                                format: 'MM/DD/YYYY',
+                                format: 'YYYY-MM-DD',
                                 changeYear: true,
                                 yearRange: "-100:+0"
                             });

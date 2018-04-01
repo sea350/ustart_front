@@ -12,6 +12,7 @@
 	<script src="/ustart_front/js/countries.js"></script>
 	<script src="/ustart_front/js/majors.js"></script>
 	<script src="/ustart_front/js/settings.js"></script>
+	<script src="/ustart_front/js/project_settings.js"></script>
     <script src="/ustart_front/js/jquery.cropit.js"></script>
     <script src="/ustart_front/js/croppie.min.js"></script>
     <script src="/ustart_front/js/ascii-convert.js"></script>
@@ -28,12 +29,6 @@
 	<div id="navBar-placeholder"></div>
 	<div id="centering">
 		<!-- Vertical content -->
-		<div id="LeftNavBar-placeholder"></div>
-		<script>
-			$("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
-				$("#leftNavProjects").addClass("theActive");
-			});
-		</script>
 		<div id="content">
 			<div id="settings-container" class="container">
 				<h3>Project Settings</h3>
@@ -45,7 +40,7 @@
 						<div id="avatarcollapse" class="panel-collapse collapse">
 							<div class="panel-body">
 								<div class="form-group">
-									<form id="nameChange" action="http://ustart.today:5000/projectName/" method="POST">
+									<form id="nameChange" action="/projectName/" method="POST">
 										<div class="row">
 											<div class="col-sm-6">
 												<label for="pname">Name</label>
@@ -56,7 +51,7 @@
 											</div>
 											<div class="col-sm-12">
 												<label for="inputDesc">Description</label>
-												<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe the goals of your project"></textarea>
+												<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe the goals of your project" maxlength="100"></textarea>
 												<script>$('textarea[name="inputDesc"]').text(defineRuneArray({{.Project.ProjectData.Description}}));</script>
 											</div>
 											<div class="col-sm-12">
@@ -84,7 +79,7 @@
 						</div>
 						<div id="loccollapse" class="panel-collapse collapse">
 							<div class="panel-body">
-								<form id="locChange" action="http://ustart.today:5000/projectLocation/" method="POST">
+								<form id="locChange" action="/projectLocation/" method="POST">
 									<input type="hidden" name="projectID" value="{{$projectid}}" />
 									<!-- Country, State / City, Zip -->
 									<div class="row">
@@ -137,7 +132,7 @@
 						</div>
 						<div id="catecollapse" class="panel-collapse collapse">
 							<div class="panel-body">
-								<form id="category-form" action="http://ustart.today:5000/projectCategory/">
+								<form id="category-form" action="/projectCategory/">
 									<input type="hidden" name="projectID" value="{{$projectid}}" />
 
 									<div class="row">
@@ -179,7 +174,7 @@
 						</div>
 						<div id="urlcollapse" class="panel-collapse collapse">
 							<div class="panel-body">
-								<form id="urlChange" action="http://ustart.today:5000/projectCustomURL/">
+								<form id="urlChange" action="/projectCustomURL/">
 									<input type="hidden" name="projectID" value="{{$projectid}}" />
 									<div class="row">
 										<div class="col-sm-12">
@@ -199,7 +194,7 @@
 						</div>
 						<div id="logocollapse" class="panel-collapse collapse">
 							<div class="panel-body">
-								<form id="img-form" action="http://ustart.today:5000/projectLogo/" method="POST">
+								<form id="img-form" action="/projectLogo/" method="POST">
 									<input type="hidden" name="projectID" value="{{$projectid}}" />
 									<div id="upload-demo" style="width:300px; height:350px"></div>
 									<input type="file" id="upload" accept="image/*">
@@ -250,7 +245,7 @@
 						</div>
 						<div id="bannercollapse" class="panel-collapse collapse">
 							<div class="panel-body">
-								<form id="banner-form" action="http://ustart.today:5000/projectBannerUpload/" method="POST">
+								<form id="banner-form" action="/projectBannerUpload/" method="POST">
 									<div id="upload-demo2" style="width:1100px; height:380px"></div>
 									<input type="file" id="upload2" accept="image/*">
 									<input type="hidden" name="projectID" value="{{$projectid}}" />
@@ -307,25 +302,19 @@
 										<div class="container-s">
 											<img id="img{{$member.Username}}" class="image" src="{{$member.Image}}" alt="Avatar" onclick="location.href='/profile/{{$member.Username}}'" />
 											<h4><b>{{$member.FirstName}} {{$member.LastName}}</b></h4>
-											<form action="/changeRole/">
-												<input type="hidden" name="username" value="{{$member.Username}}">
-												<select id="role_select" class="form-control" name="role_select" style="margin: 0 auto; width:10em;"
-													onchange="$(this).closest('form').submit();">
-													<option disabled selected hidden>Select Role</option>
-													<option>Creator</option>
-													<option>Moderator</option>
-													<option>Member</option>
-												</select>
-											</form>
+											<select id="role_select" class="form-control" name="newRank" style="margin: 0 auto; width:10em;"
+												onchange="changeMemberClass('{{$member.DocID}}','{{$projectid}}', $(this).prop('selectedIndex'))">
+												<option {{if not $member.Classification}} selected{{end}} hidden disabled>Select Role</option>
+												<option {{if eq $member.Classification 0}}selected{{end}}>Creator</option>
+												<option {{if eq $member.Classification 1}}selected{{end}}>Moderator</option>
+												<option {{if eq $member.Classification 2}}selected{{end}}>Member</option>
+											</select>
 											<div class="middle">
-												<form action="/removeMember/">
-													<button type="submit">Remove</button>
-													<input type="hidden" name="removeUser" value="{{$member.Username}}">
-													<input type="hidden" name="removeFromProject" value="{{$projectid}}">
-												</form>
-											<script>
-												$('img#img{{$member.Username}}').attr('src', {{$member.Image}});
-											</script>
+												<button type="button" onclick="removeMember('{{$member.DocID}}', '{{$projectid}}', this)">Remove</button>
+												<script>
+													$('img#img{{$member.Username}}').attr('src', {{$member.Image}});
+												</script>
+											</div>
 										</div>
 									</div>
 									{{end}}

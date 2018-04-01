@@ -44,15 +44,14 @@
     color: #455a64;
     text-align: center;
     margin: 0;
-    border-top: solid 1px #b0cec5;
+	border-top: solid 1px #b0cec5;
+	border-bottom: solid 1px #b0cec5;
     padding: .5em;
 }
 
 #project-desc {
     padding: 0;
     line-height: 2;
-	width: 20em;
-	overflow-x: auto;
 }
 
 #project-logo {
@@ -116,6 +115,9 @@ button.followButton.unfollow {
 .dashboard-top-left,
 .dashboard-top-right {
 	padding-top: 0.5em;
+}
+
+.dashboard-top-left {
 	padding-left: 1.5em;
 	padding-right: 1.5em;
 }
@@ -123,12 +125,20 @@ button.followButton.unfollow {
 .followers-cont {
     width: calc(100% - 30px);
     position: absolute;
-    top: 20em;
+    top: -4em;
 	justify-content: space-between;
 }
 .followers-link-cont {
 	height: 4em;
 	overflow: hidden;
+    max-width: 36%;
+    margin-left: 0.5em;
+	display: none;
+}
+@media (min-width: 500px) {
+	.followers-link-cont {
+		display: initial;
+	}
 }
 
 ul#proj-modal-followers-list {
@@ -156,11 +166,7 @@ ul#proj-modal-followers-list {
 
 .project-toolbar {
 	align-self: center;
-	margin-right: 1em;
-}
-.followers-link-cont {
-    max-width: 36%;
-    margin-left: 0.5em;
+	margin: 1em;
 }
 
 .dropdown-btn {

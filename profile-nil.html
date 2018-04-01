@@ -94,344 +94,351 @@
     <input type="hidden" id="pageiden" value='{{.Page}}'>
     <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
 	<div id="centering">
+		<img id="head-image" alt="User Banner">
+		<script>
+			$( document ).ready(function() {
+				$("#leftNavProfile").addClass("theActive");
+				$("#head-image").attr("src",{{.UserInfo.Banner}});
+			});
+		</script>
         <!-- Vertical content -->
-        <div id="content">
-            <img id="head-image" alt="User Banner">
-            <script>
-                $( document ).ready(function() {
-                    $("#leftNavProfile").addClass("theActive");
-                    $("#head-image").attr("src",{{.UserInfo.Banner}});
-                });
-            </script>
-			<div class="dashboard-left">
-                <div class="user-info">
-					<div class="user-img-container">
-						<img class="user-img" id="user-avatar" alt="User Profile Image">
-						<div class="user-img-option">
-							<a href="/Settings/#avatarcollapse">Change Profile Image</a>
+        <div id="content" class="container">
+			<div class="flex-box">
+				<div class="dashboard-left">
+					<div class="user-info">
+						<div class="user-img-container">
+							<img class="user-img" id="user-avatar" alt="User Profile Image">
+							{{if eq ($.Page) ($.DOCID)}}
+							<div class="user-img-option">
+								<a href="/Settings/#avatarcollapse">Change Profile Image</a>
+							</div>
+							{{end}}
+						</div>
+						<script>
+							$( document ).ready(function() {
+								$("#user-avatar").attr("src",{{.UserInfo.Avatar}});
+							});
+						</script>
+						<div id="user-brief-info">
+							<div id="info-wrap">
+								<div id="name-cont">
+									<h3 style="margin-bottom: 0.2em;">
+										<strong id="name">{{.UserInfo.FirstName}} {{.UserInfo.LastName}} <!-- {{.DOCID}} {{.Page}} page is viewingDOCID--></strong>
+										<span class="dot">
+											<span class="active">
+												<i class="fa fa-circle" aria-hidden="true" data-toggle="tooltip" title="Active"></i>
+											</span>
+										</span>
+									</h3>
+								</div>
+							</div>
+							<div id="breif-info" style="text-align: left; padding: 1em 1em 0 1em;">
+								<div id="location-cont" style="color:#00C085">
+									<i class="fa fa-map-marker" aria-hidden="true" style="color:#00C085;"></i> Location
+									<p id="location" style="color:black">{{.UserInfo.Location.City}}, {{.UserInfo.Location.State}}, {{.UserInfo.Location.Country}}</p>
+								</div>
+								<div id="edu-link" style="color:#00C085;">
+									<i class="fa fa-graduation-cap" aria-hidden="true" style="color:#00C085;"></i> Education
+									<p style="color:black">{{.UserInfo.University}}</p>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div class="user-desc">
+							<p style="margin-bottom: 0;">
+								{{if not .UserInfo.Description}}
+									<i>No Description</i>
+								{{else}}
+								<span id="description">
+									<script>readRuneArray({{.UserInfo.Description}});</script>
+								</span>
+								{{end}}
+							</p>
+						</div>
+						<hr>
+						<div id="user-nums">
+							<div id="followers">
+								<a href="/followers/{{.UserInfo.Username}}">
+									<span id="num-followers" style="font-weight: bold">{{len .UserInfo.Followers}}</span> Followers</a>
+							</div>
+							
+							<div id="following">
+								<a href="/followers/{{.UserInfo.Username}}#Following">
+									<span id="num-following" style="font-weight: bold">{{len .UserInfo.Following}}</span> Following</a>
+							</div>
+							<button id="btn-message" class="btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
+							<!-- if user is visiting the page -->
+							{{if ne ($.Page) ($.DOCID)}}
+							<button id="btn1" class="btn followButton" rel="6">Follow</button>
+							{{end}}
+							<script type="text/javascript">
+								   $(document).ready(function() { 
+										var pageID= document.getElementById("pageiden").value;
+										var followstatus=document.getElementById("followstat").value;
+										if(followstatus == "yes"){
+											 $('#btn1').attr('class', 'btn followButton following');
+											 $('#btn1').text('Following');
+										}
+										else{
+											$('#btn1').attr('class', 'btn followButton');
+											$('#btn1').text('Follow');
+										} 
+										$('#btn1').hover(function () {
+											$button = $(this);
+											if ($button.hasClass('following')) {
+												$button.addClass('unfollow');
+												$button.text('Unfollow');
+											}
+											}, function () {
+											if ($button.hasClass('following')) {
+												$button.removeClass('unfollow');
+												$button.text('Following');
+											}
+										});
+										
+										 $('#btn1').click(function(e) {
+											var Pikachu = {{.DOCID}};
+											console.log('follow clicked');
+											$.ajax({
+												type: 'GET',  
+												url: 'http://ustart.today:5000/callme/',
+												contentType: "application/json; charset=utf-8",
+												data: {userID:pageID, Following:followstatus,Pikachu:Pikachu},
+												success: function(data) {
+													console.log(data);
+													var totalFollowers = parseInt($('#num-followers').html());
+													if ($('#btn1').hasClass('following')) {
+														console.log("Let's Unfollow");
+														//$.ajax(); Do Unfollow
+														$('#btn1').removeClass('following');
+														$('#btn1').removeClass('unfollow');
+														$('#btn1').text('Follow');
+														$('#num-followers').html(totalFollowers-1);
+														$("#followstat").val("no");
+														followstatus ="no";
+													} else {
+														console.log("Let's follow");
+														// $.ajax(); Do Follow
+														$('#btn1').addClass('following');
+														$('#btn1').text('Following');
+														$('#num-followers').html(totalFollowers+1);
+														$("#followstat").val("yes");
+														followstatus ="yes";
+													}
+												},
+												error: function(error) {
+													console.log("It just doesn't work");
+													console.log(error);
+												}
+											});
+										});
+
+										 $('#Wall-loadAJAX').click(function(e) {
+											//e.preventDefault();
+											var entryIDs = ""+{{.UserInfo.EntryIDs}}
+										  //  console.log("entryIDs are"+entryIDs)
+											$.ajax({
+												type: 'GET',  
+												url: 'http://ustart.today:5000/loadWall/',
+												contentType: "application/json; charset=utf-8",
+												data: {entryIDs:entryIDs,pageID:pageID},
+												success: function(data) {
+													$("#wall-dataF").html(data);
+													console.log('hello');
+													console.log(data);
+													  $('.editEntry').click(function(e) {
+															var postId= $(this).attr("id");
+															var modified ="#"+postId;
+															console.log(modified);
+															$(modified).modal('show');
+														});
+											 
+												}//end success
+											});
+										});
+
+										// $('#confirm-delete').click(function(e) {
+										//     //e.preventDefault();
+										//     $.ajax({
+										//         type: 'GET',  
+										//         url: 'http://ustart.today:5000/deleteModal/',
+										//         contentType: "application/json; charset=utf-8",
+										//         data: {},
+										//         success: function(data) {
+										//             $("#post-delete").html(data);
+													
+										//               // $('.editEntry').click(function(e) {
+										//               //       var postId= $(this).attr("id");
+										//               //       var modified ="#"+postId;
+										//               //       console.log(modified);
+										//               //       $(modified).modal('show');
+										//               //   });
+											 
+										//         }//end success
+										//     });
+										// });
+								 
+								
+
+										$('.comment-btn').click(function(e) {
+											var postId= $(this).attr("id");
+											var modified ="#"+postId;
+										 //   console.log(modified);
+											console.log("profilenilversion");
+											var Pikachu = {{.DOCID}}
+											//e.preventDefault();
+											$.ajax({
+												type: 'GET',  
+												url: 'http://ustart.today:5000/getComments/',
+												contentType: "application/json; charset=utf-8",
+												data: {userID:pageID, PostID:postId,Pikachu:Pikachu},
+												success: function(data) {
+													$("#commentnil").html(data);
+													$(modified).modal('show');
+												}
+											});
+										});
+
+									   
+									});
+
+							</script>
+							{{if ne ($.Page) ($.DOCID)}}
+							<div class="profile-menu dropdown">
+								<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-ellipsis-v"></i>
+								</button>
+								<ul class="dropdown-menu dropdown-menu-right">
+									<li>
+										<a id="block-user" href="#">
+											<i class="fa fa-ban"></i> Block
+											<span class="block-user-text"></span> User</a>
+									</li>
+									<li>
+										<a href="settings.html">
+											<i class="fa fa-gear"></i> Settings</a>
+									</li>
+								</ul>
+							</div>
+							{{end}}
 						</div>
 					</div>
-                    <script>
-                        $( document ).ready(function() {
-                            $("#user-avatar").attr("src",{{.UserInfo.Avatar}});
-                        });
-                    </script>
-					<div id="user-brief-info">
-                        <div id="info-wrap">
-                            <div id="name-cont">
-                                <h3 style="margin-bottom: 0.2em;">
-                                    <strong id="name">{{.UserInfo.FirstName}} {{.UserInfo.LastName}} <!-- {{.DOCID}} {{.Page}} page is viewingDOCID--></strong>
-                                    <span class="dot">
-                                        <span class="active">
-                                            <i class="fa fa-circle" aria-hidden="true" data-toggle="tooltip" title="Active"></i>
-                                        </span>
-                                    </span>
-                                </h3>
-                            </div>
-                        </div>
-                        <div id="breif-info" style="text-align: left; padding: 1em 1em 0 1em;">
-                            <div id="location-cont" style="color:#00C085">
-                                <i class="fa fa-map-marker" aria-hidden="true" style="color:#00C085;"></i> Location
-                                <p id="location" style="color:black">{{.UserInfo.Location.City}}, {{.UserInfo.Location.State}}, {{.UserInfo.Location.Country}}</p>
-                            </div>
-                            <div id="edu-link" style="color:#00C085;">
-                                <i class="fa fa-graduation-cap" aria-hidden="true" style="color:#00C085;"></i> Education
-                                <p style="color:black">{{.UserInfo.University}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="user-desc">
-                        <p style="margin-bottom: 0;">
-                            <span id="description">
-								<script>readRuneArray({{.UserInfo.Description}});</script>
-							</span>
-                        </p>
-                    </div>
-                    <hr>
-                    <div id="user-nums">
-                        <div id="followers">
-                            <a href="/followers/{{.UserInfo.Username}}">
-                                <span id="num-followers" style="font-weight: bold">{{len .UserInfo.Followers}}</span> Followers</a>
-                        </div>
-                        
-                        <div id="following">
-                            <a href="/following/{{.UserInfo.Username}}#Following">
-                                <span id="num-following" style="font-weight: bold">{{len .UserInfo.Following}}</span> Following</a>
-                        </div>
-                        <button id="btn-message" class="btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
-                        <!-- if user is visiting the page -->
-                        {{if ne ($.Page) ($.DOCID)}}
-                        <button id="btn1" class="btn followButton" rel="6">Follow</button>
-                        {{end}}
-						<script type="text/javascript">
-                               $(document).ready(function() { 
-                                    var pageID= document.getElementById("pageiden").value;
-                                    var followstatus=document.getElementById("followstat").value;
-                                    if(followstatus == "yes"){
-                                         $('#btn1').attr('class', 'btn followButton following');
-                                         $('#btn1').text('Following');
-                                    }
-                                    else{
-                                        $('#btn1').attr('class', 'btn followButton');
-                                        $('#btn1').text('Follow');
-                                    } 
-									$('#btn1').hover(function () {
-                                        $button = $(this);
-                                        if ($button.hasClass('following')) {
-                                            $button.addClass('unfollow');
-                                            $button.text('Unfollow');
-                                        }
-                                        }, function () {
-                                        if ($button.hasClass('following')) {
-                                            $button.removeClass('unfollow');
-                                            $button.text('Following');
-                                        }
-                                    });
-                                    
-                                     $('#btn1').click(function(e) {
-                                        var Pikachu = {{.DOCID}};
-                                        console.log('follow clicked');
-                                        $.ajax({
-                                            type: 'GET',  
-                                            url: 'http://ustart.today:5000/callme/',
-                                            contentType: "application/json; charset=utf-8",
-                                            data: {userID:pageID, Following:followstatus,Pikachu:Pikachu},
-                                            success: function(data) {
-                                                console.log(data);
-                                                var totalFollowers = parseInt($('#num-followers').html());
-												if ($('#btn1').hasClass('following')) {
-													console.log("Let's Unfollow");
-													//$.ajax(); Do Unfollow
-													$('#btn1').removeClass('following');
-													$('#btn1').removeClass('unfollow');
-													$('#btn1').text('Follow');
-													$('#num-followers').html(totalFollowers-1);
-                                                    $("#followstat").val("no");
-                                                    followstatus ="no";
-												} else {
-													console.log("Let's follow");
-													// $.ajax(); Do Follow
-													$('#btn1').addClass('following');
-													$('#btn1').text('Following');
-													$('#num-followers').html(totalFollowers+1);
-                                                    $("#followstat").val("yes");
-                                                    followstatus ="yes";
-                                                }
-                                            },
-											error: function(error) {
-												console.log("It just doesn't work");
-												console.log(error);
-											}
-                                        });
-                                    });
-
-                                     $('#Wall-loadAJAX').click(function(e) {
-                                        //e.preventDefault();
-                                        var entryIDs = ""+{{.UserInfo.EntryIDs}}
-                                      //  console.log("entryIDs are"+entryIDs)
-                                        $.ajax({
-                                            type: 'GET',  
-                                            url: 'http://ustart.today:5000/loadWall/',
-                                            contentType: "application/json; charset=utf-8",
-                                            data: {entryIDs:entryIDs,pageID:pageID},
-                                            success: function(data) {
-                                                $("#wall-dataF").html(data);
-                                                console.log('hello');
-                                                console.log(data);
-                                                  $('.editEntry').click(function(e) {
-                                                        var postId= $(this).attr("id");
-                                                        var modified ="#"+postId;
-                                                        console.log(modified);
-                                                        $(modified).modal('show');
-                                                    });
-                                         
-                                            }//end success
-                                        });
-                                    });
-
-                                    // $('#confirm-delete').click(function(e) {
-                                    //     //e.preventDefault();
-                                    //     $.ajax({
-                                    //         type: 'GET',  
-                                    //         url: 'http://ustart.today:5000/deleteModal/',
-                                    //         contentType: "application/json; charset=utf-8",
-                                    //         data: {},
-                                    //         success: function(data) {
-                                    //             $("#post-delete").html(data);
-                                                
-                                    //               // $('.editEntry').click(function(e) {
-                                    //               //       var postId= $(this).attr("id");
-                                    //               //       var modified ="#"+postId;
-                                    //               //       console.log(modified);
-                                    //               //       $(modified).modal('show');
-                                    //               //   });
-                                         
-                                    //         }//end success
-                                    //     });
-                                    // });
-                             
-                            
-
-                                    $('.comment-btn').click(function(e) {
-                                        var postId= $(this).attr("id");
-                                        var modified ="#"+postId;
-                                     //   console.log(modified);
-                                        console.log("profilenilversion");
-                                        var Pikachu = {{.DOCID}}
-                                        //e.preventDefault();
-                                        $.ajax({
-                                            type: 'GET',  
-                                            url: 'http://ustart.today:5000/getComments/',
-                                            contentType: "application/json; charset=utf-8",
-                                            data: {userID:pageID, PostID:postId,Pikachu:Pikachu},
-                                            success: function(data) {
-                                            	$("#commentnil").html(data);
-                                                $(modified).modal('show');
-                                            }
-                                        });
-                                    });
-
-                                   
-                                });
-
-                        </script>
-                        {{if ne ($.Page) ($.DOCID)}}
-                        <div class="profile-menu dropdown">
-                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-ellipsis-v"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li>
-                                    <a id="block-user" href="#">
-                                        <i class="fa fa-ban"></i> Block
-                                        <span class="block-user-text"></span> User</a>
-                                </li>
-                                <li>
-                                    <a href="settings.html">
-                                        <i class="fa fa-gear"></i> Settings</a>
-                                </li>
-                            </ul>
-                        </div>
-                        {{end}}
-                    </div>
-                </div>
-                <div>
-                    <!-- Prevent overlapping elements for bigger screens -->
-                </div>
-                <div class="dashboard-right">
-                    <div id="suggestedUser">
-                        <div class="dashboard panel panel-default">
-                            <div id="dash-header">
-                                <h4>Suggested Users</h4>
-                                <div class="suggested-users-cont">
-                                    <div class="user-card">
-                                        <div class="dismiss">
-                                            <span id="dismiss">&times;</span>
-                                        </div>
-                                        <div class="content">
-                                            <img class="avatar" src="http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-126.jpg">
-                                            <div class="user-card-info">
-                                                <a href="profile.html">
-                                                    <strong class="user-card-name">Fred Strauss</strong>
-                                                </a>
-                                                <br/>
-                                                <button id="btn-small" class="btn btnX" rel="6">Follow</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="user-card">
-                                        <div class="dismiss">
-                                            <span id="dismiss">&times;</span>
-                                        </div>
-                                        <div class="content">
-                                            <img class="avatar" src="http://engineering.nyu.edu/files/imagecache/img_half/ftp/images/mdabaie/sterling_john2.jpg">
-                                            <div class="user-card-info">
-                                                <a href="profile.html">
-                                                    <strong class="user-card-name">John Sterling</strong>
-                                                </a>
-                                                <br/>
-                                                <button id="btn-small" class="btn btnX" rel="6">Follow</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="user-card">
-                                        <div class="dismiss">
-                                            <span id="dismiss">&times;</span>
-                                        </div>
-                                        <div class="content">
-                                            <img class="avatar" src="http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-341.jpg">
-                                            <div class="user-card-info">
-                                                <a href="profile.html">
-                                                    <strong class="user-card-name">Haldun Hadimioglu</strong>
-                                                </a>
-                                                <br/>
-                                                <button id="btn-small" class="btn btnX" rel="6">Follow</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="suggestedProj" class="margin-top">
-                        <div class="dashboard panel panel-default">
-                            <div id="dash-header">
-                                <h4>Suggested Projects</h4>
-                                <div class="suggested-projects-cont">
-                                    <div class="proj-card">
-                                        <div class="dismiss">
-                                            <span id="dismiss">&times;</span>
-                                        </div>
-                                        <div class="content">
-                                            <img class="avatar" src="https://pbs.twimg.com/profile_images/898391736078262272/oHO_LQmH_400x400.jpg">
-                                            <div class="proj-card-info">
-                                                <a href="projects.html">
-                                                    <strong class="proj-card-name">U●Start </strong>
-                                                </a>
-                                                <br/>
-                                                <button id="btn-small" class="btn btnY" rel="6">Follow</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="proj-card">
-                                        <div class="dismiss">
-                                            <span id="dismiss">&times;</span>
-                                        </div>
-                                        <div class="content">
-                                            <img class="avatar" src="https://pbs.twimg.com/profile_images/758427355920621568/8ouHUoFi_400x400.jpg">
-                                            <div class="proj-card-info">
-                                                <a href="projects.html">
-                                                    <strong class="proj-card-name">NYU Future Labs</strong>
-                                                </a>
-                                                <br/>
-                                                <button id="btn-small" class="btn btnY" rel="6">Follow</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="proj-card">
-                                        <div class="dismiss">
-                                            <span id="dismiss">&times;</span>
-                                        </div>
-                                        <div class="content">
-                                            <img class="avatar" src="https://pbs.twimg.com/profile_images/773317101012586496/q8sc1KuZ_400x400.jpg">
-                                            <div class="proj-card-info">
-                                                <a href="projects.html">
-                                                    <strong class="proj-card-name">TensorFlow</strong>
-                                                </a>
-                                                <br/>
-                                                <button id="btn-small" class="btn btnY" rel="6">Follow</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End of grid for right -->
-                </div>
-			</div>
-            <div class="menu-wrap col-xs-8">
+					<div>
+						<!-- Prevent overlapping elements for bigger screens -->
+					</div>
+					<div class="dashboard-right">
+						<div id="suggestedUser">
+							<div class="dashboard panel panel-default">
+								<div id="dash-header">
+									<h4>Suggested Users</h4>
+									<div class="suggested-users-cont">
+										<div class="user-card">
+											<div class="dismiss">
+												<span id="dismiss">&times;</span>
+											</div>
+											<div class="content">
+												<img class="avatar" src="http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-126.jpg">
+												<div class="user-card-info">
+													<a href="profile.html">
+														<strong class="user-card-name">Fred Strauss</strong>
+													</a>
+													<br/>
+													<button id="btn-small" class="btn btnX" rel="6">Follow</button>
+												</div>
+											</div>
+										</div>
+										<div class="user-card">
+											<div class="dismiss">
+												<span id="dismiss">&times;</span>
+											</div>
+											<div class="content">
+												<img class="avatar" src="http://engineering.nyu.edu/files/imagecache/img_half/ftp/images/mdabaie/sterling_john2.jpg">
+												<div class="user-card-info">
+													<a href="profile.html">
+														<strong class="user-card-name">John Sterling</strong>
+													</a>
+													<br/>
+													<button id="btn-small" class="btn btnX" rel="6">Follow</button>
+												</div>
+											</div>
+										</div>
+										<div class="user-card">
+											<div class="dismiss">
+												<span id="dismiss">&times;</span>
+											</div>
+											<div class="content">
+												<img class="avatar" src="http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-341.jpg">
+												<div class="user-card-info">
+													<a href="profile.html">
+														<strong class="user-card-name">Haldun Hadimioglu</strong>
+													</a>
+													<br/>
+													<button id="btn-small" class="btn btnX" rel="6">Follow</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="suggestedProj" class="margin-top">
+							<div class="dashboard panel panel-default">
+								<div id="dash-header">
+									<h4>Suggested Projects</h4>
+									<div class="suggested-projects-cont">
+										<div class="proj-card">
+											<div class="dismiss">
+												<span id="dismiss">&times;</span>
+											</div>
+											<div class="content">
+												<img class="avatar" src="https://pbs.twimg.com/profile_images/898391736078262272/oHO_LQmH_400x400.jpg">
+												<div class="proj-card-info">
+													<a href="projects.html">
+														<strong class="proj-card-name">U●Start </strong>
+													</a>
+													<br/>
+													<button id="btn-small" class="btn btnY" rel="6">Follow</button>
+												</div>
+											</div>
+										</div>
+										<div class="proj-card">
+											<div class="dismiss">
+												<span id="dismiss">&times;</span>
+											</div>
+											<div class="content">
+												<img class="avatar" src="https://pbs.twimg.com/profile_images/758427355920621568/8ouHUoFi_400x400.jpg">
+												<div class="proj-card-info">
+													<a href="projects.html">
+														<strong class="proj-card-name">NYU Future Labs</strong>
+													</a>
+													<br/>
+													<button id="btn-small" class="btn btnY" rel="6">Follow</button>
+												</div>
+											</div>
+										</div>
+										<div class="proj-card">
+											<div class="dismiss">
+												<span id="dismiss">&times;</span>
+											</div>
+											<div class="content">
+												<img class="avatar" src="https://pbs.twimg.com/profile_images/773317101012586496/q8sc1KuZ_400x400.jpg">
+												<div class="proj-card-info">
+													<a href="projects.html">
+														<strong class="proj-card-name">TensorFlow</strong>
+													</a>
+													<br/>
+													<button id="btn-small" class="btn btnY" rel="6">Follow</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- End of grid for right -->
+					</div>
+				</div>
+				<div class="menu-wrap">
 				{{if eq ($.Page) ($.DOCID)}}
                 <div id="floating-widget-editor">
                     <span id="widget-status">Edit Mode</span>
@@ -1237,7 +1244,8 @@
                 </div>
                 </div>
             </div> 
-            <!-- end menu-wrap-->
+            </div>
+			<!-- end menu-wrap-->
             <div id="modal-box">
                 <script type="text/javascript">
                     $( document ).ready(function() {

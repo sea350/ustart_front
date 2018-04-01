@@ -1,5 +1,5 @@
-    function makeProjectApplications(name, avatar){
-        $('#request-groups').append('<li class="request-group active"><div class="input-group-btn" style="float:right; width:auto;"><button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-ok" style="color:#607d8b;"></i></button><button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-remove" style="color:#607d8b;"></i></button></div><img class="inbox-icon" src="" /><span class="group-header">'+ name +' </span><br><span class="invitation-message">would like to join your project! </span></li>');
+    function makeProjectApplications(name, avatar,docID, projectID){
+        $('#request-groups').append('<li class="request-group" id="'+docID+'" ><div class="input-group-btn parentID" id='+projectID+' style="float:right; width:auto;"><button name="accept" class="btn btn-default y-btn" id="accept'+docID+'" type="submit"><i class="glyphicon glyphicon-ok" style="color:#607d8b;"></i></button><button class="btn btn-default x-btn" id="reject'+docID+'" name="reject" type="submit"><i class="glyphicon glyphicon-remove" style="color:#607d8b;"></i></button></div><img class="inbox-icon" src="" /><span class="group-header">'+ name +' </span><br><span class="invitation-message">would like to join your project! </span></li>');
         $('#request-groups li img').attr("src", avatar);
     }
     
