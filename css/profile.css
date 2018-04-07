@@ -135,10 +135,11 @@ img#head-image {
     width: 100%;
     max-height: 24em;
     min-height: 24em;
-    -o-object-fit: cover;
-    object-fit: cover;
+    -o-object-fit: contain;
+    object-fit: contain;
     border-radius: 0em;
-    background-color: #018a65
+    background-color: #018a65;
+    display:block;
 }
 
 div.user-info {

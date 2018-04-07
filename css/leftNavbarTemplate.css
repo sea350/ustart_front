@@ -1,5 +1,6 @@
 .dashboardMenu {
     margin: 1em 0;
+	flex-grow: 1;
 }
 
 .dashboardMenu a {
@@ -8,7 +9,9 @@
 	color: black;
 	text-decoration: none;
 	margin-bottom: 1em;
+	background-color: hsla(0, 10%, 90%, 0.3);
 	transition: background-color 0.5s ease-out;
+	border: solid 1px hsl(0, 5%, 70%);
     border-radius: 0.4em;
 }
 
@@ -42,10 +45,8 @@
 	left: -25em;
 	top: 0;
 	height: 100vh;
-	
 	padding: 1em;
 	padding-top: 4em;
-	
 	background-color: rgba(212, 212, 212, 0.9);
 	transition: width 0.5s, padding 0.5s, left 0.5s;
 	z-index: 3;
@@ -59,6 +60,8 @@
     top: 3em;
     background-color: rgba(225, 225, 225, 0.8);
 	padding: 0.25em 0.4em 0.25em 0.25em;
+	border: solid 1px hsl(0,5%,50%);
+    border-left: none;
     border-radius: 0 1em 1em 0;
 	overflow: hidden;
 	z-index: 2;
@@ -80,13 +83,19 @@
     top: 3em;
     background-color: #c8c8c8;
     padding: 0.5em 0.8em 0.5em 0.5em;
-    border-radius: 1em 0 0 1em;
 	overflow: hidden;
+	border: solid 1px hsl(0,5%,50%);
+    border-right: none;
+    border-radius: 1em 0 0 1em;
 	transition: opacity 0.5s ease-out;
 }
 
 #LeftNavBar-placeholder:hover .leftNavPush {
-	opacity: 0.8;
+	opacity: 0.5;
+}
+
+#LeftNavBar-placeholder .leftNavPush:hover {
+	opacity: 0.9;
 }
 
 #LeftNavBar-placeholder.reveal {

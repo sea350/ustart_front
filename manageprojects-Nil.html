@@ -10,25 +10,18 @@
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/projects_m.css" />
     <script src="/ustart_front/js/projects_m.js"></script>
     <script src="/ustart_front/js/ascii-convert.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
-                $("#leftNavProjects").addClass("theActive");
-            });
-        });
-    </script>
 </head>
 <body>
     <input type="hidden" id="pageiden" value='{{.Page}}'>
     <div id="centering">
         <!-- Vertical content -->
-		<div id="LeftNavBar-placeholder"></div>
         <div id="content">
 			<div class="container">
 				<h1>
 					<!-- Change this header for other users -->
 					<span id="header-projects">Current Projects</span>
 					<button id="sortProjButton" type="button" class="btn btn-default pull-right"><i class="fa fa-sort-amount-desc"></i></button>
+					<a href="/NewMembers/"><button id="manageMembersButton" type="button" class="btn btn-default pull-right">Memes</button></a>
 					<a href="/CreateProjectPage/"><button id="addProjButton" type="button" class="btn btn-default pull-right"><i class="fa fa-plus-square"></i></button></a>
 				</h1>
 				<div id="project-container" class="row">
@@ -40,15 +33,17 @@
 						'Image' is the project logo
 						'Followed' is not used-->
 					{{range $project := .ListOfHeads}}
-                        <div class="card col-sm-3" style="border: 1px solid rgba(0,0,0,.25); border-radius:.25rem; margin:20px 20px 24px 20px; padding-left:10px; padding-right:10px;">
-							  <div style='width:100%; height:19em; margin-top:1em; background-repeat: no-repeat; background-image: url("{{$project.Image}}");'>
-							  </div>
+                        <div class="card col-sm-3" >
+                              <a href="/Projects/{{$project.Username}}">
+                              <img id="proj-preview{{$project.DocID}}" src=""/>
+                              </a>
+                              <script>
+                                  $("#proj-preview{{$project.DocID}}").attr('src', {{$project.Image}});</script>
 							<div class="card-body">
-								<h4 class="card-title" style="overflow:hidden;"><a href="/Projects/{{$project.Username}}">{{$project.FirstName}}</a></h4>
-							  <p class="card-text" style="overflow:hidden;">
+								<h4 class="card-title"><a href="/Projects/{{$project.Username}}">{{$project.FirstName}}</a></h4>
+							  <p class="card-text">
 								  
-									<script>
-										readRuneArray({{$project.Bio}});</script>
+									<script>readRuneArray({{$project.Bio}});</script>
 							  </p>
                             </div>
                         </div>

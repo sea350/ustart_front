@@ -42,7 +42,8 @@
 	padding:0.3em
 }
 div.grid{
-	overflow:hidden!important
+	width: 100%;
+	flex: 1;
 }
 .container-s{
 	text-align:center

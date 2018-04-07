@@ -186,15 +186,11 @@
 							{{range $follower := .ListOfHeads}}
 							<div class="card">
 								<div class="container-s">
-									<img id="followerAvatar{{$follower.Username}}" class="image"
-										onclick="location.href('/profile/{{$follower.Username}}')"/>
+                                    <a href="/profile/{{$follower.Username}}">
+									<img id="followerAvatar{{$follower.Username}}" class="image"/>
+                                    </a>
 									<h4><b>{{$follower.FirstName}} {{$follower.LastName}}</b></h4> 
 									<div class="middle">
-									{{if not $follower.Followed}}
-										<div class="text"><a href="/profile/{{$follower.Username}}"> Follow </a></div>
-									{{else}}
-										<div class="text"><a href="/profile/{{$follower.Username}}"> Followed </a></div>
-									{{end}}
 									</div>
 									<script>
 										$('#followerAvatar{{$follower.Username}}').attr('src', '{{$follower.Image}}');
@@ -207,15 +203,11 @@
 							{{range $following := .ListOfHeads2}}
 							<div class="card">
 								<div class="container-s">
-									<img id="followingAvatar{{$following.Username}}" class="image"
-										onclick="location.href('/profile/{{$following.Username}}')"/>
+                                    <a href="/profile/{{$following.Username}}">
+									<img id="followingAvatar{{$following.Username}}" class="image"/>
+                                    </a>
 									<h4><b>{{$following.FirstName}} {{$following.LastName}}</b></h4> 
 									<div class="middle">
-									{{if not $following.Followed}}
-										<div class="text"><a href="/profile/{{$following.Username}}"> Follow </a></div>
-									{{else}}
-										<div class="text"><a href="/profile/{{$following.Username}}"> Followed </a></div>
-									{{end}}
 									</div>
 									<script>
 										$('#followingAvatar{{$following.Username}}').attr('src', '{{$following.Image}}');

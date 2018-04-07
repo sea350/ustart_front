@@ -27,7 +27,6 @@
     <script src="/ustart_front/js/widgets.js"></script>
     <script src="/ustart_front/js/widget-gallery.js"></script>
     <script src="/ustart_front/js/notify.min.js"></script>
-    <script src="/ustart_front/js/widget-text.js"></script>
     <script src="/ustart_front/js/projects.js"></script>
     <script src="/ustart_front/js/ascii-convert.js"></script>
     <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js" data-pin-build="doBuild"></script>
@@ -50,13 +49,8 @@
         });
     </script>
 	{{$userid := .DOCID}}
-	{{$memberValidity := 3}}
-	{{range $member := .Project.MemberData}}
-		{{if eq $userid $member.DocID}}
-			{{$memberValidity := $member.Classification}}
-		{{end}}
-	{{end}}
-	<script>console.log('{{$memberValidity}}')</script>
+	{{$projectid := .Project.DocID}}
+	{{$projecturl := .Project.ProjectData.URLName}}
 </head>
 
 <body>
@@ -72,7 +66,9 @@
                 <div class="followers-cont flex">
                     <div class="followers-link-cont">
 						{{range $member := .Project.MemberData}}
-                        <a href="/profile/{{$member.Username}}" class="followers-link"><img id="imgFollow{{$member.Username}}" class="followers-mini" alt="Project Image"></a>
+                        <a href="/profile/{{$member.Username}}" class="followers-link">
+							<img id="imgFollow{{$member.Username}}" class="followers-mini img-rounded img-responsive" alt="Project Image">
+						</a>
 						<script>
 							$('#imgFollow{{$member.Username}}').attr('src', {{$member.Image}});
 						</script>
@@ -81,7 +77,7 @@
                     <div class="project-toolbar">
                         <button class="project-message btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
                         {{if eq ($.Project.RequestAllowed) true}}
-                         <form action="/RequestToJoin/" method="POST">
+                        <form action="/RequestToJoin/" method="POST" style="display: inline-block;">
                             <input type="hidden" name="projID" value='{{.Project.DocID}}'>
                             <button class="project-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
                                 <span>Request to join</span>
@@ -94,31 +90,53 @@
                                 <span>Followers</span>
                             </div>
                         </button>
-                        <div class="dropdown dropdown-btn">
-                            <button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li><a href="#"><i class="fa fa-paw"></i> Request to Join</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#project-member-add"><i class="fa fa-user-plus"></i> Add Member To Project</a></li>
-                                <li><a href="#"><i class="fa fa-camera"></i> Upload New Logo</a></li>
-                                <li><a href="#"><i class="fa fa-camera-retro"></i> Upload New Banner</a></li>
-                                <li><a href="/ProjectSettings/{{.Project.ProjectData.URLName}}"><i class="fa fa-gear"></i> Edit Settings</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#project-leave"><i class="fa fa-fire"></i> Leave Project</a></li>
-								
-                            </ul>
+				{{range $member := .Project.MemberData}}
+					{{if eq $userid $member.DocID}}
+						{{$memberValidity := $member.Classification}}
+						<div class="dropdown dropdown-btn">
+							<button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
+							<ul class="dropdown-menu dropdown-menu-right">
+								{{if le $memberValidity 1}}<li><a href="#" data-toggle="modal" data-target="#project-member-add"><i class="fa fa-paw"></i> Recruit Members</a></li>{{end}}
+								{{if le $memberValidity 1}}<li><a href="/ProjectSettings/{{$projecturl}}"><i class="fa fa-gear"></i> Edit Settings</a></li>{{end}}
+								{{if ne $memberValidity 0}}<li><a href="#" data-toggle="modal" data-target="#project-leave"><i class="fa fa-fire"></i> Leave Project</a></li>{{end}}
+							</ul>
+						</div>
+						<form id="project-leave-form" action="/leaveProject/" style="display:none">
+							<input type="hidden" name="leaverID" value="{{$userid}}"/>
+							<input type="hidden" name="projectID" value="{{$projectid}}"/>
+						</form>
+                        <div id="project-leave" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Leaving Project</h4>
+                                    </div>
+                                    <div class="modal-body">
+										Confirm that you want to leave this project
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary" form="project-leave-form">Leave</button>
+                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+					{{end}}
+				{{end}}
                     </div>
                 </div>
                 <div class="dashboard-top panel panel-default">
                     <div class="panel-body flex">
                         <div class="dashboard-top-left flex flex-grow flex-col">
-                            <div class="detail-head">Tagline</div>
-                            <div id="project-desc" class="flex-grow">
+                            <div class="detail-head col-xs-12">Tagline</div>
+                            <div id="project-desc" class="flex-grow col-xs-12">
 								<!-- ADDDESCRIPTION -->
 								<script>readRuneArray({{.Project.ProjectData.Description}});</script>
 							</div>
                         </div>
                         <div class="dashboard-top-mid">
-                            <img id="project-logo"/>
+                            <img id="project-logo" class="img-circle img-responsive"/>
 							<script>
 								$('#project-logo').attr('src', {{.Project.ProjectData.Avatar}});
 							</script>
@@ -174,212 +192,183 @@
                         </div>
                         <ul id="sortable">
                             <li id="widget-insert" class="ui-state-default">
-									<div class="projectsWidgetCont">
-										<div class="widgetTitle">
-											<span class="pull-right fa fa-2x fa-sort"></span>
-											<h4>Insert new widget</h4>
-										</div>
-										<div class="widgetBody">
-											<button id="addTextWidget" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/text.png" />
-													<div class="columnTitle">
-														Text
-													</div>
-												</div>
-											</button>
-											<button id="calendarWidgetBtn" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/calendar.png" />
-													<div class="columnTitle">
-														Calendar
-													</div>
-												</div>
-											</button>
-											<button id="PollWidgetBtn" class="btn btn-default projectsColumn" style="display:none">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/poll.png" />
-													<div class="columnTitle">
-														Poll
-													</div>
-												</div>
-											</button>
-											<button id="igWidgetBtn" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/instagram.png" />
-													<div class="columnTitle">
-														Instagram
-													</div>
-												</div>
-											</button>
-											<button id="scWidgetBtn" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/soundcloud.png" />
-													<div class="columnTitle">
-														SoundCloud
-													</div>
-												</div>
-											</button>
-											<button id="ytWidgetBtn" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/youtube-1.png" />
-													<div class="columnTitle">
-														YouTube
-													</div>
-												</div>
-											</button>
-											<button id="addCodePenWidget" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/codepen.png" />
-													<div class="columnTitle">
-														CodePen
-													</div>
-												</div>
-											</button>
-											<button id="addPinterestWidget" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/pinterest.png" />
-													<div class="columnTitle">
-														Pinterest
-													</div>
-												</div>
-											</button>
-											<button id="addTumblrWidget" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/twitter-2.png" />
-													<div class="columnTitle">
-														Tumblr
-													</div>
-												</div>
-											</button>
-											<button id="addSpotifyWidget" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/spotify.png" />
-													<div class="columnTitle">
-														Spotify
-													</div>
-												</div>
-											</button>
-											<button id="arWidgetBtn" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/anchor.png" />
-													<div class="columnTitle">
-														Anchor
-													</div>
-												</div>
-											</button>
-											<button id="mediumWidgetBtn" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/medium.png" />
-													<div class="columnTitle">
-														Medium
-													</div>
-												</div>
-											</button>
-											<button id="daWidgetBtn" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/deviantart.png" />
-													<div class="columnTitle">
-														DeviantArt
-													</div>
-												</div>
-											</button>
-											<button id="twitchWidgetBtn" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/twitch.png" />
-													<div class="columnTitle">
-														Twitch
-													</div>
-												</div>
-											</button>
-											<button id="addGithubWidget" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/github.png" />
-													<div class="columnTitle">
-														Github
-													</div>
-												</div>
-											</button>
-										</div>
+								<div class="projectsWidgetCont">
+									<div class="widgetTitle">
+										<span class="pull-right fa fa-2x fa-sort"></span>
+										<h4>Insert new widget</h4>
 									</div>
-								</li>
-                            <li class="ui-state-default">
-                                <div class="projectsWidgetCont">
-                                    <div class="widgetTitle">
-                                        <span class="pull-right fa fa-2x fa-sort"></span>
-                                        <span class="pull-right fa fa-2x fa-pencil" onclick="focusDesc()"></span>
-                                        <h4 id="text-title" name="textEditorHeader">
-                                            Description
-                                        </h4>
-                                    </div>
-                                    <div class="widgetBody">
-                                        <div id="text-box" name="textEditorBody">
-                                            If you’re anything like me, you start your day with a cup of coffee, a pep talk in the mirror that is encouraging
-                                            yet realistic about your limitations, and a scan of the day’s tech news. I have
-                                            no doubt, then, that you’ve already heard about PiperChat’s recent acquisition
-                                            by Hooli. While I’m not at liberty to discuss the details, I can say with certainty
-                                            that we no longer have any formal business affiliation with PiperChat. Good thing
-                                            I hadn’t ordered those logo beanies yet! On a different note, I sometimes like
-                                            to use this forum to muse on various topics in technology. Take, apropos of nothing,
-                                            terms of service. We all love to read them, of course, delighting in the voices
-                                            of our favorite authors. (Myself, I’m a fan of the quiet wit of the Spotify TOS.)
-                                            But they’re more than pleasant bedtime reading; they’re essential to the legal
-                                            protection of any startup. So take note, fellow entrepreneurs, and add those
-                                            terms of service. Without them, you may be doomed to hear the endless click of
-                                            the Agree button like a tortuous telltale heart, echoing against the uninsulated
-                                            walls of a ranch house’s garage.
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-							    <!-- skill widget-->
-						<li class="ui-state-default">
-							<div class="projectsWidgetCont">
-								<div class="widgetTitle">
-									<span class="pull-right fa fa-2x fa-sort"></span>
-									<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#tagModal"></span>
-									<h4>Skills Wanted</h4>
+									<div class="widgetBody">
+										<button id="addTextWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/text.png" />
+												<div class="columnTitle">
+													Text
+												</div>
+											</div>
+										</button>
+										<button id="calendarWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/calendar.png" />
+												<div class="columnTitle">
+													Calendar
+												</div>
+											</div>
+										</button>
+										<button id="PollWidgetBtn" class="btn btn-default projectsColumn" style="display:none">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/poll.png" />
+												<div class="columnTitle">
+													Poll
+												</div>
+											</div>
+										</button>
+										<button id="igWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/instagram.png" />
+												<div class="columnTitle">
+													Instagram
+												</div>
+											</div>
+										</button>
+										<button id="scWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/soundcloud.png" />
+												<div class="columnTitle">
+													SoundCloud
+												</div>
+											</div>
+										</button>
+										<button id="ytWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/youtube-1.png" />
+												<div class="columnTitle">
+													YouTube
+												</div>
+											</div>
+										</button>
+										<button id="addCodePenWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/codepen.png" />
+												<div class="columnTitle">
+													CodePen
+												</div>
+											</div>
+										</button>
+										<button id="addPinterestWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/pinterest.png" />
+												<div class="columnTitle">
+													Pinterest
+												</div>
+											</div>
+										</button>
+										<button id="addTumblrWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/twitter-2.png" />
+												<div class="columnTitle">
+													Tumblr
+												</div>
+											</div>
+										</button>
+										<button id="addSpotifyWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/spotify.png" />
+												<div class="columnTitle">
+													Spotify
+												</div>
+											</div>
+										</button>
+										<button id="arWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/anchor.png" />
+												<div class="columnTitle">
+													Anchor
+												</div>
+											</div>
+										</button>
+										<button id="mediumWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/medium.png" />
+												<div class="columnTitle">
+													Medium
+												</div>
+											</div>
+										</button>
+										<button id="daWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/deviantart.png" />
+												<div class="columnTitle">
+													DeviantArt
+												</div>
+											</div>
+										</button>
+										<button id="twitchWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/twitch.png" />
+												<div class="columnTitle">
+													Twitch
+												</div>
+											</div>
+										</button>
+										<button id="addGithubWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/github.png" />
+												<div class="columnTitle">
+													Github
+												</div>
+											</div>
+										</button>
+									</div>
 								</div>
-								<div id="hashTagsBody" class="widgetBody">
-								</div>       
-								{{range $loop := .Project.ProjectData.Tags}}
-								{{if ne ($loop) ""}}
-								<script>
-									$(document).ready(function() {
-										createTagWidgetElement({{$loop}});
-									});
-								</script>
-								{{end}}
-								{{end}}
-							</div>
-				        </li> <!--end skill widget -->
-                        <!-- link widget-->
-				        <script src="/ustart_front/js/layout_links.js"></script>
-						<li class="ui-state-default widgetListItem sortable">
-							<div id="linksWidget" class="projectsWidgetCont">
-								<div class="widgetTitle">
-									<span class="pull-right fa fa-2x fa-sort"></span>
-									<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#addLinkModal"></span>
-									<h4>Links</h4>
-								</div>
-								<div class="widgetBody">
-								<div class="links-container"></div>
-								{{range $loop := .Project.ProjectData.QuickLinks}}
-									{{if ne ($loop.URL) ""}}
+							</li>
+							<!-- skill widget-->
+							<li class="ui-state-default">
+								<div class="projectsWidgetCont">
+									<div class="widgetTitle">
+										<span class="pull-right fa fa-2x fa-sort"></span>
+										<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#tagModal"></span>
+										<h4>Skills Wanted</h4>
+									</div>
+									<div id="hashTagsBody" class="widgetBody">
+									</div>       
+									{{range $loop := .Project.ProjectData.Tags}}
+									{{if ne ($loop) ""}}
 									<script>
 										$(document).ready(function() {
-											createLink({{$loop.URL}},{{$loop.Name}});
+											createTagWidgetElement({{$loop}});
 										});
 									</script>
 									{{end}}
-								{{end}}
+									{{end}}
 								</div>
-							</div>
-				        </li><!--end link widget -->
+							</li> <!--end skill widget -->
+							<!-- link widget-->
+							<script src="/ustart_front/js/layout_links.js"></script>
+							<li class="ui-state-default widgetListItem sortable">
+								<div id="linksWidget" class="projectsWidgetCont">
+									<div class="widgetTitle">
+										<span class="pull-right fa fa-2x fa-sort"></span>
+										<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#addLinkModal"></span>
+										<h4>Links</h4>
+									</div>
+									<div class="widgetBody">
+									<div class="links-container"></div>
+									{{range $loop := .Project.ProjectData.QuickLinks}}
+										{{if ne ($loop.URL) ""}}
+										<script>
+											$(document).ready(function() {
+												createLink({{$loop.URL}},{{$loop.Name}});
+											});
+										</script>
+										{{end}}
+									{{end}}
+									</div>
+								</div>
+							</li><!--end link widget -->
                             <!-- for loop goes here -->
 						{{$projecturl := .Project.ProjectData.URLName}}
                         {{range $loop := .Widgets }}
-                         {{if eq $loop.Classification 0}}<!-- if is text -->  
+						{{if eq $loop.Classification 0}}<!-- if is text -->  
                             <li class="text ui-state-default" id="{{index $loop.ID}}">
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
@@ -1498,24 +1487,6 @@
                                 });
                             });
                         </script>
-
-                        <div id="project-leave" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Leave Project</h4>
-                                    </div>
-                                    <div class="modal-body">
-										Hi
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary" data-dismiss="modal">Leave</button>
-                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <style>
                             .ui-autocomplete {
                                 z-index: 30000 !important;

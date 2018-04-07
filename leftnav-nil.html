@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <link href="/ustart_front/css/leftNavbarTemplate.css" rel="stylesheet" type="text/css" />
+	<script src="/ustart_front/js/left-nav.js" defer></script>
 </head>
 <body>
     <div id="LeftNavBar-placeholder">
@@ -20,7 +21,7 @@
 				<a id="leftNavDash" href="/Dashboard/"><i class="fa fa-home"></i> Dashboard</a>
 				<a id="leftNavProfile" href="/{{.Username}}"><i class="fa fa-user-circle-o"></i> Profile</a>
 				<a id="leftNavProjects" href="/MyProjects/"><i class="fa fa-briefcase"></i> Projects</a>
-				<a id="leftNavProjects" href="/NewMembers/"><i class="fa fa-user-circle"></i> Member Manager</a>
+				<a id="leftNavProjects" href="/NewMembers/"><i class="fa fa-user-circle"></i> Project Manager</a>
 				<a id="leftNavMessages" href="/Inbox/"><i class="fa fa-envelope"></i> Messages</a>
 				<a id="leftNavSearch" href="/Search/"><i class="fa fa-search"></i> Search</a>
 				<a id="leftNavSettings" href="/Settings/"><i class="fa fa-cog"></i> Settings</a>
@@ -37,25 +38,5 @@
 			</div>
 		</div>
 	</div>
-	<script>
-	
-		function showLeftNav() {
-			$('#LeftNavBar-placeholder, .leftNavPop, .leftNavPush').addClass('reveal');
-		}
-		function hideLeftNav() {
-			$('#LeftNavBar-placeholder, .leftNavPop, .leftNavPush').removeClass('reveal');
-		}
-		
-		$(window).click(function() {
-			hideLeftNav();
-		});
-		$('#LeftNavBar-placeholder, .leftNavPop').click(function(event) {
-			event.stopPropagation();
-			showLeftNav();
-		});
-		$('.leftNavPush').click(function() {
-			hideLeftNav();
-		});
-	</script>
 </body>
 </html>

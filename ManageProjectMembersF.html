@@ -12,16 +12,10 @@
 	<script src="/ustart_front/js/manageProject.js"></script>
 	<script type="text/javascript">
         $("#leftNavMessages").addClass("theActive");
-		/*$(function () {
-             $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
-                $("#leftNavMessages").addClass("theActive");
-            });
-		});*/
 	</script>
 </head>
 
 <body>
-	<div id="navBar-placeholder"></div>
 	<div id="centering" style="top: 0; padding-top: 5em; padding-bottom: 1em;">
 		<div id="content">
 			<div id="container-full">
@@ -33,17 +27,21 @@
                         {{range $loop := .ListOfHeads}}
                         <!-- for loop for project list here -->
 						<li class="inbox-group projectList" id="{{$loop.DocID}}">
+                            <a href="/Projects/{{$loop.Username}}">
 							<img class="inbox-icon" id="img{{$loop.DocID}}" src="" />
+                            </a>
+                            <span class="group-header">{{$loop.FirstName}}</span>
+                            <span id="totalRequests{{$loop.DocID}}" class="badge pull-right">{{$loop.Notifications}}</span>
                             <script>
 								$('img#img{{$loop.DocID}}').attr('src', {{$loop.Image}});
-				            </script>
-							<span class="group-header">{{$loop.FirstName}}</span>      
+				            </script>    
 						</li>
                         {{end}}
                         <script>
+                            
                                 //GET THE REQUESTS FOR A SPECIFIC PROJECT
                                 $('.projectList').on( "click", function(e) {
-                                    var projectID = e.target.id;
+                                    var projectID = e.currentTarget.id;
                                     $.ajax({
                                         type: 'GET',
                                         url: 'http://ustart.today:5000/LoadJoinRequests/',
@@ -52,15 +50,17 @@
                                         success: function(data) {
                                             var temp = JSON.parse(data);
                                             if (temp != null){
+                                                $("#totalRequests"+projectID).show();   
+                                                $("#totalRequests"+projectID).text(temp.length);
                                                 if ($('#request-groups').contents().length == 0){
                                                     for (i=0; i < temp.length; i++){
-                                                        makeProjectApplications(temp[i].FirstName, temp[i].Image,temp[i].DocID,projectID);
+                                                        makeProjectApplications(temp[i].FirstName, temp[i].Image,temp[i].DocID,projectID,temp[i].Username);
                                                     }
                                                 }
                                                 else{
                                                     $("#request-groups").empty();
                                                      for (i=0; i < temp.length; i++){
-                                                        makeProjectApplications(temp[i].FirstName, temp[i].Image,temp[i].DocID,projectID);
+                                                        makeProjectApplications(temp[i].FirstName, temp[i].Image,temp[i].DocID,projectID,temp[i].Username);
                                                     }
                                                 }
                                             }
@@ -76,44 +76,68 @@
                                 });
                                 //HANDLE ACCEPT REQUEST
                                $('body').on("click", ".y-btn", function(e) {
-                                    var temp = e.target.id;
+                                   e.preventDefault();
+                                    var that = $(this);
+                                    var temp = e.currentTarget.id;
                                     var usrID=temp.replace("accept", "");
-                                   
-                                   var projID = $(e.target).closest('.parentID').attr('id');
-                                   console.log(projID);
+                                    var projID = $(e.target).closest('.parentID').attr('id');
+                                    var totalReq = $("#totalRequests"+projID).text();
+                                    that.off('click'); // remove handler
                                    $.ajax({
                                         type: 'GET',
                                         url: 'http://ustart.today:5000/AcceptJoinRequest/',
                                         contentType: "application/json; charset=utf-8",
                                         data: {userID:usrID, projectID: projID},
                                         success: function(result) {
-                                            console.log(result);
-                                            $("#"+result).empty();
-                                            $("#"+result).remove();
+                                            //update notification
+                                             var testresult = parseInt(result);
+                                             if (testresult <=0){
+                                                $("#totalRequests"+projID).hide();    
+                                             }
+                                             else{
+                                                $("#totalRequests"+projID).text(testresult);
+                                             }
+                                            $("#"+usrID).empty();
+                                            $("#"+usrID).remove();
                                         },
                                         error: function(err) {
                                             console.log('Request failed: ');
                                             console.log(err);
                                         }
+                                     }).always(function() {
+                                            that.on('click', login); // add handler back after ajax
                                      });
                                 });
                                 $('body').on("click", ".x-btn", function(e) {
-                                    var temp = e.target.id;
+                                    e.preventDefault();
+                                    var that = $(this);
+                                    var temp = e.currentTarget.id;
                                     var usrID=temp.replace("reject", "");
                                     var projID = $(e.target).closest('.parentID').attr('id');
+                                    var totalReq = $("#totalRequests"+projID).text();
+                                    that.off('click'); // remove handler
                                      $.ajax({
                                         type: 'GET',
                                         url: 'http://ustart.today:5000/RejectJoinRequest/',
                                         contentType: "application/json; charset=utf-8",
                                         data: {userID:usrID, projectID: projID},
                                         success: function(result) {
-                                             $("#"+result).empty();
-                                             $("#"+result).remove();
+                                             var testresult = parseInt(result);
+                                             if (testresult <=0){
+                                                $("#totalRequests"+projID).hide();    
+                                             }
+                                             else{
+                                                $("#totalRequests"+projID).text(testresult);
+                                             }
+                                            $("#"+usrID).empty();
+                                            $("#"+usrID).remove();
                                         },
                                         error: function(err) {
                                             console.log('Request failed: ');
                                             console.log(err);
                                         }
+                                     }).always(function() {
+                                            that.on('click', login); // add handler back after ajax
                                      });
                                 });
                         </script>

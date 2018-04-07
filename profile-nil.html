@@ -664,11 +664,6 @@
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
                                         {{if eq ($.Page) ($.DOCID)}}
-                                            <script>
-                                                function focusDesc() {
-                                                    document.getElementById('text-box').focus();
-                                                }
-                                            </script>
 											<span class="pull-right fa fa-2x fa-sort"></span>
                                             <span class="pull-right fa fa-2x fa-pencil" onclick="ApplyTextModalID(this)"></span>
                                             <form id="delete{{index $loop.ID}}" action="/deleteWidget/" method="POST">

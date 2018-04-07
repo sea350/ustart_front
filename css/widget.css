@@ -241,3 +241,14 @@ span.ui-icon {
 	-moz-column-width: 18em;
 	-webkit-column-width: 18em;
 }
+
+#widget-insert .widgetBody {
+	    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#widget-insert .widgetBody:after {
+	content: '';
+	flex-grow: 1;
+}
