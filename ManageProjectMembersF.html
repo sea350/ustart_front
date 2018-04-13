@@ -12,11 +12,11 @@
 	<script src="/ustart_front/js/manageProject.js"></script>
 	<script type="text/javascript">
         $("#leftNavMessages").addClass("theActive");
+        var port = location.port;
 	</script>
 </head>
-
 <body>
-	<div id="centering" style="top: 0; padding-top: 5em; padding-bottom: 1em;">
+	<div id="centering" style="top: 0; padding-top: 5em; padding-bottom: 1em; width:80%; margin: 0 auto;">
 		<div id="content">
 			<div id="container-full">
 				<div class="container-left">
@@ -25,17 +25,19 @@
 					</h3>
 					<ul id="inbox-groups">
                         {{range $loop := .ListOfHeads}}
-                        <!-- for loop for project list here -->
-						<li class="inbox-group projectList" id="{{$loop.DocID}}">
-                            <a href="/Projects/{{$loop.Username}}">
-							<img class="inbox-icon" id="img{{$loop.DocID}}" src="" />
-                            </a>
-                            <span class="group-header">{{$loop.FirstName}}</span>
-                            <span id="totalRequests{{$loop.DocID}}" class="badge pull-right">{{$loop.Notifications}}</span>
-                            <script>
-								$('img#img{{$loop.DocID}}').attr('src', {{$loop.Image}});
-				            </script>    
-						</li>
+                        	{{if or (eq $loop.Classification 0) (eq $loop.Classification 1)}}
+                                <!-- for loop for project list here -->
+                                <li class="inbox-group projectList" id="{{$loop.DocID}}">
+                                    <a href="/Projects/{{$loop.Username}}">
+                                    <img class="inbox-icon" id="img{{$loop.DocID}}" src="" />
+                                    </a>
+                                    <span class="group-header">{{$loop.FirstName}}</span>
+                                    <span id="totalRequests{{$loop.DocID}}" class="badge pull-right">{{$loop.Notifications}}</span>
+                                    <script>
+                                        $('img#img{{$loop.DocID}}').attr('src', {{$loop.Image}});
+                                    </script>    
+                                </li>
+                            {{end}}
                         {{end}}
                         <script>
                             
@@ -44,7 +46,7 @@
                                     var projectID = e.currentTarget.id;
                                     $.ajax({
                                         type: 'GET',
-                                        url: 'http://ustart.today:5000/LoadJoinRequests/',
+                                        url: 'http://ustart.today:'+port+'/LoadJoinRequests/',
                                         contentType: "application/json; charset=utf-8",
                                         data: {projID:projectID},
                                         success: function(data) {
@@ -85,7 +87,7 @@
                                     that.off('click'); // remove handler
                                    $.ajax({
                                         type: 'GET',
-                                        url: 'http://ustart.today:5000/AcceptJoinRequest/',
+                                        url: 'http://ustart.today:'+port+'/AcceptJoinRequest/',
                                         contentType: "application/json; charset=utf-8",
                                         data: {userID:usrID, projectID: projID},
                                         success: function(result) {
@@ -118,7 +120,7 @@
                                     that.off('click'); // remove handler
                                      $.ajax({
                                         type: 'GET',
-                                        url: 'http://ustart.today:5000/RejectJoinRequest/',
+                                        url: 'http://ustart.today:'+port+'/RejectJoinRequest/',
                                         contentType: "application/json; charset=utf-8",
                                         data: {userID:usrID, projectID: projID},
                                         success: function(result) {

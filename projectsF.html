@@ -96,6 +96,7 @@
 						<div class="dropdown dropdown-btn">
 							<button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
 							<ul class="dropdown-menu dropdown-menu-right">
+								<span style="display:none">{{$memberValidity}}</span>
 								{{if le $memberValidity 1}}<li><a href="#" data-toggle="modal" data-target="#project-member-add"><i class="fa fa-paw"></i> Recruit Members</a></li>{{end}}
 								{{if le $memberValidity 1}}<li><a href="/ProjectSettings/{{$projecturl}}"><i class="fa fa-gear"></i> Edit Settings</a></li>{{end}}
 								{{if ne $memberValidity 0}}<li><a href="#" data-toggle="modal" data-target="#project-leave"><i class="fa fa-fire"></i> Leave Project</a></li>{{end}}

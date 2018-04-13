@@ -27,9 +27,6 @@
                     <strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
                 </div>
 				{{end}}
-				<!-- Missing Go Index -->
-			
-				<!--<button style="margin-left: 1em;" class="btn btn-danger" id="back-button" onclick="location.replace('http://ustart.today:5000/MyProjects')"><i class="fa fa-angle-left"></i> Back</button> -->
                 <form class="form-signup" id="projectCreateForm" action="/CreateProjectPage/" method="post">
                     <h2 style="padding:0; text-align: center;">Create A Project</h2>
                     <br>
@@ -80,6 +77,11 @@
                             </div>
                             <div class="col-md-8">
                                 <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit" name="send" id="finished" style="display: inline-block">Continue</button>
+                                <script>
+                                    $('form#projectCreateForm').submit(function(){
+                                        $("button#finished").prop('disabled', true);
+                                    });
+                                </script>
                             </div>
                     </div>
                     <br>

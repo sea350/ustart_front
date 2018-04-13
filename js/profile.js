@@ -163,6 +163,7 @@ $(function () {
     });
     //submit button for new posts
     $('body').on('click', '#new-postSubmit', function (e) {
+		$('#post-msg').val('');
         $('#New-Post-Form').submit();
     });
     // like button

@@ -46,10 +46,6 @@
         display: block;
       }
 
-      button[type="submit"] {
-        margin-top: 10px;
-      }
-
     </style>
 </head>
 
@@ -59,11 +55,12 @@
 		<!-- Vertical content -->
 		<div id="LeftNavBar-placeholder"></div>
 		<script>
+            var port = location.port;
             $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
                 $("#leftNavSettings").addClass("theActive");
             });
 		</script>
-		<div id="content" style="width: 96.9%; min-width: 96.9%;">
+		<div id="content">
 			<div id="settings-container" class="container">
 				<h1>Settings</h1>
 				<div class="panel-group" id="accordion">
@@ -76,7 +73,10 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-sm-4">
-											<form id="img-form" action="http://ustart.today:5000/ImageUpload/" method="POST">
+											<form id="img-form" action="" method="POST">
+                                                <script type="text/javascript">
+                                                    $( "#img-form" ).attr( 'action', 'http://ustart.today:'+port +'/ImageUpload/' );
+                                                </script>
 												<div id="upload-demo" style="width:300px; height:350px"></div>
 												<input type="file" id="upload" accept="image/*">
 												<input type="hidden" name="image-data" id="hidden-image-data" />
@@ -130,7 +130,10 @@
 										</div>
 										<div class="col-sm-12">
 											<hr/>
-											<form id="banner-form" action="http://ustart.today:5000/BannerUpload/" method="POST">
+											<form id="banner-form" action="" method="POST">
+                                                <script type="text/javascript">
+                                                    $( "#banner-form" ).attr( 'action', 'http://ustart.today:'+port +'/BannerUpload/' );
+                                                </script>
 												<div id="upload-demo2" style="width:1100px; height:380px"></div>
 												<input type="file" id="upload2" accept="image/*">
 												<input type="hidden" name="banner-data" id="hidden-image-data2" />
@@ -191,25 +194,26 @@
 									When set to invisibile, these fields will be disabled and will not be visible to others.
 								</div>
 								<div class="form-group">
-									<form id="contactChange" action="http://ustart.today:5000/UpdateDescription/" method="POST">
+									<form id="contactChange" action="" method="POST">
+                                         <script type="text/javascript">
+                                                    $( "#contactChange" ).attr( 'action', 'http://ustart.today:'+port +'/UpdateDescription/' );
+                                         </script>
 										<div class="row">
 											<div class="col-sm-6">
 												<label for="pnumber">Phone Number</label>
 												<label class="switch usr-vis-opt"><input type="checkbox" name="pnumberVis" checked><span class="slider round"></span></label>
-												<input type="text" class="form-control" id="pnumber" name="pnumber" placeholder="Phone Number" value="{{.UserInfo.Phone}}" required />
+												<input type="tel" class="form-control" id="pnumber" name="pnumber" placeholder="Phone Number" value="{{.UserInfo.Phone}}"/>
 											</div>
 											<div class="col-sm-6">
 												<label for="gender_select">Gender</label>
 												<label class="switch usr-vis-opt"><input type="checkbox" name="gender_selectVis" checked><span class="slider round"></span></label>
 												<!-- Gender is handled via script -->
-												<select id="gender_select" class="form-control" name="gender_select" required>
+												<select id="gender_select" class="form-control" name="gender_select">
 													<option disabled selected hidden>Select Gender</option>
 													<option>Male</option>
 													<option>Female</option>
 													<option>Unspecified</option>
 												</select>
-											</div>
-											<div class="col-sm-6">
 											</div>
 											<div class="col-sm-12">
 												<label for="inputDesc">Description</label>
@@ -224,7 +228,7 @@
 											</div>
 										</div>
 										<hr/>
-										                                  <button type="submit">Submit</button>
+										<button class="btn btn-info" type="submit">Change Contact and Description</button>
 									<!--	<input type="submit" class="btn btn-info" name="name_submit" value="Change Description" /> -->
 										<div class="save-message fade"></div>
 									</form>
@@ -245,7 +249,10 @@
 								</div>
 								<!-- Names -->
 								<div class="form-group">
-									<form id="nameChange" action="http://ustart.today:5000/changeName/" method="POST">
+									<form id="nameChange" action="" method="POST">
+                                         <script type="text/javascript">
+                                                    $( "#nameChange" ).attr( 'action', 'http://ustart.today:'+port +'/changeName/' );
+                                         </script>
 										<div class="row">
 											<div class="col-sm-6">
 												<label for="fname">First Name</label>
@@ -273,7 +280,10 @@
 						</div>
 						<div id="passcollapse" class="panel-collapse collapse">
 							<div class="panel-body">
-								<form id="passChange" action="http://ustart.today:5000/changePass/" method="POST" >
+								<form id="passChange" action="" method="POST" >
+                                    <script type="text/javascript">
+                                                    $( "#passChange" ).attr( 'action', 'http://ustart.today:'+port +'/changePass/' );
+                                    </script>
 									<div class="alert alert-info alert-dismissable fade in">
 										<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Password needs to verified. And then,
 										the user is redirected to a password-change email-sent message.
@@ -305,7 +315,10 @@
 						</div>
 						<div id="loccollapse" class="panel-collapse collapse">
 							<div class="panel-body">
-								<form id="locChange" action="http://ustart.today:5000/changeLoc/" method="POST">
+								<form id="locChange" action="" method="POST">
+                                    <script type="text/javascript">
+                                                    $( "#locChange" ).attr( 'action', 'http://ustart.today:'+port +'/changeLoc/' );
+                                    </script>
 									<!-- Country, State / City, Zip -->
 									<div class="row">
 										<div class="col-sm-4">
@@ -349,7 +362,10 @@
 						</div>
 						<div id="educollapse" class="panel-collapse collapse">
 							<div class="panel-body">
-								<form id="eduChange" action="http://ustart.today:5000/changeEDU/" method="POST">
+								<form id="eduChange" action="" method="POST">
+                                    <script type="text/javascript">
+                                                    $( "#eduChange" ).attr( 'action', 'http://ustart.today:'+port +'/changeEDU/' );
+                                    </script>
 									<div>
 										<label for="type_select">User Type</label>
 										<select id="type_select" class="form-control" name="type_selector">
@@ -467,7 +483,10 @@
 									<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> The account will be no longer accessible.
 									However, the account won't be deleted on the server.
 								</div>
-								<form id="deleteAccountForm" action="http://ustart.today:5000/deleteAccount/" method="POST">
+								<form id="deleteAccountForm" action="" method="POST">
+                                    <script type="text/javascript">
+                                                    $( "#deleteAccountForm" ).attr( 'action', 'http://ustart.today:'+port +'/deleteAccount/' );
+                                    </script>
 									<input type="submit" class="btn btn-danger" name="name_submit" value="Delete Account" />
 								</form>
 							</div>

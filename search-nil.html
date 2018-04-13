@@ -5,35 +5,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>ustart</title>
-    <link href="/ustart_front/css/layout.css" rel="stylesheet" type="text/css" />
-    <link href="/ustart_front/css/normalize.min.css" rel="stylesheet" type="text/css" />
-    <link href="/ustart_front/css/search.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-
-    </script>
-    <script src="js/bootstrap-confirmation.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $("#leftNavSearch").addClass("theActive");
-        });
-    </script>
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/normalize.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/search.css" />
+    <script src="/ustart_front/js/bootstrap-confirmation.min.js"></script>
+    <script src="/ustart_front/js/ascii-convert.js"></script>
     <script src="/ustart_front/js/search.js"></script>
 </head>
 
 <body>
     <div id="centering">
-        <div id="content" style="padding: 1em; margin: auto;">
+        <div id="content" class="container">
             <div id="search-filter">
-                <h3> Filters </h3>
+				<h3 style="text-align: center;"> Filters</h3>
                 <div class="extra">
                     <div id="filOptions" class="panel-group">
 						<div class="panel panel-default">
-							<h4 class="panel-heading panel-title" data-toggle="collapse" data-parent="#filOptions" href="#filter-category">Category</h4>
+							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-category">Category</h4>
 							<div id="filter-category" class="panel-collapse collapse in">
 								<ul>
 									<li>
@@ -70,8 +58,8 @@
 							</div>
 						</div>
 						<div class="panel panel-default">
-							<h4 class="panel-heading panel-title" data-toggle="collapse" data-parent="#filOptions" href="#filter-major">Major</h4>
-							<div id="filter-major" class="panel-collapse collapse">
+							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-major">Major</h4>
+							<div id="filter-major" class="panel-collapse collapse in">
 								<select>
 									<option value="">Accounting</option>
 									<option value=""></option>
@@ -81,10 +69,10 @@
 							</div>
 						</div>
 						<div class="panel panel-default">
-							<h4 class="panel-heading panel-title" data-toggle="collapse" data-parent="#filOptions" href="#filter-location">Location</h4>
-							<div id="filter-location" class="panel-collapse collapse">
-								<input type="text" placeholder="City">
-								<input type="text" placeholder="State">
+							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-location">Location</h4>
+							<div id="filter-location" class="panel-collapse collapse in">
+								<input type="text" name="city" placeholder="City" autocomplete="off">
+								<input type="text" name="state" placeholder="State" autocomplete="off">
 								<select>
 									<option value="">United States</option>
 									<option value=""></option>
@@ -94,14 +82,14 @@
 							</div>
                         </div>
 						<div class="panel panel-default">
-							<h4 class="panel-heading panel-title" data-toggle="collapse" data-parent="#filOptions" href="#filter-skills">Skills</h4>
-							<div id="filter-skills" class="panel-collapse collapse">
-								<input type="text" placeholder="Keywords, tags, interests">
+							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-skills">Skills</h4>
+							<div id="filter-skills" class="panel-collapse collapse in">
+								<input type="text" placeholder="Keywords, Tags, Interests">
 							</div>
                         </div>
 						<div class="panel panel-default">
-							<h4 class="panel-heading panel-title" data-toggle="collapse" data-parent="#filOptions" href="#filter-order">Order</h4>
-							<div id="filter-order" class="panel-collapse collapse">
+							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-order">Order</h4>
+							<div id="filter-order" class="panel-collapse collapse in">
 								<ul>
 									<li>
 										<input type="radio" name="sortOrder" value="relevance" checked> Most Relevant </li>
@@ -113,28 +101,36 @@
 							</div>
                         </div>
                     </div>
-                    <button id="filApply" type="button">Apply</button>
                 </div>
-            </div>
+				<button id="filApply" type="button">Apply</button>
+				<div class="clearfit"></div>
+			</div>
             <div id="search-results-container">
+				{{range $searchResult := .ListOfHeads}}
                 <div class="search-result">
-                    <div class="search-result-pic"></div>
+                    <a class="search-result-pic-link" href="{{$searchResult.Username}}"><img class="search-result-pic"/></a>
+					<script>
+						$('.search-result-pic').last().attr('src', {{$searchResult.Image}});
+					</script>
                     <div class="search-result-text">
-                        <div class="search-result-title">Sample search result title</div>
-                        <div class="search-result-description">Sample search result description I may be a digimon fan but if I see a thicc 🍑 roserade 🌹 my metapod's
-                            gonna mega evolve 💦💦💦 am tired of racism on roblox, I am tired of dealing with this. I can't
-                            stand it anymore. What is wrong with roblox. They can't even control there own players. I had
-                            to leave the game i was playing today because of racism. My avatar had a shirt with the mexican
-                            flag on it and everyone launched at me and started to bully me on my race. I have never ever
-                            had to deal with something like this, it is such a shame roblox is turning into a place like
-                            hell, where no one is safe because of your nationality. I had people telling me that i should
-                            get DEPORTED! Does anyone know how it feels. I am an American citizen born and raised here with
-                            mexican blood and i have the same rights as everyone my race should NOT matter at ALL! People
-                            started to tell me that my race is crap! I have never in my life been so offended like this.
-                            The game was a small server consisting of 11 players at least half of them where offending me.
-                        </div>
+                        <div class="search-result-title">{{$searchResult.FirstName}}</div>
+                        <div class="search-result-description">
+							<script>
+								readRuneArray({{$searchResult.Bio}});
+							</script>
+						</div>
                     </div>
                 </div>
+				{{else}}
+				<h3>No searches found for:</h3>
+				<i id="searchTerm"></i>
+				<h4>Please try searching for someone else.</h4>
+				<script>
+					var searchQuery = location.search;
+					searchQuery = searchQuery.replace(/(\?query=)|(&.*)/g, "");
+					$("#searchTerm").text(decodeURIComponent(searchQuery));
+				</script>
+				{{end}}
             </div>
         </div>
     </div>

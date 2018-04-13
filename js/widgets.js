@@ -300,13 +300,16 @@ function spotifyEditor(element) {
 	$('#spot-modal').modal();
 }
 
-function preventSpam(formID){
+function preventSpam(formID, deleteButtonID){
         var form = document.getElementById(formID);
+        var span = document.getElementById(deleteButtonID);
         form.addEventListener('submit', function () {
             form.submit.disabled = true;
+            span.remove();
         });
         form.submit();
     }
+
 
 $(document).ready(function() {
 	if($('#customContent').length) {

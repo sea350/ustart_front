@@ -1,5 +1,6 @@
 var taglist = [];
 var MAXTAGS = 16;
+var port=5002;
 
 function updateTagsCounter() {
 	if (taglist.length == MAXTAGS - 1) {
@@ -143,7 +144,7 @@ $(document).ready(function () {
         });
         $.ajax({
             type: 'GET',  
-            url: 'http://ustart.today:5000/addSkill/',
+            url: 'http://ustart.today:'+port+'/addSkill/',
             contentType: "application/json; charset=utf-8",
             data: {skillArray:JSON.stringify(skillList)},
             success: function(data) {
@@ -170,7 +171,7 @@ $(document).ready(function () {
         });
         $.ajax({
             type: 'GET',
-            url: 'http://ustart.today:5000/UpdateProjectTags/',
+            url: 'http://ustart.today:'+port+'/UpdateProjectTags/',
             contentType: "application/json; charset=utf-8",
             data: {skillArray:JSON.stringify(skillList), projectWidget: $('#tagModal .projectWidget').val()},
             success: function(data) {

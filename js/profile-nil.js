@@ -10,7 +10,34 @@
         $('#btn1').text('Follow');
     }
 });*/
+ $('body').on("click", "a.like-btn", function(e) {
+     var likeBtnImg = $(this).find('img');
+    if (likeBtnImg.attr('src') === "/ustart_front/ico/like.png") {
+        likeBtnImg.attr('src', "/ustart_front/ico/liked.png");
+    } else {
+        likeBtnImg.attr('src', "/ustart_front/ico/like.png");
+    }
+    return false;
+ });
 
+ $('body').on("mouseenter", "a.comment-btn", function(e) {
+    var cmtBtnImg = $(this).find('img');
+    cmtBtnImg.attr('src', "/ustart_front/ico/comment.png"); 
+ });
+ $('body').on("mouseleave", "a.comment-btn", function(e) {
+    var cmtBtnImg = $(this).find('img');
+    cmtBtnImg.attr('src', "/ustart_front/ico/no comment.png");
+ });
+
+ $('body').on("mouseenter", "a.share-btn", function(e) {
+    var shrBtnImg = $(this).find('img');
+    shrBtnImg.attr('src', "/ustart_front/ico/share.png"); 
+ });
+
+ $('body').on("mouseleave", "a.share-btn", function(e) {
+     var shrBtnImg = $(this).find('img');
+     shrBtnImg.attr('src', "/ustart_front/ico/not share.png"); 
+ });
 $(function () {
     $('body').confirmation({
         selector: '[data-toggle="confirmation"]'
@@ -31,6 +58,7 @@ $(function () {
     });
     //submit button for new posts
     $('body').on('click', '#new-postSubmit', function (e) {
+		$('#post-msg').val('');
         $('#New-Post-Form').submit();
     });
     // like button

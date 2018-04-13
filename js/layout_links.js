@@ -1,5 +1,6 @@
 var linkList = [];
 var linkDesc = [];
+var port=5002;
 
 function updateCounter() {
 	$('#linkCountIndicator').html("" + (16 - linkList.length) + " Link" + (16 - linkList.length == 1 ? "" : "s") + " Remaining");
@@ -13,7 +14,7 @@ function removeLink(element) {
 	if (projectInputID.length) {
 		$.ajax({
 			type: 'GET',  
-			url: 'http://ustart.today:5000/DeleteProjectLink/',
+			url: 'http://ustart.today:'+port+'/DeleteProjectLink/',
 			contentType: "application/json; charset=utf-8",
 			data: {deleteProjectLink:httpURL, deleteProjectLinkDesc:userlinkdesc, projectID:projectInputID.val()},
 			success: function(data) {
@@ -27,7 +28,7 @@ function removeLink(element) {
 	} else {
 		$.ajax({
 			type: 'GET',  
-			url: 'http://ustart.today:5000/deleteLink/',
+			url: 'http://ustart.today:'+port+'/deleteLink/',
 			contentType: "application/json; charset=utf-8",
 			data: {userLink:httpURL, userLinkDesc:userlinkdesc},
 			success: function(data) {
@@ -102,7 +103,7 @@ $(document).ready(function() {
 			if ($.inArray(httpURL, linkList) == -1) {
 				$.ajax({
 					type: 'GET',  
-					url: 'http://ustart.today:5000/addLink/',
+					url: 'http://ustart.today:'+port+'/addLink/',
 					contentType: "application/json; charset=utf-8",
 					data: {userLink:httpURL, userLinkDesc:userlinkdesc},
 					success: function(data) {
@@ -130,7 +131,7 @@ $(document).ready(function() {
 			if ($.inArray(httpURL, linkList) == -1) {
 				$.ajax({
 					type: 'GET',
-					url: 'http://ustart.today:5000/AddProjectLink/',
+					url: 'http://ustart.today:'+port+'/AddProjectLink/',
 					contentType: "application/json; charset=utf-8",
 					data: {projectLink:httpURL, projectLinkDesc:projectlinkdesc, projectID:projectid},
 					success: function(data) {

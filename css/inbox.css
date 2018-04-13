@@ -56,12 +56,26 @@
     width: 21%;
     min-width: 16em;
     margin-right: 0.5em;
-    overflow: scroll;
+    overflow-y: auto
+    -ms-overflow-style: none;  // IE 10+
+    overflow: -moz-scrollbars-none;  // Firefox
 }
+
+.container-left::-webkit-scrollbar { 
+    display: none; 
+}
+
 .container-right {
 	flex-grow: 1;
-    overflow: scroll;
+    overflow-y: auto
+    -ms-overflow-style: none;  // IE 10+
+    overflow: -moz-scrollbars-none;  // Firefox
 }
+
+.container-right::-webkit-scrollbar { 
+    display: none; 
+}
+
 
 .inbox-search-box {
     margin: 0 1em;

@@ -29,10 +29,11 @@
     <script src="/ustart_front/js/notify.min.js"></script>
 	<script src="/ustart_front/js/masonry.pkgd.min.js"></script>
 	<script src="/ustart_front/js/ascii-convert.js"></script>
+    <script src="/ustart_front/js/createPosts.js"></script>
    <!-- <script src="ustart_front/js/widget-text.js"></script>-->
     <script>
         window.___gcfg = { "parsetags": "explicit" };
-        var port = location.port;
+        var port=5002;
         $(function () {
            /* $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
                 $("#leftNavProfile").addClass("theActive");
@@ -96,12 +97,17 @@
     <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
 	<div id="centering">
 		<img id="head-image" alt="User Banner">
-		<script>
+		<script> 
+            var IDArray = [];
 			$( document ).ready(function() {
 				$("#leftNavProfile").addClass("theActive");
-				$("#head-image").attr("src",{{.UserInfo.Banner}});
+                $("#head-image").attr("src",{{.UserInfo.Banner}});
+                $("#user-avatar").attr("src",{{.UserInfo.Avatar}});
 			});
 		</script>
+        {{range $loop := .UserInfo.EntryIDs}}
+            <script>IDArray.push('{{$loop}}');</script>
+        {{end}}
         <!-- Vertical content -->
         <div id="content" class="container">
 			<div class="flex-box">
@@ -115,11 +121,6 @@
 							</div>
 							{{end}}
 						</div>
-						<script>
-							$( document ).ready(function() {
-								$("#user-avatar").attr("src",{{.UserInfo.Avatar}});
-							});
-						</script>
 						<div id="user-brief-info">
 							<div id="info-wrap">
 								<div id="name-cont">
@@ -233,71 +234,6 @@
 												}
 											});
 										});
-
-										 $('#Wall-loadAJAX').click(function(e) {
-											//e.preventDefault();
-											var entryIDs = ""+{{.UserInfo.EntryIDs}}
-										  //  console.log("entryIDs are"+entryIDs)
-											$.ajax({
-												type: 'GET',  
-												url: 'http://ustart.today:'+port+'/loadWall/',
-												contentType: "application/json; charset=utf-8",
-												data: {entryIDs:entryIDs,pageID:pageID},
-												success: function(data) {
-													$("#wall-dataF").html(data);
-													console.log('hello');
-													  $('.editEntry').click(function(e) {
-															var postId= $(this).attr("id");
-															var modified ="#"+postId;
-															$(modified).modal('show');
-														});
-												}//end success
-											});
-										});
-
-										// $('#confirm-delete').click(function(e) {
-										//     //e.preventDefault();
-										//     $.ajax({
-										//         type: 'GET',  
-										//         url: 'http://ustart.today:'+port+'/deleteModal/',
-										//         contentType: "application/json; charset=utf-8",
-										//         data: {},
-										//         success: function(data) {
-										//             $("#post-delete").html(data);
-													
-										//               // $('.editEntry').click(function(e) {
-										//               //       var postId= $(this).attr("id");
-										//               //       var modified ="#"+postId;
-										//               //       console.log(modified);
-										//               //       $(modified).modal('show');
-										//               //   });
-											 
-										//         }//end success
-										//     });
-										// });
-								 
-								
-
-										$('.comment-btn').click(function(e) {
-											var postId= $(this).attr("id");
-											var modified ="#"+postId;
-										 //   console.log(modified);
-											console.log("profilenilversion");
-											var Pikachu = {{.DOCID}}
-											//e.preventDefault();
-											$.ajax({
-												type: 'GET',  
-												url: 'http://ustart.today:'+port+'/getComments/',
-												contentType: "application/json; charset=utf-8",
-												data: {userID:pageID, PostID:postId,Pikachu:Pikachu},
-												success: function(data) {
-													$("#commentnil").html(data);
-													$(modified).modal('show');
-												}
-											});
-										});
-
-									   
 									});
 
 							</script>
@@ -947,265 +883,192 @@
 						{{end}}<!-- end for looper -->
 						</ul>
                     </div>
+                     <script>
+                        $('body').on("click", "#Wall-loadAJAX", function(e) {
+                            $("#new-post-img").attr("src",{{.ImageCode}});
+                            $("#post-msg").focus(function (e) {
+                                var textbox = $("#post-msg");
+                                textbox.animate({
+                                    height: "100px"
+                                }, 690);
+                                if (textbox.val().length == 0) {
+                                    $("#new-postSubmit").prop("disabled", true);
+                                } else {
+                                    $("#new-postSubmit").removeAttr("disabled");
+                                }
+                            });
+                            $("#post-msg").keyup(function (e) {
+                                var textbox = $("#post-msg");
+                                if (textbox.val().length == 0) {
+                                    $("#new-postSubmit").prop("disabled", true);
+                                } else {
+                                    $("#new-postSubmit").removeAttr("disabled");
+                                }
+                            });
+
+                            $("#post-msg").blur(function (e) {
+                                var textbox = $("#post-msg");
+                                textbox.animate({
+                                    height: "50px"
+                                }, 690);
+                            });
+                            var userID = {{.DOCID}}
+                            
+                            $.ajax({
+                                        type: 'GET',
+                                        url: 'http://ustart.today:'+port+'/ajaxUserEntries/',
+                                        contentType: "application/json; charset=utf-8",
+                                        data: {userID:userID},
+                                        success: function(data) {   
+                                        },complete: function (jqXHR,status) {
+                                             if(status == 'success' || status=='notmodified')
+                                             {
+                                                var temp = $.parseJSON(jqXHR.responseText);
+                                                if (temp != null){
+                                                    if(temp.length >= 8){
+                                                        for (i=0; i < 8; i++){
+                                                            makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares);
+                                                        }
+                                                    }
+                                                    else{
+                                                        for (i=0; i < temp.length; i++){
+                                                            makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares);
+                                                        }
+                                                    }
+                                                } 
+                                             }
+                                        },error: function(err) {
+                                            console.log('wall Load failed: ');
+                                            console.log(err);
+                                        }
+                            });
+                        });
+                         $('body').on("click", ".comment-btn", function(e) {
+                             var postID = e.currentTarget.id;
+                              $.ajax({
+                                        type: 'GET',
+                                        url: 'http://ustart.today:'+port+'/AjaxLoadComments/',
+                                        contentType: "application/json; charset=utf-8",
+                                        data: {postID:postID},
+                                        success: function(data) { 
+                                        },complete: function (jqXHR,status) {
+                                             if(status == 'success' || status=='notmodified')
+                                             {
+                                                var temp = $.parseJSON(jqXHR.responseText); 
+                                                if (temp != null){
+                                                    console.log(temp);
+                                                }
+                                                else{
+                                                    console.log("no comments");
+                                                }
+                                             }
+                                        },error: function(err) {
+                                            console.log('comment Load failed: ');
+                                            console.log(err);
+                                        }
+                            });
+                             
+                         });
+                         function element_in_scroll(elem)
+                        {
+                            var docViewTop = $(window).scrollTop();
+                            var docViewBottom = docViewTop + $(window).height();
+
+                            var elemTop = $(elem).offset().top;
+                            var elemBottom = elemTop + $(elem).height();
+
+                            return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+                        }
+                        (function($, window, undefined) {
+                            var InfiniteScroll = function() {
+                                this.initialize = function() {
+                                    this.setupEvents();
+                                };
+
+                                this.setupEvents = function() {
+                                    $(window).on(
+                                        'scroll',
+                                        this.handleScroll.bind(this)
+                                    );
+                                };
+
+                                this.handleScroll = function() {
+                                    var scrollTop = $(document).scrollTop();
+                                    var windowHeight = $(window).height();
+                                    var height = $(document).height() - windowHeight;
+                                    var scrollPercentage = (scrollTop / height);
+
+                                    // if the scroll is more than 90% from the top, load more content.
+                                    if(scrollPercentage > 0.9) {
+                                        this.doSomething();
+                                    }
+                                }
+
+                                this.doSomething = function() {
+                                    // Do something.
+                                    // Load data or whatever.
+                                    if ($('#prof-wall').hasClass("in")){
+                                        var userID = {{.DOCID}};
+                                        var postLen =$(".wallPosts").length - 1;
+                                        if (postLen > 0){
+                                            var postArr=[];
+                                            for (i=postLen; i < postLen+5; i++){
+                                                postArr.push(IDArray[i]);
+                                            }
+                                            console.log(postArr);
+                                        }
+                                    
+                                     /*$.ajax({
+                                        type: 'GET',
+                                        url: 'http://ustart.today:'+port+'/ajaxUserEntries/',
+                                        contentType: "application/json; charset=utf-8",
+                                        data: {userID:userID, postIndex:postArr},
+                                        success: function(data) {   
+                                        },complete: function (jqXHR,status) {
+                                             if(status == 'success' || status=='notmodified')
+                                             {
+                                                var temp = $.parseJSON(jqXHR.responseText);
+                                                if (temp != null){
+                                                    for (i=0; i < temp.length; i++){
+                                                            makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares);
+                                                    }
+                                                } 
+                                             }
+                                        },error: function(err) {
+                                            console.log('wall Load failed: ');
+                                            console.log(err);
+                                        }
+                                    });*/
+                                    }
+                                }
+
+                                this.initialize();
+                            }
+
+                            $(document).ready(
+                                function() {
+                                    // Initialize scroll
+                                    new InfiniteScroll();
+                                }
+                            );
+                        })(jQuery, window);
+                     </script>
+                    
                     <div id="prof-wall" class="tab-pane fade">
                         <div class="grid">
                             <!-- main Modal -->
-                            <div id= "commentnil" role="dialog"> </div>
-                            <div id= "sharenil" role="dialog"> </div>
-                            <div id= "deletenil" role="dialog"> </div>
-       
-                            <div class="modal fade" id="main-modal" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <div class="media">
-                                                <a class="pull-left" href="#">
-                                                    <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D">
-                                                </a>
-                                                <div class="media-body">
-                                                    <h6 class="pull-right text-muted time">3 hours ago</h6>
-                                                    <h5 class="mt-0" style="color:cadetblue;">Ryan Rozbiani</h5>
-                                                    <p>Hey guys! We're launching UStart! Watch out for us!</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- write a comment-->
-                                            <div class="input-group">
-                                                <form id="commentform">
-                                                    <input class="form-control" name="commentz" placeholder="Add a comment" type="text">
-                                                </form>
-                                                <span class="input-group-addon">
-                                                    <a onclick="document.getElementById('commentform').submit();">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                </span>
-                                            </div>
-                                            <br>
-                                            <!--comment list starts here -->
-                                            <div class="comments-list">
-                                                <!-- sample comment list -->
-                                                <div class="media">
-                                                    <h6 class="pull-right text-muted time">2 hours ago</h6>
-                                                    <a class="media-left" href="#">
-                                                        <img style="height:40px;" class="img-rounded" src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-310.jpg">
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <h5 class="media-heading user_name" style="color:cadetblue;">Phyllis Frankyl</h5>
-                                                        <p> Are you going to use MongoDB?</p>
-                                                        <p>
-                                                            <small>
-                                                                <a class="comment-like">Like</a>
-                                                            </small> -
-                                                            <small>
-                                                                <a class="confirmation-callback">Remove</a>
-                                                            </small>
-                                                        </p>
-                                                        <p>
-                                                             <small>
-                                                                <a class="view-replies" onclick="document.getElementById('replies').style.display = 'block'; this.style.display = 'none'">View 2 Replies</a>
-                                                            </small>
-                                                            <script>
-                                                               $(document).ready(function (){
-                                                                   $(".commentOfComment").css("display","none");
-                                                                });
-                                                            </script>
-                                                        </p>
-                                                         <div class="commentOfComment" id="replies">
-                                                             <!-- first reply of comment-->
-                                                             <div class="media">
-                                                                 <a class="media-left" href="#">
-                                                                    <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D">
-                                                                </a>
-                                                                <div class="media-body">
-                                                                    <h5 class="media-heading user_name" style="color:cadetblue;">Bryan Brosbyani</h5>
-                                                                    <p> Hell No!</p>
-                                                                </div>
-                                                            </div>
-                                                             <!-- second reply of comment-->
-                                                             <div class="media">
-                                                                <a class="media-left" href="#">
-                                                                    <img class="media-object img-rounded" src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-310.jpg">
-                                                                </a>
-                                                                <div class="media-body">
-                                                                    <h5 class="media-heading user_name" style="color:cadetblue;">Phyllis Frankyl</h5>
-                                                                    <p> Naughty boii</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="input-group pull-right">
-                                                        <form id="innercommentform">
-                                                            <input class="form-control" placeholder="Add a reply" type="text">
-                                                        </form>
-                                                        <span class="input-group-addon">
-                                                            <a onclick="document.getElementById('innercommentform').submit();">
-                                                                <i class="fa fa-edit"></i>
-                                                            </a>
-                                                        </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- end sample comment list -->
-                                                <div class="media">
-                                                    <h6 class="pull-right text-muted time">22 minutes ago</h6>
-                                                    <a class="media-left" href="#">
-                                                        <img class="img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D">
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <h5 class="media-heading user_name" style="color:cadetblue;">Ryan Rozbiani</h5>
-                                                        <p>Haha! Not yet, Professor!</p>
-                                                        <p>
-                                                            <small>
-                                                                <a class="comment-like">Like</a>
-                                                            </small> -
-                                                            <small>
-                                                                <a class="confirmation-callback">Remove</a>
-                                                            </small>
-                                                        </p>
-                                                        <p>
-                                                             <small>
-                                                                 <a class="view-replies" onclick="document.getElementById('replies1').style.display = 'block'; this.style.display = 'none'">View 2 Replies</a>
-                                                            </small>
-                                                        </p>
-                                                         <div class="commentOfComment" id=replies1>
-                                                             <!-- first reply of comment-->
-                                                             <div class="media">
-                                                                 <a class="media-left" href="#">
-                                                                    <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D">
-                                                                </a>
-                                                                <div class="media-body">
-                                                                    <h5 class="media-heading user_name" style="color:cadetblue;">Bryan Brosbyani</h5>
-                                                                    <p> Hell No!</p>
-                                                                </div>
-                                                            </div>
-                                                             <!-- second reply of comment-->
-                                                             <div class="media">
-                                                                <a class="media-left" href="#">
-                                                                    <img class="media-object img-rounded" src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-310.jpg">
-                                                                </a>
-                                                                <div class="media-body">
-                                                                    <h5 class="media-heading user_name" style="color:cadetblue;">Phyllis Frankyl</h5>
-                                                                    <p> Naughty boii</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="input-group pull-right">
-                                                        <form id="innercommentform">
-                                                            <input class="form-control" placeholder="Add a reply" type="text">
-                                                        </form>
-                                                        <span class="input-group-addon">
-                                                            <a onclick="document.getElementById('innercommentform').submit();">
-                                                                <i class="fa fa-edit"></i>
-                                                            </a>
-                                                        </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="media">
-                                                    <h6 class="pull-right text-muted time">20 minutes ago</h6>
-                                                    <a class="media-left" href="#">
-                                                        <img class="img-rounded" src="http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-192.jpg">
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <h5 class="media-heading user_name" style="color:cadetblue;">John Sterling</h5>
-                                                        <p>Does it have warriors and nobles?</p>
-                                                        <p>
-                                                            <small>
-                                                                <a class="comment-like ">Like</a> - </small>
-                                                            <small>
-                                                                <a class="confirmation-callback">Remove</a>
-                                                            </small>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- comment list ends-->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                
-                            <!-- end Main Modal -->
-                            <!-- /************************/ -->
-                            <!-- share Modal-->
-                            <div class="modal fade" id="share-modal" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Share On Your Profile</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="media">
-                                                <a class="pull-left" href="#">
-                                                    <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D"
-                                                        alt="64x64">
-                                                </a>
-                                                <div class="media-body">
-                                                    <h6 class="pull-right text-muted time">1 minute ago</h6>
-                                                    <h5 class="mt-0" style="color:cadetblue;">Ryan Rozbiani</h5>
-                                                    <p>Hey guys! We're working on UStart! Watch out for us!</p>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div class="form-group">
-                                                <form id="shareCommentForm">
-                                                    <textarea class="form-control" id="comment-msg" placeholder="Say Something about this..."></textarea>
-                                                    <!--What is 'odom-submit'? If it's not used, remove it-->
-                                                    <button class="btn btn-primary odom-submit">Post</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end share Modal -->
-                            <!-- delete confirmation modal -->
-                            <div class="modal fade" id="confirm-delete" role="dialog" >
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <span style="font-size:20px;">Confirm Deletion</span>
-                                        </div>
-                                        <div class="modal-body">
-                                            <span style="font-size:15px;">Are you sure you want to delete this post?</span>
-                                        </div> 
-                                    </div>
-                                </div>
-                            </div>
- <!--                       <div id=" #post-delete" > </div>
-                            <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <span style="font-size:20px;">Confirm Deletion</span>
-                                        </div>
-                                        <div class="modal-body">
-                                            <span style="font-size:15px;">Are you sure you want to delete this post?</span>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                            <form action ="http://ustart.today:'+port+'/deletePost" method ="POST"> 
-                                                 <input type="text" name="postid" value=(this).attr("id")>  
-                                             <button type="submit"><a class="btn btn-danger btn-ok">Delete</a></button>
-                                        </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
--->
-                            <!-- end delete confirmation modal -->
-                            <!-- main (wall) -->
                              <div id="main">
-                                <!-- new post -->
+                                <div id= "commentModals" role="dialog"> </div>
+                                <div id= "shareModals" role="dialog"> </div>
+                                <div id= "deleteModals" role="dialog"> </div>
+                                <div id= "editModals" role="dialog"> </div>
+                                <!-- new post panel-->
                                 <div class="panel panel-default">
                                     <div class="panel-body">
                                         <div class="media">
                                             <a class="pull-left" href="#">
-                                                <img class="media-object img-rounded" src={{.UserInfo.Avatar}}>
+                                                <img id="new-post-img" class="media-object img-rounded" src="">
+                                                
                                             </a>
                                             <div class="media-body">
                                                 <div class="form-group">
@@ -1220,21 +1083,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                 <!-- end new post -->
+                                <!-- end new post -->
                             <div id="wallNewPost"></div>
-                            <div id="wall-dataF"></div>
+                            <div class = "panel panel-default" id="wall-dataF"></div>
                                     
 
-                                </div> <!-- closes grid-->
+                                </div> <!--end main-->
                                </div>
-                                <!-- end main -->
-                            
-                            </div>                    
-                        <!-- end grid -->
-                    
+                                <!-- end grid -->
+                    </div>                    
+                    <!--end prof-wall -->
                     <div id="prof-about" class="tab-pane fade in active">
-                    </div>
-                    <div id="prof-proj" class="tab-pane fade">
                     </div>
                 </div>
                 </div>
@@ -1286,37 +1145,7 @@
                                             });
                     });
                 </script>
-                <!-- MODALS -->
-                <!-- edit modal -->
-                <!-- <div class="modal fade" id="EditModal" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Edit Post</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="media">
-                                    <a class="pull-left" href="#">
-                                        <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D"
-                                            alt="64x64">
-                                    </a>
-                                    <div class="media-body">
-                                        <div class="form-group">
-                                            <form id="Edit-Post-Form">
-                                                <textarea class="form-control" id="post-msg" style="resize:none;" placeholder=""></textarea>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button id="edit-postSubmit" class="btn btn-primary pull-right">Post</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                -->
+                <!--  WIDGET MODALS -->
                 <!-- About Modal  -->
                 <div class="modal fade" id="aboutModal" role="dialog">
                     <div class="modal-dialog">
@@ -1792,7 +1621,7 @@
 			</div> <!-- end content -->
 		</div>
     </div> 
-    <!-- end centering inside left navbar  THIS IS NORMAL!!!--> 
+    <!-- extra div end centering inside left navbar  THIS IS NORMAL!!!--> 
     <div id="footer-placeholder"></div>
     <script>
         document.addEventListener('DOMContentLoaded', function () { window.scrollTo(0, 200) });

@@ -18,6 +18,7 @@
     <div id="centering">
 		<img id="head-image" alt="User Banner">
 		<script>
+            var port=5002;
 			$( document ).ready(function() {
 				$("#head-image").attr("src",{{.UserInfo.Banner}});
 			});
@@ -118,7 +119,7 @@
 											var Pikachu = {{.DOCID}}
 											$.ajax({
 												type: 'GET',  
-												url: 'http://ustart.today:5000/callme/',
+												url: 'http://ustart.today:'+port+'/callme/',
 												contentType: "application/json; charset=utf-8",
 												data: {userID:pageID, Following:followstatus,Pikachu:Pikachu},
 												success: function(data) {

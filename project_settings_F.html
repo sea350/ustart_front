@@ -305,16 +305,21 @@
 											<select id="role_select" class="form-control" name="newRank" style="margin: 0 auto; width:10em;"
 												onchange="changeMemberClass('{{$member.DocID}}','{{$projectid}}', $(this).prop('selectedIndex'))">
 												<option {{if not $member.Classification}} selected{{end}} hidden disabled>Select Role</option>
+												{{if le $member.Classification 0}}
 												<option {{if eq $member.Classification 0}}selected{{end}}>Creator</option>
+												{{else}}
 												<option {{if eq $member.Classification 1}}selected{{end}}>Moderator</option>
 												<option {{if eq $member.Classification 2}}selected{{end}}>Member</option>
+												{{end}}
 											</select>
+											{{if ge $member.Classification 1}}
 											<div class="middle">
 												<button type="button" onclick="removeMember('{{$member.DocID}}', '{{$projectid}}', this)">Remove</button>
-												<script>
-													$('img#img{{$member.Username}}').attr('src', {{$member.Image}});
-												</script>
 											</div>
+											{{end}}
+											<script>
+												$('img#img{{$member.Username}}').attr('src', {{$member.Image}});
+											</script>
 										</div>
 									</div>
 									{{end}}

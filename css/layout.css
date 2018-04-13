@@ -12,10 +12,11 @@
     color: #F44336
 }
 body {
-    margin-top: 0.5em;
-    line-height: 1.5;
-    font-family: 'Roboto', sans-serif;
     background-color: #e8e8e8;
+}
+#centering {
+    position: relative;
+    top: 3.5em;
 }
 .navbar-nav.navbar-right:last-child {
     margin-right: -15px!important
@@ -71,6 +72,28 @@ body {
 .navbar .dropdown-menu > li > a {
     padding: 0.5em 2em;
 }
+
+#searchFilters input[type="radio"] {
+	display: none;
+}
+#searchFilters input[type="radio"]+label {
+	padding-top: 0.5em;
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-bottom: 0.5em;
+	margin-top: 0.5em;
+	margin-left: 0.5em;
+	border: solid 1px hsl(0, 0%, 80%);
+	border-radius: 0.5em;
+}
+#searchFilters input[type="radio"]+label:hover {
+	background-color: hsl(0, 0%, 70%);
+}
+#searchFilters input[type="radio"]:checked+label {
+	color: white;
+	background-color: black;
+}
+
 .padded {
     width: 25em;
     max-height: calc(100vh - 4em);
@@ -464,11 +487,6 @@ input {
 #email,
 #pass {
     border-radius: 0 4px 4px 0!important
-}
-#centering {
-    position: relative;
-    top: 3em;
-    width: 100%
 }
 #theLogIn .btn-success {
     color: #ECEFF1;
