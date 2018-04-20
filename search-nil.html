@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>ustart</title>
+    <title>UStart Search</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/normalize.min.css"/>
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/search.css" />
@@ -23,62 +23,68 @@
 						<div class="panel panel-default">
 							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-category">Category</h4>
 							<div id="filter-category" class="panel-collapse collapse in">
-								<ul>
-									<li>
-										<input type="checkbox" name="category" value=""> Design </li>
-									<li>
-										<input type="checkbox" name="category" value=""> Entertainment </li>
-									<li>
-										<input type="checkbox" name="category" value=""> Finance </li>
-									<li>
-										<input type="checkbox" name="category" value=""> Graphics </li>
-									<li>
-										<input type="checkbox" name="category" value=""> Music </li>
-									<li>
-										<input type="checkbox" name="category" value=""> Technology </li>
-									<li>
-										<input type="checkbox" name="category" value=""> Environment </li>
-									<li>
-										<input type="checkbox" name="category" value=""> Nonprofit </li>
-									<li>
-										<input type="checkbox" name="category" value=""> Technology </li>
-									<li>
-										<input type="checkbox" name="category" value=""> Food </li>
-									<li>
-										<input type="checkbox" name="category" value=""> Engineering </li>
-									<li>
-										<input type="checkbox" name="category" value=""> Software </li>
-									<li>
-										<input type="checkbox" name="category" value=""> Travel </li>
-									<li>
-										<input type="checkbox" name="category" value=""> Nonprofit </li>
-									<li>
-										<input type="checkbox" name="category" value=""> Technology </li>
+								<input type="text" name="category" placeholder="Category" list="categorydata"/>
+								<datalist id="categorydata">
+									<select name="category" placeholder="Category" multiple>
+										<option value="Design">Design</option>
+										<option value="Entertainment">Entertainment</option>
+										<option value="Finance">Finance</option>
+										<option value="Graphics">Graphics</option>
+										<option value="Music">Music</option>
+										<option value="Technology">Technology</option>
+										<option value="Environment">Environment</option>
+										<option value="Nonprofit">Nonprofit</option>
+										<option value="Food">Food</option>
+										<option value="Engineering">Engineering</option>
+										<option value="Software">Software</option>
+										<option value="Travel">Travel</option>
+									</select>
+								</datalist>
+								
+								<ul style="padding-left:0">
+									<li><input type="checkbox" name="category" value="Design"> Design </li>
+									<li><input type="checkbox" name="category" value="Entertainment"> Entertainment </li>
+									<li><input type="checkbox" name="category" value="Finance"> Finance </li>
+									<li><input type="checkbox" name="category" value="Graphics"> Graphics </li>
+									<li><input type="checkbox" name="category" value="Music"> Music </li>
+									<li><input type="checkbox" name="category" value="Technology"> Technology </li>
+									<li><input type="checkbox" name="category" value="Environment"> Environment </li>
+									<li><input type="checkbox" name="category" value="Nonprofit"> Nonprofit </li>
+									<li><input type="checkbox" name="category" value="Food"> Food </li>
+									<li><input type="checkbox" name="category" value="Engineering"> Engineering </li>
+									<li><input type="checkbox" name="category" value="Software"> Software </li>
+									<li><input type="checkbox" name="category" value="Travel"> Travel </li>
 								</ul>
 							</div>
 						</div>
 						<div class="panel panel-default">
 							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-major">Major</h4>
 							<div id="filter-major" class="panel-collapse collapse in">
-								<select>
-									<option value="">Accounting</option>
-									<option value=""></option>
-									<option value=""></option>
-									<option value=""></option>
-								</select>
+								<input type="text" name="major" placeholder="Major" list="majordata"/>
+								<datalist id="majordata">
+									<select name="major" placeholder="Major">
+										<option value="Computer Science">Computer Science</option>
+										<option value="Music">Music</option>
+										<option value="Psychology">Psychology</option>
+										<option value="Animation">Animation</option>
+									</select>
+								</datalist>
 							</div>
 						</div>
 						<div class="panel panel-default">
 							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-location">Location</h4>
 							<div id="filter-location" class="panel-collapse collapse in">
-								<input type="text" name="city" placeholder="City" autocomplete="off">
-								<input type="text" name="state" placeholder="State" autocomplete="off">
-								<select>
-									<option value="">United States</option>
-									<option value=""></option>
-									<option value=""></option>
-									<option value=""></option>
-								</select>
+								<input type="text" name="city" placeholder="City" autocomplete="off"/>
+								<input type="text" name="state" placeholder="State" autocomplete="off"/>
+								<input type="text" name="country" placeholder="Country" list="countrydata"/>
+								<datalist id="countrydata">
+									<select name="country" placeholder="Country">
+										<option value="United States">United States</option>
+										<option value="Canada">Canada</option>
+										<option value="France">France</option>
+										<option value="Japan">Japan</option>
+									</select>
+								</datalist>
 							</div>
                         </div>
 						<div class="panel panel-default">
@@ -126,6 +132,7 @@
 				<i id="searchTerm"></i>
 				<h4>Please try searching for someone else.</h4>
 				<script>
+					// Restate the search query
 					var searchQuery = location.search;
 					searchQuery = searchQuery.replace(/(\?query=)|(&.*)/g, "");
 					$("#searchTerm").text(decodeURIComponent(searchQuery));

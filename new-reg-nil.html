@@ -4,20 +4,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>ustart</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="/ustart_front/bower_components/moment/min/moment.min.js"></script>
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-    <script type="text/javascript" src="/ustart_front/js/zxcvbn.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="/ustart_front/js/layout.js"></script>
-    <script src="/ustart_front/js/majors.js"></script>
-    <script src="/ustart_front/js/countries.js"></script>
-    <script src="/ustart_front/js/reg-check.js"></script>
+    <title>UStart Registration</title>
     <link rel="stylesheet" href="/ustart_front/css/register.css">
+    <script type="text/javascript" src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <script type="text/javascript" src="/ustart_front/bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src='https://www.google.com/recaptcha/api.js'></script>
+    <script type="text/javascript" src="/ustart_front/js/zxcvbn.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/layout.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/majors.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/countries.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/reg-check.js"></script>
     <!-- <link rel="stylesheet" href="/ustart_front/resources/demos/style.css"> -->
 </head>
 
@@ -209,19 +205,15 @@
                             </select>
                         </div>
                         <div class="dropdown col-sm-6">
-                            <input type='date' placeholder="Date of Birth (MM/DD/YYYY)" class="form-control" id='datetimepicker4' name="dob" / required >
+                            <input type="text" placeholder="Date of Birth (YYYY-MM-DD)" class="form-control" id="datetimepicker4" name="dob" required />
                         </div>
                         <script type="text/javascript">
-                        $(function() {
-
-                            $('#datetimepicker4').datepicker({
-                                format: 'YYYY-MM-DD',
-                                changeYear: true,
-                                yearRange: "-100:+0"
-                            });
-
-
-                        });
+							$('#datetimepicker4').datepicker({
+								format: 'YYYY-MM-DD',
+								changeMonth: true,
+								changeYear: true,
+								yearRange: "-120:-10"
+							});
                         </script>
                     </div>
                     <br>
@@ -236,9 +228,12 @@
                     </div>
                     <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit" name="send" id="finished" disabled>Continue</button>
                     <script>
-                    function recaptchaCallback() {
-                        $('#finished').removeAttr('disabled');
-                    }
+						function recaptchaCallback() {
+							$('#finished').removeAttr('disabled');
+						}
+						$("#form1").submit(function() {
+							
+						});
                     </script>
                     <br>
                     <br>

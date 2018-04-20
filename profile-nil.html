@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>ustart</title>
+    <title>UStart Profile - {{.UserInfo.FirstName}} {{.UserInfo.LastName}}</title>
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/profile.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/modal-links.css">
@@ -24,6 +24,7 @@
     <script src="/ustart_front/js/jquery.rss.min.js"></script>
     <script src="/ustart_front/js/profile-nil.js"></script>
     <script src="/ustart_front/js/widgets.js"></script>
+    <script src="/ustart_front/js/widget-projectDisplay.js" defer></script>
     <script src="/ustart_front/js/widget-calendar.js"></script>
     <script src="/ustart_front/js/widget-gallery.js"></script>
     <script src="/ustart_front/js/notify.min.js"></script>
@@ -95,6 +96,14 @@
     <input type="hidden" id="pageiden" value='{{.Page}}'>
     <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
 	<div id="centering">
+		{{ if .ErrorOutput }}
+		<div id="dup-email-alert" class="alert alert-danger alert-dismissible fade in" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
+		</div>
+		{{end}}
 		<img id="head-image" alt="User Banner">
 		<script>
 			$( document ).ready(function() {
@@ -447,7 +456,7 @@
 				<script>
 					var editMode = true;
 					$('#floating-widget-editor .btn').click(function() {
-						$('#widget-insert, .widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort').toggle();
+						$('#widget-insert, .widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort, [data-project-visible="false"]').toggle();
 						if (editMode) {
 							// Change to View Mode
 							$('#widget-status').text('View Mode');
@@ -461,7 +470,7 @@
 				{{else}}
 				<script>
 					$(document).ready(function() {
-						$('#widget-insert, .widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort').remove();
+						$('#widget-insert, .widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort, [data-project-visible="false"]').remove();
 					});
 				</script>
 				{{end}}
@@ -487,126 +496,122 @@
 											<button id="addTextWidget" class="btn btn-default projectsColumn">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/text.png" />
-													<div class="columnTitle">
-														Text
-													</div>
+													<div class="columnTitle">Text</div>
 												</div>
 											</button>
 											<button id="calendarWidgetBtn" class="btn btn-default projectsColumn">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/calendar.png" />
-													<div class="columnTitle">
-														Calendar
-													</div>
+													<div class="columnTitle">Calendar</div>
 												</div>
 											</button>
 											<button id="PollWidgetBtn" class="btn btn-default projectsColumn" style="display:none">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/poll.png" />
-													<div class="columnTitle">
-														Poll
-													</div>
+													<div class="columnTitle">Poll</div>
 												</div>
 											</button>
 											<button id="igWidgetBtn" class="btn btn-default projectsColumn">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/instagram.png" />
-													<div class="columnTitle">
-														Instagram
-													</div>
+													<div class="columnTitle">Instagram</div>
 												</div>
 											</button>
 											<button id="scWidgetBtn" class="btn btn-default projectsColumn">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/soundcloud.png" />
-													<div class="columnTitle">
-														SoundCloud
-													</div>
+													<div class="columnTitle">SoundCloud</div>
 												</div>
 											</button>
 											<button id="ytWidgetBtn" class="btn btn-default projectsColumn">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/youtube-1.png" />
-													<div class="columnTitle">
-														YouTube
-													</div>
+													<div class="columnTitle">YouTube</div>
 												</div>
 											</button>
 											<button id="addCodePenWidget" class="btn btn-default projectsColumn">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/codepen.png" />
-													<div class="columnTitle">
-														CodePen
-													</div>
+													<div class="columnTitle">CodePen</div>
 												</div>
 											</button>
 											<button id="addPinterestWidget" class="btn btn-default projectsColumn">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/pinterest.png" />
-													<div class="columnTitle">
-														Pinterest
-													</div>
+													<div class="columnTitle">Pinterest</div>
 												</div>
 											</button>
 											<button id="addTumblrWidget" class="btn btn-default projectsColumn">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/twitter-2.png" />
-													<div class="columnTitle">
-														Tumblr
-													</div>
+													<div class="columnTitle">Tumblr</div>
 												</div>
 											</button>
 											<button id="addSpotifyWidget" class="btn btn-default projectsColumn">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/spotify.png" />
-													<div class="columnTitle">
-														Spotify
-													</div>
+													<div class="columnTitle">Spotify</div>
 												</div>
 											</button>
 											<button id="arWidgetBtn" class="btn btn-default projectsColumn">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/anchor.png" />
-													<div class="columnTitle">
-														Anchor
-													</div>
+													<div class="columnTitle">Anchor</div>
 												</div>
 											</button>
 											<button id="mediumWidgetBtn" class="btn btn-default projectsColumn">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/medium.png" />
-													<div class="columnTitle">
-														Medium
-													</div>
+													<div class="columnTitle">Medium</div>
 												</div>
 											</button>
 											<button id="daWidgetBtn" class="btn btn-default projectsColumn">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/deviantart.png" />
-													<div class="columnTitle">
-														DeviantArt
-													</div>
+													<div class="columnTitle">DeviantArt</div>
 												</div>
 											</button>
 											<button id="twitchWidgetBtn" class="btn btn-default projectsColumn">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/twitch.png" />
-													<div class="columnTitle">
-														Twitch
-													</div>
+													<div class="columnTitle">Twitch</div>
 												</div>
 											</button>
 											<button id="addGithubWidget" class="btn btn-default projectsColumn" style="display:none">
 												<div class="columnImage">
 													<img src="/ustart_front/img/png/github.png" />
-													<div class="columnTitle">
-														Github
-													</div>
+													<div class="columnTitle">Github</div>
 												</div>
 											</button>
 										</div>
 									</div>
 								</li>
+							<!-- project widget -->
+							<li class="ui-state-default widgetListItem">
+								<div class="projectsWidgetCont">
+									<div class="widgetTitle">
+										{{if eq ($.Page) ($.DOCID)}}
+										<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#projectDisplayModal"></span>
+										{{end}}
+										<h4>Project Display</h4>
+									</div>
+									<div class="widgetBody">
+									{{range $project := .ListOfHeads}}
+										<div class="btn btn-default projectsColumn" data-project="{{$project.DocID}}" data-project-visible="{{$project.Followed}}">
+											<div class="columnImage">
+												<a href="/Projects/{{$project.Username}}">
+													<img id="proj-preview{{$project.DocID}}" class="img-responsive" src=""/>
+												</a>
+												<script>
+													$("#proj-preview{{$project.DocID}}").attr('src', {{$project.Image}});
+												</script>
+												<div class="columnTitle">{{$project.FirstName}}</div>
+											</div>
+										</div>
+									{{end}}
+									</div>
+								</div>
+							</li> <!--end project widget -->
                             
                             <!-- skill widget-->
 							<li class="ui-state-default widgetListItem">
@@ -1408,6 +1413,36 @@
                         </div>
                     </div>
                 </div>
+                <!-- Project Display Modal -->
+                <div class="modal fade" id="projectDisplayModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Project Display</h4>
+                            </div>
+                            <div class="modal-body">
+								{{range $project := .ListOfHeads}}
+								<button class="btn btn-default projectsColumn" data-project="{{$project.DocID}}" data-project-visible="{{$project.Followed}}">
+									<div class="columnImage">
+										<img id="proj-pmodal{{$project.DocID}}" class="img-responsive" src=""/>
+										<script>
+											$("#proj-pmodal{{$project.DocID}}").attr('src', {{$project.Image}});
+										</script>
+										<div class="columnTitle">{{$project.FirstName}}</div>
+									</div>
+								</button>
+								{{else}}
+								No Projects: <a href="/CreateProjectPage/">Create a Project here</a>
+								{{end}}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-info" data-dismiss="modal">Done</button>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
                 <!-- Tag Modal -->
                 <div class="modal fade" id="tagModal" role="dialog">
                     <div class="modal-dialog">
@@ -1673,7 +1708,7 @@
 								</div>
 								
 								<div class="modal-footer">
-									<div class=numLinks>
+									<div class="numLinks">
 										<span id="linkCountIndicator"></span>
 									</div>
 									<button type="submit" id="link-submit-btn" class="btn btn-info btn-done">Done</button>
