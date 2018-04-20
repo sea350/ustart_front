@@ -10,105 +10,117 @@
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/search.css" />
     <script src="/ustart_front/js/bootstrap-confirmation.min.js"></script>
     <script src="/ustart_front/js/ascii-convert.js"></script>
-    <script src="/ustart_front/js/search.js"></script>
+    <script src="/ustart_front/js/search.js" defer></script>
 </head>
 
 <body>
     <div id="centering">
         <div id="content" class="container">
             <div id="search-filter">
-				<h3 style="text-align: center;"> Filters</h3>
-                <div class="extra">
-                    <div id="filOptions" class="panel-group">
+				<form action="/search">
+					<h3 style="text-align: center;">Search Filters</h3>
+					<div class="panel-group">
 						<div class="panel panel-default">
-							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-category">Category</h4>
-							<div id="filter-category" class="panel-collapse collapse in">
-								<input type="text" name="category" placeholder="Category" list="categorydata"/>
-								<datalist id="categorydata">
-									<select name="category" placeholder="Category" multiple>
-										<option value="Design">Design</option>
-										<option value="Entertainment">Entertainment</option>
-										<option value="Finance">Finance</option>
-										<option value="Graphics">Graphics</option>
-										<option value="Music">Music</option>
-										<option value="Technology">Technology</option>
-										<option value="Environment">Environment</option>
-										<option value="Nonprofit">Nonprofit</option>
-										<option value="Food">Food</option>
-										<option value="Engineering">Engineering</option>
-										<option value="Software">Software</option>
-										<option value="Travel">Travel</option>
-									</select>
-								</datalist>
+							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-type">Search Type</h4>
+							<div id="filter-type" class="panel-collapse collapse in">
+								<input type="radio" id="searchFilterTypeAll" name="searchFilterType" value="all" checked/>
+								<label for="searchFilterTypeAll">All</label>
+								<input type="radio" id="searchFilterTypeUsers" name="searchFilterType" value="users"/>
+								<label for="searchFilterTypeUsers">Users</label>
+								<input type="radio" id="searchFilterTypeProjects" name="searchFilterType" value="projects"/>
+								<label for="searchFilterTypeProjects">Projects</label>
+								<input type="radio" id="searchFilterTypeSkills" name="searchFilterType" value="skills"/>
+								<label for="searchFilterTypeSkills">Skills</label>
+							</div>
+						</div>
+					</div>
+					<div id="filOptions" class="panel-group">
+						<div class="panel panel-default">
+							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-sort">Sort by</h4>
+							<div id="filter-sort" class="panel-collapse collapse in">
+								<input type="radio" id="sortbyrelevance" name="sortbyfilter" value="relevance" checked/>
+								<label for="sortbyrelevance">Relevance</label>
+								<br/>
+								<input type="radio" id="sortbypopularity" name="sortbyfilter" value="popularity"/>
+								<label for="sortbypopularity">Popularity</label>
+								<br/>
+								<input type="radio" id="sortbynewest" name="sortbyfilter" value="newest"/>
+								<label for="sortbynewest">Newest</label>
+							</div>
+						</div>
+					</div>
+					<div class="panel-group">
+						<div class="panel panel-default">
+							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-adv-search">Search by</h4>
+							<div id="filter-adv-search" class="panel-collapse collapse in">
+								<input type="checkbox" id="searchbypersonname" name="searchbyfilter" value="name" checked/>
+								<label for="searchbypersonname">Personal Name</label>
+								<br/>
+								<input type="checkbox" id="searchbyusername" name="searchbyfilter" value="username" checked/>
+								<label for="searchbyusername">Username</label>
+								<br/>
+								<input type="checkbox" id="searchbyprojectname" name="searchbyfilter" value="projectname" checked/>
+								<label for="searchbyprojectname">Project Name</label>
+								<br/>
+								<input type="checkbox" id="searchbyurl" name="searchbyfilter" value="URL"/>
+								<label for="searchbyurl">URL</label>
+								<br/>
+								<input type="checkbox" id="searchbyskills" name="searchbyfilter" value="skills"/>
+								<label for="searchbyskills">Skills</label>
+								<br/>
+								<input type="checkbox" id="searchbymembersneeded" name="searchbyfilter" value="membersNeeded"/>
+								<label for="searchbymembersneeded">Members Needed</label>
+							</div>
+						</div>
+					</div>
+					<div class="panel-group">
+						<div class="panel panel-default">
+							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-required">Must Have</h4>
+							<div id="filter-required" class="panel-collapse collapse in">
+								<select name="searchmajors" class="form-control">
+									<option hidden disabled>Search Majors</option>
+									<option>Computer Science</option>
+									<option>Computer Engineering</option>
+								</select>
+								<div id="majorSearches"></div>
+								<hr/>
 								
-								<ul style="padding-left:0">
-									<li><input type="checkbox" name="category" value="Design"> Design </li>
-									<li><input type="checkbox" name="category" value="Entertainment"> Entertainment </li>
-									<li><input type="checkbox" name="category" value="Finance"> Finance </li>
-									<li><input type="checkbox" name="category" value="Graphics"> Graphics </li>
-									<li><input type="checkbox" name="category" value="Music"> Music </li>
-									<li><input type="checkbox" name="category" value="Technology"> Technology </li>
-									<li><input type="checkbox" name="category" value="Environment"> Environment </li>
-									<li><input type="checkbox" name="category" value="Nonprofit"> Nonprofit </li>
-									<li><input type="checkbox" name="category" value="Food"> Food </li>
-									<li><input type="checkbox" name="category" value="Engineering"> Engineering </li>
-									<li><input type="checkbox" name="category" value="Software"> Software </li>
-									<li><input type="checkbox" name="category" value="Travel"> Travel </li>
-								</ul>
-							</div>
-						</div>
-						<div class="panel panel-default">
-							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-major">Major</h4>
-							<div id="filter-major" class="panel-collapse collapse in">
-								<input type="text" name="major" placeholder="Major" list="majordata"/>
-								<datalist id="majordata">
-									<select name="major" placeholder="Major">
-										<option value="Computer Science">Computer Science</option>
-										<option value="Music">Music</option>
-										<option value="Psychology">Psychology</option>
-										<option value="Animation">Animation</option>
+								<input class="form-control" name="searchmusthaveskills" list="dataSkills" placeholder="Skills">
+								<datalist id="dataSkills">
+									<select name="searchmusthaveskills" class="form-control">
+										<option hidden disabled>Skills</option>
+										<option value="C++">C++</option>
+										<option value="Java">Java</option>
+										<option value="HTML">HTML</option>
 									</select>
 								</datalist>
+								<div id="skillSearches"></div>
 							</div>
-						</div>
-						<div class="panel panel-default">
+							
 							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-location">Location</h4>
 							<div id="filter-location" class="panel-collapse collapse in">
-								<input type="text" name="city" placeholder="City" autocomplete="off"/>
-								<input type="text" name="state" placeholder="State" autocomplete="off"/>
-								<input type="text" name="country" placeholder="Country" list="countrydata"/>
-								<datalist id="countrydata">
-									<select name="country" placeholder="Country">
-										<option value="United States">United States</option>
-										<option value="Canada">Canada</option>
-										<option value="France">France</option>
-										<option value="Japan">Japan</option>
-									</select>
-								</datalist>
+								<div id="SearchLocationFilterOptions">
+									<input class="form-control" type="text" id="searchbylocationcountry" name="searchbylocationcountry" list="dataCountries" placeholder="Country"/>
+									<datalist id="dataCountries">
+										<select class="form-control" name="usersearchlocationcountry">
+											<option value="United States">United States</option>
+											<option value="Japan">Japan</option>
+										</select>
+									</datalist>
+									<br/>
+									<input class="form-control" type="text" id="usersearchlocationstate" name="usersearchlocationstate" list="dataStates" placeholder="State"/>
+									<datalist id="dataStates">
+										<select class="form-control" name="usersearchlocationstate">
+											<option value="NY">NY</option>
+											<option value="CA">CA</option>
+										</select>
+									</datalist>
+								</div>
 							</div>
-                        </div>
-						<div class="panel panel-default">
-							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-skills">Skills</h4>
-							<div id="filter-skills" class="panel-collapse collapse in">
-								<input type="text" placeholder="Keywords, Tags, Interests">
-							</div>
-                        </div>
-						<div class="panel panel-default">
-							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-order">Order</h4>
-							<div id="filter-order" class="panel-collapse collapse in">
-								<ul>
-									<li>
-										<input type="radio" name="sortOrder" value="relevance" checked> Most Relevant </li>
-									<li>
-										<input type="radio" name="sortOrder" value="popular"> Most Popular</li>
-									<li>
-										<input type="radio" name="sortOrder" value="newest"> Newest</li>
-								</ul>
-							</div>
-                        </div>
-                    </div>
-                </div>
-				<button id="filApply" type="button">Apply</button>
+						</div>
+					</div>
+					<button id="filApply" type="submit">Apply</button>
+				</form>
 				<div class="clearfit"></div>
 			</div>
             <div id="search-results-container">
