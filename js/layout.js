@@ -235,6 +235,12 @@ $(document).ready(function () {
 			presentLogError();
 		}
 	});
+	
+	$("form#searchFilterForm").submit(function() {
+		$(this).append("<input type='hidden' name='searchbypersonname' value='true'/>");
+		$(this).append("<input type='hidden' name='searchbyusername' value='true'/>");
+		$(this).append("<input type='hidden' name='searchbyprojectname' value='true'/>");
+	});
 })
 
 function passCheck() {

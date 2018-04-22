@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>ustart</title>
+    <title>UStart Profile - {{.UserInfo.FirstName}} {{.UserInfo.LastName}}</title>
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/profile.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/modal-links.css">
@@ -24,6 +24,7 @@
     <script src="/ustart_front/js/jquery.rss.min.js"></script>
     <script src="/ustart_front/js/profile-nil.js"></script>
     <script src="/ustart_front/js/widgets.js"></script>
+    <script src="/ustart_front/js/widget-projectDisplay.js" defer></script>	   
     <script src="/ustart_front/js/widget-calendar.js"></script>
     <script src="/ustart_front/js/widget-gallery.js"></script>
     <script src="/ustart_front/js/notify.min.js"></script>
@@ -33,7 +34,7 @@
    <!-- <script src="ustart_front/js/widget-text.js"></script>-->
     <script>
         window.___gcfg = { "parsetags": "explicit" };
-        var port=5002;
+        var port = location.port;
         var flag = 1;
         $(function () {
            /* $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
@@ -97,6 +98,14 @@
     <input type="hidden" id="pageiden" value='{{.Page}}'>
     <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
 	<div id="centering">
+		{{ if .ErrorOutput }}
+		<div id="dup-email-alert" class="alert alert-danger alert-dismissible fade in" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
+		</div>
+		{{end}}
 		<img id="head-image" alt="User Banner">
 		<script>
             var IDArray = [];
@@ -137,14 +146,18 @@
 								</div>
 							</div>
 							<div id="breif-info" style="text-align: left; padding: 1em 1em 0 1em;">
+								{{ if .UserInfo.Location.Country }}
 								<div id="location-cont" style="color:#00C085">
 									<i class="fa fa-map-marker" aria-hidden="true" style="color:#00C085;"></i> Location
 									<p id="location" style="color:black">{{.UserInfo.Location.City}}, {{.UserInfo.Location.State}}, {{.UserInfo.Location.Country}}</p>
 								</div>
+								{{ end }}
+								{{ if .UserInfo.University }}
 								<div id="edu-link" style="color:#00C085;">
 									<i class="fa fa-graduation-cap" aria-hidden="true" style="color:#00C085;"></i> Education
 									<p style="color:black">{{.UserInfo.University}}</p>
 								</div>
+								{{ end }}
 							</div>
 						</div>
 						<hr>
@@ -258,9 +271,6 @@
 							</div>
 							{{end}}
 						</div>
-					</div>
-					<div>
-						<!-- Prevent overlapping elements for bigger screens -->
 					</div>
 					<div class="dashboard-right">
 						<div id="suggestedUser">
@@ -385,7 +395,7 @@
 				<script>
 					var editMode = true;
 					$('#floating-widget-editor .btn').click(function() {
-						$('#widget-insert, .widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort').toggle();
+						$('#widget-insert, .widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort, [data-project-visible="false"]').toggle();
 						if (editMode) {
 							// Change to View Mode
 							$('#widget-status').text('View Mode');
@@ -399,7 +409,7 @@
 				{{else}}
 				<script>
 					$(document).ready(function() {
-						$('#widget-insert, .widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort').remove();
+						$('#widget-insert, .widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort, [data-project-visible="false"]').remove();
 					});
 				</script>
 				{{end}}
@@ -417,134 +427,156 @@
                     <div id="prof-about" class="tab-pane fade in active">
                         <ul id="sortable">
                             <li id="widget-insert" class="ui-state-default">
-									<div class="projectsWidgetCont">
-										<div class="widgetTitle">
-											<h4>Insert new widget</h4>
-										</div>
-										<div class="widgetBody">
-											<button id="addTextWidget" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/text.png" />
-													<div class="columnTitle">
-														Text
-													</div>
-												</div>
-											</button>
-											<button id="calendarWidgetBtn" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/calendar.png" />
-													<div class="columnTitle">
-														Calendar
-													</div>
-												</div>
-											</button>
-											<button id="PollWidgetBtn" class="btn btn-default projectsColumn" style="display:none">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/poll.png" />
-													<div class="columnTitle">
-														Poll
-													</div>
-												</div>
-											</button>
-											<button id="igWidgetBtn" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/instagram.png" />
-													<div class="columnTitle">
-														Instagram
-													</div>
-												</div>
-											</button>
-											<button id="scWidgetBtn" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/soundcloud.png" />
-													<div class="columnTitle">
-														SoundCloud
-													</div>
-												</div>
-											</button>
-											<button id="ytWidgetBtn" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/youtube-1.png" />
-													<div class="columnTitle">
-														YouTube
-													</div>
-												</div>
-											</button>
-											<button id="addCodePenWidget" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/codepen.png" />
-													<div class="columnTitle">
-														CodePen
-													</div>
-												</div>
-											</button>
-											<button id="addPinterestWidget" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/pinterest.png" />
-													<div class="columnTitle">
-														Pinterest
-													</div>
-												</div>
-											</button>
-											<button id="addTumblrWidget" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/twitter-2.png" />
-													<div class="columnTitle">
-														Tumblr
-													</div>
-												</div>
-											</button>
-											<button id="addSpotifyWidget" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/spotify.png" />
-													<div class="columnTitle">
-														Spotify
-													</div>
-												</div>
-											</button>
-											<button id="arWidgetBtn" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/anchor.png" />
-													<div class="columnTitle">
-														Anchor
-													</div>
-												</div>
-											</button>
-											<button id="mediumWidgetBtn" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/medium.png" />
-													<div class="columnTitle">
-														Medium
-													</div>
-												</div>
-											</button>
-											<button id="daWidgetBtn" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/deviantart.png" />
-													<div class="columnTitle">
-														DeviantArt
-													</div>
-												</div>
-											</button>
-											<button id="twitchWidgetBtn" class="btn btn-default projectsColumn">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/twitch.png" />
-													<div class="columnTitle">
-														Twitch
-													</div>
-												</div>
-											</button>
-											<button id="addGithubWidget" class="btn btn-default projectsColumn" style="display:none">
-												<div class="columnImage">
-													<img src="/ustart_front/img/png/github.png" />
-													<div class="columnTitle">
-														Github
-													</div>
-												</div>
-											</button>
-										</div>
+								<div class="projectsWidgetCont">
+									<div class="widgetTitle">
+										<h4>Insert new widget</h4>
 									</div>
-								</li>
+									<div class="widgetBody">
+										<button id="addTextWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/text.png" />
+												<div class="columnTitle">Text</div>
+				  
+				   
+											</div>
+										</button>
+										<button id="calendarWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/calendar.png" />
+												<div class="columnTitle">Calendar</div>
+					  
+				   
+											</div>
+										</button>
+										<button id="PollWidgetBtn" class="btn btn-default projectsColumn" style="display:none">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/poll.png" />
+												<div class="columnTitle">Poll</div>
+				  
+				   
+											</div>
+										</button>
+										<button id="igWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/instagram.png" />
+												<div class="columnTitle">Instagram</div>
+					   
+				   
+											</div>
+										</button>
+										<button id="scWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/soundcloud.png" />
+												<div class="columnTitle">SoundCloud</div>
+						
+				   
+											</div>
+										</button>
+										<button id="ytWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/youtube-1.png" />
+												<div class="columnTitle">YouTube</div>
+					 
+				   
+											</div>
+										</button>
+										<button id="addCodePenWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/codepen.png" />
+												<div class="columnTitle">CodePen</div>
+					 
+				   
+											</div>
+										</button>
+										<button id="addPinterestWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/pinterest.png" />
+												<div class="columnTitle">Pinterest</div>
+					   
+				   
+											</div>
+										</button>
+										<button id="addTumblrWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/twitter-2.png" />
+												<div class="columnTitle">Tumblr</div>
+					
+				   
+											</div>
+										</button>
+										<button id="addSpotifyWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/spotify.png" />
+												<div class="columnTitle">Spotify</div>
+					 
+				   
+											</div>
+										</button>
+										<button id="arWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/anchor.png" />
+												<div class="columnTitle">Anchor</div>
+					
+				   
+											</div>
+										</button>
+										<button id="mediumWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/medium.png" />
+												<div class="columnTitle">Medium</div>
+					
+				   
+											</div>
+										</button>
+										<button id="daWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/deviantart.png" />
+												<div class="columnTitle">DeviantArt</div>
+						
+				   
+											</div>
+										</button>
+										<button id="twitchWidgetBtn" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/twitch.png" />
+												<div class="columnTitle">Twitch</div>
+					
+				   
+											</div>
+										</button>
+										<button id="addGithubWidget" class="btn btn-default projectsColumn" style="display:none">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/github.png" />
+												<div class="columnTitle">Github</div>
+											</div>
+										</button>
+									</div>
+								</div>
+							</li>
+							<!-- project widget -->
+							<li class="ui-state-default widgetListItem">
+								<div class="projectsWidgetCont">
+									<div class="widgetTitle">
+										{{if eq ($.Page) ($.DOCID)}}
+										<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#projectDisplayModal"></span>
+										{{end}}
+										<h4>Project Display</h4>
+									</div>
+									<div class="widgetBody">
+									{{range $project := .ListOfHeads}}
+										<a class="btn btn-default projectsColumn" href="/Projects/{{$project.Username}}" data-project="{{$project.DocID}}" data-project-visible="{{$project.Followed}}">
+											<div class="columnImage">
+												<img id="proj-preview{{$project.DocID}}" class="img-responsive" src=""/>
+												<script>
+													$("#proj-preview{{$project.DocID}}").attr('src', {{$project.Image}});
+												</script>
+												<div class="columnTitle">{{$project.FirstName}}</div>
+											</div>
+										</a>
+									{{end}}
+									</div>
+								</div>
+							</li> <!--end project widget -->
                             
                             <!-- skill widget-->
 							<li class="ui-state-default widgetListItem">
@@ -605,14 +637,6 @@
                                             <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
                                                 <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                                 <span name="delete" id="delete{{index $loop.ID}}" class="pull-right fa fa-2x fa-trash delete-widget"></span>
-                                                <script>
-                                                    $( ".delete-widget" ).click(function( event ) {
-                                                        var target= event.target.id;
-                                                        $("#"+target+"delete").submit();
-                                                        $("#"+target).unbind( "click" );
-                                                        
-                                                    });
-                                                </script>
                                             </form>
                                         {{end}}
                                         <h4 id="text-title" name="textEditorHeader">
@@ -636,7 +660,7 @@
                                         <span class="pull-right fa fa-2x fa-pencil" id="ig-edit" onclick="instagramEditor(this)"></span>
                                         <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
                                              <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                            <span name="delete" id="delete{{index $loop.ID}}" class="pull-right fa fa-2x fa-trash"></span>
+                                            <span name="delete" id="delete{{index $loop.ID}}" class="pull-right fa fa-2x fa-trash delete-widget"></span>
                                         </form>
                                         {{end}}
                                         <h4>Instagram</h4>
@@ -660,7 +684,7 @@
                                         <span class="pull-right fa fa-2x fa-pencil" id="sc-edit" onclick="ApplyIDToModal('sc-modal', this)"></span>
                                         <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                            <span class="pull-right fa fa-2x fa-trash" id="delete{{index $loop.ID}}"></span>
+                                            <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
                                         </form>
                                         {{end}}
                                         <h4>Soundcloud</h4>
@@ -680,7 +704,7 @@
                                         <span class="pull-right fa fa-2x fa-pencil" id="yt-edit" onclick="ApplyIDToModal('youtubeModal', this)"></span>
                                         <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
                                          <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                         <span class="pull-right fa fa-2x fa-trash" id="delete{{index $loop.ID}}"></span>
+                                         <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
                                         </form>
                                         {{end}}
                                         <h4>Youtube</h4>
@@ -705,7 +729,7 @@
                                         <span class="pull-right fa fa-2x fa-pencil" id="code-edit" onclick="ApplyIDToModal('code-modal', this)"></span>
                                         <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
                                              <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                            <span class="pull-right fa fa-2x fa-trash" id="delete{{index $loop.ID}}"></span>
+                                            <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
                                         </form>
                                         {{end}}
                                         <h4 name="textEditorHeader">CodePen</h4>
@@ -725,7 +749,7 @@
                                         <span class="pull-right fa fa-2x fa-pencil" id="tumblr-edit"onclick="ApplyIDToModal('tumblr-modal', this)"></span>
                                         <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                            <span class="pull-right fa fa-2x fa-trash" id="delete{{index $loop.ID}}"></span>
+                                            <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
                                         </form>
                                         {{end}}
                                         <h4 name="textEditorHeader">Tumblr</h4>
@@ -749,7 +773,7 @@
 									<span class="pull-right fa fa-2x fa-pencil" id="pin-edit" onclick="pinterestEditor(this)"></span>
 									<form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
 										<input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-										<span class="pull-right fa fa-2x fa-trash" id="delete{{index $loop.ID}}"></span>
+										<span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
 									</form>
 									{{end}}
 									<h4 name="textEditorHeader">
@@ -777,7 +801,7 @@
 									<span class="pull-right fa fa-2x fa-pencil" id="spot-edit" onclick="spotifyEditor(this)"></span>
 									<form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
 										<input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-										<span class="pull-right fa fa-2x fa-trash" id="delete{{index $loop.ID}}"></span>
+										<span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
 									</form>
 									{{end}}
 									<h4 name="textEditorHeader">Spotify</h4>
@@ -799,7 +823,7 @@
                                     <span class="pull-right fa fa-2x fa-pencil" id="twitch-edit" onclick="ApplyIDToModal('twitch-modal', this)"></span>
                                     <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                        <span class="pull-right fa fa-2x fa-trash" id="delete{{index $loop.ID}}"></span>
+                                        <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
                                     </form>
                                     {{end}}
                                     <h4>Twitch</h4>
@@ -819,7 +843,7 @@
                                     <span class="pull-right fa fa-2x fa-pencil" id="ar-edit" onclick="anchorEditor(this)"></span>
                                     <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                        <span class="pull-right fa fa-2x fa-trash" id="delete{{index $loop.ID}}"></span>
+                                        <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
                                     </form>
                                     {{end}}
                                     <h4>Anchor</h4>
@@ -843,7 +867,7 @@
                                     <span class="pull-right fa fa-2x fa-pencil" id="med-edit" onclick="ApplyIDToModal('med-modal', this)"></span>
                                     <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                        <span class="pull-right fa fa-2x fa-trash" id="delete{{index $loop.ID}}"></span>
+                                        <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
                                     </form>
                                     {{end}}
                                     <h4>Medium</h4>
@@ -865,7 +889,7 @@
                                     <span class="pull-right fa fa-2x fa-pencil" id="da-edit"  onclick="ApplyIDToModal('da-modal', this)"></span>
                                     <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                        <span class="pull-right fa fa-2x fa-trash" id="delete{{index $loop.ID}}"></span>
+                                        <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
                                     </form>
                                     <h4>DeviantArt</h4>
                                     </div>
@@ -882,11 +906,20 @@
                             {{end}}<!--end deviant art-->
                         
 						{{end}}<!-- end for looper -->
-						</ul>
+						<script>
+							$( ".delete-widget" ).click(function( event ) {
+								var target= event.target.id;
+								console.log(target);
+								$("#"+target+"delete").submit();
+								$("#"+target).unbind( "click" );
+								
+							});
+						</script>
                     </div>
                     
                      <script>
-                        var userID = {{.DOCID}}
+                        var userID = {{.DOCID}};
+                        var pageID = {{.Page}};
                          //render posts
                         $('body').on("click", "#Wall-loadAJAX", function(e) {
                             $("#new-post-img").attr("src",{{.ImageCode}});
@@ -920,29 +953,41 @@
                                         type: 'GET',
                                         url: 'http://ustart.today:'+port+'/ajaxUserEntries/',
                                         contentType: "application/json; charset=utf-8",
-                                        data: {userID:userID},
+                                        data: {userID:pageID},
                                         success: function(data) {  
                                         },complete: function (jqXHR,status) {
                                              if(status == 'success' || status=='notmodified')
                                              {
                                                 var temp = $.parseJSON(jqXHR.responseText);
                                                 if (temp != null){
+                                                    console.log(temp);
                                                     $('#wall-dataF').empty();
                                                     $('#shareModals').empty();
                                                     $('#editModals').empty();
                                                     $('#deleteModals').empty();
                                                     $('#commentModals').empty();
                                                     //if post greater than 5
-                                                    if(temp.length >= 5){
+                                                    if(temp.length > 5){
                                                         for (i=temp.length - 1; i > temp.length-6; i--){
-                                                            makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares);
+                                                            if (userID == temp[i].Element.PosterID || userID == pageID ){
+                                                                makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares);
+                                                            }
+                                                            else{
+                                                                makeBasicPostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares);
+                                                            }
                                                             $('#wall-dataF').append('<hr>');
+                                                            
                                                         }
                                                     }
                                                     //if post less than 5 just render all
                                                     else{
                                                         for (i=temp.length-1; i >= 0; i--){
-                                                            makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares);
+                                                            if (userID == temp[i].Element.PosterID || userID == pageID ){
+                                                                makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares);
+                                                            }
+                                                            else{
+                                                                makeBasicPostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares);
+                                                            }
                                                             if (i != 0) {
                                                                 $('#wall-dataF').append('<hr>');
                                                             }
@@ -970,6 +1015,7 @@
                                              {
                                                 var temp = $.parseJSON(jqXHR.responseText); 
                                                 if (temp != null){
+                                                     console.log(temp);
                                                      $('#comments-list'+postID).empty();
                                                      for (i=temp.length-1; i >= 0; i--){
                                                             makeCommentApplications(postID, temp[i].Image, temp[i].FirstName, temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].NumReplies);
@@ -989,7 +1035,6 @@
                          //render comment of comments
                            $('body').on("click", ".view-replies", function(e) {
                                var postID =  e.currentTarget.getAttribute('myvalue');
-                               console.log(userID);
                                 $.ajax({
                                         type: 'GET',
                                         url: 'http://ustart.today:'+port+'/getComments/',
@@ -1023,33 +1068,41 @@
                           $('body').on("click", "#new-postSubmit", function(e) {
                                var content = $("#post-msg").val();
                                $('#new-postSubmit').prop('disabled', true);
-                                $.ajax({
-                                        type: 'GET',
-                                        url: 'http://ustart.today:'+port+'/addPost/',
-                                        contentType: "application/json; charset=utf-8",
-                                        data: {docID:userID, text:content},
-                                        success: function(data) {
-                                        },complete: function (jqXHR,status) {
-                                             if(status == 'success' || status=='notmodified')
-                                             {
-                                               var temp = $.parseJSON(jqXHR.responseText);
-                                               if (temp != null){
-                                                   makeNewPostApplications(temp[0].Image, temp[0].FirstName,temp[0].LastName,temp[0].Element.Content,temp[0].ElementID,temp[0].NumLikes, temp[0].NumReplies, temp[0].NumShares);
-                                               }
-                                               $("#post-msg").empty();
-                                               $('#new-postSubmit').prop('disabled', false);
-                                              }
-                                        },error: function(err) {
-                                            console.log('comment Load failed: ');
-                                            console.log(err);
-                                        }
-                                });
+                               if (content != ""){
+                                    $.ajax({
+                                            type: 'GET',
+                                            url: 'http://ustart.today:'+port+'/addPost/',
+                                            contentType: "application/json; charset=utf-8",
+                                            data: {docID:userID, text:content},
+                                            success: function(data) {
+                                            },complete: function (jqXHR,status) {
+                                                 if(status == 'success' || status=='notmodified')
+                                                 {
+                                                   var temp = $.parseJSON(jqXHR.responseText);
+                                                   if (temp != null){
+                                                        if ($(".wallPosts").length >= 1){
+                                                            $('#wall-dataF').prepend('<hr>');  
+                                                        }
+                                                        IDArray.push(temp[0].ElementID);
+                                                        makeNewPostApplications(temp[0].Image, temp[0].FirstName,temp[0].LastName,temp[0].Element.Content,temp[0].ElementID,temp[0].NumLikes, temp[0].NumReplies, temp[0].NumShares);
+                                                   }
+                                                   $("#post-msg").empty();
+                                                   $('#new-postSubmit').prop('disabled', false);
+    
+                                                  }
+                                            },error: function(err) {
+                                                console.log('comment Load failed: ');
+                                                console.log(err);
+                                            }
+                                    });
+                                   }
                           });
                          //submit new comment
                           $('body').on("click", ".new-comment-submit", function(e) {
                                var postID = e.currentTarget.id;
                                var content = $("#commentContent"+postID).val();
                                $(e.currentTarget).css("pointer-events", "none");
+                              if (content != ""){
                                 $.ajax({
                                         type: 'GET',
                                         url: 'http://ustart.today:'+port+'/AddComment2/',
@@ -1064,6 +1117,8 @@
                                                    makeNewCommentApplications(postID, temp[0].Image, temp[0].FirstName, temp[0].LastName, temp[0].Element.Content, temp[0].ElementID,temp[0].NumReplies);
                                                    $("#commentContent"+postID).val('');
                                                    $(e.currentTarget).css("pointer-events", "auto"); 
+                                                   var count = $(".standard-comment").length;
+                                                   $("#num-replies"+postID).text(count);
                                                }
                                              }
                                         },error: function(err) {
@@ -1072,6 +1127,7 @@
                                             
                                         }
                                 });
+                              }
                           });
                          
                          //submit comment of comment
@@ -1079,6 +1135,7 @@
                                var postID = e.currentTarget.id;
                                var content = $("#comment2Content"+postID).val();
                                $(e.currentTarget).css("pointer-events", "none");
+                               if (content != ""){
                                 $.ajax({
                                         type: 'GET',
                                         url: 'http://ustart.today:'+port+'/AddComment2/',
@@ -1095,7 +1152,8 @@
                                                      var updated = repliesNum+1;
                                                      $('#replies'+postID).data('replycount', updated);
                                                      $("#comment2Content"+postID).val('');
-                                                     $("#openReplies"+postID).css('visibility', 'visible');
+                                                     $("#openReplies"+postID).css({ 'display': 'block'});
+                                                     $("#openReplies"+postID).show();
                                                      $("#openReplies"+postID).text("View "+updated+" Replies");
                                                  }
                                                  else{
@@ -1114,12 +1172,14 @@
                                             
                                         }
                                 });
+                               }
                           });
                          
                          $('body').on("click", ".deletePost", function(e) {
                               var temp = e.currentTarget.id;
                               var postID = temp.replace("delete-btn",'');
                               $(e.currentTarget).prop('disabled', true);
+                              var x = document.getElementsByClassName("wallPosts");
                               $.ajax({
                                         type: 'GET',
                                         url: 'http://ustart.today:'+port+'/deletePost/',
@@ -1129,10 +1189,27 @@
                                         },complete: function (jqXHR,status) {
                                              if(status == 'success' || status=='notmodified')
                                              {
-                                               $("#Post"+postID).next("hr").remove();
+                                               for (i=0; i < x.length; i++){
+                                                   if (x[i].id.substring(4) == postID){
+                                                       if (i==0){
+                                                            $("#Post"+postID).next("hr").remove();
+                                                       }
+                                                       else if (i==x.length-1){
+                                                           $("#Post"+postID).prev("hr").remove();
+                                                       }
+                                                       else{
+                                                            $("#Post"+postID).next("hr").remove();
+                                                       }
+                                                   }
+                                               }
+                                               $("#delete-modal"+postID).modal('toggle'); 
+                                               for (i=0; i<IDArray.length; i++){
+                                                   if (postID == IDArray[i]){
+                                                       IDArray.splice(i, 1);
+                                                   }
+                                               }
                                                $("#Post"+postID).remove();
                                                $(e.currentTarget).prop('disabled', false);
-                                               $("#delete-modal"+postID).modal('toggle'); 
                                              }
                                         },error: function(err) {
                                             console.log('comment Load failed: ');
@@ -1156,9 +1233,60 @@
                                         },complete: function (jqXHR,status) {
                                              if(status == 'success' || status=='notmodified')
                                              {
-                                               $("#msg"+postID).val(content);
-                                               $(e.currentTarget).prop('disabled', false);
-                                               $("#edit-modal"+postID).modal('toggle'); 
+                                               var temp = $.parseJSON(jqXHR.responseText);
+                                                  if (temp != null){
+                                                        $("#post-msg"+postID).text(content);
+                                                        $(e.currentTarget).prop('disabled', false);
+                                                        $("#edit-modal"+postID).modal('toggle'); 
+                                                  }
+                                             }
+                                        },error: function(err) {
+                                            console.log('comment Load failed: ');
+                                            console.log(err);
+                                            
+                                        }
+                                });
+                         });
+                         
+                         $('body').on("click", ".remove-comment", function(e) {
+                              var temp = e.currentTarget.id;
+                              var postID = temp.replace("removeComment",'');
+                              $.ajax({
+                                        type: 'GET',
+                                        url: 'http://ustart.today:'+port+'/deletePost/',
+                                        contentType: "application/json; charset=utf-8",
+                                        data: {postid:postID},
+                                        success: function(data) {
+                                        },complete: function (jqXHR,status) {
+                                             if(status == 'success' || status=='notmodified')
+                                             {
+                                               var temp = $.parseJSON(jqXHR.responseText);
+                                                  if (temp != null){
+                                                        $("#comment-media"+postID).remove();
+                                                        var newcount = $(".standard-comment").length;
+                                                        $("#num-replies"+temp).text(newcount);
+                                                  }
+                                             }
+                                        },error: function(err) {
+                                            console.log('comment Load failed: ');
+                                            console.log(err);
+                                        }
+                                });
+                         });
+                         
+                         $('body').on("click", ".remove-comment-o-comment", function(e) {
+                              var temp = e.currentTarget.id;
+                              var postID = temp.replace("removecomment2",'');
+                              $.ajax({
+                                        type: 'GET',
+                                        url: 'http://ustart.today:'+port+'/deletePost/',
+                                        contentType: "application/json; charset=utf-8",
+                                        data: {postid:postID},
+                                        success: function(data) {
+                                        },complete: function (jqXHR,status) {
+                                             if(status == 'success' || status=='notmodified')
+                                             {
+                                                 $("#commentOComment-media"+postID).remove();
                                              }
                                         },error: function(err) {
                                             console.log('comment Load failed: ');
@@ -1264,6 +1392,7 @@
                                 <div id= "shareModals" role="dialog"> </div>
                                 <div id= "deleteModals" role="dialog"> </div>
                                 <div id= "editModals" role="dialog"> </div>
+                                 {{if eq ($.Page) ($.DOCID)}}
                                 <!-- new post panel-->
                                 <div class="panel panel-default">
                                     <div class="panel-body">
@@ -1285,6 +1414,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                 {{end}}
                                 <!-- end new post -->
                             <div id="wallNewPost"></div>
                             <div class = "panel panel-default" id="wall-dataF"></div>
@@ -1436,6 +1566,37 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Display Modal -->
+                <div class="modal fade" id="projectDisplayModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Project Display</h4>
+                            </div>
+                            <div class="modal-body">
+								<h3>Click on a project to set its visibility:</h3>
+								{{range $project := .ListOfHeads}}
+								<button class="btn btn-default projectsColumn" data-project="{{$project.DocID}}" data-project-visible="{{$project.Followed}}">
+									<div class="columnImage">
+										<img id="proj-pmodal{{$project.DocID}}" class="img-responsive" src=""/>
+										<script>
+											$("#proj-pmodal{{$project.DocID}}").attr('src', {{$project.Image}});
+										</script>
+										<div class="columnTitle">{{$project.FirstName}}</div>
+									</div>
+								</button>
+								{{else}}
+								No Projects: <a href="/CreateProjectPage/">Create a Project here</a>
+								{{end}}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-info" data-dismiss="modal">Done</button>
+                            </div>  
                         </div>
                     </div>
                 </div>

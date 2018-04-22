@@ -43,7 +43,6 @@
 }
 
 .search-result-description {
-    font-size: 0.9em;
     max-height: 6em;
     overflow: hidden;
 }

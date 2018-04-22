@@ -61,7 +61,7 @@
 				<div class="input-group" id="search-box">
                     <input class="form-control" type="search" name="query" placeholder="Search" form="searchFilterForm">
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="submit" form="searchFilterForm" style="height: 2.4em">
+						<button id="searchFilterFormSubmit" class="btn btn-default" type="submit" form="searchFilterForm" style="height: 2.4em">
 							<i class="fa fa-search"></i>
 						</button>
 					</span>
@@ -102,13 +102,11 @@
 				<form id="searchFilterForm" action="/search" style="margin-bottom: 0">
 					<div style="display:inline-block">Filters:</div>
 					<div style="display:inline-block">
-						<input type="radio" id="searchFilterGroupAll" name="searchFilterGroup" value="all" checked/>
-						<label for="searchFilterGroupAll">All</label>
 						<input type="radio" id="searchFilterGroupUsers" name="searchFilterGroup" value="users"/>
 						<label for="searchFilterGroupUsers">Users</label>
 						<input type="radio" id="searchFilterGroupProjects" name="searchFilterGroup" value="projects"/>
 						<label for="searchFilterGroupProjects">Projects</label>
-						<input type="radio" id="searchFilterGroupSkills" name="searchFilterGroup" value="skills"/>
+						<input type="radio" id="searchFilterGroupSkills" name="searchFilterGroup" value="skills" checked/>
 						<label for="searchFilterGroupSkills">Skills</label>
 					</div>
 				</form>

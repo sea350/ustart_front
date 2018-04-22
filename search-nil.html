@@ -17,20 +17,18 @@
     <div id="centering">
         <div id="content" class="container">
             <div id="search-filter">
-				<form action="/search">
+				<form id="search-filters" action="/search">
 					<h3 style="text-align: center;">Search Filters</h3>
 					<div class="panel-group">
 						<div class="panel panel-default">
 							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-type">Search Type</h4>
 							<div id="filter-type" class="panel-collapse collapse in">
-								<input type="radio" id="searchFilterTypeAll" name="searchFilterType" value="all" checked/>
-								<label for="searchFilterTypeAll">All</label>
-								<input type="radio" id="searchFilterTypeUsers" name="searchFilterType" value="users"/>
-								<label for="searchFilterTypeUsers">Users</label>
-								<input type="radio" id="searchFilterTypeProjects" name="searchFilterType" value="projects"/>
-								<label for="searchFilterTypeProjects">Projects</label>
-								<input type="radio" id="searchFilterTypeSkills" name="searchFilterType" value="skills"/>
-								<label for="searchFilterTypeSkills">Skills</label>
+								<input type="radio" id="searchFilterGroupUsers" name="searchFilterGroup" value="users"/>
+								<label for="searchFilterGroupUsers">Users</label>
+								<input type="radio" id="searchFilterGroupProjects" name="searchFilterGroup" value="projects"/>
+								<label for="searchFilterGroupProjects">Projects</label>
+								<input type="radio" id="searchFilterGroupSkills" name="searchFilterGroup" value="skills"/>
+								<label for="searchFilterGroupSkills">Skills</label>
 							</div>
 						</div>
 					</div>
@@ -53,23 +51,30 @@
 						<div class="panel panel-default">
 							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-adv-search">Search by</h4>
 							<div id="filter-adv-search" class="panel-collapse collapse in">
-								<input type="checkbox" id="searchbypersonname" name="searchbyfilter" value="name" checked/>
-								<label for="searchbypersonname">Personal Name</label>
-								<br/>
-								<input type="checkbox" id="searchbyusername" name="searchbyfilter" value="username" checked/>
-								<label for="searchbyusername">Username</label>
-								<br/>
-								<input type="checkbox" id="searchbyprojectname" name="searchbyfilter" value="projectname" checked/>
-								<label for="searchbyprojectname">Project Name</label>
-								<br/>
-								<input type="checkbox" id="searchbyurl" name="searchbyfilter" value="URL"/>
-								<label for="searchbyurl">URL</label>
-								<br/>
-								<input type="checkbox" id="searchbyskills" name="searchbyfilter" value="skills"/>
-								<label for="searchbyskills">Skills</label>
-								<br/>
-								<input type="checkbox" id="searchbymembersneeded" name="searchbyfilter" value="membersNeeded"/>
-								<label for="searchbymembersneeded">Members Needed</label>
+								<div>
+									<input type="checkbox" id="searchbypersonname" name="searchbypersonname" value="true" checked/>
+									<label for="searchbypersonname">Personal Name</label>
+								</div>
+								<div>
+									<input type="checkbox" id="searchbyusername" name="searchbyusername" value="true" checked/>
+									<label for="searchbyusername">Username</label>
+								</div>
+								<div>
+									<input type="checkbox" id="searchbyprojectname" name="searchbyprojectname" value="true" checked/>
+									<label for="searchbyprojectname">Project Name</label>
+								</div>
+								<div>
+									<input type="checkbox" id="searchbyurl" name="searchbyurl" value="true"/>
+									<label for="searchbyurl">URL</label>
+								</div>
+								<div>
+									<input type="checkbox" id="searchbyskills" name="searchbyskills" value="true"/>
+									<label for="searchbyskills">Skills/Tags</label>
+								</div>
+								<div>
+									<input type="checkbox" id="searchbymembersneeded" name="searchbymembersneeded" value="true"/>
+									<label for="searchbymembersneeded">Members Needed</label>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -77,18 +82,28 @@
 						<div class="panel panel-default">
 							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-required">Must Have</h4>
 							<div id="filter-required" class="panel-collapse collapse in">
-								<select name="searchmajors" class="form-control">
-									<option hidden disabled>Search Majors</option>
-									<option>Computer Science</option>
-									<option>Computer Engineering</option>
+								<select name="searchmusthavemajors" class="form-control">
+									<option selected disabled>Add Majors/Categories</option>
+									<optgroup label="Majors">
+										<option>Computer Science</option>
+										<option>Computer Engineering</option>
+									</optgroup>
+									<optgroup label="Categories">
+										<option>Art</option>
+										<option>Comics</option>
+										<option>Crafts</option>
+										<option>Dance</option>
+										<option>Design</option>
+										<option>Fashion</option>										<option>Film & Video</option>										<option>Food</option>										<option>Games</option>										<option>Journalism</option>										<option>Music</option>										<option>Photography</option>										<option>Publishing</option>										<option>Technology</option>										<option>Theater</option>
+									</optgroup>
 								</select>
 								<div id="majorSearches"></div>
 								<hr/>
 								
-								<input class="form-control" name="searchmusthaveskills" list="dataSkills" placeholder="Skills">
+								<input class="form-control" name="searchmusthaveskills" list="dataSkills" placeholder="Add Skills">
 								<datalist id="dataSkills">
 									<select name="searchmusthaveskills" class="form-control">
-										<option hidden disabled>Skills</option>
+										<option selected hidden disabled>Add Skills</option>
 										<option value="C++">C++</option>
 										<option value="Java">Java</option>
 										<option value="HTML">HTML</option>
@@ -98,7 +113,7 @@
 							</div>
 							
 							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-location">Location</h4>
-							<div id="filter-location" class="panel-collapse collapse in">
+							<div id="filter-location" class="panel-collapse collapse">
 								<div id="SearchLocationFilterOptions">
 									<input class="form-control" type="text" id="searchbylocationcountry" name="searchbylocationcountry" list="dataCountries" placeholder="Country"/>
 									<datalist id="dataCountries">
@@ -126,16 +141,30 @@
             <div id="search-results-container">
 				{{range $searchResult := .ListOfHeads}}
                 <div class="search-result">
-                    <a class="search-result-pic-link" href="{{$searchResult.Username}}"><img class="search-result-pic"/></a>
+					{{ if $searchResult.LastName }}
+						<a class="search-result-pic-link" href="/profile/{{$searchResult.Username}}"><img class="search-result-pic"/></a>
+					{{else}}
+						<a class="search-result-pic-link" href="/Projects/{{$searchResult.Username}}"><img class="search-result-pic"/></a>
+					{{ end }}
 					<script>
 						$('.search-result-pic').last().attr('src', {{$searchResult.Image}});
 					</script>
                     <div class="search-result-text">
-                        <div class="search-result-title">{{$searchResult.FirstName}}</div>
+                        <div class="search-result-title">
+							{{ if $searchResult.LastName }}
+								<a class="search-result-pic-link" href="/profile/{{$searchResult.Username}}">{{$searchResult.FirstName}} {{$searchResult.LastName}}</a>
+							{{else}}
+								<a class="search-result-pic-link" href="/Projects/{{$searchResult.Username}}">{{$searchResult.FirstName}}</a>
+							{{ end }}
+						</div>
                         <div class="search-result-description">
+							{{ if $searchResult.Bio }}
 							<script>
-								readRuneArray({{$searchResult.Bio}});
+								defineRuneArray({{$searchResult.Bio}});
 							</script>
+							{{ else }}
+							<i>No Description</i>
+							{{ end }}
 						</div>
                     </div>
                 </div>
@@ -143,12 +172,6 @@
 				<h3>No searches found for:</h3>
 				<i id="searchTerm"></i>
 				<h4>Please try searching for someone else.</h4>
-				<script>
-					// Restate the search query
-					var searchQuery = location.search;
-					searchQuery = searchQuery.replace(/(\?query=)|(&.*)/g, "");
-					$("#searchTerm").text(decodeURIComponent(searchQuery));
-				</script>
 				{{end}}
             </div>
         </div>
