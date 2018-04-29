@@ -1,4 +1,44 @@
+function timeSince(date) {
+  var d = new Date(date);
+  var seconds = Math.floor((new Date() - d) / 1000);
 
+  var interval = Math.floor(seconds / 31536000);
+  if (interval > 1) {
+    return interval + " years ago";
+  }
+  if (interval > 0) {
+    return interval + " year ago";
+  }
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+    return interval + " months ago";
+  }
+  if (interval > 0) {
+    return interval + " month ago";
+  }
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+    return interval + " days ago";
+  }
+  if (interval > 0) {
+    return interval + " day ago";
+  }
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+    return interval + " hours ago";
+  }
+  if (interval > 0) {
+    return interval + " hour ago";
+  }
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+    return interval + " minutes ago";
+  }
+  if (interval > 0) {
+    return interval + " minute ago";
+  }
+  return Math.floor(seconds) + " seconds ago";
+}
 
  /*$(document).ready(function() {
    // follow button initial state

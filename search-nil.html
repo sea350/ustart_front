@@ -18,7 +18,7 @@
         <div id="content" class="container">
             <div id="search-filter">
 				<form id="search-filters" action="/search">
-					<h3 style="text-align: center;">Search Filters</h3>
+					<h3 style="text-align: center;">Search Filters<span id="search-filter-hider">Show</span></h3>
 					<div class="panel-group">
 						<div class="panel panel-default">
 							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-type">Search Type</h4>
@@ -80,13 +80,19 @@
 					</div>
 					<div class="panel-group">
 						<div class="panel panel-default">
-							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-required">Must Have</h4>
+							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-required">Requirements</h4>
 							<div id="filter-required" class="panel-collapse collapse in">
 								<select name="searchmusthavemajors" class="form-control">
-									<option selected disabled>Add Majors/Categories</option>
+									<option hidden selected disabled>Add Majors/Categories</option>
 									<optgroup label="Majors">
-										<option>Computer Science</option>
+										<option>Agriculture</option>
+										<option>Architecture</option>
+										<option>Biology</option>
+										<option>Chemistry</option>
 										<option>Computer Engineering</option>
+										<option>Computer Science</option>
+										<option>Psychology</option>
+										<option>Philosophy</option>
 									</optgroup>
 									<optgroup label="Categories">
 										<option>Art</option>
@@ -112,7 +118,7 @@
 								<div id="skillSearches"></div>
 							</div>
 							
-							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-location">Location</h4>
+							<h4 class="panel-heading panel-title" style="display:none" data-toggle="collapse" href="#filter-location">Location</h4>
 							<div id="filter-location" class="panel-collapse collapse">
 								<div id="SearchLocationFilterOptions">
 									<input class="form-control" type="text" id="searchbylocationcountry" name="searchbylocationcountry" list="dataCountries" placeholder="Country"/>
@@ -160,11 +166,18 @@
                         <div class="search-result-description">
 							{{ if $searchResult.Bio }}
 							<script>
-								defineRuneArray({{$searchResult.Bio}});
+								readRuneArray({{$searchResult.Bio}});
 							</script>
 							{{ else }}
 							<i>No Description</i>
 							{{ end }}
+						</div>
+						<div class="search-result-tags">
+							{{range $i, $tag := $searchResult.Interface}}
+								{{if lt $i 6}}
+									<span class="search-result-tag">{{$tag}}</span>
+								{{end}}
+							{{end}}
 						</div>
                     </div>
                 </div>

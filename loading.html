@@ -17,38 +17,43 @@
 			}
 			
 			@keyframes jumpLetter {
-				0% {bottom: 0em;}
-				30% {bottom: 3em;}
-				100% {bottom: 0em;}
+				0% { bottom: 0em; font-size: 100%; }
+				50% { bottom: 2em; font-size: 300%; }
+				100% { bottom: 0em; font-size: 100%; }
 			}
 			
-			.jumpU, .jumpS, .jumpT1, .jumpA, .jumpR, .jumpT2 {
+			.jumpU, .jumpS, .jumpDot, .jumpT1, .jumpA, .jumpR, .jumpT2 {
 				position: relative;
 				animation-name: jumpLetter;
 				animation-duration: 3s;
 				animation-iteration-count: infinite;
+				animation-timing-function: ease;
 			}
 			
-			.jumpS { animation-delay: 0.2s; }
-			.jumpT1 { animation-delay: 0.4s; }
-			.jumpA { animation-delay: 0.6s; }
-			.jumpR { animation-delay: 0.8s; }
-			.jumpT2 { animation-delay: 1.0s; }
+			.jumpDot { animation-delay: 0.2s; }
+			.jumpS { animation-delay: 0.4s; }
+			.jumpT1 { animation-delay: 0.6s; }
+			.jumpA { animation-delay: 0.8s; }
+			.jumpR { animation-delay: 1.0s; }
+			.jumpT2 { animation-delay: 1.2s; }
 		</style>
 		<script>
 			$(function () {
-				$(".loadScreen").fade('fast');
+				//$("#loadScreen").fadeOut('slow');
 			});
 		</script>
 	</head>
 	<body>
 		<div id="loadScreen" class="nojs">
-			<span class="jumpU">U</span>
-			<span class="jumpS">S</span>
-			<span class="jumpT1">T</span>
-			<span class="jumpA">A</span>
-			<span class="jumpR">R</span>
-			<span class="jumpT2">T</span>
+			<h2>
+				<span class="jumpU">U</span>
+				<span class="jumpDot">•</span>
+				<span class="jumpS">S</span>
+				<span class="jumpT1">T</span>
+				<span class="jumpA">A</span>
+				<span class="jumpR">R</span>
+				<span class="jumpT2">T</span>
+			</h2>
 		</div>
 		<script>
 			$(".nojs").removeClass("nojs");

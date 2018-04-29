@@ -43,6 +43,10 @@ function removeTag(tagElement) {
 }
 
 function createTagModalElement(tag) {
+	if (tag == "") {
+		$('#tag-submit, #tag-project-submit').click();
+	}
+	
 	var tagArray = tag.split(',');
 	tagArray.forEach(function(tag) {
 		if (tag != "" && taglist.length < 16 && $.inArray(tag.toUpperCase(), taglist) == -1) {
@@ -82,17 +86,15 @@ $(document).ready(function () {
 	});
 
 	$('#tagLineInput').keypress(function (e) {
-		if (e.which == 13) {
-			createTagModalElement($('#tagLineInput').val());
-		} else if (e.which == 44) {
+		if (e.which == 13 || e.which == 44) {
 			createTagModalElement($('#tagLineInput').val());
 			e.preventDefault();
 		}
-		
+	}).on('input', function(e) {
 		if ($('#tagLineInput').val().length > 0) {
-			$('#tag-submit').text('Add');
+			$('#tag-submit, #tag-project-submit').text('Add');
 		} else {
-			$('#tag-submit').text('Done');
+			$('#tag-submit, #tag-project-submit').text('Done');
 		}
 	});
 
@@ -138,7 +140,6 @@ $(document).ready(function () {
 		}
 		
         var skillList = [];
-
         $('#hashTags .columnTitle').each(function(index, element) {
             skillList.push($(element).text());
         });
@@ -150,6 +151,7 @@ $(document).ready(function () {
             success: function(data) {
                 $("#hashtags").html('');
                 $("#hashTagsBody").html('');
+				$('#tag-submit').text('Done');
                 $(skillList).each(function(index, element) {
                     var tag = element;
 					createTagWidgetElement(tag);
@@ -177,6 +179,7 @@ $(document).ready(function () {
             success: function(data) {
                 $("#hashtags").html('');
                 $("#hashTagsBody").html('');
+				$('#tag-project-submit').text('Done');
                 $(skillList).each(function(index, element) {
                     var tag = element;
 					createTagWidgetElement(tag);

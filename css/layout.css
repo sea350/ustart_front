@@ -176,6 +176,10 @@ div.navbar-filler {
     -o-transition: width 0.5s;
     transition: width 0.5s
 }
+div.navbar-filler-filter {
+	width: calc(8vw + 6em);
+}
+
 @media (max-width: 1199px) {
     div.navbar-filler {
         width: 2vw
@@ -192,9 +196,6 @@ div.navbar-filler {
     margin-left: 1em
 }
 @media (max-width: 768px) {
-    .navbar-header {
-        float: left
-    }
     .navbar {
         border-radius: 4px;
         min-width: 320px;
@@ -345,7 +346,9 @@ div.navbar-filler {
         margin-left: 0em!important;
         position: absolute
     }
-    #search-box {}
+    #search-box {
+		max-width: 12em;
+	}
 }
 @media (max-width: 768px) {
     #drop {

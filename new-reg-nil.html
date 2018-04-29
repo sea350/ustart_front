@@ -14,6 +14,7 @@
     <script type="text/javascript" src="/ustart_front/js/majors.js"></script>
     <script type="text/javascript" src="/ustart_front/js/countries.js"></script>
     <script type="text/javascript" src="/ustart_front/js/reg-check.js"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhZTi1vXGIO51vh3hR6y-RV3RFtVzSFks&libraries=places"></script>
     <!-- <link rel="stylesheet" href="/ustart_front/resources/demos/style.css"> -->
 </head>
 
@@ -32,7 +33,7 @@
                 </div>
 				{{end}}
                <form class="form-signup" id="form1" action="/welcome/" method="post">
-                    <!-- Name -->
+                    <!-- Name -->   
                     <div class="row">
                         <div class="dropdown col-sm-6">
                             <label for="fName" class="sr-only">First Name</label>
@@ -144,20 +145,26 @@
                         </div>
                     </div>
                     <!-- Country, State / City, Zip -->
+					<div class="row">
+						<div id="locationField" class="col-sm-12">
+							<label for="locationFieldAutocomplete" class="sr-only">Enter your Address</label>
+							<input id="locationFieldAutocomplete" class="form-control" placeholder="Enter your Address" onFocus="geolocate()" type="text"/>
+						</div>
+					</div>
                     <div class="row">
-                        <div class="dropdown col-sm-3">
+                        <div class="dropdown col-sm-4">
                             <select id="country" name="country" class="form-control" autocomplete="country-name"></select>
                         </div>
                         <div class="dropdown col-sm-3">
                             <select name="state" id="state" class="form-control" autocomplete="state"></select>
                         </div>
                         <script language="javascript">
-                        populateCountries("country", "state");
+							populateCountries("country", "state");
                         </script>
                         <div class="dropdown col-sm-3">
                             <input id="city" name="city" class="form-control" placeholder="City" autocomplete="city">
                         </div>
-                        <div class="dropdown col-sm-3">
+                        <div class="dropdown col-sm-2">
                             <input id="zip" name="zip" class="form-control" placeholder="Zip" autocomplete="postal-code">
                         </div>
                     </div>
@@ -205,15 +212,15 @@
                             </select>
                         </div>
                         <div class="dropdown col-sm-6">
-                            <input type="text" placeholder="Date of Birth (YYYY-MM-DD)" class="form-control" id="datetimepicker4" name="dob" required />
+                            <input id="birthday" type="date" placeholder="Date of Birth (YYYY-MM-DD)" class="form-control" name="dob" required />
                         </div>
                         <script type="text/javascript">
-							$('#datetimepicker4').datepicker({
+							/*$('#datetimepicker4').datepicker({
 								format: 'YYYY-MM-DD',
 								changeMonth: true,
 								changeYear: true,
 								yearRange: "-120:-10"
-							});
+							});*/
                         </script>
                     </div>
                     <br>

@@ -504,6 +504,7 @@ form#shareCommentForm .btn {
 	text-align: center;
 	border-radius: 0 0 8px 8px;
 	opacity: 0;
+	box-shadow: 0 0 20px 10px black;
 }
 
 .user-img-option a {

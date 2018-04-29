@@ -5,15 +5,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>UStart Create Project</title>
-
+    <link rel="stylesheet" href="/ustart_front/css/layout1.css">
+    <link rel="stylesheet" href="/ustart_front/css/register.css">
     <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <script type="text/javascript" src="/ustart_front/js/zxcvbn.js"></script>
-    <link rel="stylesheet" href="/ustart_front/css/layout1.css">
-    <link rel="stylesheet" href="/ustart_front/css/register.css">
-    <script src="/ustart_front/js/createProject.js"></script>
-    <script src="/ustart_front/js/universities.js"></script>
-    <script src="/ustart_front/js/categories.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/createProject.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/universities.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/categories.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/countries.js"></script>
 </head>
 <body>
     <div id="centering" style="top: 6em;">
@@ -29,25 +29,23 @@
 				{{end}}
                 <form class="form-signup" id="projectCreateForm" action="/CreateProjectPage/" method="post">
                     <h2 style="padding:0; text-align: center;">Create A Project</h2>
-                    <br>
                     <!-- Name -->
                     <div class="row">
-                        <div class="dropdown col-md-6"> 
+                        <div class="dropdown col-md-7"> 
                             <label for="fName" class="sr-only">Title of Project</label>
                             <input type="text" id="fName" name="project_title" class="form-control" placeholder="Title of Project" required autofocus>
                         </div>
-                        <div class="dropdown col-md-6">
+                        <div class="dropdown col-md-5">
                             <label for="category" class="sr-only">Category</label>
                             <select type="text" id="category" name="category" class="form-control" placeholder="Category" required>
                                 <option></option>
                             </select>
                         </div>
                     </div>
-                    <br>
                     <div class="row">
                         <div class="dropdown col-md-6">
                             <label for="curl" class="sr-only">Custom URL</label>
-                            <input type="text" id="curl" name="curl" class="form-control" placeholder="Custom URL">
+                            <input type="text" id="curl" name="curl" class="form-control" placeholder="Custom URL (ustart.today/example/)">
                         </div>
                         <div class="dropdown col-md-6">
                             <input name="universityName" class="form-control" id="uni" placeholder="University/College" required autofocus>
@@ -63,14 +61,30 @@
                             </script>
                         </div>
                     </div>
-                    <br>
+                    <div class="row">
+                        <div class="dropdown col-sm-4">
+                            <select id="country" name="country" class="form-control" autocomplete="country-name"></select>
+                        </div>
+                        <div class="dropdown col-sm-3">
+                            <select name="state" id="state" class="form-control" autocomplete="state"></select>
+                        </div>
+                        <script language="javascript">
+							populateCountries("country", "state");
+                        </script>
+                        <div class="dropdown col-sm-3">
+                            <input id="city" name="city" class="form-control" placeholder="City" autocomplete="city">
+                        </div>
+                        <div class="dropdown col-sm-2">
+                            <input id="zip" name="zip" class="form-control" placeholder="Zip" autocomplete="postal-code">
+                        </div>
+                    </div>
+					<br/>
                     <div class="row">
                         <div class="dropdown col-sm-12">
                             <label for="project_desc" class="sr-only">Project Description</label>
                             <textarea maxlength="1100" style="resize: none;" type="text" class="form-control" id="project_desc" name="project_desc" rows="4" placeholder="Please describe your project goal" required></textarea>
                         </div>
                     </div>
-                    <br>
                     <div class="row">
                             <div class="col-md-4">
                                 <button class="btn btn-danger btn-lg btn-block" id="back-button" onclick="window.history.back();"><i class="fa fa-angle-left" style="display: inline-block"></i> Back</button>

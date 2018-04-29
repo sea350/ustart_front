@@ -66,9 +66,9 @@ function loadInputs() {
 	$('#uName').val(sessionStorage.getItem('username'));
 	$('#inputEmail').val(sessionStorage.getItem('inputEmail'));
 	if (sessionStorage.getItem('country')) {
-		$('#country option').eq(sessionStorage.getItem('country')).prop('selected', true);
-		populateStates("country", "states");
-		$('#state').val(sessionStorage.getItem('state'));
+		//$('#country option').eq(sessionStorage.getItem('country')).prop('selected', true);
+		//populateStates("country", "states");
+		//$('#state').val(sessionStorage.getItem('state'));
 		//$('#state option').eq(sessionStorage.getItem('state')).prop('selected', true);
 	}
 	$('#city').val(sessionStorage.getItem('city'));
@@ -129,7 +129,7 @@ $(document).ready(function() {
         }
     });
 	
-	$('button#finished').click(function() {
+	$('#form1').submit(function() {
 		saveInputs();
 	});
 

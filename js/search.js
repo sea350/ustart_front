@@ -10,9 +10,28 @@ function GetQueryStringParams(sParam) {
             return sParameterName[1];
         }
     }
+	return "";
+}
+
+function createSearchOptionMajor(optionvalue) {
+	if (optionvalue === "") {
+		return;
+	}
+	
+	var majorInput = $("<input type='checkbox' name='searchmajor' value='" + optionvalue + "' checked/>").hide();
+	var majorRemovable = $("<div class='removable'><span>" + optionvalue + "</span></div>").append(majorInput);
+	var majorRemover = $("<button class='btn btn-xs btn-default'>x</button>").appendTo(majorRemovable).click(function() {
+		$(this).parent().remove();
+	});
+	
+	$("#majorSearches").append(majorRemovable);
 }
 
 function createSearchOptionSkill(optionvalue) {
+	if (optionvalue === "") {
+		return;
+	}
+	
 	var skillInput = $("<input type='checkbox' name='searchskill' value='" + optionvalue + "' checked/>").hide();
 	var skillRemovable = $("<div class='removable'><span>" + optionvalue + "</span></div>").append(skillInput);
 	var skillRemover = $("<button class='btn btn-xs btn-default'>x</button>").appendTo(skillRemovable).click(function() {
@@ -22,53 +41,72 @@ function createSearchOptionSkill(optionvalue) {
 	$("#skillSearches").append(skillRemovable);
 }
 
+function loadSearchFilters() {
+	$("input[name='sortbyfilter'][value='" + GetQueryStringParams("sortbyfilter") + "']").prop("checked", true);
+	
+	$("#searchbypersonname").prop('checked', GetQueryStringParams("searchbypersonname"));
+	$("#searchbyusername").prop('checked', GetQueryStringParams("searchbyusername"));
+	$("#searchbyprojectname").prop('checked', GetQueryStringParams("searchbyprojectname"));
+	$("#searchbyurl").prop('checked', GetQueryStringParams("searchbyurl"));
+	$("#searchbyskills").prop('checked', GetQueryStringParams("searchbyskills"));
+	$("#searchbymembersneeded").prop('checked', GetQueryStringParams("searchbymembersneeded"));
+	
+	var majorList = decodeURIComponent(GetQueryStringParams("searchlistmajors").replace('+', ' '));
+	majorList = majorList.substr(1, majorList.length - 2).split(",");
+	for (var i = 0; i < majorList.length; i++) {
+		createSearchOptionMajor(majorList[i].substr(1, majorList[i].length - 2));
+	}
+	
+	var skillList = decodeURIComponent(GetQueryStringParams("searchlistskills").replace('+', ' '));
+	skillList = skillList.substr(1, skillList.length - 2).split(",");
+	for (var i = 0; i < skillList.length; i++) {
+		createSearchOptionSkill(skillList[i].substr(1, skillList[i].length - 2));
+	}
+}
+
 $(function() {
+	var searchQuery = decodeURIComponent(GetQueryStringParams("query").replace('+', ' '));
+	
 	$("#searchFilters").remove();
-	$("#searchTerm").text(decodeURIComponent(GetQueryStringParams("query")));
+	$("#searchTerm").text(searchQuery);
 	$("input[name='query']").attr("form", "search-filters");
-	$("input[name='query']").val(decodeURIComponent(GetQueryStringParams("query")));
+	$("input[name='query']").val(searchQuery);
 	$("#searchFilterFormSubmit").attr("form", "search-filters");
 	
-	
-	$("#searchFilterGroupAll").change(function() {
-		if ($(this).prop("checked")) {
-			$("#searchbypersonname + label").parent().show();
-			$("#searchbyusername + label").parent().show();
-			$("#searchbyprojectname + label").parent().show();
-			$("#searchbyurl + label").parent().show();
-			$("#searchbyskills + label").text("Skills/Tags").parent().show();
-			$("#searchbymembersneeded + label").parent().show();
-		}
-	});
 	$("#searchFilterGroupUsers").change(function() {
 		if ($(this).prop("checked")) {
-			$("#searchbypersonname + label").parent().show();
-			$("#searchbyusername + label").parent().show();
-			$("#searchbyprojectname + label").parent().hide();
-			$("#searchbyurl + label").parent().hide();
-			$("#searchbyskills + label").text("Skills").parent().show();
-			$("#searchbymembersneeded + label").parent().hide();
+			$("#filter-adv-search").parents(".panel-group").show();
+			$("#searchbypersonname").prop("disabled", false).parent().show();
+			$("#searchbyusername").prop("disabled", false).parent().show();
+			$("#searchbyprojectname").prop("disabled", true).parent().hide();
+			$("#searchbyurl").prop("disabled", true).parent().hide();
+			$("#searchbyskills").prop("disabled", false).parent().show();
+			$("#searchbyskills + label").text("Skills");
+			$("#searchbymembersneeded").prop("disabled", true).parent().hide();
 		}
 	});
 	$("#searchFilterGroupProjects").change(function() {
 		if ($(this).prop("checked")) {
-			$("#searchbypersonname + label").parent().hide();
-			$("#searchbyusername + label").parent().hide();
-			$("#searchbyprojectname + label").parent().show();
-			$("#searchbyurl + label").parent().show();
-			$("#searchbyskills + label").text("Tags").parent().show();
-			$("#searchbymembersneeded + label").parent().show();
+			$("#filter-adv-search").parents(".panel-group").show();
+			$("#searchbypersonname").prop("disabled", true).parent().hide();
+			$("#searchbyusername").prop("disabled", true).parent().hide();
+			$("#searchbyprojectname").prop("disabled", false).parent().show();
+			$("#searchbyurl").prop("disabled", false).parent().show();
+			$("#searchbyskills").prop("disabled", false).parent().show();
+			$("#searchbyskills + label").text("Tags");
+			$("#searchbymembersneeded").prop("disabled", false).parent().show();
 			
 		}
 	});
 	$("#searchFilterGroupSkills").change(function() {
 		if ($(this).prop("checked")) {
-			$("#searchbypersonname + label").parent().hide();
-			$("#searchbyusername + label").parent().hide();
-			$("#searchbyprojectname + label").parent().hide();
-			$("#searchbyurl + label").parent().hide();
-			$("#searchbyskills + label").text("Tags").parent().hide();
-			$("#searchbymembersneeded + label").parent().hide();
+			$("#filter-adv-search").parents(".panel-group").hide();
+			$("#searchbypersonname").prop("disabled", true).parent().hide();
+			$("#searchbyusername").prop("disabled", true).parent().hide();
+			$("#searchbyprojectname").prop("disabled", true).parent().hide();
+			$("#searchbyurl").prop("disabled", true).parent().hide();
+			$("#searchbyskills").prop("disabled", true).parent().hide();
+			$("#searchbymembersneeded").prop("disabled", true).parent().hide();
 		}
 	});
 	
@@ -79,11 +117,8 @@ $(function() {
 		case "projects":
 			$("#searchFilterGroupProjects").attr("checked", "checked").trigger("change");
 			break;
-		case "skills":
-			$("#searchFilterGroupSkills").attr("checked", "checked").trigger("change");
-			break;
 		default:
-			$("#searchFilterGroupAll").attr("checked", "checked").trigger("change");
+			$("#searchFilterGroupSkills").attr("checked", "checked").trigger("change");
 			break;
 	}
 	
@@ -94,13 +129,7 @@ $(function() {
 		if ($("input[name='searchmajor']").filter(function() {
 			return $(this).val().toLowerCase() === optionvalue.toLowerCase();
 		}).length === 0) {
-			var majorInput = $("<input type='checkbox' name='searchmajor' value='" + optionvalue + "' checked/>").hide();
-			var majorRemovable = $("<div class='removable'><span>" + optionvalue + "</span></div>").append(majorInput);
-			var majorRemover = $("<button class='btn btn-xs btn-default'>x</button>").appendTo(majorRemovable).click(function() {
-				$(this).parent().remove();
-			});
-			
-			$("#majorSearches").append(majorRemovable);
+			createSearchOptionMajor(optionvalue);
 			
 			$(this).prop('selectedIndex', 0);
 		}
@@ -152,6 +181,18 @@ $(function() {
 		skillInputs.val(skillInputs.val().slice(0, skillInputsStringLength - 1) + "]");
 		
 		$(this).append(majorInputs, skillInputs);
-		$("[name='searchmusthavemajors'], [name='searchmusthaveskills']").attr("disabled", "disabled");
+		$("[name='searchmusthavemajors'], [name='searchmusthaveskills']").prop("disabled", true);
+	});
+	
+	loadSearchFilters();
+	
+	$("#search-filter-hider").click(function() {
+		$(this).toggleClass("search-filter-shower");
+		$("#search-filter").toggleClass("search-filter-hided");
+		if($(".search-filter-shower").length) {
+			$(this).text("Hide");
+		} else {
+			$(this).text("Show");
+		}
 	});
 });

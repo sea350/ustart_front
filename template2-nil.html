@@ -98,19 +98,18 @@
             </ul>
         </div>
 		<div id="searchFilters" style="background-color: white; ">
-			<div class="container">
-				<form id="searchFilterForm" action="/search" style="margin-bottom: 0">
-					<div style="display:inline-block">Filters:</div>
-					<div style="display:inline-block">
-						<input type="radio" id="searchFilterGroupUsers" name="searchFilterGroup" value="users"/>
-						<label for="searchFilterGroupUsers">Users</label>
-						<input type="radio" id="searchFilterGroupProjects" name="searchFilterGroup" value="projects"/>
-						<label for="searchFilterGroupProjects">Projects</label>
-						<input type="radio" id="searchFilterGroupSkills" name="searchFilterGroup" value="skills" checked/>
-						<label for="searchFilterGroupSkills">Skills</label>
-					</div>
-				</form>
-			</div>
+            <div class="navbar-filler navbar-filler-filter navbar-left"></div>
+			<form id="searchFilterForm" action="/search" style="margin-bottom: 0">
+				<div style="display:inline-block">Filters:</div>
+				<div style="display:inline-block">
+					<input type="radio" id="searchFilterGroupUsers" name="searchFilterGroup" value="users"/>
+					<label for="searchFilterGroupUsers">Users</label>
+					<input type="radio" id="searchFilterGroupProjects" name="searchFilterGroup" value="projects"/>
+					<label for="searchFilterGroupProjects">Projects</label>
+					<input type="radio" id="searchFilterGroupSkills" name="searchFilterGroup" value="skills" checked/>
+					<label for="searchFilterGroupSkills">Skills</label>
+				</div>
+			</form>
 		</div>
 		<script>
 			$('#searchFilters').hide();

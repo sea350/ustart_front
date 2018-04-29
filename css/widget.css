@@ -253,7 +253,7 @@ span.ui-icon {
 	flex-grow: 1;
 }
 
-[data-project-visible="false"] {
+[data-project-visible="false"] .columnImage img {
 	opacity: 0.5;
 	filter: alpha(opacity=50); /* For IE8 and earlier */
 }

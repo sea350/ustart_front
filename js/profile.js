@@ -528,29 +528,6 @@ $(document).ready(function () {
         createNextPostContent("https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D", "Ryan Rozbiani", $("#commentform input").val(), formatTime(new Date().getTime()), "Like", "Remove");
         $("#commentform input.form-control").val('');
     });
-
-    $('#floating-widget-editor .btn').click(function () {
-        var editWidgetButtonIcon = $('#floating-widget-editor .btn .fa');
-        var editIconClass = 'fa-pencil-square-o';
-        var viewIconClass = 'fa-eye';
-        $("#widget-insert").toggle();
-        $('#floating-widget-editor .btn .fa').toggleClass(editIconClass);
-        $('#floating-widget-editor .btn .fa').toggleClass(viewIconClass);
-        $('.widgetTitle span').toggle();
-        if (editable) {
-            $('#sortable').sortable("disable");
-        }
-        else {
-            $('#sortable').sortable("enable");
-        }
-        editable = !editable;
-        if (editWidgetButtonIcon.hasClass(editIconClass)) {
-            $('span#widget-status').text('Edit Mode');
-        }
-        if (editWidgetButtonIcon.hasClass(viewIconClass)) {
-            $('span#widget-status').text('View Mode');
-        }
-    });
 	
 	// Block user
 	var isBlocked = false;
