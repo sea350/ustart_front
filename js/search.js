@@ -41,6 +41,14 @@ function createSearchOptionSkill(optionvalue) {
 	$("#skillSearches").append(skillRemovable);
 }
 
+function fillSelectMajorOptions() {
+	var majorOptGroup = $("optgroup[label='Majors']");
+	
+	for (var i = 0; i < major.length; i++) {
+		majorOptGroup.append($("<option>" + major[i] + "</option>"));
+	}
+}
+
 function loadSearchFilters() {
 	$("input[name='sortbyfilter'][value='" + GetQueryStringParams("sortbyfilter") + "']").prop("checked", true);
 	
@@ -65,7 +73,7 @@ function loadSearchFilters() {
 }
 
 $(function() {
-	var searchQuery = decodeURIComponent(GetQueryStringParams("query").replace('+', ' '));
+	var searchQuery = decodeURIComponent(GetQueryStringParams("query").replace(/\+/g, ' '));
 	
 	$("#searchFilters").remove();
 	$("#searchTerm").text(searchQuery);
@@ -76,11 +84,11 @@ $(function() {
 	$("#searchFilterGroupUsers").change(function() {
 		if ($(this).prop("checked")) {
 			$("#filter-adv-search").parents(".panel-group").show();
-			$("#searchbypersonname").prop("disabled", false).parent().show();
-			$("#searchbyusername").prop("disabled", false).parent().show();
+			$("#searchbypersonname").prop("checked", true).prop("disabled", false).parent().show();
+			$("#searchbyusername").prop("checked", true).prop("disabled", false).parent().show();
 			$("#searchbyprojectname").prop("disabled", true).parent().hide();
 			$("#searchbyurl").prop("disabled", true).parent().hide();
-			$("#searchbyskills").prop("disabled", false).parent().show();
+			$("#searchbyskills").prop("checked", true).prop("disabled", false).parent().show();
 			$("#searchbyskills + label").text("Skills");
 			$("#searchbymembersneeded").prop("disabled", true).parent().hide();
 		}
@@ -90,9 +98,9 @@ $(function() {
 			$("#filter-adv-search").parents(".panel-group").show();
 			$("#searchbypersonname").prop("disabled", true).parent().hide();
 			$("#searchbyusername").prop("disabled", true).parent().hide();
-			$("#searchbyprojectname").prop("disabled", false).parent().show();
-			$("#searchbyurl").prop("disabled", false).parent().show();
-			$("#searchbyskills").prop("disabled", false).parent().show();
+			$("#searchbyprojectname").prop("checked", true).prop("disabled", false).parent().show();
+			$("#searchbyurl").prop("checked", false).prop("disabled", false).parent().show();
+			$("#searchbyskills").prop("checked", false).prop("disabled", false).parent().show();
 			$("#searchbyskills + label").text("Tags");
 			$("#searchbymembersneeded").prop("disabled", false).parent().show();
 			
@@ -122,6 +130,8 @@ $(function() {
 			break;
 	}
 	
+	fillSelectMajorOptions();
+	
 	$("[name='searchmusthavemajors']").change(function() {
 		var optionvalue = $(this).val();
 		
@@ -134,6 +144,22 @@ $(function() {
 			$(this).prop('selectedIndex', 0);
 		}
 	});
+	$("[name='searchmusthavemajors'] + span .btn").click(function() {
+		var selector = $("[name='searchmusthavemajors']");
+		var optionvalue = selector.val();
+		
+		if (optionvalue) {
+			// Disable duplicates
+			if ($("input[name='searchmajor']").filter(function() {
+				return $(this).val().toLowerCase() === optionvalue.toLowerCase();
+			}).length === 0) {
+				createSearchOptionMajor(optionvalue);
+				
+				selector.prop('selectedIndex', 0);
+			}
+		}
+	});
+	
 	
 	$("[name='searchmusthaveskills']").on('input', function() {
 		var optionvalue = $(this).val();
@@ -160,8 +186,28 @@ $(function() {
 			e.preventDefault();
 		}
 	});
+	$("[name='searchmusthaveskills'] + span .btn").click(function() {
+		var selector = $("[name='searchmusthaveskills']");
+		var optionvalue = selector.val();
+		
+		// Disable duplicates
+		if ($("select[name='searchmusthaveskills'] option").filter(function(){
+			return $(this).val().toLowerCase() === optionvalue.toLowerCase();
+		}).length && $("input[name='searchskill']").filter(function() {
+			return $(this).val().toLowerCase() === optionvalue.toLowerCase();
+		}).length === 0) {
+			createSearchOptionSkill(optionvalue);
+			
+			selector.val('');
+		}
+	});
 	
 	$("form#search-filters").submit(function() {
+		// Clear spaces
+		var searchQuery = $("input[name='query']").val();
+		searchQuery = searchQuery.replace(/[^A-Za-z0-9+-]+/g, ' ').trim();
+		$("input[name='query']").val(searchQuery);
+		
 		var majorInputs = $("<input type='hidden' name='searchlistmajors'/>");
 		var skillInputs = $("<input type='hidden' name='searchlistskills'/>");
 		

@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/search.css" />
     <script src="/ustart_front/js/bootstrap-confirmation.min.js"></script>
     <script src="/ustart_front/js/ascii-convert.js"></script>
+    <script src="/ustart_front/js/majors.js" defer></script>
     <script src="/ustart_front/js/search.js" defer></script>
 </head>
 
@@ -82,39 +83,42 @@
 						<div class="panel panel-default">
 							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-required">Requirements</h4>
 							<div id="filter-required" class="panel-collapse collapse in">
-								<select name="searchmusthavemajors" class="form-control">
-									<option hidden selected disabled>Add Majors/Categories</option>
-									<optgroup label="Majors">
-										<option>Agriculture</option>
-										<option>Architecture</option>
-										<option>Biology</option>
-										<option>Chemistry</option>
-										<option>Computer Engineering</option>
-										<option>Computer Science</option>
-										<option>Psychology</option>
-										<option>Philosophy</option>
-									</optgroup>
-									<optgroup label="Categories">
-										<option>Art</option>
-										<option>Comics</option>
-										<option>Crafts</option>
-										<option>Dance</option>
-										<option>Design</option>
-										<option>Fashion</option>										<option>Film & Video</option>										<option>Food</option>										<option>Games</option>										<option>Journalism</option>										<option>Music</option>										<option>Photography</option>										<option>Publishing</option>										<option>Technology</option>										<option>Theater</option>
-									</optgroup>
-								</select>
+								<label for="searchmusthavemajors">Add Categories/Majors</label>
+								<div class="input-group" role="group">
+									<select id="searchmusthavemajors" class="form-control" name="searchmusthavemajors">
+										<option hidden selected disabled>Add Categories/Majors</option>
+										<optgroup label="Categories">
+											<option>Art</option>
+											<option>Comics</option>
+											<option>Crafts</option>
+											<option>Dance</option>
+											<option>Design</option>
+											<option>Fashion</option>											<option>Film & Video</option>											<option>Food</option>											<option>Games</option>											<option>Journalism</option>											<option>Music</option>											<option>Photography</option>											<option>Publishing</option>											<option>Technology</option>											<option>Theater</option>
+										</optgroup>
+										<optgroup label="Majors"></optgroup>
+									</select>
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button">+</button>
+									</span>
+								</div>
 								<div id="majorSearches"></div>
 								<hr/>
 								
-								<input class="form-control" name="searchmusthaveskills" list="dataSkills" placeholder="Add Skills">
-								<datalist id="dataSkills">
-									<select name="searchmusthaveskills" class="form-control">
-										<option selected hidden disabled>Add Skills</option>
-										<option value="C++">C++</option>
-										<option value="Java">Java</option>
-										<option value="HTML">HTML</option>
-									</select>
-								</datalist>
+								<label for="searchmusthaveskills">Add Skills/Tags</label>
+								<div class="input-group" role="group">
+									<input id="searchmusthaveskills" class="form-control" name="searchmusthaveskills" list="dataSkills" placeholder="Add Skills">
+									<datalist id="dataSkills">
+										<select name="searchmusthaveskills" class="form-control">
+											<option selected hidden disabled>Add Skills</option>
+											<option value="C++">C++</option>
+											<option value="Java">Java</option>
+											<option value="HTML">HTML</option>
+										</select>
+									</datalist>
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button">+</button>
+									</span>
+								</div>
 								<div id="skillSearches"></div>
 							</div>
 							

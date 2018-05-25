@@ -69,6 +69,7 @@ function createTagModalElement(tag) {
 		}
 		updateTagsCounter();
 		$('#tagLineInput').val('');
+		$('#tag-submit, #tag-project-submit').text('Done');
 	});
 }
 
@@ -151,7 +152,6 @@ $(document).ready(function () {
             success: function(data) {
                 $("#hashtags").html('');
                 $("#hashTagsBody").html('');
-				$('#tag-submit').text('Done');
                 $(skillList).each(function(index, element) {
                     var tag = element;
 					createTagWidgetElement(tag);

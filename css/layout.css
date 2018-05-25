@@ -241,9 +241,6 @@ div.navbar-filler-filter {
         right: auto;
         left: 0
     }
-    .container {
-        min-width: 350px
-    }
     .navbar-collapse {
         width: auto;
         border-top: 0;

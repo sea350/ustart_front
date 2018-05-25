@@ -14,7 +14,6 @@
     <script type="text/javascript" src="/ustart_front/js/majors.js"></script>
     <script type="text/javascript" src="/ustart_front/js/countries.js"></script>
     <script type="text/javascript" src="/ustart_front/js/reg-check.js"></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhZTi1vXGIO51vh3hR6y-RV3RFtVzSFks&libraries=places"></script>
     <!-- <link rel="stylesheet" href="/ustart_front/resources/demos/style.css"> -->
 </head>
 
@@ -144,13 +143,6 @@
                             <p id="pwNoMatch" style="color:red;">Sorry, passwords do not match.</p>
                         </div>
                     </div>
-                    <!-- Country, State / City, Zip -->
-					<div class="row">
-						<div id="locationField" class="col-sm-12">
-							<label for="locationFieldAutocomplete" class="sr-only">Enter your Address</label>
-							<input id="locationFieldAutocomplete" class="form-control" placeholder="Enter your Address" onFocus="geolocate()" type="text"/>
-						</div>
-					</div>
                     <div class="row">
                         <div class="dropdown col-sm-4">
                             <select id="country" name="country" class="form-control" autocomplete="country-name"></select>

@@ -187,7 +187,6 @@ ul#proj-modal-followers-list {
 .dropdown-menu>li>a,
 .dropdown-menu>li>form>a {
     display: block;
-    padding: 0.5em 1em;
 }
 .dropdown-menu>li>form {
 	margin-bottom: 0;

@@ -17,8 +17,11 @@
 }
 
 .columnTitle {
+    max-width: 6em;
+    white-space: normal;
     font-weight: bold;
 }
+
 .widgetBody {
     min-height: 4em;
 }
@@ -36,8 +39,10 @@ span.ui-icon {
 }
 
 .columnImage img {
-    width: 80px;
-    margin-bottom: 1em;
+    max-height: 80px;
+	margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0.4em;
 }
 #content .ui-state-default {
     background-color:white;
@@ -66,7 +71,6 @@ span.ui-icon {
     background: #f5f5f5;
     border-radius: 0.4em;
     display: inline-block;
-    /* max-width: 8em; */
 }
 
 .sort-project {
@@ -256,4 +260,13 @@ span.ui-icon {
 [data-project-visible="false"] .columnImage img {
 	opacity: 0.5;
 	filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+
+#widgetCalendar .ui-datepicker {
+	width: auto;
+}
+
+#widgetCalendar .ui-datepicker td a,
+#widgetCalendar .ui-datepicker td span {
+	min-height: 80px;
 }

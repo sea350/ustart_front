@@ -36,6 +36,9 @@
         var IDArray = [];
         var port = 5002;
         $(function () {
+			if (permission < 0) {
+				$("#widget-insert, .fa-pencil, .fa-sort, .fa-trash").remove();
+			}
             // Enables drag-n-drop list items (using the header)
             $("#sortable").sortable({
                 handle: ".widgetTitle",
@@ -107,9 +110,9 @@
 							<button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
 							<ul class="dropdown-menu dropdown-menu-right">
 								<span style="display:none">{{$memberValidity}}</span>
-								{{if le $memberValidity 1}}<li><a href="#" data-toggle="modal" data-target="#project-member-add"><i class="fa fa-paw"></i> Recruit Members</a></li>{{end}}
-								{{if le $memberValidity 1}}<li><a href="/ProjectSettings/{{$projecturl}}"><i class="fa fa-gear"></i> Edit Settings</a></li>{{end}}
-								{{if ne $memberValidity 0}}<li><a href="#" data-toggle="modal" data-target="#project-leave"><i class="fa fa-fire"></i> Leave Project</a></li>{{end}}
+								{{if le $memberValidity 1}}<li><a href="#" style="padding: 0.5em 1em;" data-toggle="modal" data-target="#project-member-add"><i class="fa fa-paw"></i> Recruit Members</a></li>{{end}}
+								{{if le $memberValidity 1}}<li><a style="padding: 0.5em 1em;" href="/ProjectSettings/{{$projecturl}}"><i class="fa fa-gear"></i> Edit Settings</a></li>{{end}}
+								{{if ne $memberValidity 0}}<li><a style="padding: 0.5em 1em;" href="#" data-toggle="modal" data-target="#project-leave"><i class="fa fa-fire"></i> Leave Project</a></li>{{end}}
 							</ul>
 						</div>
 						<form id="project-leave-form" action="/leaveProject/" style="display:none">
@@ -242,17 +245,13 @@
 										<button id="addTextWidget" class="btn btn-default projectsColumn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/text.png" />
-												<div class="columnTitle">
-													Text
-												</div>
+												<div class="columnTitle">Custom Text</div>
 											</div>
 										</button>
 										<button id="calendarWidgetBtn" class="btn btn-default projectsColumn" style="display:none">
 											<div class="columnImage">
-												<img src="/ustart_front/img/png/calendar.png" />
-												<div class="columnTitle">
-													Calendar
-												</div>
+												<img src="/ustart_front/img/png/calendar_g.png" />
+												<div class="columnTitle">Google Calendar</div>
 											</div>
 										</button>
 										<button id="PollWidgetBtn" class="btn btn-default projectsColumn" style="display:none">
@@ -677,6 +676,26 @@
                                 </div>
                             </li>
                             {{end}}<!--end deviant art-->
+							<!-- Calendar -->
+							{{if eq $loop.Classification 15}}
+							<li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+								<div class="projectsWidgetCont">
+									<div class="widgetTitle">
+										<span class="pull-right fa fa-2x fa-sort"></span>
+										<span class="pull-right fa fa-2x fa-pencil" id="cal-edit" onclick="ApplyIDToModal('cal-modal', this)"></span>
+										<form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
+											<input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+											<span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
+										</form>
+										<h4>Calendar</h4>
+									</div>
+									<div id="widgetBodycal" class="widgetBody">
+										<iframe src="{{index $loop.Data 0}}" style="border: 0; width: 100%; min-height: 30em;" frameborder="0"></iframe>
+									</div>
+								</div>
+							</li>
+							{{end}}
+							<!-- End Calendar -->
                         
                      {{end}}<!-- end for looper -->
                         </ul>
@@ -684,9 +703,10 @@
                     <script>
                         var userID = {{.DOCID}};
                         var pageID = {{.Project.DocID}};
+                        console.log({{.Avatar}});
                          //render posts
                         $('body').on("click", "#Wall-loadAJAX", function(e) {
-                            $("#new-post-img").attr("src",{{.Project.ProjectData.Avatar}});
+                            $("#new-post-img").attr("src",{{.Avatar}});
                             $("#post-msg").focus(function (e) {
                                 var textbox = $("#post-msg");
                                 textbox.animate({
@@ -1234,13 +1254,12 @@
                                         <div class="media">
                                             <a class="pull-left" href="#">
                                                 <img id="new-post-img" class="media-object img-rounded" src="">
-                                                
                                             </a>
                                             <div class="media-body">
                                                 <div class="form-group">
                                                    <!-- <form id="New-Post-Form" method="POST" action="http://ustart.today:'+port+'/New/Post/" > -->
                                                         <textarea class="form-control" id="post-msg" name="block" style="resize:none;" placeholder="Share what's new"></textarea>
-
+                                                        <br>
                                                         <button id="new-postSubmit" type="submit" class="btn btn-primary pull-right">Post</button>
                                                 <!--    </form> -->
                                                 </div>
@@ -1811,6 +1830,39 @@
 								</div>
 							</div>
 						</div>
+						<!-- calendar modal -->
+						<div class="modal fade" id="cal-modal" role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Embed Google Calendar</h4>
+									</div>
+									<div class="modal-body">
+										<span id="cal-list-title">Removable cals</span>
+										<ul id="cal-edit-list"></ul>
+										<form id="customCalForm" class="form-group" action="/addWidget/" method="POST">
+											<label for="gCalEmbed">Share your Google Calendar here:</label>
+											<input type="text" id="gCalEmbed" class="form-control" name="gCalEmbed" placeholder="Your Google Calendar Link"
+												pattern="(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$)|((<iframe src=\x22)?https:\/\/calendar\.google\.com\/calendar\/((embed)|(htmlembed))\?src=.*)" required/>
+											<label for="gCalEmbed">
+												<div>
+													<span>Example:</span>
+													<i>Your Calendar ID: example@gmail.com</i>
+													<i>https://calendar.google.com/calendar/embed?src= Your Calendar ID</i>
+												</div>
+											</label>
+											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										<button type="submit" id="cal-submit-btn" class="btn btn-primary" form="customCalForm" name="widgetSubmit" value="15">Submit</button>
+									</div>
+								</div>
+							</div>
+						</div> 
+						<!-- insert modal -->
 
                         <div id="project-member-add" class="modal fade" role="dialog">
                             <div class="modal-dialog">

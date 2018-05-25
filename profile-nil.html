@@ -428,120 +428,92 @@
                         <ul id="sortable">
                             <li id="widget-insert" class="ui-state-default">
 								<div class="projectsWidgetCont">
-									<div class="widgetTitle">
+									<div class="widgetTitle" data-toggle="collapse" data-target="#widget-insert .widgetBody">
 										<h4>Insert new widget</h4>
 									</div>
-									<div class="widgetBody">
+									<div class="widgetBody collapse in">
 										<button id="addTextWidget" class="btn btn-default projectsColumn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/text.png" />
-												<div class="columnTitle">Text</div>
-				  
-				   
+												<div class="columnTitle">Custom Text</div>
 											</div>
 										</button>
 										<button id="calendarWidgetBtn" class="btn btn-default projectsColumn">
 											<div class="columnImage">
-												<img src="/ustart_front/img/png/calendar.png" />
-												<div class="columnTitle">Calendar</div>
-					  
-				   
+												<img src="/ustart_front/img/png/calendar_g.png" />
+												<div class="columnTitle">Google Calendar</div>
 											</div>
 										</button>
 										<button id="PollWidgetBtn" class="btn btn-default projectsColumn" style="display:none">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/poll.png" />
 												<div class="columnTitle">Poll</div>
-				  
-				   
 											</div>
 										</button>
 										<button id="igWidgetBtn" class="btn btn-default projectsColumn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/instagram.png" />
 												<div class="columnTitle">Instagram</div>
-					   
-				   
 											</div>
 										</button>
 										<button id="scWidgetBtn" class="btn btn-default projectsColumn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/soundcloud.png" />
 												<div class="columnTitle">SoundCloud</div>
-						
-				   
 											</div>
 										</button>
 										<button id="ytWidgetBtn" class="btn btn-default projectsColumn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/youtube-1.png" />
 												<div class="columnTitle">YouTube</div>
-					 
-				   
 											</div>
 										</button>
 										<button id="addCodePenWidget" class="btn btn-default projectsColumn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/codepen.png" />
 												<div class="columnTitle">CodePen</div>
-					 
-				   
 											</div>
 										</button>
 										<button id="addPinterestWidget" class="btn btn-default projectsColumn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/pinterest.png" />
 												<div class="columnTitle">Pinterest</div>
-					   
-				   
 											</div>
 										</button>
 										<button id="addTumblrWidget" class="btn btn-default projectsColumn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/twitter-2.png" />
 												<div class="columnTitle">Tumblr</div>
-					
-				   
 											</div>
 										</button>
 										<button id="addSpotifyWidget" class="btn btn-default projectsColumn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/spotify.png" />
 												<div class="columnTitle">Spotify</div>
-					 
-				   
 											</div>
 										</button>
 										<button id="arWidgetBtn" class="btn btn-default projectsColumn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/anchor.png" />
 												<div class="columnTitle">Anchor</div>
-					
-				   
 											</div>
 										</button>
 										<button id="mediumWidgetBtn" class="btn btn-default projectsColumn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/medium.png" />
 												<div class="columnTitle">Medium</div>
-					
-				   
 											</div>
 										</button>
 										<button id="daWidgetBtn" class="btn btn-default projectsColumn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/deviantart.png" />
 												<div class="columnTitle">DeviantArt</div>
-						
-				   
 											</div>
 										</button>
 										<button id="twitchWidgetBtn" class="btn btn-default projectsColumn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/twitch.png" />
 												<div class="columnTitle">Twitch</div>
-					
-				   
 											</div>
 										</button>
 										<button id="addGithubWidget" class="btn btn-default projectsColumn" style="display:none">
@@ -640,12 +612,20 @@
                                             </form>
                                         {{end}}
                                         <h4 id="text-title" name="textEditorHeader">
-                                             {{index $loop.Data 0}}
+											{{if $loop.Data}}
+												{{index $loop.Data 0}}
+											{{else}}
+												Unknown Widget
+											{{end}}
                                         </h4>
                                     </div>
                                     <div class="widgetBody">
                                         <div id="text-box" class="text-box" name="textEditorBody">
-                                           {{index $loop.Data 1}}
+											{{if $loop.Data}}
+												{{index $loop.Data 1}}
+											{{else}}
+												It's empty.
+											{{end}}
                                         </div>
                                     </div>
                                 </div>
@@ -862,7 +842,7 @@
 							<li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
-                                     {{if eq ($.Page) ($.DOCID)}}
+                                    {{if eq ($.Page) ($.DOCID)}}
                                     <span class="pull-right fa fa-2x fa-sort"></span>
                                     <span class="pull-right fa fa-2x fa-pencil" id="med-edit" onclick="ApplyIDToModal('med-modal', this)"></span>
                                     <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
@@ -885,12 +865,14 @@
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
+									{{if eq ($.Page) ($.DOCID)}}
                                     <span class="pull-right fa fa-2x fa-sort"></span>
                                     <span class="pull-right fa fa-2x fa-pencil" id="da-edit"  onclick="ApplyIDToModal('da-modal', this)"></span>
                                     <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                         <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
                                     </form>
+									{{end}}
                                     <h4>DeviantArt</h4>
                                     </div>
 
@@ -904,7 +886,28 @@
                                 </div>
                             </li>
                             {{end}}<!--end deviant art-->
-                        
+							<!-- Calendar -->
+							{{if eq $loop.Classification 15}}
+							<li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+								<div class="projectsWidgetCont">
+									<div class="widgetTitle">
+										{{if eq ($.Page) ($.DOCID)}}
+										<span class="pull-right fa fa-2x fa-sort"></span>
+										<span class="pull-right fa fa-2x fa-pencil" id="cal-edit" onclick="ApplyIDToModal('cal-modal', this)"></span>
+										<form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
+											<input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+											<span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
+										</form>
+										{{end}}
+										<h4>Calendar</h4>
+									</div>
+									<div id="widgetBodycal" class="widgetBody">
+										<iframe src="{{index $loop.Data 0}}" style="border: 0; width: 100%; min-height: 30em;" frameborder="0"></iframe>
+									</div>
+								</div>
+							</li>
+							{{end}}
+							<!-- End Calendar -->
 						{{end}}<!-- end for looper -->
 						<script>
 							$( ".delete-widget" ).click(function( event ) {
@@ -923,7 +926,6 @@
                         var pageID = {{.Page}};
                          //render posts
                         $('body').on("click", "#Wall-loadAJAX", function(e) {
-                            $("#new-post-img").attr("src",{{.ImageCode}});
                             $("#post-msg").focus(function (e) {
                                 var textbox = $("#post-msg");
                                 textbox.animate({
@@ -972,7 +974,7 @@
                                                         for (i=temp.length - 1; i > temp.length-6; i--){
                                                             if (userID == temp[i].Element.PosterID || userID == pageID ){
                                                                 if (temp[i].Element.Classification == 2){
-                                                                   console.log("rendering share post"); createSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
+                                                                   console.log("rendering share post"); createSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
                                                                 }
                                                                 else if (temp[i].Element.Classification == 0){
                                                                      makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
@@ -980,7 +982,7 @@
                                                             }
                                                             else{
                                                                 if (temp[i].Element.Classification == 2){
-                                                                   console.log("rendering share post"); createBasicSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
+                                                                   console.log("rendering share post"); createBasicSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
                                                                 }
                                                                 else if (temp[i].Element.Classification == 0) {
                                                                      makeBasicPostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
@@ -995,7 +997,7 @@
                                                         for (i=temp.length-1; i >= 0; i--){
                                                             if (userID == temp[i].Element.PosterID || userID == pageID ){
                                                                 if (temp[i].Element.Classification == 2){
-                                                                   console.log("rendering share post"); createSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
+                                                                   console.log("rendering share post"); createSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
                                                                 }
                                                                 else if (temp[i].Element.Classification == 0){
                                                                      makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
@@ -1003,7 +1005,7 @@
                                                             }
                                                             else{
                                                                 if (temp[i].Element.Classification == 2){
-                                                                   console.log("rendering share post"); createBasicSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
+                                                                   console.log("rendering share post"); createBasicSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
                                                                 }
                                                                 else if (temp[i].Element.Classification == 0) {
                                                                      makeBasicPostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
@@ -1097,6 +1099,7 @@
                          //submit new post
                           $('body').on("click", "#new-postSubmit", function(e) {
                                var content = $("#post-msg").val();
+                               console.log(content);
                                $('#new-postSubmit').prop('disabled', true);
                                if (content != ""){
                                     $.ajax({
@@ -1146,6 +1149,7 @@
                                                if (temp != null){
                                                    makeNewCommentApplications(postID, temp[0].Image, temp[0].FirstName, temp[0].LastName, temp[0].Element.Content, temp[0].ElementID,temp[0].NumReplies,temp[0].Element.TimeStamp);
                                                    $("#commentContent"+postID).val('');
+                                                   console.log("we here");
                                                    $(e.currentTarget).css("pointer-events", "auto"); 
                                                    var count = $(".standard-comment").length;
                                                    $("#num-replies"+postID).text(count);
@@ -1415,9 +1419,9 @@
                                                     if (temp != null){
                                                         for (i=0; i < temp.length ; i++){
                                                                 if (temp[i].Element.Classification == 2){
-                                                                    if (userID == temp[i].Element.PosterID || userID == pageID ){createSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
+                                                                    if (userID == temp[i].Element.PosterID || userID == pageID ){createSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
                                                                     }
-                                                                    else{createBasicSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
+                                                                    else{createBasicSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
                                                                         
                                                                     }
                                                                 }
@@ -1470,13 +1474,15 @@
                                         <div class="media">
                                             <a class="pull-left" href="#">
                                                 <img id="new-post-img" class="media-object img-rounded" src="">
-                                                
+                                                <script>
+                                                     $("#new-post-img").attr("src",{{.UserInfo.Avatar}});
+                                                </script>
                                             </a>
                                             <div class="media-body">
                                                 <div class="form-group">
                                                    <!-- <form id="New-Post-Form" method="POST" action="http://ustart.today:'+port+'/New/Post/" > -->
                                                         <textarea class="form-control" id="post-msg" name="block" style="resize:none;" placeholder="Share what's new"></textarea>
-
+                                                        <br>
                                                         <button id="new-postSubmit" type="submit" class="btn btn-primary pull-right">Post</button>
                                                 <!--    </form> -->
                                                 </div>
@@ -2052,6 +2058,39 @@
 						</div>
 					</div>
 				</div>
+				<!-- calendar modal -->
+				<div class="modal fade" id="cal-modal" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Embed Google Calendar</h4>
+							</div>
+							<div class="modal-body">
+								<span id="cal-list-title">Removable cals</span>
+								<ul id="cal-edit-list"></ul>
+								<form id="customCalForm" class="form-group" action="/addWidget/" method="POST">
+									<label for="gCalEmbed">Share your Google Calendar here:</label>
+									<input type="text" id="gCalEmbed" class="form-control" name="gCalEmbed" placeholder="Your Google Calendar Link"
+										pattern="(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$)|((<iframe src=\x22)?https:\/\/calendar\.google\.com\/calendar\/((embed)|(htmlembed))\?src=.*)" required/>
+									<label for="gCalEmbed">
+										<div>
+											<span>Example:</span>
+											<i>Your Calendar ID: example@gmail.com</i>
+											<i>https://calendar.google.com/calendar/embed?src= Your Calendar ID</i>
+										</div>
+									</label>
+									<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								<button type="submit" id="cal-submit-btn" class="btn btn-primary" form="customCalForm" name="widgetSubmit" value="15">Submit</button>
+							</div>
+						</div>
+					</div>
+				</div> 
+				<!-- insert modal -->
 			</div> <!-- end content -->
 		</div>
     </div> 

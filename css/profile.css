@@ -23,16 +23,6 @@ a:hover {
   background-color: transparent !important;
   border-color: transparent !important;
   box-shadow: none !important;
-} {
-  outline: none !important;
-  background-color: transparent !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
-} {
-  outline: none !important;
-  background-color: transparent !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
 }
 
 li>a {
@@ -186,8 +176,9 @@ div.user-info img.user-img {
     width: 285px;
     height: 285px;
     border-radius: 8px;
+	background-color: #eee;
     -o-object-fit: cover;
-    object-fit: cover
+    object-fit: cover;
 }
 
 div#main img.img-rounded,
@@ -387,7 +378,7 @@ form#shareCommentForm .btn {
 
 @media (min-width: 500px) {
     div#content {
-        min-width: 992px
+        min-width: 768px
     }
     #content .menu-wrap {
         /*margin-left: 1em;*/

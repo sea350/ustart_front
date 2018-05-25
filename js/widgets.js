@@ -465,8 +465,6 @@ $(document).ready(function() {
     });
 
     $('#scWidgetBtn').click(function() {
-        $('#sc-submit-btn').click(function() {
-        });
 		$('#sc-modal').on('show.bs.modal', function() {
 			// Clean List Items
 			$('#sc-edit-list').children('li').remove();
