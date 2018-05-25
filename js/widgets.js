@@ -82,7 +82,7 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 		$('#widgetBodyMed').rss("https://medium.com/feed/@" + medUsername, {
 			limit: medCount,
 			layoutTemplate: '<ul data-med-username="' + medUsername + '">{entries}</ul>',
-			entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="medium-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+			entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="medium-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
 			dateFormat: 'MMM Do, YYYY',
 			effect: 'slideFastSynced'
 		});
@@ -92,7 +92,7 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 			$('#widgetBodyMed').rss("https://medium.com/feed/@" + medPublication, {
 				limit: medCount,
 				layoutTemplate: '<ul data-med-publication="' + medPublication + '">{entries}</ul>',
-				entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="medium-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+				entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="medium-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
 				dateFormat: 'MMM Do, YYYY',
 				effect: 'slideFastSynced'
 			});
@@ -100,7 +100,7 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 			$('#widgetBodyMed').rss("https://medium.com/feed/@" + medPublication + "/tagged/" + medTag, {
 				limit: medCount,
 				layoutTemplate: '<ul data-med-publication="' + medPublication + '" data-med-tag="' + medTag + '">{entries}</ul>',
-				entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="medium-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+				entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="medium-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
 				dateFormat: 'MMM Do, YYYY',
 				effect: 'slideFastSynced'
 			});
@@ -113,7 +113,7 @@ function tumblrRender (tumblrUsername) {
 	$('#widgetBodyTumblr').rss("https://" + tumblrUsername + ".tumblr.com/rss", {
 		limit: 12,
 		layoutTemplate: '<ul data-tumblr-username="' + tumblrUsername + '">{entries}</ul>',
-		entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="tumblr-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+		entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="tumblr-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
 		dateFormat: 'MMM Do, YYYY',
 		effect: 'slideFastSynced'
 	});
@@ -121,6 +121,21 @@ function tumblrRender (tumblrUsername) {
 
 function githubRender (githubUsername) {
 	// Using RSS to render custom containers
+	$.getJSON("https://api.github.com/users/" + githubUsername + "/repos", function(data) {
+		var githubList = $("<ul></ul>");
+
+		for (var i = 0; i < data.length && i < 12; i++) {
+			var item = $("<li/>").appendTo(githubList);
+			var gitBody = $("<div/>").addClass("github-body").text(data[i].description).appendTo(item);
+			var headerLink = $("<a/>").prependTo(gitBody);
+			headerLink.attr("href", data[i].html_url);
+			var gitTitle = $("<h3/>").text(data[i].name).appendTo(headerLink);
+			var gitDate = $("<h4/>").text(data[i].updated_at).appendTo(headerLink);
+		}
+    
+    	$("#widgetBodyGit").append(githubList);
+	});
+
 	$('#widgetBodyGit').rss("https://api.github.com/users/" + githubUsername + "/repos", {
 		limit: 12,
 		layoutTemplate: '<ul data-github-username="' + githubUsername + '">{entries}</ul>',
