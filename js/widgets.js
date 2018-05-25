@@ -119,6 +119,17 @@ function tumblrRender (tumblrUsername) {
 	});
 }
 
+function githubRender (githubUsername) {
+	// Using RSS to render custom containers
+	$('#widgetBodyGit').rss("https://api.github.com/users/" + githubUsername + "/repos", {
+		limit: 12,
+		layoutTemplate: '<ul data-github-username="' + githubUsername + '">{entries}</ul>',
+		entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="github-proj-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+		dateFormat: 'MMM Do, YYYY',
+		effect: 'slideFastSynced'
+	});
+}
+
 function anchorEditor(element) {
 	if ($('.anchor-feed').length > 0)
 		$('#ar-modal #editID').val($('.anchor-feed').closest('li').attr('id'));
@@ -765,62 +776,8 @@ $(document).ready(function() {
 		$('#twitch-modal').modal();
     });
 
+	// Github Widget Adder
 	$('#addGithubWidget').click(function() {
-		if($('#git-modal').length > 0) {
-			$('html, body').animate({
-				scrollTop: $("#git-modal").parents('li').offset().top - 50
-				}, widgetScrollSpeed, function() {
-					$('#git-modal').modal();
-				});
-			return;
-		}
-		
-		// Do Edits for Github
-        var htmlGit = `<li class="ui-state-default widgetListItem sortable">
-                                <div class="projectsWidgetCont">
-                                    <div class="widgetTitle">
-                                    <span class="pull-right fa fa-2x fa-sort"></span>
-                                    <span class="pull-right fa fa-2x fa-trash"></span>
-                                    <span class="pull-right fa fa-2x fa-pencil" id="git-edit" data-toggle="modal" data-target="#git-modal"></span>
-                                        <h4>Github</h4>
-                                    </div>
-
-                                    <div class="modal fade" id="git-modal" role="dialog">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Embed Github</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>Put your Github username here to publish your code:</p>
-                                                    <div class="input-group">
-														<div class="input-group-btn">
-															<button id="git-setting" type="button" class="btn btn-secondary" aria-expanded="false">
-																Username
-															</button>
-														</div>
-                                                        <input type="text" class="form-control" id="git-embed-username"/>
-                                                    </div>
-													<br/>
-                                                    <div class="input-group">
-														<span class="input-group-addon">Shown Projects Count</span>
-														<input type="number" class="form-control" id="git-count" min='1' max='12' value='4'/>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" id="git-submit-btn" class="btn btn-default" data-dismiss="modal">Submit</button>
-                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> 
-
-                                    <div id="widgetBodyGit" class="widgetBody"></div>
-                                </div>
-                            </li>`;
-        addWidgetByHTML(htmlGit);
-		
 		$('#git-modal').on('shown.bs.modal', function() {
             $('#git-embed-input').focus();
 		});
