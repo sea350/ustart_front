@@ -909,7 +909,7 @@
                             {{end}}
                             <!-- Github Widget -->
                             {{if eq $loop.Classification 16}}
-                            <li class="ui-state-default widgetListItem sortable">
+                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
 										{{if eq ($.Page) ($.DOCID)}}
