@@ -110,6 +110,9 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 
 function tumblrRender (tumblrUsername) {
 	// Using RSS to render custom containers
+	$.getJSON("https://" + tumblrUsername + ".tumblr.com/rss#_=_", function(data) {
+		console.log(data);
+	});
 	$('#widgetBodyTumblr').rss("https://" + tumblrUsername + ".tumblr.com/rss#_=_", {
 		limit: 12,
 		layoutTemplate: '<ul data-tumblr-username="' + tumblrUsername + '">{entries}</ul>',
