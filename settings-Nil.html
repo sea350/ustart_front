@@ -68,15 +68,12 @@
 						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#avatarcollapse">
 							<h4 class="panel-title">Change Account Images and Status</h4>
 						</div>
-						<div id="avatarcollapse" class="panel-collapse collapse">
+						<div id="avatarcollapse" class="panel-collapse collapse in">
 							<div class="panel-body">
 								<div class="form-group">
 									<div class="row">
 										<div class="col-sm-4">
-											<form id="img-form" action="" enctype="multipart/form-data" method="post">
-                                                <script type="text/javascript">
-                                                    $( "#img-form" ).attr( 'action', 'http://ustart.today:'+port +'/ImageUpload/' );
-                                                </script>
+											<form id="img-form" action="/ImageUpload/" enctype="multipart/form-data" method="post">
 												<div id="upload-demo" style="width:300px; height:350px"></div>
 												<input type="file" name="raw-image" id="upload" accept="image/*">
 												<input type="hidden" name="image-data" id="hidden-image-data" />
@@ -84,14 +81,15 @@
 												<script type="text/javascript">
 													$uploadCrop = $('#upload-demo').croppie({
 														url: "{{.UserInfo.Avatar}}",
-														enableExif: true,
+                                                        enforceBoundary: true,
 														viewport: {
 															width: 250,
 															height: 250,
+                                                            type: 'square'
 														},
 														boundary: {
-															width: 300,
-															height: 300
+															width: 280,
+															height: 280
 														}
 													});
 													$('#upload').on('change', function () { 
@@ -130,24 +128,22 @@
 										</div>
 										<div class="col-sm-12">
 											<hr/>
-											<form id="banner-form" action="" enctype="multipart/form-data" method="post">
-                                                <script type="text/javascript">
-                                                    $( "#banner-form" ).attr( 'action', 'http://ustart.today:'+port +'/BannerUpload/' );
-                                                </script>
+											<form id="banner-form" action="/BannerUpload/" enctype="multipart/form-data" method="post">
 												<div id="upload-demo2" style="width:1100px; height:380px"></div>
-												<input type="file" name="raw-image" id="upload2" accept="image/*">
+												<input type="file" name="raw-banner" id="upload2" accept="image/*">
 												<input type="hidden" name="banner-data" id="hidden-image-data2" />
 												<button type="button" class="btn btn-info" id="upload-result2">Upload Image</button>
 												<script type="text/javascript">
 													$uploadCrop2 = $('#upload-demo2').croppie({
 														url: "{{.UserInfo.Banner}}",
-														enableExif: true,
+														enforceBoundary: true,
 														viewport: {
 															width: 1000,
 															height: 300,
+                                                            type: 'square'
 														},
 														boundary: {
-															width: 1050,
+															width: 1100,
 															height: 350
 														}
 													});

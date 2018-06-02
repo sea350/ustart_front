@@ -190,14 +190,14 @@
 					</div>
 					<div class="panel panel-default">
 						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#logocollapse">
-							<h4 class="panel-title">Upload Logo</h4>
+							<h4 class="panel-title">Upload Logo &amp Banner</h4>
 						</div>
 						<div id="logocollapse" class="panel-collapse collapse">
 							<div class="panel-body">
-								<form id="img-form" action="/projectLogo/" method="POST">
+								<form id="img-form" action="/projectLogo/" enctype="multipart/form-data" method="post">
 									<input type="hidden" name="projectID" value="{{$projectid}}" />
 									<div id="upload-demo" style="width:300px; height:350px"></div>
-									<input type="file" id="upload" accept="image/*">
+									<input type="file" name="raw-banner" id="upload" accept="image/*">
 									<input type="hidden" name="image-data" id="hidden-image-data" />
 									<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
 									<script type="text/javascript">
@@ -236,18 +236,9 @@
 										});
 									</script>
 								</form>
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#bannercollapse">
-							<h4 class="panel-title">Upload Banner</h4>
-						</div>
-						<div id="bannercollapse" class="panel-collapse collapse">
-							<div class="panel-body">
-								<form id="banner-form" action="/projectBannerUpload/" method="POST">
+                                <form id="banner-form" action="/projectBannerUpload/" enctype="multipart/form-data" method="post">
 									<div id="upload-demo2" style="width:1100px; height:380px"></div>
-									<input type="file" id="upload2" accept="image/*">
+									<input type="file" name="raw-image" id="upload2" accept="image/*">
 									<input type="hidden" name="projectID" value="{{$projectid}}" />
 									<input type="hidden" name="banner-data" id="hidden-image-data2" />
 									<button type="button" class="btn btn-info" id="upload-result2">Upload Image</button>
