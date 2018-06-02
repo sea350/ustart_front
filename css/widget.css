@@ -17,9 +17,9 @@
 }
 
 .columnTitle {
-    max-width: 6em;
     white-space: normal;
-    font-weight: bold;
+	font-weight: bold;
+	margin: auto;
 }
 
 .widgetBody {
@@ -248,9 +248,8 @@ span.ui-icon {
 }
 
 #widget-insert .widgetBody {
-	    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+	display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
 }
 
 #widget-insert .widgetBody:after {
