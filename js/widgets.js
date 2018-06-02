@@ -110,11 +110,6 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 
 function tumblrRender (tumblrUsername) {
 	// Using RSS to render custom containers
-	console.log("JSON Start");
-	$.getJSON("http://" + tumblrUsername + ".tumblr.com/rss", function(data) {
-		console.log(data);
-	});
-	console.log("JSON Done");
 	$('#widgetBodyTumblr').rss("http://" + tumblrUsername + ".tumblr.com/rss", {
 		limit: 12,
 		layoutTemplate: '<ul data-tumblr-username="' + tumblrUsername + '">{entries}</ul>',
@@ -122,7 +117,6 @@ function tumblrRender (tumblrUsername) {
 		dateFormat: 'MMM Do, YYYY',
 		effect: 'slideFastSynced'
 	});
-	console.log("RSS?")
 }
 
 function githubRender (githubUsername) {
