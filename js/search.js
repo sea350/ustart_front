@@ -205,7 +205,7 @@ $(function() {
 	$("form#search-filters").submit(function() {
 		// Clear spaces
 		var searchQuery = $("input[name='query']").val();
-		searchQuery = searchQuery.replace(/[^A-Za-z0-9+-]+/g, ' ').trim();
+		searchQuery = searchQuery.replace(/[^A-Za-z0-9+#-]+/g, ' ').trim();
 		$("input[name='query']").val(searchQuery);
 		
 		var majorInputs = $("<input type='hidden' name='searchlistmajors'/>");
