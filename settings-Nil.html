@@ -111,6 +111,7 @@
 															$('#hidden-image-data').val(resp);
 															console.log($('#hidden-image-data').val());
 															$('#img-form').submit();
+                                                            console.log("done");
 														});
 													});
 												</script>
@@ -128,47 +129,47 @@
 										</div>
 										<div class="col-sm-12">
 											<hr/>
-											<form id="banner-form" action="/BannerUpload/" enctype="multipart/form-data" method="post">
-												<div id="upload-demo2" style="width:1100px; height:380px"></div>
+											<form id="banner-form" action="/BannerUpload/" enctype="multipart/form-data" method="POST">
+												<div id="upload-demo2" style="width:1000px; height:400px"></div>
 												<input type="file" name="raw-banner" id="upload2" accept="image/*">
 												<input type="hidden" name="banner-data" id="hidden-image-data2" />
 												<button type="button" class="btn btn-info" id="upload-result2">Upload Image</button>
-												<script type="text/javascript">
-													$uploadCrop2 = $('#upload-demo2').croppie({
-														url: "{{.UserInfo.Banner}}",
-														enforceBoundary: true,
-														viewport: {
-															width: 1000,
-															height: 300,
-                                                            type: 'square'
-														},
-														boundary: {
-															width: 1100,
-															height: 350
-														}
-													});
-													$('#upload2').on('change', function () { 
-														var reader2 = new FileReader();
-														reader2.onload = function (e) {
-															$uploadCrop2.croppie('bind', {
-																url: e.target.result
-															}).then(function(){
-																console.log('jQuery bind complete');
-															});
-														}
-														reader2.readAsDataURL(this.files[0]);
-													});
-													 $('#upload-result2').on('click', function (ev) {
-														$uploadCrop2.croppie('result', {
-															type: 'canvas',
-															size: 'viewport'
-														}).then(function (resp) {
-															$('#hidden-image-data2').val(resp);
-															console.log($('#hidden-image-data2').val());
-															$('#banner-form').submit();
-														});
-													});
-												</script>
+													<script type="text/javascript">
+                                                        $uploadCrop2 = $('#upload-demo2').croppie({
+                                                            url: "{{.Project.ProjectData.Banner}}",
+                                                            viewport: {
+                                                                width: 1000,
+                                                                height: 300,
+                                                            },
+                                                            boundary: {
+                                                                width: 1050,
+                                                                height: 350
+                                                            }
+                                                        });
+                                                        $('#upload2').on('change', function () { 
+                                                            var reader2 = new FileReader();
+                                                            reader2.onload = function (e) {
+                                                                $uploadCrop2.croppie('bind', {
+                                                                    url: e.target.result
+                                                                }).then(function(){
+                                                                    console.log('jQuery bind complete');
+                                                                });
+                                                            }
+                                                            reader2.readAsDataURL(this.files[0]);
+                                                        });
+                                                         $('#upload-result2').on('click', function (ev) {
+                                                             console.log("done");
+                                                            $uploadCrop2.croppie('result', {
+                                                                type: 'canvas',
+                                                                size: 'viewport'
+                                                            }).then(function (resp) {
+                                                                $('#hidden-image-data2').val(resp);
+                                                                console.log($('#hidden-image-data2').val());
+                                                                $('#banner-form').submit();
+                                                                console.log("done");
+                                                            });
+                                                         });
+                                                    </script>
 											</form>
 										</div>
 									</div>
