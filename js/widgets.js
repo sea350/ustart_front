@@ -109,6 +109,11 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 }
 
 function tumblrRender (tumblrUsername) {
+	$.getJSON("http://" + tumblrUsername + ".tumblr.com/rss", function() {
+		console.log("Y");
+	});
+
+	/*
 	// Using RSS to render custom containers
 	$('#widgetBodyTumblr').rss("http://" + tumblrUsername + ".tumblr.com/rss", {
 		limit: 12,
@@ -117,6 +122,7 @@ function tumblrRender (tumblrUsername) {
 		dateFormat: 'MMM Do, YYYY',
 		effect: 'slideFastSynced'
 	});
+	*/
 }
 
 function githubRender (githubUsername) {
