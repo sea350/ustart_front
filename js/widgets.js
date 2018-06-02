@@ -110,7 +110,7 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 
 function tumblrRender (tumblrUsername) {
 	// Using RSS to render custom containers
-	$('#widgetBodyTumblr').rss("https://" + tumblrUsername + ".tumblr.com/rss", {
+	$('#widgetBodyTumblr').rss("https://" + tumblrUsername + ".tumblr.com/rss#_=_", {
 		limit: 12,
 		layoutTemplate: '<ul data-tumblr-username="' + tumblrUsername + '">{entries}</ul>',
 		entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="tumblr-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
@@ -130,7 +130,8 @@ function githubRender (githubUsername) {
 			var headerLink = $("<a/>").prependTo(gitBody);
 			headerLink.attr("href", data[i].html_url);
 			var gitTitle = $("<h3/>").text(data[i].name).appendTo(headerLink);
-			var gitDate = $("<h4/>").text(data[i].updated_at).appendTo(headerLink);
+			var gitTime = new Date(data[i].updated_at);
+			var gitDate = $("<h4/>").text(gitTime.getDate()).appendTo(headerLink);
 		}
     
     	$("#widgetBodyGit").append(githubList);
