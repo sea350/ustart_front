@@ -222,6 +222,8 @@ $(document).ready(function () {
 	appendNotifItem('Broadside Chromedome', 'suggested ?project', 'NOW', true);
 	appendNotifItem('Reflector Pinpointer', 'YO! You following me?', 'NOW', true);
 	appendNotifItem('Broadside Chromedome', "WHAT'S UP?", 'NOW', true);
+
+    $(".alert").fadeOut(5000);
 	
 	$(window).resize(function() {
 		fitNavbar();
