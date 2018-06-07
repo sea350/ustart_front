@@ -30,7 +30,7 @@
                     </button>
                     <strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
                 </div>
-				{{end}}
+                {{end}}
                <form class="form-signup" id="form1" action="/welcome/" method="post">
                     <!-- Name -->   
                     <div class="row">
@@ -151,7 +151,7 @@
                             <select name="state" id="state" class="form-control" autocomplete="state"></select>
                         </div>
                         <script language="javascript">
-							populateCountries("country", "state");
+                            populateCountries("country", "state");
                         </script>
                         <div class="dropdown col-sm-3">
                             <input id="city" name="city" class="form-control" placeholder="City" autocomplete="city">
@@ -207,12 +207,12 @@
                             <input id="birthday" type="date" placeholder="Date of Birth (YYYY-MM-DD)" class="form-control" name="dob" required />
                         </div>
                         <script type="text/javascript">
-							/*$('#datetimepicker4').datepicker({
-								format: 'YYYY-MM-DD',
-								changeMonth: true,
-								changeYear: true,
-								yearRange: "-120:-10"
-							});*/
+                            /*$('#datetimepicker4').datepicker({
+                                format: 'YYYY-MM-DD',
+                                changeMonth: true,
+                                changeYear: true,
+                                yearRange: "-120:-10"
+                            });*/
                         </script>
                     </div>
                     <br>
@@ -227,12 +227,12 @@
                     </div>
                     <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit" name="send" id="finished" disabled>Continue</button>
                     <script>
-						function recaptchaCallback() {
-							$('#finished').removeAttr('disabled');
-						}
-						$("#form1").submit(function() {
-							
-						});
+                        function recaptchaCallback() {
+                            $('#finished').removeAttr('disabled');
+                        }
+                        $("#form1").submit(function() {
+                            
+                        });
                     </script>
                     <br>
                     <br>

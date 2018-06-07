@@ -40,22 +40,22 @@
 						<div id="logocollapse" class="panel-collapse collapse in">
 							<div class="panel-body">
 								<form id="img-form" action="/projectLogo/" enctype="multipart/form-data" method="post">
-									<input type="hidden" name="projectID" value="{{$projectid}}" />
 									<div id="upload-demo" style="width:300px; height:350px"></div>
 									<input type="file" name="raw-image" id="upload" accept="image/*">
 									<input type="hidden" name="image-data" id="hidden-image-data" />
+                                    <input type="hidden" name="projectID" value={{$projectid}} />
 									<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
 									<script type="text/javascript">
 										$uploadCrop = $('#upload-demo').croppie({
 											url: "{{.Project.ProjectData.Avatar}}",
-											enableExif: true,
 											viewport: {
 												width: 250,
 												height: 250,
+                                                type: 'square'
 											},
 											boundary: {
-												width: 300,
-												height: 300
+												width: 280,
+												height: 280
 											}
 										});
 										$('#upload').on('change', function () { 
@@ -75,9 +75,7 @@
 												size: 'viewport'
 											}).then(function (resp) {
 												$('#hidden-image-data').val(resp);
-												console.log($('#hidden-image-data').val());
 												$('#img-form').submit();
-                                                console.log("done");
 											});
 										});
 									</script>
@@ -85,13 +83,12 @@
                                 <form id="banner-form" action="/projectBannerUpload/" enctype="multipart/form-data" method="post">
 									<div id="upload-demo2" style="width:1000px; height:400px"></div>
 									<input type="file" name="raw-banner" id="upload2" accept="image/*">
-									<input type="hidden" name="projectID" value="{{$projectid}}" />
-									<input type="hidden" name="banner-data" id="hidden-image-data2" />
+									<input type="hidden" name="projectID" value={{$projectid}} />
+									<input type="hidden" name="banner-data" id="hidden-image-data-2" />
 									<button type="button" class="btn btn-info" id="upload-result2">Upload Image</button>
 									<script type="text/javascript">
 										$uploadCrop2 = $('#upload-demo2').croppie({
 											url: "{{.Project.ProjectData.Banner}}",
-											enableExif: true,
 											viewport: {
 												width: 1000,
 												height: 300,
@@ -116,9 +113,8 @@
 											$uploadCrop2.croppie('result', {
 												type: 'canvas',
 												size: 'viewport'
-											}).then(function (resp) {
-												$('#hidden-image-data2').val(resp);
-												console.log($('#hidden-image-data2').val());
+											}).then(function (response2) {
+												$('#hidden-image-data-2').val(response2);
 												$('#banner-form').submit();
 											});
 										});

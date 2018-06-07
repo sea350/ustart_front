@@ -5,7 +5,7 @@ $("#userSettings").hover(function() {
 });
 
 $(document).on('click', '.dropdown-menu', function(e) {
-	e.stopPropagation();
+    e.stopPropagation();
 });
 
 var loginVis = false;
@@ -72,9 +72,9 @@ function toggleLogIn() {
     loginVis = !loginVis;
     if (loginVis) {
         document.getElementById("theLogIn").style.visibility = "visible";
-		$("#theLogIn").slideDown();
+        $("#theLogIn").slideDown();
     } else {
-		$("#theLogIn").slideUp();
+        $("#theLogIn").slideUp();
     }
     return;
 }
@@ -157,90 +157,90 @@ function appendPanItem(t, d, l, b = false) {
 var newNotifs = 0;
 
 function updateNotifBadge() {
-	if (newNotifs > 0) {
-		$('.notifBadge').css('display', 'inline').text('' + newNotifs);
-	} else {
-		$('.notifBadge').css('display', 'none').text('');
-	}
+    if (newNotifs > 0) {
+        $('.notifBadge').css('display', 'inline').text('' + newNotifs);
+    } else {
+        $('.notifBadge').css('display', 'none').text('');
+    }
 }
 
 function appendNotifItem(person, message, timestamp, unreadStatus) {
-	// Load person's icon
-	var notifIcon = $('<img></img>').addClass('media-object img-rounded notif-icon');
-	$(notifIcon).attr('alt', '40x40').attr('src', 'http://placehold.it/40x40');
-	
-	var notifIconHolder = $('<div></div>').addClass('media-left').append(notifIcon);
-	var notifDismisser = $('<a></a>').addClass('close').attr('href', '#').attr('data-dismiss', 'alert').attr('aria-label', 'close').text('×');
-	var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('profile.html#' + person)).text(person);
-	var notifPersonLabel = $('<strong></strong>').append(notifPersonLabelLink, notifDismisser);
-	var notifNewLabel = $('<span></span>').addClass('label-new label label-info')
-	if (unreadStatus) {
-		notifNewLabel.text('New');
-		newNotifs++;
-		updateNotifBadge();
-	}
-	var notifPersonContainer = $('<div></div>').append(notifPersonLabel, notifNewLabel);
-	var notifMessage = $('<div></div>').addClass('notif-message').text(message);
-	var notifMessageTime = $('<div></div>').addClass('notif-timestamp').text(timestamp);
-	var notifMessageContainer = $('<div></div>').addClass('message-container media-body').append(notifPersonContainer, notifMessage, notifMessageTime);
-	var notifItem = $('<li></li>').addClass('media alert fade in').append(notifIconHolder, notifMessageContainer).click(function() {
-		var newLabel = $(this).find('.label-new');
-		if (newLabel.length > 0) {
-			newLabel.removeClass('label-new');
-			newLabel.fadeOut('fast');
-			newNotifs--;
-			updateNotifBadge();
-		}
-	});
-	$('#notifDrop').prepend(notifItem);
+    // Load person's icon
+    var notifIcon = $('<img></img>').addClass('media-object img-rounded notif-icon');
+    $(notifIcon).attr('alt', '40x40').attr('src', 'http://placehold.it/40x40');
+    
+    var notifIconHolder = $('<div></div>').addClass('media-left').append(notifIcon);
+    var notifDismisser = $('<a></a>').addClass('close').attr('href', '#').attr('data-dismiss', 'alert').attr('aria-label', 'close').text('×');
+    var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('profile.html#' + person)).text(person);
+    var notifPersonLabel = $('<strong></strong>').append(notifPersonLabelLink, notifDismisser);
+    var notifNewLabel = $('<span></span>').addClass('label-new label label-info')
+    if (unreadStatus) {
+        notifNewLabel.text('New');
+        newNotifs++;
+        updateNotifBadge();
+    }
+    var notifPersonContainer = $('<div></div>').append(notifPersonLabel, notifNewLabel);
+    var notifMessage = $('<div></div>').addClass('notif-message').text(message);
+    var notifMessageTime = $('<div></div>').addClass('notif-timestamp').text(timestamp);
+    var notifMessageContainer = $('<div></div>').addClass('message-container media-body').append(notifPersonContainer, notifMessage, notifMessageTime);
+    var notifItem = $('<li></li>').addClass('media alert fade in').append(notifIconHolder, notifMessageContainer).click(function() {
+        var newLabel = $(this).find('.label-new');
+        if (newLabel.length > 0) {
+            newLabel.removeClass('label-new');
+            newLabel.fadeOut('fast');
+            newNotifs--;
+            updateNotifBadge();
+        }
+    });
+    $('#notifDrop').prepend(notifItem);
 }
 
 function presentLogError() {
-	$('#spaced .help-block').stop(true, false).slideDown('slow').delay(4000).slideUp('slow');
+    $('#spaced .help-block').stop(true, false).slideDown('slow').delay(4000).slideUp('slow');
 }
 
 function fitNavbar() {
-	var widthLength = 500;
-	var scrollFlag = $(document).height() > $(window).height();
-	if (scrollFlag) {
-		// To account for the width of the scrollbar that appears when the document is lengthy.
-		widthLength = widthLength - 17;
-	}
-	if ($(window).innerWidth() < widthLength) {
-		$('span#inbox-label').css('display', 'inline');
-		$('li a span#user-name').parent().parent().after($('li.inbox-list-item'));
-	} else {
-		$('span#inbox-label').css('display', 'none');
-		$('ul.navbar-nav').prepend($('li.inbox-list-item'));
-	}
+    var widthLength = 500;
+    var scrollFlag = $(document).height() > $(window).height();
+    if (scrollFlag) {
+        // To account for the width of the scrollbar that appears when the document is lengthy.
+        widthLength = widthLength - 17;
+    }
+    if ($(window).innerWidth() < widthLength) {
+        $('span#inbox-label').css('display', 'inline');
+        $('li a span#user-name').parent().parent().after($('li.inbox-list-item'));
+    } else {
+        $('span#inbox-label').css('display', 'none');
+        $('ul.navbar-nav').prepend($('li.inbox-list-item'));
+    }
 }
 
 $(document).ready(function () {
-	appendNotifItem('Reflector Pinpointer', 'is following you', 'NOW', true);
-	appendNotifItem('Broadside Chromedome', 'is following you', 'NOW', true);
-	appendNotifItem('Reflector Pinpointer', 'suggested ?link', 'NOW', true);
-	appendNotifItem('Broadside Chromedome', 'suggested ?project', 'NOW', true);
-	appendNotifItem('Reflector Pinpointer', 'YO! You following me?', 'NOW', true);
-	appendNotifItem('Broadside Chromedome', "WHAT'S UP?", 'NOW', true);
-	
-	$(window).resize(function() {
-		fitNavbar();
-	});
-	fitNavbar();
-	
-	$('#spaced .help-block').slideUp();
-	$('#theLogIn form').submit(function(e) {
-		if (false) {
-			e.preventDefault();
-			presentLogError();
-		}
-	});
-	
-	$("form#searchFilterForm").submit(function() {
-		$(this).append("<input type='hidden' name='searchbypersonname' value='true'/>");
-		$(this).append("<input type='hidden' name='searchbyusername' value='true'/>");
-		$(this).append("<input type='hidden' name='searchbyprojectname' value='true'/>");
-	});
+    appendNotifItem('Reflector Pinpointer', 'is following you', 'NOW', true);
+    appendNotifItem('Broadside Chromedome', 'is following you', 'NOW', true);
+    appendNotifItem('Reflector Pinpointer', 'suggested ?link', 'NOW', true);
+    appendNotifItem('Broadside Chromedome', 'suggested ?project', 'NOW', true);
+    appendNotifItem('Reflector Pinpointer', 'YO! You following me?', 'NOW', true);
+    appendNotifItem('Broadside Chromedome', "WHAT'S UP?", 'NOW', true);
+    
+    $(window).resize(function() {
+        fitNavbar();
+    });
+    fitNavbar();
+    
+    $('#spaced .help-block').slideUp();
+    $('#theLogIn form').submit(function(e) {
+        if (false) {
+            e.preventDefault();
+            presentLogError();
+        }
+    });
+    
+    $("form#searchFilterForm").submit(function() {
+        $(this).append("<input type='hidden' name='searchbypersonname' value='true'/>");
+        $(this).append("<input type='hidden' name='searchbyusername' value='true'/>");
+        $(this).append("<input type='hidden' name='searchbyprojectname' value='true'/>");
+    });
 })
 
 function passCheck() {

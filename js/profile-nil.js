@@ -1,3 +1,64 @@
+// globals
+var port = location.port;
+var flag = 1;
+var IDArray = [];
+
+
+window.___gcfg = { "parsetags": "explicit" };
+$(function () {
+   /* $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
+        $("#leftNavProfile").addClass("theActive");
+    });*/
+    // Enables drag-n-drop list items (using the header)
+    $("#sortable").sortable({
+        handle: ".widgetTitle",
+        revert: true,
+        tolerance: "pointer",
+        items: "> li.sortable",
+        update: function(event, ui) {
+            // Update {{.UserInfo.UserWidgets}} with $("#sortable").sortable("toArray")
+            var asortedWidgets = $("#sortable").sortable("toArray");
+            $.ajax({
+                type: 'GET',
+                url: 'http://ustart.today:'+port+'/sortUserWidgets/',
+                contentType: "application/json; charset=utf-8",
+                data: {sortedWidgets: JSON.stringify(asortedWidgets)},
+                success: function(data) {
+                    console.log('Sorted Widgets are probably saved: ');
+                    console.log(data);
+                },
+                error: function(err) {
+                    console.log('Sorted Widgets failed: ');
+                    console.log(err);
+                }
+            });
+        }
+    });
+
+
+    $('#projSortable').sortable();
+    $('#projectWidget .widgetBody').sortable({
+        cancel: ''
+    }).disableSelection();
+    $('#hashTagsBody').sortable({
+        cancel: ''
+    }).disableSelection();
+
+    $('.links-container').sortable({
+        cancel: ''
+    }).disableSelection();
+    /*
+    // Enables resizable list items
+    $("#sortable>li").resizable({
+        animate: true,
+        ghost: true,
+        resize: function (event, ui) {
+            ui.size.width = ui.originalSize.width;
+        }
+    });
+    */
+    });
+
 function timeSince(date) {
   var d = new Date(date);
   var seconds = Math.floor((new Date() - d) / 1000);
@@ -292,6 +353,7 @@ function formatTime(time) {
 };
 
 $(document).ready(function () {
+    $("#leftNavProfile").addClass("theActive");
     $(".commentOfComment").css("display","none");
     $("img#head-image").on('error', function () {
         $(this).attr('src', "data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=");
