@@ -16,14 +16,16 @@
             <form action="/profilelogin/" method="post" role="form">
 		        <h3>Please retry your email or password</h3>
                 <div class="row">
-                    <label for="email">Email</label>
-                    <input id="email" class="form-control" name="email" type="email" placeholder="Email address" autofocus required/>
+                    <div class="col-sm-6">
+                        <label for="email">Email</label>
+                        <input id="email" class="form-control" name="email" type="email" placeholder="Email address" autofocus required/>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="password">Password</label>
+                        <input id="password" class="form-control" name="password" type="password" placeholder="Enter Password" required/>
+                    </div>
                 </div>
-                <div class="row">
-                    <label for="password">Password</label>
-                    <input id="password" class="form-control" name="password" type="password" placeholder="Enter Password" required/>
-                </div>
-                <button class="btn btn-primary" type="submit">Login</button>
+                <button class="btn btn-primary pull-right" type="submit">Login</button>
             </form>
             <a href="/ustart_front/forgotpw.html">Forgot password?</a>
         </div>
