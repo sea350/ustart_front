@@ -80,7 +80,93 @@ function loadInputs() {
 }
 
 $(document).ready(function() {
-    $('#uDup').hide();
+    var pass = document.getElementById('inputPassword');
+    var mcont = document.getElementById('meter-cont');
+    var meter = document.getElementById('meter');
+    var empty = document.getElementById('left-empty');
+    var bad = document.getElementById('bad-pass');
+    meter.style.display = "none";
+    empty.style.display = "none";
+    bad.style.display = "none";
+    mcont.style.display = "none";
+    pass.addEventListener('input', function() {
+
+        var val = pass.value;
+
+        meter.style.display = "block";
+        if (val == '') {
+            empty.style.display = "block";
+            bad.style.display = "none";
+            meter.style.display = "none";
+            mcont.style.display = "none";
+
+        }
+        // pass into function to measure strength
+        var result = zxcvbn(val);
+
+        // Password progress bar
+        var $bar = $('#meter');
+
+        if (result.score == 0) {
+            if (val == '') {
+                empty.style.display = "block";
+                bad.style.display = "none";
+                meter.style.display = "none";
+                mcont.style.display = "block";
+
+            } else {
+                $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '0%');
+                bad.style.display = "block";
+                empty.style.display = "none";
+                mcont.style.display = "block";
+            }
+
+        } else if (result.score == 1) {
+            $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '25%');
+            bad.style.display = "block";
+            empty.style.display = "none";
+
+        } else if (result.score == 2) {
+
+            $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '50%');
+            bad.style.display = "block";
+            empty.style.display = "none";
+        } else if (result.score == 3) {
+
+            $bar.attr('class', 'progress-bar progress-bar-warning').css('width', '75%');
+            bad.style.display = "none";
+            empty.style.display = "none";
+        } else { // score == 4
+            $bar.attr('class', 'progress-bar progress-bar-success').css('width', '100%');
+            bad.style.display = "none";
+            empty.style.display = "none";
+        }
+    });
+    
+    //autocomplete 
+    $("#uni").autocomplete({
+        source: function(request, response) {
+            var results = $.ui.autocomplete.filter(universities, request.term);
+            response(results.slice(0, 10));
+        }
+    });
+    $("#maj").autocomplete({
+        source: function(request, response) {
+            var results = $.ui.autocomplete.filter(major, request.term);
+            response(results.slice(0, 10));
+        }
+    });
+    //country populate
+    populateCountries("country", "state");
+    
+    //timepicker currently disabled
+    /*$('#datetimepicker4').datepicker({
+        format: 'YYYY-MM-DD',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-120:-10"
+    });*/
+});    
 	/* Removed as of Jan 15
     $('#confirmEmail').keyup(function() {
         if ($(this).val() == $('#inputEmail').val()) {
@@ -134,7 +220,7 @@ $(document).ready(function() {
 	});
 
 	loadInputs();
-});
+
 
 // verifies everything is correct after document submit button is clicked
 $(document).on('click', '#finished', function(e){
@@ -151,3 +237,4 @@ $(document).on('click', '#finished', function(e){
         e.preventDefault();
     } 
 });
+

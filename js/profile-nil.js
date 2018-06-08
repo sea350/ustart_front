@@ -360,14 +360,64 @@ $(document).ready(function () {
     });
     $('[data-toggle="tooltip"]').tooltip();
 
-    $(window).scroll(function () {
-        var scrollBuffer = $(window).height() * 0.1;
-        if ($(window).scrollTop() + scrollBuffer >= ($(document).height() - $(window).height())) {
-              // loadPost();
-
+    var followstatus=document.getElementById("followstat").value;
+    if(followstatus == "yes"){
+         $('#btn1').attr('class', 'btn followButton following');
+         $('#btn1').text('Following');
+    }
+    else{
+        $('#btn1').attr('class', 'btn followButton');
+        $('#btn1').text('Follow');
+    } 
+    $('#btn1').hover(function () {
+        $button = $(this);
+        if ($button.hasClass('following')) {
+            $button.addClass('unfollow');
+            $button.text('Unfollow');
+        }
+        }, function () {
+        if ($button.hasClass('following')) {
+            $button.removeClass('unfollow');
+            $button.text('Following');
         }
     });
 
+     $('#btn1').click(function(e) {
+        console.log('follow clicked');
+        $.ajax({
+            type: 'GET',  
+            url: 'http://ustart.today:'+port+'/callme/',
+            contentType: "application/json; charset=utf-8",
+            data: {userID:pageID, Following:followstatus,Pikachu:userID},
+            success: function(data) {
+                console.log(data);
+                var totalFollowers = parseInt($('#num-followers').html());
+                if ($('#btn1').hasClass('following')) {
+                    console.log("Let's Unfollow");
+                    //$.ajax(); Do Unfollow
+                    $('#btn1').removeClass('following');
+                    $('#btn1').removeClass('unfollow');
+                    $('#btn1').text('Follow');
+                    $('#num-followers').html(totalFollowers-1);
+                    $("#followstat").val("no");
+                    followstatus ="no";
+                } else {
+                    console.log("Let's follow");
+                    // $.ajax(); Do Follow
+                    $('#btn1').addClass('following');
+                    $('#btn1').text('Following');
+                    $('#num-followers').html(totalFollowers+1);
+                    $("#followstat").val("yes");
+                    followstatus ="yes";
+                }
+            },
+            error: function(error) {
+                console.log("It just doesn't work");
+                console.log(error);
+            }
+        });
+    });
+    
     //$(window).resize(function() {
     //  fitDashboard();
     //});

@@ -88,7 +88,7 @@ function notifUpdate() {
     return;
 }
 
-function burgerUpdate() {
+/*function burgerUpdate() {
     if (isPanOpened(false)) {
         document.getElementById("notifPan").innerHTML = '<h2 id="panHead">Options</h2><div id="closePan" onclick="closePan()">x</div>';
         document.getElementById("notifPan").innerHTML += `<div id="notifItemWrap">
@@ -114,9 +114,9 @@ function burgerUpdate() {
         `
     }
     return;
-}
+}*/
 
-function isPanOpened(b) {
+/*function isPanOpened(b) {
     var thePanEl = document.getElementById("notifPan");
     thePanEl.innerHTML = "";
     if (thePanA && thePanB == b) {
@@ -139,7 +139,7 @@ function closePan() {
     thePanEl.innerHTML = "";
     thePanA = false;
     thePanEl.style.display = "none";
-}
+}*/
 /*
 t: title, string
 d: description, string
@@ -241,9 +241,10 @@ $(document).ready(function () {
         $(this).append("<input type='hidden' name='searchbyusername' value='true'/>");
         $(this).append("<input type='hidden' name='searchbyprojectname' value='true'/>");
     });
+    //$('[data-toggle="tooltip"]').tooltip();        
 })
 
-function passCheck() {
+/*function passCheck() {
     var pass = document.getElementById('inputPassword');
     var check_pass = document.getElementById('confirmPassword');
     var message = document.getElementById('pwNoMatch');
@@ -264,7 +265,7 @@ function passCheck() {
         message.innerHTML = "Passwords match!";
 
     }
-}
+}*/
 
 function buttonUp() {
     var inputVal = $('.searchbox-input').val();
@@ -276,4 +277,12 @@ function buttonUp() {
         $('.searchbox-icon').css('display', 'block');
     }
 }
+
+function recaptchaCallback() {
+    $('#finished').removeAttr('disabled');
+}
+$("#form1").submit(function() {
+    
+});
+
 
