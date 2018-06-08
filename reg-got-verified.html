@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
@@ -10,22 +9,29 @@
 	<script src="/ustart_front/js/reg-complete.js"></script>
     <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 </head>
-
-
 <body>
     <div id="centering" style="top: 6em;">
         <div id="content">
             <div class="container">
 				<div class="jumbotron">
+                    {{ if .ErrorOutput }}
+                    <div id="dup-email-alert" class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
+                    </div>
+                    <div>Try <a href="/welcome/">registration</a> again.</div>
+                    {{else}}
 					<h3>Congratulations</h3>
 					Your registration is complete. Please login to your account.
 					<hr/>
-					Or return to the <a href="http://ustart.today:5002/~">home page</a>.
+					Or return to the <a href="/~">home page</a>.
+                    {{end}}
 				</div>
             </div>
         </div>
     </div>
     <footer id="foot"></footer>
 </body>
-
 </html>
