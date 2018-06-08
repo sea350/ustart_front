@@ -391,7 +391,6 @@ function formatTime(time) {
                          {
                             var temp = $.parseJSON(jqXHR.responseText);
                             if (temp != null){
-                                console.log(temp);
                                 $('#wall-dataF').empty();
                                 $('#shareModals').empty();
                                 $('#editModals').empty();
