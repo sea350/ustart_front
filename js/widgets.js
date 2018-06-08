@@ -819,6 +819,13 @@ $(document).ready(function() {
 		});
 		$('#git-modal').modal();
 	});
+    
+    $( ".delete-widget" ).click(function( event ) {
+        var target= event.target.id;
+        console.log(target);
+        $("#"+target+"delete").submit();
+        $("#"+target).unbind( "click" );
+    });
 	
     $('#galleryWidgetBtn').click(function() {
 		if($('#editGalleryModal').length > 0) {

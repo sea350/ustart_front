@@ -3,6 +3,7 @@ var port = location.port;
 var flag = 1;
 var IDArray = [];
 
+document.addEventListener('DOMContentLoaded', function () { window.scrollTo(0, 200) });
 
 window.___gcfg = { "parsetags": "explicit" };
 $(function () {
@@ -391,6 +392,7 @@ function formatTime(time) {
                          {
                             var temp = $.parseJSON(jqXHR.responseText);
                             if (temp != null){
+                                console.log(temp.length);
                                 $('#wall-dataF').empty();
                                 $('#shareModals').empty();
                                 $('#editModals').empty();
@@ -398,7 +400,7 @@ function formatTime(time) {
                                 $('#commentModals').empty();
                                 //if post greater than 5
                                 if(temp.length > 5){
-                                    for (i=temp.length - 1; i > temp.length-6; i--){
+                                    for (i=temp.length - 1; i >=0; i--){
                                         if (userID == temp[i].Element.PosterID || userID == pageID ){
                                             if (temp[i].Element.Classification == 2){createSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
                                             }
@@ -450,6 +452,7 @@ function formatTime(time) {
         });
     });
      //render comments
+
      $('body').on("click", ".comment-btn", function(e) {
           var postID = e.currentTarget.id;
           $.ajax({
@@ -778,7 +781,6 @@ function formatTime(time) {
                     }
             });
      });
-
     //wall scroll code
      /*function element_in_scroll(elem)
      {
