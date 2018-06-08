@@ -391,6 +391,7 @@ function formatTime(time) {
                          {
                             var temp = $.parseJSON(jqXHR.responseText);
                             if (temp != null){
+                                console.log(temp);
                                 $('#wall-dataF').empty();
                                 $('#shareModals').empty();
                                 $('#editModals').empty();
@@ -779,8 +780,8 @@ function formatTime(time) {
             });
      });
 
-     //wall scroll code
-     function element_in_scroll(elem)
+    //wall scroll code
+     /*function element_in_scroll(elem)
      {
         var docViewTop = $(window).scrollTop();
         var docViewBottom = docViewTop + $(window).height();
@@ -877,7 +878,7 @@ function formatTime(time) {
         $(document).ready(function() {// Initialize scroll
                 new InfiniteScroll();
         });
-    })(jQuery, window);
+    })(jQuery, window);*/
 
 $(document).ready(function () {
     //modal box
