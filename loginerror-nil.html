@@ -1,34 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-</style>
-    <meta charset="UTF-8">
-    <title>ustart</title>
-    <link href="/ustart_front/css/login.css" rel="stylesheet" type="text/css">
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>UStart Search</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/normalize.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/login.css">
+    <script src="/ustart_front/js/bootstrap-confirmation.min.js"></script>
+    <script src="/ustart_front/js/ascii-convert.js"></script>
 </head>
-
 <body>
-<body>
-    <div id="centering" style="top: 3em;">
-    	<div id="inner-ryan">
-		<h3 style="font-family:'Raleway';text-align:center;color:#bf4040;padding-top:8px;"><b>Invalid username or password.</b></h3>
-                <h3 style="font-family:'Raleway';text-align:center;color:#bf4040"><b>Please try again!</b></h3>
-		<label style="color:#018a65;font-size:18px;font-family:'Raleway';margin-top:10px;"><b>Username</b></label>
-        <form action="/profilelogin/" method="post">
-    		<input type="text" placeholder="Enter Email" name="email" required style="margin-bottom:20px;font-family:'Raleway';">
+    <div id="centering">
+        <div id="content" class="container">
+		    <h3>Please retry your email or password</h3>
+            <form action="/profilelogin/" method="post">
+                <label for="email">Email</label>
+                <input type="email" placeholder="Enter Email" id="email" name="email" required/>
 
-    		<label style="color:#018a65;font-size:18px;font-family:'Raleway';"><b>Password</b></label>
-    		<input type="password" placeholder="Enter Password" name="password" required style="font-family:'Raleway';">
-		<button type="submit" style="margin-top:27px;font-family:'Raleway';padding-top:16px;padding-bottom:16px;font-size:20px;color:white;">Login</button>
-        </form>
-        <form action = "#" method="post">
-		<button id="bubbles" type="submit" style="margin-top:27px;font-family:'Raleway';">Forgot password?</button>
-        </form>
-
-	</div>
+                <label for="password">Password</label>
+                <input type="password" placeholder="Enter Password" id="password" name="password" required/>
+                <button type="submit">Login</button>
+            </form>
+            <a href="/ustart_front/forgotpw.html">Forgot password?</a>
+        </div>
     </div>
 </body>
 </html>
