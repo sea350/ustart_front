@@ -10,7 +10,6 @@
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/modal-links.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/socialMedia.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-gallery.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-text.css">  
@@ -19,9 +18,17 @@
     <script src="/ustart_front/js/layout_tags.js"></script>
     <script src="https://rawgit.com/pklauzinski/jscroll/master/jquery.jscroll.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.7.1/slick/slick.min.js"></script>
-    <!--<script src="ustart_front/js/bootstrap-confirmation.min.js"></script>-->
     <script src="/ustart_front/js/moment.min.js"></script>
     <script src="/ustart_front/js/jquery.rss.min.js"></script>
+    <script type="text/javascript">
+    //globals
+    var userID = {{.DOCID}};
+    var pageID = {{.Page}};
+    $(document).ready(function () {
+        $("#head-image").attr("src",{{.UserInfo.Banner}});
+        $("#user-avatar").attr("src",{{.UserInfo.Avatar}});
+    });
+    </script>
     <script src="/ustart_front/js/profile-nil.js"></script>
     <script src="/ustart_front/js/widgets.js"></script>
     <script src="/ustart_front/js/widget-projectDisplay.js" defer></script>	   
@@ -32,70 +39,15 @@
 	<script src="/ustart_front/js/ascii-convert.js"></script>
     <script src="/ustart_front/js/createPosts.js"></script>
    <!-- <script src="ustart_front/js/widget-text.js"></script>-->
-    <script>
-        window.___gcfg = { "parsetags": "explicit" };
-        var port = 5002;
-        var flag = 1;
-        $(function () {
-           /* $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
-                $("#leftNavProfile").addClass("theActive");
-            });*/
-            // Enables drag-n-drop list items (using the header)
-            $("#sortable").sortable({
-                handle: ".widgetTitle",
-                revert: true,
-                tolerance: "pointer",
-				items: "> li.sortable",
-				update: function(event, ui) {
-					// Update {{.UserInfo.UserWidgets}} with $("#sortable").sortable("toArray")
-					var asortedWidgets = $("#sortable").sortable("toArray");
-					$.ajax({
-						type: 'GET',
-						url: 'http://ustart.today:'+port+'/sortUserWidgets/',
-						contentType: "application/json; charset=utf-8",
-						data: {sortedWidgets: JSON.stringify(asortedWidgets)},
-						success: function(data) {
-							console.log('Sorted Widgets are probably saved: ');
-							console.log(data);
-						},
-						error: function(err) {
-							console.log('Sorted Widgets failed: ');
-							console.log(err);
-						}
-					});
-				}
-            });
-			
-			
-			$('#projSortable').sortable();
-			$('#projectWidget .widgetBody').sortable({
-				cancel: ''
-			}).disableSelection();
-			$('#hashTagsBody').sortable({
-				cancel: ''
-			}).disableSelection();
-
-			$('.links-container').sortable({
-				cancel: ''
-			}).disableSelection();
-            /*
-            // Enables resizable list items
-            $("#sortable>li").resizable({
-                animate: true,
-                ghost: true,
-                resize: function (event, ui) {
-                    ui.size.width = ui.originalSize.width;
-                }
-            });
-            */
-        });
-    </script>
     <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!-- array used for wall load -->
+    {{range $loop := .UserInfo.EntryIDs}}
+        <script type="text/javascript" src="/ustart_front/js/profile-nil.js">IDArray.push({{$loop}});</script>
+    {{end}}
 </head>
 
 <body>
-    <input type="hidden" id="pageiden" value='{{.Page}}'>
     <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
 	<div id="centering">
 		{{ if .ErrorOutput }}
@@ -107,18 +59,6 @@
 		</div>
 		{{end}}
 		<img id="head-image" alt="User Banner">
-		<script>
-            var IDArray = [];
-			$( document ).ready(function() {
-				$("#leftNavProfile").addClass("theActive");
-                $("#head-image").attr("src",{{.UserInfo.Banner}});
-                $("#user-avatar").attr("src",{{.UserInfo.Avatar}});
-			});
-		</script>
-        <!-- array used for wall load -->
-        {{range $loop := .UserInfo.EntryIDs}}
-            <script>IDArray.push('{{$loop}}');</script>
-        {{end}}
         <!-- Vertical content -->
         <div id="content" class="container">
 			<div class="flex-box">
@@ -188,70 +128,6 @@
 							{{if ne ($.Page) ($.DOCID)}}
 							<button id="btn1" class="btn followButton" rel="6">Follow</button>
 							{{end}}
-							<script type="text/javascript">
-								   $(document).ready(function() { 
-										var pageID= document.getElementById("pageiden").value;
-										var followstatus=document.getElementById("followstat").value;
-										if(followstatus == "yes"){
-											 $('#btn1').attr('class', 'btn followButton following');
-											 $('#btn1').text('Following');
-										}
-										else{
-											$('#btn1').attr('class', 'btn followButton');
-											$('#btn1').text('Follow');
-										} 
-										$('#btn1').hover(function () {
-											$button = $(this);
-											if ($button.hasClass('following')) {
-												$button.addClass('unfollow');
-												$button.text('Unfollow');
-											}
-											}, function () {
-											if ($button.hasClass('following')) {
-												$button.removeClass('unfollow');
-												$button.text('Following');
-											}
-										});
-										
-										 $('#btn1').click(function(e) {
-											var Pikachu = {{.DOCID}};
-											console.log('follow clicked');
-											$.ajax({
-												type: 'GET',  
-												url: 'http://ustart.today:'+port+'/callme/',
-												contentType: "application/json; charset=utf-8",
-												data: {userID:pageID, Following:followstatus,Pikachu:Pikachu},
-												success: function(data) {
-													console.log(data);
-													var totalFollowers = parseInt($('#num-followers').html());
-													if ($('#btn1').hasClass('following')) {
-														console.log("Let's Unfollow");
-														//$.ajax(); Do Unfollow
-														$('#btn1').removeClass('following');
-														$('#btn1').removeClass('unfollow');
-														$('#btn1').text('Follow');
-														$('#num-followers').html(totalFollowers-1);
-														$("#followstat").val("no");
-														followstatus ="no";
-													} else {
-														console.log("Let's follow");
-														// $.ajax(); Do Follow
-														$('#btn1').addClass('following');
-														$('#btn1').text('Following');
-														$('#num-followers').html(totalFollowers+1);
-														$("#followstat").val("yes");
-														followstatus ="yes";
-													}
-												},
-												error: function(error) {
-													console.log("It just doesn't work");
-													console.log(error);
-												}
-											});
-										});
-									});
-
-							</script>
 							{{if ne ($.Page) ($.DOCID)}}
 							<div class="profile-menu dropdown">
 								<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -947,9 +823,7 @@
                         </ul>
                     </div>
                     
-                     <script>
-                        var userID = {{.DOCID}};
-                        var pageID = {{.Page}};
+                     <!--<script>
                          //render posts
                         $('body').on("click", "#Wall-loadAJAX", function(e) {
                             $("#post-msg").focus(function (e) {
@@ -1421,7 +1295,6 @@
                                     // Do something.
                                     // Load data or whatever.
                                     if ($('#prof-wall').hasClass("in")){
-                                        var userID = {{.DOCID}};
                                         var postLen = $(".wallPosts").length;
                                         if ($(".wallPosts").length > 0 && IDArray.length > 5){
                                             var postArr=[];
@@ -1483,7 +1356,7 @@
                                     new InfiniteScroll();
                             });
                         })(jQuery, window);
-                     </script>
+                     </script>-->
                     
                     <div id="prof-wall" class="tab-pane fade">
                         <div class="grid">
@@ -1536,7 +1409,7 @@
             </div>
 			<!-- end menu-wrap-->
             <div id="modal-box">
-                <script type="text/javascript">
+             <!--   <script type="text/javascript">
                     $( document ).ready(function() {
                                             $('#menu-item-about').hover(function () {
                                                 $(this).fadeOut(100);
@@ -1579,7 +1452,7 @@
                                                 $("#box").css('max-width', '0');
                                             });
                     });
-                </script>
+                </script>-->
                 <!--  WIDGET MODALS -->
                 <!-- About Modal  -->
                 <div class="modal fade" id="aboutModal" role="dialog">

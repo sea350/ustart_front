@@ -1,6 +1,16 @@
 * {
     font-family: 'Roboto';
 }
+
+.alert{
+width: 500px;
+
+}
+@media only screen and (max-width: 540px) {
+.alert{
+width: 300px;
+}
+}
 .navBar-placeholder nav {
     font-family: sans-serif
 }
@@ -108,7 +118,7 @@ body {
 	display: block;
     width: 100%;
     padding: 3px 1.5rem;
-    clear: both;
+    clear: both;f
     font-weight: 400;
     color: #292b2c;
     text-align: inherit;

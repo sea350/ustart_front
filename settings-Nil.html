@@ -109,9 +109,7 @@
 															size: 'viewport'
 														}).then(function (resp) {
 															$('#hidden-image-data').val(resp);
-															console.log($('#hidden-image-data').val());
 															$('#img-form').submit();
-                                                            console.log("done");
 														});
 													});
 												</script>
@@ -129,21 +127,21 @@
 										</div>
 										<div class="col-sm-12">
 											<hr/>
-											<form id="banner-form" action="/BannerUpload/" enctype="multipart/form-data" method="POST">
+											<form id="banner-form" action="/BannerUpload/"  enctype="multipart/form-data"  method="post">
 												<div id="upload-demo2" style="width:1000px; height:400px"></div>
 												<input type="file" name="raw-banner" id="upload2" accept="image/*">
-												<input type="hidden" name="banner-data" id="hidden-image-data2" />
+												<input type="hidden" name="banner-data" id="hidden-image-data-2" />
 												<button type="button" class="btn btn-info" id="upload-result2">Upload Image</button>
 													<script type="text/javascript">
                                                         $uploadCrop2 = $('#upload-demo2').croppie({
-                                                            url: "{{.Project.ProjectData.Banner}}",
+                                                            url: "{{.UserInfo.Banner}}",
                                                             viewport: {
                                                                 width: 1000,
                                                                 height: 300,
                                                             },
                                                             boundary: {
                                                                 width: 1050,
-                                                                height: 350
+                                                                height:350,
                                                             }
                                                         });
                                                         $('#upload2').on('change', function () { 
@@ -158,15 +156,12 @@
                                                             reader2.readAsDataURL(this.files[0]);
                                                         });
                                                          $('#upload-result2').on('click', function (ev) {
-                                                             console.log("done");
                                                             $uploadCrop2.croppie('result', {
                                                                 type: 'canvas',
                                                                 size: 'viewport'
-                                                            }).then(function (resp) {
-                                                                $('#hidden-image-data2').val(resp);
-                                                                console.log($('#hidden-image-data2').val());
-                                                                $('#banner-form').submit();
-                                                                console.log("done");
+                                                            }).then(function (resp2) {
+                                                               $('#hidden-image-data-2').val(resp2);
+															   $('#banner-form').submit();
                                                             });
                                                          });
                                                     </script>

@@ -2,22 +2,15 @@
 <html>
 
 <head>
+    <meta http-equiv="Content-Security-Policy" content="default-src https:">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>UStart Registration</title>
-    <link rel="stylesheet" href="/ustart_front/css/register.css">
-    <script type="text/javascript" src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
-    <script type="text/javascript" src="/ustart_front/bower_components/moment/min/moment.min.js"></script>
-    <script type="text/javascript" src='https://www.google.com/recaptcha/api.js'></script>
     <script type="text/javascript" src="/ustart_front/js/zxcvbn.js"></script>
-    <script type="text/javascript" src="/ustart_front/js/layout.js"></script>
     <script type="text/javascript" src="/ustart_front/js/majors.js"></script>
     <script type="text/javascript" src="/ustart_front/js/countries.js"></script>
     <script type="text/javascript" src="/ustart_front/js/reg-check.js"></script>
-    <!-- <link rel="stylesheet" href="/ustart_front/resources/demos/style.css"> -->
 </head>
-
-
 <body>
     <div id="centering" style="top: 6em;">
         <div id="content">
@@ -30,7 +23,7 @@
                     </button>
                     <strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
                 </div>
-				{{end}}
+                {{end}}
                <form class="form-signup" id="form1" action="/welcome/" method="post">
                     <!-- Name -->   
                     <div class="row">
@@ -48,7 +41,7 @@
                         <div class="dropdown col-sm-6">
                             <label for="uName" class="sr-only">Username</label>
                             <input type="text" id="uName" name="username" class="form-control" placeholder="Username" autocomplete="username" pattern="[a-zA-Z0-9][a-zA-Z0-9_]+[a-zA-Z0-9]" required />
-                            <p id="uDup" style="color:red;">Username is already being used. Try another username.</p>
+                            <p id="uDup" style="color:red; display:none;">Username is already being used. Try another username.</p>
                         </div>
                         <div class="dropdown col-sm-6">
                             <label for="inEmail" class="sr-only">Email address</label>
@@ -70,72 +63,6 @@
                             <div id="left-empty" style="display: none">
                                 <p style="color: red;">You must enter a password.</p>
                             </div>
-                            <script type="text/javascript">
-                            // Password strength script
-
-                            var pass = document.getElementById('inputPassword');
-                            var mcont = document.getElementById('meter-cont');
-                            var meter = document.getElementById('meter');
-                            var empty = document.getElementById('left-empty');
-                            var bad = document.getElementById('bad-pass');
-                            meter.style.display = "none";
-                            empty.style.display = "none";
-                            bad.style.display = "none";
-                            mcont.style.display = "none";
-                            pass.addEventListener('input', function() {
-
-                                var val = pass.value;
-
-                                meter.style.display = "block";
-                                if (val == '') {
-                                    empty.style.display = "block";
-                                    bad.style.display = "none";
-                                    meter.style.display = "none";
-                                    mcont.style.display = "none";
-
-                                }
-                                // pass into function to measure strength
-                                var result = zxcvbn(val);
-
-                                // Password progress bar
-                                var $bar = $('#meter');
-
-                                if (result.score == 0) {
-                                    if (val == '') {
-                                        empty.style.display = "block";
-                                        bad.style.display = "none";
-                                        meter.style.display = "none";
-                                        mcont.style.display = "block";
-
-                                    } else {
-                                        $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '0%');
-                                        bad.style.display = "block";
-                                        empty.style.display = "none";
-                                        mcont.style.display = "block";
-                                    }
-
-                                } else if (result.score == 1) {
-                                    $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '25%');
-                                    bad.style.display = "block";
-                                    empty.style.display = "none";
-
-                                } else if (result.score == 2) {
-
-                                    $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '50%');
-                                    bad.style.display = "block";
-                                    empty.style.display = "none";
-                                } else if (result.score == 3) {
-
-                                    $bar.attr('class', 'progress-bar progress-bar-warning').css('width', '75%');
-                                    bad.style.display = "none";
-                                    empty.style.display = "none";
-                                } else { // score == 4
-                                    $bar.attr('class', 'progress-bar progress-bar-success').css('width', '100%');
-                                    bad.style.display = "none";
-                                    empty.style.display = "none";
-                                }
-                            });
-                            </script>
                         </div>
                         <div class="dropdown col-sm-6">
                             <label for="confirmPass" class="sr-only">Confirm Password</label>
@@ -150,9 +77,6 @@
                         <div class="dropdown col-sm-3">
                             <select name="state" id="state" class="form-control" autocomplete="state"></select>
                         </div>
-                        <script language="javascript">
-							populateCountries("country", "state");
-                        </script>
                         <div class="dropdown col-sm-3">
                             <input id="city" name="city" class="form-control" placeholder="City" autocomplete="city">
                         </div>
@@ -164,30 +88,9 @@
                     <div class="row">
                         <div class="dropdown col-sm-6">
                             <input name="universityName" class="form-control" id="uni" placeholder="University/College" required >
-                            <script type="text/javascript">
-                            $(document).ready(function() {
-                                $("#uni").autocomplete({
-                                    source: function(request, response) {
-                                        var results = $.ui.autocomplete.filter(universities, request.term);
-                                        response(results.slice(0, 10));
-                                    }
-                                });
-                            });
-                            </script>
                         </div>
                         <div class="dropdown col-sm-6">
                             <input type="text" id="maj" name="majors" class="form-control" placeholder="Major" / required >
-                            <script type="text/javascript">
-                            $(document).ready(function() {
-
-                                $("#maj").autocomplete({
-                                    source: function(request, response) {
-                                        var results = $.ui.autocomplete.filter(major, request.term);
-                                        response(results.slice(0, 10));
-                                    }
-                                });
-                            });
-                            </script>
                         </div>
                     </div>
                     <!-- Year / DOB -->
@@ -206,14 +109,6 @@
                         <div class="dropdown col-sm-6">
                             <input id="birthday" type="date" placeholder="Date of Birth (YYYY-MM-DD)" class="form-control" name="dob" required />
                         </div>
-                        <script type="text/javascript">
-							/*$('#datetimepicker4').datepicker({
-								format: 'YYYY-MM-DD',
-								changeMonth: true,
-								changeYear: true,
-								yearRange: "-120:-10"
-							});*/
-                        </script>
                     </div>
                     <br>
                     <!-- captcha check -->
@@ -226,14 +121,6 @@
                         <label for="termsRead">I agree that I have read the <a href="U-Start Terms and Conditions Draft.htm" target="_blank">terms and conditions</a>.</label>
                     </div>
                     <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit" name="send" id="finished" disabled>Continue</button>
-                    <script>
-						function recaptchaCallback() {
-							$('#finished').removeAttr('disabled');
-						}
-						$("#form1").submit(function() {
-							
-						});
-                    </script>
                     <br>
                     <br>
                     <br>

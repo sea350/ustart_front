@@ -23,6 +23,9 @@ function daRender(daUsername, daCount) {
 		effect: 'slideFastSynced',
 		tokens: {
 			imageURL: function(entry, tokens) { return entry.mediaContent }
+		},
+		error: function() {
+			$('#widgetBodyDA').text("The URL didn't work");
 		}
 	});
 }
@@ -84,7 +87,10 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 			layoutTemplate: '<ul data-med-username="' + medUsername + '">{entries}</ul>',
 			entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="medium-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
 			dateFormat: 'MMM Do, YYYY',
-			effect: 'slideFastSynced'
+			effect: 'slideFastSynced',
+			error: function() {
+				$('#widgetBodyMed').text("The URL didn't work");
+			}
 		});
 	} else {
 		var medTag = $('#med-embed-tag').val();
@@ -94,7 +100,10 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 				layoutTemplate: '<ul data-med-publication="' + medPublication + '">{entries}</ul>',
 				entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="medium-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
 				dateFormat: 'MMM Do, YYYY',
-				effect: 'slideFastSynced'
+				effect: 'slideFastSynced',
+				error: function() {
+					$('#widgetBodyMed').text("The URL didn't work");
+				}
 			});
 		} else {
 			$('#widgetBodyMed').rss("https://medium.com/feed/@" + medPublication + "/tagged/" + medTag, {
@@ -102,7 +111,10 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 				layoutTemplate: '<ul data-med-publication="' + medPublication + '" data-med-tag="' + medTag + '">{entries}</ul>',
 				entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="medium-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
 				dateFormat: 'MMM Do, YYYY',
-				effect: 'slideFastSynced'
+				effect: 'slideFastSynced',
+				error: function() {
+					$('#widgetBodyMed').text("The URL didn't work");
+				}
 			});
 		}
 	}
@@ -116,15 +128,13 @@ function tumblrRender (tumblrUsername) {
 		entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="tumblr-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
 		dateFormat: 'MMM Do, YYYY',
 		effect: 'slideFastSynced',
-		error: function(error) {
-			console.log("End in Tumblr RSS");
-			console.log(error);
+		error: function() {
+			$('#widgetBodyTumblr').text("The URL didn't work");
 		}
 	});
 }
 
 function githubRender (githubUsername) {
-	// Using RSS to render custom containers
 	$.getJSON("https://api.github.com/users/" + githubUsername + "/repos", function(data) {
 		var githubList = $("<ul></ul>");
 
@@ -140,14 +150,20 @@ function githubRender (githubUsername) {
     
     	$("#widgetBodyGit").append(githubList);
 	});
-
+	
+	/*
+	// Using RSS to render custom containers
 	$('#widgetBodyGit').rss("https://api.github.com/users/" + githubUsername + "/repos", {
 		limit: 12,
 		layoutTemplate: '<ul data-github-username="' + githubUsername + '">{entries}</ul>',
 		entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="github-proj-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
 		dateFormat: 'MMM Do, YYYY',
-		effect: 'slideFastSynced'
+		effect: 'slideFastSynced',
+		error: function() {
+			$(this).text("The URL didn't work");
+		}
 	});
+	*/
 }
 
 function anchorEditor(element) {
