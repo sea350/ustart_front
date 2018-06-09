@@ -64,7 +64,7 @@ span.ui-icon {
 .projectsColumn {
     margin: 0.5em;
 	margin-bottom: 0.5em !important;
-    padding: 1em;
+    padding: 0.5em 0.1em;
     border-color: #c5c5c5;
     border-style: solid;
     border-width: 1px;
@@ -249,9 +249,10 @@ span.ui-icon {
 	-webkit-column-width: 18em;
 }
 
-#widget-insert .widgetBody {
+#widget-insert .widgetBody,
+#projectsWidgetCont .widgetBody {
 	display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, 120px);
 }
 
 #widget-insert .widgetBody:after {
