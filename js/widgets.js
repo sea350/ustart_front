@@ -80,8 +80,7 @@ function YoutubeRender(youtubeID, widgetID) {
     iframe.setAttribute( "frameborder", "0" );
     iframe.setAttribute( "allowfullscreen", "" );
     iframe.setAttribute( "src", finalURL);
-    console.log(iframe);
-    console.log(finalDest);
+    $(finalDest).append(iframe);
 }
 
 
