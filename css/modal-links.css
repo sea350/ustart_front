@@ -63,23 +63,25 @@
     position: absolute;
     background-color: white;
     border: 1px solid #CCCCCC;
-    border-radius: 2em;
+    border-radius: 1.8em;
     color: #222222;
-    opacity: 0;
-    text-align: center;
     width: 23px;
+    text-align: center;
+    opacity: 0;
+    -webkit-transition: opacity 0.3s;
+    -o-transition: opacity 0.3s;
+    transition: opacity 0.3s;
     -webkit-transform: translate(7.3em, 0.3em);
     -ms-transform: translate(7.3em, 0.3em);
     transform: translate(7.3em, 0.3em);
-    -webkit-transition: opacity 0.2s;
-    -o-transition: opacity 0.2s;
-    transition: opacity 0.2s;
-    -webkit-transition-delay: 0.2s;
-    -o-transition-delay: 0.2s;
-    transition-delay: 0.2s
+    -webkit-transition-delay: 0.3s;
+    -o-transition-delay: 0.3s;
+    transition-delay: 0.3s
 }
-.links-container a:hover .cross-mark,
-.links-container a .cross-mark:hover {
+.links-container a:hover .cross-mark {
+    -webkit-transition-delay: 0;
+    -o-transition-delay: 0;
+    transition-delay: 0;
     opacity: 1;
 }
 
@@ -108,7 +110,4 @@
     color: white;
     text-align: center;
     vertical-align: middle;
-}
-.dotted-guide {
-    border: dashed 2px black;
 }
