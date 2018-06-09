@@ -70,23 +70,17 @@ function YouTubeGetID(url) {
     return ID;
 }
 
-function YoutubeRender (youtubeID, widgetID) {
+function YoutubeRender(youtubeID, widgetID) {
     var youtubeURL = YouTubeGetID(youtubeID);
-    var divprefix = "player";
+    var divprefix = "#player";
     var finalDest = divprefix.concat(widgetID);
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    var player;
-    function onYouTubeIframeAPIReady = function() {
-        console.log("here");
-        player = new YT.Player(finalDest, {
-          height: '315',
-          width: '560',
-          videoId: youtubeURL
-        });
-    }
+    var youtubeurlprefix="https://www.youtube.com/embed/";
+    var finalURL = youtubeurlprefix.concat(youtubeURL);
+    var iframe = document.createElement( "iframe" );
+    iframe.setAttribute( "frameborder", "0" );
+    iframe.setAttribute( "allowfullscreen", "" );
+    iframe.setAttribute( "src", finalURL);
+    $(finalDest).append(iframe);
 }
 
 

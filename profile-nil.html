@@ -29,7 +29,7 @@
         $("#user-avatar").attr("src",{{.UserInfo.Avatar}});
     });
     </script>
-    <script src="http://www.youtube.com/player_api"></script> <!-- must go before widget.js -->
+    <script src="http://www.youtube.com/player_api"></script>
     <script src="/ustart_front/js/widgets.js"></script>
     <script src="/ustart_front/js/widget-projectDisplay.js" defer></script>	   
     <script src="/ustart_front/js/widget-calendar.js"></script>
@@ -568,8 +568,9 @@
                                     <div class="widgetBody">
                                         <div class="youtube-feed">
                                              <div id="player{{index $loop.ID}}"></div>
-                                             <script>
-                                                 YoutubeRender({{index $loop.Data 0}},{{index $loop.ID}} )
+                                             <script type="text/javascript">
+                                                  YoutubeRender({{index $loop.Data 0}},{{index $loop.ID}});
+                                 
                                                // document.write(' <iframe width="560" height="315" src="https://www.youtube.com/embed/'+youtubeEmbedded+'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>');
                                             </script>
                                         </div>
