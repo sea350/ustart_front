@@ -250,9 +250,9 @@ span.ui-icon {
 }
 
 #widget-insert .widgetBody,
-#projectsWidgetCont .widgetBody {
+#projectDisplay .widgetBody {
 	display: grid;
-    grid-template-columns: repeat(auto-fit, 120px);
+    grid-template-columns: repeat(auto-fit, 124px);
 }
 
 #widget-insert .widgetBody:after {
