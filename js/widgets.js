@@ -3,8 +3,9 @@ var twitterSetting;
 var twitterSettingDown = '<i class="glyphicon glyphicon-menu-down"></i>';
 var widgetScrollSpeed = 400;
 var medUrlType = 0;
-var galleryDefaultRemoveOption = '<option default selected>Select from your list of pictures here</option>';
 
+
+var galleryDefaultRemoveOption = '<option default selected>Select from your list of pictures here</option>';
 /*function attachRemoveWidgetFunction() {
     $(".fa-trash").unbind('click');
     $(".fa-trash").click(function(e) {
@@ -68,6 +69,26 @@ function YouTubeGetID(url) {
     }
     return ID;
 }
+
+function YoutubeRender (youtubeID, widgetID) {
+    var youtubeURL = YouTubeGetID(youtubeID);
+    var divprefix = "player";
+    var finalDest = divprefix.concat(widgetID);
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var player;
+    function onYouTubeIframeAPIReady = function() {
+        console.log("here");
+        player = new YT.Player(finalDest, {
+          height: '315',
+          width: '560',
+          videoId: youtubeURL
+        });
+    }
+}
+
 
 function AnchorGetID(url) {
     var anchrarray = url.split("/");
@@ -346,6 +367,7 @@ function spotifyEditor(element) {
 	});
 	$('#spot-modal').modal();
 }
+
 
 function preventSpam(formID, deleteButtonID){
         var form = document.getElementById(formID);

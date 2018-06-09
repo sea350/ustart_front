@@ -1,8 +1,7 @@
 // globals
 var port = location.port;
 var flag = 1;
-var IDArray = [];
-
+var IDArray= []
 document.addEventListener('DOMContentLoaded', function () { window.scrollTo(0, 200) });
 
 window.___gcfg = { "parsetags": "explicit" };
