@@ -43,10 +43,6 @@ $(function () {
     $('#hashTagsBody').sortable({
         cancel: ''
     }).disableSelection();
-
-    $('.links-container').sortable({
-        cancel: ''
-    }).disableSelection();
     /*
     // Enables resizable list items
     $("#sortable>li").resizable({

@@ -167,4 +167,9 @@ $(document).ready(function() {
 			$(this).val('');
 		}
 	});
+
+    $('.links-container').sortable({
+		cancel: "",
+		helper: "dotted-guide"
+    }).disableSelection();
 });
