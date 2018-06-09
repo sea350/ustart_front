@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>ustart</title>
+	<title>U Start - Settings</title>
 	<link rel="stylesheet" type="text/css" href="/ustart_front/css/settings.css" />
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/croppie.css" />
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
@@ -213,8 +213,7 @@
 												<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe yourself."></textarea>
                                                 <script>
                                                     $(document).ready(function () {
-                                                    $("textarea#inputDesc").text( readRuneArrayThatWorks({{.UserInfo.Description}})
-                                                    )
+                                                    	$("textarea#inputDesc").text( readRuneArrayThatWorks({{.UserInfo.Description}}) );
                                                     });
                                                 </script>
 											</div>
@@ -282,15 +281,22 @@
 									</div>
 									<!-- Old Password -->
 									<div class="input-group">
-										<span class="input-group-addon">Old Password</span>
-										<input type="password" class="form-control" id="oldpass" name="oldpass" placeholder="Enter the old password to change the current password"
+										<label class="input-group-addon" for="oldpass">Old Password</label>
+										<input type="password" class="form-control" id="oldpass" name="oldpass" placeholder="Enter the old password"
 										 required />
 									</div>
 									<br/>
 									<!-- Confirm Password -->
 									<div class="input-group">
-										<span class="input-group-addon">Confirm Password</span>
-										<input type="password" class="form-control" id="confirmpass" name="confirmpass" placeholder="Reconfirm the old password to change the current password"
+										<label class="input-group-addon" for="newpass">New Password</label>
+										<input type="password" class="form-control" id="newpass" name="newpass" placeholder="Enter the new password"
+										 required />
+									</div>
+									<hr/>
+									<!-- Confirm Password -->
+									<div class="input-group">
+										<label class="input-group-addon" for="confirmpass">Confirm Password</label>
+										<input type="password" class="form-control" id="confirmpass" name="confirmpass" placeholder="Reconfirm the new password"
 										 required />
 									</div>
 									<hr/>
@@ -315,12 +321,12 @@
 									<div class="row">
 										<div class="col-sm-4">
 											<label for="country">Country</label>
-											<!-- <label class="switch usr-vis-opt"><input type="checkbox" name="countryVis" checked><span class="slider round"></span></label> -->
+											<label class="switch usr-vis-opt"><input type="checkbox" name="countryVis" checked><span class="slider round"></span></label>
 											<select id="country" class="form-control" name="country" required></select>
 										</div>
 										<div class="col-sm-3">
 											<label for="state">State</label>
-											<!-- <label class="switch usr-vis-opt"><input type="checkbox" name="stateVis" checked><span class="slider round"></span></label> -->
+											<label class="switch usr-vis-opt"><input type="checkbox" name="stateVis" checked><span class="slider round"></span></label>
 											<select id="state" class="form-control" name="state" required></select>
 										</div>
 										<script language="javascript">
@@ -331,12 +337,12 @@
 										</script>
 										<div class="col-sm-3">
 											<label for="city">City</label>
-											<!-- <label class="switch usr-vis-opt"><input type="checkbox" name="cityVis" checked><span class="slider round"></span></label> -->
+											<label class="switch usr-vis-opt"><input type="checkbox" name="cityVis" checked><span class="slider round"></span></label>
 											<input id="city" class="form-control" name="city" value="{{.UserInfo.Location.City}}" placeholder="City" required />
 										</div>
 										<div class="col-sm-2">
 											<label for="zip">Zip</label>
-											<!-- <label class="switch usr-vis-opt"><input type="checkbox" name="zipVis" checked><span class="slider round"></span></label> -->
+											<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis" checked><span class="slider round"></span></label>
 											<input id="zip" class="form-control" name="zip" value="{{.UserInfo.Location.Zip}}" placeholder="Zip" required />
 										</div>
 									</div>
