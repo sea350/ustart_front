@@ -46,7 +46,6 @@ h3 {
 	padding: 1em;
 	display: flex;
     flex-wrap: wrap;
-    justify-content: center;
 }
 @media (min-width: 768px) {
     #centering .col-sm-5 {
