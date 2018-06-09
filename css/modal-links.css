@@ -25,29 +25,33 @@
     height: 128px
 }
 
-.links-container>a>img:hover,.links-website-title:hover {
-    border-color: #666666;
-    color: #222222
-}
-
-.links-container>a>img,.links-website-title {
-    -o-transition: border-color 0.5s, color 0.5s;
-    transition: border-color 0.5s, color 0.5s;
-    -webkit-transition: border-color 0.5s, color 0.5s;
+.links-container .links-website-title {
+    transition: border-color 0.2s, color 0.2s;
+    -o-transition: border-color 0.2s, color 0.2s;
+    -webkit-transition: border-color 0.2s, color 0.2s;
     border: 1px solid #CCCCCC;
     color: #AAAAAA
 }
-
-.cross-mark:hover {
+.links-container:hover .links-website-title:hover {
     border-color: #666666;
-    color: #FF2222
+    color: #222222
 }
+.links-container > a > img {
+    transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
+    -webkit-transition: opacity 0.2s;
+    opacity: 0.8;
+}
+.links-container > a:hover > img { opacity: 1.0; }
 
 .cross-mark {
     border: 1px solid #CCCCCC;
     color: #222222
 }
-
+.cross-mark:hover {
+    border-color: #666666;
+    color: #FF2222
+}
 .links-container a:hover .cross-mark {
     opacity: 1;
     -webkit-transition-delay: 0.3s;
