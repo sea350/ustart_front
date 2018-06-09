@@ -30,9 +30,11 @@
 					<div class="user-info">
 						<div class="user-img-container">
 							<img class="user-img" id="user-avatar" alt="User Profile Image">
+							{{if eq ($.Page) ($.DOCID)}}
 							<div class="user-img-option">
 								<a href="/Settings/#avatarcollapse">Change Profile Image</a>
 							</div>
+							{{end}}
 						</div>
 						<script>
 							$( document ).ready(function() {
@@ -67,9 +69,7 @@
 						<div class="user-desc">
 							<p style="margin-bottom: 0;">
 								<span id="description">
-									<script>readRuneArray({{.UserInfo.Description}});
-                                        console.log({{.UserInfo.Following}});
-                                    </script>
+									<script>readRuneArray({{.UserInfo.Description}});</script>
 								</span>
 							</p>
 						</div>
@@ -188,11 +188,10 @@
 							<div class="card">
 								<div class="container-s">
                                     <a href="/profile/{{$follower.Username}}">
-									<img id="followerAvatar{{$follower.Username}}" class="image"/>
+										<img id="followerAvatar{{$follower.Username}}" class="image"/>
+										<h4><b>{{$follower.FirstName}} {{$follower.LastName}}</b></h4> 
                                     </a>
-									<h4><b>{{$follower.FirstName}} {{$follower.LastName}}</b></h4> 
-									<div class="middle">
-									</div>
+									<button class="btn followButton" rel="6">Follow</button>
 									<script>
 										$('#followerAvatar{{$follower.Username}}').attr('src', '{{$follower.Image}}');
 									</script>
@@ -205,11 +204,10 @@
 							<div class="card">
 								<div class="container-s">
                                     <a href="/profile/{{$following.Username}}">
-									<img id="followingAvatar{{$following.Username}}" class="image"/>
+										<img id="followingAvatar{{$following.Username}}" class="image"/>
+										<h4><b>{{$following.FirstName}} {{$following.LastName}}</b></h4>
                                     </a>
-									<h4><b>{{$following.FirstName}} {{$following.LastName}}</b></h4> 
-									<div class="middle">
-									</div>
+									<button class="btn followButton" rel="6">Follow</button>
 									<script>
 										$('#followingAvatar{{$following.Username}}').attr('src', '{{$following.Image}}');
 									</script>
