@@ -30,7 +30,7 @@
                     type: 'GET',
                     url: 'http://ustart.today:'+port+'/ajaxUserEntries/',
                     contentType: "application/json; charset=utf-8",
-                    data: {userID:pageID},
+                    data: {userID:userID},
                     success: function(data) {  
                     },complete: function (jqXHR,status) {
                          if(status == 'success' || status=='notmodified')
@@ -46,7 +46,7 @@
                                 //if post greater than 5
                                 if(temp.length > 5){
                                     for (i=temp.length - 1; i >=0; i--){
-                                        if (userID == temp[i].Element.PosterID || userID == pageID ){
+                                        if (userID == temp[i].Element.PosterID || editPermission==0 ){
                                             if (temp[i].Element.Classification == 2){createSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
                                             }
                                             else if (temp[i].Element.Classification == 0){
@@ -67,7 +67,7 @@
                                 //if post less than 5 just render all
                                 else{
                                     for (i=temp.length-1; i >= 0; i--){
-                                        if (userID == temp[i].Element.PosterID || userID == pageID ){
+                                        if (userID == temp[i].Element.PosterID || editPermission==0 ){
                                             if (temp[i].Element.Classification == 2){
                                                console.log("rendering share post"); createSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
                                             }
@@ -113,7 +113,7 @@
                             if (temp != null){
                                  $('#comments-list'+postID).empty();
                                  for (i=temp.length-1; i >= 0; i--){
-                                     if (userID == temp[i].Element.PosterID || userID == pageID ){
+                                     if (userID == temp[i].Element.PosterID || editPermission==0 ){
                                         makeCommentApplications(postID, temp[i].Image, temp[i].FirstName, temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].NumReplies,temp[i].Element.TimeStamp);
                                      }
                                      else{
@@ -139,7 +139,7 @@
                     type: 'GET',
                     url: 'http://ustart.today:'+port+'/getComments/',
                     contentType: "application/json; charset=utf-8",
-                    data: {PostID:postID, Pikachu:userID},
+                    data: {PostID:postID},
                     success: function(data) {
                     },complete: function (jqXHR,status) {
                          if(status == 'success' || status=='notmodified')
@@ -149,7 +149,7 @@
                               $('#replies'+postID).empty();
                                $(e.currentTarget).hide();
                                for (i=temp.length-1; i >= 0; i--){
-                                   if (userID == temp[i].Element.PosterID || userID == pageID ){
+                                   if (userID == temp[i].Element.PosterID || editPermission==0 ){
                                         makeCommentOfCommentsApplications(postID, temp[i].Image, temp[i].FirstName,temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].Element.TimeStamp);
                                    }
                                    else{
@@ -428,7 +428,7 @@
             });
      });
     //wall scroll code
-     /*function element_in_scroll(elem)
+     function element_in_scroll(elem)
      {
         var docViewTop = $(window).scrollTop();
         var docViewBottom = docViewTop + $(window).height();
@@ -488,14 +488,14 @@
                                 if (temp != null){
                                     for (i=0; i < temp.length ; i++){
                                             if (temp[i].Element.Classification == 2){
-                                                if (userID == temp[i].Element.PosterID || userID == pageID ){createSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
+                                                if (userID == temp[i].Element.PosterID || editPermission==0 ){createSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
                                                 }
                                                 else{createBasicSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
 
                                                 }
                                             }
                                             else if (temp[i].Element.Classification == 0){
-                                                 if (userID == temp[i].Element.PosterID || userID == pageID ){
+                                                 if (userID == temp[i].Element.PosterID || editPermission== 0 ){
                                                  makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
                                                  }
                                                 else{
@@ -525,4 +525,4 @@
         $(document).ready(function() {// Initialize scroll
                 new InfiniteScroll();
         });
-    })(jQuery, window);*/
+    })(jQuery, window);

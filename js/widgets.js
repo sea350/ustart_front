@@ -5,6 +5,16 @@ var widgetScrollSpeed = 400;
 var medUrlType = 0;
 
 
+function escapeOutput(toOutput){
+    return toOutput.replace(/\&/g, '&amp;')
+        .replace(/\</g, '&lt;')
+        .replace(/\>/g, '&gt;')
+        .replace(/\"/g, '&quot;')
+        .replace(/\'/g, '&#x27')
+        .replace(/\//g, '&#x2F');
+}
+
+
 var galleryDefaultRemoveOption = '<option default selected>Select from your list of pictures here</option>';
 /*function attachRemoveWidgetFunction() {
     $(".fa-trash").unbind('click');
@@ -16,8 +26,7 @@ var galleryDefaultRemoveOption = '<option default selected>Select from your list
 }*/
 
 function daRender(daUsername, daCount) {
-	$('#widgetBodyDA').rss("https://backend.deviantart.com/rss.xml?q=gallery%3A" + daUsername, {
-		limit: daCount,
+	$('#widgetBodyDA').rss("https://backend.deviantart.com/rss.xml?q=gallery%3A" + encodeURI(daUsername), {
 		layoutTemplate: '<ul data-da-username="' + daUsername + '">{entries}</ul>',
 		entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="dArt-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
 		dateFormat: 'MMM Do, YYYY',
@@ -34,9 +43,9 @@ function daRender(daUsername, daCount) {
 function pinRender(pinURL) {
 	var pinembed = pinURL;
 	if (pinembed.indexOf('/pin/') >= 0) {
-		$('#widgetBodyPin').append('<a data-pin-do="embed_pin" href="' + pinembed + '"></a>');
+		$('#widgetBodyPin').append('<a data-pin-do="embed_pin" href="' + encodeURI(pinembed) + '"></a>');
 	} else {
-		$('#widgetBodyPin').append('<a data-pin-do="embedUser" data-pin-board-width="100%" data-pin-scale-height="280" data-pin-scale-width="80" href="' + pinembed + '"></a>');
+		$('#widgetBodyPin').append('<a data-pin-do="embedUser" data-pin-board-width="100%" data-pin-scale-height="280" data-pin-scale-width="80" href="' + encodeURI(pinembed) + '"></a>');
 	}
 }
 
@@ -79,9 +88,10 @@ function YoutubeRender(youtubeID, widgetID) {
     var iframe = document.createElement( "iframe" );
     iframe.setAttribute( "frameborder", "0" );
     iframe.setAttribute( "allowfullscreen", "" );
-    iframe.setAttribute( "src", finalURL);
+    iframe.setAttribute( "src", encodeURI(finalURL));
     $(finalDest).append(iframe);
 }
+
 
 
 function AnchorGetID(url) {
@@ -93,11 +103,42 @@ function AnchorGetID(url) {
     return result;
 }
 
+function ARRender(anchorID, widgetID) {
+    var ARURL = AnchorGetID(anchorID);
+    var divprefix = "#arrender";
+    var finalDest = divprefix.concat(widgetID);
+    var iframe = document.createElement( "iframe" );
+    iframe.setAttribute( "frameborder", "0" );
+    iframe.setAttribute( "scrolling", "no" );
+    iframe.style.marginbottom = "0.5em";
+    iframe.style.width = "100%"
+    iframe.style.display = "inline-block"
+    iframe.setAttribute( "src", encodeURI(ARURL));
+    $(finalDest).append(iframe);
+}
+
+
+function TwitchRender(twitchID, widgetID) {
+    var divprefix = "#twitchrender";
+    var finalDest = divprefix.concat(widgetID);
+    var iframe = document.createElement( "iframe" );
+    var twitchurlprefix="https://player.twitch.tv/?channel=";
+    var finaltwitchURL = twitchurlprefix.concat(twitchID);
+    console.log(finalDest);
+    console.log(finaltwitchURL);
+    iframe.setAttribute( "frameborder", "0" );
+    iframe.setAttribute( "scrolling", "no" );
+    iframe.setAttribute( "allowfullscreen", "true" );
+    iframe.setAttribute( "src", encodeURI(finaltwitchURL));
+    iframe.setAttribute( "width", "100%" );
+     iframe.setAttribute( "height", "640" );
+    $(finalDest).append(iframe);
+}
 
 function mediumRender (medUsername, medPublication, medTag, medCount) {
 	
 	if (medUsername !== '') {
-		$('#widgetBodyMed').rss("https://medium.com/feed/@" + medUsername, {
+		$('#widgetBodyMed').rss("https://medium.com/feed/@" +encodeURI(medUsername), {
 			limit: medCount,
 			layoutTemplate: '<ul data-med-username="' + medUsername + '">{entries}</ul>',
 			entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="medium-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
@@ -110,7 +151,7 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 	} else {
 		var medTag = $('#med-embed-tag').val();
 		if (medTag === '') {
-			$('#widgetBodyMed').rss("https://medium.com/feed/@" + medPublication, {
+			$('#widgetBodyMed').rss("https://medium.com/feed/@" + encodeURI(medPublication), {
 				limit: medCount,
 				layoutTemplate: '<ul data-med-publication="' + medPublication + '">{entries}</ul>',
 				entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="medium-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
@@ -121,7 +162,7 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 				}
 			});
 		} else {
-			$('#widgetBodyMed').rss("https://medium.com/feed/@" + medPublication + "/tagged/" + medTag, {
+			$('#widgetBodyMed').rss("https://medium.com/feed/@" + encodeURI(medPublication) + "/tagged/" + encodeURI(medTag), {
 				limit: medCount,
 				layoutTemplate: '<ul data-med-publication="' + medPublication + '" data-med-tag="' + medTag + '">{entries}</ul>',
 				entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="medium-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
@@ -137,7 +178,7 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 
 function tumblrRender (tumblrUsername) {
 	// Using RSS to render custom containers
-	$('#widgetBodyTumblr').rss("http://" + tumblrUsername + ".tumblr.com/rss", {
+	$('#widgetBodyTumblr').rss("http://" + encodeURI(tumblrUsername) + ".tumblr.com/rss", {
 		limit: 12,
 		layoutTemplate: '<ul data-tumblr-username="' + tumblrUsername + '">{entries}</ul>',
 		entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="tumblr-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
@@ -150,7 +191,7 @@ function tumblrRender (tumblrUsername) {
 }
 
 function githubRender (githubUsername) {
-	$.getJSON("https://api.github.com/users/" + githubUsername + "/repos", function(data) {
+	$.getJSON("https://api.github.com/users/" + encodeURI(githubUsername) + "/repos", function(data) {
 		var githubList = $("<ul></ul>");
 
 		for (var i = 0; i < data.length && i < 12; i++) {

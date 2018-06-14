@@ -22,13 +22,18 @@
     <script src="/ustart_front/js/jquery.rss.min.js"></script>
     <script type="text/javascript">
     //globals
-    var userID = {{.DOCID}};
-    var pageID = {{.Page}};
+    var userID = {{.Page}};
+    var editPermission = 1;
     $(document).ready(function () {
         $("#head-image").attr("src",{{.UserInfo.Banner}});
         $("#user-avatar").attr("src",{{.UserInfo.Avatar}});
     });
     </script>
+    {{if eq ($.Page) ($.DOCID)}}
+    <script ype="text/javascript">
+        var editPermission = 0;
+    </script>
+    {{end}}
     <script src="http://www.youtube.com/player_api"></script>
     <script src="/ustart_front/js/widgets.js"></script>
     <script src="/ustart_front/js/widget-projectDisplay.js" defer></script>	   
@@ -43,7 +48,7 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <!-- array used for wall load -->
     {{range $loop := .UserInfo.EntryIDs}}
-        <script type="text/javascript" src="/ustart_front/js/profile-nil.js"> var IDArray.push({{$loop}});</script>
+        <script type="text/javascript" src="/ustart_front/js/profile-nil.js">IDArray.push({{$loop}});</script>
     {{end}}
 </head>
 
@@ -567,11 +572,9 @@
                                     </div>
                                     <div class="widgetBody">
                                         <div class="youtube-feed">
-                                             <div id="player{{index $loop.ID}}"></div>
+                                             <div id=player{{index $loop.ID}}></div>
                                              <script type="text/javascript">
                                                   YoutubeRender({{index $loop.Data 0}},{{index $loop.ID}});
-                                 
-                                               // document.write(' <iframe width="560" height="315" src="https://www.youtube.com/embed/'+youtubeEmbedded+'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>');
                                             </script>
                                         </div>
                                     </div>
@@ -651,7 +654,7 @@
 							</li>
 							{{end}}<!-- end pinterest-->
 							{{if eq $loop.Classification 10}} <!--spotify-->
-                            <li class="ui-state-default widgetListItem sortable" id="{{index $loop.ID}}">
+                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
 								<div class="projectsWidgetCont">
 								<div class="widgetTitle">
 									{{if eq ($.Page) ($.DOCID)}}
@@ -686,8 +689,10 @@
                                     {{end}}
                                     <h4>Twitch</h4>
                                     </div>
-                                     <div id="widgetBodyTwitch" class="widgetBody">
-                                        <iframe src="https://player.twitch.tv/?channel={{index $loop.Data 0}}" frameborder="0" allowfullscreen="true" scrolling="no" height="640" width="100%"></iframe>
+                                     <div class="widgetBody" id=twitchrender{{index $loop.ID}}>
+                                         <script type =text/javascript>
+                                            TwitchRender({{index $loop.Data 0}}, {{index $loop.ID}});
+                                         </script>
                                     </div>
                                 </div>
                             </li>
@@ -708,9 +713,11 @@
                                     </div>
                                     <div id= "widgetBodyAR" class="widgetBody">
                                         {{range $loop2 := $loop.Data }}
-                                        <script>
-                                                document.write('<div class="anchor-feed"><iframe src="'+AnchorGetID({{$loop2}})+'" style="dislay:inline-block; margin-bottom: 0.5em" width="450px" frameborder="0" scrolling="no"></iframe></div>');
-                                        </script>
+                                         <div class="anchor-feed" id="arrender{{index $loop.ID}}">
+                                         <script>
+                                             ARRender({{$loop2}},{{index $loop.ID}});
+                                         </script>
+                                         </div>
                                         {{end}}
                                     </div>
                                 </div>
@@ -813,14 +820,6 @@
 							<!-- End Github -->
                             {{end}}
 						{{end}}<!-- end for looper -->
-						<!--<script>
-							$( ".delete-widget" ).click(function( event ) {
-								var target= event.target.id;
-								console.log(target);
-								$("#"+target+"delete").submit();
-								$("#"+target).unbind( "click" );
-							});
-						</script>-->
                         </ul>
                     </div>
                     
@@ -1275,16 +1274,16 @@
 						<div class="modal-content">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">Embed Anchors</h4>
+								<h4 class="modal-title">Insert Anchors</h4>
 							</div>
 							<div class="modal-body">
 								<span id="ar-list-title">Removable Anchors</span>
 								<ul id="ar-edit-list"></ul>
-								<p>Insert the Anchor URL:</p>
+								<p>Insert a new Anchor episode URL:</p>
 								<form id="customArForm" action="/addWidget/" method="POST">
 								
 								<div class="form-group">
-									<input type="text" class="form-control" name="arInput" id="ar-embed-input" pattern='https:\/\/anchor\.fm\/.*\/+' required>
+									<input type="text" class="form-control" name="arInput" id="ar-embed-input" pattern='https:\/\/anchor\.fm\/[^\/]*\/episodes\/.+' required>
 									<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
 								</div>
 								</form>

@@ -21,56 +21,33 @@
     <script src="https://rawgit.com/swisnl/jQuery-contextMenu/master/dist/jquery.contextMenu.min.js"></script>
     <script src="/ustart_front/ckeditor/ckeditor.js"></script>
     <script src="/ustart_front/ckeditor/config.js"></script>
-    <script src="/ustart_front/js/profile-nil.js"></script>
+    <script type ="text/javascript">
+        var pageID = {{.Project.DocID}};
+         $(document).ready(function () {
+             $('#head-image').attr('src', {{.Project.ProjectData.Banner}});
+         });     
+    </script>
+    <script src="http://www.youtube.com/player_api"></script>
+    {{range $loop := .Project.ProjectData.EntryIDs}}
+    <script src="/ustart_front/js/project-nil.js">IDArray.push({{$loop}}); </script>
+    {{end}}
 	<script src="/ustart_front/js/layout_tags.js"></script>
     <script src="/ustart_front/js/jquery.rss.min.js"></script>
-    <script src="/ustart_front/js/widgets.js"></script>
     <script src="/ustart_front/js/widget-gallery.js"></script>
     <script src="/ustart_front/js/notify.min.js"></script>
     <script src="/ustart_front/js/projects.js"></script>
     <script src="/ustart_front/js/ascii-convert.js"></script>
     <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js" data-pin-build="doBuild"></script>
     <script src="/ustart_front/js/createPosts.js"></script>
-    <script type="text/javascript">
-        var permission = -1;
-        var IDArray = [];
-        var port = 5002;
-        $(function () {
-			if (permission < 0) {
-				$("#widget-insert, .fa-pencil, .fa-sort, .fa-trash").remove();
-			}
-            // Enables drag-n-drop list items (using the header)
-            $("#sortable").sortable({
-                handle: ".widgetTitle",
-                revert: true,
-                tolerance: "pointer"
-            });
-            // Enables resizable list items
-            /* $("#sortable>li").resizable({
-                animate: true,
-                ghost: true,
-                resize: function (event, ui) {
-                    ui.size.width = ui.originalSize.width;
-                }
-            }); */
-        });
-    </script>
 	{{$userid := .DOCID}}
 	{{$projectid := .Project.DocID}}
 	{{$projecturl := .Project.ProjectData.URLName}}
 </head>
-
 <body>
-    {{range $loop := .Project.ProjectData.EntryIDs}}
-        <script>IDArray.push('{{$loop}}');</script>
-    {{end}}
-    <input type="hidden" id="pageiden" value='{{.Project.DocID}}'>
+    <script src="/ustart_front/js/widgets.js"></script>
     <input type="hidden" id="followstat">
     <div id="centering">
 		<img id="head-image">
-		<script>
-			$('#head-image').attr('src', {{.Project.ProjectData.Banner}});
-		</script>
         <!-- Vertical content -->
         <div id="content" class="container">
             <div>
@@ -80,16 +57,16 @@
                         <a href="/profile/{{$member.Username}}" class="followers-link">
 							<img id="imgFollow{{$member.Username}}" class="followers-mini img-rounded img-responsive" alt="Project Image">
 						</a>
-						<script>
-							$('#imgFollow{{$member.Username}}').attr('src', {{$member.Image}});
-						</script>
+                        <script type ="text/javascript">
+                            $('#imgFollow{{$member.Username}}').attr('src', {{$member.Image}});
+                        </script>
 						{{end}}
                     </div>
                     <div class="project-toolbar">
                         <button class="project-message btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
                         {{if eq ($.Project.RequestAllowed) true}}
                         <form action="/RequestToJoin/" method="POST" style="display: inline-block;">
-                            <input type="hidden" name="projID" value='{{.Project.DocID}}'>
+                            <input type="hidden" name="projID" value={{.Project.DocID}}>
                             <button class="project-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
                                 <span>Request to join</span>
                             </button>
@@ -117,8 +94,8 @@
 							</ul>
 						</div>
 						<form id="project-leave-form" action="/leaveProject/" style="display:none">
-							<input type="hidden" name="leaverID" value="{{$userid}}"/>
-							<input type="hidden" name="projectID" value="{{$projectid}}"/>
+							<input type="hidden" name="leaverID" value=""/>
+							<input type="hidden" name="projectID" value={{$projectid}}/>
 						</form>
                         <div id="project-leave" class="modal fade" role="dialog">
                             <div class="modal-dialog">
@@ -408,7 +385,7 @@
 						{{$projecturl := .Project.ProjectData.URLName}}
                         {{range $loop := .Widgets }}
 						{{if eq $loop.Classification 0}}<!-- if is text -->  
-                            <li class="text ui-state-default" id="{{index $loop.ID}}">
+                            <li class="text ui-state-default" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
 										<span class="pull-right fa fa-2x fa-sort"></span>
@@ -443,7 +420,7 @@
                                         <span class="pull-right fa fa-2x fa-pencil" id="ig-edit" onclick="instagramEditor(this)"></span>
                                         <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
-                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
                                             <span name="delete" class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                         </form>
                                         <h4>Instagram</h4>
@@ -451,7 +428,7 @@
                                     <div id="widgetBodyID" class="widgetBody widgetBodyInstagram">
                                          {{range $loop2 := $loop.Data }}
                                          <!-- loop through the data loop for multiple instagram posts -->
-                                        <div class="insta-feed"><blockquote class="instagram-media" data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:62.5% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="{{$loop2}}" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank"></a></p></div></blockquote> <script async defer src="//platform.instagram.com/en_US/embeds.js"></script></div>
+                                        <div class="insta-feed"><blockquote class="instagram-media" data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:62.5% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href={{$loop2}} style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank"></a></p></div></blockquote> <script async defer src="//platform.instagram.com/en_US/embeds.js"></script></div>
                                         {{end}} <!--end data loop -->
                                     </div>
                                 </div>
@@ -466,7 +443,7 @@
                                         <span class="pull-right fa fa-2x fa-pencil" id="sc-edit" onclick="ApplyIDToModal('sc-modal', this)"></span>
                                         <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
-                                            <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                            <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
                                             <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                         </form>
                                         <h4>Soundcloud</h4>
@@ -483,18 +460,18 @@
                                     <div class="widgetTitle">
                                         <span class="pull-right fa fa-2x fa-sort"></span>
                                         <span class="pull-right fa fa-2x fa-pencil" id="yt-edit" onclick="ApplyIDToModal('youtubeModal', this)"></span>
-                                        <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                        <form id=delete{{index $loop.ID}} action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
-											<input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+											<input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
 											<span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                         </form>
                                         <h4>Youtube</h4>
                                     </div>
                                     <div class="widgetBody">
                                         <div class="youtube-feed">
-                                            <script>
-                                                var youtubeEmbedded= YouTubeGetID({{index $loop.Data 0}});
-                                                document.write(' <iframe width="560" height="315" src="https://www.youtube.com/embed/'+youtubeEmbedded+'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>');
+                                            <div id=player{{index $loop.ID}}></div>
+                                             <script type="text/javascript">
+                                                  YoutubeRender({{index $loop.Data 0}},{{index $loop.ID}});
                                             </script>
                                         </div>
                                     </div>
@@ -509,7 +486,7 @@
                                         <span class="pull-right fa fa-2x fa-pencil" id="code-edit" onclick="ApplyIDToModal('code-modal', this)"></span>
                                         <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
-                                            <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                            <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
                                             <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                         </form>
                                         <h4 name="textEditorHeader">CodePen</h4>
@@ -528,7 +505,7 @@
                                         <span class="pull-right fa fa-2x fa-pencil" id="tumblr-edit"onclick="ApplyIDToModal('tumblr-modal', this)"></span>
                                         <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
-                                            <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                            <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
                                             <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                         </form>
                                         <h4 name="textEditorHeader">Tumblr</h4>
@@ -551,7 +528,7 @@
                                 <span class="pull-right fa fa-2x fa-pencil" id="pin-edit" onclick="pinterestEditor(this)"></span>
                                 <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
-                                    <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                    <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
                                     <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
                                 </form>
                                 <h4 name="textEditorHeader">
@@ -604,8 +581,11 @@
                                     </form>
                                     <h4>Twitch</h4>
                                     </div>
-                                     <div id="widgetBodyTwitch" class="widgetBody">
-                                        <iframe src="https://player.twitch.tv/?channel={{index $loop.Data 0}}" frameborder="0" allowfullscreen="true" scrolling="no" height="640" width="100%"></iframe>
+                                     <div id=twitchrender{{index $loop.ID}} class="widgetBody">
+                                       <!-- <iframe src="https://player.twitch.tv/?channel={{index $loop.Data 0}}" frameborder="0" allowfullscreen="true" scrolling="no" height="640" width="100%"></iframe>-->
+                                      <script type =text/javascript>
+                                         TwitchRender({{index $loop.Data 0}}, {{index $loop.ID}});
+                                      </script>
                                     </div>
                                 </div>
                             </li>
@@ -625,7 +605,11 @@
                                     </div>
                                     <div id= "widgetBodyAR" class="widgetBody">
                                         {{range $loop2 := $loop.Data }}
-                                        <div class="anchor-feed"><iframe src="{{$loop2}}" height="270px" width="400px" frameborder="0" scrolling="no"></iframe></div>
+                                         <div class="anchor-feed" id="arrender{{index $loop.ID}}">
+                                         <script>
+                                             ARRender({{$loop2}},{{index $loop.ID}});
+                                         </script>
+                                         </div>
                                         {{end}}
                                     </div>
                                 </div>
@@ -724,544 +708,7 @@
                      {{end}}<!-- end for looper -->
                         </ul>
                     </div>
-                    <script>
-                        var userID = {{.DOCID}};
-                        var pageID = {{.Project.DocID}};
-                        console.log({{.Avatar}});
-                         //render posts
-                        $('body').on("click", "#Wall-loadAJAX", function(e) {
-                            $("#new-post-img").attr("src",{{.Avatar}});
-                            $("#post-msg").focus(function (e) {
-                                var textbox = $("#post-msg");
-                                textbox.animate({
-                                    height: "100px"
-                                }, 690);
-                                if (textbox.val().length == 0) {
-                                    $("#new-postSubmit").prop("disabled", true);
-                                } else {
-                                    $("#new-postSubmit").removeAttr("disabled");
-                                }
-                            });
-                            $("#post-msg").keyup(function (e) {
-                                var textbox = $("#post-msg");
-                                if (textbox.val().length == 0) {
-                                    $("#new-postSubmit").prop("disabled", true);
-                                } else {
-                                    $("#new-postSubmit").removeAttr("disabled");
-                                }
-                            });
-
-                            $("#post-msg").blur(function (e) {
-                                var textbox = $("#post-msg");
-                                textbox.animate({
-                                    height: "50px"
-                                }, 690);
-                            });
-                            $.ajax({
-                                        type: 'GET',
-                                        url: 'http://ustart.today:'+port+'/AjaxLoadProjectEntries/',
-                                        contentType: "application/json; charset=utf-8",
-                                        data: {userID:pageID},
-                                        success: function(data) {  
-                                        },complete: function (jqXHR,status) {
-                                             if(status == 'success' || status=='notmodified')
-                                             {
-                                                var temp = $.parseJSON(jqXHR.responseText);
-                                                if (temp != null){
-                                                    $('#wall-dataF').empty();
-                                                    $('#shareModals').empty();
-                                                    $('#editModals').empty();
-                                                    $('#deleteModals').empty();
-                                                    $('#commentModals').empty();
-                                                    //if post greater than 5
-                                                    if(temp.length > 5){
-                                                        for (i=temp.length - 1; i > temp.length-6; i--){
-                                                             if ((permission != -1 && userID == temp[i].Element.PosterID)|| (permission == 1) || (permission ==0)){
-                                                                if (temp[i].Element.Classification == 2){
-                                                                   console.log("rendering share post"); createSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
-                                                                }
-                                                                else if (temp[i].Element.Classification == 0){
-                                                                     makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
-                                                                }
-                                                            }
-                                                            else{
-                                                                if (temp[i].Element.Classification == 2){
-                                                                   console.log("rendering share post"); createBasicSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
-                                                                }
-                                                                else if (temp[i].Element.Classification == 0) {
-                                                                     makeBasicPostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
-                                                                }
-                                                            }
-                                                            $('#wall-dataF').append('<hr>');
-                                                            
-                                                        }
-                                                    }
-                                                    //if post less than 5 just render all
-                                                    else{
-                                                        for (i=temp.length-1; i >= 0; i--){
-                                                             if ((permission != -1 && userID == temp[i].Element.PosterID)|| (permission == 1) || (permission ==0)){
-                                                                if (temp[i].Element.Classification == 2){
-                                                                   console.log("rendering share post"); createSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
-                                                                }
-                                                                else if (temp[i].Element.Classification == 0){
-                                                                     makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
-                                                                }
-                                                            }
-                                                            else{
-                                                                if (temp[i].Element.Classification == 2){
-                                                                   console.log("rendering share post"); createBasicSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
-                                                                }
-                                                                else if (temp[i].Element.Classification == 0) {
-                                                                     makeBasicPostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
-                                                                }
-                                                            }
-                                                            if (i != 0) {
-                                                                $('#wall-dataF').append('<hr>');
-                                                            }
-                                                        }
-                                                    }
-                                                } 
-                                             }
-                                        },error: function(err) {
-                                            console.log('wall Load failed: ');
-                                            console.log(err);
-                                        }
-                            });
-                        });
-                         //render comments
-                         $('body').on("click", ".comment-btn", function(e) {
-                              var postID = e.currentTarget.id;
-                              $.ajax({
-                                        type: 'GET',
-                                        url: 'http://ustart.today:'+port+'/AjaxLoadComments/',
-                                        contentType: "application/json; charset=utf-8",
-                                        data: {postID:postID},
-                                        success: function(data) { 
-                                        },complete: function (jqXHR,status) {
-                                             if(status == 'success' || status=='notmodified')
-                                             {
-                                                var temp = $.parseJSON(jqXHR.responseText); 
-                                                if (temp != null){
-                                                     console.log(temp);
-                                                     $('#comments-list'+postID).empty();
-                                                     for (i=temp.length-1; i >= 0; i--){
-                                                          if ((permission != -1 && userID == temp[i].Element.PosterID)|| (permission == 1) || (permission ==0)){
-                                                            makeCommentApplications(postID, temp[i].Image, temp[i].FirstName, temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].NumReplies,temp[i].Element.TimeStamp);
-                                                         }
-                                                         else{
-                                                            makeBasicCommentApplications(postID, temp[i].Image, temp[i].FirstName, temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].NumReplies,temp[i].Element.TimeStamp);
-                                                         }
-                                                     }
-                                                }
-                                                else{
-                                                    $('#comments-list'+postID).empty();
-                                                }
-                                             }
-                                        },error: function(err) {
-                                            console.log('comment Load failed: ');
-                                            console.log(err);
-                                        }
-                            });  
-                         });
-                         
-                         //render comment of comments
-                           $('body').on("click", ".view-replies", function(e) {
-                               var postID =  e.currentTarget.getAttribute('myvalue');
-                                $.ajax({
-                                        type: 'GET',
-                                        url: 'http://ustart.today:'+port+'/getComments/',
-                                        contentType: "application/json; charset=utf-8",
-                                        data: {PostID:postID, Pikachu:userID},
-                                        success: function(data) {
-                                        },complete: function (jqXHR,status) {
-                                             if(status == 'success' || status=='notmodified')
-                                             {
-                                               var temp = $.parseJSON(jqXHR.responseText);
-                                               if (temp != null){
-                                                  $('#replies'+postID).empty();
-                                                   $(e.currentTarget).hide();
-                                                   for (i=temp.length-1; i >= 0; i--){
-                                                       if ((permission != -1 && userID == temp[i].Element.PosterID)|| (permission == 1) || (permission ==0)){
-                                                            makeCommentOfCommentsApplications(postID, temp[i].Image, temp[i].FirstName,temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].Element.TimeStamp);
-                                                       }
-                                                       else{
-                                                            makeBasicCommentOfCommentsApplications(postID, temp[i].Image, temp[i].FirstName,temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].Element.TimeStamp);
-                                                       }
-                                                   }
-                                               }
-                                               else{
-                                                   $('#replies'+postID).empty();
-                                               }
-                                             }
-                                        },error: function(err) {
-                                            console.log('comment Load failed: ');
-                                            console.log(err);
-                                            
-                                        }
-                                });
-                          });
-                         
-                         //submit new post
-                          $('body').on("click", "#new-postSubmit", function(e) {
-                               var content = $("#post-msg").val();
-                               $('#new-postSubmit').prop('disabled', true);
-                               if (content != ""){
-                                   console.log(content);
-                                    console.log(pageID);
-                                    $.ajax({
-                                            type: 'GET',
-                                            url: 'http://ustart.today:'+port+'/ProjectMakeEntry/',
-                                            contentType: "application/json; charset=utf-8",
-                                            data: {docID:pageID, text:content},
-                                            success: function(data) {
-                                            },complete: function (jqXHR,status) {
-                                                 if(status == 'success' || status=='notmodified')
-                                                 {
-                                                   var temp = $.parseJSON(jqXHR.responseText);
-                                                   console.log(temp);
-                                                   if (temp != null){
-                                                        if ($(".wallPosts").length >= 1){
-                                                            $('#wall-dataF').prepend('<hr>');  
-                                                        }
-                                                        IDArray.push(temp.ElementID);
-                                                        makeNewPostApplications(temp.Image, temp.FirstName,temp.LastName,temp.Element.Content,temp.ElementID,temp.NumLikes, temp.NumReplies, temp.NumShares,temp.Element.TimeStamp);
-                                                   }
-                                                   $("#post-msg").empty();
-                                                   $('#new-postSubmit').prop('disabled', false);
-    
-                                                  }
-                                            },error: function(err) {
-                                                console.log('comment Load failed: ');
-                                                console.log(err);
-                                            }
-                                    });
-                                   }
-                          });
-                         //submit new comment
-                          $('body').on("click", ".new-comment-submit", function(e) {
-                               var postID = e.currentTarget.id;
-                               var content = $("#commentContent"+postID).val();
-                               $(e.currentTarget).css("pointer-events", "none");
-                              if (content != ""){
-                                $.ajax({
-                                        type: 'GET',
-                                        url: 'http://ustart.today:'+port+'/AddComment2/',
-                                        contentType: "application/json; charset=utf-8",
-                                        data: {postID:postID, body:content},
-                                        success: function(data) {
-                                        },complete: function (jqXHR,status) {
-                                             if(status == 'success' || status=='notmodified')
-                                             {
-                                               var temp = $.parseJSON(jqXHR.responseText);
-                                               if (temp != null){
-                                                   makeNewCommentApplications(postID, temp[0].Image, temp[0].FirstName, temp[0].LastName, temp[0].Element.Content, temp[0].ElementID,temp[0].NumReplies,temp[0].Element.TimeStamp);
-                                                   $("#commentContent"+postID).val('');
-                                                   $(e.currentTarget).css("pointer-events", "auto"); 
-                                                   var count = $(".standard-comment").length;
-                                                   $("#num-replies"+postID).text(count);
-                                               }
-                                             }
-                                        },error: function(err) {
-                                            console.log('comment Load failed: ');
-                                            console.log(err);
-                                            
-                                        }
-                                });
-                              }
-                          });
-                         
-                         //submit comment of comment
-                         $('body').on("click", ".new-comment-o-comment-submit", function(e) {
-                               var postID = e.currentTarget.id;
-                               var content = $("#comment2Content"+postID).val();
-                               $(e.currentTarget).css("pointer-events", "none");
-                               if (content != ""){
-                                $.ajax({
-                                        type: 'GET',
-                                        url: 'http://ustart.today:'+port+'/AddComment2/',
-                                        contentType: "application/json; charset=utf-8",
-                                        data: {postID:postID, body:content},
-                                        success: function(data) {
-                                        },complete: function (jqXHR,status) {
-                                             if(status == 'success' || status=='notmodified')
-                                             {
-                                               var temp = $.parseJSON(jqXHR.responseText);
-                                               if (temp != null){
-                                                 if ( $('#replies'+postID).is(':empty')){
-                                                     var repliesNum = $('#replies'+postID).data('replycount');
-                                                     var updated = repliesNum+1;
-                                                     $('#replies'+postID).data('replycount', updated);
-                                                     $("#comment2Content"+postID).val('');
-                                                     $("#openReplies"+postID).css({ 'display': 'block'});
-                                                     $("#openReplies"+postID).show();
-                                                     $("#openReplies"+postID).text("View "+updated+" Replies");
-                                                 }
-                                                 else{
-                                                      makeNewCommentOfCommentsApplications(postID, temp[0].Image, temp[0].FirstName,temp[0].LastName, temp[0].Element.Content, temp[0].ElementID,temp[0].Element.TimeStamp);   
-                                                      var repliesNum = $('#replies'+postID).data('replycount');
-                                                      var updated = repliesNum+1;
-                                                      $('#replies'+postID).data('replycount', updated);
-                                                      $("#comment2Content"+postID).val('');
-                                                 }
-                                                $(e.currentTarget).css("pointer-events", "auto"); 
-                                               }
-                                             }
-                                        },error: function(err) {
-                                            console.log('comment Load failed: ');
-                                            console.log(err);
-                                            
-                                        }
-                                });
-                               }
-                          });
-                         
-                         $('body').on("click", ".deletePost", function(e) {
-                              var temp = e.currentTarget.id;
-                              var postID = temp.replace("delete-btn",'');
-                              $(e.currentTarget).prop('disabled', true);
-                              var x = document.getElementsByClassName("wallPosts");
-                              $.ajax({
-                                        type: 'GET',
-                                        url: 'http://ustart.today:'+port+'/AjaxDeleteProjectEntry/',
-                                        contentType: "application/json; charset=utf-8",
-                                        data: {projID:pageID, entryID:postID},
-                                        success: function(data) {
-                                        },complete: function (jqXHR,status) {
-                                             if(status == 'success' || status=='notmodified')
-                                             {
-                                               for (i=0; i < x.length; i++){
-                                                   if (x[i].id.substring(4) == postID){
-                                                       if (i==0){
-                                                            $("#Post"+postID).next("hr").remove();
-                                                       }
-                                                       else if (i==x.length-1){
-                                                           $("#Post"+postID).prev("hr").remove();
-                                                       }
-                                                       else{
-                                                            $("#Post"+postID).next("hr").remove();
-                                                       }
-                                                   }
-                                               }
-                                               $("#delete-modal"+postID).modal('toggle'); 
-                                               for (i=0; i<IDArray.length; i++){
-                                                   if (postID == IDArray[i]){
-                                                       IDArray.splice(i, 1);
-                                                   }
-                                               }
-                                               $("#Post"+postID).remove();
-                                               $(e.currentTarget).prop('disabled', false);
-                                             }
-                                        },error: function(err) {
-                                            console.log('comment Load failed: ');
-                                            console.log(err);
-                                            
-                                        }
-                                });
-                         });
-                         
-                         $('body').on("click", ".share-postSubmit", function(e) {
-                              var temp = e.currentTarget.id;
-                              var postID = temp.replace("share-btn",'');
-                              var content = $("#shared-content"+postID).val();
-                              $(e.currentTarget).prop('disabled', true);
-                              $.ajax({
-                                        type: 'GET',
-                                        url: 'http://ustart.today:'+port+'/shareEntry/',
-                                        contentType: "application/json; charset=utf-8",
-                                        data: {postid:postID, content:content},
-                                        success: function(data) {
-                                        },complete: function (jqXHR,status) {
-                                             if(status == 'success' || status=='notmodified')
-                                             {
-                                              $(e.currentTarget).prop('disabled', false);
-                                              $("#share-modal"+postID).modal('toggle'); 
-                                             }
-                                        },error: function(err) {
-                                            console.log('comment Load failed: ');
-                                            console.log(err);
-                                            
-                                        }
-                                });
-                         });
-                         
-                          $('body').on("click", ".edit-postSubmit", function(e) {
-                              var temp = e.currentTarget.id;
-                              var postID = temp.replace("edit-btn",'');
-                              var content = $("#content"+postID).val();
-                              $(e.currentTarget).prop('disabled', true);
-                              $.ajax({
-                                        type: 'GET',
-                                        url: 'http://ustart.today:'+port+'/editPost/',
-                                        contentType: "application/json; charset=utf-8",
-                                        data: {postid:postID, content:content},
-                                        success: function(data) {
-                                        },complete: function (jqXHR,status) {
-                                             if(status == 'success' || status=='notmodified')
-                                             {
-                                               var temp = $.parseJSON(jqXHR.responseText);
-                                                  if (temp != null){
-                                                        $("#post-msg"+postID).text(content);
-                                                        $(e.currentTarget).prop('disabled', false);
-                                                        $("#edit-modal"+postID).modal('toggle'); 
-                                                  }
-                                             }
-                                        },error: function(err) {
-                                            console.log('comment Load failed: ');
-                                            console.log(err);
-                                            
-                                        }
-                                });
-                         });
-                         
-                         $('body').on("click", ".remove-comment", function(e) {
-                              var temp = e.currentTarget.id;
-                              var postID = temp.replace("removeComment",'');
-                              e.preventDefault();
-                              $.ajax({
-                                        type: 'GET',
-                                        url: 'http://ustart.today:'+port+'/deletePost/',
-                                        contentType: "application/json; charset=utf-8",
-                                        data: {postid:postID},
-                                        success: function(data) {
-                                        },complete: function (jqXHR,status) {
-                                             if(status == 'success' || status=='notmodified')
-                                             {
-                                               $("#comment-media"+postID).remove();
-                                               var temp = jqXHR.responseText;
-                                                  if (temp != null){
-                                                       console.log(temp);
-                                                        var newcount = $(".standard-comment").length;
-                                                        $("#num-replies"+temp).text(newcount);
-                                                  }
-                                             }
-                                        },error: function(err) {
-                                            console.log('comment Load failed: ');
-                                            console.log(err);
-                                        }
-                                });
-                         });
-                         
-                         $('body').on("click", ".remove-comment-o-comment", function(e) {
-                              var temp = e.currentTarget.id;
-                              var postID = temp.replace("removecomment2",'');
-                              $.ajax({
-                                        type: 'GET',
-                                        url: 'http://ustart.today:'+port+'/deletePost/',
-                                        contentType: "application/json; charset=utf-8",
-                                        data: {postid:postID},
-                                        success: function(data) {
-                                        },complete: function (jqXHR,status) {
-                                             if(status == 'success' || status=='notmodified')
-                                             {
-                                                 $("#commentOComment-media"+postID).remove();
-                                             }
-                                        },error: function(err) {
-                                            console.log('comment Load failed: ');
-                                            console.log(err);
-                                            
-                                        }
-                                });
-                         });
-                         
-                         //wall scroll code
-                         function element_in_scroll(elem)
-                         {
-                            var docViewTop = $(window).scrollTop();
-                            var docViewBottom = docViewTop + $(window).height();
-                            var elemTop = $(elem).offset().top;
-                            var elemBottom = elemTop + $(elem).height();
-                            return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-                         }
-                        (function($, window, undefined) {
-                            var InfiniteScroll = function() {
-                                this.initialize = function() {
-                                    this.setupEvents();
-                                };
-
-                                this.setupEvents = function() {
-                                    $(window).on(
-                                        'scroll',
-                                        this.handleScroll.bind(this)
-                                    );
-                                };
-
-                                this.handleScroll = function() {
-                                    var scrollTop = $(document).scrollTop();
-                                    var windowHeight = $(window).height();
-                                    var height = $(document).height() - windowHeight;
-                                    var scrollPercentage = (scrollTop / height);
-
-                                    // if the scroll is more than 90% from the top, load more content.
-                                    if(scrollPercentage > 0.95) {
-                                        this.doSomething();
-                                    }
-                                }
-
-                                this.doSomething = function() {
-                                    // Do something.
-                                    // Load data or whatever.
-                                    if ($('#prof-wall').hasClass("in")){
-                                        var postLen = $(".wallPosts").length;
-                                        if ($(".wallPosts").length > 0 && IDArray.length > 5){
-                                            var postArr=[];
-                                            for (i=(IDArray.length-postLen-1); i >= Math.max(0,(IDArray.length-postLen-3)); i--){
-                                                postArr.push(IDArray[i]);
-                                            }
-                                        
-                                    if (flag == 1){
-                                        flag=0;
-                                         $.ajax({
-                                            type: 'GET',
-                                            url: 'http://ustart.today:'+port+'/AjaxLoadEntryArr/',
-                                            contentType: "application/json; charset=utf-8",
-                                            data: {postIndex:JSON.stringify(postArr)},
-                                            success: function(data) {   
-                                            },complete: function (jqXHR,status) {
-                                                 flag=1;
-                                                 if(status == 'success' || status=='notmodified')
-                                                 {
-                                                    var temp = $.parseJSON(jqXHR.responseText);
-                                                    if (temp != null){
-                                                        for (i=0; i < temp.length ; i++){
-                                                                if (temp[i].Element.Classification == 2){
-                                                                   if ((permission != -1 && userID == temp[i].Element.PosterID)|| (permission == 1) || (permission ==0)){createSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );}
-                                                                    else{
-                                                                        createBasicSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
-                                                                    }
-                                                                }
-                                                                else if (temp[i].Element.Classification == 0){
-                                                                     if ((permission != -1 && userID == temp[i].Element.PosterID)|| (permission == 1) || (permission ==0)){
-                                                                     makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
-                                                                     }
-                                                                    else{
-                                                                        makeBasicPostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
-                                                                    }
-                                                                }
-                                                                if ($(".wallPosts").length < IDArray.length) {
-                                                                    $('#wall-dataF').append('<hr>');
-                                                                }
-                                                        }
-                                                        postArr=[];
-                                                    }
-                                                 }
-                                            },error: function(err) {
-                                                console.log('wall Load failed: ');
-                                                console.log(err);
-                                            }
-                                        });
-                                    }
-                                    }
-                                }
-                                }
-
-                                this.initialize();
-                            }
-
-                            $(document).ready(function() {// Initialize scroll
-                                    new InfiniteScroll();
-                            });
-                        })(jQuery, window);
-                     </script>
+                    <script type="text/javascript" src="/ustart_front/js/projwallload.js"></script>
                     <div id="prof-wall" class="tab-pane fade">
                         <div class="grid">
                             <!-- main Modal -->
@@ -1281,13 +728,10 @@
                                             </a>
                                             <div class="media-body">
                                                 <div class="form-group">
-                                                   <!-- <form id="New-Post-Form" method="POST" action="http://ustart.today:'+port+'/New/Post/" > -->
                                                         <textarea class="form-control" id="post-msg" name="block" style="resize:none;" placeholder="Share what's new"></textarea>
                                                         <br>
                                                         <button id="new-postSubmit" type="submit" class="btn btn-primary pull-right">Post</button>
-                                                <!--    </form> -->
                                                 </div>
-                                            <!--    <button id="new-postSubmit" class="btn btn-primary pull-right">Post</button> -->
                                             </div>
                                         </div>
                                     </div>
@@ -1318,48 +762,6 @@
 						{{end}}
                     </div>
                     <div id="modal-box">
-                        <script type="text/javascript">
-                            $('#menu-item-about').hover(function () {
-                                $(this).fadeOut(100);
-                                $(this).fadeIn(100);
-                                $("#box").text("About");
-                                $("#box").css('max-width', '30em');
-                            }, function () {
-                                $("#box").css('max-width', '0');
-                            });
-                            $('#menu-item-proj').hover(function () {
-                                $(this).fadeOut(100);
-                                $(this).fadeIn(100);
-                                $("#box").text("Projects");
-                                $("#box").css('max-width', '30em');
-                            }, function () {
-                                $("#box").css('max-width', '0');
-                            });
-                            $('#menu-item-link').hover(function () {
-                                $(this).fadeOut(100);
-                                $(this).fadeIn(100);
-                                $("#box").text("Links");
-                                $("#box").css('max-width', '30em');
-                            }, function () {
-                                $("#box").css('max-width', '0');
-                            });
-                            $('#menu-item-tags').hover(function () {
-                                $(this).fadeOut(100);
-                                $(this).fadeIn(100);
-                                $("#box").text("Tags");
-                                $("#box").css('max-width', '30em');
-                            }, function () {
-                                $("#box").css('max-width', '0');
-                            });
-                            $('#menu-item-message').hover(function () {
-                                $(this).fadeOut(100);
-                                $(this).fadeIn(100);
-                                $("#box").text("Message");
-                                $("#box").css('max-width', '30em');
-                            }, function () {
-                                $("#box").css('max-width', '0');
-                            });
-                        </script>
                         <!-- MODALS -->
                         <!-- edit modal -->
                         <div class="modal fade" id="EditModal" role="dialog">
@@ -1548,7 +950,7 @@
 											<label>Please paste the Instagram post URL here</label>
 											<input type="url" class="form-control" name="instagramInput" id="ig-embed-input" placeholder="https://www.instagram.com/p/BageGbgD05c/" pattern="https?:\/\/www\.instagram\.com\/p\/[A-Za-z\-\_]{10}\/*+" required/>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
 										</div>
 										<div class="modal-footer">
 											<button type="submit" id="ig-submit-btn" name="widgetSubmit" value="4" class="btn btn-default">Done</button>
@@ -1571,7 +973,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" id="sc-embed-input" name="scInput" placeholder="Embedded code" pattern='<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https:\/\/w\.soundcloud\.com\/player\/\?url=https%3A\/\/api\.soundcloud\.com\/users\/[0-9]{9}&amp;color=%23[0-9a-f]{6}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true"\>\<\/iframe\>' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -1595,7 +997,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" id="code-embed-input" name="codepenInput" pattern='<p data-height="265" data-theme-id="0" data-slug-hash="[A-Za-z]{6}" data-default-tab="css,result" data-user="[^"]+" data-embed-version="2" data-pen-title="[^"]+" class="codepen"\>[^<]+\<a href="https:\/\/codepen\.io\/[^\/]+\/pen\/[A-Za-z]{6}\/">[^<]+<\/a> by [^(]+\(<a href="https:\/\/codepen\.io\/[^"]+">@[^<]+<\/a>\) on <a href="https:\/\/codepen\.io">CodePen<\/a>\.<\/p>\n<script async src="https:\/\/static\.codepen\.io\/assets\/embed\/ei\.js"><\/script>' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -1624,7 +1026,7 @@
 												</div>
 												<input type="text" class="form-control" name="twitchInput" id="twitch-embed-username" required pattern='[0-9A-Za-z_]{1,25}'/>
 												<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-												<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
+												<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
 											</div>
 										</div>
 										<div class="modal-footer">
@@ -1648,7 +1050,7 @@
 											<div class="form-group">
 												<input type="text" class="form-control" name="tumblrInput" id="medium-embed-input" placeholder="ustart" pattern='[A-Za-z0-9\-\.]{1,32}' required>
 												<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
 											</div>
 										</div>
 										<div class="modal-footer">
@@ -1674,7 +1076,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" name="spotInput" id="spot-embed-input" pattern='<iframe src="https:\/\/open\.spotify\.com\/embed\/[^"]+" width="300" height="380" frameborder="0" allowtransparency="true"><\/iframe>' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -1701,7 +1103,7 @@
 											<input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="http://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+\/' required>
 											<!-- Regexp: pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/? -->
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
 										</div>
 										 </form>
 									</div>
@@ -1731,7 +1133,7 @@
 												<span class="modal-cell">URL</span>
 												<input type="url" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" required/>
 											</p>
-											<input type="hidden" name="projectID" value="{{.Project.DocID}}" required/>
+											<input type="hidden" name="projectID" value={{.Project.DocID}} required/>
 										</div>
 										
 										<div class="modal-footer">
@@ -1760,7 +1162,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" name="arInput" id="ar-embed-input" pattern='https:\/\/anchor\.fm\/.*\/+' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
 										</div>
 										</form>
 									</div>
@@ -1796,7 +1198,7 @@
 												<input type="text" class="form-control" name="medInput" id="med-embed-username" pattern='[0-9A-Za-z\-]{1,32}'/>
 												<input type="text" class="form-control" name="medInput2" id="med-embed-publication"/>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
 												
 											</div>
 											<br/>
@@ -1838,7 +1240,7 @@
 											</div>
 											<input type="text" class="form-control" name="daInput" id="da-embed-username" required/>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
 											
 										</div>
 										<br/>
@@ -1981,9 +1383,6 @@
         </div>
     </div>
     <script src="/ustart_front/js/fadebody.js"></script>
-	<script>
-		console.log("Project DOCID: " + {{.Project.DocID}});
-	</script>
 </body>
 
 </html>

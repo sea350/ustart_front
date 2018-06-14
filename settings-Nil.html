@@ -45,7 +45,6 @@
       input {
         display: block;
       }
-
     </style>
 </head>
 
@@ -56,9 +55,10 @@
 		<div id="LeftNavBar-placeholder"></div>
 		<script>
             var port = location.port;
-            $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
+            /*$("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
                 $("#leftNavSettings").addClass("theActive");
-            });
+            });*/
+            $("#leftNavSettings").addClass("theActive");
 		</script>
 		<div id="content">
 			<div id="settings-container" class="container">
