@@ -86,6 +86,10 @@
 															width: 250,
 															height: 250,
                                                             type: 'square'
+														},
+														boundary: {
+															width: 250,
+															height: 250
 														}
 													});
 													$('#upload').on('change', function () { 
@@ -133,8 +137,12 @@
                                                             url: "{{.UserInfo.Banner}}",
                                                             viewport: {
                                                                 width: 1000,
-                                                                height: 300,
-                                                            }
+                                                                height: 300
+                                                            },
+															boundary: {
+																width: 1000,
+																height: 300
+															}
                                                         });
                                                         $('#upload2').on('change', function () { 
                                                             var reader2 = new FileReader();
