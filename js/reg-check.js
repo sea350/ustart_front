@@ -79,6 +79,31 @@ function loadInputs() {
 	$('#datetimepicker4').val(sessionStorage.getItem('dob'));
 }
 
+function formatRegPages() {
+    $(".page:not([pagenumber=1])").hide();
+    $("#back").click(function() {
+        var visiblePage = $(".page:visible");
+        var pageNumber = parseInt(visiblePage.attr("pagenumber"));
+        if (pageNumber > 0) {
+            visiblePage.hide("slide", {direction:"right"});
+            $(".page:not([pagenumber=" + (pageNumber-1) + "])").show("slide", {direction:"right"});
+            if (pageNumber == 1) {
+                $("#back").attr("disabled");
+            }
+        }
+    });
+    $("#finished").click(function() {
+        var visiblePage = $(".page:visible");
+        var pageNumber = parseInt(visiblePage.attr("pagenumber"));
+        if (pageNumber < 4) {
+            $("#back").removeAttr("disabled");
+            visiblePage.hide("slide");
+            $(".page:not([pagenumber=" + (pageNumber+1) + "])").show("slide");
+            return false;
+        }
+    });
+}
+
 $(document).ready(function() {
     var pass = document.getElementById('inputPassword');
     var mcont = document.getElementById('meter-cont');
@@ -166,7 +191,6 @@ $(document).ready(function() {
         changeYear: true,
         yearRange: "-120:-10"
     });*/
-});    
 	/* Removed as of Jan 15
     $('#confirmEmail').keyup(function() {
         if ($(this).val() == $('#inputEmail').val()) {
@@ -219,7 +243,10 @@ $(document).ready(function() {
 		saveInputs();
 	});
 
-	loadInputs();
+    loadInputs();
+    
+    formatRegPages();
+});    
 
 
 // verifies everything is correct after document submit button is clicked
