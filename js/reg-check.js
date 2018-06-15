@@ -85,10 +85,10 @@ function formatRegPages() {
         var visiblePage = $(".page:visible");
         var pageNumber = parseInt(visiblePage.attr("pagenumber"));
         if (pageNumber > 0) {
-            visiblePage.hide("slide", {direction:"right"});
-            $(".page:not([pagenumber=" + (pageNumber-1) + "])").show("slide", {direction:"right"});
+            visiblePage.hide("slide", {direction:"left"});
+            $(".page[pagenumber=" + (pageNumber-1) + "]").show("slide", {direction:"right"});
             if (pageNumber == 1) {
-                $("#back").attr("disabled");
+                $("#back").attr("disabled", true);
             }
         }
     });
@@ -97,8 +97,8 @@ function formatRegPages() {
         var pageNumber = parseInt(visiblePage.attr("pagenumber"));
         if (pageNumber < 4) {
             $("#back").removeAttr("disabled");
-            visiblePage.hide("slide");
-            $(".page:not([pagenumber=" + (pageNumber+1) + "])").show("slide");
+            visiblePage.hide("slide", {direction:"right"});
+            $(".page[pagenumber=" + (pageNumber+1) + "]").show("slide", {direction:"left"});
             return false;
         }
     });
