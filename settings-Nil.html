@@ -88,10 +88,10 @@
                                                             type: 'square'
 														},
 														boundary: {
-															width: 250,
-															height: 250
+															width: 300,
+															height: 300
 														}
-													});
+													}).croppie("setZoom", 1);
 													$('#upload').on('change', function () { 
 														var reader = new FileReader();
 														reader.onload = function (e) {
@@ -140,10 +140,10 @@
                                                                 height: 300
                                                             },
 															boundary: {
-																width: 1000,
-																height: 300
+																width: 1050,
+																height: 350
 															}
-                                                        });
+														}).croppie("setZoom", 1);
                                                         $('#upload2').on('change', function () { 
                                                             var reader2 = new FileReader();
                                                             reader2.onload = function (e) {
