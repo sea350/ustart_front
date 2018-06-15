@@ -80,7 +80,6 @@
 												<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
 												<script type="text/javascript">
 													$uploadCrop = $('#upload-demo').croppie({
-														url: "{{.UserInfo.Avatar}}",
                                                         enforceBoundary: true,
 														viewport: {
 															width: 250,
@@ -91,7 +90,10 @@
 															width: 300,
 															height: 300
 														}
-													}).croppie("setZoom", 1);
+													}).croppie("bind", {
+														url: "{{.UserInfo.Avatar}}",
+														zoom: 1
+													}});
 													$('#upload').on('change', function () { 
 														var reader = new FileReader();
 														reader.onload = function (e) {
@@ -134,7 +136,6 @@
 												<button type="button" class="btn btn-info" id="upload-result2">Upload Image</button>
 													<script type="text/javascript">
                                                         $uploadCrop2 = $('#upload-demo2').croppie({
-                                                            url: "{{.UserInfo.Banner}}",
                                                             viewport: {
                                                                 width: 1000,
                                                                 height: 300
@@ -143,7 +144,10 @@
 																width: 1050,
 																height: 350
 															}
-														}).croppie("setZoom", 1);
+														}).croppie("bind", {
+															url: "{{.UserInfo.Banner}}",
+															zoom: 1
+														}});
                                                         $('#upload2').on('change', function () { 
                                                             var reader2 = new FileReader();
                                                             reader2.onload = function (e) {

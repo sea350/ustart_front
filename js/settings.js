@@ -158,7 +158,7 @@ $(document).ready(function() {
 		createAlert(this, "Your name have been altered and saved.");
 	});
 	
-	$("form#passChange").submit(function(event) {\
+	$("form#passChange").submit(function(event) {
 		//Put verification of password with the user's password.\
 		if ($('input#newpass').val() == $('input#confirmpass').val()) {
 			$(this).find('div.save-message').addClass('error-message');
