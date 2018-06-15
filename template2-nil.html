@@ -1,59 +1,63 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
-    <link href="/ustart_front/css/layout.css" rel="stylesheet" type="text/css" /> 
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="icon" type="image/ico" href="/ustart_front/favicon.ico"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto"/>
+    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/layout.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/ustart_front/js/bootstrap-confirmation.min.js"></script>
     <script src="/ustart_front/js/layout.js"></script>
     <script src="/ustart_front/js/userEdit.js"></script>
-	<script>
-		$(document).ready(function () {
-			$('[data-toggle="tooltip"]').tooltip();
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
 
-			$('.dropdown').on('show.bs.dropdown', function () {
-				$(this).find('.dropdown-menu').first().stop(true, true).slideDown();
-			});
-			$('.dropdown').on('hide.bs.dropdown', function () {
-				$(this).find('.dropdown-menu').first().stop(true, true).slideUp();
-			});
-			
-			$(window).click(function() {
-				$('#searchFilters').slideUp('fast');
-				$(this).removeClass('search-reveal');
-			});
-			$('#search-box input[type=search]').focus(function() {
-				$('#searchFilters').slideDown('fast');
-				$(this).addClass('search-reveal');
-			});
-			$('#search-box input[type=search], #searchFilters').click(function(event) {
-				event.stopPropagation();
-			});
-		});
-	</script>
+            $('.dropdown').on('show.bs.dropdown', function () {
+                $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+            });
+            $('.dropdown').on('hide.bs.dropdown', function () {
+                $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+            });
+
+            $(window).click(function () {
+                $('#searchFilters').slideUp('fast');
+                $(this).removeClass('search-reveal');
+            });
+            $('#search-box input[type=search]').focus(function () {
+                $('#searchFilters').slideDown('fast');
+                $(this).addClass('search-reveal');
+            });
+            $('#search-box input[type=search], #searchFilters').click(function (event) {
+                event.stopPropagation();
+            });
+        });
+    </script>
 </head>
 
 <body>
     <nav class="navbar navbar-fixed-top" style="margin-bottom: 0; border-radius: 0;">
         <div class="navbar-header">
             <div class="navbar-filler navbar-left"></div>
-            <a id="logo-brand" class="navbar-brand" href="/profile/{{.Username}}"><span style="font-size: 27px;">U</span>∙<span style="font-size: 27px;">START</span></a>
+            <a id="logo-brand" class="navbar-brand" href="/profile/{{.Username}}">
+                <span style="font-size: 27px;">U</span>∙
+                <span style="font-size: 27px;">START</span>
+            </a>
             <form class="navbar-form nav-item">
-				<div class="input-group" id="search-box">
+                <div class="input-group" id="search-box">
                     <input class="form-control" type="search" name="query" placeholder="Search" form="searchFilterForm">
-					<span class="input-group-btn">
-						<button id="searchFilterFormSubmit" class="btn btn-default" type="submit" form="searchFilterForm" style="height: 2.4em">
-							<i class="fa fa-search"></i>
-						</button>
-					</span>
+                    <span class="input-group-btn">
+                        <button id="searchFilterFormSubmit" class="btn btn-default" type="submit" form="searchFilterForm" style="height: 2.4em">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
                 </div>
             </form>
             <ul class="nav navbar-nav navbar-right">
@@ -73,37 +77,54 @@
                 </li>
                 <li class="navbar-btn nav-item dropdown" data-toggle="tooltip" data-placement="left" title="Options">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="fa fa-chevron-circle-down fa-2x" style="color:white;"></i>
+                        <i class="fa fa-chevron-circle-down fa-2x" style="color:white;"></i>
                     </a>
                     <ul id="optionDrop" class="dropdown-menu">
-                        <li><a href="/profile/{{.Username}}"><span id="user-name">Profile</span><i class="fa fa-user-circle-o" aria-hidden="true"></i></a></li>
-                        <li><a href="/MyProjects/">Projects<i class="fa fa-briefcase fa-2x" aria-hidden="true"></i></a></li>
+                        <li>
+                            <a href="/profile/{{.Username}}">
+                                <span id="user-name">Profile</span>
+                                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/MyProjects/">Projects
+                                <i class="fa fa-briefcase fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </li>
                         <li class="divider"></li>
-                        <li><a href="/Settings/">Settings<i class="fa fa-cog" aria-hidden="true"></i></a></li>
+                        <li>
+                            <a href="/Settings/">Settings
+                                <i class="fa fa-cog" aria-hidden="true"></i>
+                            </a>
+                        </li>
                         <li class="divider"></li>
-                        <li><a href="/logout/">Logout<i class="fa fa-power-off fa-2x" aria-hidden="true"></i></a></li>
+                        <li>
+                            <a href="/logout/">Logout
+                                <i class="fa fa-power-off fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
         </div>
-		<div id="searchFilters" style="background-color: white; ">
+        <div id="searchFilters" style="background-color: white; ">
             <div class="navbar-filler navbar-filler-filter navbar-left"></div>
-			<form id="searchFilterForm" action="/search" style="margin-bottom: 0">
-				<div style="display:inline-block">Filters:</div>
-				<div style="display:inline-block">
-					<input type="radio" id="searchFilterGroupUsers" name="searchFilterGroup" value="users"/>
-					<label for="searchFilterGroupUsers">Users</label>
-					<input type="radio" id="searchFilterGroupProjects" name="searchFilterGroup" value="projects"/>
-					<label for="searchFilterGroupProjects">Projects</label>
-					<input type="radio" id="searchFilterGroupSkills" name="searchFilterGroup" value="skills" checked/>
-					<label for="searchFilterGroupSkills">Skills</label>
-				</div>
-			</form>
-		</div>
-		<script>
-			$('#searchFilters').hide();
-		</script>
-	</nav>
+            <form id="searchFilterForm" action="/search" style="margin-bottom: 0">
+                <div style="display:inline-block">Filters:</div>
+                <div style="display:inline-block">
+                    <input type="radio" id="searchFilterGroupUsers" name="searchFilterGroup" value="users" />
+                    <label for="searchFilterGroupUsers">Users</label>
+                    <input type="radio" id="searchFilterGroupProjects" name="searchFilterGroup" value="projects" />
+                    <label for="searchFilterGroupProjects">Projects</label>
+                    <input type="radio" id="searchFilterGroupSkills" name="searchFilterGroup" value="skills" checked/>
+                    <label for="searchFilterGroupSkills">Skills</label>
+                </div>
+            </form>
+        </div>
+        <script>
+            $('#searchFilters').hide();
+        </script>
+    </nav>
 </body>
 
 </html>
