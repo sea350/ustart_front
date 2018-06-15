@@ -245,7 +245,7 @@ $(document).ready(function() {
 
     loadInputs();
     
-    formatRegPages();
+    //formatRegPages();
 });    
 
 
