@@ -84,10 +84,10 @@ function formatRegPages() {
     $("#back").click(function() {
         var visiblePage = $(".page:visible");
         var pageNumber = parseInt(visiblePage.attr("pagenumber"));
-        if (pageNumber > 0) {
+        if (pageNumber > 1) {
             visiblePage.hide("slide", {direction:"left"});
             $(".page[pagenumber=" + (pageNumber-1) + "]").show("slide", {direction:"right"});
-            if (pageNumber == 1) {
+            if (pageNumber == 2) {
                 $("#back").attr("disabled", true);
             }
         }
@@ -244,7 +244,6 @@ $(document).ready(function() {
 	});
 
     loadInputs();
-    
     //formatRegPages();
 });    
 
