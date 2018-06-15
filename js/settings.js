@@ -162,6 +162,7 @@ $(document).ready(function() {
 		//Put verification of password with the user's password.\
 		if ($('input#newpass').val() == $('input#confirmpass').val()) {
 			$(this).find('div.save-message').addClass('error-message');
+			$('input#oldpass, input#newpass, input#confirmpass').val("");
 			createAlert(this, "Password does not match.");
 			return false;
 		} else {

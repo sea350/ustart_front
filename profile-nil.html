@@ -81,7 +81,9 @@
 							<div id="info-wrap">
 								<div id="name-cont">
 									<h3 style="margin-bottom: 0.2em;">
-										<strong id="name">{{.UserInfo.FirstName}} {{.UserInfo.LastName}} <!-- {{.DOCID}} {{.Page}} page is viewingDOCID--></strong>
+										<a href="/profile/{{.UserInfo.Username}}">
+											<strong id="name">{{.UserInfo.FirstName}} {{.UserInfo.LastName}}</strong>
+										</a>
 										<span class="dot">
 											<span class="active">
 												<i class="fa fa-circle" aria-hidden="true" data-toggle="tooltip" title="Active"></i>
