@@ -158,17 +158,15 @@ $(document).ready(function() {
 		createAlert(this, "Your name have been altered and saved.");
 	});
 	
-	$("form#passChange").submit(function(event) {
-		//event.preventDefault();
-		//Put verification of password with the user's password.
-		
-		if ($('input#oldpass').val() == $('input#confirmpass').val()) {
-			$(this).find('div.save-message').removeClass('error-message');
-			createAlert(this, "Pasword will be changed. Confirm an incoming email addressing your password change.");
-			// Redirect to email.
-		} else {
+	$("form#passChange").submit(function(event) {\
+		//Put verification of password with the user's password.\
+		if ($('input#newpass').val() == $('input#confirmpass').val()) {
 			$(this).find('div.save-message').addClass('error-message');
-			createAlert(this, "Pasword is incorrect. The confirm password isn't the same as the old password.");
+			createAlert(this, "Password does not match.");
+			return false;
+		} else {
+			$(this).find('div.save-message').removeClass('error-message');
+			createAlert(this, "Request found. Performing password match.");
 		}
 	});
 	
