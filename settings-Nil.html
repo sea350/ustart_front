@@ -90,7 +90,8 @@
 															width: 300,
 															height: 300
 														}
-													}).croppie("bind", {
+													});
+													$uploadCrop.croppie("bind", {
 														url: "{{.UserInfo.Avatar}}",
 														zoom: 1
 													});
@@ -144,7 +145,8 @@
 																width: 1050,
 																height: 350
 															}
-														}).croppie("bind", {
+														});
+														$uploadCrop2.croppie("bind", {
 															url: "{{.UserInfo.Banner}}",
 															zoom: 1
 														});
