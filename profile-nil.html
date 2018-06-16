@@ -94,7 +94,7 @@
 									</h3>
 								</div>
 							</div>
-							<div id="brief-info" style="text-align: left; padding: 1em 1em 0 1em;">
+							<div id="breif-info" style="text-align: left; padding: 1em 1em 0 1em;">
 								{{ if .UserInfo.Location.Country }}
 								<div id="location-cont" style="color:#00C085">
 									<i class="fa fa-map-marker" aria-hidden="true" style="color:#00C085;"></i> Location
@@ -107,12 +107,6 @@
 									<p style="color:black">{{.UserInfo.University}}</p>
 								</div>
 								{{ end }}
-								{{if .UserInfo.Phone}}
-								<div id="contact-phone" style="color:#00C085;">
-									<i class="fa fa-phone" aria-hidden="true" style="color:#00C085;"></i> Phone
-									<p style="color:black">{{.UserInfo.Phone}}</p>
-								</div>
-								{{end}}
 							</div>
 						</div>
 						<hr>
@@ -130,12 +124,12 @@
 						<hr>
 						<div id="user-nums">
 							<div id="followers">
-								<a href="/followers/{{.UserInfo.Username}}#FollowingTab">
+								<a href="/followers/{{.UserInfo.Username}}">
 									<span id="num-followers" style="font-weight: bold">{{len .UserInfo.Followers}}</span> Followers</a>
 							</div>
 							
 							<div id="following">
-								<a href="/followers/{{.UserInfo.Username}}#FollowingTab">
+								<a href="/followers/{{.UserInfo.Username}}#Following">
 									<span id="num-following" style="font-weight: bold">{{len .UserInfo.Following}}</span> Following</a>
 							</div>
 							<button id="btn-message" class="btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
@@ -143,7 +137,7 @@
 							{{if ne ($.Page) ($.DOCID)}}
 							<button id="btn1" class="btn followButton" rel="6">Follow</button>
 							{{end}}
-							{{if ne ($.Page) ($.DOCID)}}
+							{{if eq ($.Page) ($.DOCID)}}
 							<div class="profile-menu dropdown">
 								<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 									<i class="fa fa-ellipsis-v"></i>

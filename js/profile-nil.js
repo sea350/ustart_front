@@ -426,9 +426,8 @@ $(document).ready(function () {
             type: 'GET',  
             url: 'http://ustart.today:'+port+'/callme/',
             contentType: "application/json; charset=utf-8",
-            data: {userID:pageID, Following:followstatus,Pikachu:userID},
+            data: {userID:userID, Following:followstatus},
             success: function(data) {
-                console.log(data);
                 var totalFollowers = parseInt($('#num-followers').html());
                 if ($('#btn1').hasClass('following')) {
                     console.log("Let's Unfollow");
