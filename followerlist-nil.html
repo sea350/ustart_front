@@ -190,7 +190,7 @@
 						<li><a data-toggle="tab" href="#FollowingTab">Following</a></li>
 					</ul>
 					<div class="tab-content">
-						<div id="Followers" class="tab-pane fade in active">
+						<div id="FollowersTab" class="tab-pane fade in active">
 							{{range $follower := .ListOfHeads}}
 							<div class="card btn btn-default">
 								<div class="container-s">
@@ -206,7 +206,7 @@
 							</div>
 							{{end}}
 						</div>
-						<div id="Following" class="tab-pane fade in">
+						<div id="FollowingTab" class="tab-pane fade in">
 							{{range $following := .ListOfHeads2}}
 							<div class="card btn btn-default">
 								<div class="container-s">
