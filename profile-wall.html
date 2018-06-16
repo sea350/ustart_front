@@ -193,72 +193,69 @@
 							<!-- if user is visiting the page -->
 							{{if ne ($.Page) ($.DOCID)}}
 							<button id="btn1" class="btn followButton" rel="6">Follow</button>
-							{{end}}
 							<script type="text/javascript">
-								   $(document).ready(function() { 
-										var pageID= document.getElementById("pageiden").value;
-										var followstatus=document.getElementById("followstat").value;
-										if(followstatus == "yes"){
-											 $('#btn1').attr('class', 'btn followButton following');
-											 $('#btn1').text('Following');
-										}
-										else{
-											$('#btn1').attr('class', 'btn followButton');
-											$('#btn1').text('Follow');
-										} 
-										$('#btn1').hover(function () {
-											$button = $(this);
-											if ($button.hasClass('following')) {
-												$button.addClass('unfollow');
-												$button.text('Unfollow');
-											}
-											}, function () {
-											if ($button.hasClass('following')) {
-												$button.removeClass('unfollow');
-												$button.text('Following');
-											}
-										});
-										
-										 $('#btn1').click(function(e) {
-											var Pikachu = {{.DOCID}};
-											console.log('follow clicked');
-											$.ajax({
-												type: 'GET',  
-												url: 'http://ustart.today:'+port+'/callme/',
-												contentType: "application/json; charset=utf-8",
-												data: {userID:pageID, Following:followstatus,Pikachu:Pikachu},
-												success: function(data) {
-													console.log(data);
-													var totalFollowers = parseInt($('#num-followers').html());
-													if ($('#btn1').hasClass('following')) {
-														console.log("Let's Unfollow");
-														//$.ajax(); Do Unfollow
-														$('#btn1').removeClass('following');
-														$('#btn1').removeClass('unfollow');
-														$('#btn1').text('Follow');
-														$('#num-followers').html(totalFollowers-1);
-														$("#followstat").val("no");
-														followstatus ="no";
-													} else {
-														console.log("Let's follow");
-														// $.ajax(); Do Follow
-														$('#btn1').addClass('following');
-														$('#btn1').text('Following');
-														$('#num-followers').html(totalFollowers+1);
-														$("#followstat").val("yes");
-														followstatus ="yes";
-													}
-												},
-												error: function(error) {
-													console.log("It just doesn't work");
-													console.log(error);
-												}
-											});
-										});
-									});
-
+                                $(document).ready(function() { 
+                                    var pageID= document.getElementById("pageiden").value;
+                                    var followstatus=document.getElementById("followstat").value;
+                                    if(followstatus == "yes"){
+                                            $('#btn1').attr('class', 'btn followButton following');
+                                            $('#btn1').text('Following');
+                                    }
+                                    else{
+                                        $('#btn1').attr('class', 'btn followButton');
+                                        $('#btn1').text('Follow');
+                                    } 
+                                    $('#btn1').hover(function () {
+                                        $button = $(this);
+                                        if ($button.hasClass('following')) {
+                                            $button.addClass('unfollow');
+                                            $button.text('Unfollow');
+                                        }
+                                        }, function () {
+                                        if ($button.hasClass('following')) {
+                                            $button.removeClass('unfollow');
+                                            $button.text('Following');
+                                        }
+                                    });
+                                    
+                                        $('#btn1').click(function(e) {
+                                        var Pikachu = {{.DOCID}};
+                                        console.log('follow clicked');
+                                        $.ajax({
+                                            type: 'GET',  
+                                            url: 'http://ustart.today:'+port+'/callme/',
+                                            contentType: "application/json; charset=utf-8",
+                                            data: {userID:pageID, Following:followstatus,Pikachu:Pikachu},
+                                            success: function(data) {
+                                                console.log(data);
+                                                var totalFollowers = parseInt($('#num-followers').html());
+                                                if ($('#btn1').hasClass('following')) {
+                                                    console.log("Let's Unfollow");
+                                                    //$.ajax(); Do Unfollow
+                                                    $('#btn1').removeClass('following');
+                                                    $('#btn1').removeClass('unfollow');
+                                                    $('#btn1').text('Follow');
+                                                    $('#num-followers').html(totalFollowers-1);
+                                                    $("#followstat").val("no");
+                                                    followstatus ="no";
+                                                } else {
+                                                    console.log("Let's follow");
+                                                    // $.ajax(); Do Follow
+                                                    $('#btn1').addClass('following');
+                                                    $('#btn1').text('Following');
+                                                    $('#num-followers').html(totalFollowers+1);
+                                                    $("#followstat").val("yes");
+                                                    followstatus ="yes";
+                                                }
+                                            },
+                                            error: function(error) {
+                                                console.log("It just doesn't work");
+                                                console.log(error);
+                                            }
+                                        });
+                                    });
+                                });
 							</script>
-							{{if ne ($.Page) ($.DOCID)}}
 							<div class="profile-menu dropdown">
 								<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 									<i class="fa fa-ellipsis-v"></i>
@@ -268,10 +265,6 @@
 										<a id="block-user" href="#">
 											<i class="fa fa-ban"></i> Block
 											<span class="block-user-text"></span> User</a>
-									</li>
-									<li>
-										<a href="settings.html">
-											<i class="fa fa-gear"></i> Settings</a>
 									</li>
 								</ul>
 							</div>
