@@ -142,12 +142,10 @@
 							<!-- if user is visiting the page -->
 							{{if ne ($.Page) ($.DOCID)}}
 							<button id="btn1" class="btn followButton" rel="6">Follow</button>
-							{{end}}
 							<div class="profile-menu dropdown">
 								<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 									<i class="fa fa-ellipsis-v"></i>
 								</button>
-                                {{if ne ($.Page) ($.DOCID)}}
 								<ul class="dropdown-menu dropdown-menu-right">
 									<li>
 										<a id="block-user" href="#">
@@ -155,8 +153,8 @@
 											<span class="block-user-text"></span> User</a>
 									</li>
 								</ul>
-                                {{end}}
                             </div>
+							{{end}}
 						</div>
 					</div>
 					<div class="dashboard-right">
