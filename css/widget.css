@@ -23,19 +23,8 @@
 }
 
 .widgetBody {
-    min-height: 4em;
-}
-.widgetBody::-webkit-scrollbar{
-	width: 6px;
-}
-.widgetBody::-webkit-thumb{
-	background: rgba(0, 0, 0, 0);
-	transition: background-color 0.2;
-	-o-transition: background-color 0.2;
-	-webkit-transition: background-color 0.2;
-}
-.widgetBody:hover::-webkit-thumb{
-	background: rgba(0, 0, 0, 0.4);
+	min-height: 4em;
+	overflow-y: overlay;
 }
 #sortable {
     list-style-type: none;
