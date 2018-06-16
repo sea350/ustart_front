@@ -5,17 +5,17 @@
 	padding:1em
 }
 .card{
-	display:inline-block;
-	background-color: white;
+    border-color: #c5c5c5;
+    border-style: solid;
+    border-width: 1px;
+    background: #f5f5f5;
+    border-radius: 0.4em;
 	-webkit-box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);
 	box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);
-	-webkit-transition:0.5s;
-	-o-transition:0.5s;
-	transition:0.5s;
-	border-radius: 1em;
-	padding: 1em;
-	margin:5px;
-	width:230px
+	display:inline-block;
+	margin: 0.5em;
+    margin-bottom: 0.5em !important;
+    padding: 0.5em 0.1em;
 }
 .card:hover{
 	-webkit-box-shadow:0 8px 16px 0 rgba(0,0,0,0.2);
@@ -23,10 +23,14 @@
 }
 .card img{
 	border-radius:5px 5px 0 0;
-	height:200px;
-	width:200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0.4em;
 	-o-object-fit:cover;
 	object-fit:cover
+}
+.card button.followButton {
+	width: auto;
 }
 .container-s{
 	position:relative
