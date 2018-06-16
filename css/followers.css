@@ -25,8 +25,8 @@
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 0.4em;
-	-o-object-fit:cover;
-	object-fit:cover;
+	-o-object-fit: contain;
+	object-fit: contain;
 	max-height: 80px;
 }
 .card button.followButton {
