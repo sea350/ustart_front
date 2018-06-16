@@ -30,13 +30,16 @@
 .widgetBody::-webkit-scrollbar-track, {
 	display: none;
 }
+.widgetBody::-webkit-scrollbar {
+	width: auto;
+}
 .widgetBody::-webkit-scrollbar-thumb {
+	border-radius: 9999px;
 	opacity: 0;
 	-webkit-transition: opacity 0.2;
 	transition: opacity 0.2;
 }
 .widgetBody:hover::-webkit-scrollbar-thumb {
-	border-radius: 9999px;
 	opacity: 1;
 }
 #sortable {
