@@ -198,6 +198,9 @@
                                     {{if eq ($follower.Followed) false }}
 									<button class="btn btn-primary followButton" id={{$follower.DocID}} rel="6">Follow</button>
                                     {{end}}
+                                    {{if eq ($follower.Followed) true }}
+									<button class="btn btn-primary followButton" id={{$follower.DocID}} rel="6">Unfollow</button>
+                                    {{end}}
 								</div>
 							</div>
                              <script>
@@ -233,10 +236,30 @@
 										   $('#followingAvatar{{$following.Username}}').attr('src', '{{$following.Image}}');
 									    </script>
                                     </a>
-                                    {{if eq ($following.Followed) true }}
-									<button class="btn btn-primary followButton" rel="6">UNFollow</button>
+                                    {{if eq ($following.Followed) false }}
+									<button class="btn btn-primary unfollowButton" id={{$following.DocID}} rel="6">Unfollow</button>
                                     {{end}}
 								</div>
+                                <script>
+                               $('body').on("click", ".unfollowButton", function(e) {
+                                   var unfollowdocID = e.currentTarget.id;
+                                   var followerstat = {{$following.Followed}};
+                                   console.log(followerstat);
+                                   $.ajax({
+											type: 'GET',  
+											url: 'http://ustart.today:'+port+'/callme/',
+											contentType: "application/json; charset=utf-8",
+											data: {userID:unfollowdocID, Following:followerstat},
+											success: function(data) {
+                                                console.log("unfollowed");
+                                            },
+											error: function(error) {
+												console.log("It just doesn't work");
+												console.log(error);
+											}
+										});
+                                });
+                             </script>
 							</div>
 							{{end}}
 						</div>
