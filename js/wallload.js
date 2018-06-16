@@ -37,7 +37,6 @@
                          {
                             var temp = $.parseJSON(jqXHR.responseText);
                             if (temp != null){
-                                console.log(temp.length);
                                 $('#wall-dataF').empty();
                                 $('#shareModals').empty();
                                 $('#editModals').empty();
@@ -45,7 +44,7 @@
                                 $('#commentModals').empty();
                                 //if post greater than 5
                                 if(temp.length > 5){
-                                    for (i=temp.length - 1; i >=0; i--){
+                                    for (i=temp.length - 1; i >temp.length-6; i--){
                                         if (userID == temp[i].Element.PosterID || editPermission==0 ){
                                             if (temp[i].Element.Classification == 2){createSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
                                             }
@@ -185,7 +184,6 @@
                              {
                                var temp = $.parseJSON(jqXHR.responseText);
                                if (temp != null){
-                                    console.log(temp.length);
                                     if ($(".wallPosts").length >= 1){
                                         $('#wall-dataF').prepend('<hr>');  
                                     }
@@ -463,58 +461,56 @@
 
             this.doSomething = function() {
                 // Do something.
-                // Load data or whatever.
                 if ($('#prof-wall').hasClass("in")){
                     var postLen = $(".wallPosts").length;
                     if ($(".wallPosts").length > 0 && IDArray.length > 5){
                         var postArr=[];
-                        console.log(IDArray.length);
                         for (i=(IDArray.length-postLen-1); i >= Math.max(0,(IDArray.length-postLen-3)); i--){
                             postArr.push(IDArray[i]);
                         }
-                if (flag == 1){
-                    flag=0;
-                     $.ajax({
-                        type: 'GET',
-                        url: 'http://ustart.today:'+port+'/AjaxLoadEntryArr/',
-                        contentType: "application/json; charset=utf-8",
-                        data: {userID:userID, postIndex:JSON.stringify(postArr)},
-                        success: function(data) {   
-                        },complete: function (jqXHR,status) {
-                             flag=1;
-                             if(status == 'success' || status=='notmodified')
-                             {
-                                var temp = $.parseJSON(jqXHR.responseText);
-                                if (temp != null){
-                                    for (i=0; i < temp.length ; i++){
-                                            if (temp[i].Element.Classification == 2){
-                                                if (userID == temp[i].Element.PosterID || editPermission==0 ){createSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
-                                                }
-                                                else{createBasicSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
+                        if (flag == 1){
+                            flag=0;
+                            $.ajax({
+                                type: 'GET',
+                                url: 'http://ustart.today:'+port+'/AjaxLoadEntryArr/',
+                                contentType: "application/json; charset=utf-8",
+                                data: {userID:userID, postIndex:JSON.stringify(postArr)},
+                                success: function(data) {   
+                                },complete: function (jqXHR,status) {
+                                     flag=1;
+                                     if(status == 'success' || status=='notmodified')
+                                     {
+                                        var temp = $.parseJSON(jqXHR.responseText);
+                                        if (temp != null){
+                                            for (i=0; i < temp.length ; i++){
+                                                    if (temp[i].Element.Classification == 2){
+                                                        if (userID == temp[i].Element.PosterID || editPermission==0 ){createSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
+                                                        }
+                                                        else{createBasicSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
 
-                                                }
+                                                        }
+                                                    }
+                                                    else if (temp[i].Element.Classification == 0){
+                                                         if (userID == temp[i].Element.PosterID || editPermission== 0 ){
+                                                         makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
+                                                         }
+                                                        else{
+                                                             makeBasicPostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
+                                                        }
+                                                    }
+                                                    if ($(".wallPosts").length < IDArray.length) {
+                                                        $('#wall-dataF').append('<hr>');
+                                                    }
                                             }
-                                            else if (temp[i].Element.Classification == 0){
-                                                 if (userID == temp[i].Element.PosterID || editPermission== 0 ){
-                                                 makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
-                                                 }
-                                                else{
-                                                     makeBasicPostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
-                                                }
-                                            }
-                                            if ($(".wallPosts").length < IDArray.length) {
-                                                $('#wall-dataF').append('<hr>');
-                                            }
-                                    }
-                                    postArr=[];
+                                            postArr=[];
+                                        }
+                                     }
+                                },error: function(err) {
+                                    console.log('wall Load failed: ');
+                                    console.log(err);
                                 }
-                             }
-                        },error: function(err) {
-                            console.log('wall Load failed: ');
-                            console.log(err);
+                            });
                         }
-                    });
-                }
                 }
             }
             }

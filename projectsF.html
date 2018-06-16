@@ -21,6 +21,7 @@
     <script src="https://rawgit.com/swisnl/jQuery-contextMenu/master/dist/jquery.contextMenu.min.js"></script>
     <script src="/ustart_front/ckeditor/ckeditor.js"></script>
     <script src="/ustart_front/ckeditor/config.js"></script>
+    <script src="/ustart_front/js/project-nil.js"></script>
     <script type ="text/javascript">
         var pageID = {{.Project.DocID}};
          $(document).ready(function () {
@@ -29,7 +30,7 @@
     </script>
     <script src="http://www.youtube.com/player_api"></script>
     {{range $loop := .Project.ProjectData.EntryIDs}}
-    <script src="/ustart_front/js/project-nil.js">IDArray.push({{$loop}}); </script>
+    <script>IDArray.push({{$loop}}); </script>
     {{end}}
 	<script src="/ustart_front/js/layout_tags.js"></script>
     <script src="/ustart_front/js/jquery.rss.min.js"></script>

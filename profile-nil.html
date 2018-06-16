@@ -20,6 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.7.1/slick/slick.min.js"></script>
     <script src="/ustart_front/js/moment.min.js"></script>
     <script src="/ustart_front/js/jquery.rss.min.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/profile-nil.js"></script>
     <script type="text/javascript">
     //globals
     var userID = {{.Page}};
@@ -34,6 +35,12 @@
         var editPermission = 0;
     </script>
     {{end}}
+     <!-- array used for wall load -->
+    {{range $loop := .UserInfo.EntryIDs}}
+    <script type="text/javascript">
+            IDArray.push({{$loop}}); 
+    </script>
+    {{end}}
     <script src="http://www.youtube.com/player_api"></script>
     <script src="/ustart_front/js/widgets.js"></script>
     <script src="/ustart_front/js/widget-projectDisplay.js" defer></script>	   
@@ -46,12 +53,7 @@
    <!-- <script src="ustart_front/js/widget-text.js"></script>-->
     <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <!-- array used for wall load -->
-    {{range $loop := .UserInfo.EntryIDs}}
-        <script type="text/javascript" src="/ustart_front/js/profile-nil.js">IDArray.push({{$loop}});</script>
-    {{end}}
 </head>
-
 <body>
     <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
 	<div id="centering">

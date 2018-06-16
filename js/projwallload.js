@@ -44,7 +44,7 @@
                             //if post greater than 5
                             if(temp.length > 5){
                                 for (i=temp.length - 1; i > temp.length-6; i--){
-                                     if ((permission != -1 || (permission == 1) || (permission ==0)){
+                                     if ((permission != -1 || (permission == 1) || (permission ==0))){
                                         if (temp[i].Element.Classification == 2){
                                            console.log("rendering share post"); createSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
                                         }
@@ -67,7 +67,7 @@
                             //if post less than 5 just render all
                             else{
                                 for (i=temp.length-1; i >= 0; i--){
-                                     if ((permission != -1 || (permission == 1) || (permission ==0)){
+                                     if ((permission != -1 || (permission == 1) || (permission ==0))){
                                         if (temp[i].Element.Classification == 2){
                                            console.log("rendering share post"); createSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
                                         }
@@ -113,7 +113,7 @@
                              console.log(temp);
                              $('#comments-list'+postID).empty();
                              for (i=temp.length-1; i >= 0; i--){
-                                  if ((permission != -1 || (permission == 1) || (permission ==0)){
+                                  if ((permission != -1 || (permission == 1) || (permission ==0))){
                                     makeCommentApplications(postID, temp[i].Image, temp[i].FirstName, temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].NumReplies,temp[i].Element.TimeStamp);
                                  }
                                  else{
@@ -149,7 +149,7 @@
                           $('#replies'+postID).empty();
                            $(e.currentTarget).hide();
                            for (i=temp.length-1; i >= 0; i--){
-                               if ((permission != -1 || (permission == 1) || (permission ==0)){
+                               if ((permission != -1 || (permission == 1) || (permission ==0))){
                                     makeCommentOfCommentsApplications(postID, temp[i].Image, temp[i].FirstName,temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].Element.TimeStamp);
                                }
                                else{
@@ -490,13 +490,13 @@
                             if (temp != null){
                                 for (i=0; i < temp.length ; i++){
                                         if (temp[i].Element.Classification == 2){
-                                           if ((permission != -1 || (permission == 1) || (permission ==0)){createSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );}
+                                           if ((permission != -1 || (permission == 1) || (permission ==0))){createSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );}
                                             else{
                                                 createBasicSharedPost(temp[i].Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
                                             }
                                         }
                                         else if (temp[i].Element.Classification == 0){
-                                             if ((permission != -1 || (permission == 1) || (permission ==0)){
+                                             if ((permission != -1 || (permission == 1) || (permission ==0))){
                                              makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
                                              }
                                             else{
