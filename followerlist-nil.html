@@ -191,7 +191,7 @@
 								<div class="container-s">
                                     <a href="/profile/{{$follower.Username}}">
 										<img id="followerAvatar{{$follower.Username}}" class="image"/>
-										<h4><b>{{$follower.FirstName}} {{$follower.LastName}}</b></h4> 
+										<div><b class="followerUsername">{{$follower.FirstName}} {{$follower.LastName}}</b></div>
                                     </a>
 									<button class="btn followButton" rel="6">Follow</button>
 									<script>
@@ -203,11 +203,11 @@
 						</div>
 						<div id="Following" class="tab-pane fade in">
 							{{range $following := .ListOfHeads2}}
-							<div class="card">
+							<div class="card btn btn-default">
 								<div class="container-s">
                                     <a href="/profile/{{$following.Username}}">
 										<img id="followingAvatar{{$following.Username}}" class="image"/>
-										<h4><b>{{$following.FirstName}} {{$following.LastName}}</b></h4>
+										<div><b class="followerUsername">{{$following.FirstName}} {{$following.LastName}}</b></div>
                                     </a>
 									<button class="btn followButton" rel="6">Follow</button>
 									<script>
