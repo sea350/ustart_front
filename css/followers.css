@@ -1,8 +1,8 @@
 *{
 	font-family:'Raleway', sans-serif
 }
-#FollowersTab:active,
-#FollowingTab:active {
+#FollowersTab.active,
+#FollowingTab.active {
     display: grid;
     grid-template-columns: repeat(auto-fit, 160px);
 }
