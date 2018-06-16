@@ -181,12 +181,12 @@
 						<hr>
 						<div id="user-nums">
 							<div id="followers">
-								<a href="/followers/{{.UserInfo.Username}}">
+								<a href="/followers/{{.UserInfo.Username}}#FollowersTab">
 									<span id="num-followers" style="font-weight: bold">{{len .UserInfo.Followers}}</span> Followers</a>
 							</div>
 							
 							<div id="following">
-								<a href="/followers/{{.UserInfo.Username}}#Following">
+								<a href="/followers/{{.UserInfo.Username}}#FollowingTab">
 									<span id="num-following" style="font-weight: bold">{{len .UserInfo.Following}}</span> Following</a>
 							</div>
 							<button id="btn-message" class="btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>

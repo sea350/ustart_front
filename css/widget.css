@@ -24,21 +24,6 @@
 
 .widgetBody {
 	min-height: 4em;
-	overflow-y: overlay;
-}
-.widgetBody::-webkit-scrollbar,
-.widgetBody::-webkit-scrollbar-button,
-.widgetBody::-webkit-scrollbar-track, {
-	background: none;
-}
-.widgetBody::-webkit-scrollbar-thumb {
-	border-radius: 9999px;
-	opacity: 0;
-	-webkit-transition: opacity 0.2;
-	transition: opacity 0.2;
-}
-.widgetBody:hover::-webkit-scrollbar-thumb {
-	opacity: 1;
 }
 #sortable {
     list-style-type: none;
