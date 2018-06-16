@@ -7,7 +7,7 @@
 }
 
 .followerBox {
-	padding:1em
+	padding: 1em;
 }
 .card {
     border-color: #c5c5c5;
@@ -27,6 +27,7 @@
     margin-bottom: 0.4em;
 	-o-object-fit: contain;
 	object-fit: contain;
+	max-width: 80px;
 	max-height: 80px;
 }
 .card button.followButton {

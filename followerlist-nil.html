@@ -193,7 +193,7 @@
 										<img id="followerAvatar{{$follower.Username}}" class="image"/>
 										<div><b class="followerUsername">{{$follower.FirstName}} {{$follower.LastName}}</b></div>
                                     </a>
-									<button class="btn followButton" rel="6">Follow</button>
+									<button class="btn btn-primary followButton" rel="6">Follow</button>
 									<script>
 										$('#followerAvatar{{$follower.Username}}').attr('src', '{{$follower.Image}}');
 									</script>
@@ -209,7 +209,7 @@
 										<img id="followingAvatar{{$following.Username}}" class="image"/>
 										<div><b class="followerUsername">{{$following.FirstName}} {{$following.LastName}}</b></div>
                                     </a>
-									<button class="btn followButton" rel="6">Follow</button>
+									<button class="btn btn-primary followButton" rel="6">Follow</button>
 									<script>
 										$('#followingAvatar{{$following.Username}}').attr('src', '{{$following.Image}}');
 									</script>
