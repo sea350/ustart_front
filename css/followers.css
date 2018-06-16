@@ -1,10 +1,15 @@
 *{
 	font-family:'Raleway', sans-serif
 }
-.followerBox{
+#Followers, #Following {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 124px);
+}
+
+.followerBox {
 	padding:1em
 }
-.card{
+.card {
     border-color: #c5c5c5;
     border-style: solid;
     border-width: 1px;
@@ -15,19 +20,20 @@
 	display:inline-block;
 	margin: 0.5em;
     margin-bottom: 0.5em !important;
-    padding: 0.5em 0.1em;
+	padding: 0.5em 0.1em;
+	vertical-align: top;
 }
-.card:hover{
+.card:hover {
 	-webkit-box-shadow:0 8px 16px 0 rgba(0,0,0,0.2);
 	box-shadow:0 8px 16px 0 rgba(0,0,0,0.2)
 }
-.card img{
-	border-radius:5px 5px 0 0;
+.card img {
+	border-radius: 0.5em;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 0.4em;
 	-o-object-fit:cover;
-	object-fit:cover
+	object-fit:cover;
 }
 .card button.followButton {
 	width: auto;
