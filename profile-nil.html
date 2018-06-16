@@ -107,6 +107,12 @@
 									<p style="color:black">{{.UserInfo.University}}</p>
 								</div>
 								{{ end }}
+								{{if .UserInfo.Phone}}
+								<div id="contact-phone" style="color:#00C085;">
+									<i class="fa fa-phone" aria-hidden="true" style="color:#00C085;"></i> Phone
+									<p style="color:black">{{.UserInfo.Phone}}</p>
+								</div>
+								{{end}}
 							</div>
 						</div>
 						<hr>
