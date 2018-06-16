@@ -141,15 +141,15 @@
 								<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 									<i class="fa fa-ellipsis-v"></i>
 								</button>
+                                {{if ne ($.Page) ($.DOCID)}}
 								<ul class="dropdown-menu dropdown-menu-right">
-                                    {{if ne ($.Page) ($.DOCID)}}
 									<li>
 										<a id="block-user" href="#">
 											<i class="fa fa-ban"></i> Block
 											<span class="block-user-text"></span> User</a>
 									</li>
-                                    {{end}}
 								</ul>
+                                {{end}}
                             </div>
 						</div>
 					</div>
