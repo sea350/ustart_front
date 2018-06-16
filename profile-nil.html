@@ -280,7 +280,7 @@
 				<script>
 					var editMode = true;
 					$('#floating-widget-editor .btn').click(function() {
-						$('#widget-insert, .widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort, [data-project-visible="false"]').toggle();
+						$('.widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort, [data-project-visible="false"]').toggle();
 						if (editMode) {
 							// Change to View Mode
 							$('#widget-status').text('View Mode');
@@ -294,7 +294,7 @@
 				{{else}}
 				<script>
 					$(document).ready(function() {
-						$('#widget-insert, .widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort, [data-project-visible="false"]').remove();
+						$('.widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort, [data-project-visible="false"]').remove();
 					});
 				</script>
 				{{end}}
@@ -311,6 +311,7 @@
                 <div class="tab-content">
                     <div id="prof-about" class="tab-pane fade in active">
                         <ul id="sortable">
+							{{if eq ($.Page) ($.DOCID)}}
                             <li id="widget-insert" class="ui-state-default">
 								<div class="projectsWidgetCont">
 									<div class="widgetTitle" data-toggle="collapse" data-target="#widget-insert .widgetBody">
@@ -410,6 +411,7 @@
 									</div>
 								</div>
 							</li>
+							{{end}}
 							<!-- project widget -->
 							<li id="projectDisplay" class="ui-state-default widgetListItem">
 								<div class="projectsWidgetCont">
