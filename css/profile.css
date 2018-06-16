@@ -16,7 +16,9 @@ a:hover {
 .share-btn img{
    height:30px;
 }
-
+#name-cont a {
+    color: forestgreen;
+}
 
 .like-btn:focus,.like-btn.active,.like-btn:active,.comment-btn:focus,.comment-btn.active,.comment-btn:active,.share-btn:focus,.share-btn.active,.share-btn:active {
   outline: none !important;
