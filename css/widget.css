@@ -26,12 +26,10 @@
 	min-height: 4em;
 	overflow-y: overlay;
 }
+.widgetBody::-webkit-scrollbar,
 .widgetBody::-webkit-scrollbar-button,
 .widgetBody::-webkit-scrollbar-track, {
-	display: none;
-}
-.widgetBody::-webkit-scrollbar {
-	width: auto;
+	background: none;
 }
 .widgetBody::-webkit-scrollbar-thumb {
 	border-radius: 9999px;
