@@ -21,7 +21,8 @@
     <script src="/ustart_front/js/jquery.jscroll.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.7.1/slick/slick.min.js"></script>
     <script src="/ustart_front/js/moment.min.js"></script>
-    <script src="/ustart_front/js/jquery.rss.min.js"></script>
+	<script src="/ustart_front/js/jquery.rss.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.slim.js" defer></script>
     <script type="text/javascript" src="/ustart_front/js/profile-nil.js"></script>
     <script type="text/javascript">
     //globals
@@ -51,7 +52,8 @@
     <script src="/ustart_front/js/notify.min.js"></script>
 	<script src="/ustart_front/js/masonry.pkgd.min.js"></script>
 	<script src="/ustart_front/js/ascii-convert.js"></script>
-    <script src="/ustart_front/js/createpost2.js"></script>
+	<script src="/ustart_front/js/createpost2.js"></script>
+	<script src="/ustart_front/js/chat-socket.js" defer></script>
    <!-- <script src="ustart_front/js/widget-text.js"></script>-->
     <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -160,6 +162,18 @@
 						</div>
 					</div>
 					<div class="dashboard-right">
+						<div id="chat-container">
+							<div class="dashboard panel panel-default">
+								<div id="dash-header">
+									<h4>Chat</h4>
+									<div class="chat-texts"></div>
+									<form class="chat-form">
+										<input class="chat-input"/>
+										<button type="submit">Send</button>
+									</form>
+								</div>
+							</div>
+						</div>
 						<div id="suggestedUser">
 							<div class="dashboard panel panel-default">
 								<div id="dash-header">
