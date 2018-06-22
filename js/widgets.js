@@ -1038,6 +1038,11 @@ $(document).ready(function() {
 		}
 	});
 	
+	$(".widgetBody").niceScroll({
+		cursorwidth: "8px",
+		autohidemode: "leave"
+	});
+
 }).delay(2000).queue(function() {
 	// Jank code in order to reload Masonry (fit elements)
 	try {
