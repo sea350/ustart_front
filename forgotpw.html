@@ -5,31 +5,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>ustart</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gudea">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css"href="css/footer-styles.css"/>
+	<title>UStart Forgot Password?</title>
 	<link rel="stylesheet" type="text/css"href="css/forgotpw.css"/>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-	<script type="text/javascript">
-		$(function () {
-			$("#navBar-placeholder").load("templateNoUser.html");
-			$("#footer-placeholder").load("template-footer.html");
-		});
-		$(document).ready(function() {
-			// Password forgotten response
-		
-			$('form#passprompt').submit(function() {
-				alert('Email is being sending. Please wait for the email.');
-				location.href="index2.html";
-			});
-		});
-	</script>
 </head>
 
 <body>
@@ -38,9 +15,10 @@
 		<form id="passprompt">
 			<h2>Forgot Your Password?</h2>
 			<br/>
-			<div class="input-group">
+			<div class="input-group" action="/verifyPassChange/">
+				<label for="email">Email</label>
 				<span class="input-group-addon"><i class="fa fa-envelope-open"></i></span>
-				<input type="text" class="form-control" name="email" placeholder="Email Address" required/>
+				<input id="email" type="text" class="form-control" name="email" placeholder="Email Address" required/>
 			</div>
 			<br/>
 			<div style="text-align: center;">
@@ -48,6 +26,5 @@
 			</div>
 		</form>
 	</div>
-	<div id="footer-placeholder"></div>
 </body>
 </html>
