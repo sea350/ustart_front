@@ -1039,8 +1039,11 @@ $(document).ready(function() {
 	});
 	
 	$(".widgetBody").niceScroll({
+		cursorcolor: "#707070",
 		cursorwidth: "8px",
-		autohidemode: "leave"
+		autohidemode: "leave",
+		emulatetouch: true,
+		hidescursordelay: 0
 	});
 
 }).delay(2000).queue(function() {
