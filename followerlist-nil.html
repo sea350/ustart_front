@@ -214,7 +214,12 @@
 											contentType: "application/json; charset=utf-8",
 											data: {userID:docID, Following:followerstat},
 											success: function(data) {
-                                                console.log("followed");
+                                                if ($(e.currentTarget).text()=="Follow"){
+                                                    $(e.currentTarget).text('Unfollow');
+                                                }
+                                                else if ($(e.currentTarget).text()=="Unfollow"){
+                                                    $(e.currentTarget).text('Follow');
+                                                }
                                             },
 											error: function(error) {
 												console.log("It just doesn't work");
@@ -237,6 +242,9 @@
 									    </script>
                                     </a>
                                     {{if eq ($following.Followed) false }}
+									<button class="btn btn-primary unfollowButton" id={{$following.DocID}} rel="6">Follow</button>
+                                    {{end}}
+                                     {{if eq ($following.Followed) true }}
 									<button class="btn btn-primary unfollowButton" id={{$following.DocID}} rel="6">Unfollow</button>
                                     {{end}}
 								</div>
@@ -252,6 +260,12 @@
 											data: {userID:unfollowdocID, Following:followerstat},
 											success: function(data) {
                                                 console.log("unfollowed");
+                                                if ($(e.currentTarget).text()=="Follow"){
+                                                    $(e.currentTarget).text('Unfollow');
+                                                }
+                                                else if ($(e.currentTarget).text()=="Unfollow"){
+                                                    $(e.currentTarget).text('Follow');
+                                                }
                                             },
 											error: function(error) {
 												console.log("It just doesn't work");

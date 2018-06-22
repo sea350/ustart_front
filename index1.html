@@ -2,11 +2,12 @@
 <html>
 
 <head>
+    
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="/ustart_front/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
     <meta charset="utf-8"/>
-	<metA nAME=viewport coNteNT="width=device-width, initial-scale=1"></metA>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 	<title>U Start.today</title>
 	<link rel="icon" type="image/png" sizes="192x192" href="/ustart_front/android-icon-192x192.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/ustart_front/favicon-32x32.png">
@@ -24,17 +25,6 @@
 	<script src='https://www.google.com/recaptcha/api.js?onload=reCaptchaCallback&render=explicit'></script>
 	<script src="/ustart_front/js/reg-check.js"></script>
 	<script src="/ustart_front/js/splash.js"></script>
-	<style>
-		.loadOver {
-			background-color: white;
-			z-index: 500;
-			height: 100vh;
-			width: 100vw;
-			position: fixed;
-			top: 0;
-			left: 0;
-		}
-	</style>
 </head>
 
 <body style="background-color: initial;">
@@ -45,8 +35,14 @@
 		<div id="theBox">
 			<form method="post" style="user-select: none; -moz-user-select: none;" action="/">
 				<input id="textName" type="text" name="name" class="form-control" placeholder="Name:" required autofocus>
-				<input id="emailName" type="email" name="email" class="form-control" placeholder="Email:" required>
+				<input id="emailName" type="email" name="email" class="form-control" placeholder="Email:" onfocus="hideEmailError()" onblur="validateEmail()" required>
+                <p id="notedu">Needs to be an actual email!</p>
 				<input id="submitButton" type="submit" name="postsubmit" value="Submit">
+                <br>
+                <br>
+                <div style="margin-left:auto; margin-right:auto; width: 305px;">
+                    <div class="g-recaptcha" data-callback="enableBtn" data-expired-callback="capcha_expired" data-sitekey="6LdALioUAAAAAA0A-aAFULZXiO7aE5Ia15yr2BNB" required></div>
+                </div>
 			</form>
 		</div>
 		<a>

@@ -290,8 +290,7 @@
 										<div class="container-s">
 											<img id="img{{$member.Username}}" class="image" src="{{$member.Image}}" alt="Avatar" onclick="location.href='/profile/{{$member.Username}}'" />
 											<h4><b>{{$member.FirstName}} {{$member.LastName}}</b></h4>
-											<select id="role_select" class="form-control" name="newRank" style="margin: 0 auto; width:10em;"
-												onchange="changeMemberClass('{{$member.DocID}}','{{$projectid}}', $(this).prop('selectedIndex'))">
+											<select class="role_select" class="form-control" name="newRank" style="margin: 0 auto; width:10em;">
 												<option {{if not $member.Classification}} selected{{end}} hidden disabled>Select Role</option>
 												{{if le $member.Classification 0}}
 												<option {{if eq $member.Classification 0}}selected{{end}}>Creator</option>
@@ -300,6 +299,24 @@
 												<option {{if eq $member.Classification 2}}selected{{end}}>Member</option>
 												{{end}}
 											</select>
+                                            <script>
+                                                $('.role_select').on('change', function(e) {
+                                                    var result = $(e.currentTarget).val();
+                                                    console.log(result);
+                                                    $.ajax({
+                                                        type: 'GET',
+                                                        url: '/changeMemberClass/',
+                                                        contentType: "application/json; charset=utf-8",
+                                                        data: {memberID:{{$member.DocID}}, projectID:{{$projectid}}, newRole:result},
+                                                        success: function(data) {
+                                                            console.log("member role changed");
+                                                        },
+                                                        error: function(err) {
+                                                            console.log('Change Member Class error: ' + err);
+                                                        }
+                                                    });
+                                                });
+                                            </script>
 											{{if ge $member.Classification 1}}
 											<div class="middle">
 												<button type="button" onclick="removeMember('{{$member.DocID}}', '{{$projectid}}', this)">Remove</button>

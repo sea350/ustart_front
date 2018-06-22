@@ -1,14 +1,30 @@
     
 var port = location.port;
 function makeProjectApplications(name, avatar,docID, projectID, link){
-        $('#request-groups').append('<li class="request-group" id="'+docID+'" ><div class="input-group-btn parentID" id='+projectID+' style="float:right; width:auto;"><button name="accept" class="btn btn-default y-btn" id="accept'+docID+'" type="submit"><i class="glyphicon glyphicon-ok" style="color:#607d8b;"></i></button><button class="btn btn-default x-btn" id="reject'+docID+'" name="reject" type="submit"><i class="glyphicon glyphicon-remove" style="color:#607d8b;"></i></button></div><a href="/profile/'+link+'"><img class="inbox-icon" id="avatar'+docID+'" src="" /><span class="group-header">'+ name +' </span></a><br><span class="invitation-message">would like to join your project! </span></li>');
+        $('#request-groups').append('\
+        <li class="request-group" id="'+docID+'" >\
+            <div class="input-group-btn parentID" id='+projectID+' style="float:right; width:auto;">\
+                <div class="btn-group">\
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\
+                      <i class="glyphicon glyphicon-ok" style="color:#607d8b;"></i>\
+                  </button>\
+                  <div class="dropdown-menu">\
+                    <a class="dropdown-item y-btn" id="accept'+docID+'">Member</a>\
+                    <a class="dropdown-item y-btn" id="accept'+docID+'">Moderator</a>\
+                  </div>\
+                </div>\
+             <button class="btn btn-default x-btn" id="reject'+docID+'" name="reject" type="submit"><i class="glyphicon glyphicon-remove" style="color:#607d8b;"></i></button>\
+            </div>\
+                <a href="/profile/'+link+'"><img class="inbox-icon" id="avatar'+docID+'" src="" /><span class="group-header">'+ name +' </span></a><br><span class="invitation-message">would like to join your project! </span>\
+        </li>');
         $("#avatar"+docID).attr("src", avatar);
     }
     
-function createMemberList(member, link){
+/*function createMemberList(member, link){
         $("#sidebar").append('<div class="sidebar-header"><div class="projectMembers">'+member.charAt(0).toUpperCase() +'</div><strong>'+ member +' <a href="'+ link +'"><i class="fa fa-sign-out"></i></a></strong></div>')
-}
+}*/
 
+$(document).ready(function () {
  //GET THE REQUESTS FOR A SPECIFIC PROJECT
 $('.projectList').on( "click", function(e) {
     var projectID = e.currentTarget.id;
@@ -49,15 +65,16 @@ $('body').on("click", ".y-btn", function(e) {
    e.preventDefault();
     var that = $(this);
     var temp = e.currentTarget.id;
+    var role = $(e.currentTarget).text();
     var usrID=temp.replace("accept", "");
     var projID = $(e.target).closest('.parentID').attr('id');
     var totalReq = $("#totalRequests"+projID).text();
     that.off('click'); // remove handler
-   $.ajax({
+    $.ajax({
         type: 'GET',
         url: 'http://ustart.today:'+port+'/AcceptJoinRequest/',
         contentType: "application/json; charset=utf-8",
-        data: {userID:usrID, projectID: projID},
+        data: {userID:usrID, role:role, projectID: projID},
         success: function(result) {
             //update notification
              var testresult = parseInt(result);
@@ -74,8 +91,6 @@ $('body').on("click", ".y-btn", function(e) {
             console.log('Request failed: ');
             console.log(err);
         }
-     }).always(function() {
-            that.on('click', login); // add handler back after ajax
      });
 });
 $('body').on("click", ".x-btn", function(e) {
@@ -106,12 +121,9 @@ $('body').on("click", ".x-btn", function(e) {
             console.log('Request failed: ');
             console.log(err);
         }
-     }).always(function() {
-            that.on('click', login); // add handler back after ajax
      });
 });
     
-$(document).ready(function () {
       $("#leftNavMessages").addClass("theActive");
       $('.request-group').click(function(event) {
 		if (!$(this).hasClass('active')) {

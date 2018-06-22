@@ -1,11 +1,12 @@
+
 function changeMemberClass(memberID, projectID, newRank) {
-	newRank = newRank - 1;
 	$.ajax({
 		type: 'GET',
 		url: '/changeMemberClass/',
 		contentType: "application/json; charset=utf-8",
 		data: {memberID:memberID, projectID:projectID, newRank:newRank},
 		success: function(data) {
+            console.log("member role changed");
 		},
 		error: function(err) {
 			console.log('Change Member Class error: ' + err);
