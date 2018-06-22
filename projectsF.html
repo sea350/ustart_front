@@ -22,7 +22,12 @@
     <script src="https://rawgit.com/swisnl/jQuery-contextMenu/master/dist/jquery.contextMenu.min.js"></script>
     <script src="/ustart_front/ckeditor/ckeditor.js"></script>
     <script src="/ustart_front/ckeditor/config.js"></script>
-    <script src="/ustart_front/js/jquery.overlayScrollbars.min.js"></script>
+	<script src="/ustart_front/js/jquery.overlayScrollbars.min.js">
+		$(function() {
+			//The passed argument has to be at least a empty object or a object with your desired options
+			$('body').overlayScrollbars({ });
+		});
+	</script>
     <script src="/ustart_front/js/project-nil.js"></script>
     <script type ="text/javascript">
         var pageID = {{.Project.DocID}};
