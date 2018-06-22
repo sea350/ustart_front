@@ -134,12 +134,12 @@
 						<hr>
 						<div id="user-nums">
 							<div id="followers">
-								<a href="/followers/{{.UserInfo.Username}}">
+								<a href="/followers/{{.UserInfo.Username}}" data-toggle="tooltip" data-placement="top" title="{{len .UserInfo.Followers}} Followers">
 									<span id="num-followers" style="font-weight: bold">{{len .UserInfo.Followers}}</span> Followers</a>
 							</div>
 							
 							<div id="following">
-								<a href="/followers/{{.UserInfo.Username}}#Following">
+								<a href="/followers/{{.UserInfo.Username}}#Following" data-toggle="tooltip" data-placement="top" title="{{len .UserInfo.Following}} Following">
 									<span id="num-following" style="font-weight: bold">{{len .UserInfo.Following}}</span> Following</a>
 							</div>
 							<button id="btn-message" class="btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
@@ -440,7 +440,7 @@
 									<div class="widgetBody">
 									{{range $project := .ListOfHeads}}
 										<a class="btn btn-default projectsColumn" href="/Projects/{{$project.Username}}" data-project="{{$project.DocID}}" data-project-visible="{{$project.Followed}}">
-											<div class="columnImage">
+											<div class="columnImage" data-toggle="tooltip" data-placement="bottom" title="{{$project.FirstName}}">
 												<img id="proj-preview{{$project.DocID}}" class="img-responsive" src=""/>
 												<script>
 													$("#proj-preview{{$project.DocID}}").attr('src', {{$project.Image}});

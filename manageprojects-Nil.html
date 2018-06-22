@@ -2,27 +2,38 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>UStart MyProjects</title>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
-    <link rel="stylesheet" type="text/css" href="/ustart_front/css/projects_m.css" />
-    <script src="/ustart_front/js/projects_m.js"></script>
-    <script src="/ustart_front/js/ascii-convert.js"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>UStart MyProjects</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
+	<link rel="stylesheet" type="text/css" href="/ustart_front/css/projects_m.css" />
+	<script src="/ustart_front/js/projects_m.js"></script>
+	<script src="/ustart_front/js/ascii-convert.js"></script>
 </head>
+
 <body>
-    <input type="hidden" id="pageiden" value='{{.Page}}'>
-    <div id="centering">
-        <!-- Vertical content -->
-        <div id="content">
+	<input type="hidden" id="pageiden" value='{{.Page}}'>
+	<div id="centering">
+		<!-- Vertical content -->
+		<div id="content">
 			<div class="container">
 				<h1>
 					<!-- Change this header for other users -->
 					<span id="header-projects">Current Projects</span>
-					<button id="sortProjButton" type="button" class="btn btn-default pull-right"><i class="fa fa-sort-amount-desc"></i></button>
-					<a href="/NewMembers/" title="Manage member join requests"><button id="manageMembersButton" type="button" class="btn btn-default pull-right"><i class="fa fa-user-circle"></i></button></a>
-					<a href="/CreateProjectPage/"><button id="addProjButton" type="button" class="btn btn-default pull-right"><i class="fa fa-plus-square"></i></button></a>
+					<button id="sortProjButton" type="button" class="btn btn-default pull-right">
+						<i class="fa fa-sort-amount-desc"></i>
+					</button>
+					<a href="/NewMembers/" title="Manage member join requests">
+						<button id="manageMembersButton" type="button" class="btn btn-default pull-right">
+							<i class="fa fa-user-circle"></i>
+						</button>
+					</a>
+					<a href="/CreateProjectPage/">
+						<button id="addProjButton" type="button" class="btn btn-default pull-right">
+							<i class="fa fa-plus-square"></i>
+						</button>
+					</a>
 				</h1>
 				<div id="project-container" class="row">
 					<!--ListOfHeads is the array for Projects
@@ -33,25 +44,26 @@
 						'Image' is the project logo
 						'Followed' is not used-->
 					{{range $project := .ListOfHeads}}
-                        <div class="card col-sm-3" >
-                              <a href="/Projects/{{$project.Username}}">
-                              <img id="proj-preview{{$project.DocID}}" class="img-responsive" src=""/>
-                              </a>
-                              <script>
-                                  $("#proj-preview{{$project.DocID}}").attr('src', {{$project.Image}});</script>
-							<div class="card-body">
-								<h4 class="card-title"><a href="/Projects/{{$project.Username}}">{{$project.FirstName}}</a></h4>
-							  <p class="card-text">
-								  
-									<script>readRuneArray({{$project.Bio}});</script>
-							  </p>
-                            </div>
-                        </div>
+					<div class="card">
+						<a href="/Projects/{{$project.Username}}">
+							<img id="proj-preview{{$project.DocID}}" class="img-responsive" src="" />
+						</a>
+						<script>
+							$("#proj-preview{{$project.DocID}}").attr('src', {{ $project.Image }});</script>
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="/Projects/{{$project.Username}}">{{$project.FirstName}}</a>
+							</h4>
+							<p class="card-text">
+								<script>readRuneArray({{ $project.Bio }});</script>
+							</p>
+						</div>
+					</div>
 					{{end}}
 				</div>
 			</div>
-        </div>
-    </div>
+		</div>
+	</div>
 </body>
 
 </html>
