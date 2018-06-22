@@ -1,0 +1,45 @@
+/* #wall-dataF */
+img{
+	height: 40px;
+}
+#wall-dataF .dropdown-menu{
+	min-width: 0px !important;
+	padding : 0px !important;
+}
+.post-time{
+	padding-right: 4px;
+}
+#wall-dataF .post-name{
+	color: cadetblue;
+}
+#wall-dataF .post-message{
+	word-spacing: 0px;
+}
+#wall-dataF .comment-btn .mt-0{
+	color: cadetblue;
+	display: inline;
+	margin-left: 1px;
+}
+#wall-dataF .like-btn .mt-0{
+	color: cadetblue;
+	display: inline;
+}
+#shareModals .mt-0{
+	color: cadetblue;
+}
+#shareModals textarea{
+	resize: none;
+}
+#deleteModals .modal-header span{
+	font-size: 20px;
+}
+#deleteModals .modal-body span{
+	font-size: 15px;
+}
+#commentModals .mt-0{
+	color:cadetblue;
+}
+.user_name{
+	color:cadetblue;
+}
+
