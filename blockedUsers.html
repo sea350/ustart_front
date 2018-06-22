@@ -1,356 +1,294 @@
 <!DOCTYPE html>
 <html>
-<style>
-
-</style>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>ustart</title>
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link href="css/user-v3.css" rel="stylesheet" type="text/css" />
-    <link href="css/layout1.css" rel="stylesheet" type="text/css" />
-    <link href="css/blockedUsers.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Ustart {{.UserInfo.Username}} Followers</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://rawgit.com/fredwu/jquery-endless-scroll/master/js/jquery.endless-scroll.js"></script>
-    <script src="js/bootstrap-confirmation.min.js"></script>
-    <script src="js/profile.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $("#navBar-placeholder").load("template.html");
-        });
-    </script>
-    <script src="js/profile.js"></script>
+    <link rel="stylesheet" href="/ustart_front/css/font-awesome.min.css">
+    <link href="/ustart_front/css/profile.css" rel="stylesheet" type="text/css" />
+    <link href="/ustart_front/css/followers.css" rel="stylesheet" type="text/css" />
+	<script src="/ustart_front/js/ascii-convert.js"></script>
+    <script src="/ustart_front/js/follow.js"></script>
 </head>
 
 <body>
-    <div id="navBar-placeholder"></div>
+    <input type="hidden" id="pageiden" value='{{.Page}}'>
+    <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
     <div id="centering">
-        <div id="content" style="width: 96.9%; min-width: 96.9%;">
-            <div class="background-wrap" style="display:flex; position:relative; height:350px; auto;">
-                <div id="background-image" style="position: relative; width:100%;">
-                </div>
-            </div>
-            <div class="user-info">
-                <div id="wrapper">
-                    <div class="user-img" alt="User Profile Image">
-                        <img alt="User Profile Image" src="https://www.fillmurray.com/270/270">
-                    </div>
-                    <div id="user-brief-info">
-                        <div id="info-wrap">
-                            <div id="name-cont">
-                                <h2><span id="name">Mac Frappy Frapalicious</span></h2>
-                            </div>
-                            <div class="dot">
-                                <span id="active"> <i id="dot-icon" class="fa fa-circle" aria-hidden="true" data-toggle="tooltip" title="Active"></i></span>
-                            </div>
-                        </div>
-                        <div id="location-cont">
-                            <i class="fa fa-map-marker" aria-hidden="true"></i> <span id="location">New York City, New York, USA</span>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="user-desc">
-                        <p style="margin-bottom: 0;"><span id="description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis.</span></p>
-                    </div>
-                    <hr>
-                    <div id="user-nums">
-                        <div id="followers">
-                            <p><a href="#"><span id="num-followers" style="font-weight: bold">1.5M</span></a> Followers
-                            </p>
-                        </div>
-                        <div id="following">
-                            <p><a href="#"><span id="num-following" style="font-weight: bold">99</span></a> Following </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-wrap">
-                <div class="menu-buffer"></div>
-                <div class="menu">
-                    Blocked Users
-                </div>
-            </div>
-            <div id="text-box">
-                <script type="text/javascript">
-                    $('#menu-item-about').hover(function () {
-                        $(this).fadeOut(100);
-                        $(this).fadeIn(100);
-                        $("#box").append($("<span> About</span>"));
-                    },
-                        function () {
-                            $("#box").find("span").remove();
-                        }
-                    );
-                    $('#menu-item-proj').hover(function () {
-                        $(this).fadeOut(100);
-                        $(this).fadeIn(100);
-                        $("#box").append($("<span> Projects</span>"));
-                    },
-                        function () {
-                            $("#box").find("span").remove();
-                        }
-                    );
-                    $('#menu-item-link').hover(function () {
-                        $(this).fadeOut(100);
-                        $(this).fadeIn(100);
-                        $("#box").append($("<span>Links</span>"));
-                    },
-                        function () {
-                            $("#box").find("span").remove();
-                        }
-                    );
-                    $('#menu-item-tags').hover(function () {
-                        $(this).fadeOut(100);
-                        $(this).fadeIn(100);
-                        $("#box").append($("<span> Tags</span>"));
-                    },
-                        function () {
-                            $("#box").find("span").remove();
-                        }
-                    );
-                    $('#message').hover(function () {
-                        $(this).fadeOut(100);
-                        $(this).fadeIn(100);
-                        $("#box").append($("<span>Message</span>"));
-                    }, function () {
-                        $("#box").find("span").remove();
-                    });
-                </script>
-                <!-- MODALS -->
-                <!-- About Modal  -->
-                <div class="modal fade" id="aboutModal" role="dialog">
-                    <div class="modal-dialog">
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">About</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="about-container">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <th class="no-border-top" scope="row">Name</th>
-                                                <td class="no-border-top"><span id="full-name">Mac Frappy Frapalicious</span></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Location</th>
-                                                <td><span id="locat">New Fork City, New Fork, United States</span></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">College</th>
-                                                <td><span id="college">New Fork University</span></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Class</th>
-                                                <td><span id="class">PH.d</span></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Major</th>
-                                                <td><span id="major">Frap Making</span></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Birthday</th>
-                                                <td><span id="dob">June 24, 2017</span></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Phone</th>
-                                                <td><span id="phone-num">(888) CASH - NOW</span></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">E-mail</th>
-                                                <td><span id="email">daboss@mcd.edu</span></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Gender</th>
-                                                <td><span id="gender">NON-YA</span></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Account Created</th>
-                                                <td><span id="date-start">January 1, 100 BC</span></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Full Description</th>
-                                                <td><span id="desc">I like McDonalds. I Like Fraps. I Love Fraps. Fraps are cool. Don't talk shit about Fraps. McDonalds Fraps are cooler than Starbucks Fraps. Take that Starbucks!</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Link Modal -->
-                <div class="modal fade" id="linkModal" role="dialog">
-                    <div class="modal-dialog">
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Your Links</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="links-container">
-                                    <a id="addLinkBtn" class="btn btn-default" data-toggle="modal" data-target="#addLinkModal">
-                                        <span>&plus;</span>
+		<img id="head-image" alt="User Banner">
+		<script>
+            var port = location.port;
+			$( document ).ready(function() {
+				$("#head-image").attr("src",{{.UserInfo.Banner}});
+			});
+		</script>
+        <!-- Vertical content -->
+        <div id="content" class="container">
+			<div class="flex-box">
+				<div class="dashboard-left">
+					<div class="user-info">
+						<div class="user-img-container">
+							<img class="user-img" id="user-avatar" alt="User Profile Image">
+							{{if eq ($.Page) ($.DOCID)}}
+							<div class="user-img-option">
+								<a href="/Settings/#avatarcollapse">Change Profile Image</a>
+							</div>
+							{{end}}
+						</div>
+						<script>
+							$( document ).ready(function() {
+								$("#user-avatar").attr("src",{{.UserInfo.Avatar}});
+							});
+						</script>
+						<div id="user-brief-info">
+							<div id="info-wrap">
+								<div id="name-cont">
+									<h3 style="margin-bottom: 0.2em;">
+										<a href="/profile/{{.UserInfo.Username}}">
+											<strong id="name">{{.UserInfo.FirstName}} {{.UserInfo.LastName}} <!-- {{.DOCID}} {{.Page}} page is viewingDOCID--></strong>
+										</a>
+										<span class="dot">
+											<span class="active">
+												<i class="fa fa-circle" aria-hidden="true" data-toggle="tooltip" title="Active"></i>
+											</span>
+										</span>
+									</h3>
+								</div>
+							</div>
+							<div id="brief-info" style="text-align: left; padding: 1em 1em 0 1em;">
+								{{if .UserInfo.Location.Country}}
+								<div id="location-cont" style="color:#00C085">
+									<i class="fa fa-map-marker" aria-hidden="true" style="color:#00C085;"></i> Location
+									<p id="location" style="color:black">{{.UserInfo.Location.City}}, {{.UserInfo.Location.State}}, {{.UserInfo.Location.Country}}</p>
+								</div>
+								{{end}}
+								{{if .UserInfo.University}}
+								<div id="edu-link" style="color:#00C085;">
+									<i class="fa fa-graduation-cap" aria-hidden="true" style="color:#00C085;"></i> Education
+									<p style="color:black">{{.UserInfo.University}}</p>
+								</div>
+								{{end}}
+								{{if .UserInfo.Phone}}
+								<div id="contact-phone" style="color:#00C085;">
+									<i class="fa fa-phone" aria-hidden="true" style="color:#00C085;"></i> Phone
+									<p style="color:black">{{.UserInfo.Phone}}</p>
+								</div>
+								{{end}}
+							</div>
+						</div>
+						<hr>
+						<div class="user-desc">
+							<p style="margin-bottom: 0;">
+								<span id="description">
+									<script>readRuneArray({{.UserInfo.Description}});</script>
+								</span>
+							</p>
+						</div>
+						<hr>
+						<div id="user-nums">
+							<div id="followers">
+								<a href="/followers/{{.UserInfo.Username}}#FollowersTab">
+									<span id="num-followers" style="font-weight: bold">{{len .UserInfo.Followers}}</span> Followers</a>
+							</div>
+							
+							<div id="following">
+								<a href="/followers/{{.UserInfo.Username}}#FollowingTab">
+									<span id="num-following" style="font-weight: bold">{{len .UserInfo.Following}}</span> Following</a>
+							</div>
+							<button id="btn-message" class="btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
+							<!-- if user is visiting the page -->
+							{{if ne ($.Page) ($.DOCID)}}
+							<button id="btn1" class="btn followButton" rel="6">Follow</button>
+							<script type="text/javascript">
+								$(document).ready(function() {
+									var pageID= document.getElementById("pageiden").value;
+									var followstatus=document.getElementById("followstat").value;
+									if(followstatus == "yes") {
+										$('#btn1').attr('class', 'btn followButton following');
+										$('#btn1').text('Following');
+									}
+									else {
+										$('#btn1').attr('class', 'btn followButton');
+										$('#btn1').text('Follow');
+									} 
+									$('#btn1').hover(function () {
+										$button = $(this);
+										if ($button.hasClass('following')) {
+											$button.addClass('unfollow');
+											$button.text('Unfollow');
+										}
+									}, function () {
+										if ($button.hasClass('following')) {
+											$button.removeClass('unfollow');
+                                            $button.text('Following');
+                                        }
+									});
+									$('#btn1').click(function(e) {
+										//e.preventDefault();
+										$.ajax({
+											type: 'GET',  
+											url: 'http://ustart.today:'+port+'/callme/',
+											contentType: "application/json; charset=utf-8",
+											data: {userID:pageID, Following:followstatus},
+											success: function(data) {
+												$("#responsenil").html(data);
+												var totalFollowers = parseInt($('#num-followers').html());
+												if ($('#btn1').hasClass('following')) {
+													//$.ajax(); Do Unfollow
+													console.log("Let's Unfollow");
+													//$.ajax(); Do Unfollow
+													$('#btn1').removeClass('following');
+													$('#btn1').removeClass('unfollow');
+													$('#btn1').text('Follow');
+													$('#num-followers').html(totalFollowers-1);
+													$("#followstat").val("no");
+													followstatus ="no";
+												} else {
+													// $.ajax(); Do Follow
+													console.log("Let's follow");
+													// $.ajax(); Do Follow
+													$('#btn1').addClass('following');
+													$('#btn1').text('Following');
+													$('#num-followers').html(totalFollowers+1);
+													$("#followstat").val("yes");
+													followstatus ="yes";
+												}
+											},
+											error: function(error) {
+												console.log("It just doesn't work");
+												console.log(error);
+											}
+                                        });
+                                    });
+                                });
+							</script>
+							<div class="profile-menu dropdown">
+								<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-ellipsis-v"></i>
+								</button>
+								<ul class="dropdown-menu dropdown-menu-right">
+									<li>
+										<a id="block-user" href="#">
+											<i class="fa fa-ban"></i> Block
+											<span class="block-user-text"></span> User</a>
+									</li>
+								</ul>
+							</div>
+							{{end}}
+						</div>
+					</div>
+				</div>
+				<div class="grid">
+					<ul class="nav nav-tabs nav-justified proj-tabs">
+						<li class="active"><a data-toggle="tab" href="#FollowersTab">Followers</a></li>
+						<li><a data-toggle="tab" href="#FollowingTab">Following</a></li>
+					</ul>
+					<div class="tab-content">
+						<div id="FollowersTab" class="tab-pane fade in active">
+							{{range $follower := .ListOfHeads}}
+							<div class="card btn btn-default">
+								<div class="container-s">
+                                    <a href="/profile/{{$follower.Username}}">
+										<img id="followerAvatar{{$follower.Username}}" class="image"/>
+										<div><b class="followerUsername" >{{$follower.FirstName}} {{$follower.LastName}}</b></div>
                                     </a>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <span class="pull-left" id="linkCountIndicator">16 Links Remaining</span>
-                                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Add Link Modal -->
-                <div class="modal fade" id="addLinkModal" role="dialog">
-                    <div class="modal-dialog">
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Add Link</h4>
-                            </div>
-                            <form class="addLinkForm">
-                                <div class="modal-body">
-                                    <p>
-                                        <span class="modal-cell">URL</span>
-                                        <input type="text" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false"
-                                            autofocus required/>
-                                    </p>
-                                    <p>
-                                        <span class="modal-cell">Title</span>
-                                        <input type="text" class="link-input-read" name="webTitle" placeholder="example: 'My LinkedIn'" spellcheck="false" required/>
-                                    </p>
-                                </div>
-                                <div class="modal-footer">
-                                    <div class="btn-group">
-                                        <input type="submit" class="btn btn-primary btn-add-link" />
-                                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- End of Modals for user -->
-                </div>
-                <script src="js/layout_links.js"></script>
-                <!-- Tag Modal -->
-                <div class="modal fade" id="tagModal" role="dialog">
-                    <div class="modal-dialog">
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Tags</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div id="hashtags" class="form-group">You haven't added any tags yet.</div>
-                                <hr/>
-                                <input type="text" id="tagLineInput" placeholder="Type to add tags" autofocus />
-                            </div>
-                            <div class="modal-footer">
-                                <span class="pull-left" id="tagCountIndicator">16 Tags Remaining</span>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary" id="addTagButton">Add</button>
-                                    <button type="button" class="btn btn-warning fa fa-cog fa-lg" id="editTagButton" data-toggle="tooltip" data-placement="top"
-                                        title="Delete a Tag"></button>
-                                    <!--                        <button type="button" class="btn btn-warning fa fa-cog fa-lg" id="editTagButton" data-toggle="modal" data-target="#tagEditModal"></button>-->
-                                    <button type="button" class="btn btn-info" data-dismiss="modal">Done</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="grid_wrapper">
-                <div class="grid buffer"></div>
-                <div class="grid">
-                    <div id="main">
-                        <div class="card">
-                            <img src="img/Profiles/Avatar17.jpg" alt="Avatar">
-                            <div class="container-s">
-                                <h4 style="display: inline-block;margin-right:20px;"><b>Emilia Clarke</b></h4>
-                                <button type="button" style="border-radius:4px;display: inline-block;">Unblock</button>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="img/Profiles/Avatar18.jpg" alt="Avatar">
-                            <div class="container-s">
-                                <h4 style="display: inline-block;margin-right:20px;"><b>Kit Harington</b></h4>
-                                <button type="button" style="border-radius:4px;display: inline-block;">Unblock</button>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="img/Profiles/Avatar19.jpg" alt="Avatar">
-                            <div class="container-s">
-                                <h4 style="display: inline-block;margin-right:20px;"><b>Sophia Turner</b></h4>
-                                <button type="button" style="border-radius:4px;display: inline-block;">Unblock</button>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="img/Profiles/Avatar20.jpg" alt="Avatar">
-                            <div class="container-s">
-                                <h4 style="display: inline-block;margin-right:5px;"><b>Lena Headey</b></h4>
-                                <button type="button" style="border-radius:4px;display: inline-block;">Unblock</button>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="img/Profiles/Avatar21.jpg" alt="Avatar">
-                            <div class="container-s">
-                                <h4 style="display: inline-block;margin-right:20px;"><b>Maisie Williams</b></h4>
-                                <button type="button" style="border-radius:4px;display: inline-block;">Unblock</button>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="img/Profiles/Avatar22.jpg" alt="Avatar">
-                            <div class="container-s">
-                                <h4 style="display: inline-block;margin-right:20px;"><b>Peter Dinklage</b></h4>
-                                <button type="button" style="border-radius:4px;display: inline-block;">Unblock</button>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="img/Profiles/Avatar23.jpg" alt="Avatar">
-                            <div class="container-s">
-                                <h4 style="display: inline-block;margin-right:20px;"><b>Natalie Dormer</b></h4>
-                                <button type="button" style="border-radius:4px;display: inline-block;">Unblock</button>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="img/Profiles/Avatar24.jpg" alt="Avatar">
-                            <div class="container-s">
-                                <h4 style="display: inline-block;margin-right:5px;"><b>Alfie Allen</b></h4>
-                                <button type="button" style="border-radius:4px;display: inline-block;">Unblock</button>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img src="img/Profiles/Avatar25.jpg" alt="Avatar">
-                            <div class="container-s">
-                                <h4 style="display: inline-block;margin-right:20px;"><b>Nathalie Emmanuel</b></h4>
-                                <button type="button" style="border-radius:4px;display: inline-block;">Unblock</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end main -->
-                </div>
-                <!-- end grid -->
-            </div>
-            <!-- end of grid_wrapper -->
-        </div>
-        <!-- end content -->
+                                    <script>
+										$('#followerAvatar{{$follower.Username}}').attr('src', '{{$follower.Image}}');
+									</script>
+                                    {{if eq ($follower.Followed) false }}
+									<button class="btn btn-primary followButton" id={{$follower.DocID}} rel="6">Follow</button>
+                                    {{end}}
+                                    {{if eq ($follower.Followed) true }}
+									<button class="btn btn-primary followButton" id={{$follower.DocID}} rel="6">Unfollow</button>
+                                    {{end}}
+								</div>
+							</div>
+                             <script>
+                               $('body').on("click", ".followButton", function(e) {
+                                   var docID = e.currentTarget.id;
+                                   var followerstat = {{$follower.Followed}};
+                                   console.log(docID);
+                                   $.ajax({
+											type: 'GET',  
+											url: 'http://ustart.today:'+port+'/callme/',
+											contentType: "application/json; charset=utf-8",
+											data: {userID:docID, Following:followerstat},
+											success: function(data) {
+                                                if ($(e.currentTarget).text()=="Follow"){
+                                                    $(e.currentTarget).text('Unfollow');
+                                                }
+                                                else if ($(e.currentTarget).text()=="Unfollow"){
+                                                    $(e.currentTarget).text('Follow');
+                                                }
+                                            },
+											error: function(error) {
+												console.log("It just doesn't work");
+												console.log(error);
+											}
+										});
+                                });
+                             </script>
+							{{end}}
+						</div>
+						<div id="FollowingTab" class="tab-pane fade in">
+							{{range $following := .ListOfHeads2}}
+							<div class="card btn btn-default">
+								<div class="container-s">
+                                    <a href="/profile/{{$following.Username}}">
+										<img id="followingAvatar{{$following.Username}}" class="image"/>
+										<div><b class="followerUsername">{{$following.FirstName}} {{$following.LastName}}</b></div>
+                                        <script>
+										   $('#followingAvatar{{$following.Username}}').attr('src', '{{$following.Image}}');
+									    </script>
+                                    </a>
+                                    {{if eq ($following.Followed) false }}
+									<button class="btn btn-primary unfollowButton" id={{$following.DocID}} rel="6">Follow</button>
+                                    {{end}}
+                                     {{if eq ($following.Followed) true }}
+									<button class="btn btn-primary unfollowButton" id={{$following.DocID}} rel="6">Unfollow</button>
+                                    {{end}}
+								</div>
+                                <script>
+                               $('body').on("click", ".unfollowButton", function(e) {
+                                   var unfollowdocID = e.currentTarget.id;
+                                   var followerstat = {{$following.Followed}};
+                                   console.log(followerstat);
+                                   $.ajax({
+                                        type: 'GET',  
+                                        url: 'http://ustart.today:'+port+'/callme/',
+                                        contentType: "application/json; charset=utf-8",
+                                        data: {userID:unfollowdocID, Following:followerstat},
+                                        success: function(data) {
+                                            console.log("unfollowed");
+                                            if ($(e.currentTarget).text()=="Follow") {
+                                                $(e.currentTarget).text('Unfollow');
+                                            }
+                                            else if ($(e.currentTarget).text()=="Unfollow") {
+                                                $(e.currentTarget).text('Follow');
+                                            }
+                                        },
+                                        error: function(error) {
+                                            console.log("It just doesn't work");
+                                            console.log(error);
+                                        }
+                                    });
+                                });
+                             </script>
+							</div>
+							{{end}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
     </div>
-    <div id="footer-placeholder"></div>
+	<script>
+		if(location.hash != null && location.hash != ""){
+			$("a[href='" + location.hash + "'").tab("show");
+		}
+	</script>
 </body>
 
 </html>
