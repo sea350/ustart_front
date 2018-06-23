@@ -34,7 +34,7 @@ function createSearchOptionSkill(optionvalue) {
 	
 	var skillInput = $("<input type='checkbox' name='searchskill' value='" + optionvalue + "' checked/>").hide();
 	var skillRemovable = $("<div class='removable'><span>" + optionvalue + "</span></div>").append(skillInput);
-	var skillRemover = $("<button class='btn btn-xs btn-default'>x</button>").appendTo(skillRemovable).click(function() {
+	$("<button class='btn btn-xs btn-default'>x</button>").appendTo(skillRemovable).click(function() {
 		$(this).parent().remove();
 	});
 	
@@ -123,10 +123,8 @@ $(function() {
 			$("#searchFilterGroupUsers").attr("checked", "checked").trigger("change");
 			break;
 		case "projects":
-			$("#searchFilterGroupProjects").attr("checked", "checked").trigger("change");
-			break;
 		default:
-			$("#searchFilterGroupSkills").attr("checked", "checked").trigger("change");
+			$("#searchFilterGroupProjects").attr("checked", "checked").trigger("change");
 			break;
 	}
 	
