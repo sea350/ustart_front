@@ -23,8 +23,11 @@
     <script src="/ustart_front/ckeditor/config.js"></script>
     <script src="/ustart_front/js/jquery.nicescroll.min.js"></script>
     <script src="/ustart_front/js/project-nil.js"></script>
+	{{$userid := .DOCID}}
+	{{$projectid := .Project.DocID}}
+	{{$projecturl := .Project.ProjectData.URLName}}
     <script type ="text/javascript">
-        var pageID = {{.Project.DocID}};
+        var pageID = {{$projectid}};
          $(document).ready(function () {
              $('#head-image').attr('src', {{.Project.ProjectData.Banner}});
          });     
@@ -41,9 +44,6 @@
     <script src="/ustart_front/js/ascii-convert.js"></script>
     <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js" data-pin-build="doBuild"></script>
     <script src="/ustart_front/js/createPosts.js"></script>
-	{{$userid := .DOCID}}
-	{{$projectid := .Project.DocID}}
-	{{$projecturl := .Project.ProjectData.URLName}}
 </head>
 <body>
     <script src="/ustart_front/js/widgets.js"></script>
@@ -68,7 +68,7 @@
                         <button class="project-message btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
                         {{if eq ($.Project.RequestAllowed) true}}
                         <form action="/RequestToJoin/" method="POST" style="display: inline-block;">
-                            <input type="hidden" name="projID" value={{.Project.DocID}}>
+                            <input type="hidden" name="projID" value={{$projectid}}>
                             <button class="project-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
                                 <span>Request to join</span>
                             </button>
@@ -882,7 +882,7 @@
 										<div id="hashtags" class="form-group">You haven't added any tags yet.</div>
 										<hr/>
 										<input class="form-control" type="text" id="tagLineInput" name="tagInput" placeholder="Type to add tags" autofocus required />
-										<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
+										<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{$projectid}}" required/>
 									</div>
 									<div class="modal-footer">
 										<span class="pull-left" id="tagCountIndicator">16 Tags Remaining</span>
@@ -905,7 +905,7 @@
 											 <label>Please paste the Youtube URL here</label>
 											<input id="youtubeLink" class="form-control" name="ytInput" placeholder="Youtube URL" autofocus required />
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{$projectid}}" required/>
 										</div>
 										<div class="modal-footer">
 											<button type="submit" class="btn btn-info btn-done" name="widgetSubmit" value="6" >Done</button>
@@ -930,7 +930,7 @@
 											<label>Custom Content</label>
 											<textarea id="customContent" name="customContent" required></textarea>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{.Project.DocID}}" required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{$projectid}}" required/>
 										</div>
 										<div class="modal-footer">
 											<button type="submit" name="widgetSubmit" value="0" class="btn btn-info btn-done"> Done</button>
@@ -954,7 +954,7 @@
 											<label>Please paste the Instagram post URL here</label>
 											<input type="url" class="form-control" name="instagramInput" id="ig-embed-input" placeholder="https://www.instagram.com/p/BageGbgD05c/" pattern="https?:\/\/www\.instagram\.com\/p\/[A-Za-z0-9\-\_]{11}\/.*" required/>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
 										</div>
 										<div class="modal-footer">
 											<button type="submit" id="ig-submit-btn" name="widgetSubmit" value="4" class="btn btn-default">Done</button>
@@ -977,7 +977,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" id="sc-embed-input" name="scInput" placeholder="Embedded code" pattern='<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https:\/\/w\.soundcloud\.com\/player\/\?url=https%3A\/\/api\.soundcloud\.com\/users\/[0-9]{9}&amp;color=%23[0-9a-f]{6}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true"\>\<\/iframe\>' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -1001,7 +1001,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" id="code-embed-input" name="codepenInput" pattern='<p data-height="265" data-theme-id="0" data-slug-hash="[A-Za-z]{6}" data-default-tab="css,result" data-user="[^"]+" data-embed-version="2" data-pen-title="[^"]+" class="codepen"\>[^<]+\<a href="https:\/\/codepen\.io\/[^\/]+\/pen\/[A-Za-z]{6}\/">[^<]+<\/a> by [^(]+\(<a href="https:\/\/codepen\.io\/[^"]+">@[^<]+<\/a>\) on <a href="https:\/\/codepen\.io">CodePen<\/a>\.<\/p>\n<script async src="https:\/\/static\.codepen\.io\/assets\/embed\/ei\.js"><\/script>' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -1030,7 +1030,7 @@
 												</div>
 												<input type="text" class="form-control" name="twitchInput" id="twitch-embed-username" required pattern='[0-9A-Za-z_]{1,25}'/>
 												<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-												<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
+												<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
 											</div>
 										</div>
 										<div class="modal-footer">
@@ -1054,7 +1054,7 @@
 											<div class="form-group">
 												<input type="text" class="form-control" name="tumblrInput" id="medium-embed-input" placeholder="ustart" pattern='[A-Za-z0-9\-\.]{1,32}' required>
 												<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
 											</div>
 										</div>
 										<div class="modal-footer">
@@ -1080,7 +1080,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" name="spotInput" id="spot-embed-input" pattern='<iframe src="https:\/\/open\.spotify\.com\/embed\/[^"]+" width="300" height="380" frameborder="0" allowtransparency="true"><\/iframe>' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -1107,7 +1107,7 @@
 											<input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="http://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+\/' required>
 											<!-- Regexp: pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/? -->
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
 										</div>
 										 </form>
 									</div>
@@ -1137,7 +1137,7 @@
 												<span class="modal-cell">URL</span>
 												<input type="url" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" required/>
 											</p>
-											<input type="hidden" name="projectID" value={{.Project.DocID}} required/>
+											<input type="hidden" name="projectID" value={{$projectid}} required/>
 										</div>
 										
 										<div class="modal-footer">
@@ -1166,7 +1166,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" name="arInput" id="ar-embed-input" pattern='https:\/\/anchor\.fm\/.*\/+' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
 										</div>
 										</form>
 									</div>
@@ -1202,7 +1202,7 @@
 												<input type="text" class="form-control" name="medInput" id="med-embed-username" pattern='[0-9A-Za-z\-]{1,32}'/>
 												<input type="text" class="form-control" name="medInput2" id="med-embed-publication"/>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
 												
 											</div>
 											<br/>
@@ -1244,7 +1244,7 @@
 											</div>
 											<input type="text" class="form-control" name="daInput" id="da-embed-username" required/>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{.Project.DocID}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
 											
 										</div>
 										<br/>
