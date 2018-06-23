@@ -3,11 +3,11 @@
 function makePostApplications(image, fName,lName, content, elementID,numLikes,numReplies,numShares ,time){
 	$('#wall-dataF').append([
 		$('<div/>', {'class' : 'panel-body wallPosts'}).attr('id','Post').each(function(){
-			$(this).attr("id", $(this).attr("id").concat(elementID));
+			$(this).attr("id" + elementID);
 		}).append([$('<div>', {'class' : 'media'})
 		.append([
 		$('<a>', {'class':'pull-left'}).append([$('<img>', {'class':'media-object img-rounded'}).attr({'id': 'img','src':''}).each(function(){
-			$(this).attr({"id": $(this).attr("id").concat(elementID),'src':$(this).attr("src").concat(image)});
+			$(this).attr({"id":"id" + elementID,"src":image});
 		}) ]),
 		$('<div/>', {'class':'dropdown pull-right'}).append([
 			$('<a>', {'class':'dropdown-toggle'}).attr('data-toggle','dropdown')
@@ -18,10 +18,10 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 		$('<ul>', {'class':'dropdown-menu'}).append([
 			$('<li/>').append(
 				$('<a>', {'class':'dropdown-item editEntry'}).attr({"data-toggle": 'modal', "data-target":'#edit-modal'}).each(function(){
-				$(this).attr("data-target", $(this).attr("data-target").concat(elementID));
+				$(this).attr({"data-target":"data-target" + elementID});
 			}).append($('<h6>').text('Edit'))),
 			$('<li/>').append($('<a>', {'class':'dropdown-item deleteEntry'}).attr({"data-toggle": 'modal', "data-target":'#delete-modal'}).each(function(){
-				$(this).attr("data-target", $(this).attr("data-target").concat(elementID));
+				$(this).attr({'data-target':"data-target" + elementID});
 			}).append($('<h6>').text('Delete'))),
 			]),
 		]),
@@ -29,15 +29,15 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 			$('<h6>',{'class':'post-time pull-right text-muted time'}).each(function(){
 				$(this).text(timeSince(time));}),
 		$('<h5>',{'class':'post-name mt-0'}).append($('<a>').each(function(){
-			$(this).text(fName.concat(' ').concat(lName));
+			$(this).text(fName+(' ')+(lName));
 		})),
 		$('<p>',{'class':'post-message'}).attr('id','post-msg').each(function(){
-			$(this).attr("id", $(this).attr("id").concat(elementID)).text(readRuneArrayThatWorks(content));
+			$(this).text(readRuneArrayThatWorks(content)).attr({"id":"id" + elementID}); 
 		}) ]),
 		$('<ul>').append([
 			$('<li>').append([
 			($('<a>', {'class':'btn btn-sm like-btn'}).attr({'id':'like-btn','data-toggle':'modal'}).each(function(){
-				$(this).attr("id", $(this).attr("id").concat(elementID));
+				$(this).attr({"id" : "id" + elementID});
 			})).append([$('<span>').append([
 				$('<img>',{'class':'like-btn-ico'}).attr('src','/ustart_front/ico/like.png'),
 				$('<p>',{'class':'mt-0'}).each(function(){
@@ -48,18 +48,18 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 			]),
 			$('<li>').append([
 				($('<a>', {'class':'btn btn-sm comment-btn'}).attr({'id':'','data-toggle':'modal','data-target':'#main-modal'}).each(function(){
-					$(this).attr({"id":$(this).attr("id").concat(elementID),'data-target':$(this).attr('data-target').concat(elementID)});
+					$(this).attr({"id":"id" + elementID,'data-target':"data-target" + elementID});
 				})).append([$('<span>').append([
 				($('<img>',{'class':'comment-btn-ico'}).attr('src', '/ustart_front/ico/no comment.png')),
 				($('<p>',{'class':'mt-0'}).attr('id','num-replies')).each(function(){
-					$(this).attr("id",$(this).attr("id").concat(elementID)).text(numReplies);
+					$(this).text(numReplies).attr({'id':"id" + elementID});
 				})])
 				])
 
 				]),
 			$('<li>').append([
 				($('<a>',{'class':'btn btn-sm share-btn'}).attr({'id':'','data-toggle':'modal','data-target':'#share-modal'}).each(function(){
-					$(this).attr({"id":$(this).attr("id").concat(elementID),'data-target':$(this).attr('data-target').concat(elementID)});
+					$(this).attr({"id":$(this).attr("id" + (elementID)),'data-target':$(this).attr("data-target" + (elementID))});
 				}).append([$('<span>').append([
 					$('<img>',{'class':'share-btn-ico'}).attr('src','/ustart_front/ico/not share.png'),
 					$('<p>',{'class':'mt-0'}).each(function(){
@@ -76,7 +76,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 
 	$('#shareModals').append([
 		$('<div>',{'class':'modal fade'}).attr({'id':'share-modal','role':'dialog'}).each(function(){
-			$(this).attr("id",$(this).attr("id").concat(elementID));
+			$(this).attr({"id":"id" + elementID});
 		}).append([
 			$('<div>',{'class':'modal-dialog'}).append([
 				$('<div>',{'class':'modal-content'}).append([
@@ -88,7 +88,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 						$('<div>',{'class':'media'}).append([
 							$('<a>',{'class':'pull-left'}).append([
 								$('<img>',{'class':'media-object img-rounded'}).attr({'id':"share-img","src":""}).each(function(){
-									$(this).attr({"id":$(this).attr("id").concat(elementID),'src':$(this).attr("src").concat(image)});
+									$(this).attr({"id":"id" + elementID,'src':image});
 								})
 								]),
 							$('<div>',{'class':'media-body'}).append([
@@ -96,7 +96,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 									$(this).text(timeSince(time));
 								}) ,
 								$('<h5>',{'class':'mt-0'}).each(function(){
-									$(this).text(fName.concat(' ').concat(lName));
+									$(this).text(fName+(' ')+(lName));
 								}) ,
 								$('<p>').each(function(){
 									$(this).text(readRuneArrayThatWorks(content));
@@ -105,12 +105,12 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 
 								]),
 						$('<br>'),$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({"name":"","id":"share-content","placeholder":"Say Something about this..."}).each(function(){
-							$(this).attr("id",$(this).attr("id").concat(elementID));
+							$(this).attr("id",$(this).attr("id" + (elementID)));
 						}))
 							]),
 							$('<div>',{'class':'modal-footer'}).append([
 							$('<button>',{'class':'btn btn-primary pull-right share-postSubmit'}).attr('id','share-btn').text("Post").each(function(){
-								$(this).attr("id",$(this).attr("id").concat(elementID));
+								$(this).attr("id",$(this).attr("id" + (elementID)));
 							})
 							])
 
@@ -131,14 +131,14 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 						$('<div>',{'class':'media'}).append([
 							$('<a>',{'class':'pull-left'}).append([
 								$('<img>',{'class':'media-object img-rounded'}).attr({'id':"edit-img","src":""}).each(function(){
-									$(this).attr({"id":$(this).attr("id").concat(elementID),'src':$(this).attr("src").concat(image)});
+									$(this).attr({"id":"id" + elementID,'src':image});
 								})
 								]),
 							$('<div>',{'class':'media-body'}).append([
 
 								$('<div>',{'class':'form-group'}).append([
 									$('<textarea>',{'class':'form-control'}).attr({'id':'content','placeholder':''}).each(function(){
-										$(this).text(readRuneArrayThatWorks(content)).attr("id",$(this).attr("id").concat(elementID));
+										$(this).text(readRuneArrayThatWorks(content)).attr("id"+(elementID));
 									})
 									])
 								])
@@ -147,7 +147,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 							]),
 							$('<div>',{'class':'modal-footer'}).append([
 							$('<button>',{'class':'btn btn-primary pull-right edit-postSubmit'}).attr('id','edit-btn').text("Post").each(function(){
-								$(this).attr("id",$(this).attr("id").concat(elementID));
+								$(this).attr("id",$(this).attr("id" + (elementID)));
 							})
 							])
 
@@ -168,7 +168,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 					]),
 				$('<div>',{'class':'modal-footer'}).append([
 					$('<button>',{'class':'btn btn-danger btn-ok deletePost'}).attr({'id':'delete-btn','type':'submit'}).text("Delete").each(function(){
-						$(this).attr("id",$(this).attr("id").concat(elementID));
+						$(this).attr("id",$(this).attr("id" + (elementID)));
 					}),
 					$('<button>',{'class':'btn btn-default'}).attr({'type':'button','data-dismiss':'modal'}).text("Cancel"),
 					]),
@@ -178,7 +178,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 		]);
 	$('#commentModals').append([
 		$('<div>',{'class':'modal fade'}).attr({'id':'main-modal','role':'dialog'}).each(function(){
-			$(this).attr("id",$(this).attr("id").concat(elementID));
+			$(this).attr({"id":"id" + elementID});
 		}) .append([
 			$('<div>',{'class':'modal-dialog'}).append([
 				$('<div>',{'class':'modal-content'}).append([
@@ -187,7 +187,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 						$('<div>',{'class':'media'}).append([
 							$('<a>',{'class':'pull-left'}).attr('href',"#").append([
 								$('<img>',{'class':'media-object img-rounded'}).attr({'id':'comment-img','src':''}).each(function(){
-									$(this).attr({"id":$(this).attr("id").concat(elementID),'src':$(this).attr("src").concat(image)});
+									$(this).attr({"id":"id" + elementID,'src':image});
 								})
 								]),
 							$('<div>',{'class':'media-body'}).append([
@@ -195,7 +195,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 									$(this).text(timeSince(time));
 								}) ,
 								$('<h5>',{'class':'mt-0'}).each(function(){
-									$(this).text(fName.concat(' ').concat(lName));
+									$(this).text(fName+(' ')+(lName));
 								}) ,
 								$('<p>').text(readRuneArrayThatWorks(content))
 								])
@@ -204,7 +204,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 					$('<div>',{'class':'modal-body'}).append([
 						$('<div>',{'class':'input-group'}).append([
 							$('<input>',{'class':'form-control'}).attr({'id':'commentContent','name':'commentz','placeholder':'Add a comment'}).each(function(){
-								$(this).attr("id",$(this).attr("id").concat(elementID)).keydown(function(event){
+								$(this).attr("id",$(this).attr("id" + (elementID))).keydown(function(event){
 									if (event.keyCode === 13){
 										$(this).siblings('.new-comment-submit').click();
 										console.log("working");
@@ -212,13 +212,13 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 								});
 							}),
 							$('<span>',{'class':'input-group-addon new-comment-submit'}).attr('id','').each(function(){
-								$(this).attr("id",$(this).attr("id").concat(elementID));
+								$(this).attr({"id":"id" + elementID});
 							}) .append($('<i>',{'class':'fa fa-edit'}))
 							]) ,
 						$('<br>'),
 						
 						$('<div>',{'class':'comment-lists'}).attr('id','comments-list').each(function(){
-							$(this).attr("id",$(this).attr("id").concat(elementID));
+							$(this).attr({"id":"id" + elementID});
 						})
 						])
 					])
@@ -229,25 +229,25 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 
 
 function makeBasicPostApplications(image, fName,lName, content, elementID,numLikes,numReplies,numShares,time){
-	$('#wall-dataF').append([
+	$('#wall-dataF').prepend([
 		$('<div/>', {'class' : 'panel-body wallPosts'}).attr('id','Post').each(function(){
-			$(this).attr("id", $(this).attr("id").concat(elementID));
+			$(this).attr({"id":"id" + elementID});
 		}).append([$('<div>', {'class' : 'media'})
 		.append([
 		$('<a>', {'class':'pull-left'}).append([$('<img>', {'class':'media-object img-rounded'}).attr('id', 'img').each(function(){
-			$(this).attr({"id": $(this).attr("id").concat(elementID), 'src':$(this).attr("src").concat(image)});
+			$(this).attr({"id":"id" + elementID, 'src':image});
 		})]),
 		$('<div/>', {'class':'media-body'}).append([$('<h6>',{'class':'post-time pull-right text-muted time'}).each(function(){$(this).text(timeSince(time));}),
 		$('<h5>',{'class':'post-name mt-0'}).append($('<a>').each(function(){
-			$(this).text(fName.concat(' ').concat(lName));
+			$(this).text(fName+(' ')+(lName));
 		})),
 		$('<p>',{'class':'post-message'}).attr('id','post-msg').each(function(){
-			$(this).attr("id", $(this).attr("id").concat(elementID)).text(readRuneArrayThatWorks(content));
+			$(this).attr("id", $(this).attr("id" + (elementID))).text(readRuneArrayThatWorks(content));
 		}) ]),
 		$('<ul/>').append([
 			$('<li>').append([
 			($('<a>', {'class':'btn btn-sm like-btn'}).attr({'id':'like-btn','data-toggle':'modal'}).each(function(){
-				$(this).attr("id", $(this).attr("id").concat(elementID));
+				$(this).attr("id", $(this).attr("id" + (elementID)));
 			})).append([$('<span>').append([
 			$('<img>',{'class':'like-btn-ico'}).attr('src','/ustart_front/ico/like.png'),
 			$('<p>',{'class':'mt-0'}).each(function(){
@@ -258,7 +258,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 			]),
 			$('<li>').append([
 			($('<a>', {'class':'btn btn-sm comment-btn'}).attr({'id':'','data-toggle':'modal','data-target':'#main-modal'}).each(function(){
-				$(this).attr({"id": $(this).attr("id").concat(elementID),'data-target': $(this).attr("data-target").concat(elementID)});
+				$(this).attr({"id": $(this).attr("id" + (elementID)),'data-target': $(this).attr("data-target" + (elementID))});
 
 			})).append([$('<span>').append([
 			$('<img>',{'class':'comment-btn-ico'}).attr('src', 'ustart_front/ico/no comment.png'),
@@ -270,7 +270,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 			]),
 			$('<li>').append([
 			($('<a>', {'class':'btn btn-sm share-btn'}).attr({'data-toggle':'modal','data-target':'#share-modal'}).each(function(){
-				$(this).attr("data-target", $(this).attr("data-target").concat(elementID));
+				$(this).attr("data-target", $(this).attr("data-target" + (elementID)));
 			})) .append([$('<span>').append([
 				$('<img>',{'class':'share-btn-ico'}).attr('src','/ustart_front/ico.not share.png'),
 				$('<p>',{'class':'mt-0'}).each(function(){
@@ -285,7 +285,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 		]);
 	$('#shareModals').append([
 		$('<div>',{'class':'modal fade'}).attr({'id':'share-modal','role':'dialog'}).each(function(){
-			$(this).attr('id',$(this).attr('id').concat(elementID));
+			$(this).attr('id',$(this).attr("id" + (elementID)));
 		}) .append([
 			$('<div>',{'class':'modal-dialog'}).append([
 				$('<div>',{'class':'modal-content'}).append([
@@ -296,14 +296,14 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 					$('<div>',{'class':'modal-body'}).append([
 						$('<div>',{'class':'media'}).append([
 							$('<a>',{'class':'pull-left'}).append([$('<img>',{'class':'media-object img-rounded'}).attr({'id':'share-img',"src":''}).each(function(){
-								$(this).attr({'id':$(this).attr('id').concat(elementID),'src':$(this).attr('src').concat(image)});
+								$(this).attr({'id':"id" + elementID,'src':image});
 							}) ]) ,
 							$('<div>',{'class':'media-body'}).append([
 								$('<h6>',{'class':'pull-right text-muted time'}).each(function(){
 									$(this).text(timeSince(time));
 								}) ,
 								$('<h5>',{'class':'mt-0'}).each(function(){
-									$(this).text(fName.concat(' ').concat(lName));
+									$(this).text(fName+(' ')+(lName));
 								}) ,
 								$('<p>').each(function(){
 									$(this).text(readRuneArrayThatWorks(content));
@@ -312,13 +312,13 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 								]),
 							$('<br>'),
 							$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({'id':'shared-content','placeholder':'Say Something about this...'}).each(function(){
-								$(this).attr('id',$(this).attr('id').concat(elementID));
+								$(this).attr('id',$(this).attr("id" + (elementID)));
 							}))
 							])
 						]) ,
 					$('<div>',{'class':'modal-footer'}).append([
 						$('<button>',{'class':'btn btn-primary pull-right share-postSubmit'}).attr('id','share-btn').text('Post').each(function(){
-							$(this).attr('id',$(this).attr('id').concat(elementID));
+							$(this).attr('id',$(this).attr("id" + (elementID)));
 						})
 						])
 					])
@@ -327,7 +327,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 		]);
 	$('#commentModals').append([
 		$('<div>',{'class':'modal fade'}).attr({'id':'main-modal','role':'dialog'}).each(function(){
-			$(this).attr("id",$(this).attr("id").concat(elementID));
+			$(this).attr("id",$(this).attr("id" + (elementID)));
 		}) .append([
 			$('<div>',{'class':'modal-dialog'}).append([
 				$('<div>',{'class':'modal-content'}).append([
@@ -336,7 +336,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 						$('<div>',{'class':'media'}).append([
 							$('<a>',{'class':'pull-left'}).attr('href',"#").append([
 								$('<img>',{'class':'media-object img-rounded'}).attr({'id':'comment-img','src':''}).each(function(){
-									$(this).attr({"id":$(this).attr("id").concat(elementID),'src':$(this).attr("src").concat(image)});
+									$(this).attr({"id":$(this).attr("id" + (elementID)),'src':$(this).attr("src" + (image))});
 								})
 								]),
 							$('<div>',{'class':'media-body'}).append([
@@ -344,7 +344,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 									$(this).text(timeSince(time));
 								}) ,
 								$('<h5>',{'class':'mt-0'}).each(function(){
-									$(this).text(fName.concat(' ').concat(lName));
+									$(this).text(fName+(' ')+(lName));
 								}) ,
 								$('<p>').text(readRuneArrayThatWorks(content))
 								])
@@ -353,7 +353,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 					$('<div>',{'class':'modal-body'}).append([
 						$('<div>',{'class':'input-group'}).append([
 							$('<input>',{'class':'form-control'}).attr({'id':'commentContent','name':'commentz','placeholder':'Add a comment'}).each(function(){
-								$(this).attr("id",$(this).attr("id").concat(elementID)).keydown(function(event){
+								$(this).attr("id",$(this).attr("id" + (elementID))).keydown(function(event){
 									if (event.keyCode === 13){
 										$(this).siblings('.new-comment-submit').click();
 										console.log("working");
@@ -361,13 +361,13 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 								});
 							}),
 							$('<span>',{'class':'input-group-addon new-comment-submit'}).attr('id','').each(function(){
-								$(this).attr("id",$(this).attr("id").concat(elementID));
+								$(this).attr("id",$(this).attr("id" + (elementID)));
 							}) .append($('<i>',{'class':'fa fa-edit'}))
 							]) ,
 						$('<br>'),
 						
 						$('<div>',{'class':'comment-lists'}).attr('id','comments-list').each(function(){
-							$(this).attr("id",$(this).attr("id").concat(elementID));
+							$(this).attr("id",$(this).attr("id" + (elementID)));
 						})
 						])
 					])
@@ -379,14 +379,15 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 /* makeBasicPostApplications */
 
 //NEEDS TO WORK ON THIS FUNCTION//
+// makeNewPostApplications
 function makeNewPostApplications(image, fName,lName, content, elementID,numLikes,numReplies,numShares ,time){
 	$('#wall-dataF').prepend([
 		$('<div/>', {'class' : 'panel-body wallPosts'}).attr('id','Post').each(function(){
-			$(this).attr("id", $(this).attr("id").concat(elementID));
+			$(this).attr("id", $(this).attr("id" + (elementID)));
 		}).append([$('<div>', {'class' : 'media'})
 		.append([
 		$('<a>', {'class':'pull-left'}).append([$('<img>', {'class':'media-object img-rounded'}).attr({'id': 'img', 'src':''}).each(function(){
-			$(this).attr({"id": $(this).attr("id").concat(elementID),'src':$(this).attr("src").concat(img)});
+			$(this).attr({"id":"id" + elementID,'src':image});
 		}) ]) ,
 		$('<div/>', {'class':'dropdown pull-right'}).append([
 			$('<a>', {'class':'dropdown-toggle'}).attr('data-toggle','dropdown').append([
@@ -396,10 +397,10 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 		$('<ul>', {'class':'dropdown-menu'}).append([
 			$('<li/>').append([
 				$('<a>', {'class':'dropdown-item editEntry'}).attr({"data-toggle": 'modal', "data-target":'#edit-modal'}).each(function(){
-				$(this).attr("data-target", $(this).attr("data-target").concat(elementID));
+				$(this).attr("data-target", $(this).attr("data-target" + (elementID)));
 			}).append($('<h6>').text('Edit'))]),
 			$('<li/>').append($('<a>', {'class':'dropdown-item deleteEntry'}).attr({"data-toggle": 'modal', "data-target":'#delete-modal'}).each(function(){
-				$(this).attr("data-target", $(this).attr("data-target").concat(elementID));
+				$(this).attr("data-target", $(this).attr("data-target" + (elementID)));
 			}).append($('<h6>').text('Delete'))),
 			]),
 		]),
@@ -407,15 +408,15 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 			$('<h6>',{'class':'post-time pull-right text-muted time'}).each(function(){
 				$(this).text(timeSince(time));}),
 		$('<h5>',{'class':'post-name mt-0'}).append($('<a>').each(function(){
-			$(this).text(fName.concat(' ').concat(lName));
+			$(this).text(fName+(' ')+(lName));
 		})),
 		$('<p>',{'class':'post-message'}).attr('id','post-msg').each(function(){
-			$(this).attr("id", $(this).attr("id").concat(elementID)).text(readRuneArrayThatWorks(content));
+			$(this).attr("id", $(this).attr("id" + (elementID))).text(readRuneArrayThatWorks(content));
 		}) ]),
 		$('<ul/>').append([
 			$('<li>').append([
 			($('<a>', {'class':'btn btn-sm like-btn'}).attr({'id':'like-btn', 'data-toggle':'modal'}).each(function(){
-				$(this).attr("id", $(this).attr("id").concat(elementID));
+				$(this).attr("id", $(this).attr("id" + (elementID)));
 			})).append([$('<span>').append([
 			$('<img>',{'class':'like-btn-ico'}).attr('src','/ustart_front/ico/like.png'),
 			$('<p>',{'class':'mt-0'}).each(function(){
@@ -425,25 +426,25 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 			]),
 			$('<li>').append([
 				($('<a>', {'class':'btn btn-sm comment-btn'}).attr({'id':'','data-toggle':'modal','data-target':'#main-modal'}).each(function(){
-					$(this).attr({"id":$(this).attr("id").concat(elementID),'data-target':$(this).attr('data-target').concat(elementID)});
+					$(this).attr({"id":$(this).attr("id" + (elementID)),'data-target':$(this).attr("data-target" + (elementID))});
 				})).append([$('<span>').append([
 				($('<img>',{'class':'comment-btn-ico'}).attr('src', '/ustart_front/ico/no comment.png')),
 				($('<p>',{'class':'mt-0'}).attr('id','num-replies')).each(function(){
-					$(this).attr("id",$(this).attr("id").concat(elementID)).text(numReplies);
+					$(this).attr("id",$(this).attr("id" + (elementID))).text(numReplies);
 				})
 				])
 				])
 				]),
 			$('<li>').append([
 				($('<a>',{'class':'btn btn-sm share-btn'}).attr({'id':'', 'data-toggle':'modal','data-target':'#share-modal'}).each(function(){
-					$(this).attr({"id":$(this).attr("id").concat(elementID),'data-target':$(this).attr('data-target').concat(elementID)});
-				}).append($('<span>').append([
+					$(this).attr({"id":$(this).attr("id" + (elementID)),'data-target':$(this).attr("data-target" + (elementID))});
+				}).append([$('<span>').append([
 					$('<img>',{'class':'share-btn-ico'}).attr('src','/ustart_front/ico/not share.png'),
 					$('<p>',{'class':'mt-0'}).each(function(){
 						$(this).text(numShares);
 					})])
 
-				))
+				]))
 				]) //li ends	
 			]) //ul ends
 		])
@@ -453,7 +454,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 
 	$('#shareModals').append([
 		$('<div>',{'class':'modal fade'}).attr({'id':'share-modal','role':'dialog'}).each(function(){
-			$(this).attr("id",$(this).attr("id").concat(elementID));
+			$(this).attr("id",$(this).attr("id" + (elementID)));
 		}).append([
 			$('<div>',{'class':'modal-dialog'}).append([
 				$('<div>',{'class':'modal-content'}).append([
@@ -465,7 +466,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 						$('<div>',{'class':'media'}).append([
 							$('<a>',{'class':'pull-left'}).append([
 								$('<img>',{'class':'media-object img-rounded'}).attr({'id':"share-img","src":""}).each(function(){
-									$(this).attr({"id":$(this).attr("id").concat(elementID),'src':$(this).attr("src").concat(image)});
+									$(this).attr({"id":"id" + elementID,'src':image});
 								})
 								]),
 							$('<div>',{'class':'media-body'}).append([
@@ -473,7 +474,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 									$(this).text(timeSince(time));
 								}) ,
 								$('<h5>',{'class':'mt-0'}).each(function(){
-									$(this).text(fName.concat(' ').concat(lName));
+									$(this).text(fName+(' ')+(lName));
 								}) ,
 								$('<p>').each(function(){
 									$(this).text(readRuneArrayThatWorks(content));
@@ -482,12 +483,12 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 
 								]),
 						$('<br>'),$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({"name":"","id":"share-content","placeholder":"Say Something about this..."}).each(function(){
-							$(this).attr("id",$(this).attr("id").concat(elementID));
+							$(this).attr("id",$(this).attr("id" + (elementID)));
 						}))
 							]),
 							$('<div>',{'class':'modal-footer'}).append([
 							$('<button>',{'class':'btn btn-primary pull-right share-postSubmit'}).attr('id','share-btn').text("Post").each(function(){
-								$(this).attr("id",$(this).attr("id").concat(elementID));
+								$(this).attr("id",$(this).attr("id" + (elementID)));
 							})
 							])
 
@@ -508,14 +509,14 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 						$('<div>',{'class':'media'}).append([
 							$('<a>',{'class':'pull-left'}).append([
 								$('<img>',{'class':'media-object img-rounded'}).attr({'id':"edit-img","src":""}).each(function(){
-									$(this).attr({"id":$(this).attr("id").concat(elementID),'src':$(this).attr("src").concat(image)});
+									$(this).attr({"id":"id" + elementID,'src':image});
 								})
 								]),
 							$('<div>',{'class':'media-body'}).append([
 
 								$('<div>',{'class':'form-group'}).append([
 									$('<textarea>',{'class':'form-control'}).attr({'id':'content','placeholder':''}).each(function(){
-										$(this).text(readRuneArrayThatWorks(content)).attr("id",$(this).attr("id").concat(elementID));
+										$(this).text(readRuneArrayThatWorks(content)).attr("id"+(elementID));
 									})
 									])
 								])
@@ -524,7 +525,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 							]),
 							$('<div>',{'class':'modal-footer'}).append([
 							$('<button>',{'class':'btn btn-primary pull-right edit-postSubmit'}).attr('id','edit-btn').text("Post").each(function(){
-								$(this).attr("id",$(this).attr("id").concat(elementID));
+								$(this).attr("id",$(this).attr("id" + (elementID)));
 							})
 							])
 
@@ -545,7 +546,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 					]),
 				$('<div>',{'class':'modal-footer'}).append([
 					$('<button>',{'class':'btn btn-danger btn-ok deletePost'}).attr({'id':'delete-btn','type':'submit'}).text("Delete").each(function(){
-						$(this).attr("id",$(this).attr("id").concat(elementID));
+						$(this).attr("id",$(this).attr("id" + (elementID)));
 					}),
 					$('<button>',{'class':'btn btn-default'}).attr({'type':'button','data-dismiss':'modal'}).text("Cancel"),
 					]),
@@ -556,7 +557,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 
 	$('#commentModals').append([
 		$('<div>',{'class':'modal fade'}).attr({'id':'main-modal','role':'dialog'}).each(function(){
-			$(this).attr("id",$(this).attr("id").concat(elementID));
+			$(this).attr("id",$(this).attr("id" + (elementID)));
 		}) .append([
 			$('<div>',{'class':'modal-dialog'}).append([
 				$('<div>',{'class':'modal-content'}).append([
@@ -565,7 +566,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 						$('<div>',{'class':'media'}).append([
 							$('<a>',{'class':'pull-left'}).attr('href',"#").append([
 								$('<img>',{'class':'media-object img-rounded'}).attr({'id':'comment-img','src':''}).each(function(){
-									$(this).attr({"id":$(this).attr("id").concat(elementID),'src':$(this).attr("src").concat(image)});
+									$(this).attr({"id":"id" + elementID,'src':image});
 								})
 								]),
 							$('<div>',{'class':'media-body'}).append([
@@ -573,7 +574,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 									$(this).text(timeSince(time));
 								}) ,
 								$('<h5>',{'class':'mt-0'}).each(function(){
-									$(this).text(fName.concat(' ').concat(lName));
+									$(this).text(fName+(' ')+(lName));
 								}) ,
 								$('<p>').text(readRuneArrayThatWorks(content))
 								])
@@ -582,7 +583,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 					$('<div>',{'class':'modal-body'}).append([
 						$('<div>',{'class':'input-group'}).append([
 							$('<input>',{'class':'form-control'}).attr({'id':'commentContent','name':'commentz','placeholder':'Add a comment'}).each(function(){
-								$(this).attr("id",$(this).attr("id").concat(elementID)).keydown(function(event){
+								$(this).attr("id",$(this).attr("id" + (elementID))).keydown(function(event){
 									if (event.keyCode === 13){
 										$(this).siblings('.new-comment-submit').click();
 										console.log("working");
@@ -590,13 +591,13 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 								});
 							}),
 							$('<span>',{'class':'input-group-addon new-comment-submit'}).attr('id','').each(function(){
-								$(this).attr("id",$(this).attr("id").concat(elementID));
+								$(this).attr("id",$(this).attr("id" + (elementID)));
 							}) .append($('<i>',{'class':'fa fa-edit'}))
 							]) ,
 						$('<br>'),
 						
 						$('<div>',{'class':'comment-lists'}).attr('id','comments-list').each(function(){
-							$(this).attr("id",$(this).attr("id").concat(elementID));
+							$(this).attr("id",$(this).attr("id" + (elementID)));
 						})
 						])
 					])
@@ -604,23 +605,26 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 			])
 		]);	
 }
+
+//UNTIL HERE
+////
 function makeCommentApplications(parentID, image, fName,lName, content, postID,numReplies,time){
-	$('#comments-list').attr({'id':$(this).concat(parentID)})
+	$('#comments-list').attr({'id':parentID})
 	.append([
 	$('<div>',{'class':'media standard-comment'}).attr('id','comment-media').each(function(){
-		$(this).attr("id",$(this).attr("id").concat(postID));
+		$(this).attr("id",'id'+(postID));
 	}) .append([
 	$('<h6>',{'class':'pull-right text-muted time'}).each(function(){
 		$(this).text(timeSince(time));
 	}),
 	$('<a>',{'class':'media-left'}).append([
 		$('<img>',{'class':'img-rounded'}).attr({'src':'','id':'comment-element'}).each(function(){
-			$(this).attr({"id":$(this).attr("id").concat(postID),'src':$(this).attr("id").concat(image)});
+			$(this).attr({"id":"id"+postID,'src':image});
 		})
 		]),
 	$('<div>',{'class':'media-body'}).append([
 		$('<h5>',{'class':'media-heading user_name'}).each(function(){
-			$(this).text(fName.concat(' ').concat(lName));
+			$(this).text(fName+(' ')+(lName));
 		}),
 		$('<p>').each(function(){
 			$(this).text(readRuneArrayThatWorks(content));
@@ -628,7 +632,7 @@ function makeCommentApplications(parentID, image, fName,lName, content, postID,n
 		$('<p>').append([
 			$('<small>').append(
 				$('<a>',{'class':'remove-comment'}).attr('id','removeComment').each(function(){
-					$(this).attr("id",$(this).attr("id").concat(postID)).text("Remove");
+					$(this).attr("id",$(this).attr("id"+(postID))).text("Remove");
 				})
 				)
 			]),
@@ -637,16 +641,16 @@ function makeCommentApplications(parentID, image, fName,lName, content, postID,n
 				$('<a>',{'class':'view-replies'}).attr({'id':'openReplies','name':'replies','myvalue':''}).each(function(){
 					if(numReplies <= 0){
 					$(this).hide();
-				}else{$(this).attr({"id":$(this).attr("id").concat(postID),'myvalue':$(this).attr("myvalue").concat(postID)}).text("View".concat(numReplies).concat("Replies"));}
+				}else{$(this).attr({"id":$(this).attr("id"+(postID)),'myvalue':$(this).attr("myvalue"+(postID))}).text("View"+(numReplies)+("Replies"));}
 			})
 				)
 			]),
 		$('<div>',{'class':'commentOfComment'}).attr({'id':'replies','data-replycount':''}).each(function(){
-			$(this).attr({"id":$(this).attr("id").concat(postID),'data-replycount':$(this).attr("data-replycount").concat(numReplies)});
+			$(this).attr({"id":$(this).attr("id"+(postID)),'data-replycount':$(this).attr("data-replycount"+(numReplies))});
 		}),
 		$('<div>',{'class':'input-group'}).append([
 			$('<input>',{'class':'form-control'}).attr({'placeholder':'Add a reply','type':'text','id':'comment2Content','name':'body'}).each(function(){
-				$(this).attr("id",$(this).attr("id").concat(postID)).keydown(function(event){
+				$(this).attr("id",$(this).attr("id"+(postID))).keydown(function(event){
 					if (event.keyCode === 13){
 						$(this).siblings('.new-comment-o-comment-submit').click();
 						console.log("working");						
@@ -654,7 +658,7 @@ function makeCommentApplications(parentID, image, fName,lName, content, postID,n
 				}) ;
 			}),
 			$('<span>',{'class':'input-group-addon new-comment-o-comment-submit'}).attr({'placeholder':'Add a comment','id':''}).each(function(){
-				$(this).attr("id",$(this).attr("id").concat(postID));
+				$(this).attr("id",$(this).attr("id"+(postID)));
 			}) .append($('<i>',{'class':'fa fa-edit'}))
 			])
 		])
@@ -662,22 +666,22 @@ function makeCommentApplications(parentID, image, fName,lName, content, postID,n
 		]);
 }
 function makeBasicCommentApplications(parentID, image, fName,lName, content, postID,numReplies,time){
-	$('#comments-list').attr({'id':$(this).concat(parentID)})
+	$('#comments-list').attr({'id':parentID})
 	.append([
 	$('<div>',{'class':'media standard-comment'}).attr('id','comment-media').each(function(){
-		$(this).attr("id",$(this).attr("id").concat(postID));
+		$(this).attr("id",$(this).attr("id"+(postID)));
 	}) .append([
 	$('<h6>',{'class':'pull-right text-muted time'}).each(function(){
 		$(this).text(timeSince(time));
 	}),
 	$('<a>',{'class':'media-left'}).append([
 		$('<img>',{'class':'img-rounded'}).attr({'src':'','id':'comment-element'}).each(function(){
-			$(this).attr({"id":$(this).attr("id").concat(postID),'src':$(this).attr("id").concat(image)});
+			$(this).attr({"id":"id"+postID,'src':image});
 		})
 		]),
 	$('<div>',{'class':'media-body'}).append([
 		$('<h5>',{'class':'media-heading user_name'}).each(function(){
-			$(this).text(fName.concat(' ').concat(lName));
+			$(this).text(fName+(' ')+(lName));
 		}),
 		$('<p>').each(function(){
 			$(this).text(readRuneArrayThatWorks(content));
@@ -685,16 +689,16 @@ function makeBasicCommentApplications(parentID, image, fName,lName, content, pos
 		$('<p>').append([
 			$('<small>').append(
 				$('<a>',{'class':'view-replies'}).attr({'id':'openReplies','name':'replies','myvalue':''}).each(function(){
-					$(this).attr({"id":$(this).attr("id").concat(postID),'myvalue':$(this).attr("myvalue").concat(postID)}).text(numReplies.concat(" Replies"));
+					$(this).attr({"id":$(this).attr("id"+(postID)),'myvalue':$(this).attr("myvalue"+(postID))}).text(numReplies+(" Replies"));
 				})
 				)
 			]),
 		$('<div>',{'class':'commentOfComment'}).attr({'id':'replies','data-replycount':''}).each(function(){
-			$(this).attr({"id":$(this).attr("id").concat(postID),'data-replycount':$(this).attr("data-replycount").concat(numReplies)});
+			$(this).attr({"id":$(this).attr("id"+(postID)),'data-replycount':$(this).attr("data-replycount"+(numReplies))});
 		}),
 		$('<div>',{'class':'input-group'}).append([
 			$('<input>',{'class':'form-control'}).attr({'placeholder':'Add a reply','type':'text','id':'comment2Content','name':'body'}).each(function(){
-				$(this).attr("id",$(this).attr("id").concat(postID)).keydown(function(event){
+				$(this).attr("id",$(this).attr("id"+(postID))).keydown(function(event){
 					if (event.keyCode === 13){
 						$(this).siblings('.new-comment-o-comment-submit').click();
 						console.log("working");						
@@ -702,7 +706,7 @@ function makeBasicCommentApplications(parentID, image, fName,lName, content, pos
 				}) ;
 			}),
 			$('<span>',{'class':'input-group-addon new-comment-o-comment-submit'}).attr({'placeholder':'Add a comment','id':''}).each(function(){
-				$(this).attr("id",$(this).attr("id").concat(postID));
+				$(this).attr("id",$(this).attr("id"+(postID)));
 			}) .append($('<i>',{'class':'fa fa-edit'}))
 			])
 		])
@@ -711,22 +715,22 @@ function makeBasicCommentApplications(parentID, image, fName,lName, content, pos
 }
 
 function makeNewCommentApplications(parentID, image, fName,lName, content, postID,numReplies,time){
-	$('#comments-list').attr({'id':$(this).concat(parentID)})
+	$('#comments-list').attr({'id':parentID})
 	.append([
 	$('<div>',{'class':'media standard-comment'}).attr('id','comment-media').each(function(){
-		$(this).attr("id",$(this).attr("id").concat(postID));
+		$(this).attr("id",$(this).attr("id"+(postID)));
 	}) .append([
 	$('<h6>',{'class':'pull-right text-muted time'}).each(function(){
 		$(this).text(timeSince(time));
 	}),
 	$('<a>',{'class':'media-left'}).append([
 		$('<img>',{'class':'img-rounded'}).attr({'src':'','id':'comment-element'}).each(function(){
-			$(this).attr({"id":$(this).attr("id").concat(postID),'src':$(this).attr("id").concat(image)});
+			$(this).attr({"id":"id"+(postID),'src':image});
 		})
 		]),
 	$('<div>',{'class':'media-body'}).append([
 		$('<h5>',{'class':'media-heading user_name'}).each(function(){
-			$(this).text(fName.concat(' ').concat(lName));
+			$(this).text(fName+(' ')+(lName));
 		}),
 		$('<p>').each(function(){
 			$(this).text(readRuneArrayThatWorks(content));
@@ -734,7 +738,7 @@ function makeNewCommentApplications(parentID, image, fName,lName, content, postI
 		$('<p>').append([
 			$('<small>').append(
 				$('<a>',{'class':'remove-comment'}).attr('id','revmoeComment').each(function(){
-					$(this).attr("id",$(this).attr("id").concat(postID)).text("Remove");
+					$(this).attr("id",$(this).attr("id"+(postID))).text("Remove");
 				})
 				)
 			]),
@@ -743,16 +747,16 @@ function makeNewCommentApplications(parentID, image, fName,lName, content, postI
 				$('<a>',{'class':'view-replies'}).attr({'id':'openReplies','name':'replies','myvalue':''}).each(function(){
 					if(numReplies <= 0){
 					$(this).hide();
-				}else{$(this).attr({"id":$(this).attr("id").concat(postID),'myvalue':$(this).attr("myvalue").concat(postID)}).text("View".concat(numReplies).concat("Replies"));}
+				}else{$(this).attr({"id":$(this).attr("id"+(postID)),'myvalue':$(this).attr("myvalue"+(postID))}).text("View"+(numReplies)+("Replies"));}
 			})
 				)
 			]),
 		$('<div>',{'class':'commentOfComment'}).attr({'id':'replies','data-replycount':''}).each(function(){
-			$(this).attr({"id":$(this).attr("id").concat(postID),'data-replycount':$(this).attr("data-replycount").concat(numReplies)});
+			$(this).attr({"id":$(this).attr("id"+(postID)),'data-replycount':$(this).attr("data-replycount"+(numReplies))});
 		}),
 		$('<div>',{'class':'input-group'}).append([
 			$('<input>',{'class':'form-control'}).attr({'placeholder':'Add a reply','type':'text','id':'comment2Content','name':'body'}).each(function(){
-				$(this).attr("id",$(this).attr("id").concat(postID)).keydown(function(event){
+				$(this).attr("id",$(this).attr("id"+(postID))).keydown(function(event){
 					if (event.keyCode === 13){
 						$(this).siblings('.new-comment-o-comment-submit').click();
 						console.log("working");						
@@ -760,7 +764,7 @@ function makeNewCommentApplications(parentID, image, fName,lName, content, postI
 				}) ;
 			}),
 			$('<span>',{'class':'input-group-addon new-comment-o-comment-submit'}).attr({'placeholder':'Add a comment','id':''}).each(function(){
-				$(this).attr("id",$(this).attr("id").concat(postID));
+				$(this).attr("id",$(this).attr("id"+(postID)));
 			}) .append($('<i>',{'class':'fa fa-edit'}))
 			])
 		])
@@ -769,22 +773,22 @@ function makeNewCommentApplications(parentID, image, fName,lName, content, postI
 }
 
 function makeCommentOfCommentsApplications(parentID, image, fName,lName, content, postID,time){
-	$('#replies').attr({'id':$(this).concat(parentID)})
+	$('#replies').attr({'id':parentID})
 	.append([
 	$('<div>',{'class':'media'}).attr({'id':'commentOCommnet-media'}).each(function(){
-		$(this).attr("id",$(this).attr("id").concat(postID));
+		$(this).attr("id",$(this).attr("id"+(postID)));
 	}) .append([
 		$('<h6>',{'class':'post-time pull-right text-muted time'}).each(function(){
 			$(this).text(timeSince(time));
 		}),
 		$('<a>',{'class':'media-left'}).append(
 			$('<img>',{'class':'media-object img-rounded'}).attr({'id':'comment-o-comment-element','src':''}).each(function(){
-				$(this).attr({"id":$(this).attr("id").concat(postID),'src':image});
+				$(this).attr({"id":"id"+(postID),'src':image});
 			})
 			),
 		$('<div>',{'class':'media-body'}).append([
 			$('<h5>',{'class':'media-heading user_name'}).each(function(){
-				$(this).text(fName.concat(' ').concat(lName));
+				$(this).text(fName+(' ')+(lName));
 			}),
 			$('<p>').each(function(){
 				$(this).text(readRuneArrayThatWorks(content));
@@ -792,7 +796,7 @@ function makeCommentOfCommentsApplications(parentID, image, fName,lName, content
 			$('<p>').append(
 				$('<small>').append(
 					$('<a>',{'class':'remove-comment-o-comment'}).attr('id','removecomment2').text("Remove").each(function(){
-						$(this).attr('id',$(this).attr('id').concat(postID));
+						$(this).attr('id',$(this).attr('id'+(postID)));
 					})
 					)
 				)
@@ -802,22 +806,22 @@ function makeCommentOfCommentsApplications(parentID, image, fName,lName, content
 }
 function makeBasicCommentOfCommentsApplications(parentID, image, fName,lName, content, postID,time){
 
-	$('#replies').attr({'id':$(this).concat(parentID)})
+	$('#replies').attr({'id':parentID})
 	.append([
 	$('<div>',{'class':'media'}).attr({'id':'commentOCommnet-media'}).each(function(){
-		$(this).attr("id",$(this).attr("id").concat(postID));
+		$(this).attr("id",$(this).attr("id"+(postID)));
 	}) .append([
 		$('<h6>',{'class':'post-time pull-right text-muted time'}).each(function(){
 			$(this).text(timeSince(time));
 		}),
 		$('<a>',{'class':'media-left'}).append(
 			$('<img>',{'class':'media-object img-rounded'}).attr({'id':'comment-o-comment-element','src':''}).each(function(){
-				$(this).attr({"id":$(this).attr("id").concat(postID),'src':$(this).attr("src").concat(image)});
+				$(this).attr({"id":"id"+postID,'src':image});
 			})
 			),
 		$('<div>',{'class':'media-body'}).append([
 			$('<h5>',{'class':'media-heading user_name'}).each(function(){
-				$(this).text(fName.concat(' ').concat(lName));
+				$(this).text(fName+(' ')+(lName));
 			}),
 			$('<p>').each(function(){
 				$(this).text(readRuneArrayThatWorks(content));
@@ -828,22 +832,22 @@ function makeBasicCommentOfCommentsApplications(parentID, image, fName,lName, co
 }
 
 function makeBasicCommentOfCommentsApplications(parentID, image, fName,lName, content, postID,time){
-	$('#replies').attr({'id':$(this).concat(parentID)})
+	$('#replies').attr({'id':parentID})
 	.append([
 		$('<div>',{'class':'media'}).attr({'id':'commentOComment-media'}).each(function(){
-			$(this).attr("id",$(this).attr("id").concat(postID));
+			$(this).attr("id",$(this).attr("id"+(postID)));
 		}) .append([
 		$('<h6>',{'class':'post-time pull-right text-muted time'}).each(function(){
 			$(this).text(timeSince(time));
 		}),
 		$('<a>',{'class':'media-left'}).append([
 			$('<img>',{'class':'media-object img-rounded'}).attr({'id':'comment-o-comment-element','src':''}).each(function(){
-				$(this).attr("src",$(this).attr("src").concat(image));
+				$(this).attr({"src":image});
 			})
 			]),
 		$('<div>',{'class':'media-body'}).append([
 			$('<h5>',{'class':'media-heading user_name'}).each(function(){
-				$(this).text(fName.concat(' ').concat(lName));
+				$(this).text(fName+(' ')+(lName));
 			}),
 			$('<p>').each(function(){
 				$(this).text(readRuneArrayThatWorks(content));
@@ -855,22 +859,22 @@ function makeBasicCommentOfCommentsApplications(parentID, image, fName,lName, co
 
 
 function makeNewCommentOfCommentsApplications(parentID, image, fName,lName, content, postID,time){
-	$('#replies').attr({'id':$(this).concat(parentID)})
+	$('#replies').attr({'id':parentID})
 	.prepend([
 	$('<div>',{'class':'media'}).attr({'id':'commentOCommnet-media'}).each(function(){
-		$(this).attr("id",$(this).attr("id").concat(postID));
+		$(this).attr("id",$(this).attr("id"+(postID)));
 	}) .append([
 		$('<h6>',{'class':'post-time pull-right text-muted time'}).each(function(){
 			$(this).text(timeSince(time));
 		}),
 		$('<a>',{'class':'media-left'}).append(
 			$('<img>',{'class':'media-object img-rounded'}).attr({'id':'comment-o-comment-element','src':''}).each(function(){
-				$(this).attr({"id":$(this).attr("id").concat(postID),'src':$(this).attr("src").concat(image)});
+				$(this).attr({"id":"id"+postID,'src':image});
 			})
 			),
 		$('<div>',{'class':'media-body'}).append([
 			$('<h5>',{'class':'media-heading user_name'}).each(function(){
-				$(this).text(fName.concat(' ').concat(lName));
+				$(this).text(fName+(' ')+(lName));
 			}),
 			$('<p>').each(function(){
 				$(this).text(readRuneArrayThatWorks(content));
@@ -878,7 +882,7 @@ function makeNewCommentOfCommentsApplications(parentID, image, fName,lName, cont
 			$('<p>').append(
 				$('<small>').append(
 					$('<a>',{'class':'remove-comment-o-comment'}).attr('id','removecomment2').text("Remove").each(function(){
-						$(this).attr('id',$(this).attr('id').concat(postID));
+						$(this).attr('id',$(this).attr('id'+(postID)));
 					})
 					)
 				)
@@ -891,7 +895,7 @@ function makeNewCommentOfCommentsApplications(parentID, image, fName,lName, cont
 function createSharedPost(image, fName,lName,elementID, content, sharedContent, posterFname, posterLname,numLikes,numReplies,originaltime, time){
 	$('#wall-dataF').append([
 		$('<div/>', {'class' : 'panel-body wallPosts'}).attr('id','Post').each(function(){
-			$(this).attr("id", $(this).attr("id").concat(elementID));
+			$(this).attr("id", $(this).attr("id"+(elementID)));
 		})
 		.append([
 		$('<div/>', {'class':'dropdown pull-right'}).append([$('<a>', {'class':'dropdown-toggle'}).attr('data-toggle','dropdown').append([
@@ -901,10 +905,10 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 		$('<ul>', {'class':'dropdown-menu'}).append([
 			$('<li/>').append(
 				$('<a>', {'class':'dropdown-item editEntry'}).attr({"data-toggle": 'modal', "data-target":'#edit-modal'}).each(function(){
-				$(this).attr("data-target", $(this).attr("data-target").concat(elementID));
+				$(this).attr("data-target", $(this).attr("data-target"+elementID));
 			}).append($('<h6>').text('Edit'))),
 			$('<li/>').append($('<a>', {'class':'dropdown-item deleteEntry'}).attr({"data-toggle": 'modal', "data-target":'#delete-modal'}).each(function(){
-				$(this).attr("data-target", $(this).attr("data-target").concat(elementID));
+				$(this).attr("data-target", $(this).attr("data-target"+elementID));
 			}).append($('<h6>').text('Delete'))),
 			]),
 		]),
@@ -913,7 +917,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 			$(this).text(timeSince(time));
 		}),
 		$('<h5>',{'class':'mt-0'}).each(function(){
-			$(this).text(fName.concat(' ').concat(lName).concat('shared a post: '));
+			$(this).text(fName+(' ')+(lName)+('shared a post: '));
 		}),
 		$('<p>').each(function(){
 			$(this).text(readRuneArrayThatWorks(sharedContent));
@@ -924,7 +928,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 				$('<div>',{'class':'media'}).append([
 					$('<a>',{'class':'pull-left'}).append([
 						$('<img>',{'class':'media-object img-rounded'}).attr({'id':'img','src':''}).each(function(){
-							$(this).attr({"id": $(this).attr("id").concat(elementID),'src': $(this).attr("src").concat(image)});
+							$(this).attr({"id": $(this).attr("id"+elementID),'src': image});
 						})
 						]),
 					$('<div>',{'class':'media-body'}).append([
@@ -932,7 +936,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 							$(this).text(timeSince(originaltime));
 						}),
 						$('<h5>',{'class':'mt-0'}).each(function(){
-							$(this).text(posterFname.concat(' ').concat(posterLname));
+							$(this).text(posterFname+(' ')+(posterLname));
 						}),
 						$('<p>').each(function(){
 							$(this).text(readRuneArrayThatWorks(content));
@@ -945,7 +949,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 			$('<ul>').append([
 				$('<li>').append([
 					$('<a>',{'class':'btn btn-sm like-btn'}).attr({'id':'like-btn','data-toggle':'modal'}).each(function(){
-						$(this).attr("id", $(this).attr("id").concat(elementID));
+						$(this).attr("id", $(this).attr("id"+(elementID)));
 					}).append([$('<span>').append([
 					$('<img>',{'class':'like-btn-ico'}).attr('src','/ustart_front/ico/like.png'),
 					$('<p>',{'class':'mt-0'}).each(function(){
@@ -956,11 +960,11 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 					]),
 				$('<li>').append([
 					$('<a>',{'class':'btn btn-sm comment-btn'}).attr({'id':'','data-toggle':'modal','data-target':'#main-modal'}).each(function(){
-						$(this).attr({"id":$(this).attr("id").concat(elementID),'data-target':$(this).attr('data-target').concat(elementID)});
+						$(this).attr({"id":$(this).attr("id"+(elementID)),'data-target':$(this).attr('data-target'+(elementID))});
 					}).append([$('<span>').append([
 					$('<img>',{'class':'comment-btn-ico'}).attr('src','/ustart_front/ico/like.png'),
 					$('<p>',{'class':'mt-0'}).attr({'id':'num-replies'}).each(function(){
-						$(this).attr("id", $(this).attr("id").concat(elementID)).text(numReplies);
+						$(this).attr("id", $(this).attr("id"+(elementID))).text(numReplies);
 					})
 					])
 					])
@@ -985,14 +989,14 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 						$('<div>',{'class':'media'}).append([
 							$('<a>',{'class':'pull-left'}).append([
 								$('<img>',{'class':'media-object img-rounded'}).attr({'id':"edit-img","src":""}).each(function(){
-									$(this).attr({"id":$(this).attr("id").concat(elementID),'src':$(this).attr("src").concat(image)});
+									$(this).attr({"id": "id"+elementID,'src':image});
 								})
 								]),
 							$('<div>',{'class':'media-body'}).append([
 
 								$('<div>',{'class':'form-group'}).append([
 									$('<textarea>',{'class':'form-control'}).attr({'id':'content','placeholder':''}).each(function(){
-										$(this).text(readRuneArrayThatWorks(content)).attr("id",$(this).attr("id").concat(elementID));
+										$(this).text(readRuneArrayThatWorks(content)).attr("id",$(this).attr("id"+(elementID)));
 									})
 									])
 								])
@@ -1001,7 +1005,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 							]),
 							$('<div>',{'class':'modal-footer'}).append([
 							$('<button>',{'class':'btn btn-primary pull-right edit-postSubmit'}).attr('id','edit-btn').text("Post").each(function(){
-								$(this).attr("id",$(this).attr("id").concat(elementID));
+								$(this).attr("id",$(this).attr("id"+(elementID)));
 							})
 							])
 
@@ -1022,7 +1026,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 					]),
 				$('<div>',{'class':'modal-footer'}).append([
 					$('<button>',{'class':'btn btn-danger btn-ok deletePost'}).attr({'id':'delete-btn','type':'submit'}).text("Delete").each(function(){
-						$(this).attr("id",$(this).attr("id").concat(elementID));
+						$(this).attr("id",$(this).attr("id"+(elementID)));
 					}),
 					$('<button>',{'class':'btn btn-default'}).attr({'type':'button','data-dismiss':'modal'}).text("Cancel"),
 					]),
@@ -1033,7 +1037,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 
 	$('#commentModals').append([
 		$('<div>',{'class':'modal fade'}).attr({'id':'main-modal','role':'dialog'}).each(function(){
-			$(this).attr("id",$(this).attr("id").concat(elementID));
+			$(this).attr("id",$(this).attr("id"+elementID));
 		}) .append([
 			$('<div>',{'class':'modal-dialog'}).append([
 				$('<div>',{'class':'modal-content'}).append([
@@ -1042,7 +1046,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 						$('<div>',{'class':'media'}).append([
 							$('<a>',{'class':'pull-left'}).attr('href',"#").append([
 								$('<img>',{'class':'media-object img-rounded'}).attr({'id':'comment-img','src':''}).each(function(){
-									$(this).attr({"id":$(this).attr("id").concat(elementID),'src':$(this).attr("src").concat(image)});
+									$(this).attr({"id":"id"+elementID,'src':image});
 								})
 								]),
 							$('<div>',{'class':'media-body'}).append([
@@ -1050,7 +1054,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 									$(this).text(timeSince(time));
 								}) ,
 								$('<h5>',{'class':'mt-0'}).each(function(){
-									$(this).text(fName.concat(' ').concat(lName));
+									$(this).text(fName+(' ')+(lName));
 								}) ,
 								$('<p>').text(readRuneArrayThatWorks(content))
 								])
@@ -1059,7 +1063,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 					$('<div>',{'class':'modal-body'}).append([
 						$('<div>',{'class':'input-group'}).append([
 							$('<input>',{'class':'form-control'}).attr({'id':'commentContent','name':'commentz','placeholder':'Add a comment'}).each(function(){
-								$(this).attr("id",$(this).attr("id").concat(elementID)).keydown(function(event){
+								$(this).attr("id",$(this).attr("id"+(elementID))).keydown(function(event){
 									if (event.keyCode === 13){
 										$(this).siblings('.new-comment-submit').click();
 										console.log("working");
@@ -1067,13 +1071,13 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 								});
 							}),
 							$('<span>',{'class':'input-group-addon new-comment-submit'}).attr('id','').each(function(){
-								$(this).attr("id",$(this).attr("id").concat(elementID));
+								$(this).attr("id",$(this).attr("id"+elementID));
 							}) .append($('<i>',{'class':'fa fa-edit'}))
 							]) ,
 						$('<br>'),
 						
 						$('<div>',{'class':'comment-lists'}).attr('id','').each(function(){
-							$(this).attr("id",$(this).attr("id").concat(elementID));
+							$(this).attr("id",$(this).attr("id"+elementID));
 						})
 						])
 					])
@@ -1086,14 +1090,14 @@ function createBasicSharedPost(image, fName,lName,elementID, content, sharedCont
 
 	$('#wall-dataF').append([
 		$('<div/>', {'class' : 'panel-body wallPosts'}).attr('id','Post').each(function(){
-			$(this).attr("id", $(this).attr("id").concat(elementID));
+			$(this).attr("id", $(this).attr("id"+elementID));
 		})
 		.append([
 		$('<h6>',{'class':'pull-right text-muted time'}).each(function(){
 			$(this).text(timeSince(time));
 		}),
 		$('<h5>',{'class':'mt-0'}).each(function(){
-			$(this).text(fName.concat(' ').concat(lName).concat('shared a post: '));
+			$(this).text(fName+(' ')+(lName)+('shared a post: '));
 		}),
 		$('<p>').each(function(){
 			$(this).text(readRuneArrayThatWorks(sharedContent));
@@ -1104,7 +1108,7 @@ function createBasicSharedPost(image, fName,lName,elementID, content, sharedCont
 				$('<div>',{'class':'media'}).append([
 					$('<a>',{'class':'pull-left'}).append([
 						$('<img>',{'class':'media-object img-rounded'}).attr({'id':'img','src':''}).each(function(){
-							$(this).attr({"id": $(this).attr("id").concat(elementID),'src': $(this).attr("src").concat(image)});
+							$(this).attr({"id":"id"+elementID,'src':image});
 						})
 						]),
 					$('<div>',{'class':'media-body'}).append([
@@ -1112,7 +1116,7 @@ function createBasicSharedPost(image, fName,lName,elementID, content, sharedCont
 							$(this).text(timeSince(originaltime));
 						}),
 						$('<h5>',{'class':'mt-0'}).each(function(){
-							$(this).text(posterFname.concat(' ').concat(posterLname));
+							$(this).text(posterFname+(' ')+(posterLname));
 						}),
 						$('<p>').each(function(){
 							$(this).text(readRuneArrayThatWorks(content));
@@ -1125,7 +1129,7 @@ function createBasicSharedPost(image, fName,lName,elementID, content, sharedCont
 			$('<ul>').append([
 				$('<li>').append([
 					$('<a>',{'class':'btn btn-sm like-btn'}).attr({'id':'like-btn','data-toggle':'modal'}).each(function(){
-						$(this).attr("id", $(this).attr("id").concat(elementID));
+						$(this).attr("id", $(this).attr("id"+(elementID)));
 					}).append([$('<span>').append([
 					$('<img>',{'class':'like-btn-ico'}).attr('src','/ustart_front/ico/like.png'),
 					$('<p>',{'class':'mt-0'}).each(function(){
@@ -1136,11 +1140,11 @@ function createBasicSharedPost(image, fName,lName,elementID, content, sharedCont
 					]),
 				$('<li>').append([
 					$('<a>',{'class':'btn btn-sm comment-btn'}).attr({'id':'','data-toggle':'modal','data-target':'#main-modal'}).each(function(){
-						$(this).attr({"id":$(this).attr("id").concat(elementID),'data-target':$(this).attr('data-target').concat(elementID)});
+						$(this).attr({"id":$(this).attr("id"+(elementID)),'data-target':$(this).attr('data-target'+(elementID))});
 					}).append([$('<span>').append([
 					$('<img>',{'class':'comment-btn-ico'}).attr('src','/ustart_front/ico/like.png'),
 					$('<p>',{'class':'mt-0'}).attr({'id':'num-replies'}).each(function(){
-						$(this).attr("id", $(this).attr("id").concat(elementID)).text(numReplies);
+						$(this).attr("id", $(this).attr("id"+(elementID))).text(numReplies);
 					})
 					])
 					])
@@ -1153,7 +1157,7 @@ function createBasicSharedPost(image, fName,lName,elementID, content, sharedCont
 
 	$('#commentModals').append([
 		$('<div>',{'class':'modal fade'}).attr({'id':'main-modal','role':'dialog'}).each(function(){
-			$(this).attr("id",$(this).attr("id").concat(elementID));
+			$(this).attr("id",$(this).attr("id"+elementID));
 		}) .append([
 			$('<div>',{'class':'modal-dialog'}).append([
 				$('<div>',{'class':'modal-content'}).append([
@@ -1162,7 +1166,7 @@ function createBasicSharedPost(image, fName,lName,elementID, content, sharedCont
 						$('<div>',{'class':'media'}).append([
 							$('<a>',{'class':'pull-left'}).attr('href',"#").append([
 								$('<img>',{'class':'media-object img-rounded'}).attr({'id':'comment-img','src':''}).each(function(){
-									$(this).attr({"id":$(this).attr("id").concat(elementID),'src':$(this).attr("src").concat(image)});
+									$(this).attr({"id":"id"+elementID,'src':image});
 								})
 								]),
 							$('<div>',{'class':'media-body'}).append([
@@ -1170,7 +1174,7 @@ function createBasicSharedPost(image, fName,lName,elementID, content, sharedCont
 									$(this).text(timeSince(time));
 								}) ,
 								$('<h5>',{'class':'mt-0'}).each(function(){
-									$(this).text(fName.concat(' ').concat(lName));
+									$(this).text(fName+(' ')+(lName));
 								}) ,
 								$('<p>').text(readRuneArrayThatWorks(content))
 								])
@@ -1179,7 +1183,7 @@ function createBasicSharedPost(image, fName,lName,elementID, content, sharedCont
 					$('<div>',{'class':'modal-body'}).append([
 						$('<div>',{'class':'input-group'}).append([
 							$('<input>',{'class':'form-control'}).attr({'id':'commentContent','name':'commentz','placeholder':'Add a comment'}).each(function(){
-								$(this).attr("id",$(this).attr("id").concat(elementID)).keydown(function(event){
+								$(this).attr("id",$(this).attr("id"+(elementID))).keydown(function(event){
 									if (event.keyCode === 13){
 										$(this).siblings('.new-comment-submit').click();
 										console.log("working");
@@ -1187,13 +1191,13 @@ function createBasicSharedPost(image, fName,lName,elementID, content, sharedCont
 								});
 							}),
 							$('<span>',{'class':'input-group-addon new-comment-submit'}).attr('id','').each(function(){
-								$(this).attr("id",$(this).attr("id").concat(elementID));
+								$(this).attr("id",$(this).attr("id"+(elementID)));
 							}) .append($('<i>',{'class':'fa fa-edit'}))
 							]) ,
 						$('<br>'),
 						
 						$('<div>',{'class':'comment-lists'}).attr('id','').each(function(){ /* comments-list*/
-							$(this).attr("id",$(this).attr("id").concat(elementID));
+							$(this).attr("id",$(this).attr("id"+(elementID)));
 						})
 						])
 					])

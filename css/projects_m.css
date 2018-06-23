@@ -22,7 +22,7 @@
 .card-title, .card-text{
     overflow:hidden;
 }
-button#addProjButton,button#sortProjButton {
+button#addProjButton,button#sortProjButton,button#manageMembersButton{
     margin: 0 0.5em;
 	height: 2.4em;
 }

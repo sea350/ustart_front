@@ -15,11 +15,17 @@
 #wall-dataF .comment-btn .mt-0{
 	color: cadetblue;
 	display: inline;
-	margin-left: 1px;
+	margin-left: 3px;
 }
 #wall-dataF .like-btn .mt-0{
 	color: cadetblue;
 	display: inline;
+    margin-left: 3px;
+}
+#wall-dataF .share-btn .mt-0{
+	color: cadetblue;
+	display: inline;
+    margin-left: 3px;
 }
 #shareModals .mt-0{
 	color: cadetblue;
