@@ -468,7 +468,7 @@
 									{{if ne ($loop) ""}}
 									<script>
 										$(document).ready(function() {
-											createTagWidgetElement({{$loop}});
+											createTagWidgetElement("#hashTagsBody", {{$loop}});
 										});
 									</script>
 									{{end}}
@@ -1035,7 +1035,6 @@
                             <div class="modal-footer">
                                 <span class="pull-left" id="tagCountIndicator">16 Tags Remaining</span>
                                 <div class="btn-group">
-                                     <button type="button" class="btn btn-primary" id="addTagButton">Add</button>
                                     <button type="button" id="tag-submit" class="btn btn-info btn-done">Done</button>
                                 </div>
                             </div>  
