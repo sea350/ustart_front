@@ -254,6 +254,7 @@
                              if ( $('#replies'+postID).is(':empty')){
                                  var repliesNum = $('#replies'+postID).data('replycount');
                                  var updated = repliesNum+1;
+                                 console.log(updated);
                                  $('#replies'+postID).data('replycount', updated);
                                  $("#comment2Content"+postID).val('');
                                  $("#openReplies"+postID).css({ 'display': 'block'});
