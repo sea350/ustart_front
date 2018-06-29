@@ -1,4 +1,5 @@
 
+//var data = $('.commentOfComment').data('replycount');
 
 function makePostApplications(image, fName,lName, content, elementID,numLikes,numReplies,numShares ,time){
 	$('#wall-dataF').append([
@@ -17,12 +18,12 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 			]),
 		$('<ul>', {'class':'dropdown-menu'}).append([
 			$('<li/>').append(
-				$('<a>', {'class':'dropdown-item editEntry'}).attr({"data-toggle": 'modal', "data-target":'#edit-modal'}).each(function(){
-					$(this).attr({"data-target": $(this).attr("data-target").concat(elementID)});
-			}).append($('<h6>').text('Edit'))),
-			$('<li/>').append($('<a>', {'class':'dropdown-item deleteEntry'}).attr({"data-toggle": 'modal', "data-target":'#delete-modal'}).each(function(){
-				$(this).attr({"data-target": $(this).attr("data-target").concat(elementID)});
-			}).append($('<h6>').text('Delete'))),
+				$('<a>', {'class':'dropdown-item editEntry edit-btn btn'}).attr({'id':''+elementID,"data-toggle": 'modal', "data-target":'#edit-modal'+elementID})
+					//$(this).attr({"data-target": $(this).attr("data-target").concat(elementID), 'id':$(this).attr("id").concat(elementID)});
+			).append($('<h6>').text('Edit')),
+			$('<li/>').append($('<a>', {'class':'dropdown-item deleteEntry delete-btn btn'}).attr({'id':''+elementID,"data-toggle": 'modal', "data-target":'#delete-modal'+elementID})
+				//$(this).attr({"data-target": $(this).attr("data-target").concat(elementID),'id' : $(this).attr("id").concat(elementID)});
+			).append($('<h6>').text('Delete')),
 			]),
 		]),
 		$('<div/>', {'class':'media-body'}).append([
@@ -155,8 +156,8 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 				])
 			])
 		]);
-	$('#deleteModals').append([
-		$('<div>',{'class':'modal fade'}).attr({"id":'delete-modal','role':'dialog'}).append([
+	$('#deleteModal'+elementID).append([
+		$('<div>',{'class':'modal fade'}).attr({"id":'delete-modal'+elementID,'role':'dialog'}).append([
 			$('<div>',{'class':'modal-dialog'}).append([
 				$('<div>',{'class':'modal-content'})
 				 .append([
@@ -396,11 +397,11 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 			]),
 		$('<ul>', {'class':'dropdown-menu'}).append([
 			$('<li/>').append([
-				$('<a>', {'class':'dropdown-item editEntry'}).attr({"data-toggle": 'modal', "data-target":'#edit-modal'}).each(function(){
-					$(this).attr({"data-target": $(this).attr("data-target").concat(elementID)});
-			}).append($('<h6>').text('Edit'))]),
-			$('<li/>').append($('<a>', {'class':'dropdown-item deleteEntry'}).attr({"data-toggle": 'modal', "data-target":'#delete-modal'}).each(function(){
-				$(this).attr({"data-target": $(this).attr("data-target").concat(elementID)});
+				$('<a>', {'class':'dropdown-item editEntry edit-btn btn'}).attr({'id':'',"data-toggle": 'modal', "data-target":'#edit-modal'}).each(function(){
+					$(this).attr({"data-target": $(this).attr("data-target").concat(elementID),'id':$(this).attr("id").concat(elementID)});
+			}).append($('<h6>').text('Ediit'))]),
+			$('<li/>').append($('<a>', {'class':'dropdown-item deleteEntry delete-btn btn'}).attr({'id':''+elementID,"data-toggle": 'modal', "data-target":'#delete-modal'+elementID}).each(function(){
+				$(this).attr({"data-target": $(this).attr("data-target").concat(elementID),'id': $(this).attr("id").concat(elementID)});
 			}).append($('<h6>').text('Delete'))),
 			]),
 		]),
@@ -534,7 +535,9 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 			])
 		]);
 	$('#deleteModals').append([
-		$('<div>',{'class':'modal fade'}).attr({"id":'delete-modal','role':'dialog'}).append([
+		$('<div>',{'class':'modal fade'}).attr({"id":'delete-modal','role':'dialog'}).each(function(){
+			$(this).attr({"id": $(this).attr("id").concat(elementID)});
+		}) .append([
 			$('<div>',{'class':'modal-dialog'}).append([
 				$('<div>',{'class':'modal-content'})
 				 .append([
@@ -607,7 +610,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 }
 
 //UNTIL HERE
-////
+////FIRST COMMENT
 function makeCommentApplications(parentID, image, fName,lName, content, postID,numReplies,time){
 	$('#comment-lists'+parentID)
 	.append([
@@ -638,17 +641,25 @@ function makeCommentApplications(parentID, image, fName,lName, content, postID,n
 			]),
 		$('<p>').append([
 			$('<small>').append(
-				$('<a>',{'class':'view-replies'}).attr({'id':'openReplies','name':'replies','myvalue':''}).each(function(){
-					if(numReplies <= 0){
-					$(this).hide();
-				}else{$(this).attr({"id": $(this).attr("id").concat(postID),'myvalue': $(this).attr("myvalue").concat(postID)}).text("view ".concat(numReplies).concat(" Replies"));
+				//data-replycount
+				$('<a>',{'class':'view-replies'}).attr({'id':'openReplies','name':'replies','myvalue':''+postID,'data-replycount':numReplies}).each(function(){
+					$(this).attr({"id":$(this).attr("id").concat(postID)})
+					//if(numReplies <= 0){
+					//$(this).hide();
+				//}else{
+					//$(this).attr({"id": $(this).attr("id").concat(postID),'myvalue': $(this).attr("myvalue").concat(postID)}).text("view ".concat(numReplies).concat(" Replies"));
+					$(this).text("view ".concat(numReplies).concat(" Replies"));
+			//}
 			}
-			})
+			)
 				)
 			]),
-		$('<div>',{'class':'commentOfComment'}).attr({'id':'replies','data-replycount':''}).each(function(){
-			$(this).attr({"id": $(this).attr("id").concat(postID),'data-replycount': $(this).attr("data-replycount").concat(numReplies)});
-		}),
+		
+			//var data = $('.commentOfComment').data('replycount');
+			//'data-replycount':numReplies
+		$('<div>',{'class':'commentOfComment'}).attr({'id':'replies','data-replycount':numReplies}).each(function(){
+			$(this).attr({"id": $(this).attr("id").concat(postID)});
+		}) ,
 		$('<div>',{'class':'input-group'}).append([
 			$('<input>',{'class':'form-control'}).attr({'placeholder':'Add a reply','type':'text','id':'comment2Content','name':'body'}).each(function(){
 				$(this).attr("id",$(this).attr("id").concat(postID)).keydown(function(event){
@@ -689,14 +700,17 @@ function makeBasicCommentApplications(parentID, image, fName,lName, content, pos
 		}),
 		$('<p>').append([
 			$('<small>').append(
-				$('<a>',{'class':'view-replies'}).attr({'id':'openReplies','name':'replies','myvalue':''}).each(function(){
-					$(this).attr({"id": $(this).attr("id").concat(postID),'myvalue': $(this).attr("myvalue").concat(postID)}).text(numReplies.concat(' Replies'));
+				//changeNOW
+				$('<a>',{'class':'view-replies'}).attr({'id':'openReplies','name':'replies','myvalue':''+postID,'data-replycount':numReplies}).each(function(){
+					//$(this).attr({"id": $(this).attr("id").concat(postID),'myvalue': $(this).attr("myvalue").concat(postID)}).text(numReplies.concat(' Replies'));
+					$(this).attr({"id":$(this).attr("id").concat(postID),'myvalue':$(this).attr("myvalue").concat(postID)});
+					$(this).text(numReplies.concat(' Replies'));
 				})
 				)
 			]),
-		$('<div>',{'class':'commentOfComment'}).attr({'id':'replies'+postID,'data-replycount':''}).each(function(){
-			$(this).attr({'data-replycount': $(this).attr("data-replycount").concat(numReplies)});
-		}),
+		$('<div>',{'class':'commentOfComment'}).attr({'id':'replies','data-replycount':numReplies}).each(function(){
+			$(this).attr("id",$(this).attr("id").concat(postID));
+		}) ,
 		$('<div>',{'class':'input-group'}).append([
 			$('<input>',{'class':'form-control'}).attr({'placeholder':'Add a reply','type':'text','id':'comment2Content','name':'body'}).each(function(){
 				$(this).attr("id",$(this).attr("id").concat(postID)).keydown(function(event){
@@ -714,7 +728,7 @@ function makeBasicCommentApplications(parentID, image, fName,lName, content, pos
 	])
 		]);
 }
-
+//HERE PROBLEM
 function makeNewCommentApplications(parentID, image, fName,lName, content, postID,numReplies,time){
 	$('#comment-lists'+parentID)
 	.append([
@@ -745,17 +759,31 @@ function makeNewCommentApplications(parentID, image, fName,lName, content, postI
 				)
 			]),
 		$('<p>').append([
+			//PROBLEM
 			$('<small>').append(
-				$('<a>',{'class':'view-replies'}).attr({'id':'openReplies','name':'replies','myvalue':''}).each(function(){
-					if(numReplies <= 0){
-					$(this).hide();
-				}else{$(this).attr({"id":$(this).attr("id").concat(postID),'myvalue':$(this).attr("myvalue").concat(postID)}).text("View".concat(numReplies).concat("Replies"));}
-			})
+
+
+				$('<a>',{'class':'view-replies'}).attr({'id':'openReplies','name':'replies','myvalue':''+postID,'data-replycount':numReplies}).each(function(){
+					$(this).attr({"id":$(this).attr("id").concat(postID)})
+					//if(numReplies <= 0){
+					//$(this).hide();
+				//}else{
+					//$(this).attr({"id":$(this).attr("id").concat(postID),'myvalue':$(this).attr("myvalue").concat(postID)}).text("View".concat(numReplies).concat("Replies"));}
+					$(this).text("View ".concat(numReplies).concat(" Replies"));}
+					
+					//0 replies
+			//}
+			)
 				)
 			]),
-		$('<div>',{'class':'commentOfComment'}).attr({'id':'replies'+postID,'data-replycount':''}).each(function(){
-			$(this).attr({'data-replycount':$(this).attr("data-replycount").concat(numReplies)});
-		}),
+
+
+   
+
+
+		$('<div>',{'class':'commentOfComment'}).attr({'id':'replies','data-replycount':numReplies}).each(function(){
+			$(this).attr("id",$(this).attr("id").concat(postID))
+		}) ,
 		$('<div>',{'class':'input-group'}).append([
 			$('<input>',{'class':'form-control'}).attr({'placeholder':'Add a reply','type':'text','id':'comment2Content','name':'body'}).each(function(){
 				$(this).attr("id",$(this).attr("id").concat(postID)).keydown(function(event){
@@ -859,7 +887,7 @@ function makeBasicCommentOfCommentsApplications(parentID, image, fName,lName, co
 		]);
 }
 
-
+//problem
 function makeNewCommentOfCommentsApplications(parentID, image, fName,lName, content, postID,time){
 	$('#replies'+parentID)
 	.prepend([
@@ -906,11 +934,11 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 			]),
 		$('<ul>', {'class':'dropdown-menu'}).append([
 			$('<li/>').append(
-				$('<a>', {'class':'dropdown-item editEntry'}).attr({"data-toggle": 'modal', "data-target":'#edit-modal'}).each(function(){
-					$(this).attr({"data-target": $(this).attr("data-target").concat(elementID)});
+				$('<a>', {'class':'dropdown-item editEntry edit-btn btn'}).attr({'id':'',"data-toggle": 'modal', "data-target":'#edit-modal'}).each(function(){
+					$(this).attr({"data-target": $(this).attr("data-target").concat(elementID),'id': $(this).attr("id").concat(elementID)});
 			}).append($('<h6>').text('Edit'))),
-			$('<li/>').append($('<a>', {'class':'dropdown-item deleteEntry'}).attr({"data-toggle": 'modal', "data-target":'#delete-modal'}).each(function(){
-				$(this).attr({"data-target": $(this).attr("data-target").concat(elementID)});
+			$('<li/>').append($('<a>', {'class':'dropdown-item deleteEntry delete-btn btn'}).attr({'id':''+elementID,"data-toggle": 'modal', "data-target":'#delete-modal'+elementID}).each(function(){
+				$(this).attr({"data-target": $(this).attr("data-target").concat(elementID),'id': $(this).attr("id").concat(elementID)});
 			}).append($('<h6>').text('Delete'))),
 			]),
 		]),
@@ -919,7 +947,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 			$(this).text(timeSince(time));
 		}),
 		$('<h5>',{'class':'mt-0'}).each(function(){
-			$(this).text(fName.concat(' ').concat(lName).concat('shared a post: '));
+			$(this).text(fName.concat(' ').concat(lName).concat(' shared a post: '));
 		}),
 		$('<p>').each(function(){
 			$(this).text(readRuneArrayThatWorks(sharedContent));
@@ -1016,7 +1044,9 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 			])
 		]);
 	$('#deleteModals').append([
-		$('<div>',{'class':'modal fade'}).attr({"id":'delete-modal','role':'dialog'}).append([
+		$('<div>',{'class':'modal fade'}).attr({"id":'delete-modal','role':'dialog'}).each(function(){
+			$(this).attr({"id": $(this).attr("id").concat(elementID)});
+		}) .append([
 			$('<div>',{'class':'modal-dialog'}).append([
 				$('<div>',{'class':'modal-content'})
 				 .append([

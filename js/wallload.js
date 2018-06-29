@@ -110,7 +110,7 @@
                          {
                             var temp = $.parseJSON(jqXHR.responseText); 
                             if (temp != null){
-                                 $('#comments-list'+postID).empty();
+                                 $('#comment-lists'+postID).empty();
                                  for (i=temp.length-1; i >= 0; i--){
                                      if (userID == temp[i].Element.PosterID || editPermission==0 ){
                                         makeCommentApplications(postID, temp[i].Image, temp[i].FirstName, temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].NumReplies,temp[i].Element.TimeStamp);
@@ -121,7 +121,7 @@
                                  }
                             }
                             else{
-                                $('#comments-list'+postID).empty();
+                                $('#comment-lists'+postID).empty();
                             }
                          }
                     },error: function(err) {
@@ -133,31 +133,31 @@
 
      //render comment of comments
        $('body').on("click", ".view-replies", function(e) {
-           var postID =  e.currentTarget.getAttribute('myvalue');
+           var postValue =  e.currentTarget.getAttribute('myvalue');
             $.ajax({
                     type: 'GET',
                     url: 'http://ustart.today:'+port+'/getComments/',
                     contentType: "application/json; charset=utf-8",
-                    data: {PostID:postID},
+                    data: {PostID:postValue},
                     success: function(data) {
                     },complete: function (jqXHR,status) {
                          if(status == 'success' || status=='notmodified')
                          {
                            var temp = $.parseJSON(jqXHR.responseText);
                            if (temp != null){
-                              $('#replies'+postID).empty();
+                              $('#replies'+postValue).empty();
                                $(e.currentTarget).hide();
                                for (i=temp.length-1; i >= 0; i--){
                                    if (userID == temp[i].Element.PosterID || editPermission==0 ){
-                                        makeCommentOfCommentsApplications(postID, temp[i].Image, temp[i].FirstName,temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].Element.TimeStamp);
+                                        makeCommentOfCommentsApplications(postValue, temp[i].Image, temp[i].FirstName,temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].Element.TimeStamp);
                                    }
                                    else{
-                                        makeBasicCommentOfCommentsApplications(postID, temp[i].Image, temp[i].FirstName,temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].Element.TimeStamp);
+                                        makeBasicCommentOfCommentsApplications(postValue, temp[i].Image, temp[i].FirstName,temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].Element.TimeStamp);
                                    }
                                }
                            }
                            else{
-                               $('#replies'+postID).empty();
+                               $('#replies'+postValue).empty();
                            }
                          }
                     },error: function(err) {
@@ -217,7 +217,9 @@
                          if(status == 'success' || status=='notmodified')
                          {
                            var temp = $.parseJSON(jqXHR.responseText);
+                           
                            if (temp != null){
+                            //(postValue, temp[i].Image, temp[i].FirstName,temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].Element.TimeStamp);
                                makeNewCommentApplications(postID, temp[0].Image, temp[0].FirstName, temp[0].LastName, temp[0].Element.Content, temp[0].ElementID,temp[0].NumReplies,temp[0].Element.TimeStamp);
                                $("#commentContent"+postID).val('');
                                $(e.currentTarget).css("pointer-events", "auto"); 
@@ -252,20 +254,19 @@
                            var temp = $.parseJSON(jqXHR.responseText);
                            if (temp != null){
                              if ( $('#replies'+postID).is(':empty')){
-                                 var repliesNum = $('#replies'+postID).data('replycount');
-                                 var updated = repliesNum+1;
-                                 console.log(updated);
-                                 $('#replies'+postID).data('replycount', updated);
+                                 var repliesNum = $('#replies'+postID).attr('data-replycount');
+                                 var updated = parseInt(repliesNum)+1;
+                                 $('#replies'+postID).attr('data-replycount', updated);
                                  $("#comment2Content"+postID).val('');
                                  $("#openReplies"+postID).css({ 'display': 'block'});
                                  $("#openReplies"+postID).show();
                                  $("#openReplies"+postID).text("View "+updated+" Replies");
                              }
                              else{
-                                  makeNewCommentOfCommentsApplications(postID, temp[0].Image, temp[0].FirstName,temp[0].LastName, temp[0].Element.Content, temp[0].ElementID,temp[0].Element.TimeStamp);   
-                                  var repliesNum = $('#replies'+postID).data('replycount');
-                                  var updated = repliesNum+1;
-                                  $('#replies'+postID).data('replycount', updated);
+                                makeNewCommentOfCommentsApplications(postID, temp[0].Image, temp[0].FirstName,temp[0].LastName, temp[0].Element.Content, temp[0].ElementID,temp[0].Element.TimeStamp);   
+                                  var repliesNum = $('#replies'+postID).attr('data-replycount');
+                                  var updated = parseInt(repliesNum)+1;
+                                  $('#replies'+postID).attr('data-replycount', updated);
                                   $("#comment2Content"+postID).val('');
                              }
                             $(e.currentTarget).css("pointer-events", "auto"); 
@@ -283,6 +284,7 @@
      $('body').on("click", ".deletePost", function(e) {
           var temp = e.currentTarget.id;
           var postID = temp.replace("delete-btn",'');
+          console.log(postID);
           $(e.currentTarget).prop('disabled', true);
           var x = document.getElementsByClassName("wallPosts");
           $.ajax({
@@ -327,6 +329,7 @@
      $('body').on("click", ".share-postSubmit", function(e) {
           var temp = e.currentTarget.id;
           var postID = temp.replace("share-btn",'');
+          console.log(postID+'postID');
           var content = $("#shared-content"+postID).val();
           $(e.currentTarget).prop('disabled', true);
           $.ajax({
@@ -348,26 +351,27 @@
                     }
             });
      });
-
+//
       $('body').on("click", ".edit-postSubmit", function(e) {
           var temp = e.currentTarget.id;
-          var postID = temp.replace("edit-btn",'');
-          var content = $("#content"+postID).val();
+          var tempID = temp.replace("edit-btn",'');
+          //console.log(tempID);
+          var content = $("#content"+tempID).val();
           $(e.currentTarget).prop('disabled', true);
           $.ajax({
                     type: 'GET',
                     url: 'http://ustart.today:'+port+'/editPost/',
                     contentType: "application/json; charset=utf-8",
-                    data: {postid:postID, content:content},
+                    data: {postid:tempID, content:content},
                     success: function(data) {
                     },complete: function (jqXHR,status) {
                          if(status == 'success' || status=='notmodified')
                          {
                            var temp = $.parseJSON(jqXHR.responseText);
                               if (temp != null){
-                                    $("#post-msg"+postID).text(content);
+                                    $("#post-msg"+tempID).text(content);
                                     $(e.currentTarget).prop('disabled', false);
-                                    $("#edit-modal"+postID).modal('toggle'); 
+                                    $("#edit-modal"+tempID).modal('toggle'); 
                               }
                          }
                     },error: function(err) {
@@ -380,18 +384,21 @@
 
      $('body').on("click", ".remove-comment", function(e) {
           var temp = e.currentTarget.id;
-          var postID = temp.replace("removeComment",'');
+          var tempID = temp.replace("removeComment",'');
+          console.log(tempID);
           e.preventDefault();
           $.ajax({
                     type: 'GET',
                     url: 'http://ustart.today:'+port+'/deletePost/',
                     contentType: "application/json; charset=utf-8",
-                    data: {postid:postID},
+                    //CHANGE FROM postid
+                    data: {postid:tempID},
                     success: function(data) {
                     },complete: function (jqXHR,status) {
                          if(status == 'success' || status=='notmodified')
                          {
-                           $("#comment-media"+postID).remove();
+                             //tempID --> postID
+                           $("#comment-media"+tempID).remove();
                            var temp = jqXHR.responseText;
                               if (temp != null){
                                     var newcount = $(".standard-comment").length;
@@ -399,6 +406,7 @@
                               }
                          }
                     },error: function(err) {
+                        //here error
                         console.log('comment Load failed: ');
                         console.log(err);
                     }
@@ -407,19 +415,23 @@
 
      $('body').on("click", ".remove-comment-o-comment", function(e) {
           var temp = e.currentTarget.id;
-          var postID = temp.replace("removecomment2",'');
+          var tempID = temp.replace("removecomment2",'');
+          console.log(tempID);
+           e.preventDefault();
           $.ajax({
                     type: 'GET',
                     url: 'http://ustart.today:'+port+'/deletePost/',
                     contentType: "application/json; charset=utf-8",
-                    data: {postid:postID},
+                    data: {postid:tempID},
                     success: function(data) {
                     },complete: function (jqXHR,status) {
                          if(status == 'success' || status=='notmodified')
                          {
-                             $("#commentOComment-media"+postID).remove();
+                             //CHANGE FROM tempID
+                             $("#commentOCommnet-media"+tempID).remove();
                          }
                     },error: function(err) {
+                        //here problem
                         console.log('comment Load failed: ');
                         console.log(err);
 
