@@ -84,11 +84,10 @@ $(function() {
 	$("#searchFilterGroupUsers").change(function() {
 		if ($(this).prop("checked")) {
 			$("#filter-adv-search").parents(".panel-group").show();
-			$("#searchbypersonname").prop("checked", true).prop("disabled", false).parent().show();
-			$("#searchbyusername").prop("checked", true).prop("disabled", false).parent().show();
+			$("#searchbypersonname").prop("disabled", false).parent().show();
+			$("#searchbyusername").prop("disabled", false).parent().show();
 			$("#searchbyprojectname").prop("disabled", true).parent().hide();
 			$("#searchbyurl").prop("disabled", true).parent().hide();
-			$("#searchbyskills").prop("checked", true).prop("disabled", false).parent().show();
 			$("#searchbyskills + label").text("Skills");
 			$("#searchbymembersneeded").prop("disabled", true).parent().hide();
 		}
@@ -98,23 +97,11 @@ $(function() {
 			$("#filter-adv-search").parents(".panel-group").show();
 			$("#searchbypersonname").prop("disabled", true).parent().hide();
 			$("#searchbyusername").prop("disabled", true).parent().hide();
-			$("#searchbyprojectname").prop("checked", true).prop("disabled", false).parent().show();
-			$("#searchbyurl").prop("checked", false).prop("disabled", false).parent().show();
-			$("#searchbyskills").prop("checked", false).prop("disabled", false).parent().show();
+			$("#searchbyprojectname").prop("disabled", false).parent().show();
+			$("#searchbyurl").prop("disabled", false).parent().show();
 			$("#searchbyskills + label").text("Tags");
 			$("#searchbymembersneeded").prop("disabled", false).parent().show();
 			
-		}
-	});
-	$("#searchFilterGroupSkills").change(function() {
-		if ($(this).prop("checked")) {
-			$("#filter-adv-search").parents(".panel-group").hide();
-			$("#searchbypersonname").prop("disabled", true).parent().hide();
-			$("#searchbyusername").prop("disabled", true).parent().hide();
-			$("#searchbyprojectname").prop("disabled", true).parent().hide();
-			$("#searchbyurl").prop("disabled", true).parent().hide();
-			$("#searchbyskills").prop("disabled", true).parent().hide();
-			$("#searchbymembersneeded").prop("disabled", true).parent().hide();
 		}
 	});
 	
