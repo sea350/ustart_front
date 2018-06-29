@@ -1,17 +1,40 @@
 <head>
 <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>U Start - Forgot Password</title>
+    <title>U Start - Forgot Password</title>
+    <script>
+        function GetQueryStringParams(sParam) {
+            // remove question mark
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++)
+            {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam)
+                {
+                    return sParameterName[1];
+                }
+            }
+            return "";
+        }
+
+        $(function() {
+            $("#email").val(GetQueryStringParams("email"));
+            $("#verifCode").val(GetQueryStringParams("verifCode"));
+        });
+    </script>
 </head>
 <body>
     <div id="centering">
         <div id="content">
             <h1>Confirm Changes</h1>
-            <form action="/ResetPassword">
+            <form id="form1" action="/ResetPassword" method="POST">
                 <div class="form-group">
-                  <input type="password" class="form-control" name = "newpass" id="password" placeholder="New password">
-                  <input type="password" class="form-control" id="confirmpassword" placeholder="Retype new password">
+                  <input type="password" class="form-control" name="password" id="password" placeholder="New password">
+                  <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder="Retype new password">
                 </div>
+                <input type="hidden" name="email"  id="email" />
+                <input type="hidden" name="verifCode" id="verifCode" />
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
