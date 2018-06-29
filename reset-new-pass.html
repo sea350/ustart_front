@@ -19,7 +19,7 @@
         }
 
         $(function() {
-            $("#email").val(GetQueryStringParams("email")).attr("form", "form1");
+            $("#emailV").val(GetQueryStringParams("email"));
             $("#verifCode").val(GetQueryStringParams("verifCode"));
         });
     </script>
@@ -33,6 +33,7 @@
                   <input type="password" class="form-control" name="password" id="password" placeholder="New password">
                   <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder="Retype new password">
                 </div>
+                <input type="hidden" name="email"  id="emailHidden" />
                 <input type="hidden" name="verifCode" id="verifCode" />
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
