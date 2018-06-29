@@ -24,7 +24,8 @@
             $("#emailHidden").val(GetQueryStringParams("email"));
             $("#verifCode").val(GetQueryStringParams("verifCode"));
 
-            $("#resetForm").submit(function() {
+            $("#resetForm").submit(function(event) {
+                event.preventDefault();
                 if ($("#ChangePassword").val() !== $("#ChangeConfirmPassword").val()) {
                     alert("Your Passwords aren't identical");
                     return false;
