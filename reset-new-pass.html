@@ -38,7 +38,10 @@
                             verifCode: $("#verifCode").val(),
                         },
                         done: function() {
-                            alert("Processed Complete")
+                            alert("Processed Complete");
+                        },
+                        error: function() {
+                            alert("Error Output");
                         }
                     });
                     submittedAJAX = true;
@@ -49,6 +52,14 @@
     </script>
 </head>
 <body>
+    {{ if .ErrorStatus }}
+    <div id="dup-email-alert" class="alert alert-danger alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
+    </div>
+    {{end}}
     <div id="centering">
         <div id="content">
             <h1>Confirm Changes</h1>
