@@ -37,9 +37,10 @@
                             email: $("#emailHidden").val(),
                             verifCode: $("#verifCode").val() + "=",
                         },
-                        done: function() {
+                        success: function() {
                             alert("Processed Complete");
                             $("#resetForm [type=submit]").removeAttr("disabled");
+                            location.href = "/~";
                         },
                         error: function() {
                             alert("Error Output");
