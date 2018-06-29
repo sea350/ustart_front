@@ -240,6 +240,9 @@ $(document).ready(function () {
         $(this).append("<input type='hidden' name='searchbypersonname' value='true'/>");
         $(this).append("<input type='hidden' name='searchbyusername' value='true'/>");
         $(this).append("<input type='hidden' name='searchbyprojectname' value='true'/>");
+        $(this).append("<input type='hidden' name='searchbyurl' value='true'/>");
+        $(this).append("<input type='hidden' name='searchbyskills' value='true'/>");
+        $(this).append("<input type='hidden' name='searchbymembersneeded' value='true'/>");
     });
     //$('[data-toggle="tooltip"]').tooltip();        
 })
