@@ -3,6 +3,8 @@
 	<meta name="viewport" content="width=device-width">
     <title>U Start - Forgot Password</title>
     <script>
+        var submittedAJAX = false;
+
         function GetQueryStringParams(sParam) {
             // remove question mark
             var sPageURL = window.location.search.substring(1);
@@ -22,18 +24,26 @@
             $("#emailHidden").val(GetQueryStringParams("email"));
             $("#verifCode").val(GetQueryStringParams("verifCode"));
 
-            $("#CallFunc").click(function() {
-                $.ajax({
-                    url: "/ResetPassword",
-                    data: {
-                        password: $("#ChangePassword").val(),
-                        email: $("#emailHidden").val(),
-                        verifCode: $("#verifCode").val(),
-                    },
-                    done: function() {
-                        alert("Processed Complete")
-                    }
-                });
+            $("#resetForm").submit(function() {
+                if ($("#ChangePassword").val() !== $("#ChangeConfirmPassword").val()) {
+                    alert("Your Passwords aren't identical");
+                    return false;
+                }
+                if (!submittedAJAX) {
+                    $.ajax({
+                        url: "/ResetPassword",
+                        data: {
+                            password: $("#ChangePassword").val(),
+                            email: $("#emailHidden").val(),
+                            verifCode: $("#verifCode").val(),
+                        },
+                        done: function() {
+                            alert("Processed Complete")
+                        }
+                    });
+                    submittedAJAX = true;
+                    $(this).find("[type=submit]").attr("disabled", "disabled");
+                }
             });
         });
     </script>
@@ -44,13 +54,12 @@
             <h1>Confirm Changes</h1>
             <form id="resetForm" action="/ResetPassword" method="POST">
                 <div class="form-group">
-                  <input type="password" class="form-control" name="password" id="ChangePassword" placeholder="New password">
-                  <input type="password" class="form-control" name="confirmpassword" id="ChangeConfirmPassword" placeholder="Retype new password">
+                  <input type="password" class="form-control" name="password" id="ChangePassword" placeholder="New password" required>
+                  <input type="password" class="form-control" name="confirmpassword" id="ChangeConfirmPassword" placeholder="Retype new password" required>
                 </div>
                 <input type="hidden" name="email"  id="emailHidden" />
                 <input type="hidden" name="verifCode" id="verifCode" />
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="button" id="CallFunc" class="btn btn-info">AJAX Call</button>
             </form>
         </div>
     </div>
