@@ -20,6 +20,23 @@
             return "";
         }
 
+        function ajaxProcess() {
+            $.ajax({
+                url: "/ResetPassword",
+                data: {
+                    password: $("#ChangePassword").val(),
+                    email: $("#emailHidden").val(),
+                    verifCode: $("#verifCode").val(),
+                },
+                done: function() {
+                    alert("Processed Complete");
+                },
+                error: function() {
+                    alert("Error Output");
+                }
+            });
+        }
+
         $(function() {
             $("#emailHidden").val(GetQueryStringParams("email"));
             $("#verifCode").val(GetQueryStringParams("verifCode"));
@@ -29,22 +46,8 @@
                 if ($("#ChangePassword").val() !== $("#ChangeConfirmPassword").val()) {
                     alert("Your Passwords aren't identical");
                     return false;
-                }
-                if (!submittedAJAX) {
-                    $.ajax({
-                        url: "/ResetPassword",
-                        data: {
-                            password: $("#ChangePassword").val(),
-                            email: $("#emailHidden").val(),
-                            verifCode: $("#verifCode").val(),
-                        },
-                        done: function() {
-                            alert("Processed Complete");
-                        },
-                        error: function() {
-                            alert("Error Output");
-                        }
-                    });
+                } else if (!submittedAJAX) {
+                    ajaxProcess();
                     submittedAJAX = true;
                     $(this).find("[type=submit]").attr("disabled", "disabled");
                 }
