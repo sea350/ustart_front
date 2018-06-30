@@ -12,7 +12,7 @@
     <script type="text/javascript" src="/ustart_front/js/countries.js"></script>
     <script>
         $(function() {
-            $("#eventDate").datepicker();
+            $("#eventDate, #eventEndDate").datepicker();
         });
     </script>
 </head>
@@ -23,13 +23,19 @@
     <div id="centering">
         <div class="container">
             <form action="/addEvent/">
-                <div class="col-sm-5">
-                    <label for="eventTitle">Event Title</label>
-                    <input type="text" id="eventTitle" name="title" class="form-control" placeholder="Event Title"/>
-                </div>
-                <div class="col-sm-7">
-                    Start Date
-                    <div id="eventDate"></div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="eventTitle">Event Title</label>
+                        <input type="text" id="eventTitle" name="title" class="form-control" placeholder="Event Title"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="eventDate">Start Date</label>
+                        <div id="eventDate"></div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="eventEndDate">End Date</label>
+                        <div id="eventEndDate"></div>
+                    </div>
                 </div>
                 <div>
                     <div>Location</div>
