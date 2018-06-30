@@ -1,3 +1,6 @@
+.wrapper{
+    overflow-y: auto;
+}
 .projectMembers {
     background-color: #607D8B;
     height: 2em;
@@ -64,7 +67,7 @@
     height: 100%
 }
 #content .input-group-addon {
-    padding: 0.5em 1em;
+    padding: 0;
     font-size: 1em;
     font-weight: 400;
     line-height: 1;
@@ -383,15 +386,22 @@ span.group-message-time {
     .message-user-message {
         max-width: 40vw;
     }
+    
 }
 @media (max-width: 1150px) {
     .section-right {
         display:none
+    }
+    #sidebarCollapse{
+         display:none;
     }
 }
 
 @media (max-width: 768px) {
     .container-left {
         display:none
+    }
+    #sidebarCollapse{
+         display:none;
     }
 }
