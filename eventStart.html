@@ -8,9 +8,11 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="/ustart_front/css/font-awesome.min.css">
     <script src="/ustart_front/js/ascii-convert.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/majors.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/countries.js"></script>
     <script>
         $(function() {
-            $(".datepicker").datepicker();
+            $("#eventDate").datepicker();
         });
     </script>
 </head>
@@ -21,12 +23,13 @@
     <div id="centering">
         <div class="container">
             <form action="/addEvent/">
-                <div>
-                    Title <input type="text" name="title"/>
+                <div class="col-sm-5">
+                    <label for="eventTitle">Event Title</label>
+                    <input type="text" id="eventTitle" name="title" class="form-control" placeholder="Event Title"/>
                 </div>
-                <div>
+                <div class="col-sm-7">
                     Start Date
-                    <div class="datepicker"></div>
+                    <div id="eventDate"></div>
                 </div>
                 <div>
                     <div>Location</div>
@@ -43,8 +46,9 @@
                         <input id="zip" name="zip" class="form-control" placeholder="Zip" autocomplete="postal-code">
                     </div>
                 </div>
+                <br/>
+                <button type="submit" class="btn btn-primary pull-right">Add Event</button>
             </form>
-            <button type="submit" class="form-control">Add Event</button>
         </div>
     </div>
 </body>
