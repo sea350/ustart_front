@@ -15,18 +15,13 @@
 			<div id="container-full">
 				<div class="container-left">
 					<h3 class="container-left-header">
-						Inbox
-						<a href="#"	class="inbox-compose-new" data-toggle="tooltip" title="New Message">
-							<i class="fa fa-pencil"></i>
-						</a>
+						Messages
 					</h3>
 					<div class="input-group inbox-search-box">
-						<input type="text" class="form-control" placeholder="Search">
-						<div class="input-group-btn">
-							<button class="btn btn-default" type="submit" style="margin-left: -3px">
-								<i class="glyphicon glyphicon-search"></i>
-							</button>
-						</div>
+                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Search">
+                        <span class="input-group-addon">
+                            <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                       </span>
 					</div>
 					<br/>
 					<ul id="inbox-groups">
@@ -43,7 +38,7 @@
 					<div id="0" class="box-chat">
 						<h3 class="message-head">Chat
                         <!-- collapsable member list -->
-                        <a id="sidebarCollapse" style="float:right;">
+                        <a id="sidebarCollapse" data-toggle="tooltip" data-placement="top" title="Members" style="float:right;">
 				            <i class="fa fa-angle-double-left" style="color:#00ac7d;"></i>
 						</a>
                         </h3>
@@ -71,22 +66,62 @@
 									</li>
 								</ul>
 								<div class="message-foot">
-									<form id="messager-form">
-										<div class="input-group col-xs-12">
-											<input id="messager" class="form-control" type="text" placeholder="Message here" autocomplete='off' autofocus />
-											<span class="input-group-btn">
-												<button class="btn btn-default">
-													<i class="fa fa-envelope"></i>
-												</button>
-											</span>
-										</div>
-									</form>
+                                    <form id="messager-form">
+                                    <div class="input-group col-xs-12">
+                                        <input id="messager" class="form-control" type="text" placeholder="Message here" autocomplete='off' autofocus />
+                                        <span class="input-group-addon">
+                                            <button class="btn btn-default" type="submit">
+                                               <i class="glyphicon glyphicon-chevron-right"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    </form>
 								</div>
 							</div>
 							<div class="section-right">
 								<div class="wrapper">
                                     <nav id="sidebar">
                                            <div class="sidebar-header">
+                                               <div class="projectMembers">R</div>
+                                               <strong>Ryan Rozbiani</strong>
+                                            </div>
+                                            <div class="sidebar-header">
+                                               <div class="projectMembers">C</div>
+                                               <strong>Cyka Blyat</strong>
+                                            </div>
+                                            <div class="sidebar-header">
+                                               <div class="projectMembers">R</div>
+                                               <strong>Ryan Rozbiani</strong>
+                                            </div>
+                                            <div class="sidebar-header">
+                                               <div class="projectMembers">C</div>
+                                               <strong>Cyka Blyat</strong>
+                                            </div>
+                                            <div class="sidebar-header">
+                                               <div class="projectMembers">R</div>
+                                               <strong>Ryan Rozbiani</strong>
+                                            </div>
+                                            <div class="sidebar-header">
+                                               <div class="projectMembers">C</div>
+                                               <strong>Cyka Blyat</strong>
+                                            </div>
+                                            <div class="sidebar-header">
+                                               <div class="projectMembers">R</div>
+                                               <strong>Ryan Rozbiani</strong>
+                                            </div>
+                                            <div class="sidebar-header">
+                                               <div class="projectMembers">C</div>
+                                               <strong>Cyka Blyat</strong>
+                                            </div>
+                                            <div class="sidebar-header">
+                                               <div class="projectMembers">R</div>
+                                               <strong>Ryan Rozbiani</strong>
+                                            </div>
+                                            <div class="sidebar-header">
+                                               <div class="projectMembers">C</div>
+                                               <strong>Cyka Blyat</strong>
+                                            </div>
+                                            <div class="sidebar-header">
                                                <div class="projectMembers">R</div>
                                                <strong>Ryan Rozbiani</strong>
                                             </div>
@@ -105,9 +140,7 @@
 								<span class="input-group-addon">To</span>
 								<input id="composer" class="form-control" type="text" placeholder="Person or Group" autocomplete='off' autofocus />
 								<span class="input-group-btn">
-									<button class="btn btn-default">
-										<i class="fa fa-pencil"></i>
-									</button>
+									<button class="btn btn-default"><i class="glyphicon glyphicon-chevron-right"></i></button>
 								</span>
 							</div>
 						</form>
