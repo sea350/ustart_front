@@ -14,21 +14,23 @@
     <input type="hidden" id="pageiden" value='{{.Page}}'>
     <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
     <div id="centering">
-        <img id="avatar" />
-        <script>$("#avatar").attr("src", {{.UserInfo.Avatar}})</script>
-        <div>
-            Title
+        <div class="container">
+            <img id="avatar" />
+            <script>$("#avatar").attr("src", {{.UserInfo.Avatar}})</script>
+            <div>
+                Title
+            </div>
+            <div>
+                Date Started / Time(duration)
+            </div>
+            <div>
+                Location
+            </div>
+            <div>Projects</div>
+            <div>Project Links</div>
+            <div>People (0)</div>
+            <div>People Links</div>
         </div>
-        <div>
-            Date Started / Time(duration)
-        </div>
-        <div>
-            Location
-        </div>
-        <div>Projects</div>
-        <div>Project Links</div>
-        <div>People (0)</div>
-        <div>People Links</div>
     </div>
 </body>
 
