@@ -105,6 +105,11 @@ function loadGroup(groupname) {
 $(document).ready(function () {
 	$('[data-toggle="tooltip"]').tooltip();
 	
+     $('#sidebarCollapse').on('click', function (e) {
+         e.preventDefault();
+        $('#sidebar').toggleClass('active');
+    });
+    
 	$('#messager-form').submit(function(event) {
 		event.preventDefault();
 		if ($('#messager').val().length > 0) {
