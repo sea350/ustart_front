@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Ustart {{.UserInfo.Username}} Followers</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="/ustart_front/css/font-awesome.min.css">
+    <script src="/ustart_front/js/ascii-convert.js"></script>
+    <script>
+        $(function() {
+            $(".datepicker").datepicker();
+        });
+    </script>
+</head>
+
+<body>
+    <input type="hidden" id="pageiden" value='{{.Page}}'>
+    <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
+    <div id="centering">
+        <div class="container">
+            <form action="/addEvent/">
+                <div>
+                    Title <input type="text" name="title"/>
+                </div>
+                <div>
+                    Start Date
+                    <div class="datepicker"></div>
+                </div>
+                <div>
+                    <div>Location</div>
+                    <div class="dropdown col-sm-4">
+                        <select id="country" name="country" class="form-control" autocomplete="country-name"></select>
+                    </div>
+                    <div class="dropdown col-sm-3">
+                        <select name="state" id="state" class="form-control" autocomplete="state"></select>
+                    </div>
+                    <div class="col-sm-3">
+                        <input id="city" name="city" class="form-control" placeholder="City" autocomplete="city">
+                    </div>
+                    <div class="col-sm-2">
+                        <input id="zip" name="zip" class="form-control" placeholder="Zip" autocomplete="postal-code">
+                    </div>
+                </div>
+            </form>
+            <button type="submit" class="form-control">Add Event</button>
+        </div>
+    </div>
+</body>
+
+</html>

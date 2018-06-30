@@ -7,7 +7,7 @@
     <title>Ustart {{.UserInfo.Username}} Followers</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="/ustart_front/css/font-awesome.min.css">
-	<script src="/ustart_front/js/ascii-convert.js"></script>
+    <script src="/ustart_front/js/ascii-convert.js"></script>
 </head>
 
 <body>
@@ -15,21 +15,71 @@
     <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
     <div id="centering">
         <div class="container">
-            <img id="avatar" />
-            <script>$("#avatar").attr("src", {{.UserInfo.Avatar}})</script>
-            <div>
-                Title
+            <div class="tab-content">
+                <div id="prof-about" class="tab-pane fade in active">
+                    <img id="avatar" />
+                    <script>$("#avatar").attr("src", {{.UserInfo.Avatar }})</script>
+                    <div>
+                        Title
+                    </div>
+                    <div>
+                        Starting Date
+                    </div>
+                    <div>
+                        Location
+                    </div>
+                    <!-- project widget -->
+                    <div id="projectDisplay" class="ui-state-default widgetListItem">
+                        <div class="projectsWidgetCont">
+                            <div class="widgetTitle">
+                                {{if eq ($.Page) ($.DOCID)}}
+                                <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#projectDisplayModal"></span>
+                                {{end}}
+                                <h4>Project Display</h4>
+                            </div>
+                            <div class="widgetBody">
+                                {{range $project := .ListOfHeads}}
+                                <a class="btn btn-default projectsColumn" href="/Projects/{{$project.Username}}" data-project="{{$project.DocID}}" data-project-visible="{{$project.Followed}}">
+                                    <div class="columnImage" data-toggle="tooltip" data-placement="bottom" title="{{$project.FirstName}}">
+                                        <img id="proj-preview{{$project.DocID}}" class="img-responsive" src="" />
+                                        <script>
+                                            $("#proj-preview{{$project.DocID}}").attr('src', {{ $project.Image }});
+                                        </script>
+                                        <div class="columnTitle">{{$project.FirstName}}</div>
+                                    </div>
+                                </a>
+                                {{end}}
+                            </div>
+                        </div>
+                    </div>
+                    <!--end project widget -->
+                    <!-- people widget -->
+                    <div id="projectDisplay" class="ui-state-default widgetListItem">
+                        <div class="projectsWidgetCont">
+                            <div class="widgetTitle">
+                                {{if eq ($.Page) ($.DOCID)}}
+                                <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#peopleDisplayModal"></span>
+                                {{end}}
+                                <h4>People</h4>
+                            </div>
+                            <div class="widgetBody">
+                                {{range $person := .ListOfHeads}}
+                                <a class="btn btn-default projectsColumn" href="/Profile/{{$person.Username}}" data-person="{{$person.DocID}}" data-person-visible="{{$person.Followed}}">
+                                    <div class="columnImage" data-toggle="tooltip" data-placement="bottom" title="{{$person.FirstName}}">
+                                        <img id="person-preview{{$person.DocID}}" class="img-responsive" src="" />
+                                        <script>
+                                            $("#person-preview{{$person.DocID}}").attr('src', {{ $person.Image }});
+                                        </script>
+                                        <div class="columnTitle">{{$person.FirstName}} {{$person.LastName}}</div>
+                                    </div>
+                                </a>
+                                {{end}}
+                            </div>
+                        </div>
+                    </div>
+                    <!--end people widget -->
+                </div>
             </div>
-            <div>
-                Date Started / Time(duration)
-            </div>
-            <div>
-                Location
-            </div>
-            <div>Projects</div>
-            <div>Project Links</div>
-            <div>People (0)</div>
-            <div>People Links</div>
         </div>
     </div>
 </body>
