@@ -45,30 +45,55 @@
 						<div class="box-section">
 							<div class="section-left">
 								<ul class="message-box">
-									<li class="message-timeline">
-										Tuesday 9/3/2017
-									</li>
-                                    <!-- someone else's message -->
-									<li id="msg000000" class="message-user-left">
-										<div class="message-user-name">Pikachu</div>
-										<img class="message-user-icon" src="img/img1.png"/>
-										<span class="message-user-message" data-toggle="collapse" data-target="#msg000000 .collapse">Pika!</span>
-										<div class="message-user-time collapse">4:00 AM</div>
-									</li>
-                                     <!-- your message -->
-									<li id="msg000001" class="message-user-right">
-										<span class="message-user-message" data-toggle="collapse" data-target="#msg000001 .collapse">Pikachu, use Thundershock!</span>
-										<div class="message-user-time collapse">4:01 AM</div>
-									</li>
-									<li id="msg000002" class="message-user-left">
-										<div class="message-user-name">Pikachu</div>
-										<img class="message-user-icon" src="img/img1.png"/>
-										<span class="message-user-message" data-toggle="collapse" data-target="#msg000002 .collapse">Pika Chuu!</span>
-										<div class="message-user-time collapse">4:02 AM</div>
-									</li>
+									<script>
+                                        $( document ).ready(function() {
+                                            if(!("WebSocket" in window)){
+                                                console.log("you need a browser that supports web sockets")
+                                             }else{
+                                                 try{
+                                                    var socket = new WebSocket('ws://' + window.location.host + '/ws/');
+                                                    socket.onopen = function(){
+                                                        console.log('Socket Status: '+socket.readyState+'(open)');
+                                                    }
+                                                    socket.onmessage = function(e){
+                                                        //replace later
+                                                        var sender ="Mother Russia";
+                                                        console.log('Received: '+e.data);
+                                                        var timeNow = new Date().getTime();
+                                                        var msg = JSON.parse(e.data);
+                                                        populateMessage(Math.floor(Math.random() * 99999), sender,
+			                                            msg.message, 'img/img1.png', timeNow, true);
+                                                        $('.inbox-group.active .group-message').text(sender+": "+msg.message);
+			                                            $('.inbox-group.active .group-message-time').text(formatTime(timeNow));
+                                                        $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
+                                                    }
+                                                    $('#chat-submit-btn').click(function(event) {
+                                                        if ($('#messager').val().length > 0) {
+                                                            var timeNow = new Date().getTime();
+                                                           webSocket.send({ 
+                                                                   message: $('#messager').val() 
+                                                                }).done(function() {
+                                                                // message send
+                                                               console.log("message sent")
+                                                            }).fail(function(e) {
+                                                                // error sending
+                                                                console.log("message not sent")
+                                                            });
+
+                                                            $('#messager').val('');
+                                                            $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
+                                                        }
+                                                    });
+                                                 }
+                                                 catch(exception){
+                                                     console.log('Error: '+exception);
+                                                }
+                                             }
+                                            
+                                        });
+                                    </script>
 								</ul>
 								<div class="message-foot">
-                                    <form id="messager-form">
                                     <div class="input-group col-xs-12">
                                         <!-- --------message input ------------------------------------------------------->
                                         <input id="messager" class="form-control" type="text" placeholder="Message here" autocomplete='off' autofocus />
@@ -78,7 +103,6 @@
                                             </button>
                                         </span>
                                     </div>
-                                    </form>
 								</div>
 							</div>
 							<div class="section-right">
