@@ -494,6 +494,9 @@ input {
     border-color: #607D8B;
 }
 @media (max-width: 767px) {
+    #logo-brand>span{
+      font-size:20px;
+    }
     .navbar-nav .open .dropdown-menu {
         position: absolute;
     }
@@ -547,6 +550,11 @@ input {
     .dropdown-menu > li > a {
         padding: 1em 2em;
     }
+}
+@media (max-width: 360px) {
+ #logo-brand>span{
+      display:none;
+ }
 }
 li div.notif-timestamp {
     text-align: right;

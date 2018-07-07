@@ -127,3 +127,9 @@
 		width: 15em;
 	}
 }
+
+@media (max-width: 499px) {
+    #LeftNavBar-placeholder{
+        background-color: rgba(212, 212, 212, 1.0);
+    }
+}

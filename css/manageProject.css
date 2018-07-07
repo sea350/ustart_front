@@ -95,3 +95,10 @@
 .request-group.active .group-header {
     font-weight: bolder
 }
+.input-group-btn1{
+    float: right;
+    width: auto;
+}
+.glyphicon-ok, .glyphicon-remove{
+    color: #607d8b;
+}

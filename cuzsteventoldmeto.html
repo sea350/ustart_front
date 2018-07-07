@@ -83,9 +83,11 @@
 
     created: function() {
         var self = this;
-        this.ws = new WebSocket('ws://' + window.location.host + '/ws');
+        var id = window.location.href.match(/\/([^\/]+)\/?$/)[1];
+        this.ws = new WebSocket('ws://' + window.location.host + '/ws/'+id);
         this.ws.addEventListener('message', function(e) {
             var msg = JSON.parse(e.data);
+            console.log(msg);
             self.chatContent += '<div class="chip">'
                     + '<img src="' + self.gravatarURL(msg.email) + '">' // Avatar
                     + msg.username
@@ -99,12 +101,14 @@
 
     methods: {
         send: function () {
+            var id = window.location.href.match(/\/([^\/]+)\/?$/)[1];
             if (this.newMsg != '') {
                 this.ws.send(
                     JSON.stringify({
                         email: this.email,
                         username: this.username,
-                        message: $('<p>').html(this.newMsg).text() // Strip out html
+                        message: $('<p>').html(this.newMsg).text(),
+                        chatID: id
                     }
                 ));
                 this.newMsg = ''; // Reset newMsg

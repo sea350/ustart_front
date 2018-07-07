@@ -10,6 +10,49 @@ function dateFormat(time) {
 	return dateString;
 }
 
+function populateMemberList(name){
+    var membericon = $("<div></div>").addClass('projectMembers').text(name.charAt(0).toUpperCase());
+    var memberlist = $("<strong></strong>").text(name);
+    $('<div/>', {
+    class: 'sidebar-header'
+    }).append(membericon,memberlist).appendTo('#sidebar');
+}
+
+//create new function
+function populateMessageModified(parentid, msgid, username, message, icon, time, originuser) {
+	var dateTime = dateFormat(time);
+	if ($('#chat'+parentid).find(".message-timeline").last().text() !== dateTime) {
+		var messageTimeline = $("<li></li>").addClass('message-timeline').text(dateTime);
+		$("#chat"+parentid).append(messageTimeline);
+	}
+	
+	var listTime = $("<div></div>").addClass('message-user-time collapse').text(formatTime(time));
+	var listMessage = $("<span></span>").addClass('message-user-message').text(message);
+	listMessage.attr('data-toggle', 'collapse');
+	listMessage.attr('data-target', '#' + msgid + ' .collapse');
+	var listIcon = $("<img></img>").addClass('message-user-icon').attr('src', icon);
+	var listName = $("<div></div>").addClass('message-user-name').text(username);
+	var listItem = $("<li></li>").attr('id', msgid);
+	if (originuser) {
+		// If the post is by the user, push to the right
+		listItem.addClass('message-user-right');
+		listItem.append(listMessage, listTime);
+	} else {
+		// If the post is not by the user, push to the left
+		listItem.addClass('message-user-left');
+		listItem.append(listName, listIcon, " ", listMessage, listTime);
+	}
+		
+	$("#chat"+parentid).append(listItem);
+	$(listItem).css('font-size', '0%').animate({
+		"font-size": "100%"
+	}, 'fast', () => {
+		$('.message-box').scrollTop($('.message-box')[0].scrollHeight);
+	});
+}
+
+
+//create new function
 function populateMessage(msgid, username, message, icon, time, originuser) {
 	var dateTime = dateFormat(time);
 	if ($('.message-timeline').last().text() !== dateTime) {
@@ -110,12 +153,14 @@ $(document).ready(function () {
         $('#sidebar').toggleClass('active');
     });
     
+    
+    //test function for message 
 	$('#messager-form').submit(function(event) {
 		event.preventDefault();
 		if ($('#messager').val().length > 0) {
 			var timeNow = new Date().getTime();
 			
-			populateMessage(Math.floor(Math.random() * 99999), 'Ash Ketchum',
+			populateMessageModified(1, Math.floor(Math.random() * 99999), 'Ash Ketchum',
 			$('#messager').val(), 'img/img1.png', timeNow, true);
 			$('.inbox-group.active .group-message').text("You: " + $('#messager').val());
 			$('.inbox-group.active .group-message-time').text(formatTime(timeNow));
@@ -127,6 +172,7 @@ $(document).ready(function () {
 			$('.message-box').scrollTop($('.message-box')[0].scrollHeight);
 		}
 	});
+    
 	
 	$('#composer-form').submit(function(event) {
 		event.preventDefault();

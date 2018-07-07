@@ -18,12 +18,13 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 			]),
 		$('<ul>', {'class':'dropdown-menu'}).append([
 			$('<li/>').append(
-				$('<a>', {'class':'dropdown-item editEntry edit-btn btn'}).attr({'id':''+elementID,"data-toggle": 'modal', "data-target":'#edit-modal'+elementID})
-					//$(this).attr({"data-target": $(this).attr("data-target").concat(elementID), 'id':$(this).attr("id").concat(elementID)});
-			).append($('<h6>').text('Edit')),
-			$('<li/>').append($('<a>', {'class':'dropdown-item deleteEntry delete-btn btn'}).attr({'id':''+elementID,"data-toggle": 'modal', "data-target":'#delete-modal'+elementID})
-				//$(this).attr({"data-target": $(this).attr("data-target").concat(elementID),'id' : $(this).attr("id").concat(elementID)});
-			).append($('<h6>').text('Delete')),
+				
+				$('<a>', {'class':'dropdown-item editEntry edit-btn btn'}).attr({'id':'',"data-toggle": 'modal', "data-target":'#edit-modal'}).each(function(){
+					$(this).attr({"data-target": $(this).attr("data-target").concat(elementID),'id': $(this).attr("id").concat(elementID)});
+			}).append($('<h6>').text('Edit'))),
+			$('<li/>').append($('<a>', {'class':'dropdown-item deleteEntry delete-btn btn'}).attr({'id':'',"data-toggle": 'modal', "data-target":'#delete-modal'}).each(function(){
+				$(this).attr({"data-target": $(this).attr("data-target").concat(elementID),'id': $(this).attr("id").concat(elementID)});
+			}).append($('<h6>').text('Delete'))),
 			]),
 		]),
 		$('<div/>', {'class':'media-body'}).append([
@@ -121,7 +122,9 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 		]);
 
 	$('#editModals').append([
-		$('<div>',{'class':'modal fade'}).attr({'id':'edit-modal','role':'dialog'}).append([
+		$('<div>',{'class':'modal fade'}).attr({'id':'edit-modal','role':'dialog'}).each(function(){
+			$(this).attr({"id": $(this).attr("id").concat(elementID)});
+		}).append([
 			$('<div>',{'class':'modal-dialog'}).append([
 				$('<div>',{'class':'modal-content'}).append([
 					$('<div>',{'class':'modal-header'}).append([
@@ -156,8 +159,10 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 				])
 			])
 		]);
-	$('#deleteModal'+elementID).append([
-		$('<div>',{'class':'modal fade'}).attr({"id":'delete-modal'+elementID,'role':'dialog'}).append([
+	$('#deleteModals').append([
+		$('<div>',{'class':'modal fade'}).attr({"id":'delete-modal','role':'dialog'}).each(function(){
+			$(this).attr({"id": $(this).attr("id").concat(elementID)});
+		}).append([
 			$('<div>',{'class':'modal-dialog'}).append([
 				$('<div>',{'class':'modal-content'})
 				 .append([
@@ -396,11 +401,12 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 			$('<span>', {'class':'caret'})
 			]),
 		$('<ul>', {'class':'dropdown-menu'}).append([
-			$('<li/>').append([
+			$('<li/>').append(
+				//hereModify
 				$('<a>', {'class':'dropdown-item editEntry edit-btn btn'}).attr({'id':'',"data-toggle": 'modal', "data-target":'#edit-modal'}).each(function(){
-					$(this).attr({"data-target": $(this).attr("data-target").concat(elementID),'id':$(this).attr("id").concat(elementID)});
-			}).append($('<h6>').text('Ediit'))]),
-			$('<li/>').append($('<a>', {'class':'dropdown-item deleteEntry delete-btn btn'}).attr({'id':''+elementID,"data-toggle": 'modal', "data-target":'#delete-modal'+elementID}).each(function(){
+					$(this).attr({"data-target": $(this).attr("data-target").concat(elementID),'id': $(this).attr("id").concat(elementID)});
+			}).append($('<h6>').text('Edit'))),
+			$('<li/>').append($('<a>', {'class':'dropdown-item deleteEntry delete-btn btn'}).attr({'id':'',"data-toggle": 'modal', "data-target":'#delete-modal'}).each(function(){
 				$(this).attr({"data-target": $(this).attr("data-target").concat(elementID),'id': $(this).attr("id").concat(elementID)});
 			}).append($('<h6>').text('Delete'))),
 			]),
@@ -499,7 +505,10 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 		]);
 
 	$('#editModals').append([
-		$('<div>',{'class':'modal fade'}).attr({'id':'edit-modal','role':'dialog'}).append([
+		//changeMade
+		$('<div>',{'class':'modal fade'}).attr({'id':'edit-modal','role':'dialog'}).each(function(){
+			$(this).attr({"id": $(this).attr("id").concat(elementID)});
+		}).append([
 			$('<div>',{'class':'modal-dialog'}).append([
 				$('<div>',{'class':'modal-content'}).append([
 					$('<div>',{'class':'modal-header'}).append([
@@ -934,10 +943,11 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 			]),
 		$('<ul>', {'class':'dropdown-menu'}).append([
 			$('<li/>').append(
+				//hereOriginal
 				$('<a>', {'class':'dropdown-item editEntry edit-btn btn'}).attr({'id':'',"data-toggle": 'modal', "data-target":'#edit-modal'}).each(function(){
 					$(this).attr({"data-target": $(this).attr("data-target").concat(elementID),'id': $(this).attr("id").concat(elementID)});
 			}).append($('<h6>').text('Edit'))),
-			$('<li/>').append($('<a>', {'class':'dropdown-item deleteEntry delete-btn btn'}).attr({'id':''+elementID,"data-toggle": 'modal', "data-target":'#delete-modal'+elementID}).each(function(){
+			$('<li/>').append($('<a>', {'class':'dropdown-item deleteEntry delete-btn btn'}).attr({'id':'',"data-toggle": 'modal', "data-target":'#delete-modal'}).each(function(){
 				$(this).attr({"data-target": $(this).attr("data-target").concat(elementID),'id': $(this).attr("id").concat(elementID)});
 			}).append($('<h6>').text('Delete'))),
 			]),
@@ -1008,7 +1018,9 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 	]);	
 
 	$('#editModals').append([
-		$('<div>',{'class':'modal fade'}).attr({'id':'edit-modal','role':'dialog'}).append([
+		$('<div>',{'class':'modal fade'}).attr({'id':'edit-modal','role':'dialog'}).each(function(){
+			$(this).attr({"id": $(this).attr("id").concat(elementID)});
+		}).append([
 			$('<div>',{'class':'modal-dialog'}).append([
 				$('<div>',{'class':'modal-content'}).append([
 					$('<div>',{'class':'modal-header'}).append([

@@ -1,5 +1,5 @@
 .wrapper{
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 .projectMembers {
     background-color: #607D8B;
@@ -195,12 +195,21 @@ span.group-message-time {
     border-radius: 1.4em;
 }
 
-.box-chat,.box-section,.section-left,.section-right,.inner-section-left {
+.box-chat,.section-left,.section-right,.inner-section-left {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     height: 100%
+}
+
+.box-section{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: calc(100vh - 12.7em);
+
 }
 
 .box-chat,.section-left,.section-right,.inner-section-left {
@@ -399,8 +408,19 @@ span.group-message-time {
 
 @media (max-width: 768px) {
     .container-left {
-        display:none
+        /*display:none*/
+        width:77vw;
+        margin-bottom:2em;
     }
+     .container-right{
+        /*display:none*/
+        width:77vw;
+    }
+    
+    #container-full {
+        display:block !important;
+    }
+    
     #sidebarCollapse{
          display:none;
     }
