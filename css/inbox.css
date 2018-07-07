@@ -1,5 +1,6 @@
 .wrapper{
     overflow-y: scroll;
+    height: 100%;
 }
 .projectMembers {
     background-color: #607D8B;
@@ -121,7 +122,7 @@
     width: 21%;
     min-width: 16em;
     margin-right: 0.5em;
-    overflow-y: auto
+    overflow-y: scroll;
     -ms-overflow-style: none;  // IE 10+
     overflow: -moz-scrollbars-none;  // Firefox
 }
@@ -161,7 +162,6 @@
 }
 
 .inbox-group span {
-    float: left;
     margin-left: 0.5em
 }
 
@@ -182,7 +182,7 @@
 }
 
 span.group-message-time {
-    font-size: 80%;
+    font-size: 75%;
     float: right
 }
 
