@@ -7,7 +7,9 @@
     <title>ustart</title>
 	<link rel="stylesheet" href="/ustart_front/css/inbox.css">
 	<script src="/ustart_front/js/inbox.js"></script>
-
+    <script>
+        var sockets = [];
+    </script>
 </head>
 <body>
    <div id="centering" style="top: 0; padding-top: 5em; padding-bottom: 1em; width:80%; margin: 0 auto;">
@@ -51,9 +53,13 @@
                                                 console.log("you need a browser that supports web sockets")
                                              }else{
                                                  try{
+                                                    for(var s in sockets){
+                                                        s.close();
+                                                    }
                                                     var socket = new WebSocket('ws://' + window.location.host + '/ws/');
                                                     socket.onopen = function(){
                                                         console.log('Socket Status: '+socket.readyState+'(open)');
+                                                        sockets.push(socket);
                                                     }
                                                     socket.onmessage = function(e){
                                                         //replace later
@@ -62,24 +68,17 @@
                                                         var timeNow = new Date().getTime();
                                                         var msg = JSON.parse(e.data);
                                                         populateMessage(Math.floor(Math.random() * 99999), sender,
-			                                            msg.message, 'img/img1.png', timeNow, true);
+			                                            msg.Message, 'img/img1.png', timeNow, false);
                                                         $('.inbox-group.active .group-message').text(sender+": "+msg.message);
 			                                            $('.inbox-group.active .group-message-time').text(formatTime(timeNow));
                                                         $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
                                                     }
-                                                    $('#chat-submit-btn').click(function(event) {
+                                                    $('#chat-submit-btn').click(function(e) {
                                                         if ($('#messager').val().length > 0) {
-                                                            var timeNow = new Date().getTime();
-                                                           webSocket.send({ 
-                                                                   message: $('#messager').val() 
-                                                                }).done(function() {
-                                                                // message send
-                                                               console.log("message sent")
-                                                            }).fail(function(e) {
-                                                                // error sending
-                                                                console.log("message not sent")
-                                                            });
-
+                                                            var timeNow = new Date().getTime();                                       
+                                                            socket.send(JSON.stringify({
+                                                                Message: $('#messager').val()
+                                                            }));
                                                             $('#messager').val('');
                                                             $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
                                                         }
