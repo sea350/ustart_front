@@ -52,6 +52,7 @@ function populateMessageModified(parentid, msgid, username, message, icon, time,
 }
 
 
+
 //create new function
 function populateMessage(msgid, username, message, icon, time, originuser) {
 	var dateTime = dateFormat(time);
