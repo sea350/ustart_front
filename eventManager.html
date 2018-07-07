@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Ustart Event Title</title>
+    <title>Ustart Event Manager</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <script src="/ustart_front/js/ascii-convert.js"></script>
 </head>
@@ -37,7 +37,7 @@
                                 <h4>Project Display</h4>
                             </div>
                             <div class="widgetBody">
-                                {{range $project := .ListOfProjects}}
+                                {{range $project := .ListOfHeads}}
                                 <a class="btn btn-default projectsColumn" href="/Projects/{{$project.Username}}" data-project="{{$project.DocID}}" data-project-visible="{{$project.Followed}}">
                                     <div class="columnImage" data-toggle="tooltip" data-placement="bottom" title="{{$project.FirstName}}">
                                         <img id="proj-preview{{$project.DocID}}" class="img-responsive" src="" />
@@ -59,10 +59,10 @@
                                 {{if eq ($.Page) ($.DOCID)}}
                                 <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#peopleDisplayModal"></span>
                                 {{end}}
-                                <h4>Attendes</h4>
+                                <h4>People</h4>
                             </div>
                             <div class="widgetBody">
-                                {{range $person := .ListOfAttendes}}
+                                {{range $person := .ListOfHeads}}
                                 <a class="btn btn-default projectsColumn" href="/Profile/{{$person.Username}}" data-person="{{$person.DocID}}" data-person-visible="{{$person.Followed}}">
                                     <div class="columnImage" data-toggle="tooltip" data-placement="bottom" title="{{$person.FirstName}}">
                                         <img id="person-preview{{$person.DocID}}" class="img-responsive" src="" />
