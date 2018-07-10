@@ -150,7 +150,11 @@
 #inbox-groups {
     margin: 0;
     padding: 0;
-    list-style-type: none
+    list-style-type: none;
+}
+
+.inbox-image{
+    display:flex;
 }
 
 .inbox-group {
@@ -159,10 +163,38 @@
     -webkit-transition: background-color 0.5s;
     -o-transition: background-color 0.5s;
     transition: background-color 0.5s;
+    display:flex;
 }
 
+.inbox-left-bar,.inbox-last-msg{
+    display:inline-flex;
+}
+
+.inbox-header{
+     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex:2; 
+}
+
+
+
+.inbox-timestamp{
+     white-space: nowrap;
+    flex:1;
+}
+
+
+.inbox-side-content{
+    display:flex;
+    flex-direction: column;
+    width: 85%;
+}
 .inbox-group span {
-    margin-left: 0.5em
+    margin-left: 0.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .inbox-group.active, .inbox-group.active:hover {
@@ -332,6 +364,8 @@ span.group-message-time {
 
 .message-user-name,.message-user-time {
     margin-left: 5em;
+    margin-top:5px;
+    margin-right:5px;
     opacity: 0.6;
     font-size: 80%;
 }
@@ -355,6 +389,8 @@ span.group-message-time {
     overflow: hidden;
     height: 1.5em;
     word-break: break-all;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .invitation-message{
     text-align: left;
