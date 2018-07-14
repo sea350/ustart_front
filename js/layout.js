@@ -80,11 +80,14 @@ function toggleLogIn() {
 }
 
 function notifUpdate() {
-    if (isPanOpened(true)) {
-        document.getElementById("notifPan").innerHTML = '<h2 id="panHead">Notifications</h2><div id="closePan" onclick="closePan()">x</div>';
-        document.getElementById("notifPan").innerHTML += `<div id="notifItemWrap">
-            </div>`
-    }
+    document.getElementById("notifPan").innerHTML = '<h2 id="panHead">Notifications</h2><div id="closePan">x</div>';
+    document.getElementById("notifPan").innerHTML += `<div id="notifItemWrap"></div>`
+    return;
+}
+
+function msgUpdate() {
+    document.getElementById("chatPan").innerHTML = '<h2 id="chatpanHead">Notifications</h2><div id="closeChatPan">x</div>';
+    document.getElementById("chatPan").innerHTML += `<div id="chatItemWrap"></div>`
     return;
 }
 
@@ -154,6 +157,14 @@ function appendPanItem(t, d, l, b = false) {
     return true;
 }
 
+function appendChatPanItem(t, d, l, b = false) {
+    var resultHTML = document.getElementById('chatItemWrap').innerHTML += `<div class="panItem" onclick="location.href='` + l + `'">
+                <div class="panItemTitle">` + t + `</div>
+                <div class="panItemDesc">` + d + `</div>
+            </div>`;
+    return true;
+}
+
 var newNotifs = 0;
 
 function updateNotifBadge() {
@@ -161,6 +172,14 @@ function updateNotifBadge() {
         $('.notifBadge').css('display', 'inline').text('' + newNotifs);
     } else {
         $('.notifBadge').css('display', 'none').text('');
+    }
+}
+
+function updateChatBadge() {
+    if (newNotifs > 0) {
+        $('.chatBadge').css('display', 'inline').text('' + newNotifs);
+    } else {
+        $('.chatBadge').css('display', 'none').text('');
     }
 }
 
@@ -195,6 +214,38 @@ function appendNotifItem(person, message, timestamp, unreadStatus) {
     $('#notifDrop').prepend(notifItem);
 }
 
+
+function appendChatItem(person, message, timestamp, unreadStatus) {
+    // Load person's icon
+    var notifIcon = $('<img></img>').addClass('media-object img-rounded notif-icon');
+    $(notifIcon).attr('alt', '40x40').attr('src', 'http://placehold.it/40x40');
+    
+    var notifIconHolder = $('<div></div>').addClass('media-left').append(notifIcon);
+    var notifDismisser = $('<a></a>').addClass('close').attr('href', '#').attr('data-dismiss', 'alert').attr('aria-label', 'close').text('×');
+    var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('profile.html#' + person)).text(person);
+    var notifPersonLabel = $('<strong></strong>').append(notifPersonLabelLink, notifDismisser);
+    var notifNewLabel = $('<span></span>').addClass('label-new label label-info')
+    if (unreadStatus) {
+        notifNewLabel.text('New');
+        newNotifs++;
+        updateNotifBadge();
+    }
+    var notifPersonContainer = $('<div></div>').append(notifPersonLabel, notifNewLabel);
+    var notifMessage = $('<div></div>').addClass('notif-message').text(message);
+    var notifMessageTime = $('<div></div>').addClass('notif-timestamp').text(timestamp);
+    var notifMessageContainer = $('<div></div>').addClass('message-container media-body').append(notifPersonContainer, notifMessage, notifMessageTime);
+    var notifItem = $('<li></li>').addClass('media alert fade in').append(notifIconHolder, notifMessageContainer).click(function() {
+        var newLabel = $(this).find('.label-new');
+        if (newLabel.length > 0) {
+            newLabel.removeClass('label-new');
+            newLabel.fadeOut('fast');
+            newNotifs--;
+            updateNotifBadge();
+        }
+    });
+    $('#chatDrop').prepend(notifItem);
+}
+
 function presentLogError() {
     $('#spaced .help-block').stop(true, false).slideDown('slow').delay(4000).slideUp('slow');
 }
@@ -222,6 +273,13 @@ $(document).ready(function () {
     appendNotifItem('Broadside Chromedome', 'suggested ?project', 'NOW', true);
     appendNotifItem('Reflector Pinpointer', 'YO! You following me?', 'NOW', true);
     appendNotifItem('Broadside Chromedome', "WHAT'S UP?", 'NOW', true);
+    
+    appendChatItem('Reflector Pinpointer', 'is following you', 'NOW', true);
+    appendChatItem('Broadside Chromedome', 'is following you', 'NOW', true);
+    appendChatItem('Reflector Pinpointer', 'suggested ?link', 'NOW', true);
+    appendChatItem('Broadside Chromedome', 'suggested ?project', 'NOW', true);
+    appendChatItem('Reflector Pinpointer', 'YO! You following me?', 'NOW', true);
+    appendChatItem('Broadside Chromedome', "WHAT'S UP?", 'NOW', true);
     
     $(window).resize(function() {
         fitNavbar();
@@ -284,8 +342,5 @@ function buttonUp() {
 function recaptchaCallback() {
     $('#finished').removeAttr('disabled');
 }
-$("#form1").submit(function() {
-    
-});
 
 
