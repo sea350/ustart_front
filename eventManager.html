@@ -18,12 +18,18 @@
             <div>
                 {{range $event := .ListOfHeads}}
                 <div>
+                    {{if $event.Image}}
                     <img id="eventHead{{$event.DocID}}"/>
-                    <a href="/Event/{{$event.Username}}">{{$event.FirstName}}</a>
-                    <div>{{$event.Bio}}</div>
-                    <span>{{$event.Notifications}}</span>
-                    <span>{{$event.Interface}}</span>
                     <script>$("#eventHead{{$event.DocID}}").attr("src", "{{$event.Image}}")</script>
+                    {{end}}
+                    <a href="/Event/{{$event.DocID}}">{{$event.FirstName}}</a>
+                    <div>{{$event.Bio}}</div>
+                    {{if $event.Notifications ge 1}}
+                    <span>{{$event.Notifications}}</span>
+                    {{end}}
+                    {{if $event.Interface}}
+                    <span>{{$event.Interface}}</span>
+                    {{end}}
                 </div>
                 {{end}}
             </div>
