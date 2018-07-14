@@ -18,6 +18,7 @@
 <body>
     <div id="centering" style="top: 6em;">
          <div id="content">
+            <div class="container col-md-6 col-md-offset-3" >
                 {{ if .ErrorOutput }}
                 <div id="dup-email-alert" class="alert alert-danger alert-dismissible fade in" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -25,48 +26,45 @@
                     </button>
                     <strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
                 </div>
-				{{end}}             
-            <div class="container col-md-8 col-md-offset-2" >
-
+				{{end}}
                 <form class="form-signup" id="projectCreateForm" action="/CreateProjectPage/" method="post">
                     <h2 style="padding:0; text-align: center;">Create A Project</h2>
                     <!-- Name -->
                     <div class="row">
-                        <div class="dropdown col-md-8">
-                            <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-folder-open"></i></span>
-                                    <input type="text" id="fName" name="project_title" class="form-control" placeholder="Title of Project" required>
-                            </div> 
+                        <div class="dropdown col-md-7"> 
+                            <label for="fName" class="sr-only">Title of Project</label>
+                            <input type="text" id="fName" name="project_title" class="form-control" placeholder="Title of Project" required autofocus>
                         </div>
-                        <div class="dropdown col-md-4">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                <select type="text" id="category" name="category" class="form-control" placeholder="Category" required>
+                        <div class="dropdown col-md-5">
+                            <label for="category" class="sr-only">Category</label>
+                            <select type="text" id="category" name="category" class="form-control" placeholder="Category" required>
                                 <option></option>
-                                </select>
-                            </div>
+                            </select>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="dropdown col-md-8">
-                            <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-                                    <input type="text" id="curl" name="curl" class="form-control" placeholder="Custom URL (ustart.today/example/)" pattern="[A-Za-z\d][\w\d-]+[A-Za-z\d]">
-                            </div>
-                            <span>Characters, Digits, Dashes, and Underscores Only. No Starting or Ending Symbols.</span>  
+                        <div class="dropdown col-md-6">
+                            <label for="curl" class="sr-only">Custom URL</label>
+                            <span>ustart.today/projects/</span>
+                            <input type="text" id="curl" name="curl" class="form-control" placeholder="Custom URL (ustart.today/example/)" pattern="[A-Za-z\d][\w\d-]+[A-Za-z\d]">
+                            <div>Characters, Digits, Dashes, and Underscores Only. No Starting or Ending Symbols.</div>
                         </div>
-
-                        <div class="dropdown col-md-4">
-                            <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
-                                    <input name="universityName" class="form-control" id="uni" placeholder="University/College" required>
-                            </div>
+                        <div class="dropdown col-md-6">
+                            <input name="universityName" class="form-control" id="uni" placeholder="University/College" required autofocus>
+                            <script type="text/javascript">
+                            $(document).ready(function() {
+                                $("#uni").autocomplete({
+                                    source: function(request, response) {
+                                        var results = $.ui.autocomplete.filter(universities, request.term);
+                                        response(results.slice(0, 10));
+                                    }
+                                });
+                            });
+                            </script>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="dropdown col-sm-3">
+                        <div class="dropdown col-sm-4">
                             <select id="country" name="country" class="form-control" autocomplete="country-name"></select>
                         </div>
                         <div class="dropdown col-sm-3">
@@ -78,20 +76,17 @@
                         <div class="dropdown col-sm-3">
                             <input id="city" name="city" class="form-control" placeholder="City" autocomplete="city">
                         </div>
-                        <div class="dropdown col-sm-3">
+                        <div class="dropdown col-sm-2">
                             <input id="zip" name="zip" class="form-control" placeholder="Zip" autocomplete="postal-code">
                         </div>
                     </div>
-
-                    <br/>
-                    
+					<br/>
                     <div class="row">
                         <div class="dropdown col-sm-12">
                             <label for="project_desc" class="sr-only">Project Description</label>
                             <textarea maxlength="1100" style="resize: none;" type="text" class="form-control" id="project_desc" name="project_desc" rows="4" placeholder="Please describe your project goal" required></textarea>
                         </div>
                     </div>
-
                     <div class="row">
                             <div class="col-md-4">
                                 <button class="btn btn-danger btn-lg btn-block" id="back-button" onclick="window.history.back();"><i class="fa fa-angle-left" style="display: inline-block"></i> Back</button>
@@ -114,23 +109,6 @@
         </div>
     </div>
     <footer id="foot"></footer>
-
-    <script>
-            $(document).ready(function(){
-                $('#fName').focus(function(){
-                    $(this).attr({'value':'ustart.today/projects/'})
-                });
-                $('#curl').focus(function(){
-                    $(this).attr({'value':'ustart.today/'})
-                });
-                $("#uni").autocomplete({
-                    source: function(request, response) {
-                        var results = $.ui.autocomplete.filter(universities, request.term);
-                        response(results.slice(0, 10));
-                    }
-                });                           
-            });
-        </script>    
 </body>
 
 </html>

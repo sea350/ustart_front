@@ -97,7 +97,7 @@ body {
 
 .padded {
     width: 25em;
-    max-height: calc(100vh - 4em);
+    max-height: calc(100vh - 13em);
     overflow-y: auto;
 }
 .padded>li {
@@ -541,7 +541,7 @@ input {
         left: auto;
         width: 100vw;
     }
-    .navbar-nav>li>.dropdown-menu {
+    .leftnavbar-nav>li>.dropdown-menu {
         position: fixed;
         left: 0;
         border: none;
