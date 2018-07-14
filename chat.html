@@ -62,6 +62,7 @@
 						</li>
                         -->
                         <script>
+                            
                         </script>
 					</ul>
 				</div>
@@ -91,19 +92,19 @@
                                                         }
                                                         var temp = window.location.href.indexOf("ch");
                                                         var urlid = window.location.href.substring(temp+3);
-                                                        console.log(urlid);
                                                         if (urlid===""){
                                                             window.history.pushState("", "", "/ch/");
+                                                            $(".message-box").attr("id", "chat");
+                                                            $(".inputMessages").attr("id", "messager");
+                                                            $('.chat-submit').attr("id", "chat-submit");
                                                         }
                                                         else{
                                                             window.history.pushState("", "", "/ch/"+urlid);
                                                             $("#"+urlid).addClass('active');
-                                                        }
-                                                          if ($(".inbox-group").length > 0){
                                                             $(".message-box").attr("id", "chat"+ urlid);
                                                             $(".inputMessages").attr("id", "messager"+ urlid);
                                                             $('.chat-submit').attr("id", "chat-submit"+ urlid);
-                                                          }
+                                                        }
                                                         socket = new WebSocket('ws://' + window.location.host + '/ws/'+urlid);
                                                         socket.onopen = function(){
                                                             console.log('Socket Status: '+socket.readyState+'(open)');
@@ -154,12 +155,10 @@
                                                     if ($("#messager"+ id)!= '') {
                                                         var timeNow = new Date().getTime();  
                                                         socket.send(JSON.stringify({
-                                                            Message: $("#messager"+ id).text()
+                                                            Message: $("#messager"+id).val()
                                                         }));
-                                                        if ($(".inbox-group").length > 0){
-                                                        $("#messager"+ id)="";
-                                                        }
-                                                        $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
+                                                        $("#messager"+id).val('');
+                                                         $('#chat'+ urlid).scrollTop($('#chat'+ urlid)[0].scrollHeight);
                                                     }
                                                 }
                                                 else{
@@ -180,13 +179,10 @@
                                                     }
                                                     var temp = window.location.href.indexOf("ch");
                                                     var urlid = window.location.href.substring(temp+3);
-                                                    console.log(urlid);
                                                     socket= new WebSocket('ws://' + window.location.host + '/ws/'+urlid);
-                                                     if ($(".inbox-group").length > 0){
-                                                        $(".message-box").attr("id", "chat"+ urlid);
-                                                        $(".inputMessages").attr("id", "messager"+ urlid);
-                                                        $('.chat-submit').attr("id", "chat-submit"+ urlid);
-                                                     }
+                                                    $(".message-box").attr("id", "chat"+ urlid);
+                                                    $(".inputMessages").attr("id", "messager"+ urlid);
+                                                    $('.chat-submit').attr("id", "chat-submit"+ urlid);
                                                     socket.onopen = function(){
                                                         console.log('Socket Status: '+socket.readyState+'(open)');
                                                         sockets.push(socket);

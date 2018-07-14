@@ -66,9 +66,12 @@
                     </a>
                 </li>
                 <li class="navbar-btn nav-item" data-toggle="tooltip" data-placement="left" title="Messages">
-                    <a href="/ch/">
-                        <i class="fa fa-envelope fa-2x" style="color:white;"></i>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell fa-2x" style="color:white;"></i>
+                        <span class="badge chatBadge">4</span>
                     </a>
+                    <ul id="chatDrop" class="dropdown-menu padded">
+                    </ul>
                 </li>
                 <li class="navbar-btn nav-item dropdown" data-toggle="tooltip" data-placement="left" title="Notifications">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
