@@ -24,7 +24,7 @@
                     {{end}}
                     <a href="/Event/{{$event.DocID}}">{{$event.FirstName}}</a>
                     <div>{{$event.Bio}}</div>
-                    {{if $event.Notifications ge 1}}
+                    {{if $event.Notifications ne "0"}}
                     <span>{{$event.Notifications}}</span>
                     {{end}}
                     {{if $event.Interface}}
