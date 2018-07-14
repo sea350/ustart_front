@@ -97,8 +97,8 @@ function createLink(existingSite, siteDescription) {
 
 $(document).ready(function() {
 	$('#link-submit-btn').click(function(event) {
-		var httpURL = $('input[name$="webURL"]').val();
-		var userlinkdesc = $('input[name$="webTitle"]').val();
+		var httpURL = $('input[name$="webURL"]').text();
+		var userlinkdesc = $('input[name$="webTitle"]').text();
 		if (linkList.length < 16) {
 			if ($.inArray(httpURL, linkList) == -1) {
 				$.ajax({
@@ -125,8 +125,8 @@ $(document).ready(function() {
 	});
 	$('#link-project-submit-btn').click(function(event) {
 		var httpURL = $('input[name$="webURL"]').val();
-		var projectlinkdesc = $('input[name$="webTitle"]').val();
-		var projectid = $('input[name$="projectID"]').val();
+		var projectlinkdesc = $('input[name$="webTitle"]').text();
+		var projectid = $('input[name$="projectID"]').text();
 		if (linkList.length < 16) {
 			if ($.inArray(httpURL, linkList) == -1) {
 				$.ajax({

@@ -85,11 +85,10 @@
 							<div id="info-wrap">
 								<div id="name-cont">
 									<h3 style="margin-bottom: 0.2em;">
-										<a href="/profile/{{.UserInfo.Username}}">
-
+										<a data-toggle="tooltip" title= "title?" data-placement='bottom'  href="/profile/{{.UserInfo.Username}}">
+											
 											<strong id="name">{{.UserInfo.FirstName}} {{.UserInfo.LastName}}</strong>
 										</a>
-										
 										<span class="dot">
 											<span class="active">
 												<i class="fa fa-circle" aria-hidden="true" data-toggle="tooltip" title="Active"></i>
@@ -125,12 +124,33 @@
 								{{if not .UserInfo.Description}}
 									<i>No Description</i>
 								{{else}}
-								<span id="description">
-									<script>readRuneArray({{.UserInfo.Description}});</script>
-								</span>
+								<div class="ellipsis">
+								<a href="#description_modal" data-toggle="modal"> 
+									<span id="description">
+										<script>readRuneArray({{.UserInfo.Description}});</script>
+									</span>
+								</a>
+								</div>
+								
+
+								<div id="description_modal" class="modal fade">
+										<div class="modal-dialog modal-sm">
+												<div class="modal-content">
+													<div class="modal-body">
+														<strong>Description: </strong>
+															<script>readRuneArray({{.UserInfo.Description}});</script>
+													</div>
+												</div>
+											</div>									
+									</div>
+									
+
 								{{end}}
 							</p>
 						</div>
+
+							
+							
 						<hr>
 						<div id="user-nums">
 							<div id="followers">
@@ -299,6 +319,7 @@
 				<script>
 					$(document).ready(function() {
 						$('.widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort, [data-project-visible="false"]').remove();
+						
 					});
 				</script>
 				{{end}}
@@ -428,7 +449,7 @@
 									<div class="widgetBody">
 									{{range $project := .ListOfHeads}}
 										<a class="btn btn-default projectsColumn" href="/Projects/{{$project.Username}}" data-project="{{$project.DocID}}" data-project-visible="{{$project.Followed}}">
-											<div class="columnImage" data-toggle="tooltip" data-placement="bottom" title="{{$project.FirstName}}">
+											<div class="columnImage" data-toggle="tooltip" data-placement="top" title="{{$project.FirstName}}">
 												<img id="proj-preview{{$project.DocID}}" class="img-responsive" src=""/>
 												<script>
 													$("#proj-preview{{$project.DocID}}").attr('src', {{$project.Image}});
@@ -566,6 +587,7 @@
                                 </div>
                             </li>
 							{{end}}<!--end soundcloud -->
+
 							{{if eq $loop.Classification 6}}
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
@@ -582,15 +604,20 @@
                                     </div>
                                     <div class="widgetBody">
                                         <div class="youtube-feed">
-                                             <div id=player{{index $loop.ID}}></div>
-                                             <script type="text/javascript">
-                                                  YoutubeRender({{index $loop.Data 0}},{{index $loop.ID}});
-                                            </script>
+                                             <div id='player{{index $loop.ID}}'>
+											 </div>
+											 <script>
+												$( document ).ready(function() {
+												YoutubeRender({{index $loop.Data 0}},{{index $loop.ID}});
+												});
+											 </script>
                                         </div>
                                     </div>
                                 </div>
                             </li>
 							{{end}}<!--end youtube -->
+
+
 							{{if eq $loop.Classification 7}}  
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
@@ -1041,7 +1068,7 @@
 							<form id="customYoutubeForm" action="/addWidget/" method="POST">
                                 <div class="modal-body">
                                      <label>Please paste the Youtube URL here</label>
-                                    <input id="youtubeLink" class="form-control" name="ytInput" placeholder="Youtube URL" autofocus required />
+                                    <input id="youtubeLink" class="form-control" name="ytinput" placeholder="Youtube URL" autofocus required />
                                     <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
                                 </div>
                                 <div class="modal-footer">
@@ -1083,7 +1110,7 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">Embed Instagram Posts</h4>
                             </div>
-                            <form id="customInstagramForm" action="/addWidget/" method="POST">
+                            <form id="customInstagramForm" action="/addWidcget/" method="POST">
                                 <div class="modal-body">
                                     <span id="ig-list-title">Removable Instagram posts</span>
                                     <ul id="ig-edit-list"></ul>
