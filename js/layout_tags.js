@@ -23,14 +23,19 @@ function addTag(element, tag) {
 }
 
 function createTagWidgetElement(element, tag) {
-	var tagHTML = `
-			<button class="btn btn-default projectsColumn" id="skill-`+ tag + `">
-				<div class="columnImage">
-					<div class="columnTitle">`+tag+`</div>
-				</div>
-			</button>
-			`;
-	$(element).append(tagHTML);
+    var tagspan = $('<button/>').attr({'id': 'skill-'+ tag, 'class': 'btn btn-default projectsColumn'});
+    var colDiv = $('<div />').attr({'class': 'columnImage'});
+    var colTitle = $('<div />').attr({'class': 'columnTitle'}).text(tag);
+    colDiv.append(colTitle);
+    tagspan.append(colDiv);
+	//var tagHTML = `
+			//<button class="btn btn-default projectsColumn" id="skill-`+ tag + `">
+			//	<div class="columnImage">
+					//<div class="columnTitle">`+tag+`</div>
+			//	</div>
+		//	</button>
+			//`;
+	$(element).append(tagspan);
 //	taglist.push(tag);
 //	if (taglist.length >= 16) {
 //		$('#tagModal .modal-footer button[name="widgetSubmit"]').attr('disabled', 'true');
@@ -55,15 +60,22 @@ function createTagModalElement(tag) {
 			if (taglist.length == 0) {
 				$("#hashtags").html("");
 			}
-			var tagHTML = `
-					<span name="instaURL" class="btn btn-default projectsColumn" id="skill-`+ tag + `" value="`+ tag +`">
-						<div class="deleteTagBtn" onclick="removeTag(this)">x</div>
-						<div class="columnImage">
-							<div class="columnTitle">`+tag+`</div>
-						</div>
-					</span>
-					`;
-			$("#hashtags").append(tagHTML);
+            var tagspan = $('<span />').attr({'id': 'skill-'+ tag, 'class': 'btn btn-default projectsColumn'});
+            var colDiv = $('<div />').attr({'class': 'columnImage'});
+            var colTitle = $('<div />').attr({'class': 'columnTitle'}).text(tag);
+            var deleteTagBtn = $('<div />').attr({'class': 'deleteTagBtn', 'onClick':"removeTag(this)"}).text('x');
+            
+            colDiv.append(colTitle);
+            tagspan.append(deleteTagBtn, colDiv);
+			//var tagHTML = `
+					//<span name="instaURL" class="btn btn-default projectsColumn" id="skill-`+ tag + `" value="`+ tag +`">
+						//<div class="deleteTagBtn" onclick="removeTag(this)">x</div>
+						//<div class="columnImage">
+							//<div class="columnTitle">`+tag+`</div>
+						//</div>
+					//</span>
+					//`;
+			$("#hashtags").append(tagspan);
 			taglist.push(tag);
 			if (taglist.length >= 16) {
 				$('#tagModal .modal-footer button[name="widgetSubmit"]').attr('disabled', 'true');
@@ -109,8 +121,9 @@ $(document).ready(function () {
 		}
 	});
 
-	$('#tagModal').on('shown.bs.modal', resetTagModal("#hashtags"));
-	$('#wantedSkillModal').on('shown.bs.modal', resetTagModal("#wantedSkill"));
+	$('#tagModal').on('show.bs.modal', function() { resetTagModal("#hashTags"); });
+	$('#wantedSkillModal').on('show.bs.modal', function() { resetTagModal("#wantedSkill"); });
+
 	
     $('#tag-submit').click(function(e) {
 		if ($('#tagLineInput').val().length > 0) {
@@ -130,9 +143,12 @@ $(document).ready(function () {
             success: function(data) {
                 $("#hashtags, #hashTagsBody").html('');
                 $(skillList).each(function(index, element) {
-                    var tag = element;
+                var tag = element;
+		console.log("DEBUG3");
 					createTagWidgetElement("#hashTagsBody", tag);
+		console.log("DEBUG2");
                 });
+		console.log("DEBUG1");
                 $("#tagModal").modal('hide');
             }
         });

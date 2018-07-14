@@ -27,9 +27,9 @@
 					</div>
 					<br/>
 					<ul id="inbox-groups">
-                        <!-- sample chat -->
-						<li class="inbox-group active">
-                            <div class="inbox-image"><img class="inbox-icon" src="img/img1.png"/></div>
+                        <!-- sample chat replace variables
+						<li class="inbox-group" id="1">
+                            <div class="inbox-image"><img class="inbox-icon" src=""/></div>
 							<div class="inbox-side-content">
                                 <div class = "inbox-left-bar">
                                     <div class = "inbox-header">
@@ -40,15 +40,33 @@
                                     </div>
                                 </div>
                                 <div class = "inbox-last-msg">
-                                <span class="group-message">Pikachu: Pika Chuu!</span>
+                                <span class="group-message"></span>
                                 </div>
                             </div>
 						</li>
-                        <!-- -->
+                        <li class="inbox-group" id="2">
+                            <div class="inbox-image"><img class="inbox-icon" src=""/></div>
+							<div class="inbox-side-content">
+                                <div class = "inbox-left-bar">
+                                    <div class = "inbox-header">
+                                    <span class="group-header" >Pikachu Chat</span>
+                                    </div>
+                                    <div class = "inbox-timestamp">
+                                    <span class="group-message-time">5:00 PM</span>
+                                    </div>
+                                </div>
+                                <div class = "inbox-last-msg">
+                                <span class="group-message"></span>
+                                </div>
+                            </div>
+						</li>
+                        -->
+                        <script>
+                        </script>
 					</ul>
 				</div>
 				<div class="container-right">
-					<div id="0" class="box-chat">
+					<div class="box-chat">
 						<h3 class="message-head">Chat
                         <!-- collapsable member list -->
                         <a id="sidebarCollapse" data-toggle="tooltip" data-placement="top" title="Members" style="float:right;">
@@ -60,14 +78,115 @@
 								<ul class="message-box">
 									<script>
                                         $( document ).ready(function() {
-                                            if(!("WebSocket" in window)){
-                                                console.log("you need a browser that supports web sockets")
-                                             }else{
-                                                 try{
-                                                    for(var s in sockets){
-                                                        s.close();
+                                            //initial set up
+                                                if(!("WebSocket" in window)){
+                                                    console.log("you need a browser that supports web sockets");
+                                                 }else{
+                                                     try{
+                                                        if (sockets.length>0){
+                                                            sockets.forEach(function(s) {
+                                                                s.close();
+                                                                sockets=[];
+                                                            });
+                                                        }
+                                                        var temp = window.location.href.indexOf("ch");
+                                                        var urlid = window.location.href.substring(temp+3);
+                                                        console.log(urlid);
+                                                        if (urlid===""){
+                                                            window.history.pushState("", "", "/ch/");
+                                                        }
+                                                        else{
+                                                            window.history.pushState("", "", "/ch/"+urlid);
+                                                            $("#"+urlid).addClass('active');
+                                                        }
+                                                          if ($(".inbox-group").length > 0){
+                                                            $(".message-box").attr("id", "chat"+ urlid);
+                                                            $(".inputMessages").attr("id", "messager"+ urlid);
+                                                            $('.chat-submit').attr("id", "chat-submit"+ urlid);
+                                                          }
+                                                        socket = new WebSocket('ws://' + window.location.host + '/ws/'+urlid);
+                                                        socket.onopen = function(){
+                                                            console.log('Socket Status: '+socket.readyState+'(open)');
+                                                            sockets.push(socket);
+                                                        }
+                                                        socket.onmessage = function(e){
+                                                            //replace later
+                                                            var sender ="Mother Russia";
+                                                            console.log('Received: '+e.data);
+                                                            var timeNow = new Date().getTime();
+                                                            var msg = JSON.parse(e.data);
+                                                            if(msg.DocID == {{.DOCID}}){
+                                                                var senderCheck = true;
+                                                            }
+                                                            else{
+                                                                var senderCheck = false;
+                                                            }
+                                                            populateMessageModified(urlid, Math.floor(Math.random() * 99999), sender,
+                                                            msg.Message, '', timeNow, senderCheck);
+                                                            if (senderCheck==true){
+                                                                $('.inbox-group.active .group-message').text("You: "+msg.Message);
+                                                            }
+                                                            else{
+                                                                $('.inbox-group.active .group-message').text(sender+": "+msg.Message); 
+                                                            }
+                                                            $('.inbox-group.active .group-message-time').text(formatTime(timeNow));
+                                                            $('#chat'+ urlid).scrollTop($('#chat'+ urlid)[0].scrollHeight);
+                                                        } 
+                                                     }
+                                                     catch(exception){
+                                                         console.log('Error: '+exception);
                                                     }
-                                                    var socket = new WebSocket('ws://' + window.location.host + '/ws/');
+                                                }
+                                            
+                                            
+                                            
+                                            $('.inputMessages').keydown(function (e) {
+                                                var temp = window.location.href.indexOf("ch");
+                                                var id = window.location.href.substring(temp+3);
+                                                if (e.keyCode == 13) {
+                                                    $("#chat-submit"+ id).click();
+                                                }
+                                            });       
+                                            $('.chat-submit').click(function(){
+                                                if(socket.readyState === socket.OPEN){
+                                                     var temp = window.location.href.indexOf("ch");
+                                                     var id = window.location.href.substring(temp+3);
+                                                    if ($("#messager"+ id)!= '') {
+                                                        var timeNow = new Date().getTime();  
+                                                        socket.send(JSON.stringify({
+                                                            Message: $("#messager"+ id).text()
+                                                        }));
+                                                        if ($(".inbox-group").length > 0){
+                                                        $("#messager"+ id)="";
+                                                        }
+                                                        $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
+                                                    }
+                                                }
+                                                else{
+                                                    console.log(socket.readyState);
+                                                }
+                                            });
+                                            
+                                            //switch socket on the fly
+                                            $(".inbox-group").on( "click", function(e) {
+                                                var chatIden = e.currentTarget.id;
+                                                window.history.pushState("", "", "/ch/"+chatIden);
+                                                try{
+                                                    if (sockets.length>0){
+                                                        sockets.forEach(function(s) {
+                                                            s.close();
+                                                            sockets=[];
+                                                        });
+                                                    }
+                                                    var temp = window.location.href.indexOf("ch");
+                                                    var urlid = window.location.href.substring(temp+3);
+                                                    console.log(urlid);
+                                                    socket= new WebSocket('ws://' + window.location.host + '/ws/'+urlid);
+                                                     if ($(".inbox-group").length > 0){
+                                                        $(".message-box").attr("id", "chat"+ urlid);
+                                                        $(".inputMessages").attr("id", "messager"+ urlid);
+                                                        $('.chat-submit').attr("id", "chat-submit"+ urlid);
+                                                     }
                                                     socket.onopen = function(){
                                                         console.log('Socket Status: '+socket.readyState+'(open)');
                                                         sockets.push(socket);
@@ -83,43 +202,34 @@
                                                         }
                                                         else{
                                                             var senderCheck = false;
+                                                        }  
+                                                        //replace values
+                                                        populateMessageModified(urlid, Math.floor(Math.random() * 99999), sender,
+                                                        msg.Message, '', timeNow, senderCheck);
+                                                        if (senderCheck==true){
+                                                            $('.inbox-group.active .group-message').text("You: "+msg.Message);
                                                         }
-                                                        populateMessage(Math.floor(Math.random() * 99999), sender,
-			                                            msg.Message, 'img/img1.png', timeNow, senderCheck);
-                                                        $('.inbox-group.active .group-message').text(sender+": "+msg.message);
-			                                            $('.inbox-group.active .group-message-time').text(formatTime(timeNow));
-                                                        $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
+                                                        else{
+                                                            $('.inbox-group.active .group-message').text(sender+": "+msg.Message); 
+                                                        }
+                                                        $('.inbox-group.active .group-message-time').text(formatTime(timeNow));
+                                                        $('#chat'+ urlid).scrollTop($('#chat'+ urlid)[0].scrollHeight);
                                                     }
-                                                    $('.inputMessages').keydown(function (e) {
-                                                        if (e.keyCode == 13) {
-                                                            $('#chat-submit-btn').click();
-                                                        }
-                                                    });
-                                                    $('.chat-submit').click(function(e) {
-                                                        if ($('#messager').val().length > 0) {
-                                                            var timeNow = new Date().getTime();                                       
-                                                            socket.send(JSON.stringify({
-                                                                Message: $('#messager').val()
-                                                            }));
-                                                            $('#messager').val('');
-                                                            $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
-                                                        }
-                                                    });
                                                  }
                                                  catch(exception){
                                                      console.log('Error: '+exception);
                                                 }
-                                             }
-                                            
+                                            });
                                         });
+                                        
                                     </script>
 								</ul>
 								<div class="message-foot">
                                     <div class="input-group col-xs-12">
                                         <!-- --------message input ------------------------------------------------------->
-                                        <input id="messager" class="form-control inputMessages" type="text" placeholder="Message here" autocomplete='off' autofocus />
+                                        <input class="form-control inputMessages" type="text" placeholder="Message here" autocomplete='off' autofocus />
                                         <span class="input-group-addon">
-                                            <button class="btn btn-default chat-submit" id="chat-submit-btn" type="submit">
+                                            <button class="btn btn-default chat-submit">
                                                <i class="glyphicon glyphicon-chevron-right"></i>
                                             </button>
                                         </span>

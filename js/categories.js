@@ -9,8 +9,3 @@ function list_categories(categoryId){
 		category_name.options[category_name.length] = new Option(categories[i], categories[i]);
 	}
 }
-
-
-    for (var i = 0; i < country_arr.length; i++) {
-        countryElement.options[countryElement.length] = new Option(country_arr[i], country_arr[i]);
-    }

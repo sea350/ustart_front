@@ -80,7 +80,8 @@ function YouTubeGetID(url) {
 }
 
 function YoutubeRender(youtubeID, widgetID) {
-    console.log(youtubeID);
+	console.log(youtubeID);
+	console.log(widgetID);
     var youtubeURL = YouTubeGetID(youtubeID);
     var divprefix = "#player";
     var finalDest = divprefix.concat(widgetID);
@@ -178,6 +179,7 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 }
 
 function tumblrRender (tumblrUsername) {
+	console.log('tumblur'+tumblrUsername);
 	// Using RSS to render custom containers
 	$('#widgetBodyTumblr').rss("http://" + encodeURI(tumblrUsername) + ".tumblr.com/rss", {
 		limit: 12,

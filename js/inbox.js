@@ -1,6 +1,3 @@
-function populateGroups() {
-	
-}
 
 var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 function dateFormat(time) {
@@ -98,14 +95,17 @@ function composeNewGroup() {
 	$('#composer').focus();
 }
 
-function addBlankGroup() {
+/*function addBlankGroup() {
+    console.log("swapping group");
 	if ($('.blank-group').length < 1) {	
 		// Blank Icon
 		var listItemIcon = $('<img/>').addClass('inbox-icon').attr('src', 'img/img1.png');
 		var listItemHeader = $('<span></span>').addClass('group-header').text('New Message');
 		var listItemTime = $('<span></span>').addClass('group-message-time');
 		var listItemMessage = $('<span></span>').addClass('group-message');
-
+        var showMembers = '<a id="sidebarCollapse" data-toggle="tooltip" data-placement="top" title="Members" style="float:right;">\
+				            <i class="fa fa-angle-double-left" style="color:#00ac7d;"></i>\
+						</a>';
 		var listItem = $('<li></li>').addClass('inbox-group blank-group')
 		.append(listItemIcon, listItemHeader, listItemTime, $('<br/>'), listItemMessage);
 
@@ -117,7 +117,7 @@ function addBlankGroup() {
 		}, 'fast');
 	}
 	$('.blank-group').addClass('active');
-}
+}*/
 
 function formatTime(datetime) {
 	// Add custom time text here
@@ -140,8 +140,10 @@ function formatTime(datetime) {
 function loadGroup(groupname) {
 	// Clear message-box
 	$('.message-box').empty();
-	
-	$('.box-chat .message-head').text(groupname);
+    var showMembers = '<a id="sidebarCollapse" data-toggle="tooltip" data-placement="top" title="Members" style="float:right;">\
+				            <i class="fa fa-angle-double-left" style="color:#00ac7d;"></i>\
+						</a>';
+	$('.box-chat .message-head').text(groupname).append(showMembers);
 	$('.box-compose').hide('fast');
 	$('.box-chat').show('fast');
 }
@@ -175,7 +177,7 @@ $(document).ready(function () {
 	});
     
 	
-	$('#composer-form').submit(function(event) {
+	/*$('#composer-form').submit(function(event) {
 		event.preventDefault();
 		
 		// Edit blank group into new group
@@ -192,7 +194,7 @@ $(document).ready(function () {
 				}
 			});
 		}
-	});
+	});*/
 	
 	$('.box-compose').hide();
 	
