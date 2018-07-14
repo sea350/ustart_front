@@ -17,17 +17,25 @@
             <div>Event</div>
             <div>
                 {{range $event := .ListOfHeads}}
-                <div>
+                <div class="card">
                     {{if $event.Image}}
-                    <img id="eventHead{{$event.DocID}}"/>
+                    <a href="/Event/{{$event.DocID}}">
+                        <img id="eventHead{{$event.DocID}}" class="img-responsive" />
+                    </a>
                     <script>$("#eventHead{{$event.DocID}}").attr("src", "{{$event.Image}}")</script>
                     {{end}}
-                    <a href="/Event/{{$event.DocID}}">{{$event.FirstName}}</a>
-                    <div>{{$event.Bio}}</div>
-                    <span>{{$event.Notifications}}</span>
-                    {{if $event.Interface}}
-                    <span>{{$event.Interface}}</span>
-                    {{end}}
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="/Event/{{$event.DocID}}">{{$event.FirstName}}</a>
+                        </h4>
+                        <p class="card-text">
+                            <script>readRuneArray({{ $event.Bio }});</script>
+                        </p>
+                        <span>{{$event.Notifications}}</span>
+                        {{if $event.Interface}}
+                        <span>{{$event.Interface}}</span>
+                        {{end}}
+                    </div>
                 </div>
                 {{end}}
             </div>

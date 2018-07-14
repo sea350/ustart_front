@@ -15,17 +15,23 @@
         <div class="container">
             <div class="tab-content">
                 <div id="prof-about" class="tab-pane fade in active">
-                    <img id="avatar" />
-                    <script>$("#avatar").attr("src", {{.UserInfo.Avatar }})</script>
+                    <img id="eventAvatar" />
+                    <script>$("#eventAvatar").attr("src", {{.Event.Avatar }})</script>
                     <div>
-                        Title
+                        {{.Event.Name}}
                     </div>
                     <div>
-                        Starting Date
+                        Starts: {{.Event.EventDateStart}}<br/>
+                        Ends: {{.Event.EventDateEnd}}
                     </div>
                     <div>
-                        Location
+                        {{.Event.Location}}
                     </div>
+                    {{if .Event.Description}}
+                    <div>
+                        <script>readRuneArray({{.Event.Description}});</script>
+                    </div>
+                    {{end}}
                     <!-- project widget -->
                     <div id="projectDisplay" class="ui-state-default widgetListItem">
                         <div class="projectsWidgetCont">
