@@ -15,6 +15,18 @@
         <div class="container">
             <a class="btn btn-info" href="/StartEvent/">Create Event</a>
             <div>Event</div>
+            <div>
+                {{range $event := .ListOfHeads}}
+                <div>
+                    <img id="eventHead{{$event.DocID}}"/>
+                    <a href="/Event/{{$event.Username}}">{{$event.FirstName}}</a>
+                    <div>{{$event.Bio}}</div>
+                    <span>{{$event.Notifications}}</span>
+                    <span>{{$event.Tags}}</span>
+                    <script>$("#eventHead{{$event.DocID}}").attr("src", "{{$event.Image}}")</script>
+                </div>
+                {{end}}
+            </div>
         </div>
     </div>
 </body>
