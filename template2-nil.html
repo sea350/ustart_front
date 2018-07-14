@@ -66,12 +66,17 @@
                     </a>
                 </li>
                 <li class="navbar-btn nav-item" data-toggle="tooltip" data-placement="left" title="Messages">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell fa-2x" style="color:white;"></i>
-                        <span class="badge chatBadge">4</span>
-                    </a>
-                    <ul id="chatDrop" class="dropdown-menu padded">
-                    </ul>
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="fa fa-bell fa-2x" style="color:white;"></i>
+                            <span class="badge chatBadge">4</span>
+                        </a>
+                            <ul class="dropdown-menu">
+                            <div id ="chatDrop" class = "padded">
+                            </div>
+                            <footer class="footer" style ="border-top: 1px solid white;">
+                                <a style="margin-left:1em;" href="/ch/">See All Messages</a>
+                            </footer>
+                            </ul>
                 </li>
                 <li class="navbar-btn nav-item dropdown" data-toggle="tooltip" data-placement="left" title="Notifications">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
