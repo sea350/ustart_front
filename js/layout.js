@@ -215,15 +215,28 @@ function appendNotifItem(person, message, timestamp, unreadStatus) {
 }
 
 
+
+function appendEmptyItem(destination) {
+    // Load person's icon
+    var notifItem = "<li class ='media alert fade in emptyState'> \
+                        <div class ='message-container media-body>'\
+                            <div class = 'notif-message'>\
+                                There appears to be nothing here.\
+                            </div>\
+                        </div></li>";
+    $('#'+destination).prepend(notifItem);
+}
+
+
 function appendChatItem(chatID, person, message, timestamp, unreadStatus) {
     // Load person's icon
     var notifIcon = $('<img></img>').addClass('media-object img-rounded notif-icon');
     $(notifIcon).attr('alt', '40x40').attr('src', 'http://placehold.it/40x40');
     
     var notifIconHolder = $('<div></div>').addClass('media-left').append(notifIcon);
-    var notifDismisser = $('<a></a>').addClass('close').attr('href', '#').attr('data-dismiss', 'alert').attr('aria-label', 'close').text('×');
+    //var notifDismisser = $('<a></a>').addClass('close').attr('href', '#').attr('data-dismiss', 'alert').attr('aria-label', 'close').text('×');
     var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('/ch/' + chatID)).text(person);
-    var notifPersonLabel = $('<strong></strong>').append(notifPersonLabelLink, notifDismisser);
+    var notifPersonLabel = $('<strong></strong>').append(notifPersonLabelLink);
     var notifNewLabel = $('<span></span>').addClass('label-new label label-info')
     if (unreadStatus) {
         notifNewLabel.text('New');
@@ -267,7 +280,7 @@ function fitNavbar() {
 }
 
 $(document).ready(function () {
-    
+    appendEmptyItem("notifDrop");
     appendNotifItem('Reflector Pinpointer', 'is following you', 'NOW', true);
     appendNotifItem('Broadside Chromedome', 'is following you', 'NOW', true);
     appendNotifItem('Reflector Pinpointer', 'suggested ?link', 'NOW', true);
@@ -275,7 +288,8 @@ $(document).ready(function () {
     appendNotifItem('Reflector Pinpointer', 'YO! You following me?', 'NOW', true);
     appendNotifItem('Broadside Chromedome', "WHAT'S UP?", 'NOW', true);
     
-    appendChatItem(1,'Reflector Pinpointer', 'is following you', 'NOW', true);
+    appendEmptyItem("chatDrop");
+    //appendChatItem(1,'Reflector Pinpointer', 'is following you', 'NOW', true);
     
     $(window).resize(function() {
         fitNavbar();

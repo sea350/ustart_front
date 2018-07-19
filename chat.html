@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width">
     <title>ustart</title>
 	<link rel="stylesheet" href="/ustart_front/css/inbox.css">
-	<script src="/ustart_front/js/inbox.js"></script>
+	<script src="/ustart_front/js/chat.js"></script>
     <script>
         var sockets = [];
+        var chatflag = 1;
+        var roomflag = 1;
     </script>
 </head>
 <body>
@@ -19,15 +21,15 @@
 					<h3 class="container-left-header">
 						Messages
 					</h3>
-					<div class="input-group inbox-search-box">
+					<!--<div class="input-group inbox-search-box">
                         <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Search">
                         <span class="input-group-addon">
                             <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
                        </span>
 					</div>
-					<br/>
+					<br/>-->
 					<ul id="inbox-groups">
-                        <!-- sample chat replace variables
+                        <!-- sample chat replace variables 
 						<li class="inbox-group" id="1">
                             <div class="inbox-image"><img class="inbox-icon" src=""/></div>
 							<div class="inbox-side-content">
@@ -44,26 +46,7 @@
                                 </div>
                             </div>
 						</li>
-                        <li class="inbox-group" id="2">
-                            <div class="inbox-image"><img class="inbox-icon" src=""/></div>
-							<div class="inbox-side-content">
-                                <div class = "inbox-left-bar">
-                                    <div class = "inbox-header">
-                                    <span class="group-header" >Pikachu Chat</span>
-                                    </div>
-                                    <div class = "inbox-timestamp">
-                                    <span class="group-message-time">5:00 PM</span>
-                                    </div>
-                                </div>
-                                <div class = "inbox-last-msg">
-                                <span class="group-message"></span>
-                                </div>
-                            </div>
-						</li>
                         -->
-                        <script>
-                            
-                        </script>
 					</ul>
 				</div>
 				<div class="container-right">
@@ -79,7 +62,77 @@
 								<ul class="message-box">
 									<script>
                                         $( document ).ready(function() {
-                                            //initial set up
+                                             function GetMoreContent(){
+                                                console.log("scrolling");
+                                                // Do something.
+                                                // Load data or whatever.
+                                              /*   if (chatflag == 1){
+                                                    chatflag=0;
+                                                     $.ajax({
+                                                        type: 'GET',
+                                                        url: 'http://ustart.today:'+port+'//',
+                                                        contentType: "application/json; charset=utf-8",
+                                                        data: {postIndex:JSON.stringify(chatArr)},
+                                                        success: function(data) {   
+                                                        },complete: function (jqXHR,status) {
+                                                             chatflag=1;
+                                                             if(status == 'success' || status=='notmodified')
+                                                             {
+
+                                                             }
+                                                        },error: function(err) {
+                                                            console.log('chat Load failed: ');
+                                                            console.log(err);
+                                                        }
+                                                    });
+                                                }*/
+                                            }
+                                            function GetChatrooms(){
+                                                if (roomflag == 1){
+                                                    roomflag=0;
+                                                    console.log("hello");
+                                                   /*  $.ajax({
+                                                        type: 'GET',
+                                                        url: 'http://ustart.today:'+port+'//',
+                                                        contentType: "application/json; charset=utf-8",
+                                                        data: {postIndex:JSON.stringify(roomArr)},
+                                                        success: function(data) {   
+                                                        },complete: function (jqXHR,status) {
+                                                             roomflag=1;
+                                                             if(status == 'success' || status=='notmodified')
+                                                             {
+
+                                                             }
+                                                        },error: function(err) {
+                                                            console.log('chatroom Load failed: ');
+                                                            console.log(err);
+                                                        }
+                                                    });*/
+                                                }
+                                            }
+
+                                            $(".message-box").scroll(function () {
+                                                var $this = $(this);
+                                                var height = this.scrollHeight - $this.height(); // Get the height of the div
+                                                var scroll = $this.scrollTop(); // Get the vertical scroll position
+                                                var isScrolledToEnd = (scroll <= 0);
+                                                if (isScrolledToEnd) {
+                                                    GetChatRecord(); // Get the additional content
+                                                }
+                                            });
+                                            
+                                              $(".container-left").scroll(function () {
+                                                var $this = $(this);
+                                                var roomHeight = this.scrollHeight - $this.height(); // Get the height of the div
+                                                var roomScroll = $this.scrollTop(); // Get the vertical scroll position
+                                                var isScrolledToEnd = (roomScroll > roomHeight);
+                                                if (isScrolledToEnd) {
+                                                    GetChatrooms(); // Get the additional content
+                                                }
+                                            });
+                                            
+                                            function start(){
+                                                //initial set up
                                                 if(!("WebSocket" in window)){
                                                     console.log("you need a browser that supports web sockets");
                                                  }else{
@@ -109,11 +162,12 @@
                                                         socket.onopen = function(){
                                                             console.log('Socket Status: '+socket.readyState+'(open)');
                                                             sockets.push(socket);
+                                                            //chat history here
                                                         }
                                                         socket.onmessage = function(e){
                                                             //replace later
                                                             var sender ="Mother Russia";
-                                                            console.log('Received: '+e.data);
+                                                           // console.log('Received: '+e.data);
                                                             var timeNow = new Date().getTime();
                                                             var msg = JSON.parse(e.data);
                                                             if(msg.DocID == {{.DOCID}}){
@@ -133,13 +187,25 @@
                                                             $('.inbox-group.active .group-message-time').text(formatTime(timeNow));
                                                             $('#chat'+ urlid).scrollTop($('#chat'+ urlid)[0].scrollHeight);
                                                         } 
+                                                        socket.onclose= function(){
+                                                          //reconnect now
+                                                          check();
+                                                        };
                                                      }
                                                      catch(exception){
                                                          console.log('Error: '+exception);
                                                     }
                                                 }
+                                                
+                                            }
                                             
                                             
+                                            function check(){
+                                                if(!socket || socket.readyState == 3) start();
+                                            }
+                                            
+                                            start();
+                                            setInterval(check, 5000);
                                             
                                             $('.inputMessages').keydown(function (e) {
                                                 var temp = window.location.href.indexOf("ch");
@@ -149,20 +215,28 @@
                                                 }
                                             });       
                                             $('.chat-submit').click(function(){
+                                                var temp = window.location.href.indexOf("ch");
+                                                var id = window.location.href.substring(temp+3);
                                                 if(socket.readyState === socket.OPEN){
-                                                     var temp = window.location.href.indexOf("ch");
-                                                     var id = window.location.href.substring(temp+3);
                                                     if ($("#messager"+ id)!= '') {
                                                         var timeNow = new Date().getTime();  
                                                         socket.send(JSON.stringify({
                                                             Message: $("#messager"+id).val()
                                                         }));
                                                         $("#messager"+id).val('');
-                                                         $('#chat'+ urlid).scrollTop($('#chat'+ urlid)[0].scrollHeight);
+                                                         $('#chat'+ id).scrollTop($('#chat'+ id)[0].scrollHeight);
                                                     }
                                                 }
-                                                else{
-                                                    console.log(socket.readyState);
+                                                else {
+                                                     if ($("#messager"+ id)!= '') {
+                                                        console.log(socket.readyState+" Message: "+$("#messager"+id).val());
+                                                        var timeNow = new Date().getTime();  
+                                                        $('#chat'+ id).scrollTop($('#chat'+ id)[0].scrollHeight);
+                                                        populateOfflineMessage(id,
+                                                        $("#messager"+id).val(), timeNow);
+                                                        console.log($('#-1').children(".message-user-message"));
+                                                        $("#messager"+id).val('');
+                                                    }
                                                 }
                                             });
                                             
@@ -183,34 +257,7 @@
                                                     $(".message-box").attr("id", "chat"+ urlid);
                                                     $(".inputMessages").attr("id", "messager"+ urlid);
                                                     $('.chat-submit').attr("id", "chat-submit"+ urlid);
-                                                    socket.onopen = function(){
-                                                        console.log('Socket Status: '+socket.readyState+'(open)');
-                                                        sockets.push(socket);
-                                                    }
-                                                    socket.onmessage = function(e){
-                                                        //replace later
-                                                        var sender ="Mother Russia";
-                                                        console.log('Received: '+e.data);
-                                                        var timeNow = new Date().getTime();
-                                                        var msg = JSON.parse(e.data);
-                                                        if(msg.DocID == {{.DOCID}}){
-                                                            var senderCheck = true;
-                                                        }
-                                                        else{
-                                                            var senderCheck = false;
-                                                        }  
-                                                        //replace values
-                                                        populateMessageModified(urlid, Math.floor(Math.random() * 99999), sender,
-                                                        msg.Message, '', timeNow, senderCheck);
-                                                        if (senderCheck==true){
-                                                            $('.inbox-group.active .group-message').text("You: "+msg.Message);
-                                                        }
-                                                        else{
-                                                            $('.inbox-group.active .group-message').text(sender+": "+msg.Message); 
-                                                        }
-                                                        $('.inbox-group.active .group-message-time').text(formatTime(timeNow));
-                                                        $('#chat'+ urlid).scrollTop($('#chat'+ urlid)[0].scrollHeight);
-                                                    }
+
                                                  }
                                                  catch(exception){
                                                      console.log('Error: '+exception);
@@ -235,7 +282,7 @@
 							<div class="section-right">
 								<div class="wrapper">
                                     <nav id="sidebar">
-                                            <!--
+                                            <!-- member list here
                                            <div class="sidebar-header">
                                                <div class="projectMembers">R</div>
                                                <strong>Ryan Rozbiani</strong>

@@ -7,15 +7,19 @@
     <title>ustart</title>
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/dashboard.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/normalize.min.css">
+    <script>
+        $(document).ready(function (){
+            $("#leftNavDash").addClass("theActive");
+        });
+    </script>
 </head>
-
 <body>
-    <div id="navBar-placeholder"></div>
     <div id="centering">
         <div id="content">
+            <div class="container">
             <div class="row">
-                <div id="LeftNavBar-placeholder"></div>
-                <div class="col-md-4">
+                <div class="col-md-2"></div>
+                <div class="col-md-6">
                     <div class="feedPost">
                         <div class="feedPostHead">
                             <div class="feedPostHeadTitle">
@@ -163,7 +167,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <!--<div class="col-md-4">
                     <div class="feedPost">
                         <div class="feedPostHead">
                             <div class="feedPostHeadTitle">
@@ -185,8 +189,8 @@
                         <div class="feedPostComments">
                             <div class="media">
                                 <a class="pull-left" href="#">
-                        <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&amp;oe=5A2D7F0D">
-                    </a>
+                                    <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&amp;oe=5A2D7F0D">
+                                </a>
                                 <div class="dropdown pull-right">
                                     <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span><span class="caret"></span></a>
                                     <ul class="dropdown-menu" style="min-width: 0px !important; padding:0px !important;">
@@ -332,6 +336,7 @@
                         </div>
                     </div>
                 </div>
+                -->
                 <div class="col-md-2">
                     <div id="suggestedUser">
                         <div class="dashboard panel panel-default">
@@ -437,14 +442,18 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    
+                    
+                </div><!-- end row -->
+                
+            </div>
             </div>
         </div>
-    </div>
     </div>
 </body>
 

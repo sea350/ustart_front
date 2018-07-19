@@ -18,39 +18,52 @@
 <body>
     <div id="centering" style="top: 6em;">
          <div id="content">
-            <div class="container col-md-6 col-md-offset-3" >
-                {{ if .ErrorOutput }}
-                <div id="dup-email-alert" class="alert alert-danger alert-dismissible fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
-                </div>
-				{{end}}
+            {{ if .ErrorOutput }}
+            <div id="dup-email-alert" class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
+            </div>
+            {{end}} 
+            <h2 style="padding:0; text-align: center;">Create A Project</h2>            
+            <div class="jumbotron container col-md-8 col-md-offset-2" >
+
                 <form class="form-signup" id="projectCreateForm" action="/CreateProjectPage/" method="post">
-                    <h2 style="padding:0; text-align: center;">Create A Project</h2>
+                    
                     <!-- Name -->
                     <div class="row">
                         <div class="dropdown col-md-7"> 
-                            <label for="fName" class="sr-only">Title of Project</label>
-                            <input type="text" id="fName" name="project_title" class="form-control" placeholder="Title of Project" required autofocus>
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-folder-open"></i></span>
+                                <input type="text" id="fName" name="project_title" class="form-control" placeholder="ustart.today/TITLE of PROJECT" required>
+                                </div>  
                         </div>
                         <div class="dropdown col-md-5">
-                            <label for="category" class="sr-only">Category</label>
-                            <select type="text" id="category" name="category" class="form-control" placeholder="Category" required>
-                                <option></option>
-                            </select>
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                <select type="text" id="category" name="category" class="form-control" placeholder="Category" required>
+                                    <option></option>
+                                </select>
+                                <script>
+                                    list_categories('category');
+                                </script>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="dropdown col-md-6">
-                            <label for="curl" class="sr-only">Custom URL</label>
-                            <span>ustart.today/projects/</span>
-                            <input type="text" id="curl" name="curl" class="form-control" placeholder="Custom URL (ustart.today/example/)" pattern="[A-Za-z\d][\w\d-]+[A-Za-z\d]">
-                            <div>Characters, Digits, Dashes, and Underscores Only. No Starting or Ending Symbols.</div>
+                        <div class="dropdown col-md-7">
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                <input type="text" id="curl" name="curl" class="form-control" placeholder="Custom URL (ustart.today/example/)" pattern="^You're custom URL$/|[A-Za-z\d][\w\d-]+[A-Za-z\d]">
+                            </div>
+                            <span style='color:#999'>Characters, Digits, Dashes, and Underscores Only. <br> No Starting or Ending Symbols (^ $,!,@,#,$. $/)</span>
                         </div>
-                        <div class="dropdown col-md-6">
-                            <input name="universityName" class="form-control" id="uni" placeholder="University/College" required autofocus>
+                        <div class="dropdown col-md-5">
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                <input name="universityName" class="form-control" id="uni" placeholder="University/College" required>
+                            </div>
                             <script type="text/javascript">
                             $(document).ready(function() {
                                 $("#uni").autocomplete({
@@ -64,20 +77,32 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="dropdown col-sm-4">
-                            <select id="country" name="country" class="form-control" autocomplete="country-name"></select>
+                        <div class="dropdown col-md-3 col-sm-6">
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                <select id="country" name="country" class="form-control" autocomplete="country-name"></select>
+                            </div>
                         </div>
-                        <div class="dropdown col-sm-3">
-                            <select name="state" id="state" class="form-control" autocomplete="state"></select>
+                        <div class="dropdown col-md-3 col-sm-6">
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                                <select name="state" id="state" class="form-control" autocomplete="state"></select>
+                            </div>
                         </div>
                         <script language="javascript">
 							populateCountries("country", "state");
                         </script>
-                        <div class="dropdown col-sm-3">
-                            <input id="city" name="city" class="form-control" placeholder="City" autocomplete="city">
+                        <div class="dropdown col-md-3 col-sm-6">
+                            <div class="input-group input-groupz">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> 
+                                <input id="city" name="city" class="form-control" placeholder="please Enter City" autocomplete="city">
+                            </div>
                         </div>
-                        <div class="dropdown col-sm-2">
-                            <input id="zip" name="zip" class="form-control" placeholder="Zip" autocomplete="postal-code">
+                        <div class="dropdown col-md-3 col-sm-6">
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span> 
+                                <input id="zip" name="zip" class="form-control" placeholder="Please Enter Zip" autocomplete="postal-code">
+                            </div>
                         </div>
                     </div>
 					<br/>
@@ -87,28 +112,28 @@
                             <textarea maxlength="1100" style="resize: none;" type="text" class="form-control" id="project_desc" name="project_desc" rows="4" placeholder="Please describe your project goal" required></textarea>
                         </div>
                     </div>
-                    <div class="row">
-                            <div class="col-md-4">
-                                <button class="btn btn-danger btn-lg btn-block" id="back-button" onclick="window.history.back();"><i class="fa fa-angle-left" style="display: inline-block"></i> Back</button>
-                            </div>
-                            <div class="col-md-8">
-                                <button type="submit" class="btn btn-lg btn-primary btn-block" value="Submit" name="send" id="finished" style="display: inline-block">Continue</button>
+                    <div class="row text-center">
+                                <button type="submit" style='width:95%;' class="btn btn-lg btn-primary center-block" value="Submit" name="send" id="finished" style="display: inline-block">Make Your Project</button>
                                 <script>
                                     $('form#projectCreateForm').submit(function(){
                                         $("button#finished").prop('disabled', true);
                                     });
                                 </script>
-                            </div>
                     </div>
                     <br>
                 </form>
-                <script>
-                    list_categories('category');
-				</script>
             </div>
         </div>
     </div>
     <footer id="foot"></footer>
+    <style>
+        .jumbotron{
+            background-color:#ffff;
+        }     
+        .btn-primary{
+            background-color: #00ac7d!important;
+        }           
+    </style>
 </body>
 
 </html>

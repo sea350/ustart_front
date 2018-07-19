@@ -77,10 +77,11 @@ function createLink(existingSite, siteDescription) {
 		if (siteLogoSlashIndex > 0) {
 			siteLogo = siteLogo.substring(0, siteLogoSlashIndex);
         }
-		var htmlText = $('<a target="_blank" href="'+existingSite+'" data-toggle="tooltip" data-placement="top" title="" data-original-title="https://google.com">'
-					+ ($('#linksWidget .fa-pencil').length ? '<span class="cross-mark">x</span>' : '') + '<img src="//logo.clearbit.com/' + siteLogo + '">'
-					+ '<div class="links-website-title">' + siteDescription + '</div>' + '</a>');
-		
+        var htmlText =  $('<a />').attr({'target': '_blank', 'href':existingSite,'data-toggle':"tooltip",'data-placement': "top", 'data-original-title':"https://google.com", 'title':""});
+        var deleteOption = '<span class="cross-mark">x</span>';
+        var linkIcon = $('<img />').attr({'src':"//logo.clearbit.com/"+siteLogo});
+        var linkTitle = $('<div />').attr({'class':"links-website-title",}).text(siteDescription);
+        ($('#linksWidget .fa-pencil').length ? htmlText.append(deleteOption, linkIcon, linkTitle): htmlText.append(linkIcon, linkTitle));
 		var linkObject = htmlText.appendTo($(".links-container"));
 		linkObject.children('img').on('error', function() {
 			$(this).on('error', function() {});	//Remove error body
@@ -97,8 +98,10 @@ function createLink(existingSite, siteDescription) {
 
 $(document).ready(function() {
 	$('#link-submit-btn').click(function(event) {
-		var httpURL = $('input[name$="webURL"]').text();
-		var userlinkdesc = $('input[name$="webTitle"]').text();
+		var httpURL = $('input[name$="webURL"]').val();
+        console.log(httpURL);
+		var userlinkdesc = $('input[name$="webTitle"]').val();
+        console.log(userlinkdesc);
 		if (linkList.length < 16) {
 			if ($.inArray(httpURL, linkList) == -1) {
 				$.ajax({
@@ -125,8 +128,8 @@ $(document).ready(function() {
 	});
 	$('#link-project-submit-btn').click(function(event) {
 		var httpURL = $('input[name$="webURL"]').val();
-		var projectlinkdesc = $('input[name$="webTitle"]').text();
-		var projectid = $('input[name$="projectID"]').text();
+		var projectlinkdesc = $('input[name$="webTitle"]').val();
+		var projectid = $('input[name$="projectID"]').val();
 		if (linkList.length < 16) {
 			if ($.inArray(httpURL, linkList) == -1) {
 				$.ajax({

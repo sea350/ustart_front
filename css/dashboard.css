@@ -2,7 +2,7 @@
     margin: 0.5em;
 }
 
-#content .row .col-md-4 {
+#content .row .col-md-6 {
     min-width: 16em;
     margin: 1em 0;
 }
@@ -31,7 +31,7 @@ div .proj-card-info {
     display: inline-block;
 }
 
-#content .row .col-md-4 .feedPost {
+#content .row .col-md-6 .feedPost {
     background: white;
     padding: 1em 1.5em;
     border-width: 1px;

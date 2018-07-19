@@ -11,6 +11,10 @@
 .btn-link:hover {
     color: #F44336
 }
+
+.navbar-form{
+    margin-top: 0!important;
+}
 body {
     background-color: #e8e8e8;
 }
@@ -361,7 +365,8 @@ div.navbar-filler-filter {
 }
 .navbar-form {
     padding-left: 0;
-    border-top: 0
+    border-top: 0;
+    padding-top:10px;
 }
 
 li.navbar-btn>a>i,

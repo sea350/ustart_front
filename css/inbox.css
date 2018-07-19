@@ -2,6 +2,13 @@
     overflow-y: scroll;
     height: 100%;
 }
+.container-left-header{
+    margin-bottom: 0px;
+}
+
+.offline>span{
+    background-color: grey !important;
+}
 .projectMembers {
     background-color: #607D8B;
     height: 2em;
