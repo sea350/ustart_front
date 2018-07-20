@@ -11,6 +11,8 @@
         var sockets = [];
         var chatflag = 1;
         var roomflag = 1;
+        var timerID=0;
+        var port = window.location.port;
     </script>
 </head>
 <body>
@@ -29,8 +31,8 @@
 					</div>
 					<br/>-->
 					<ul id="inbox-groups">
-                        <!-- sample chat replace variables 
-						<li class="inbox-group" id="1">
+                        <!-- sample chat replace variables -->
+						<li class="inbox-group" id="@jyang">
                             <div class="inbox-image"><img class="inbox-icon" src=""/></div>
 							<div class="inbox-side-content">
                                 <div class = "inbox-left-bar">
@@ -46,7 +48,6 @@
                                 </div>
                             </div>
 						</li>
-                        -->
 					</ul>
 				</div>
 				<div class="container-right">
@@ -62,7 +63,8 @@
 								<ul class="message-box">
 									<script>
                                         $( document ).ready(function() {
-                                             function GetMoreContent(){
+                                             var socket2 = new WebSocket('ws://' + window.location.host + '/cN/');
+                                             function GetChatRecord(){
                                                 console.log("scrolling");
                                                 // Do something.
                                                 // Load data or whatever.
@@ -153,7 +155,7 @@
                                                         }
                                                         else{
                                                             window.history.pushState("", "", "/ch/"+urlid);
-                                                            $("#"+urlid).addClass('active');
+                                                            $('[id="'+urlid+'"]').addClass('active');
                                                             $(".message-box").attr("id", "chat"+ urlid);
                                                             $(".inputMessages").attr("id", "messager"+ urlid);
                                                             $('.chat-submit').attr("id", "chat-submit"+ urlid);
@@ -162,34 +164,46 @@
                                                         socket.onopen = function(){
                                                             console.log('Socket Status: '+socket.readyState+'(open)');
                                                             sockets.push(socket);
+                                                            if(window.timerID){ /* a setInterval has been fired */
+                                                               window.clearInterval(window.timerID);
+                                                               window.timerID=0;
+                                                             }
                                                             //chat history here
                                                         }
                                                         socket.onmessage = function(e){
                                                             //replace later
                                                             var sender ="Mother Russia";
-                                                           // console.log('Received: '+e.data);
-                                                            var timeNow = new Date().getTime();
+                                                            console.log('Received: '+e.data);
+                                                            //var timeNow = new Date().getTime();
                                                             var msg = JSON.parse(e.data);
-                                                            if(msg.DocID == {{.DOCID}}){
+                                                            if(msg.SenderID == {{.DOCID}}){
                                                                 var senderCheck = true;
                                                             }
                                                             else{
                                                                 var senderCheck = false;
                                                             }
-                                                            populateMessageModified(urlid, Math.floor(Math.random() * 99999), sender,
-                                                            msg.Message, '', timeNow, senderCheck);
+                                                            populateMessageModified(urlid, msg.ConversationID, sender,
+                                                            msg.Content, '', new Date(msg.TimeStamp).getTime(), senderCheck);
+                                                            $(".message-user-message").click(function(){
+                                                                 $(this).next().collapse('toggle');
+                                                            });
                                                             if (senderCheck==true){
-                                                                $('.inbox-group.active .group-message').text("You: "+msg.Message);
+                                                                $('.inbox-group.active .group-message').text("You: "+msg.Content);
                                                             }
                                                             else{
-                                                                $('.inbox-group.active .group-message').text(sender+": "+msg.Message); 
+                                                                $('.inbox-group.active .group-message').text(sender+": "+msg.Content); 
                                                             }
-                                                            $('.inbox-group.active .group-message-time').text(formatTime(timeNow));
-                                                            $('#chat'+ urlid).scrollTop($('#chat'+ urlid)[0].scrollHeight);
+                                                            $('.inbox-group.active .group-message-time').text(formatTime(new Date(msg.TimeStamp).getTime()));
+                                                             $('#chat'+$.escapeSelector(urlid)).scrollTop( $('.message-box')[0].scrollHeight);
                                                         } 
+                                                        socket.onerror= function(err){
+                                                            if (err == 1001)socket.close();
+                                                        }
                                                         socket.onclose= function(){
                                                           //reconnect now
-                                                          check();
+                                                            if(!window.timerID){
+                                                              window.timerID=setInterval(check, Math.floor(Math.random() * 20000) + 5000 );
+                                                             }
                                                         };
                                                      }
                                                      catch(exception){
@@ -205,38 +219,36 @@
                                             }
                                             
                                             start();
-                                            setInterval(check, 5000);
-                                            
                                             $('.inputMessages').keydown(function (e) {
                                                 var temp = window.location.href.indexOf("ch");
                                                 var id = window.location.href.substring(temp+3);
                                                 if (e.keyCode == 13) {
-                                                    $("#chat-submit"+ id).click();
+                                                    $('#chat-submit'+$.escapeSelector(id)).click();
                                                 }
                                             });       
                                             $('.chat-submit').click(function(){
                                                 var temp = window.location.href.indexOf("ch");
                                                 var id = window.location.href.substring(temp+3);
                                                 if(socket.readyState === socket.OPEN){
-                                                    if ($("#messager"+ id)!= '') {
-                                                        var timeNow = new Date().getTime();  
+                                                    if ($('#messager'+$.escapeSelector(id))!= '') {
+                                                        console.log($('#messager'+$.escapeSelector(id)).val());
                                                         socket.send(JSON.stringify({
-                                                            Message: $("#messager"+id).val()
+                                                            Content:  $('#messager'+$.escapeSelector(id)).val()
                                                         }));
-                                                        $("#messager"+id).val('');
-                                                         $('#chat'+ id).scrollTop($('#chat'+ id)[0].scrollHeight);
+                                                        $('#messager'+$.escapeSelector(id)).val(''); 
                                                     }
                                                 }
                                                 else {
-                                                     if ($("#messager"+ id)!= '') {
-                                                        console.log(socket.readyState+" Message: "+$("#messager"+id).val());
+                                                     if ( $('#messager'+$.escapeSelector(id))!= '') {
+                                                       // console.log(socket.readyState+" Message: "+$("#messager"+id).val());
                                                         var timeNow = new Date().getTime();  
-                                                        $('#chat'+ id).scrollTop($('#chat'+ id)[0].scrollHeight);
                                                         populateOfflineMessage(id,
-                                                        $("#messager"+id).val(), timeNow);
-                                                        console.log($('#-1').children(".message-user-message"));
-                                                        $("#messager"+id).val('');
+                                                         $('#messager'+$.escapeSelector(id)).val(), timeNow);
+                                                        // $('#chat'+$.escapeSelector(id)).scrollTop($('.message-box')[0].scrollHeight);
+                                                       // console.log($('#-1').children(".message-user-message"));
+                                                         $('#messager'+$.escapeSelector(id)).val('');
                                                     }
+                                                    
                                                 }
                                             });
                                             
@@ -244,24 +256,19 @@
                                             $(".inbox-group").on( "click", function(e) {
                                                 var chatIden = e.currentTarget.id;
                                                 window.history.pushState("", "", "/ch/"+chatIden);
-                                                try{
-                                                    if (sockets.length>0){
-                                                        sockets.forEach(function(s) {
-                                                            s.close();
-                                                            sockets=[];
-                                                        });
-                                                    }
-                                                    var temp = window.location.href.indexOf("ch");
-                                                    var urlid = window.location.href.substring(temp+3);
-                                                    socket= new WebSocket('ws://' + window.location.host + '/ws/'+urlid);
-                                                    $(".message-box").attr("id", "chat"+ urlid);
-                                                    $(".inputMessages").attr("id", "messager"+ urlid);
-                                                    $('.chat-submit').attr("id", "chat-submit"+ urlid);
-
-                                                 }
-                                                 catch(exception){
-                                                     console.log('Error: '+exception);
-                                                }
+                                                start();
+                                                $.ajax({
+                                                        type: 'GET',
+                                                        url: 'http://ustart.today:'+port+'/AjaxLoadChat/',
+                                                        contentType: "application/json; charset=utf-8",
+                                                        data: {chatUrl:JSON.stringify(chatIden)},
+                                                        success: function(data) {
+                                                            console.log(data);
+                                                        },error: function(err) {
+                                                            console.log('message history failed: ');
+                                                            console.log(err);
+                                                        }
+                                                    });
                                             });
                                         });
                                         

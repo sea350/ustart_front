@@ -1,7 +1,7 @@
 function isUrlValid(url) {
     return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);
 }
-
+                     
 function urlConfirm(event){
    if ( confirm('You are about the leave the great nation of U•START! Be careful out there!')){
        return true;
@@ -31,15 +31,15 @@ function populateMemberList(name){
 
 function populateOfflineMessage(parentid, message, time) {
 	var dateTime = dateFormat(time);
-	if ($('#chat'+parentid).find(".message-timeline").last().text() !== dateTime) {
+	if ($('#chat'+$.escapeSelector(parentid)).find(".message-timeline").last().text() !== dateTime) {
 		var messageTimeline = $("<li></li>").addClass('message-timeline').text(dateTime);
-		$("#chat"+parentid).append(messageTimeline);
+		$('#chat'+$.escapeSelector(parentid)).append(messageTimeline);
 	}
     var listMessage = $("<span></span>").addClass('message-user-message').text(message);
 	var listItem = $("<li></li>").attr('class', "offline");
     listItem.addClass('message-user-right');
     listItem.append(listMessage);	
-	$("#chat"+parentid).append(listItem);
+	$('#chat'+$.escapeSelector(parentid)).append(listItem);
 	$(listItem).css('font-size', '0%').animate({
 		"font-size": "100%"
 	}, 100 , () => {
@@ -51,9 +51,9 @@ function populateOfflineMessage(parentid, message, time) {
 //create new function
 function populateMessageModified(parentid, msgid, username, message, icon, time, originuser) {
 	var dateTime = dateFormat(time);
-	if ($('#chat'+parentid).find(".message-timeline").last().text() !== dateTime) {
+	if ($('#chat'+$.escapeSelector(parentid)).find(".message-timeline").last().text() !== dateTime) {
 		var messageTimeline = $("<li></li>").addClass('message-timeline').text(dateTime);
-		$("#chat"+parentid).append(messageTimeline);
+		$('#chat'+$.escapeSelector(parentid)).append(messageTimeline);
 	}
 	var listTime = $("<div></div>").addClass('message-user-time collapse').text(formatTime(time));
     if (isUrlValid(message)){
@@ -65,8 +65,8 @@ function populateMessageModified(parentid, msgid, username, message, icon, time,
     else{
          var listMessage = $("<span></span>").addClass('message-user-message').text(message);
     }
-	listMessage.attr('data-toggle', 'collapse');
-	listMessage.attr('data-target', '#' + msgid + ' .collapse');
+	//listMessage.attr('data-toggle', 'collapse');
+	//listMessage.attr('data-target', '#' + msgid + ' .collapse');
 	var listIcon = $("<img></img>").addClass('message-user-icon').attr('src', icon);
 	var listName = $("<div></div>").addClass('message-user-name').text(username);
 	var listItem = $("<li></li>").attr('id', msgid);
@@ -80,7 +80,7 @@ function populateMessageModified(parentid, msgid, username, message, icon, time,
 		listItem.append(listName, listIcon, " ", listMessage, listTime);
 	}
 		
-	$("#chat"+parentid).append(listItem);
+	$('#chat'+$.escapeSelector(parentid)).append(listItem);
 	$(listItem).css('font-size', '0%').animate({
 		"font-size": "100%"
 	}, 'fast', () => {
@@ -90,7 +90,7 @@ function populateMessageModified(parentid, msgid, username, message, icon, time,
 
 
 
-//create new function
+/*//create new function
 function populateMessage(msgid, username, message, icon, time, originuser) {
 	var dateTime = dateFormat(time);
 	if ($('.message-timeline').last().text() !== dateTime) {
@@ -121,7 +121,7 @@ function populateMessage(msgid, username, message, icon, time, originuser) {
 	}, 'fast', () => {
 		$('.message-box').scrollTop($('.message-box')[0].scrollHeight);
 	});
-}
+}*/
 
 function populateGroupMessages() {
 	
@@ -197,8 +197,10 @@ $(document).ready(function () {
     });
     
     
+    
+    
     //test function for message 
-	$('#messager-form').submit(function(event) {
+	/*$('#messager-form').submit(function(event) {
 		event.preventDefault();
 		if ($('#messager').val().length > 0) {
 			var timeNow = new Date().getTime();
@@ -214,7 +216,7 @@ $(document).ready(function () {
 			$('#messager').val('');
 			$('.message-box').scrollTop($('.message-box')[0].scrollHeight);
 		}
-	});
+	});*/
     
 	
 	/*$('#composer-form').submit(function(event) {

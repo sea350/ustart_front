@@ -1,5 +1,5 @@
 .wrapper{
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 100%;
 }
 .container-left-header{
@@ -129,7 +129,7 @@
     width: 21%;
     min-width: 16em;
     margin-right: 0.5em;
-    overflow-y: scroll;
+    overflow-y: auto;
     -ms-overflow-style: none;  // IE 10+
     overflow: -moz-scrollbars-none;  // Firefox
 }
@@ -284,7 +284,6 @@ span.group-message-time {
 }
 
 .section-left {
-    padding-top: 1em;
     -webkit-box-flex: 1;
     -webkit-flex: 1 1 auto;
     -ms-flex: 1 1 auto;
@@ -323,6 +322,7 @@ span.group-message-time {
 }
 
 .message-box {
+    padding-top:1em !important;
     margin: 0;
     padding: 0;
     list-style-type: none;
