@@ -12,11 +12,21 @@
 <body>
     <input type="hidden" id="pageiden" value='{{.Page}}'>
     <div id="centering">
+		<img id="head-image">
+        <script type ="text/javascript">
+             $(document).ready(function () {
+                 $('#head-image').attr('src', {{.Event.EventData.Banner}});
+             });
+        </script>
         <div class="container">
             <div class="tab-content">
                 <div id="prof-about" class="tab-pane fade in active">
                     <img id="eventAvatar" />
-                    <script>$("#eventAvatar").attr("src", {{.Event.EventData.Avatar}})</script>
+                    <script>
+                        $(document).ready(function () {
+                            $("#eventAvatar").attr("src", {{.Event.EventData.Avatar}})
+                        });
+                    </script>
                     <div>
                         {{.Event.EventData.Name}}
                     </div>
@@ -58,7 +68,7 @@
                     </div>
                     <!--end project widget -->
                     <!-- people widget -->
-                    <div id="projectDisplay" class="ui-state-default widgetListItem">
+                    <div id="peopleDisplay" class="ui-state-default widgetListItem">
                         <div class="projectsWidgetCont">
                             <div class="widgetTitle">
                                 {{if eq ($.Page) ($.DOCID)}}
