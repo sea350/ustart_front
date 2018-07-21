@@ -87,6 +87,7 @@
     margin: 0.5em;
     border-radius: 0.4em;
     vertical-align: top;
+    max-width: 100%;
 }
 
 #hashtags>span:hover {
