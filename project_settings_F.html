@@ -101,6 +101,8 @@
 										$('#upload2').on('change', function () { 
 											var reader2 = new FileReader();
 											reader2.onload = function (e) {
+												//checking if the image size is bigger than  500 x 300 
+
 												$uploadCrop2.croppie('bind', {
 													url: e.target.result
 												}).then(function(){

@@ -181,7 +181,7 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 function tumblrRender (tumblrUsername) {
 	console.log('tumblur'+tumblrUsername);
 	// Using RSS to render custom containers
-	$('#widgetBodyTumblr').rss("http://" + encodeURI(tumblrUsername) + ".tumblr.com/rss", {
+	$('#widgetBodyTumblr').rss("http://" + tumblrUsername + ".tumblr.com/rss", {
 		limit: 12,
 		layoutTemplate: '<ul data-tumblr-username="' + tumblrUsername + '">{entries}</ul>',
 		entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="tumblr-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
