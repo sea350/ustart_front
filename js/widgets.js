@@ -993,14 +993,14 @@ $(document).ready(function() {
 	
 	//Limit Posts
 	$('#ig-modal form').submit(function(event) {
-		if ($('.insta-feed').length >= 12) {
+		/*if ($('.insta-feed').length >= 12) {
 			event.preventDefault();
-		}
+		}*/
 	});
 	$('#ar-modal form').submit(function(event) {
-		if ($('#ar-edit-list li').length >= 2) {
+		/*if ($('#ar-edit-list li').length >= 2) {
 			event.preventDefault();
-		}
+		}*/
 	});
 	
 	try {
@@ -1016,25 +1016,25 @@ $(document).ready(function() {
 	
 	// Limit form versions
 	$('#customInstagramForm').submit(function(event) {
-		if ($('ul#ig-edit-list li').length() >= 12) {
+		if ($('ul#ig-edit-list li').length >= 12) {
 			event.preventDefault();
 			alert('We cannot add anymore Instagram posts!');
 		}
 	});
 	$('#customSpotifyForm').submit(function(event) {
-		if ($('ul#spot-edit-list li').length() >= 12) {
+		if ($('ul#spot-edit-list li').length >= 12) {
 			event.preventDefault();
 			alert('We cannot add anymore Spotify posts!');
 		}
 	});
 	$('#customPinterestForm').submit(function(event) {
-		if ($('ul#pin-edit-list li').length() >= 12) {
+		if ($('ul#pin-edit-list li').length >= 12) {
 			event.preventDefault();
 			alert('We cannot add anymore Pinterest posts!');
 		}
 	});
 	$('#customTumblrForm').submit(function(event) {
-		if ($('#widgetBodyTumblr ul li').length() >= 12) {
+		if ($('#widgetBodyTumblr ul li').length >= 12) {
 			event.preventDefault();
 			alert('We cannot add anymore Tumblr posts!');
 		}
