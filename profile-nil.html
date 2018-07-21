@@ -57,6 +57,19 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
+	<style>
+		.widgetBody{
+			justify-content: center;
+		}
+		.columnTitle{
+			text-overflow: ellipsis;
+			overflow: hidden;		
+		}
+		/*
+		.hashTagsBody span{
+		}
+		*/
+	</style>
     <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
 	<div id="centering">
 		{{ if .ErrorOutput }}
@@ -473,6 +486,7 @@
 										<h4>Skills</h4>
 									</div>
 									<div id="hashTagsBody" class="widgetBody">
+										<span>You haven't added any skills yet.</span>
 									</div>       
 									{{range $loop := .UserInfo.Tags}}
 									{{if ne ($loop) ""}}

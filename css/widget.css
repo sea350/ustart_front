@@ -20,10 +20,13 @@
     white-space: normal;
 	font-weight: bold;
 	margin: auto;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 .widgetBody {
 	min-height: 4em;
+	justify-content: center;
 }
 #sortable {
     list-style-type: none;
