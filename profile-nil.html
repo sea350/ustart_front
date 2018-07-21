@@ -488,14 +488,7 @@
 									<div id="hashTagsBody" class="widgetBody">
 										
 									</div>       
-									{{if len .UserInfo.Tags == 0}}
-									<script>
-										$(document.ready(function(){
-											$('#hashTagsBody').html("<span>You haven't added any skills yet.</span>");
-										}));
-									</script>
 
-									{{end}}
 
 									{{range $loop := .UserInfo.Tags}}
 									{{if ne ($loop) ""}}
@@ -568,6 +561,9 @@
                             </li>
 							{{end}}<!-- end text -->
 							{{if eq $loop.Classification 4}}
+                            <script>
+                                console.log({{index $loop.ID}});
+                            </script>
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
                                     <div class="widgetTitle">
