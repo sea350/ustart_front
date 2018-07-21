@@ -20,16 +20,7 @@
        <div id="content">
 			<div id="container-full">
 				<div class="container-left">
-					<h3 class="container-left-header">
-						Messages
-					</h3>
-					<!--<div class="input-group inbox-search-box">
-                        <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Search">
-                        <span class="input-group-addon">
-                            <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
-                       </span>
-					</div>
-					<br/>-->
+					<h3 class="container-left-header">Messages</h3>
 					<ul id="inbox-groups">
                         <!-- sample chat replace variables -->
 						<li class="inbox-group" id="@jyang">
@@ -65,7 +56,6 @@
                                         $( document ).ready(function() {
                                              var socket2 = new WebSocket('ws://' + window.location.host + '/cN/');
                                              function GetChatRecord(){
-                                                console.log("scrolling");
                                                 // Do something.
                                                 // Load data or whatever.
                                               /*   if (chatflag == 1){
@@ -92,7 +82,6 @@
                                             function GetChatrooms(){
                                                 if (roomflag == 1){
                                                     roomflag=0;
-                                                    console.log("hello");
                                                    /*  $.ajax({
                                                         type: 'GET',
                                                         url: 'http://ustart.today:'+port+'//',
