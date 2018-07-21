@@ -35,6 +35,9 @@ function createTagWidgetElement(element, tag) {
 			//	</div>
 		//	</button>
 			//`;
+	if ($(element).find(".projectsColumn").length === 0) {
+		$(element).html("");
+	}
 	$(element).append(tagspan);
 //	taglist.push(tag);
 //	if (taglist.length >= 16) {
@@ -144,11 +147,8 @@ $(document).ready(function () {
                 $("#hashtags, #hashTagsBody").html('');
                 $(skillList).each(function(index, element) {
                 var tag = element;
-		console.log("DEBUG3");
 					createTagWidgetElement("#hashTagsBody", tag);
-		console.log("DEBUG2");
                 });
-		console.log("DEBUG1");
                 $("#tagModal").modal('hide');
             }
         });
