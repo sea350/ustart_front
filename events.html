@@ -16,20 +16,20 @@
             <div class="tab-content">
                 <div id="prof-about" class="tab-pane fade in active">
                     <img id="eventAvatar" />
-                    <script>$("#eventAvatar").attr("src", {{.Event.Avatar }})</script>
+                    <script>$("#eventAvatar").attr("src", {{.Event.EventData.Avatar}})</script>
                     <div>
-                        {{.Event.Name}}
+                        {{.Event.EventData.Name}}
                     </div>
                     <div>
-                        Starts: {{.Event.EventDateStart}}<br/>
-                        Ends: {{.Event.EventDateEnd}}
+                        Starts: {{.Event.EventData.EventDateStart}}<br/>
+                        Ends: {{.Event.EventData.EventDateEnd}}
                     </div>
                     <div>
-                        {{.Event.Location}}
+                        {{.Event.EventData.Location}}
                     </div>
-                    {{if .Event.Description}}
+                    {{if .Event.EventData.Description}}
                     <div>
-                        <script>readRuneArray({{.Event.Description}});</script>
+                        <script>readRuneArray({{.Event.EventData.Description}});</script>
                     </div>
                     {{end}}
                     <!-- project widget -->
