@@ -100,9 +100,10 @@
 										});
 										$('#upload2').on('change', function () { 
 											var reader2 = new FileReader();
+											console.log('upload2 change');
+											//var reader2 = new Image();
 											reader2.onload = function (e) {
-												//checking if the image size is bigger than  500 x 300 
-
+												
 												$uploadCrop2.croppie('bind', {
 													url: e.target.result
 												}).then(function(){
@@ -112,6 +113,7 @@
 											reader2.readAsDataURL(this.files[0]);
 										});
 										 $('#upload-result2').on('click', function (ev) {
+											 console.log('clicked?');
 											$uploadCrop2.croppie('result', {
 												type: 'canvas',
 												size: 'viewport'

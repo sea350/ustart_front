@@ -12,6 +12,16 @@ function urlConfirm(event){
        
 }
 
+function objLength(obj){
+  var i=0;
+  for (var x in obj){
+    if(obj.hasOwnProperty(x)){
+      i++;
+    }
+  } 
+  return i;
+}
+
 var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 function dateFormat(time) {
 	var datetime = new Date(time);
@@ -49,7 +59,7 @@ function populateOfflineMessage(parentid, message, time) {
 
 
 //create new function
-function populateMessageModified(parentid, msgid, username, message, icon, time, originuser) {
+function populateMessageModified(parentid, msgid, username, message, icon, time, originuser, prevSender) {
 	var dateTime = dateFormat(time);
 	if ($('#chat'+$.escapeSelector(parentid)).find(".message-timeline").last().text() !== dateTime) {
 		var messageTimeline = $("<li></li>").addClass('message-timeline').text(dateTime);
@@ -65,28 +75,49 @@ function populateMessageModified(parentid, msgid, username, message, icon, time,
     else{
          var listMessage = $("<span></span>").addClass('message-user-message').text(message);
     }
-	//listMessage.attr('data-toggle', 'collapse');
-	//listMessage.attr('data-target', '#' + msgid + ' .collapse');
 	var listIcon = $("<img></img>").addClass('message-user-icon').attr('src', icon);
 	var listName = $("<div></div>").addClass('message-user-name').text(username);
-	var listItem = $("<li></li>").attr('id', msgid);
+	var listItem = $("<li></li>").attr('sender', msgid);
 	if (originuser) {
 		// If the post is by the user, push to the right
-		listItem.addClass('message-user-right');
+		listItem.addClass('.message-user message-user-right');
 		listItem.append(listMessage, listTime);
 	} else {
 		// If the post is not by the user, push to the left
-		listItem.addClass('message-user-left');
-		listItem.append(listName, listIcon, " ", listMessage, listTime);
+		listItem.addClass('.message-user message-user-left');
+        if (prevSender == ""){
+            listItem.append(listName, listIcon, " ", listMessage, listTime);
+        }
+        else{
+            if (prevSender == msgid){
+                listItem.append(listIcon, " ", listMessage, listTime);
+            }
+            else{
+                listItem.append(listName, listIcon, " ", listMessage, listTime);
+            }
+        }
 	}
 		
 	$('#chat'+$.escapeSelector(parentid)).append(listItem);
+    
 	$(listItem).css('font-size', '0%').animate({
 		"font-size": "100%"
 	}, 'fast', () => {
 		$('.message-box').scrollTop($('.message-box')[0].scrollHeight);
 	});
 }
+
+$(document).on('click', '.message-user-message', function(e) { 
+    $(e.currentTarget).next().collapse('toggle'); 
+
+    console.log($('.message-user-message:last'));
+    if ($(e.currentTarget).is( $('.message-user-message:last'))){
+        $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
+    }
+    else{
+        $('.message-box').scrollTop($('.message-box').scrollTop()+(20));
+    }
+});
 
 
 
@@ -121,11 +152,8 @@ function populateMessage(msgid, username, message, icon, time, originuser) {
 	}, 'fast', () => {
 		$('.message-box').scrollTop($('.message-box')[0].scrollHeight);
 	});
-}*/
-
-function populateGroupMessages() {
-	
 }
+
 
 function composeNewGroup() {
 	$('.active').removeClass('active');
@@ -135,7 +163,7 @@ function composeNewGroup() {
 	$('#composer').focus();
 }
 
-/*function addBlankGroup() {
+function addBlankGroup() {
     console.log("swapping group");
 	if ($('.blank-group').length < 1) {	
 		// Blank Icon
