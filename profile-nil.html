@@ -1350,7 +1350,7 @@
 									</p>
 									<p>
 										<span class="modal-cell">URL</span>
-										<input type="url" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" required/>
+										<input type="url" class="link-input-read" id='link-input-last' name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" required/>
 									</p>
 								</div>
 								
@@ -1360,6 +1360,16 @@
 									</div>
 									<button type="submit" id="link-submit-btn" class="btn btn-info btn-done">Done</button>
 								</div>
+
+								<script>
+								$('#link-input-last').keypress(function(event){
+									var keycode = (event.keyCode ? event.keyCode : event.which);
+									if(keycode == '13'){
+										$('#link-submit-btn').click();
+									}
+									event.stopPropagation();
+								});	
+							</script>							
 						</div>
 					</div>
 				</div><!-- end linkmodal-->
@@ -1405,7 +1415,16 @@
 									<div class="input-group">
 										<div class="input-group-btn">
 											<button id="med-setting" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-												Username <i class="glyphicon glyphicon-menu-down"></i>
+												Username <i class="glyphicon glyphicon-menu-down"></i>$('#someTextBox').keypress(function(event){
+													var keycode = (event.keyCode ? event.keyCode : event.which);
+													if(keycode == '13'){
+														alert('You pressed a "enter" key in textbox'); 
+													}
+													//Stop the event from propogation to other handlers
+													//If this line will be removed, then keypress event handler attached
+													//at document level will also be triggered
+													event.stopPropagation();
+												});
 											</button>
 											<div class="dropdown-menu">
 												<a id="med-setting-user" class="dropdown-item" style="display:block;">Username</a>

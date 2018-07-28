@@ -7,6 +7,7 @@ function updateCounter() {
 }
 
 function removeLink(element) {
+
 	var httpURL = element.parent().attr('href');
 	var userlinkdesc = element.parent().find('.links-website-title').text();
 	var projectInputID = $('input[name="projectID"]');
