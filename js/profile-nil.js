@@ -309,6 +309,13 @@ function formatTime(time) {
 
 
 $(document).ready(function () {
+    //widget children count
+    $('.widgetBody').each(function(){
+        if ($('.widgetBody').children().length > 3){
+            $('.widgetBody').css({'justify-content':'space-between'});
+        }
+    });
+
     //modal box
     $('#menu-item-about').hover(function () {
         $(this).fadeOut(100);
