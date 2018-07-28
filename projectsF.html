@@ -742,7 +742,7 @@
                                     <div class="widgetTitle">
 										{{if eq ($.Page) ($.DOCID)}}
                                         <span class="pull-right fa fa-2x fa-sort"></span>
-                                        <span class="pull-right fa fa-2x fa-pencil" id="git-edit" onclick="ApplyIDToModal('git-modal', this)"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil" id="git-edit" onclick="ApplyIDToModal('gallery-modal', this)"></span>
 										<form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
 											<input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
 											<span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
