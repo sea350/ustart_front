@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width">
     <title>ustart</title>
 	<link rel="stylesheet" href="/ustart_front/css/inbox.css">
+    <script src="/ustart_front/js/ascii-convert.js"></script>
 	<script src="/ustart_front/js/chat.js"></script>
     <script>
         var sockets = [];
@@ -24,7 +25,7 @@
 					<h3 class="container-left-header">Messages</h3>
                     <div class="sub-container-left">
 					<ul id="inbox-groups">
-                        <!-- sample chat replace variables -->
+                        <!-- sample chat replace variables
 						<li class="inbox-group" id="@thePiedPiper">
                             <div class="inbox-image"><img class="inbox-icon" src=""/></div>
 							<div class="inbox-side-content">
@@ -40,7 +41,7 @@
                                 <span class="group-message"></span>
                                 </div>
                             </div>
-						</li>
+						</li>-->
 					</ul>
                     </div>
 				</div>
@@ -58,27 +59,6 @@
 									<script>
                                         $( document ).ready(function() {
                                             console.log("initiating init state");
-                                            $.ajax({
-                                                  type: 'GET',
-                                                    url: 'http://ustart.today:'+port+'/AjaxChatNotifications/',
-                                                    contentType: "application/json; charset=utf-8",
-                                                    data: {
-                                                    },
-                                                    success: function(data) {
-                                                        console.log(data);
-                                                    },complete: function (jqXHR,status) {
-                                                        if(status == 'success' || status=='notmodified')
-                                                        {
-;                                                         //var temp = $.parseJSON(jqXHR.responseText);
-                                                         //if (temp != null){
-                                                         //}
-                                                        }     
-                                                    }
-                                                    ,error: function(err) {
-                                                        console.log('chat initial chat failed: ');
-                                                        console.log(err);
-                                                    }
-                                            });
                                              var roomSocket= new WebSocket('ws://' + window.location.host + '/cN/');
                                             
                                              function GetChatRecord(){
@@ -150,6 +130,30 @@
                                             
                                             function start(){
                                                 //initial set up
+                                                  $.ajax({
+                                                      type: 'GET',
+                                                        url: 'http://ustart.today:'+port+'/AjaxChatNotifications/',
+                                                        contentType: "application/json; charset=utf-8",
+                                                        data: {},
+                                                        success: function(data) {
+                                                        },complete: function (jqXHR,status) {
+                                                            if(status == 'success' || status=='notmodified')
+                                                            {
+                                                            var temp = $.parseJSON(jqXHR.responseText);
+                                                             if (temp != null){
+                                                                 $(".inbox-group").removeClass("active");
+                                                                 $('#inbox-groups').empty();
+                                                                 for(i=0; i<temp.length; i++){
+                                                                     populateChatRooms(temp[i].Username, temp[i].Image, temp[i].FirstName+' '+temp[i].LastName,temp[i].Classification, readRuneArrayThatWorks(temp[i].Bio), formatTime(temp[i].Time));
+                                                                 }
+                                                             }
+                                                            }     
+                                                        }
+                                                        ,error: function(err) {
+                                                            console.log('chat initial chat failed: ');
+                                                            console.log(err);
+                                                        }
+                                                });
                                                 if(!("WebSocket" in window)){
                                                     console.log("you need a browser that supports web sockets");
                                                  }else{
@@ -170,7 +174,9 @@
                                                         }
                                                         else{
                                                             window.history.pushState("", "", "/ch/"+urlid);
-                                                            $('[id="'+urlid+'"]').addClass('active');
+                                                           // console.log($('#'+$.escapeSelector(urlid)));
+                                                            $('#'+$.escapeSelector('@thePiedPiper')).addClass('active');
+                                                            $('#'+$.escapeSelector(urlid)).addClass('active');
                                                             $(".message-box").attr("id", "chat"+ urlid);
                                                             $(".inputMessages").attr("id", "messager"+ urlid);
                                                             $('.chat-submit').attr("id", "chat-submit"+ urlid);
@@ -202,7 +208,6 @@
                                                                       $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
                                                                      }
                                                                     }
-                                                                
                                                                 }
                                                                 ,error: function(err) {
                                                                     console.log('message history failed: ');
@@ -301,7 +306,8 @@
                                             });
                                             
                                             //switch socket on the fly
-                                            $(".inbox-group").on( "click", function(e) {
+                                            $(document).on('click', '.inbox-group', function(e) { 
+                                                $(e.currentTarget).addClass('active');
                                                 var chatIden = e.currentTarget.id;
                                                 window.history.pushState("", "", "/ch/"+chatIden);
                                                 prevSender="";

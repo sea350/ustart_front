@@ -38,6 +38,17 @@
             $('#search-box input[type=search], #searchFilters').click(function (event) {
                 event.stopPropagation();
             });
+            $(window).resize(function(){
+                if ($(window).width() <= 499){	
+                    $('.form-control').hide();
+                    $('#searchFilterFormSubmit').css({'background':'none','border':'none'});
+                }	
+            });
+            /*
+            if($(window).width() < 499){
+                
+            }
+            */
         });
     </script>
 </head>

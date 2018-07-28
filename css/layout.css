@@ -531,6 +531,7 @@ input {
 }
 
 @media (max-width: 499px) {
+    
     .navbar-right .dropdown-menu {
         right: 0!important;
         left: auto!important
@@ -556,6 +557,9 @@ input {
     .dropdown-menu > li > a {
         padding: 1em 2em;
     }
+    form.navbar-form {
+        margin-left: 59px;    
+}
 }
 @media (max-width: 360px) {
  #logo-brand>span{
