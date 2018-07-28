@@ -113,9 +113,11 @@ function redirect() {
 function toggleLogIn() {
     loginVis = !loginVis;
     if (loginVis) {
-        document.getElementById("theLogIn").style.visibility = "visible";
-        $("#theLogIn").slideDown();
-        $("#email").focus();
+        $("#theLogIn").slideDown({
+            complete: () => {
+                $("#email").focus();
+            }
+        });
     } else {
         $("#theLogIn").slideUp();
     }
