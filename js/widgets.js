@@ -887,8 +887,8 @@ $(document).ready(function() {
 			$('#gallery-edit-list').children('li').remove();
 			
 			// Add List Items
-			$('#widgetBodyGallery').each(function(idx, element) {
-				var gallerySource = $(this).children().text();
+			$('#widgetBodyGallery span').each(function(idx, element) {
+				var gallerySource = $(this).text();
 				var galleryListItem = '<li><span>' + gallerySource + '</span> <i class="fa fa-times"></i></li>';
 				$('#gallery-edit-list').append(galleryListItem);
 			});
