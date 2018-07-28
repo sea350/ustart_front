@@ -57,8 +57,12 @@
                         {
                         var temp = $.parseJSON(jqXHR.responseText);
                          if (temp != null){
+                             console.log(temp.length);
+                             $('.chatBadge').text(temp.length);
                              $('#chatDrop').empty();
-                             appendChatItem(temp[i].Username,temp[i].FirstName+' '+temp[i].LastName, readRuneArrayThatWorks(temp[i].Bio), formatTime(temp[i].Time), true);
+                             for(i=0; i<temp.length; i++){
+                                appendChatItem(temp[i].Username,temp[i].FirstName+' '+temp[i].LastName, readRuneArrayThatWorks(temp[i].Bio), formatTime(temp[i].Time), true, temp[i].Classification);
+                             }
                          }
                          else{
                              $('#chatDrop').empty();
@@ -107,7 +111,7 @@
                 <li class="navbar-btn nav-item" data-toggle="tooltip" data-placement="left" title="Messages">
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <i class="fa fa-comments fa-2x" style="color:white;"></i>
-                            <span class="badge chatBadge">4</span>
+                            <span class="badge chatBadge"></span>
                         </a>
                             <ul class="dropdown-menu">
                             <div id ="chatDrop" class = "padded">

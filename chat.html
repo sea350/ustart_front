@@ -157,6 +157,7 @@
                                                             $(".inputMessages").attr("id", "messager"+ urlid);
                                                             $('.chat-submit').attr("id", "chat-submit"+ urlid);
                                                             $('#chat'+$.escapeSelector(urlid)).empty();
+                                                            $('#inbox-groups').prepend($('li#'+$.escapeSelector(urlid)));
                                                             $.ajax({
                                                                 type: 'GET',
                                                                 url: 'http://ustart.today:'+port+'/AjaxLoadChat/',
@@ -202,7 +203,7 @@
                                                         }
                                                         socket.onmessage = function(e){
                                                             //replace later
-                                                            var sender ="Mother Russia";
+                                                            var sender ="Mahindra Russia";
                                                             console.log('Received: '+e.data);
                                                             var msg = JSON.parse(e.data);
                                                             if(msg.SenderID == {{.DOCID}}){
@@ -259,8 +260,8 @@
                                                              for(i=0; i<temp.length; i++){
                                                                  populateChatRooms(temp[i].Username, temp[i].Image, temp[i].FirstName+' '+temp[i].LastName,temp[i].Classification, readRuneArrayThatWorks(temp[i].Bio), formatTime(temp[i].Time));
                                                              }
-                                                             start();
                                                          }
+                                                        start();
                                                         }     
                                                     }
                                                     ,error: function(err) {

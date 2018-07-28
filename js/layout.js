@@ -271,14 +271,19 @@ function appendEmptyItem(destination) {
 }
 
 
-function appendChatItem(chatID, person, message, timestamp, unreadStatus) {
+function appendChatItem(chatID, person, message, timestamp, unreadStatus, classification) {
     // Load person's icon
     var notifIcon = $('<img></img>').addClass('media-object img-rounded notif-icon');
     $(notifIcon).attr('alt', '40x40').attr('src', 'http://placehold.it/40x40');
     
     var notifIconHolder = $('<div></div>').addClass('media-left').append(notifIcon);
     //var notifDismisser = $('<a></a>').addClass('close').attr('href', '#').attr('data-dismiss', 'alert').attr('aria-label', 'close').text('×');
-    var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('/ch/' + chatID)).text(person);
+    if (classification === 0){
+        var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('/ch/@' + chatID)).text(person);
+    }
+    else{
+        var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('/ch/' + chatID)).text(person);
+    }
     var notifPersonLabel = $('<strong></strong>').append(notifPersonLabelLink);
     var notifNewLabel = $('<span></span>').addClass('label-new label label-info')
     if (unreadStatus) {
