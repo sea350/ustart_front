@@ -311,8 +311,8 @@ function formatTime(time) {
 $(document).ready(function () {
     //widget children count
     $('.widgetBody').each(function(){
-        if ($('.widgetBody').children().length > 3){
-            $('.widgetBody').css({'justify-content':'space-between'});
+        if ($(this).children().length > 3){
+            $(this).css({'justify-content':'space-between'});
         }
     });
 
