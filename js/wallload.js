@@ -329,8 +329,9 @@
      $('body').on("click", ".share-postSubmit", function(e) {
           var temp = e.currentTarget.id;
           var postID = temp.replace("share-btn",'');
-          console.log(postID+'postID');
+          
           var content = $("#shared-content"+postID).val();
+          console.log(content+'112214');
           $(e.currentTarget).prop('disabled', true);
           $.ajax({
                     type: 'GET',

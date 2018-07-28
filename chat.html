@@ -152,12 +152,13 @@
                                                         }
                                                         else{
                                                             window.history.pushState("", "", "/ch/"+urlid);
+                                                            $('.active').removeClass('active');
                                                             $('li#'+$.escapeSelector(urlid)).addClass('active');
                                                             $(".message-box").attr("id", "chat"+ urlid);
                                                             $(".inputMessages").attr("id", "messager"+ urlid);
                                                             $('.chat-submit').attr("id", "chat-submit"+ urlid);
                                                             $('#chat'+$.escapeSelector(urlid)).empty();
-                                                            $('#inbox-groups').prepend($('li#'+$.escapeSelector(urlid)));
+                                                           // $('#inbox-groups').prepend($('li#'+$.escapeSelector(urlid)));
                                                             $.ajax({
                                                                 type: 'GET',
                                                                 url: 'http://ustart.today:'+port+'/AjaxLoadChat/',
@@ -174,14 +175,15 @@
                                                                        $.each(temp.Eavesdroppers, function() {
                                                                          populateMemberList(this.FirstName+' '+this.LastName);
                                                                         });
-                                                                       for(i=0; i<temp.Messages.length; i++){
-                                                                           if(temp.Messages[i].SenderID == {{.DOCID}}){var senderChk = true;}
-                                                                            else{var senderChk = false;}
-                                                                            populateMessageModified(urlid, temp.Messages[i].SenderID, "Mountain Mama",
-                                                                            temp.Messages[i].Content, temp.Eavesdroppers[temp.Messages[i].SenderID].Image, new Date(temp.Messages[i].TimeStamp).getTime(), senderChk,prevSender);
-                                                                            prevSender=temp.Messages[i].SenderID;
-                                                                       }
-                                                                      
+                                                                        if (temp.Messages != null){
+                                                                           for(i=0; i<temp.Messages.length; i++){
+                                                                               if(temp.Messages[i].SenderID == {{.DOCID}}){var senderChk = true;}
+                                                                                else{var senderChk = false;}
+                                                                                populateMessageModified(urlid, temp.Messages[i].SenderID, "Mountain Mama",
+                                                                                temp.Messages[i].Content, temp.Eavesdroppers[temp.Messages[i].SenderID].Image, new Date(temp.Messages[i].TimeStamp).getTime(), senderChk,prevSender);
+                                                                                prevSender=temp.Messages[i].SenderID;
+                                                                           }
+                                                                        }
                                                                       $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
                                                                      }
                                                                     }
@@ -308,6 +310,11 @@
                                             //switch socket on the fly
                                             $(document).on('click', '.inbox-group', function(e) { 
                                                 //$(e.currentTarget).addClass('active');
+                                                if (!$(e.currentTarget).hasClass('active')) {
+                                                    console.log("reset actives");
+                                                    $('.active').not(e.currentTarget).removeClass('active');
+                                                    $(e.currentTarget).addClass('active');
+                                                }
                                                 var chatIden = e.currentTarget.id;
                                                 var temp = window.location.href.indexOf("ch");
                                                 var urlid = window.location.href.substring(temp+3);
@@ -316,11 +323,6 @@
                                                     start();
                                                 }
                                                 prevSender="";
-                                                if (!$(this).hasClass('active')) {
-                                                    console.log("reset actives");
-                                                    $('.active').not(this).removeClass('active');
-                                                    $(this).addClass('active');
-                                                }
                                             });
                                         });
                                         

@@ -2,6 +2,7 @@
 //var data = $('.commentOfComment').data('replycount');
 
 function makePostApplications(image, fName,lName, content, elementID,numLikes,numReplies,numShares ,time){
+
 	$('#wall-dataF').append([
 		$('<div/>', {'class' : 'panel-body wallPosts'}).attr('id','Post').each(function(){
 			$(this).attr("id", $(this).attr("id").concat(elementID));
@@ -102,6 +103,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 								}) ,
 								$('<p>').each(function(){
 									$(this).text(readRuneArrayThatWorks(content));
+									console.log('SHAREMODAL'+readRuneArrayThatWorks(content));
 								})
 								])
 
@@ -317,7 +319,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 
 								]),
 							$('<br>'),
-							$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({'id':'shared-content','placeholder':'Say Something about that2...'}).each(function(){
+							$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({'id':'shared-content','placeholder':'Say Something about that...'}).each(function(){
 								$(this).attr({"id": $(this).attr("id").concat(elementID)});
 							}))
 							])
@@ -489,7 +491,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 								])
 
 								]),
-						$('<br>'),$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({"name":"","id":"share-content","placeholder":"Say Something about that3..."}).each(function(){
+						$('<br>'),$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({"name":"","id":"share-content","placeholder":"Say Something about this..."}).each(function(){
 							$(this).attr({"id": $(this).attr("id").concat(elementID)});
 						}))
 							]),
@@ -896,7 +898,7 @@ function makeBasicCommentOfCommentsApplications(parentID, image, fName,lName, co
 		]);
 }
 
-//problem
+
 function makeNewCommentOfCommentsApplications(parentID, image, fName,lName, content, postID,time){
 	$('#replies'+parentID)
 	.prepend([
@@ -932,6 +934,9 @@ function makeNewCommentOfCommentsApplications(parentID, image, fName,lName, cont
 
 
 function createSharedPost(image, fName,lName,elementID, content, sharedContent, posterFname, posterLname,numLikes,numReplies,originaltime, time){
+	console.log('content1'+ content);
+	console.log('sharedContent1'+ sharedContent);
+
 	$('#wall-dataF').append([
 		$('<div/>', {'class' : 'panel-body wallPosts'}).attr('id','Post').each(function(){
 			$(this).attr({"id": $(this).attr("id").concat(elementID)});
@@ -1132,6 +1137,8 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 
 function createBasicSharedPost(image, fName,lName,elementID, content, sharedContent, posterFname, posterLname,numLikes,numReplies,originaltime, time){
 
+	console.log('content'+ content);
+	console.log('sharedContent'+ sharedContent);
 	$('#wall-dataF').append([
 		$('<div/>', {'class' : 'panel-body wallPosts'}).attr('id','Post').each(function(){
 			$(this).attr("id", $(this).attr("id").concat(elementID));
