@@ -1557,7 +1557,7 @@
 								<span id="gallery-list-title">Removable Images</span>
 								<ul id="gallery-edit-list"></ul>
 								<p>Upload Image</p>
-								<form id="imageWidgetUpload" action="/addWidget/" method="POST">
+								<form id="imageWidgetUpload" action="/addWidget/" method="POST" enctype="multipart/form-data">
 								<div class="form-group">
 									<input type="file" class="form-control" id="gallery-embed-input" name="galleryImageInput" placeholder="Gallery Image" required>
 									<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
