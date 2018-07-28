@@ -238,7 +238,7 @@ function formatTime(datetime) {
 	return timeString;
 }
 
-function loadGroup(groupname) {
+/*function loadGroup(groupname) {
 	// Clear message-box
 	$('.message-box').empty();
     var showMembers = '<a id="sidebarCollapse" data-toggle="tooltip" data-placement="top" title="Members" style="float:right;">\
@@ -247,14 +247,14 @@ function loadGroup(groupname) {
 	$('.box-chat .message-head').text(groupname).append(showMembers);
 	$('.box-compose').hide('fast');
 	$('.box-chat').show('fast');
-}
+}*/
 
 $(document).ready(function () {
 	$('[data-toggle="tooltip"]').tooltip();
 	
      $('#sidebarCollapse').on('click', function (e) {
-         e.preventDefault();
-        $('#sidebar').toggleClass('active');
+         //e.preventDefault();
+        //$('#sidebar').toggleClass('active');
     });
     
     
@@ -305,7 +305,7 @@ $(document).ready(function () {
 		composeNewGroup();
 	});
 	
-	$('.inbox-group').click(function(event) {
+	/*$('.inbox-group').click(function(event) {
 		if (!$(this).hasClass('active')) {
 			$('.active').not(this).removeClass('active');
 			$(this).addClass('active');
@@ -313,5 +313,5 @@ $(document).ready(function () {
 			$('.box-compose').hide('fast');
 			$('.box-chat').show('fast');
 		}
-	});
+	});  */
 });

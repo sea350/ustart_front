@@ -14,6 +14,7 @@
        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/ustart_front/js/bootstrap-confirmation.min.js"></script>
+    <script src="/ustart_front/js/ascii-convert.js"></script>
     <script src="/ustart_front/js/layout.js"></script>
     <script src="/ustart_front/js/userEdit.js"></script>
     <script>
@@ -44,11 +45,38 @@
                     $('#searchFilterFormSubmit').css({'background':'none','border':'none'});
                 }	
             });
+            
+            $.ajax({
+                  type: 'GET',
+                    url: 'http://ustart.today:'+port+'/AjaxChatNotifications/',
+                    contentType: "application/json; charset=utf-8",
+                    data: {},
+                    success: function(data) {
+                    },complete: function (jqXHR,status) {
+                        if(status == 'success' || status=='notmodified')
+                        {
+                        var temp = $.parseJSON(jqXHR.responseText);
+                         if (temp != null){
+                             $('#chatDrop').empty();
+                             appendChatItem(temp[i].Username,temp[i].FirstName+' '+temp[i].LastName, readRuneArrayThatWorks(temp[i].Bio), formatTime(temp[i].Time), true);
+                         }
+                         else{
+                             $('#chatDrop').empty();
+                             appendEmptyItem("chatDrop");
+                         }
+                        }     
+                    }
+                    ,error: function(err) {
+                        console.log('chat initial chat failed: ');
+                        console.log(err);
+                    }
+            });
             /*
             if($(window).width() < 499){
                 
             }
             */
+            
         });
     </script>
 </head>

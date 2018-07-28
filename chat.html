@@ -58,8 +58,6 @@
 								<ul class="message-box">
 									<script>
                                         $( document ).ready(function() {
-                                            console.log("initiating init state");
-                                             var roomSocket= new WebSocket('ws://' + window.location.host + '/cN/');
                                             
                                              function GetChatRecord(){
                                                 // Do something.
@@ -130,34 +128,14 @@
                                             
                                             function start(){
                                                 //initial set up
-                                                  $.ajax({
-                                                      type: 'GET',
-                                                        url: 'http://ustart.today:'+port+'/AjaxChatNotifications/',
-                                                        contentType: "application/json; charset=utf-8",
-                                                        data: {},
-                                                        success: function(data) {
-                                                        },complete: function (jqXHR,status) {
-                                                            if(status == 'success' || status=='notmodified')
-                                                            {
-                                                            var temp = $.parseJSON(jqXHR.responseText);
-                                                             if (temp != null){
-                                                                 $(".inbox-group").removeClass("active");
-                                                                 $('#inbox-groups').empty();
-                                                                 for(i=0; i<temp.length; i++){
-                                                                     populateChatRooms(temp[i].Username, temp[i].Image, temp[i].FirstName+' '+temp[i].LastName,temp[i].Classification, readRuneArrayThatWorks(temp[i].Bio), formatTime(temp[i].Time));
-                                                                 }
-                                                             }
-                                                            }     
-                                                        }
-                                                        ,error: function(err) {
-                                                            console.log('chat initial chat failed: ');
-                                                            console.log(err);
-                                                        }
-                                                });
                                                 if(!("WebSocket" in window)){
                                                     console.log("you need a browser that supports web sockets");
                                                  }else{
                                                      try{
+                                                        var roomSocket= new WebSocket('ws://' + window.location.host + '/cN/');
+                                                        roomSocket.onmessage = function(e){
+                                                              console.log('Room Socket Received: '+e.data);
+                                                        }
                                                         if (sockets.length>0){
                                                             sockets.forEach(function(s) {
                                                                 s.close();
@@ -174,9 +152,7 @@
                                                         }
                                                         else{
                                                             window.history.pushState("", "", "/ch/"+urlid);
-                                                           // console.log($('#'+$.escapeSelector(urlid)));
-                                                            $('#'+$.escapeSelector('@thePiedPiper')).addClass('active');
-                                                            $('#'+$.escapeSelector(urlid)).addClass('active');
+                                                            $('li#'+$.escapeSelector(urlid)).addClass('active');
                                                             $(".message-box").attr("id", "chat"+ urlid);
                                                             $(".inputMessages").attr("id", "messager"+ urlid);
                                                             $('.chat-submit').attr("id", "chat-submit"+ urlid);
@@ -204,7 +180,7 @@
                                                                             temp.Messages[i].Content, temp.Eavesdroppers[temp.Messages[i].SenderID].Image, new Date(temp.Messages[i].TimeStamp).getTime(), senderChk,prevSender);
                                                                             prevSender=temp.Messages[i].SenderID;
                                                                        }
-                                                                       
+                                                                      
                                                                       $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
                                                                      }
                                                                     }
@@ -238,13 +214,13 @@
                                                             populateMessageModified(urlid, msg.SenderID, sender,
                                                             msg.Content, '', new Date(msg.TimeStamp).getTime(), senderCheck, prevSender);
                                                             prevSender=msg.SenderID;
-                                                            if (senderCheck==true){
+                                                            /*if (senderCheck==true){
                                                                 $('.inbox-group.active .group-message').text("You: "+msg.Content);
                                                             }
                                                             else{
                                                                 $('.inbox-group.active .group-message').text(sender+": "+msg.Content); 
                                                             }
-                                                            $('.inbox-group.active .group-message-time').text(formatTime(new Date(msg.TimeStamp).getTime()));
+                                                            $('.inbox-group.active .group-message-time').text(formatTime(new Date(msg.TimeStamp).getTime()));*/
                                                            $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
                                                         } 
                                                         socket.onerror= function(err){
@@ -260,8 +236,7 @@
                                                      catch(exception){
                                                          console.log('Error: '+exception);
                                                     }
-                                                }
-                                                
+                                                } 
                                             }
                                             
                                             
@@ -269,7 +244,31 @@
                                                 if(!socket || socket.readyState == 3) start();
                                             }
                                             
-                                            start();
+                                           $.ajax({
+                                                  type: 'GET',
+                                                    url: 'http://ustart.today:'+port+'/AjaxChatNotifications/',
+                                                    contentType: "application/json; charset=utf-8",
+                                                    data: {},
+                                                    success: function(data) {
+                                                    },complete: function (jqXHR,status) {
+                                                        if(status == 'success' || status=='notmodified')
+                                                        {
+                                                        var temp = $.parseJSON(jqXHR.responseText);
+                                                         if (temp != null){
+                                                             $('#inbox-groups').empty();
+                                                             for(i=0; i<temp.length; i++){
+                                                                 populateChatRooms(temp[i].Username, temp[i].Image, temp[i].FirstName+' '+temp[i].LastName,temp[i].Classification, readRuneArrayThatWorks(temp[i].Bio), formatTime(temp[i].Time));
+                                                             }
+                                                             start();
+                                                         }
+                                                        }     
+                                                    }
+                                                    ,error: function(err) {
+                                                        console.log('chat initial chat failed: ');
+                                                        console.log(err);
+                                                    }
+                                            });
+                                            
                                             
                                             $('.inputMessages').keydown(function (e) {
                                                 var temp = window.location.href.indexOf("ch");
@@ -307,11 +306,20 @@
                                             
                                             //switch socket on the fly
                                             $(document).on('click', '.inbox-group', function(e) { 
-                                                $(e.currentTarget).addClass('active');
+                                                //$(e.currentTarget).addClass('active');
                                                 var chatIden = e.currentTarget.id;
-                                                window.history.pushState("", "", "/ch/"+chatIden);
+                                                var temp = window.location.href.indexOf("ch");
+                                                var urlid = window.location.href.substring(temp+3);
+                                                if (chatIden != urlid ){
+                                                    window.history.pushState("", "", "/ch/"+chatIden);
+                                                    start();
+                                                }
                                                 prevSender="";
-                                                start();
+                                                if (!$(this).hasClass('active')) {
+                                                    console.log("reset actives");
+                                                    $('.active').not(this).removeClass('active');
+                                                    $(this).addClass('active');
+                                                }
                                             });
                                         });
                                         

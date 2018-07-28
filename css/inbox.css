@@ -1,4 +1,4 @@
-.wrapper{
+.wrapper.{
     overflow-y: auto;
     height: 100%;
 }
@@ -167,6 +167,7 @@
 
 .inbox-image{
     display:flex;
+    height:3em;
 }
 
 .inbox-group {
