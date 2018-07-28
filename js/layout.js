@@ -115,6 +115,7 @@ function toggleLogIn() {
     if (loginVis) {
         document.getElementById("theLogIn").style.visibility = "visible";
         $("#theLogIn").slideDown();
+        $("#email").focus();
     } else {
         $("#theLogIn").slideUp();
     }
