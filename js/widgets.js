@@ -883,6 +883,38 @@ $(document).ready(function() {
 	// Github Widget Adder
 	$('#addGalleryWidget').click(function() {
 		$('#gallery-modal').on('shown.bs.modal', function() {
+			// Clean List Items
+			$('#gallery-edit-list').children('li').remove();
+			
+			// Add List Items
+			$('#widgetBodyGallery').each(function(idx, element) {
+				var gallerySource = $(this).children().text();
+				var galleryListItem = '<li><span>' + gallerySource + '</span> <i class="fa fa-times"></i></li>';
+				$('#gallery-edit-list').append(galleryListItem);
+			});
+			
+			// Show/hide the text above the list
+			if ($('#gallery-edit-list').children('li').length == 0) {
+				$('#gallery-list-title').hide();
+			} else {
+				$('#gallery-list-title').show();
+			}
+			
+			// Add the Remove functionality for each Soundcloud Item
+			$('#gallery-edit-list').find('.fa-times').click(function(){
+				var idx = $('#gallery-edit-list').find('.fa-times').index(this);
+				$('#widgetBodyGallery').eq(idx).remove();
+				$('#gallery-edit-list').children('li').eq(idx).hide('fast', function() {
+					$(this).remove();
+				});;
+				
+				if ($('#gallery-edit-list').children('li').length == 0) {
+					$('#gallery-list-title').hide();
+				} else {
+					$('#gallery-list-title').show();
+				}
+			});
+
             $('#gallery-embed-input').focus();
 		});
 		$('#gallery-modal').modal();
