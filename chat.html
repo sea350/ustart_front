@@ -276,6 +276,9 @@
                                             
                                             
                                             $('.inputMessages').keydown(function (e) {
+                                                if ($(this).val().length > 500) {
+                                                    $(this).val($(this).val().substring(0, 500));
+                                                }
                                                 var temp = window.location.href.indexOf("ch");
                                                 var id = window.location.href.substring(temp+3);
                                                 if (e.keyCode == 13) {
