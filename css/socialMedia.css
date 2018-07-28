@@ -26,3 +26,17 @@
 .insta-feed {
     vertical-align: top;
 }
+
+@media (max-width: 990px) {
+	.youtube-feed iframe {
+		width: 100%;
+		height: 38vh;
+		padding: 2em;
+}
+}
+
+@media (max-width: 400px) {
+	.youtube-feed iframe {
+		padding: 3em 0.6em;
+}
+}

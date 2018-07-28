@@ -28,9 +28,6 @@
 	{{$projecturl := .Project.ProjectData.URLName}}
     <script type ="text/javascript">
         var pageID = {{$projectid}};
-         $(document).ready(function () {
-             $('#head-image').attr('src', {{.Project.ProjectData.Banner}});
-         });     
     </script>
     <script src="http://www.youtube.com/player_api"></script>
     {{range $loop := .Project.ProjectData.EntryIDs}}
@@ -50,6 +47,9 @@
     <input type="hidden" id="followstat">
     <div id="centering">
 		<img id="head-image">
+        <script>
+             $('#head-image').attr('src', {{.Project.ProjectData.Banner}});
+        </script>
         <!-- Vertical content -->
         <div id="content" class="container">
             <div>

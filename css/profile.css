@@ -144,13 +144,11 @@ div#content div.dashboard-left {
 
 img#head-image {
     width: 100%;
-    max-height: 24em;
-    min-height: 24em;
     -o-object-fit: contain;
     object-fit: contain;
     border-radius: 0em;
-    background-color: #018a65;
     display:block;
+    background-size: cover;
 }
 
 div.user-info {
@@ -399,9 +397,10 @@ form#shareCommentForm .btn {
 }
 
 @media (min-width: 500px) {
-    div#content {
+    div#content, #head-image {
         min-width: 768px
     }
+        
     #content .menu-wrap {
         /*margin-left: 1em;*/
         padding-left:0;
@@ -418,15 +417,14 @@ form#shareCommentForm .btn {
 
 @media (max-width: 499px) {
     img#head-image {
-        max-height: 12em;
-        min-height: 12em;
+        display: none;
     }
     div.dashboard-left {
         top: 0
     }
     div.user-info {
         text-align: center;
-		margin-top: -5em;
+		margin-top: 1em;
     }
     div.user-desc {
         text-align: initial;
@@ -441,8 +439,6 @@ form#shareCommentForm .btn {
         top: 0
     }
     div#content div.dashboard-left img.user-img {
-        width: 80px;
-        height: 80px;
         vertical-align: top;
     }
     div#content div.dashboard-right {
@@ -450,7 +446,7 @@ form#shareCommentForm .btn {
     }
     div#user-brief-info {
         display: inline-block;
-        margin-left: 1em
+        margin-left: -2em
     }
     div#user-brief-info h2 {
         margin-top: 0.5em
@@ -477,6 +473,14 @@ form#shareCommentForm .btn {
     .menu #box {
         display: block;
     }
+
+    iframe{
+        min-height: 24em;
+    }
+    .youtube-feed iframe{
+        height: 56vh;
+        padding: 0em;
+    }
 }
 
 @media (max-width: 399px) {
@@ -485,7 +489,7 @@ form#shareCommentForm .btn {
     }
     div.dashboard-left div.user-desc {
         text-align: initial;
-    }
+    }   
 }
 
 #floating-widget-editor {

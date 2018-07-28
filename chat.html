@@ -12,6 +12,7 @@
         var chatflag = 1;
         var roomflag = 1;
         var timerID=0;
+        var prevSender="";
         var port = window.location.port;
     </script>
 </head>
@@ -21,9 +22,10 @@
 			<div id="container-full">
 				<div class="container-left">
 					<h3 class="container-left-header">Messages</h3>
+                    <div class="sub-container-left">
 					<ul id="inbox-groups">
                         <!-- sample chat replace variables -->
-						<li class="inbox-group" id="@jyang">
+						<li class="inbox-group" id="@thePiedPiper">
                             <div class="inbox-image"><img class="inbox-icon" src=""/></div>
 							<div class="inbox-side-content">
                                 <div class = "inbox-left-bar">
@@ -40,6 +42,7 @@
                             </div>
 						</li>
 					</ul>
+                    </div>
 				</div>
 				<div class="container-right">
 					<div class="box-chat">
@@ -54,7 +57,30 @@
 								<ul class="message-box">
 									<script>
                                         $( document ).ready(function() {
-                                             var socket2 = new WebSocket('ws://' + window.location.host + '/cN/');
+                                            console.log("initiating init state");
+                                            $.ajax({
+                                                  type: 'GET',
+                                                    url: 'http://ustart.today:'+port+'/AjaxChatNotifications/',
+                                                    contentType: "application/json; charset=utf-8",
+                                                    data: {
+                                                    },
+                                                    success: function(data) {
+                                                        console.log(data);
+                                                    },complete: function (jqXHR,status) {
+                                                        if(status == 'success' || status=='notmodified')
+                                                        {
+;                                                         //var temp = $.parseJSON(jqXHR.responseText);
+                                                         //if (temp != null){
+                                                         //}
+                                                        }     
+                                                    }
+                                                    ,error: function(err) {
+                                                        console.log('chat initial chat failed: ');
+                                                        console.log(err);
+                                                    }
+                                            });
+                                             var roomSocket= new WebSocket('ws://' + window.location.host + '/cN/');
+                                            
                                              function GetChatRecord(){
                                                 // Do something.
                                                 // Load data or whatever.
@@ -148,6 +174,41 @@
                                                             $(".message-box").attr("id", "chat"+ urlid);
                                                             $(".inputMessages").attr("id", "messager"+ urlid);
                                                             $('.chat-submit').attr("id", "chat-submit"+ urlid);
+                                                            $('#chat'+$.escapeSelector(urlid)).empty();
+                                                            $.ajax({
+                                                                type: 'GET',
+                                                                url: 'http://ustart.today:'+port+'/AjaxLoadChat/',
+                                                                contentType: "application/json; charset=utf-8",
+                                                                data: {chatUrl:urlid},
+                                                                success: function(data) {
+                                                                },complete: function (jqXHR,status) {
+                                                                    if(status == 'success' || status=='notmodified')
+                                                                    { 
+                                                                    var temp = $.parseJSON(jqXHR.responseText);
+                                                                    if (temp != null){
+                                                                       $('#sidebar').empty();
+                                                                        console.log(temp);
+                                                                       $.each(temp.Eavesdroppers, function() {
+                                                                         populateMemberList(this.FirstName+' '+this.LastName);
+                                                                        });
+                                                                       for(i=0; i<temp.Messages.length; i++){
+                                                                           if(temp.Messages[i].SenderID == {{.DOCID}}){var senderChk = true;}
+                                                                            else{var senderChk = false;}
+                                                                            populateMessageModified(urlid, temp.Messages[i].SenderID, "Mountain Mama",
+                                                                            temp.Messages[i].Content, temp.Eavesdroppers[temp.Messages[i].SenderID].Image, new Date(temp.Messages[i].TimeStamp).getTime(), senderChk,prevSender);
+                                                                            prevSender=temp.Messages[i].SenderID;
+                                                                       }
+                                                                       
+                                                                      $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
+                                                                     }
+                                                                    }
+                                                                
+                                                                }
+                                                                ,error: function(err) {
+                                                                    console.log('message history failed: ');
+                                                                    console.log(err);
+                                                                }
+                                                            });
                                                         }
                                                         socket = new WebSocket('ws://' + window.location.host + '/ws/'+urlid);
                                                         socket.onopen = function(){
@@ -156,14 +217,12 @@
                                                             if(window.timerID){ /* a setInterval has been fired */
                                                                window.clearInterval(window.timerID);
                                                                window.timerID=0;
-                                                             }
-                                                            //chat history here
+                                                             } 
                                                         }
                                                         socket.onmessage = function(e){
                                                             //replace later
                                                             var sender ="Mother Russia";
                                                             console.log('Received: '+e.data);
-                                                            //var timeNow = new Date().getTime();
                                                             var msg = JSON.parse(e.data);
                                                             if(msg.SenderID == {{.DOCID}}){
                                                                 var senderCheck = true;
@@ -171,11 +230,9 @@
                                                             else{
                                                                 var senderCheck = false;
                                                             }
-                                                            populateMessageModified(urlid, msg.ConversationID, sender,
-                                                            msg.Content, '', new Date(msg.TimeStamp).getTime(), senderCheck);
-                                                            $(".message-user-message").click(function(){
-                                                                 $(this).next().collapse('toggle');
-                                                            });
+                                                            populateMessageModified(urlid, msg.SenderID, sender,
+                                                            msg.Content, '', new Date(msg.TimeStamp).getTime(), senderCheck, prevSender);
+                                                            prevSender=msg.SenderID;
                                                             if (senderCheck==true){
                                                                 $('.inbox-group.active .group-message').text("You: "+msg.Content);
                                                             }
@@ -183,7 +240,7 @@
                                                                 $('.inbox-group.active .group-message').text(sender+": "+msg.Content); 
                                                             }
                                                             $('.inbox-group.active .group-message-time').text(formatTime(new Date(msg.TimeStamp).getTime()));
-                                                             $('#chat'+$.escapeSelector(urlid)).scrollTop( $('.message-box')[0].scrollHeight);
+                                                           $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
                                                         } 
                                                         socket.onerror= function(err){
                                                             if (err == 1001)socket.close();
@@ -208,6 +265,7 @@
                                             }
                                             
                                             start();
+                                            
                                             $('.inputMessages').keydown(function (e) {
                                                 var temp = window.location.href.indexOf("ch");
                                                 var id = window.location.href.substring(temp+3);
@@ -216,10 +274,11 @@
                                                 }
                                             });       
                                             $('.chat-submit').click(function(){
+                                                console.log("sending");
                                                 var temp = window.location.href.indexOf("ch");
                                                 var id = window.location.href.substring(temp+3);
                                                 if(socket.readyState === socket.OPEN){
-                                                    if ($('#messager'+$.escapeSelector(id))!= '') {
+                                                    if ($('#messager'+$.escapeSelector(id)).val()!= '') {
                                                         console.log($('#messager'+$.escapeSelector(id)).val());
                                                         socket.send(JSON.stringify({
                                                             Content:  $('#messager'+$.escapeSelector(id)).val()
@@ -228,7 +287,7 @@
                                                     }
                                                 }
                                                 else {
-                                                     if ( $('#messager'+$.escapeSelector(id))!= '') {
+                                                     if ( $('#messager'+$.escapeSelector(id)).val()!= '') {
                                                        // console.log(socket.readyState+" Message: "+$("#messager"+id).val());
                                                         var timeNow = new Date().getTime();  
                                                         populateOfflineMessage(id,
@@ -245,21 +304,12 @@
                                             $(".inbox-group").on( "click", function(e) {
                                                 var chatIden = e.currentTarget.id;
                                                 window.history.pushState("", "", "/ch/"+chatIden);
+                                                prevSender="";
                                                 start();
-                                                $.ajax({
-                                                        type: 'GET',
-                                                        url: 'http://ustart.today:'+port+'/AjaxLoadChat/',
-                                                        contentType: "application/json; charset=utf-8",
-                                                        data: {chatUrl:JSON.stringify(chatIden)},
-                                                        success: function(data) {
-                                                            console.log(data);
-                                                        },error: function(err) {
-                                                            console.log('message history failed: ');
-                                                            console.log(err);
-                                                        }
-                                                    });
                                             });
                                         });
+                                        
+                                        
                                         
                                     </script>
 								</ul>
@@ -273,6 +323,21 @@
                                             </button>
                                         </span>
                                     </div>
+                                    <!--- file upload for future reference
+                                    <div class="input-group col-xs-12" style="margin-top:5px">
+                                        <style>
+                                            .custom-file-upload {
+                                                border: 1px solid #ccc;
+                                                display: inline-block;
+                                                padding: 6px 12px;
+                                                cursor: pointer;
+                                            }
+                                        </style>
+                                        <label for="file-upload" class="custom-file-upload">
+                                            <i class="fa fa-upload"  aria-hidden="true"></i>
+                                        </label>
+                                        <input class="form-control inputImage" id="file-upload" type="file" accept="image/*" style="display:none"/>
+                                    </div>-->
 								</div>
 							</div>
 							<div class="section-right">
@@ -288,6 +353,7 @@
 							</div>
 						</div>
 					</div>
+                    <!--
 					<div class="box-compose">
 						<form id="composer-form">
 							<div class="input-group col-xs-12">
@@ -298,7 +364,7 @@
 								</span>
 							</div>
 						</form>
-					</div>
+					</div>-->
 				</div>
 			</div>
 		</div>

@@ -127,21 +127,54 @@
 											<br/>
 											<span id="switchStatusMessage">Available</span>
 										</div>
+
+										<div class="modal fade" id="sizeModal" role="dialog">
+										<div class="modal-dialog">										
+										<div class="modal-content">
+												<div class="modal-header" style='border-color:#00ac7d!important'>
+												  <button type="button" class="close" data-dismiss="modal">&times;</button>
+												  <h4 class="modal-title" >USTART info</h4>
+												</div>
+												<div class="modal-body" style='border-color:#00ac7d!important'>
+												  <p>Banner Image should be bigger than 300px (height) x 600px (width)</p>
+												</div>
+											  </div>
+											  
+											</div>
+										  </div>
+
 										<div class="col-sm-12">
 											<hr/>
+											<style>
+												#upload-demo2{
+													height: 400px;
+												};
+												
+											</style>
 											<form id="banner-form" action="/BannerUpload/"  enctype="multipart/form-data"  method="post">
-												<div id="upload-demo2" style="width:1000px; height:400px"></div>
+												<div id="upload-demo2"></div>
 												<input type="file" name="raw-banner" id="upload2" accept="image/*">
 												<input type="hidden" name="banner-data" id="hidden-image-data-2" />
 												<button type="button" class="btn btn-info" id="upload-result2">Upload Image</button>
-													<script type="text/javascript">
+													<script>
+														var bwidth;
+														$(window).resize(function(){
+															cwidth = $(window).width();
+
+															if(cwidth <= 1100 && cwidth >= 320){
+																bwdith = cwidth - 40;
+															}else{
+																bwidth = 1000;
+															}
+														});
+
                                                         $uploadCrop2 = $('#upload-demo2').croppie({
                                                             viewport: {
                                                                 width: 1000,
                                                                 height: 300
                                                             },
 															boundary: {
-																width: 1050,
+																width: bwidth,
 																height: 350
 															}
 														});
@@ -149,23 +182,46 @@
 															url: "{{.UserInfo.Banner}}",
 															zoom: 1
 														});
+
+														var isValid = true;
                                                         $('#upload2').on('change', function () { 
-                                                            var reader2 = new FileReader();
+															var file = $('#upload2')[0];
+															var reader2 = new FileReader();
+															reader2.readAsDataURL(file.files[0])
+
                                                             reader2.onload = function (e) {
+																var image = new Image();
+																image.src = e.target.result;
+
+																image.onload = function(){
+																	var height = this.height;
+																	var width = this.width;
+																	console.log(height +' '+width);
+																	if(height < 300 && width < 600){
+																		$("#sizeModal").modal();
+																		BootstrapDialog.show({
+																			message: 'Hi Apple!'
+																		});																		
+																		//return false;
+																		isValid = false;
+																	}																	
+																};
                                                                 $uploadCrop2.croppie('bind', {
                                                                     url: e.target.result,
 																	zoom: 1
                                                                 });
-                                                            }
-                                                            reader2.readAsDataURL(this.files[0]);
-                                                        });
+															}
+														});
+														
                                                          $('#upload-result2').on('click', function (ev) {
                                                             $uploadCrop2.croppie('result', {
                                                                 type: 'canvas',
                                                                 size: 'viewport'
                                                             }).then(function (resp2) {
+																if(isValid){
                                                                $('#hidden-image-data-2').val(resp2);
 															   $('#banner-form').submit();
+															}
                                                             });
                                                          });
                                                     </script>

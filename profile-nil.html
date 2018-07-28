@@ -13,7 +13,8 @@
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/modal-links.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/socialMedia.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-gallery.css">
-    <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-text.css">  
+	<link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-text.css">  
+	
     <script src="/ustart_front/ckeditor/ckeditor.js"></script>
     <script src="/ustart_front/ckeditor/config.js"></script>
     <script src="/ustart_front/js/jquery.nicescroll.min.js"></script>
@@ -22,15 +23,28 @@
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.7.1/slick/slick.min.js"></script>
     <script src="/ustart_front/js/moment.min.js"></script>
 	<script src="/ustart_front/js/jquery.rss.min.js"></script>
-    <script type="text/javascript" src="/ustart_front/js/profile-nil.js"></script>
+	<script src="/ustart_front/js/profile-nil.js"></script>
+    <script src="/ustart_front/js/fadebody.js"></script>
+	<script src="//assets.pinterest.com/js/pinit.js"></script>	
+	<script src="/ustart_front/js/layout_links.js"></script>
+	<script src="http://www.youtube.com/player_api"></script>
+	
+    <script src="/ustart_front/js/widgets.js"></script>
+    <script src="/ustart_front/js/widget-projectDisplay.js"></script>	   
+    <script src="/ustart_front/js/widget-calendar.js"></script>
+    <script src="/ustart_front/js/widget-gallery.js"></script>
+    <script src="/ustart_front/js/notify.min.js"></script>
+	<script src="/ustart_front/js/masonry.pkgd.min.js"></script>
+	<script src="/ustart_front/js/ascii-convert.js"></script>
+	<script src="/ustart_front/js/createpost2.js"></script>
+	<script src="ustart_front/js/widget-text.js"></script>
+    <script src="//platform.instagram.com/en_US/embeds.js"></script>
+    <script src="https://apis.google.com/js/platform.js"></script>	
+	
     <script type="text/javascript">
     //globals
     var userID = {{.Page}};
     var editPermission = 1;
-    $(document).ready(function () {
-        $("#head-image").attr("src",{{.UserInfo.Banner}});
-        $("#user-avatar").attr("src",{{.UserInfo.Avatar}});
-    });
     </script>
     {{if eq ($.Page) ($.DOCID)}}
     <script ype="text/javascript">
@@ -43,24 +57,10 @@
             IDArray.push({{$loop}}); 
     </script>
     {{end}}
-    <script src="http://www.youtube.com/player_api"></script>
-    <script src="/ustart_front/js/widgets.js"></script>
-    <script src="/ustart_front/js/widget-projectDisplay.js" defer></script>	   
-    <script src="/ustart_front/js/widget-calendar.js"></script>
-    <script src="/ustart_front/js/widget-gallery.js"></script>
-    <script src="/ustart_front/js/notify.min.js"></script>
-	<script src="/ustart_front/js/masonry.pkgd.min.js"></script>
-	<script src="/ustart_front/js/ascii-convert.js"></script>
-	<script src="/ustart_front/js/createpost2.js"></script>
-   <!-- <script src="ustart_front/js/widget-text.js"></script>-->
-    <script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
 </head>
 <body>
 	<style>
-		.widgetBody{
-			justify-content: center;
-		}
 		.columnTitle{
 			text-overflow: ellipsis;
 			overflow: hidden;		
@@ -88,6 +88,10 @@
 					<div class="user-info">
 						<div class="user-img-container">
 							<img class="user-img" id="user-avatar" alt="User Profile Image">
+                            <script>
+                                  $("#head-image").attr("src",{{.UserInfo.Banner}});
+                                  $("#user-avatar").attr("src",{{.UserInfo.Avatar}});
+                            </script>
 							{{if eq ($.Page) ($.DOCID)}}
 							<div class="user-img-option">
 								<a href="/Settings/#avatarcollapse">Change Profile Image</a>
@@ -502,7 +506,7 @@
 								</div>
 							</li> <!--end skill widget -->
 							<!-- link widget-->
-							<script src="/ustart_front/js/layout_links.js"></script>
+							
                             <li class="ui-state-default widgetListItem">
 								<div id="linksWidget" class="projectsWidgetCont">
 									<div class="widgetTitle">
@@ -1504,8 +1508,6 @@
     </div> 
     <!-- extra div end centering inside left navbar  THIS IS NORMAL!!!--> 
     <div id="footer-placeholder"></div>
-    <script src="/ustart_front/js/fadebody.js"></script>
-    <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
 </body>
 
 </html>

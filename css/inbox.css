@@ -119,17 +119,21 @@
 }
 
 .container-left,.container-right {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 0.4em;
+}
+.sub-container-left{
+    overflow-y: auto;
+    height: 100%;
 }
 
 .container-left {
     width: 21%;
     min-width: 16em;
     margin-right: 0.5em;
-    overflow-y: auto;
     -ms-overflow-style: none;  // IE 10+
     overflow: -moz-scrollbars-none;  // Firefox
 }
@@ -158,6 +162,7 @@
     margin: 0;
     padding: 0;
     list-style-type: none;
+    height: 100%;
 }
 
 .inbox-image{
@@ -340,9 +345,11 @@ span.group-message-time {
 .message-box:hover {
     overflow-y: auto
 }
-
-.message-box li.message-user-left,.message-box li.message-user-right {
-    margin-bottom: 0.7em
+.message-box li.message-user-left{
+    margin-bottom: 0em;
+}
+.message-box li.message-user-right {
+    margin-bottom: 1em
 }
 
 .message-box li.message-user-left {
@@ -366,7 +373,7 @@ span.group-message-time {
     -o-object-fit: cover;
     object-fit: cover;
     border-radius: 1em;
-    margin:0.5em;
+    margin:0.4em;
 }
 
 .message-user-name,.message-user-time {
