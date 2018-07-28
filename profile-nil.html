@@ -904,12 +904,9 @@
                                         <h4>Gallery</h4>
                                     </div>
                                     <div id="widgetBodyGallery" class="widgetBody">
-										<div class="slider-nav">
-											<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"/>
-											<img src="https://ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/zero/1x/ic_zero_inbox.png"/>
-											<img src="http://ssl.gstatic.com/ui/v1/icons/mail/rfr/compose_efab_1x.png"/>
-										</div>
-										{{index $loop.Data 0}}
+										{{range $loop2 := $loop.Data }}
+												{{$loop2}}
+										{{end}}
                                     </div>
                                 </div>
                             </li>
