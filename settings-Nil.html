@@ -146,24 +146,35 @@
 										<div class="col-sm-12">
 											<hr/>
 											<style>
-													@media only screen and (max-width: 978px) {
-														#upload-demo2{
-															width: 800px;
-														}
+												#upload-demo2{
+													height: 400px;
+												};
+												
 											</style>
 											<form id="banner-form" action="/BannerUpload/"  enctype="multipart/form-data"  method="post">
-												<div id="upload-demo2" style="width:1000px; height:400px"></div>
+												<div id="upload-demo2"></div>
 												<input type="file" name="raw-banner" id="upload2" accept="image/*">
 												<input type="hidden" name="banner-data" id="hidden-image-data-2" />
 												<button type="button" class="btn btn-info" id="upload-result2">Upload Image</button>
 													<script>
+														var bwidth;
+														$(window).resize(function(){
+															cwidth = $(window).width();
+
+															if(cwidth <= 1100 && cwidth >= 320){
+																bwdith = cwidth - 40;
+															}else{
+																bwidth = 1000;
+															}
+														});
+
                                                         $uploadCrop2 = $('#upload-demo2').croppie({
                                                             viewport: {
                                                                 width: 1000,
                                                                 height: 300
                                                             },
 															boundary: {
-																width: 1050,
+																width: bwidth,
 																height: 350
 															}
 														});
