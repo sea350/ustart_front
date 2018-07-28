@@ -451,6 +451,12 @@
 												<div class="columnTitle">Github</div>
 											</div>
 										</button>
+										<button id="addGalleryWidget" class="btn btn-default projectsColumn">
+											<div class="columnImage">
+												<img src="/ustart_front/img/png/gallery.png" />
+												<div class="columnTitle">Gallery</div>
+											</div>
+										</button>
 									</div>
 								</div>
 							</li>
@@ -738,28 +744,6 @@
 								</div>
 							</li>
 							{{end}} <!-- end spotify -->
-							{{if eq $loop.Classification 14}}  <!--twitch-->
-							<li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-                                <div class="projectsWidgetCont">
-                                    <div class="widgetTitle">
-                                    {{if eq ($.Page) ($.DOCID)}}
-                                    <span class="pull-right fa fa-2x fa-sort"></span>
-                                    <span class="pull-right fa fa-2x fa-pencil" id="twitch-edit" onclick="ApplyIDToModal('twitch-modal', this)"></span>
-                                    <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
-                                        <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                        <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
-                                    </form>
-                                    {{end}}
-                                    <h4>Twitch</h4>
-                                    </div>
-                                     <div class="widgetBody" id=twitchrender{{index $loop.ID}}>
-                                         <script type =text/javascript>
-                                            TwitchRender({{index $loop.Data 0}}, {{index $loop.ID}});
-                                         </script>
-                                    </div>
-                                </div>
-                            </li>
-							{{end}}<!--end twitch -->
 							{{if eq $loop.Classification 11}}  <!--anchor--> 
 							<li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                                 <div class="projectsWidgetCont">
@@ -834,6 +818,28 @@
                                 </div>
                             </li>
                             {{end}}<!--end deviant art-->
+							{{if eq $loop.Classification 14}}  <!--twitch-->
+							<li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+                                    {{if eq ($.Page) ($.DOCID)}}
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="twitch-edit" onclick="ApplyIDToModal('twitch-modal', this)"></span>
+                                    <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
+                                        <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                        <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
+                                    </form>
+                                    {{end}}
+                                    <h4>Twitch</h4>
+                                    </div>
+                                     <div class="widgetBody" id=twitchrender{{index $loop.ID}}>
+                                         <script type =text/javascript>
+                                            TwitchRender({{index $loop.Data 0}}, {{index $loop.ID}});
+                                         </script>
+                                    </div>
+                                </div>
+                            </li>
+							{{end}}<!--end twitch -->
 							<!-- Calendar Widget -->
 							{{if eq $loop.Classification 15}}
 							<li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
@@ -877,6 +883,33 @@
 											   githubRender({{index $loop.Data 0}});
                                             });
 										</script>
+                                    </div>
+                                </div>
+                            </li>
+							<!-- End Github -->
+                            {{end}}
+                            {{if eq $loop.Classification 17}}
+                            <!-- Gallery Widget -->
+                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                                <div class="projectsWidgetCont">
+                                    <div class="widgetTitle">
+										{{if eq ($.Page) ($.DOCID)}}
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil" id="git-edit" onclick="ApplyIDToModal('git-modal', this)"></span>
+										<form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
+											<input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+											<span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
+										</form>
+                                        {{end}}
+                                        <h4>Gallery</h4>
+                                    </div>
+                                    <div id="widgetBodyGallery" class="widgetBody">
+										<div class="slider-nav">
+											<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"/>
+											<img src="https://ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/zero/1x/ic_zero_inbox.png"/>
+											<img src="http://ssl.gstatic.com/ui/v1/icons/mail/rfr/compose_efab_1x.png"/>
+										</div>
+										{{index $loop.Data 0}}
                                     </div>
                                 </div>
                             </li>
@@ -1478,14 +1511,12 @@
                             </div>
                             <div class="modal-body">
 								<form id="customGitForm" class="form-group" action="/addWidget/" method="POST">
-                                    <label for="git-embed-username"><p>Put your Github username here to publish your code:</p></label>
+                                    <label for="git-embed-username">Put your Github username here to publish your code:</label>
                                     <div class="input-group">
                                         <div class="input-group-btn">
-                                            <button id="git-setting" type="button" class="btn btn-secondary" aria-expanded="false">
-                                                Username
-                                            </button>
+											<span class="input-group-addon">Username</span>
+											<input type="text" class="form-control" id="git-embed-username" name="username"/>
                                         </div>
-                                        <input type="text" class="form-control" id="git-embed-username" name="username"/>
                                     </div>
                                     <br/>
                                     <div class="input-group">
@@ -1502,6 +1533,32 @@
                         </div>
                     </div>
                 </div>
+				<!--gallery Widget -->
+				<div class="modal fade" id="gallery-modal" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Embed Gallery</h4>
+							</div>
+							<div class="modal-body">
+								<span id="gallery-list-title">Removable Images</span>
+								<ul id="gallery-edit-list"></ul>
+								<p>Upload Image</p>
+								<form id="imageWidgetUpload" action="/addWidget/" method="POST">
+								<div class="form-group">
+									<input type="file" class="form-control" id="gallery-embed-input" name="galleryImageInput" placeholder="Gallery Image" required>
+									<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+								</div>
+								 </form>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" id="gallery-submit-btn" class="btn btn-info btn-done" form="imageWidgetUpload" name="widgetSubmit" value="8">Done</button>
+							</div>
+							
+						</div>
+					</div>
+				</div> <!--end gallery widget-->
 				<!-- insert modal -->
 			</div> <!-- end content -->
 		</div>

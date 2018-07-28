@@ -879,6 +879,14 @@ $(document).ready(function() {
 		});
 		$('#git-modal').modal();
 	});
+
+	// Github Widget Adder
+	$('#addGalleryWidget').click(function() {
+		$('#gallery-modal').on('shown.bs.modal', function() {
+            $('#gallery-embed-input').focus();
+		});
+		$('#gallery-modal').modal();
+	});
     
     $( ".delete-widget" ).click(function( event ) {
         var target= event.target.id;
