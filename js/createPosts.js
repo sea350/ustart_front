@@ -6,7 +6,7 @@
         $("#img"+elementID).attr("src", image);
         /* ----- end generate posts --- */
         /* ----- append share modals --- */
-        $('#shareModals').append('<div class="modal fade" id="share-modal'+elementID+'" role="dialog"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Share On Your Profile</h4></div><div class="modal-body"><div class="media"><a class="pull-left" href="#"><img class="media-object img-rounded" id="share-img'+elementID+'"src=""></a><div class="media-body"><h6 class="pull-right text-muted time">'+timeSince(time)+'</h6><h5 class="mt-0" style="color:cadetblue;">'+fName+" "+lName+'</h5><p>'+readRuneArrayThatWorks(content)+'</p></div></div><br><div class="form-group"><textarea class="form-control" id="shared-content'+elementID+'" style="resize: none;" placeholder="Say Something about this..."></textarea></div></div><div class="modal-footer"><button id="share-btn'+elementID+'" class="btn btn-primary pull-right share-postSubmit">Post</button></div></div></div></div>');
+        $('#shareModals').append('<div class="modal fade" id="share-modal'+elementID+'" role="dialog"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Share On Your Profil1</h4></div><div class="modal-body"><div class="media"><a class="pull-left" href="#"><img class="media-object img-rounded" id="share-img'+elementID+'"src=""></a><div class="media-body"><h6 class="pull-right text-muted time">'+timeSince(time)+'</h6><h5 class="mt-0" style="color:cadetblue;">'+fName+" "+lName+'</h5><p>'+readRuneArrayThatWorks(content)+'</p></div></div><br><div class="form-group"><textarea class="form-control" id="shared-content'+elementID+'" style="resize: none;" placeholder="Say Something about this..."></textarea></div></div><div class="modal-footer"><button id="share-btn'+elementID+'" class="btn btn-primary pull-right share-postSubmit">Post</button></div></div></div></div>');
             $("#share-img"+elementID).attr("src", image);
         /* ----- end append share modals --- */
         /* ----- append edit modals --- */
@@ -35,7 +35,7 @@
         $("#img"+elementID).attr("src", image);
         /* ----- end generate posts --- */
         /* ----- append share modals --- */
-        $('#shareModals').append('<div class="modal fade" id="share-modal'+elementID+'" role="dialog"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Share On Your Profile</h4></div><div class="modal-body"><div class="media"><a class="pull-left" href="#"><img class="media-object img-rounded" id="share-img'+elementID+'"src=""></a><div class="media-body"><h6 class="pull-right text-muted time">'+timeSince(time)+'</h6><h5 class="mt-0" style="color:cadetblue;">'+fName+" "+lName+'</h5><p>'+readRuneArrayThatWorks(content)+'</p></div></div><br><div class="form-group"><textarea class="form-control" id="shared-content'+elementID+'" style="resize: none;" placeholder="Say Something about this..."></textarea></div></div><div class="modal-footer"><button id="share-btn'+elementID+'" class="btn btn-primary pull-right share-postSubmit">Post</button></div></div></div></div>');
+        $('#shareModals').append('<div class="modal fade" id="share-modal'+elementID+'" role="dialog"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Share On Your Profile2</h4></div><div class="modal-body"><div class="media"><a class="pull-left" href="#"><img class="media-object img-rounded" id="share-img'+elementID+'"src=""></a><div class="media-body"><h6 class="pull-right text-muted time">'+timeSince(time)+'</h6><h5 class="mt-0" style="color:cadetblue;">'+fName+" "+lName+'</h5><p>'+readRuneArrayThatWorks(content)+'</p></div></div><br><div class="form-group"><textarea class="form-control" id="shared-content'+elementID+'" style="resize: none;" placeholder="Say Something about this..."></textarea></div></div><div class="modal-footer"><button id="share-btn'+elementID+'" class="btn btn-primary pull-right share-postSubmit">Post</button></div></div></div></div>');
         $("#share-img"+elementID).attr("src", image);
         /* ----- end append share modals --- */
         /*--- append main modal ---- */
@@ -141,7 +141,7 @@
             <ul class="dropdown-menu" style="min-width: 0px !important; padding:0px !important;"><li><a class="dropdown-item editEntry" data-toggle="modal" data-target="#edit-modal'+elementID+'"><H6>Edit</H6></a></li><li><a class="dropdown-item deleteEntry" data-toggle="modal" data-target="#delete-modal'+elementID+'"><H6>Delete</H6></a></li></ul></div>\
         <h6 class="pull-right text-muted time" style="padding-right:4px;">'+timeSince(time)+'</h6>\
         <h5 class="mt-0" style="color:cadetblue">'+fName+" "+lName+' shared a post:</h5>\
-        <p style="margin-left:2em">'+readRuneArrayThatWorks(sharedContent)+'</p>\
+        <p style="margin-left:2em">'+readRuneArrayThatWorks(content)+'</p>\
         <div class="media">\
         <div class="panel panel-default">\
             <div class="panel-body">\
@@ -150,7 +150,7 @@
                 <div class="media-body">\
                     <h6 class="pull-right text-muted time">'+timeSince(originaltime)+'</h6>\
                     <h5 class="mt-0"style="color:cadetblue;">'+posterFname+" "+posterLname+'</h5>\
-                    <p>'+readRuneArrayThatWorks(content)+'</p>\
+                    <p>'+readRuneArrayThatWorks(sharedContent)+'</p>\
                     </div>\
                 </div>\
             </div>\
@@ -183,7 +183,7 @@
          $('#wall-dataF').append('<div class="panel-body wallPosts" id="Post'+elementID+'">\
         <h6 class="pull-right text-muted time" style="padding-right:4px;">'+timeSince(time)+'</h6>\
         <h5 class="mt-0" style="color:cadetblue">'+fName+" "+lName+' shared a post:</h5>\
-        <p style="margin-left:2em">'+readRuneArrayThatWorks(sharedContent)+'</p>\
+        <p style="margin-left:2em">'+readRuneArrayThatWorks(content)+'</p>\
         <div class="media">\
         <div class="panel panel-default">\
             <div class="panel-body">\
@@ -192,7 +192,7 @@
                 <div class="media-body">\
                     <h6 class="pull-right text-muted time">'+timeSince(originaltime)+'</h6>\
                     <h5 class="mt-0"style="color:cadetblue;">'+posterFname+" "+posterLname+'</h5>\
-                    <p>'+readRuneArrayThatWorks(content)+'</p>\
+                    <p>'+readRuneArrayThatWorks(sharedContent)+'</p>\
                     </div>\
                 </div>\
             </div>\
