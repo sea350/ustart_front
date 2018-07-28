@@ -106,7 +106,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 								])
 
 								]),
-						$('<br>'),$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({"name":"","id":"share-content","placeholder":"Say Something about this..."}).each(function(){
+						$('<br>'),$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({"name":"","id":"share-content","placeholder":"Say Something about that1..."}).each(function(){
 							$(this).attr({"id": $(this).attr("id").concat(elementID)});
 						}))
 							]),
@@ -317,7 +317,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 
 								]),
 							$('<br>'),
-							$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({'id':'shared-content','placeholder':'Say Something about this...'}).each(function(){
+							$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({'id':'shared-content','placeholder':'Say Something about that2...'}).each(function(){
 								$(this).attr({"id": $(this).attr("id").concat(elementID)});
 							}))
 							])
@@ -489,7 +489,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 								])
 
 								]),
-						$('<br>'),$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({"name":"","id":"share-content","placeholder":"Say Something about this..."}).each(function(){
+						$('<br>'),$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({"name":"","id":"share-content","placeholder":"Say Something about that3..."}).each(function(){
 							$(this).attr({"id": $(this).attr("id").concat(elementID)});
 						}))
 							]),
