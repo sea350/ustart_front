@@ -141,7 +141,7 @@
             <ul class="dropdown-menu" style="min-width: 0px !important; padding:0px !important;"><li><a class="dropdown-item editEntry" data-toggle="modal" data-target="#edit-modal'+elementID+'"><H6>Edit</H6></a></li><li><a class="dropdown-item deleteEntry" data-toggle="modal" data-target="#delete-modal'+elementID+'"><H6>Delete</H6></a></li></ul></div>\
         <h6 class="pull-right text-muted time" style="padding-right:4px;">'+timeSince(time)+'</h6>\
         <h5 class="mt-0" style="color:cadetblue">'+fName+" "+lName+' shared a post:</h5>\
-        <p style="margin-left:2em">'+readRuneArrayThatWorks(content)+'</p>\
+        <p style="margin-left:2em">'+readRuneArrayThatWorks(sharedContent)+'</p>\
         <div class="media">\
         <div class="panel panel-default">\
             <div class="panel-body">\
@@ -183,7 +183,7 @@
          $('#wall-dataF').append('<div class="panel-body wallPosts" id="Post'+elementID+'">\
         <h6 class="pull-right text-muted time" style="padding-right:4px;">'+timeSince(time)+'</h6>\
         <h5 class="mt-0" style="color:cadetblue">'+fName+" "+lName+' shared a post:</h5>\
-        <p style="margin-left:2em">'+readRuneArrayThatWorks(content)+'</p>\
+        <p style="margin-left:2em">'+readRuneArrayThatWorks(sharedContent)+'</p>\
         <div class="media">\
         <div class="panel panel-default">\
             <div class="panel-body">\
