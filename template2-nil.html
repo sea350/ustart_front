@@ -43,7 +43,11 @@
                 if ($(window).width() <= 499){	
                     $('.form-control').hide();
                     $('#searchFilterFormSubmit').css({'background':'none','border':'none'});
-                }	
+                }
+                if ($(window).width() > 500){
+                    $('.form-control').show();
+                    $('#searchFilterFormSubmit').css({'background':'white'});
+                }
             });
             
             $.ajax({
