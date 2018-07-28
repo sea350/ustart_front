@@ -13,7 +13,6 @@ function readRuneArrayThatWorks(runeArray) {
 		var runeOutput = '';
 		runeArray.forEach(function(element) {
 			runeOutput += String.fromCharCode(element);
-			console.log('content' + runeOutput);
 		});
 		return runeOutput;
 	}
