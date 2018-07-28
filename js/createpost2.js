@@ -108,7 +108,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 								])
 
 								]),
-						$('<br>'),$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({"name":"","id":"share-content","placeholder":"Say Something about that1..."}).each(function(){
+						$('<br>'),$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({"name":"content","id":"shared-content","placeholder":"Say Something about this..."}).each(function(){
 							$(this).attr({"id": $(this).attr("id").concat(elementID)});
 						}))
 							]),
@@ -491,7 +491,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 								])
 
 								]),
-						$('<br>'),$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({"name":"","id":"share-content","placeholder":"Say Something about this..."}).each(function(){
+						$('<br>'),$('<div>',{'class':'form-group'}).append($('<textarea>',{'class':'form-control'}).attr({"name":"content","id":"shared-content","placeholder":"Say Something about this..."}).each(function(){
 							$(this).attr({"id": $(this).attr("id").concat(elementID)});
 						}))
 							]),
@@ -965,7 +965,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 			$(this).text(fName.concat(' ').concat(lName).concat(' shared a post: '));
 		}),
 		$('<p>').each(function(){
-			$(this).text(readRuneArrayThatWorks(sharedContent));
+			$(this).text(readRuneArrayThatWorks(content));
 		}),
 		$('<div>', {'class':'media'}).append([			
 		$('<div>',{'class':'panel panel-default'}).append([
@@ -984,7 +984,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 							$(this).text(posterFname.concat(' ').concat(posterLname));
 						}),
 						$('<p>').each(function(){
-							$(this).text(readRuneArrayThatWorks(content));
+							$(this).text(readRuneArrayThatWorks(sharedContent));
 						})
 						])
 
@@ -1151,7 +1151,7 @@ function createBasicSharedPost(image, fName,lName,elementID, content, sharedCont
 			$(this).text(fName.concat(' ').concat(lName).concat('shared a post: '));
 		}),
 		$('<p>').each(function(){
-			$(this).text(readRuneArrayThatWorks(sharedContent));
+			$(this).text(readRuneArrayThatWorks(content));
 		}),
 		$('<div>', {'class':'media'}).append([			
 		$('<div>',{'class':'panel panel-default'}).append([
@@ -1170,7 +1170,7 @@ function createBasicSharedPost(image, fName,lName,elementID, content, sharedCont
 							$(this).text(posterFname.concat(' ').concat(posterLname));
 						}),
 						$('<p>').each(function(){
-							$(this).text(readRuneArrayThatWorks(content));
+							$(this).text(readRuneArrayThatWorks(sharedContent));
 						})
 						])
 
@@ -1227,7 +1227,7 @@ function createBasicSharedPost(image, fName,lName,elementID, content, sharedCont
 								$('<h5>',{'class':'mt-0'}).each(function(){
 									$(this).text(fName.concat(' ').concat(lName));
 								}) ,
-								$('<p>').text(readRuneArrayThatWorks(content))
+								$('<p>').text(readRuneArrayThatWorks(sharedContent))
 								])
 							])
 						]) ,

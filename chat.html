@@ -244,7 +244,9 @@
                                             
                                             
                                             function check(){
-                                                if(!socket || socket.readyState == 3) start();
+                                                if(!socket || socket.readyState == 3){ 
+                                                    console.log("here");
+                                                    start();}
                                             }
                                             
                                            $.ajax({

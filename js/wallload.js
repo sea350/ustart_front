@@ -68,7 +68,7 @@
                                     for (i=temp.length-1; i >= 0; i--){
                                         if (userID == temp[i].Element.PosterID || editPermission==0 ){
                                             if (temp[i].Element.Classification == 2){
-                                               console.log("rendering share post"); createSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,temp[i].Element.Content,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
+                                               console.log("rendering share post"); createSharedPost(temp[i].ReferenceElement.Image,temp[i].FirstName,temp[i].LastName,temp[i].ElementID,  temp[i].Element.Content  ,temp[i].ReferenceElement.Element.Content,temp[i].ReferenceElement.FirstName,temp[i].ReferenceElement.LastName,temp[i].NumLikes, temp[i].NumReplies,temp[i].ReferenceElement.Element.TimeStamp, temp[i].Element.TimeStamp );
                                             }
                                             else if (temp[i].Element.Classification == 0){
                                                  makePostApplications(temp[i].Image, temp[i].FirstName,temp[i].LastName,temp[i].Element.Content,temp[i].ElementID,temp[i].NumLikes, temp[i].NumReplies, temp[i].NumShares,temp[i].Element.TimeStamp);
@@ -329,9 +329,10 @@
      $('body').on("click", ".share-postSubmit", function(e) {
           var temp = e.currentTarget.id;
           var postID = temp.replace("share-btn",'');
-          
           var content = $("#shared-content"+postID).val();
-          console.log(content+'112214');
+          console.log ($("#shared-content"+postID));
+          console.log('share-post content'+ content);
+
           $(e.currentTarget).prop('disabled', true);
           $.ajax({
                     type: 'GET',

@@ -14,6 +14,7 @@ function readRuneArrayThatWorks(runeArray) {
 		runeArray.forEach(function(element) {
 			runeOutput += String.fromCharCode(element);
 		});
+		console.log('ascii'+runeOutput);
 		return runeOutput;
 	}
 }
