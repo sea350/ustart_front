@@ -219,8 +219,8 @@ function updateNotifBadge() {
 }
 
 function updateChatBadge() {
-    if ($(".notif-label:visible").length > 0 ) {
-        $('.chatBadge').css('display', 'inline').text($(".notif-label:visible").length);
+    if (chatNotifCount > 0 ) {
+        $('.chatBadge').css('display', 'inline').text(''+ chatNotifCount);
     } else {
         $('.chatBadge').css('display', 'none').text('');
     }
@@ -278,15 +278,28 @@ function appendChatItem(chatID, person, message, timestamp, unreadStatus, classi
     var notifIconHolder = $('<div></div>').addClass('media-left').append(notifIcon);
     //var notifDismisser = $('<a></a>').addClass('close').attr('href', '#').attr('data-dismiss', 'alert').attr('aria-label', 'close').text('×');
     if (classification === 0){
-        var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('/ch/@' + chatID)).text(person);
+        var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('/ch/@' + chatID)).text(person).click(function(){
+             console.log("clicked href");
+             newLabel.removeClass('label-new');
+             newLabel.fadeOut('fast');
+             newLabel.text('');
+             chatNotifCount= $(".chat-label.label-new").length;
+             updateChatBadge();
+        });
     }
     else{
-        var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('/ch/' + chatID)).text(person);
+        var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('/ch/' + chatID)).text(person).click(function(){
+             newLabel.removeClass('label-new');
+             newLabel.fadeOut('fast');
+             newLabel.text('');
+             chatNotifCount= $(".chat-label.label-new").length;
+             updateChatBadge();
+        });
     }
     var notifPersonLabel = $('<strong></strong>').append(notifPersonLabelLink);
-    var notifNewLabel = $('<span></span>').addClass('label-new label label-info notif-label')
+    var notifNewLabel = $('<span></span>').addClass('label-new label label-info chat-label')
     if (unreadStatus) {
-        notifNewLabel.text('New');
+        chatNotifCount= $(".chat-label.label-new").length;
         updateChatBadge();
     }
     var notifPersonContainer = $('<div></div>').append(notifPersonLabel, notifNewLabel);
@@ -295,10 +308,12 @@ function appendChatItem(chatID, person, message, timestamp, unreadStatus, classi
     var notifMessageContainer = $('<div></div>').addClass('message-container media-body').append(notifPersonContainer, notifMessage, notifMessageTime);
     var notifItem = $('<li></li>').addClass('media alert fade in').attr('id', "chatnotif"+chatID).append(notifIconHolder, notifMessageContainer).click(function() {
         var newLabel = $(this).find('.label-new');
-        console.log("clicked");
         if (newLabel.length > 0) {
+            console.log("clicked label");
             newLabel.removeClass('label-new');
             newLabel.fadeOut('fast');
+            newLabel.text('');
+            chatNotifCount= $(".chat-label.label-new").length;
             updateChatBadge();
         }
     });

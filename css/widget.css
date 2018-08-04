@@ -26,6 +26,7 @@
 
 .widgetBody {
 	min-height: 4em;
+	justify-content: space-between;
 }
 #sortable {
     list-style-type: none;

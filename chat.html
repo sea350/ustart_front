@@ -220,7 +220,7 @@
                                                             prevSender=msg.SenderID;
                                                             }
                                                             else{
-                                                                populateMessageModified(urlid, msg.SenderID, memberList[msg.SenderID][0]+" "+memberList[msg.SenderID][1],msg.Content, memberList[msg.SenderID][2], new Date(msg.TimeStamp).getTime(), senderCheck, prevSender);
+                                                                populateNewMessageModified(urlid, msg.SenderID, memberList[msg.SenderID][0]+" "+memberList[msg.SenderID][1],msg.Content, memberList[msg.SenderID][2], new Date(msg.TimeStamp).getTime(), senderCheck, prevSender);
                                                                 prevSender=msg.SenderID;
                                                                /* if (senderCheck==true){
                                                                 $('.inbox-group.active .group-message').text("You: "+msg.Content);

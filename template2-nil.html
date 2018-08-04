@@ -19,7 +19,12 @@
     <script src="/ustart_front/js/userEdit.js"></script>
     <script>
         var port = window.location.port;
+        var chatNotifCount = 0;
+        var chattimerID=0;
+        var roomSocket;
         $(document).ready(function () {
+            chatNotifCount = $(".chat-label.label-new").length;
+            updateChatBadge();
             $('[data-toggle="tooltip"]').tooltip();
 
             $('.dropdown').on('show.bs.dropdown', function () {
@@ -72,9 +77,6 @@
                         {
                         var temp = $.parseJSON(jqXHR.responseText);
                          if (temp.heads != null){
-                             /*if (temp.numUnread > 0){
-                                $('.chatBadge').text(temp.numUnread);
-                             }*/
                              $('#chatDrop').empty();
                              for(i=0; i<temp.heads.length; i++){
                                 appendChatItem(temp.heads[i].Username,temp.heads[i].FirstName+' '+temp.heads[i].LastName, readRuneArrayThatWorks(temp.heads[i].Bio), formatTime(temp.heads[i].Time), temp.heads[i].Followed, temp.heads[i].Classification, temp.heads[i].Image);
@@ -84,7 +86,8 @@
                              $('#chatDrop').empty();
                              appendEmptyItem("chatDrop");
                          }
-                        }     
+                         chatNotifstart();
+                        }
                     }
                     ,error: function(err) {
                         console.log('chat initial chat failed: ');
@@ -92,85 +95,120 @@
                     }
             });
             
-            var roomSocket= new WebSocket('ws://' + window.location.host + '/cN/');
-             roomSocket.onopen = function(){
-                 console.log('Chat Nofitication Socket Status: '+roomSocket.readyState+'(open)');
-             }
-             roomSocket.onmessage = function(e){
-                  var chatNotifications = JSON.parse(e.data);
-                 console.log(chatNotifications);
-                  if ($('li#chatnotif'+chatNotifications.Username).length > 0){
-                      $('li#chatnotif'+chatNotifications.Username).prependTo('#chatDrop');
-                      $('li#chatnotif'+chatNotifications.Username+" .notif-message").text(readRuneArrayThatWorks(chatNotifications.Bio));
-                      $('li#chatnotif'+chatNotifications.Username+" .notif-timestamp").text(formatTime(new Date(chatNotifications.Time).getTime()));
-                      if(chatNotifications.Username != {{.DOCID}}){
-                          $('li#chatnotif'+chatNotifications.Username+" .notif-label").text("New");
-                      }
-                      updateChatBadge();
-                      //$('.chatBadge').text($(".notif-label:visible").length);
-                  }
-                  else{
-                     appendChatItem(chatNotifications.Username,chatNotifications.FirstName+' '+chatNotifications.LastName, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time), true, chatNotifications.Classification, chatNotifications.Image);
-                     $('.emptyState').remove();
-                  }
-                 if (chatNotifications.Classification == 0){ //REGULAR CHAT  
-                    if ($('li#'+$.escapeSelector("@"+chatNotifications.Username)).length != 0){ //chat exists
-                        $('li#'+$.escapeSelector("@"+chatNotifications.Username)).prependTo('#inbox-groups');
-                        //check for active here
-                        if ($('li#'+$.escapeSelector('@'+chatNotifications.Username)).hasClass('active')){
-                            $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
-                             $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
+             function chatNotifstart(){
+                //initial set up
+                if(!("WebSocket" in window)){
+                    console.log("you need a browser that supports web sockets");
+                 }else{
+                     try{
+                     roomSocket= new WebSocket('ws://' + window.location.host + '/cN/');
+                     roomSocket.onopen = function(){
+                         console.log('Chat Nofitication Socket Status: '+roomSocket.readyState+'(open)');
+                         if(window.chattimerID){ /* a setInterval has been fired */
+                           window.clearInterval(window.chattimerID);
+                           window.chattimerID=0;
+                         } 
+                     }
+                     roomSocket.onmessage = function(e){
+                          var chatNotifications = JSON.parse(e.data);
+
+                          if ($('li#chatnotif'+chatNotifications.Username).length > 0){
+                              $('li#chatnotif'+chatNotifications.Username).prependTo('#chatDrop');
+                              $('li#chatnotif'+chatNotifications.Username+" .notif-message").text(readRuneArrayThatWorks(chatNotifications.Bio));
+                              $('li#chatnotif'+chatNotifications.Username+" .notif-timestamp").text(formatTime(new Date(chatNotifications.Time).getTime()));
+                              if((readRuneArrayThatWorks(chatNotifications.Bio).substring(0,3)) == "You"){
+                                 $('li#chatnotif'+chatNotifications.Username+" .chat-label").css('display', 'none').removeClass('label-new').text('');
+                              }
+                              else{
+                                  $('li#chatnotif'+chatNotifications.Username+" .chat-label").addClass('label-new');
+                                  $('li#chatnotif'+chatNotifications.Username+" .chat-label").css('display', 'inline').text("New");
+                              }
+                              chatNotifCount= $(".chat-label.label-new").length;
+                              updateChatBadge();
+                          }
+                          else{
+                             appendChatItem(chatNotifications.Username,chatNotifications.FirstName+' '+chatNotifications.LastName, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time), true, chatNotifications.Classification, chatNotifications.Image);
+                             $('.emptyState').remove();
+                          }
+                         if (chatNotifications.Classification == 0){ //REGULAR CHAT  
+                            if ($('li#'+$.escapeSelector("@"+chatNotifications.Username)).length != 0){ //chat exists
+                               // $('li#'+$.escapeSelector("@"+chatNotifications.Username)).prependTo('#inbox-groups');
+                                //check for active here
+                                if ($('li#'+$.escapeSelector('@'+chatNotifications.Username)).hasClass('active')){
+                                    $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
+                                     $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
+                                }
+                                else{
+                                     $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-header').css("font-weight", 700);
+                                     $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio)).css("font-weight", 700);
+                                     $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime())).addClass("active").css({'font-weight': "bold"});
+                                }
+                           }
+                           else{    // chat does not exist
+                               console.log("creating new chat");
+                                populateExistingChatRooms(chatNotifications.Username, chatNotifications.Image, chatNotifications.FirstName+" "+chatNotifications.LastName, chatNotifications.Classification, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time));
+                                if ($('li#'+$.escapeSelector('@'+chatNotifications.Username)).hasClass('active')){
+                                    $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
+                                     $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
+                                }
+                                else{
+                                     $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-header').css("font-weight", 700);
+                                     $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio)).css("font-weight", 700);
+                                     $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime())).addClass("active").css({'font-weight': "bold"});
+                                }
+                           }
+                         }
+                        else{//PROJECT CHAT
+                            if ($('li#'+$.escapeSelector(chatNotifications.Username)).length != 0){ //chat exists
+                                //$('li#'+$.escapeSelector(chatNotifications.Username)).prependTo('#inbox-groups');
+                                //check for active here
+                                if ($('li#'+$.escapeSelector(chatNotifications.Username)).hasClass('active')){
+                                    $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
+                                     $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
+                                }
+                                else{
+                                     $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-header').css("font-weight", 700);
+                                     $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio)).css("font-weight", 700);
+                                     $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime())).addClass("active").css({'font-weight': "bold"});
+                                }
+                           }
+                           else{    // chat does not exist
+                               populateExistingChatRooms(chatNotifications.Username, chatNotifications.Image, chatNotifications.FirstName+" "+chatNotifications.LastName, chatNotifications.Classification, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time));
+                               if ($('li#'+$.escapeSelector(chatNotifications.Username)).hasClass('active')){
+                                    $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
+                                     $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
+                                }
+                                else{
+                                     $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-header').css("font-weight", 700);
+                                     $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio)).css("font-weight", 700);
+                                     $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime())).addClass("active").css({'font-weight': "bold"});
+                                }
+                           }
                         }
-                        else{
-                             $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-header').css("font-weight", 700);
-                             $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio)).css("font-weight", 700);
-                             $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime())).addClass("active").css({'font-weight': "bold"});
+                        }// end on message
+                     
+                        roomSocket.onerror= function(err){
+                            if (err == 1001)roomSocket.close();
                         }
-                   }
-                   else{    // chat does not exist
-                       console.log("creating new chat");
-                        populateExistingChatRooms(chatNotifications.Username, chatNotifications.Image, chatNotifications.FirstName+" "+chatNotifications.LastName, chatNotifications.Classification, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time));
-                        if ($('li#'+$.escapeSelector('@'+chatNotifications.Username)).hasClass('active')){
-                            $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
-                             $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
-                        }
-                        else{
-                             $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-header').css("font-weight", 700);
-                             $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio)).css("font-weight", 700);
-                             $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime())).addClass("active").css({'font-weight': "bold"});
-                        }
-                   }
-                 }
-                else{//PROJECT CHAT
-                    if ($('li#'+$.escapeSelector(chatNotifications.Username)).length != 0){ //chat exists
-                        $('li#'+$.escapeSelector(chatNotifications.Username)).prependTo('#inbox-groups');
-                        //check for active here
-                        if ($('li#'+$.escapeSelector(chatNotifications.Username)).hasClass('active')){
-                            $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
-                             $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
-                        }
-                        else{
-                             $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-header').css("font-weight", 700);
-                             $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio)).css("font-weight", 700);
-                             $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime())).addClass("active").css({'font-weight': "bold"});
-                        }
-                   }
-                   else{    // chat does not exist
-                       populateExistingChatRooms(chatNotifications.Username, chatNotifications.Image, chatNotifications.FirstName+" "+chatNotifications.LastName, chatNotifications.Classification, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time));
-                       if ($('li#'+$.escapeSelector(chatNotifications.Username)).hasClass('active')){
-                            $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
-                             $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
-                        }
-                        else{
-                             $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-header').css("font-weight", 700);
-                             $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio)).css("font-weight", 700);
-                             $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime())).addClass("active").css({'font-weight': "bold"});
-                        }
-                   }
-                }
+                        roomSocket.onclose= function(){
+                          //reconnect now
+                            if(!window.chattimerID){
+                              window.chattimerID=setInterval(checkNotif, Math.floor(Math.random() * 20000) + 5000 );
+                             }
+                        };
+
+                     }//end try
+                      catch(exception){
+                         console.log('Error: '+exception);
+                    }
+                } 
+            }
+                 
+            function checkNotif(){
+                if(!roomSocket || roomSocket.readyState == 3){ 
+                    chatNotifstart();}
+            }
                
-             }
-            
         });
     </script>
 </head>

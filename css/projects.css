@@ -50,6 +50,14 @@
 
 #project-desc {
     line-height: 1.5;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+
+
 }
 
 #project-logo {
