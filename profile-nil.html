@@ -902,8 +902,13 @@
                                         <h4>Gallery</h4>
                                     </div>
                                     <div id="widgetBodyGallery" class="widgetBody">
-										{{range $loop2 := $loop.Data }}
-											<span><img src="{{$loop2}}"/></span>
+										{{range $image := $loop.Data }}
+											<span>
+												<img src="{{$loop2}}"/>
+												<script>
+													$("#widgetBodyGallery img").last().attr("src", {{$image}});
+												</script>
+											</span>
 										{{end}}
                                     </div>
                                 </div>
