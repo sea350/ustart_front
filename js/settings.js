@@ -130,8 +130,24 @@ function eduCheck(usrtype) {
 		$('input#uniGradDate').attr('disabled', false);
 	}
 }
-
 $(document).ready(function() {
+    $('.vertical-menu ul').on('click', '.menu-list', function(event) {
+        $('.menu-list.active').removeClass('active');
+		$(this).addClass('active');
+		if ($('li[data-target="images"]').hasClass("active")) {
+			console.log('clicked');
+			//$('.vertical-menu').css({'border-right': 'none;'});
+			$('.vertical-menu').css({'border-right': 'none'});			
+			$('.contents').css({'border-left': '1px solid #808080'});
+		  }
+		else{	 
+			$('.contents').css({'border-left': 'none'});			
+			$('.vertical-menu').css({'border-right': '1px solid #808080'});			
+		}	
+        
+        $("#"+$(this).data('target')).show().siblings("div").hide();
+	}); 
+
 	$(".usr-vis-opt input[type='checkbox']").each(function(index) {
 		$(this).change(function() {
 			var forname = $(this).parent().prev().attr('for');

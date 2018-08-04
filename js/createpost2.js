@@ -87,6 +87,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 						$('<button>',{'class':'close'}).attr({'data-dismiss':'modal','type':'button'}).html("&times;"),
 						$('<h4>',{'class':'modal-title'}).text("Share on Your Profile")
 						]),
+						//HERE TO WORK FIRST
 					$('<div>',{'class':'modal-body'}).append([
 						$('<div>',{'class':'media'}).append([
 							$('<a>',{'class':'pull-left'}).append([
@@ -114,14 +115,79 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 							]),
 							$('<div>',{'class':'modal-footer'}).append([
 							$('<button>',{'class':'btn btn-primary pull-right share-postSubmit'}).attr('id','share-btn').text("Post").each(function(){
-								$(this).attr({"id": $(this).attr("id").concat(elementID)});
+								$(this).attr({"id": $(this).attr("id").concat(elementID)}).keydown(function(event){
+									var mac = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i) ? true : false;
+									if (mac) {
+										console.log('it is mac');
+										//BrowserDetection();
+										//OPERA
+										if((!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0){
+											if (event.keyCode == 17 && event.keyCode == 13){
+												$(this).siblings('.share-postSubmit').click();  
+												console.log("working FINE");                                                                                                        
+											}
+										}
+										//FireFox
+										if(typeof InstallTrigger !== 'undefined'){
+											if (event.keyCode == 224 && event.keyCode == 13){
+												$(this).siblings('.share-postSubmit').click();  
+												console.log("working FINE");                                                                                                        
+											}											
+
+										}
+										//Safari
+										if(/constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification))){
+											if (event.keyCode == 91 || event.keyCode == 93 && event.keyCode == 13){
+												$(this).siblings('.share-postSubmit').click();  
+												console.log("working FINE");                                                                                                        
+											}  
+										}
+										//IE
+										if(/*@cc_on!@*/false || !!document.documentMode){
+											if (event.ctrlKey && event.keyCode == 13){
+												$(this).siblings('.share-postSubmit').click();	
+												console.log("working FINE");																										
+											}
+										}
+										/*
+										//Edge
+										if(!isIE && !!window.StyleMedia){
+
+										}
+										*/
+										//Chrome
+										if(!!window.chrome && !!window.chrome.webstore){
+											if (event.keyCode == 91 || event.keyCode == 93 && event.keyCode == 13){
+												$(this).siblings('.share-postSubmit').click();  
+												console.log("working FINE");                                                                                                        
+											}  
+										}
+
+
+
+									}
+									//NOT mac
+									else{
+										if (event.ctrlKey && event.keyCode == 13){
+											$(this).siblings('.share-postSubmit').click();	
+											console.log("working FINE");																										
+										}
+									}
+								});
+
+								
+
+
+
 							})
 							])
+
 
 					])
 				])
 			])
-		]);
+		])
+		
 
 	$('#editModals').append([
 		$('<div>',{'class':'modal fade'}).attr({'id':'edit-modal','role':'dialog'}).each(function(){

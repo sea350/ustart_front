@@ -46,6 +46,7 @@ function timeSince(date) {
   return Math.floor(seconds) + " seconds ago";
 }
 
+
 $(document).on('click', '.dropdown-menu', function(e) {
     e.stopPropagation();
 });
@@ -56,6 +57,7 @@ var thePanB = false;
 
 var nam = "_NULL";
 
+var newNotifs = 0;
 document.addEventListener("DOMContentLoaded", function() {
     var submitIcon = $('.searchbox-icon');
     var inputBox = $('.searchbox-input');
@@ -208,8 +210,6 @@ function appendChatPanItem(t, d, l, b = false) {
     return true;
 }
 
-var newNotifs = 0;
-
 function updateNotifBadge() {
     if (newNotifs > 0) {
         $('.notifBadge').css('display', 'inline').text('' + newNotifs);
@@ -219,8 +219,8 @@ function updateNotifBadge() {
 }
 
 function updateChatBadge() {
-    if (newNotifs > 0) {
-        $('.chatBadge').css('display', 'inline').text('' + newNotifs);
+    if ($(".notif-label:visible").length > 0 ) {
+        $('.chatBadge').css('display', 'inline').text($(".notif-label:visible").length);
     } else {
         $('.chatBadge').css('display', 'none').text('');
     }
@@ -271,11 +271,10 @@ function appendEmptyItem(destination) {
 }
 
 
-function appendChatItem(chatID, person, message, timestamp, unreadStatus, classification) {
+function appendChatItem(chatID, person, message, timestamp, unreadStatus, classification, image) {
     // Load person's icon
     var notifIcon = $('<img></img>').addClass('media-object img-rounded notif-icon');
-    $(notifIcon).attr('alt', '40x40').attr('src', 'http://placehold.it/40x40');
-    
+    notifIcon.attr('alt', '40x40').attr('src', image);
     var notifIconHolder = $('<div></div>').addClass('media-left').append(notifIcon);
     //var notifDismisser = $('<a></a>').addClass('close').attr('href', '#').attr('data-dismiss', 'alert').attr('aria-label', 'close').text('×');
     if (classification === 0){
@@ -285,23 +284,22 @@ function appendChatItem(chatID, person, message, timestamp, unreadStatus, classi
         var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('/ch/' + chatID)).text(person);
     }
     var notifPersonLabel = $('<strong></strong>').append(notifPersonLabelLink);
-    var notifNewLabel = $('<span></span>').addClass('label-new label label-info')
+    var notifNewLabel = $('<span></span>').addClass('label-new label label-info notif-label')
     if (unreadStatus) {
         notifNewLabel.text('New');
-        newNotifs++;
-        updateNotifBadge();
+        updateChatBadge();
     }
     var notifPersonContainer = $('<div></div>').append(notifPersonLabel, notifNewLabel);
     var notifMessage = $('<div></div>').addClass('notif-message').text(message);
     var notifMessageTime = $('<div></div>').addClass('notif-timestamp').text(timestamp);
     var notifMessageContainer = $('<div></div>').addClass('message-container media-body').append(notifPersonContainer, notifMessage, notifMessageTime);
-    var notifItem = $('<li></li>').addClass('media alert fade in').append(notifIconHolder, notifMessageContainer).click(function() {
+    var notifItem = $('<li></li>').addClass('media alert fade in').attr('id', "chatnotif"+chatID).append(notifIconHolder, notifMessageContainer).click(function() {
         var newLabel = $(this).find('.label-new');
+        console.log("clicked");
         if (newLabel.length > 0) {
             newLabel.removeClass('label-new');
             newLabel.fadeOut('fast');
-            newNotifs--;
-            updateNotifBadge();
+            updateChatBadge();
         }
     });
     $('#chatDrop').prepend(notifItem);
@@ -311,6 +309,7 @@ function presentLogError() {
     $('#spaced .help-block').stop(true, false).slideDown('slow').delay(4000).slideUp('slow');
 }
 
+/*
 function fitNavbar() {
     var widthLength = 500;
     var scrollFlag = $(document).height() > $(window).height();
@@ -326,6 +325,7 @@ function fitNavbar() {
         $('ul.navbar-nav').prepend($('li.inbox-list-item'));
     }
 }
+*/
 
 $(document).ready(function () {
     appendEmptyItem("notifDrop");
@@ -336,14 +336,13 @@ $(document).ready(function () {
     appendNotifItem('Reflector Pinpointer', 'YO! You following me?', 'NOW', true);
     appendNotifItem('Broadside Chromedome', "WHAT'S UP?", 'NOW', true);
     
-    appendEmptyItem("chatDrop");
     //appendChatItem(1,'Reflector Pinpointer', 'is following you', 'NOW', true);
-    
+    /*
     $(window).resize(function() {
         fitNavbar();
     });
     fitNavbar();
-    
+    */
     $('#spaced .help-block').slideUp();
     $('#theLogIn form').submit(function(e) {
         if (false) {

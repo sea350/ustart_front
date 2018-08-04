@@ -51,7 +51,7 @@ function populateChatRooms(title, icon, name , classification, message, timestam
     var listContent= $("<div></div>").addClass('inbox-side-content');
     var listLeftContent= $("<div></div>").addClass('inbox-left-bar');
     var listInboxHeader= $("<div></div>").addClass('inbox-header');
-    var listTitle = $("<span></span>").addClass('group-header').text(name);
+    var listTitle = $("<span></span>").addClass('group-header').text(name).attr('title', name);
     var listTimeStampContainer = $("<div></div>").addClass('inbox-timestamp');
     if (message != ""){
         var listTimeStamp = $("<span></span>").addClass('group-message-time').text(timestamp);
@@ -60,7 +60,7 @@ function populateChatRooms(title, icon, name , classification, message, timestam
         var listTimeStamp = $("<span></span>").addClass('group-message-time');
     }
     var listMessageContainer = $("<div></div>").addClass('inbox-last-msg');
-    var listMessage = $("<span></span>").addClass('group-message').text(message);
+    var listMessage = $("<span></span>").addClass('group-message').text(message).attr('title', message);
     
     listMessageContainer.append(listMessage);
     listTimeStampContainer.append(listTimeStamp);
@@ -72,6 +72,38 @@ function populateChatRooms(title, icon, name , classification, message, timestam
 }
 
 
+function populateExistingChatRooms(title, icon, name , classification, message, timestamp) {
+    if (classification === 0){
+        var listItem = $("<li></li>").attr({'class':"inbox-group", 'id' : "@"+title });
+    }
+    else{
+          var listItem = $("<li></li>").attr({'class':"inbox-group", 'id' : title });
+    }
+    var listImage = $("<img></img>").addClass('inbox-image').attr('src', icon);
+    var listContent= $("<div></div>").addClass('inbox-side-content');
+    var listLeftContent= $("<div></div>").addClass('inbox-left-bar');
+    var listInboxHeader= $("<div></div>").addClass('inbox-header');
+    var listTitle = $("<span></span>").addClass('group-header').text(name).attr('title', name);
+    var listTimeStampContainer = $("<div></div>").addClass('inbox-timestamp');
+    if (message != ""){
+        var listTimeStamp = $("<span></span>").addClass('group-message-time').text(timestamp);
+    }
+    else{
+        var listTimeStamp = $("<span></span>").addClass('group-message-time');
+    }
+    var listMessageContainer = $("<div></div>").addClass('inbox-last-msg');
+    var listMessage = $("<span></span>").addClass('group-message').text(message).attr('title', message);
+    
+    listMessageContainer.append(listMessage);
+    listTimeStampContainer.append(listTimeStamp);
+    listInboxHeader.append(listTitle);
+    listLeftContent.append(listInboxHeader,listTimeStampContainer);
+    listContent.append(listLeftContent,listMessageContainer);
+    listItem.append(listImage, listContent);
+    $('#inbox-groups').prepend(listItem);
+}
+
+
 function populateOfflineMessage(parentid, message, time) {
 	var dateTime = dateFormat(time);
 	if ($('#chat'+$.escapeSelector(parentid)).find(".message-timeline").last().text() !== dateTime) {
@@ -80,14 +112,16 @@ function populateOfflineMessage(parentid, message, time) {
 	}
     var listMessage = $("<span></span>").addClass('message-user-message').text(message);
 	var listItem = $("<li></li>").attr('class', "offline");
-    listItem.addClass('message-user-right');
+    listItem.addClass('message-user message-user-right');
     listItem.append(listMessage);	
 	$('#chat'+$.escapeSelector(parentid)).append(listItem);
-	$(listItem).css('font-size', '0%').animate({
-		"font-size": "100%"
-	}, 100 , () => {
-		$('.message-box').scrollTop($('.message-box')[0].scrollHeight);
-	});
+    if( !($('#chat'+$.escapeSelector(parentid)).scrollTop() <= $('#chat'+$.escapeSelector(parentid)).height())){
+        $(listItem).css('font-size', '0%').animate({
+            "font-size": "100%"
+        }, 100 , () => {
+            $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
+        });
+    }
 }
 
 
@@ -113,11 +147,11 @@ function populateMessageModified(parentid, msgid, username, message, icon, time,
 	var listItem = $("<li></li>").attr('sender', msgid);
 	if (originuser) {
 		// If the post is by the user, push to the right
-		listItem.addClass('.message-user message-user-right');
+		listItem.addClass('message-user message-user-right');
 		listItem.append(listMessage, listTime);
 	} else {
 		// If the post is not by the user, push to the left
-		listItem.addClass('.message-user message-user-left');
+		listItem.addClass('message-user message-user-left');
         if (prevSender == ""){
             listItem.append(listName, listIcon, " ", listMessage, listTime);
         }
@@ -132,18 +166,30 @@ function populateMessageModified(parentid, msgid, username, message, icon, time,
 	}
 		
 	$('#chat'+$.escapeSelector(parentid)).append(listItem);
-    
-	$(listItem).css('font-size', '0%').animate({
-		"font-size": "100%"
-	}, 'fast', () => {
-		$('.message-box').scrollTop($('.message-box')[0].scrollHeight);
-	});
+    var roomHeight = ($('#chat'+$.escapeSelector(parentid))[0].scrollHeight - $('#chat'+$.escapeSelector(parentid)).height()); // Get the height of the div
+    var roomScroll = $('#chat'+$.escapeSelector(parentid)).scrollTop(); // Get the vertical scroll position
+    var isScrolledToEnd = (roomScroll > roomHeight)
+    if(!originuser){
+        if(isScrolledToEnd){
+                $(listItem).css('font-size', '0%').animate({
+                    "font-size": "100%"
+                }, 100 , () => {
+                    $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
+                });
+        }
+    }
+    else{
+        $(listItem).css('font-size', '0%').animate({
+            "font-size": "100%"
+        }, 100 , () => {
+            $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
+        });
+    }
 }
 
 $(document).on('click', '.message-user-message', function(e) { 
     $(e.currentTarget).next().collapse('toggle'); 
 
-    console.log($('.message-user-message:last'));
     if ($(e.currentTarget).is( $('.message-user-message:last'))){
         $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
     }
@@ -253,8 +299,8 @@ $(document).ready(function () {
 	$('[data-toggle="tooltip"]').tooltip();
 	
      $('#sidebarCollapse').on('click', function (e) {
-         //e.preventDefault();
-        //$('#sidebar').toggleClass('active');
+         e.preventDefault();
+        $('#sidebar').toggleClass('active');
     });
     
     

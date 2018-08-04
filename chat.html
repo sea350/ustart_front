@@ -15,6 +15,7 @@
         var timerID=0;
         var prevSender="";
         var port = window.location.port;
+        var memberList={};
     </script>
 </head>
 <body>
@@ -124,7 +125,7 @@
                                                 if (isScrolledToEnd) {
                                                     GetChatrooms(); // Get the additional content
                                                 }
-                                            });
+                                             });
                                             
                                             function start(){
                                                 //initial set up
@@ -132,10 +133,6 @@
                                                     console.log("you need a browser that supports web sockets");
                                                  }else{
                                                      try{
-                                                        var roomSocket= new WebSocket('ws://' + window.location.host + '/cN/');
-                                                        roomSocket.onmessage = function(e){
-                                                              console.log('Room Socket Received: '+e.data);
-                                                        }
                                                         if (sockets.length>0){
                                                             sockets.forEach(function(s) {
                                                                 s.close();
@@ -171,15 +168,17 @@
                                                                     var temp = $.parseJSON(jqXHR.responseText);
                                                                     if (temp != null){
                                                                        $('#sidebar').empty();
-                                                                        console.log(temp);
                                                                        $.each(temp.Eavesdroppers, function() {
                                                                          populateMemberList(this.FirstName+' '+this.LastName);
+                                                                           var tempMember = [this.FirstName, this.LastName, this.Image];
+                                                                           if (!(tempMember in memberList))
+                                                                                memberList[this.DocID]=tempMember;
                                                                         });
                                                                         if (temp.Messages != null){
                                                                            for(i=0; i<temp.Messages.length; i++){
                                                                                if(temp.Messages[i].SenderID == {{.DOCID}}){var senderChk = true;}
                                                                                 else{var senderChk = false;}
-                                                                                populateMessageModified(urlid, temp.Messages[i].SenderID, "Mountain Mama",
+                                                                                populateMessageModified(urlid, temp.Messages[i].SenderID, memberList[temp.Messages[i].SenderID][0]+" "+memberList[temp.Messages[i].SenderID][1],
                                                                                 temp.Messages[i].Content, temp.Eavesdroppers[temp.Messages[i].SenderID].Image, new Date(temp.Messages[i].TimeStamp).getTime(), senderChk,prevSender);
                                                                                 prevSender=temp.Messages[i].SenderID;
                                                                            }
@@ -205,8 +204,6 @@
                                                         }
                                                         socket.onmessage = function(e){
                                                             //replace later
-                                                            var sender ="Mahindra Russia";
-                                                            console.log('Received: '+e.data);
                                                             var msg = JSON.parse(e.data);
                                                             if(msg.SenderID == {{.DOCID}}){
                                                                 var senderCheck = true;
@@ -214,17 +211,25 @@
                                                             else{
                                                                 var senderCheck = false;
                                                             }
-                                                            populateMessageModified(urlid, msg.SenderID, sender,
-                                                            msg.Content, '', new Date(msg.TimeStamp).getTime(), senderCheck, prevSender);
+                                                            if($('#chat'+$.escapeSelector(urlid)+"> li").length >= 100){
+                                                                $('.message-user').first().remove();
+                                                            }
+                                                            if (urlid===""){
+                                                            populateMessageModified(urlid, msg.SenderID, "Global User",
+                                                            msg.Content, 'http://placebear.com/400/400', new Date(msg.TimeStamp).getTime(), senderCheck, prevSender);
                                                             prevSender=msg.SenderID;
-                                                            /*if (senderCheck==true){
-                                                                $('.inbox-group.active .group-message').text("You: "+msg.Content);
                                                             }
                                                             else{
-                                                                $('.inbox-group.active .group-message').text(sender+": "+msg.Content); 
-                                                            }
-                                                            $('.inbox-group.active .group-message-time').text(formatTime(new Date(msg.TimeStamp).getTime()));*/
-                                                           $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
+                                                                populateMessageModified(urlid, msg.SenderID, memberList[msg.SenderID][0]+" "+memberList[msg.SenderID][1],msg.Content, memberList[msg.SenderID][2], new Date(msg.TimeStamp).getTime(), senderCheck, prevSender);
+                                                                prevSender=msg.SenderID;
+                                                               /* if (senderCheck==true){
+                                                                $('.inbox-group.active .group-message').text("You: "+msg.Content);
+                                                                }
+                                                                else{
+                                                                    $('.inbox-group.active .group-message').text(memberList[msg.SenderID][0]+" "+memberList[msg.SenderID][1]+": "+msg.Content); 
+                                                                }
+                                                                $('.inbox-group.active .group-message-time').text(formatTime(new Date(msg.TimeStamp).getTime()));*/
+                                                            } 
                                                         } 
                                                         socket.onerror= function(err){
                                                             if (err == 1001)socket.close();
@@ -245,7 +250,6 @@
                                             
                                             function check(){
                                                 if(!socket || socket.readyState == 3){ 
-                                                    console.log("here");
                                                     start();}
                                             }
                                             
@@ -259,12 +263,15 @@
                                                         if(status == 'success' || status=='notmodified')
                                                         {
                                                         var temp = $.parseJSON(jqXHR.responseText);
-                                                         if (temp != null){
+                                                        if (temp.heads != null){
                                                              $('#inbox-groups').empty();
-                                                             for(i=0; i<temp.length; i++){
-                                                                 populateChatRooms(temp[i].Username, temp[i].Image, temp[i].FirstName+' '+temp[i].LastName,temp[i].Classification, readRuneArrayThatWorks(temp[i].Bio), formatTime(temp[i].Time));
+                                                             for(i=0; i<temp.heads.length; i++){
+                                                                 populateChatRooms(temp.heads[i].Username, temp.heads[i].Image, temp.heads[i].FirstName+' '+temp.heads[i].LastName,temp.heads[i].Classification, readRuneArrayThatWorks(temp.heads[i].Bio), formatTime(temp.heads[i].Time));
                                                              }
-                                                         }
+                                                        }
+                                                        else{
+                                                            $('#inbox-groups').empty();
+                                                        }
                                                         start();
                                                         }     
                                                     }
@@ -286,12 +293,10 @@
                                                 }
                                             });       
                                             $('.chat-submit').click(function(){
-                                                console.log("sending");
                                                 var temp = window.location.href.indexOf("ch");
                                                 var id = window.location.href.substring(temp+3);
                                                 if(socket.readyState === socket.OPEN){
                                                     if ($('#messager'+$.escapeSelector(id)).val()!= '') {
-                                                        console.log($('#messager'+$.escapeSelector(id)).val());
                                                         socket.send(JSON.stringify({
                                                             Content:  $('#messager'+$.escapeSelector(id)).val()
                                                         }));
@@ -300,12 +305,9 @@
                                                 }
                                                 else {
                                                      if ( $('#messager'+$.escapeSelector(id)).val()!= '') {
-                                                       // console.log(socket.readyState+" Message: "+$("#messager"+id).val());
                                                         var timeNow = new Date().getTime();  
                                                         populateOfflineMessage(id,
                                                          $('#messager'+$.escapeSelector(id)).val(), timeNow);
-                                                        // $('#chat'+$.escapeSelector(id)).scrollTop($('.message-box')[0].scrollHeight);
-                                                       // console.log($('#-1').children(".message-user-message"));
                                                          $('#messager'+$.escapeSelector(id)).val('');
                                                     }
                                                     
@@ -314,13 +316,14 @@
                                             
                                             //switch socket on the fly
                                             $(document).on('click', '.inbox-group', function(e) { 
-                                                //$(e.currentTarget).addClass('active');
                                                 if (!$(e.currentTarget).hasClass('active')) {
-                                                    console.log("reset actives");
                                                     $('.active').not(e.currentTarget).removeClass('active');
                                                     $(e.currentTarget).addClass('active');
                                                 }
                                                 var chatIden = e.currentTarget.id;
+                                                $(e.currentTarget).find(".group-header").css("font-weight", "normal");
+                                                $(e.currentTarget).find(".group-message").css("font-weight", "normal");
+                                                $(e.currentTarget).find(".group-message-time").removeClass("active").css("font-weight", "normal");
                                                 var temp = window.location.href.indexOf("ch");
                                                 var urlid = window.location.href.substring(temp+3);
                                                 if (chatIden != urlid ){
@@ -330,8 +333,6 @@
                                                 prevSender="";
                                             });
                                         });
-                                        
-                                        
                                         
                                     </script>
 								</ul>

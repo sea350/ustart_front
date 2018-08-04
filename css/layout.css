@@ -4,12 +4,18 @@
 .navBar-placeholder nav {
     font-family: sans-serif
 }
+
 .btn-link {
     color: #CFD8DC
 }
 .btn-link:active,
 .btn-link:hover {
     color: #F44336
+}
+
+.notif-icon{
+    width:40px;
+    height:40px;
 }
 
 .navbar-form{
@@ -155,15 +161,15 @@ body {
 #notifDrop::-webkit-scrollbar {
     width: 0px
 }
-#notifDrop>li {
+#notifDrop>li, #chatDrop>li {
     -webkit-transition: background-color 0.5s;
     -o-transition: background-color 0.5s;
     transition: background-color 0.5s
 }
-#notifDrop>li:hover {
+#notifDrop>li:hover, #chatDrop>li:hover  {
     background-color: #00ac7d
 }
-#notifDrop .alert {
+#notifDrop .alert , #chatDrop .alert{
     border-radius: 0;
 }
 .navbar li.navbar-btn a,

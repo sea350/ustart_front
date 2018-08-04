@@ -18,6 +18,7 @@
     <script src="/ustart_front/js/layout.js"></script>
     <script src="/ustart_front/js/userEdit.js"></script>
     <script>
+        var port = window.location.port;
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
 
@@ -39,16 +40,26 @@
             $('#search-box input[type=search], #searchFilters').click(function (event) {
                 event.stopPropagation();
             });
-            $(window).resize(function(){
-                if ($(window).width() <= 499){	
-                    $('.form-control').hide();
-                    $('#searchFilterFormSubmit').css({'background':'none','border':'none'});
+
+            var $window = $(window);
+            var $searchForm = $('#form-control');
+
+            function checkWidth(){
+                var windowSize = $window.width();
+                if (windowSize < 800){
+                    $searchForm.hide();
+                    $('#searchFilterFormSubmit').addClass('searchResponsive');
+                    $('.searchResponsive').css({'background':'none','border':'none'});
+                    
                 }
-                if ($(window).width() > 500){
-                    $('.form-control').show();
-                    $('#searchFilterFormSubmit').css({'background':'white'});
+                else{
+                    $searchForm.show();
+                    $('#searchFilterFormSubmit').removeClass('searchResponsive')
+                    .css({'background-color':'#fff','border-radius':'4px','border':'1px solid transparent','border-color':'#ccc','border-top-left-radius':'0px','border-bottom-left-radius':'0px'});               
                 }
-            });
+            }
+            checkWidth();
+            $(window).resize(checkWidth);
             
             $.ajax({
                   type: 'GET',
@@ -60,12 +71,13 @@
                         if(status == 'success' || status=='notmodified')
                         {
                         var temp = $.parseJSON(jqXHR.responseText);
-                         if (temp != null){
-                             console.log(temp.length);
-                             $('.chatBadge').text(temp.length);
+                         if (temp.heads != null){
+                             /*if (temp.numUnread > 0){
+                                $('.chatBadge').text(temp.numUnread);
+                             }*/
                              $('#chatDrop').empty();
-                             for(i=0; i<temp.length; i++){
-                                appendChatItem(temp[i].Username,temp[i].FirstName+' '+temp[i].LastName, readRuneArrayThatWorks(temp[i].Bio), formatTime(temp[i].Time), true, temp[i].Classification);
+                             for(i=0; i<temp.heads.length; i++){
+                                appendChatItem(temp.heads[i].Username,temp.heads[i].FirstName+' '+temp.heads[i].LastName, readRuneArrayThatWorks(temp.heads[i].Bio), formatTime(temp.heads[i].Time), temp.heads[i].Followed, temp.heads[i].Classification, temp.heads[i].Image);
                              }
                          }
                          else{
@@ -79,11 +91,85 @@
                         console.log(err);
                     }
             });
-            /*
-            if($(window).width() < 499){
-                
-            }
-            */
+            
+            var roomSocket= new WebSocket('ws://' + window.location.host + '/cN/');
+             roomSocket.onopen = function(){
+                 console.log('Chat Nofitication Socket Status: '+roomSocket.readyState+'(open)');
+             }
+             roomSocket.onmessage = function(e){
+                  var chatNotifications = JSON.parse(e.data);
+                 console.log(chatNotifications);
+                  if ($('li#chatnotif'+chatNotifications.Username).length > 0){
+                      $('li#chatnotif'+chatNotifications.Username).prependTo('#chatDrop');
+                      $('li#chatnotif'+chatNotifications.Username+" .notif-message").text(readRuneArrayThatWorks(chatNotifications.Bio));
+                      $('li#chatnotif'+chatNotifications.Username+" .notif-timestamp").text(formatTime(new Date(chatNotifications.Time).getTime()));
+                      if(chatNotifications.Username != {{.DOCID}}){
+                          $('li#chatnotif'+chatNotifications.Username+" .notif-label").text("New");
+                      }
+                      updateChatBadge();
+                      //$('.chatBadge').text($(".notif-label:visible").length);
+                  }
+                  else{
+                     appendChatItem(chatNotifications.Username,chatNotifications.FirstName+' '+chatNotifications.LastName, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time), true, chatNotifications.Classification, chatNotifications.Image);
+                     $('.emptyState').remove();
+                  }
+                 if (chatNotifications.Classification == 0){ //REGULAR CHAT  
+                    if ($('li#'+$.escapeSelector("@"+chatNotifications.Username)).length != 0){ //chat exists
+                        $('li#'+$.escapeSelector("@"+chatNotifications.Username)).prependTo('#inbox-groups');
+                        //check for active here
+                        if ($('li#'+$.escapeSelector('@'+chatNotifications.Username)).hasClass('active')){
+                            $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
+                             $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
+                        }
+                        else{
+                             $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-header').css("font-weight", 700);
+                             $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio)).css("font-weight", 700);
+                             $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime())).addClass("active").css({'font-weight': "bold"});
+                        }
+                   }
+                   else{    // chat does not exist
+                       console.log("creating new chat");
+                        populateExistingChatRooms(chatNotifications.Username, chatNotifications.Image, chatNotifications.FirstName+" "+chatNotifications.LastName, chatNotifications.Classification, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time));
+                        if ($('li#'+$.escapeSelector('@'+chatNotifications.Username)).hasClass('active')){
+                            $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
+                             $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
+                        }
+                        else{
+                             $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-header').css("font-weight", 700);
+                             $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio)).css("font-weight", 700);
+                             $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime())).addClass("active").css({'font-weight': "bold"});
+                        }
+                   }
+                 }
+                else{//PROJECT CHAT
+                    if ($('li#'+$.escapeSelector(chatNotifications.Username)).length != 0){ //chat exists
+                        $('li#'+$.escapeSelector(chatNotifications.Username)).prependTo('#inbox-groups');
+                        //check for active here
+                        if ($('li#'+$.escapeSelector(chatNotifications.Username)).hasClass('active')){
+                            $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
+                             $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
+                        }
+                        else{
+                             $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-header').css("font-weight", 700);
+                             $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio)).css("font-weight", 700);
+                             $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime())).addClass("active").css({'font-weight': "bold"});
+                        }
+                   }
+                   else{    // chat does not exist
+                       populateExistingChatRooms(chatNotifications.Username, chatNotifications.Image, chatNotifications.FirstName+" "+chatNotifications.LastName, chatNotifications.Classification, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time));
+                       if ($('li#'+$.escapeSelector(chatNotifications.Username)).hasClass('active')){
+                            $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
+                             $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
+                        }
+                        else{
+                             $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-header').css("font-weight", 700);
+                             $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio)).css("font-weight", 700);
+                             $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime())).addClass("active").css({'font-weight': "bold"});
+                        }
+                   }
+                }
+               
+             }
             
         });
     </script>
@@ -98,7 +184,7 @@
             </a>
             <form class="navbar-form nav-item">
                 <div class="input-group" id="search-box">
-                    <input class="form-control" type="search" name="query" placeholder="Search" form="searchFilterForm" autocomplete="off">
+                    <input class="form-control" id='form-control' type="search" name="query" placeholder="Search" form="searchFilterForm" autocomplete="off">
                     <span class="input-group-btn">
                         <button id="searchFilterFormSubmit" class="btn btn-default" type="submit" form="searchFilterForm" style="height: 2.4em">
                             <i class="fa fa-search"></i>
