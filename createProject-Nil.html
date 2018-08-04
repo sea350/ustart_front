@@ -28,21 +28,21 @@
             {{end}} 
             <h2 style="padding:0; text-align: center;">Create A Project</h2>            
             <div class="jumbotron container col-md-8 col-md-offset-2" >
-
                 <form class="form-signup" id="projectCreateForm" action="/CreateProjectPage/" method="post">
-                    
                     <!-- Name -->
                     <div class="row">
-                        <div class="dropdown col-md-7"> 
+                        <div class="col-md-7">
+                            <label for="Title" class="sr-only">Title</label>
                             <div class="input-group input-groupz">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-folder-open"></i></span>
-                                <input type="text" id="fName" name="project_title" class="form-control" placeholder="ustart.today/TITLE of PROJECT" required>
-                                </div>  
+                                <input type="text" id="fName" name="project_title" class="form-control" placeholder="Project Title" required>
+                            </div>  
                         </div>
                         <div class="dropdown col-md-5">
+                            <label for="category" class="sr-only">Category</label>
                             <div class="input-group input-groupz">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                <select type="text" id="category" name="category" class="form-control" placeholder="Category" required>
+                                <select type="text" id="category" name="category" class="form-control" required>
                                     <option></option>
                                 </select>
                                 <script>
@@ -52,7 +52,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="dropdown col-md-7">
+                        <div class="col-md-7">
+                            <label for="curl" class="sr-only">Custom URL</label>
                             <div class="input-group input-groupz">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
                                 <input type="text" id="curl" name="curl" class="form-control" placeholder="Custom URL (ustart.today/example/)" pattern="^You're custom URL$/|[A-Za-z\d][\w\d-]+[A-Za-z\d]">
@@ -60,6 +61,7 @@
                             <span style='color:#999'>Characters, Digits, Dashes, and Underscores Only. <br> No Starting or Ending Symbols (^ $,!,@,#,$. $/)</span>
                         </div>
                         <div class="dropdown col-md-5">
+                            <label for="universityName" class="sr-only">University/College</label>
                             <div class="input-group input-groupz">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
                                 <input name="universityName" class="form-control" id="uni" placeholder="University/College" required>
@@ -78,12 +80,14 @@
                     </div>
                     <div class="row">
                         <div class="dropdown col-md-3 col-sm-6">
+                            <label for="country" class="sr-only">Country</label>
                             <div class="input-group input-groupz">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
                                 <select id="country" name="country" class="form-control" autocomplete="country-name"></select>
                             </div>
                         </div>
                         <div class="dropdown col-md-3 col-sm-6">
+                            <label for="state" class="sr-only">State</label>
                             <div class="input-group input-groupz">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
                                 <select name="state" id="state" class="form-control" autocomplete="state"></select>
@@ -92,22 +96,24 @@
                         <script language="javascript">
 							populateCountries("country", "state");
                         </script>
-                        <div class="dropdown col-md-3 col-sm-6">
+                        <div class="col-md-3 col-sm-6">
+                            <label for="city" class="sr-only">City</label>
                             <div class="input-group input-groupz">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> 
-                                <input id="city" name="city" class="form-control" placeholder="please Enter City" autocomplete="city">
+                                <input id="city" name="city" class="form-control" placeholder="City" autocomplete="city">
                             </div>
                         </div>
-                        <div class="dropdown col-md-3 col-sm-6">
+                        <div class="col-md-3 col-sm-6">
+                            <label for="zip" class="sr-only">Zip Code</label>
                             <div class="input-group input-groupz">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span> 
-                                <input id="zip" name="zip" class="form-control" placeholder="Please Enter Zip" autocomplete="postal-code">
+                                <input id="zip" name="zip" class="form-control" placeholder="Zip" autocomplete="postal-code">
                             </div>
                         </div>
                     </div>
 					<br/>
                     <div class="row">
-                        <div class="dropdown col-sm-12">
+                        <div class="col-sm-12">
                             <label for="project_desc" class="sr-only">Project Description</label>
                             <textarea maxlength="1100" style="resize: none;" type="text" class="form-control" id="project_desc" name="project_desc" rows="4" placeholder="Please describe your project goal" required></textarea>
                         </div>
