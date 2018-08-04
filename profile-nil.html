@@ -42,17 +42,13 @@
     <script type="text/javascript">
     //globals
     var userID = {{.Page}};
+    var scrollID ="";
+    var totalHits =-1;
     var editPermission = 1;
     </script>
     {{if eq ($.Page) ($.DOCID)}}
     <script ype="text/javascript">
         var editPermission = 0;
-    </script>
-    {{end}}
-     <!-- array used for wall load -->
-    {{range $loop := .UserInfo.EntryIDs}}
-    <script type="text/javascript">
-            IDArray.push({{$loop}}); 
     </script>
     {{end}}
 

@@ -119,7 +119,7 @@ function populateOfflineMessage(parentid, message, time) {
         $(listItem).css('font-size', '0%').animate({
             "font-size": "100%"
         }, 100 , () => {
-            $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
+           $('#chat'+$.escapeSelector(parentid)).scrollTop($('#chat'+$.escapeSelector(parentid))[0].scrollHeight);
         });
     }
 }
@@ -166,30 +166,81 @@ function populateMessageModified(parentid, msgid, username, message, icon, time,
 	}
 		
 	$('#chat'+$.escapeSelector(parentid)).append(listItem);
+    $(listItem).css('font-size', '0%').animate({
+        "font-size": "100%"
+    }, 100 , () => {
+        $('#chat'+$.escapeSelector(parentid)).scrollTop($('#chat'+$.escapeSelector(parentid))[0].scrollHeight);
+    });
+}
+
+function populateNewMessageModified(parentid, msgid, username, message, icon, time, originuser, prevSender) {
+	var dateTime = dateFormat(time);
+	if ($('#chat'+$.escapeSelector(parentid)).find(".message-timeline").last().text() !== dateTime) {
+		var messageTimeline = $("<li></li>").addClass('message-timeline').text(dateTime);
+		$('#chat'+$.escapeSelector(parentid)).append(messageTimeline);
+	}
+	var listTime = $("<div></div>").addClass('message-user-time collapse').text(formatTime(time));
+    if (isUrlValid(message)){
+        console.log("url found");
+        var listMessage = $("<span></span>").addClass('message-user-message');
+        var listURL = $("<a></a>").attr({'href':message, 'target':"_blank"}).text(message).on('click', function(e) { return urlConfirm(e) });
+        listMessage.append(listURL);
+    }
+    else{
+         var listMessage = $("<span></span>").addClass('message-user-message').text(message);
+    }
+	var listIcon = $("<img></img>").addClass('message-user-icon').attr('src', icon);
+	var listName = $("<div></div>").addClass('message-user-name').text(username);
+	var listItem = $("<li></li>").attr('sender', msgid);
+	if (originuser) {
+		// If the post is by the user, push to the right
+		listItem.addClass('message-user message-user-right');
+		listItem.append(listMessage, listTime);
+	} else {
+		// If the post is not by the user, push to the left
+		listItem.addClass('message-user message-user-left');
+        if (prevSender == ""){
+            listItem.append(listName, listIcon, " ", listMessage, listTime);
+        }
+        else{
+            if (prevSender == msgid){
+                listItem.append(listIcon, " ", listMessage, listTime);
+            }
+            else{
+                listItem.append(listName, listIcon, " ", listMessage, listTime);
+            }
+        }
+	}
+    $('#chat'+$.escapeSelector(parentid)).append(listItem);
     var roomHeight = ($('#chat'+$.escapeSelector(parentid))[0].scrollHeight - $('#chat'+$.escapeSelector(parentid)).height()); // Get the height of the div
     var roomScroll = $('#chat'+$.escapeSelector(parentid)).scrollTop(); // Get the vertical scroll position
-    var isScrolledToEnd = (roomScroll > roomHeight)
+    var isScrolledToEnd = (roomScroll + 100 > roomHeight)
     if(!originuser){
         if(isScrolledToEnd){
+            console.log("scrolled to end");
                 $(listItem).css('font-size', '0%').animate({
                     "font-size": "100%"
                 }, 100 , () => {
-                    $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
+                    $('#chat'+$.escapeSelector(parentid)).scrollTop($('#chat'+$.escapeSelector(parentid))[0].scrollHeight);
                 });
+        }
+        else{
+             console.log("not scrolled to end");
         }
     }
     else{
+        console.log("its you!!")
         $(listItem).css('font-size', '0%').animate({
             "font-size": "100%"
         }, 100 , () => {
-            $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
+            $('#chat'+$.escapeSelector(parentid)).scrollTop($('#chat'+$.escapeSelector(parentid))[0].scrollHeight);
         });
     }
 }
 
 $(document).on('click', '.message-user-message', function(e) { 
     $(e.currentTarget).next().collapse('toggle'); 
-
+    
     if ($(e.currentTarget).is( $('.message-user-message:last'))){
         $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
     }

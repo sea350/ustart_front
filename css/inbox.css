@@ -7,7 +7,7 @@
 }
 
 .offline>span{
-    background-color: grey !important;
+    background-color: #D0312D !important;
 }
 
 .group-message-time.active{
@@ -354,8 +354,14 @@ span.group-message-time {
 .message-box li.message-user-left{
     margin-bottom: 0em;
 }
+.message-box li.message-user-left > .message-user-message{
+    background-color: skyblue;
+}
 .message-box li.message-user-right {
     margin-bottom: 1em
+}
+.message-box li.message-user-right > .message-user-message{
+    background-color: #00ac7d;
 }
 
 .message-box li.message-user-left {
@@ -391,7 +397,6 @@ span.group-message-time {
 }
 
 .message-user-message {
-    background-color: #00ac7d;
     border-radius: 0.4em;
     display: inline-block;
     -webkit-transition: background-color 0.5s;

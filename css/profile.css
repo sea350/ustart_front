@@ -16,7 +16,7 @@ a:hover {
 .share-btn img{
    height:30px;
 }
-#name, .ellipsis, #projectName{
+#name, #projectName{
     text-overflow: ellipsis;
     display: inline-block;
     white-space: nowrap;
@@ -24,7 +24,11 @@ a:hover {
     width:180px;		
 }
 .ellipsis{
-    width:250px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 #projectName{
     width:80px;
