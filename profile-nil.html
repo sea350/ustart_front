@@ -904,7 +904,7 @@
                                     <div id="widgetBodyGallery" class="widgetBody">
 										{{range $image := $loop.Data }}
 											<span>
-												<img src="{{$loop2}}"/>
+												<img src="{{$image}}"/>
 												<script>
 													$("#widgetBodyGallery img").last().attr("src", {{$image}});
 												</script>
