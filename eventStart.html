@@ -17,17 +17,25 @@
         <div class="container">
             <form action="/AddEvent/" method="POST">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-7">
                         <label for="eventTitle">Event Title</label>
                         <input type="text" id="eventTitle" name="title" class="form-control" placeholder="Event Title"/>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-5">
                         <label for="eventDate">Start Date</label>
                         <input type="date" id="eventDate" name="dateStart" class="form-control" placeholder="Start Date (mm/dd/yyyy)"/>
                     </div>
-                    <div class="col-sm-3">
-                        <label for="eventEndDate">End Date</label>
-                        <input type="date" id="eventEndDate" name="dateEnd" class="form-control" placeholder="End Date (mm/dd/yyyy)"/>
+                    <div class="dropdown col-md-5">
+                        <label for="category" class="sr-only">Category</label>
+                        <div class="input-group input-groupz">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                            <select type="text" id="category" name="category" class="form-control" required>
+                                <option></option>   //Emptiness
+                            </select>
+                            <script>
+                                list_categories("category");
+                            </script>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -44,11 +52,17 @@
                     </script>
                     <div class="col-sm-3">
                         <label for="city">City</label>
-                        <input id="city" name="city" class="form-control" placeholder="City" autocomplete="city">
+                        <input type="text" id="city" name="city" class="form-control" placeholder="City" autocomplete="city">
                     </div>
                     <div class="col-sm-2">
                         <label for="zip">Zip</label>
-                        <input id="zip" name="zip" class="form-control" placeholder="Zip" autocomplete="postal-code">
+                        <input type="text" id="zip" name="zip" pattern="[0-9]{5}" class="form-control" placeholder="Zip" autocomplete="postal-code">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="project_desc" class="sr-only">Description</label>
+                        <textarea maxlength="1100" style="resize: none;" type="text" class="form-control" id="event_desc" name="event_desc" rows="4" placeholder="Please describe your event goal" required></textarea>
                     </div>
                 </div>
                 <br/>
