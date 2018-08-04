@@ -12,7 +12,15 @@ function GetQueryStringParams(sParam) {
     }
 	return "";
 }
-
+function parseQuery(queryString) {
+    var query = {};
+    var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
+    for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split('=');
+        query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+    }
+    return query;
+}
 function createSearchOptionMajor(optionvalue) {
 	if (optionvalue === "") {
 		return;
@@ -70,6 +78,26 @@ function loadSearchFilters() {
 	for (var i = 0; i < skillList.length; i++) {
 		createSearchOptionSkill(skillList[i].substr(1, skillList[i].length - 2));
 	}
+}
+
+function createSearchResult (username, icon, firstName, lastName, description, tags){
+    var mainSearchDiv = $("<div></div>").addClass('search-result');
+    var resultAnchor = $("<a></a>").addClass('search-result-pic-link').attr("href", "/profile/"+username);
+    var userImage = $("<img></img>").addClass('search-result-pic').attr('src', icon);
+    var resultTextOuterDiv = $("<div></div>").addClass('search-result-text');
+    var resultTitle = $("<div></div>").addClass('search-result-title');
+    var resultRedirect = $("<a></a>").addClass('search-result-pic-link').attr("href", "/profile/"+username).text(firstName+" "+lastName);
+    var resultDescription = $("<div></div>").addClass('search-result-description').text(description);
+    var resultTags = $("<div></div>").addClass('search-result-tags');
+    for (i =0; i<tags.length; i++){
+        var resultTagsSpan = $("<span></span>").addClass('search-result-tag').text(tags[i]);
+        resultTags.append(resultTagsSpan);
+    }
+    resultTitle.append(resultRedirect);
+    resultTextOuterDiv.append(resultTitle, resultDescription, resultTags)
+    resultAnchor.append(userImage);
+    mainSearchDiv.append(resultAnchor,resultTextOuterDiv);
+    $('#search-results-container').append(mainSearchDiv);
 }
 
 $(function() {

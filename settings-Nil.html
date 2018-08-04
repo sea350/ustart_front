@@ -44,35 +44,230 @@
 
       input {
         display: block;
-      }
+	  }
     </style>
 </head>
 
 <body>
-	<div id="navBar-placeholder"></div>
-	<div id="centering">
-		<!-- Vertical content -->
-		<div id="LeftNavBar-placeholder"></div>
-		<script>
-            var port = location.port;
-            /*$("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
-                $("#leftNavSettings").addClass("theActive");
-            });*/
-            $("#leftNavSettings").addClass("theActive");
-		</script>
-		<div id="content">
-			<div id="settings-container" class="container">
-				<h1>Settings</h1>
-				<div class="panel-group" id="accordion">
-					<div class="panel panel-default">
-						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#avatarcollapse">
-							<h4 class="panel-title">Change Account Images and Status</h4>
+		<div id="navBar-placeholder"></div>
+		<div id="centering">
+			<!-- Vertical content -->
+			<div id="LeftNavBar-placeholder"></div>
+			<script>
+					var port = location.port;
+					$("#leftNavSettings").addClass("theActive");
+			</script>
+			<div class="panel-group col-sm-10 col-sm-offset-1">
+					<div class="row">
+						<div class="vertical-menu col-sm-3">
+							<ul>
+								<li data-target='profile' class='menu-list active'><h5>Edit Profile</h5></li>
+								<li data-target='education' class='menu-list'><h5>Edit Education</h5></li>
+								<li data-target='images' class='menu-list'><h5>Edit Images</h5></li>
+								<li data-target='password' class='menu-list'><h5>Edit Password</h5></li>
+								<li data-target='account' class='menu-list'><h5>Manage Account</h5></li>
+							</ul>
 						</div>
-						<div id="avatarcollapse" class="panel-collapse collapse in">
-							<div class="panel-body">
-								<div class="form-group">
+						<div class='col-sm-9 contents'>
+								<div id='profile'>
 									<div class="row">
-										<div class="col-sm-4">
+										<label for="work_availability">Work Status</label>
+										<br>
+										<label class="switch" style="float: none">
+												<input id="work_availability" name="work_availability" type="checkbox" onchange="alterStatus()" checked />
+												<span class="slider round"></span>
+										</label>
+										<br>
+										<span id="switchStatusMessage">Available</span>
+									</div>
+									<div class="row">
+									<div class="col-sm-6">
+										<form id="nameChange" action="" method="POST">	
+											<script type="text/javascript">
+												$( "#nameChange" ).attr( 'action', 'http://ustart.today:'+port +'/changeName/' );
+											</script>
+											<label for="fname" style='text-align:center; font-weight:bold;'>First Name</label>										
+											<label class="switch usr-vis-opt"><input type="checkbox" name="fnameVis" checked /><span class="slider round"></span></label>											
+											<input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" value="{{.UserInfo.FirstName}}" required />
+											<p>Names can only be Edited twice a year.</p>
+											
+
+											<label for="lname">Last Name</label>
+											<label class="switch usr-vis-opt"><input type="checkbox" name="lnameVis" checked /><span class="slider round"></span></label>
+											<input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" value="{{.UserInfo.LastName}}" required />																						
+											
+											<br>										
+
+											<input type="submit" class="btn btn-info" name="name_submit" value="Edit Name" />
+											<br>
+											<div class="save-message fade"></div>												
+										</form>
+									</div>
+									<div class="col-sm-6" id='wborder'>
+										<form id="locChange" action="" method="POST">										
+										<script type="text/javascript">
+											$( "#locChange" ).attr( 'action', 'http://ustart.today:'+port +'/changeLoc/' );
+										</script>
+										<label for="country">Country</label>																						
+										<label class="switch usr-vis-opt"><input type="checkbox" name="countryVis" checked><span class="slider round"></span></label>
+										<select id="country" class="form-control" name="country" required></select>																				
+
+										<label for="state">State</label>
+										<label class="switch usr-vis-opt"><input type="checkbox" name="stateVis" checked><span class="slider round"></span></label>
+										<select id="state" class="form-control" name="state" required></select>										
+										<script language="javascript">
+											populateCountries("country", "state");
+											$('select#country').val({{.UserInfo.Location.Country}});
+											populateStates("country", "state");
+											$('select#state').val({{.UserInfo.Location.State}});
+										</script>
+
+										<label for="city">City</label>
+										<label class="switch usr-vis-opt"><input type="checkbox" name="cityVis" checked><span class="slider round"></span></label>
+										<input id="city" class="form-control" name="city" value="{{.UserInfo.Location.City}}" placeholder="City" required />
+
+										<label for="zip">Zip</label>
+										<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis" checked><span class="slider round"></span></label>
+										<input id="zip" class="form-control" name="zip" value="{{.UserInfo.Location.Zip}}" placeholder="Zip" required />																				
+
+										<br>
+										<input type="submit" class="btn btn-info" name="name_submit" value="Edit Location" />
+										<div class="save-message fade"></div>
+										</form>										
+									</div>
+
+								</div>											
+								</div>
+								<!-- end of profile-->
+		
+								<div id='education'>
+									<form id="eduChange" action="" method="POST">
+										<script type="text/javascript">
+											$( "#eduChange" ).attr( 'action', 'http://ustart.today:'+port +'/changeEDU/' );
+										</script>									
+										<div class='row'>
+											<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+												<label for="type_select">User Type</label>
+											</div>
+											<div class="col-sm-9">
+												<select id="type_select" class="form-control" name="type_selector">
+													<option disabled selected hidden>Select User Type</option>
+													<option>High School Student</option>
+													<option>College Student</option>
+													<option>Finished Education</option>
+												</select>	
+												<input type="hidden" name="type_select" value="0"/>	
+											</div>
+										</div>									
+										<div class="row">
+											<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+												<label for="schoolname"><h5>High School</h5></label>
+											</div>
+											<div class="col-sm-9">
+												<input type="text" name="schoolname" class="form-control" id="schoolname" placeholder="High School Name" value="{{.UserInfo.HighSchool}}" />
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+												<label for="highSchoolGradDate">Grad Date</label>
+											</div>
+											<div class="col-sm-9">
+												<input type='text' placeholder="Graduation Date (MM/DD/YYYY)" class="form-control" id="highSchoolGradDate" name="highSchoolGradDate"
+												disabled value="{{.UserInfo.HSGradDate}}" />												
+											</div>
+										</div>										
+										<script type="text/javascript">
+											$('#highSchoolGradDate').datepicker({
+												format: 'MM/DD/YYYY',
+												changeYear: true,
+												yearRange: "-100:+0"
+											});
+										</script>											
+										<div class="row">
+											<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+												<label for="universityName">University/College</label>
+											</div>
+											<div class="col-sm-9">
+												<input type="text" name="universityName" class="form-control" id="uni" placeholder="University/College Name" value="{{.UserInfo.University}}"/>
+											</div>
+											<script type="text/javascript">
+												$(document).ready(function () {
+													$("#uni").autocomplete({
+														source: function (request, response) {
+															var results = $.ui.autocomplete.filter(universities, request.term);
+															response(results.slice(0, 10));
+														}
+													});
+												});
+											</script>	
+										</div>
+										<div class="row">
+											<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+												<label for="majors">Major</label>
+											</div>
+											<div class="col-sm-9">
+												<input type="text" id="maj" name="majors" class="form-control" placeholder="Major" />												
+											</div>											
+										</div>
+										<script type="text/javascript">
+											$(document).ready(function () {
+												$("#maj").autocomplete({
+													source: function (request, response) {
+														var results = $.ui.autocomplete.filter(major, request.term);
+														response(results.slice(0, 10));
+													}
+												}).val("{{.UserInfo.Majors}}".replace(/\[|\]/g, ''));
+											});
+										</script>	
+										<div class="row">
+											<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+													<label for="inYr">Years</label>
+											</div>											
+											<div class="col-sm-9">
+												<select id="inYr" name="year" class="form-control">
+														<option value='' disabled selected hidden>Select Class Level</option>
+														<option value="Freshman">Freshman</option>
+														<option value="Sophomore">Sophomore</option>
+														<option value="Junior">Junior</option>
+														<option value="Senior">Senior</option>
+														<option value="Graduate">Graduate</option>
+														<option value="PHD">PHD</option>
+														<option value="Professor">Professor</option>
+														<option value="Staff">Staff</option>
+													</select>
+											</div>
+										</div>
+										<div class="row">
+												<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+														<label for="uniGradDate">Expected Grad</label>
+												</div>												
+												<div class="col-sm-9">
+													<input type='text' placeholder="Graduation Date (MM/DD/YYYY)" class="form-control" id="uniGradDate" name="uniGradDate" value="{{.UserInfo.CollegeGradDate}}"/>												
+													<script type="text/javascript">
+														$('select#inYr').prop('selectedIndex', {{.UserInfo.Class}});
+														$('#uniGradDate').datepicker({
+															format: 'MM/DD/YYYY',
+															changeYear: true,
+															yearRange: "-100:+0"
+														});
+													</script>														
+												</div>
+											</div>	
+																				
+											
+										<input type="submit" class="btn btn-info" name="name_submit" value="Edit Education" />
+										<div class="save-message fade"></div>
+										</form>											
+							</div>    
+							<!-- end of education -->	
+
+								<div id='images'>
+									<div class="row" style='margin-top:3em;'>
+										<h4>Edit your Profile Image</h4>
+									</div>
+									<div class="row">
+										<div class="col-sm-6 col-sm-offset-3">
 											<form id="img-form" action="/ImageUpload/" enctype="multipart/form-data" method="post">
 												<div id="upload-demo" style="width:300px; height:350px"></div>
 												<input type="file" name="raw-image" id="upload" accept="image/*">
@@ -80,11 +275,11 @@
 												<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
 												<script type="text/javascript">
 													$uploadCrop = $('#upload-demo').croppie({
-                                                        enforceBoundary: true,
+														enforceBoundary: true,
 														viewport: {
 															width: 250,
 															height: 250,
-                                                            type: 'square'
+															type: 'square'
 														},
 														boundary: {
 															width: 300,
@@ -105,7 +300,7 @@
 														}
 														reader.readAsDataURL(this.files[0]);
 													});
-													 $('#upload-result').on('click', function (ev) {
+														$('#upload-result').on('click', function (ev) {
 														$uploadCrop.croppie('result', {
 															type: 'canvas',
 															size: 'viewport'
@@ -115,478 +310,197 @@
 														});
 													});
 												</script>
-											</form>
+											</form>											
 										</div>
-										<div class="col-sm-4">
-											<label for="work_availability">Work Status</label>
-											<br/>
-											<label class="switch" style="float: none">
-													<input id="work_availability" name="work_availability" type="checkbox" onchange="alterStatus()" checked>
-													<span class="slider round"></span>
-												</label>
-											<br/>
-											<span id="switchStatusMessage">Available</span>
-										</div>
-
-										<div class="modal fade" id="sizeModal" role="dialog">
+									</div>
+									
+									<br><hr>
+									<div class="modal fade" id="sizeModal" role="dialog">
 										<div class="modal-dialog">										
 										<div class="modal-content">
 												<div class="modal-header" style='border-color:#00ac7d!important'>
-												  <button type="button" class="close" data-dismiss="modal">&times;</button>
-												  <h4 class="modal-title" >USTART info</h4>
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h4 class="modal-title" >USTART info</h4>
 												</div>
 												<div class="modal-body" style='border-color:#00ac7d!important'>
-												  <p>Banner Image should be bigger than 300px (height) x 600px (width)</p>
+													<p>Banner Image should be bigger than 300px (height) x 600px (width)</p>
 												</div>
-											  </div>
-											  
-											</div>
-										  </div>
-
-										<div class="col-sm-12">
-											<hr/>
-											<style>
-												#upload-demo2{
-													height: 400px;
-												};
+										</div>	  
+										</div>
+									</div>
+									<div class="col">
+										<style>
+											#upload-demo2{
+												height: 400px;
+											};
 												
-											</style>
-											<form id="banner-form" action="/BannerUpload/"  enctype="multipart/form-data"  method="post">
-												<div id="upload-demo2"></div>
-												<input type="file" name="raw-banner" id="upload2" accept="image/*">
-												<input type="hidden" name="banner-data" id="hidden-image-data-2" />
-												<button type="button" class="btn btn-info" id="upload-result2">Upload Image</button>
-													<script>
-														var bwidth;
-														$(window).resize(function(){
-															cwidth = $(window).width();
+										</style>
+										<h4>Edit your banner</h4>
+										<br>
+										<form id="banner-form" action="/BannerUpload/"  enctype="multipart/form-data"  method="post">
+											<div id="upload-demo2"></div>
+											<input type="file" name="raw-banner" id="upload2" accept="image/*">
+											<input type="hidden" name="banner-data" id="hidden-image-data-2" />
+											<button type="button" class="btn btn-info" id="upload-result2">Upload Image</button>
+											<br>
+												<script>
+													var bwidth;
+													$(window).resize(function(){
+														cwidth = $(window).width();
 
-															if(cwidth <= 1100 && cwidth >= 320){
-																bwdith = cwidth - 40;
-															}else{
-																bwidth = 1000;
-															}
-														});
-
-                                                        $uploadCrop2 = $('#upload-demo2').croppie({
-                                                            viewport: {
-                                                                width: 1000,
-                                                                height: 300
-                                                            },
-															boundary: {
-																width: bwidth,
-																height: 350
-															}
-														});
-														$uploadCrop2.croppie("bind", {
-															url: "{{.UserInfo.Banner}}",
-															zoom: 1
-														});
-
-														var isValid = true;
-                                                        $('#upload2').on('change', function () { 
-															var file = $('#upload2')[0];
-															var reader2 = new FileReader();
-															reader2.readAsDataURL(file.files[0])
-
-                                                            reader2.onload = function (e) {
-																var image = new Image();
-																image.src = e.target.result;
-
-																image.onload = function(){
-																	var height = this.height;
-																	var width = this.width;
-																	console.log(height +' '+width);
-																	if(height < 300 && width < 600){
-																		$("#sizeModal").modal();
-																		BootstrapDialog.show({
-																			message: 'Hi Apple!'
-																		});																		
-																		//return false;
-																		isValid = false;
-																	}																	
-																};
-                                                                $uploadCrop2.croppie('bind', {
-                                                                    url: e.target.result,
-																	zoom: 1
-                                                                });
-															}
-														});
-														
-                                                         $('#upload-result2').on('click', function (ev) {
-                                                            $uploadCrop2.croppie('result', {
-                                                                type: 'canvas',
-                                                                size: 'viewport'
-                                                            }).then(function (resp2) {
-																if(isValid){
-                                                               $('#hidden-image-data-2').val(resp2);
-															   $('#banner-form').submit();
-															}
-                                                            });
-                                                         });
-                                                    </script>
-											</form>
-										</div>
-									</div>
-									<hr/>
-									<div class="save-message fade"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="panel panel-default">
-						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#desccollapse">
-							<h4 class="panel-title">Change Contact and Description</h4>
-						</div>
-						<div id="desccollapse" class="panel-collapse collapse">
-							<div class="panel-body">
-								<div class="alert alert-info alert-dismissable fade in">
-									<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> These fields can be toggled for visibility.
-									When set to invisibile, these fields will be disabled and will not be visible to others.
-								</div>
-								<div class="form-group">
-									<form id="contactChange" action="" method="POST">
-                                         <script type="text/javascript">
-                                                    $( "#contactChange" ).attr( 'action', 'http://ustart.today:'+port +'/UpdateDescription/' );
-                                         </script>
-										<div class="row">
-											<div class="col-sm-6">
-												<label for="pnumber">Phone Number</label>
-												<label class="switch usr-vis-opt"><input type="checkbox" name="pnumberVis" checked><span class="slider round"></span></label>
-												<input type="tel" class="form-control" id="pnumber" name="pnumber" placeholder="Phone Number" value="{{.UserInfo.Phone}}"/>
-											</div>
-											<div class="col-sm-6">
-												<label for="gender_select">Gender</label>
-												<label class="switch usr-vis-opt"><input type="checkbox" name="gender_selectVis" checked><span class="slider round"></span></label>
-												<!-- Gender is handled via script -->
-												<select id="gender_select" class="form-control" name="gender_select">
-													<option disabled selected hidden>Select Gender</option>
-													<option>Male</option>
-													<option>Female</option>
-													<option>Unspecified</option>
-												</select>
-											</div>
-											<div class="col-sm-12">
-												<label for="inputDesc">Description</label>
-												<!-- <label class="switch usr-vis-opt"><input type="checkbox" name="inputDescVis" checked><span class="slider round"></span></label> -->
-												<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe yourself."></textarea>
-                                                <script>
-                                                    $(document).ready(function () {
-                                                    	$("textarea#inputDesc").text( readRuneArrayThatWorks({{.UserInfo.Description}}) );
-                                                    });
-                                                </script>
-											</div>
-										</div>
-										<hr/>
-										<button class="btn btn-info" type="submit">Change Contact and Description</button>
-									<!--	<input type="submit" class="btn btn-info" name="name_submit" value="Change Description" /> -->
-										<div class="save-message fade"></div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="panel panel-default">
-						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#namecollapse">
-							<h4 class="panel-title">Change First and Last Name</h4>
-						</div>
-						<div id="namecollapse" class="panel-collapse collapse">
-							<div class="panel-body">
-								<div class="alert alert-warning alert-dismissable fade in">
-									<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Names can only be changed twice a
-									year. Otherwise, the user must contact our staff for revising their name.
-								</div>
-								<!-- Names -->
-								<div class="form-group">
-									<form id="nameChange" action="" method="POST">
-                                         <script type="text/javascript">
-                                                    $( "#nameChange" ).attr( 'action', 'http://ustart.today:'+port +'/changeName/' );
-                                         </script>
-										<div class="row">
-											<div class="col-sm-6">
-												<label for="fname">First Name</label>
-												<!-- <label class="switch usr-vis-opt"><input type="checkbox" name="fnameVis" checked><span class="slider round"></span></label> -->
-												<input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" value="{{.UserInfo.FirstName}}" required>
-											</div>
-											<div class="col-sm-6">
-												<label for="lname">Last Name</label>
-												<!-- <label class="switch usr-vis-opt"><input type="checkbox" name="lnameVis" checked><span class="slider round"></span></label> -->
-												<input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" value="{{.UserInfo.LastName}}" required>
-											</div>
-										</div>
-										<hr/>
-										<input type="submit" class="btn btn-info" name="name_submit" value="Change Name" />
-										<div class="save-message fade"></div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="panel panel-default">
-						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#passcollapse">
-							<h4 class="panel-title">Change Password</h4>
-						</div>
-						<div id="passcollapse" class="panel-collapse collapse">
-							<div class="panel-body">
-								<form id="passChange" action="" method="POST" >
-                                    <script type="text/javascript">
-                                                    $( "#passChange" ).attr( 'action', 'http://ustart.today:'+port +'/changePass/' );
-                                    </script>
-									<div class="alert alert-info alert-dismissable fade in">
-										<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Password needs to verified. And then,
-										the user is redirected to a password-change email-sent message.
-									</div>
-									<!-- Old Password -->
-									<div class="input-group">
-										<label class="input-group-addon" for="oldpass">Old Password</label>
-										<input type="password" class="form-control" id="oldpass" name="oldpass" placeholder="Enter the old password"
-										 required />
-									</div>
-									<hr/>
-									<!-- Confirm Password -->
-									<div class="input-group">
-										<label class="input-group-addon" for="newpass">New Password</label>
-										<input type="password" class="form-control" id="newpass" name="newpass" placeholder="Enter the new password"
-										 required />
-									</div>
-									<br/>
-									<!-- Confirm Password -->
-									<div class="input-group">
-										<label class="input-group-addon" for="confirmpass">Confirm Password</label>
-										<input type="password" class="form-control" id="confirmpass" name="confirmpass" placeholder="Reconfirm the new password"
-										 required />
-									</div>
-									<hr/>
-									<input type="submit" class="btn btn-info" name="pass_submit" value="Confirm Password Change" />
-									<div class="save-message fade"></div>
-								</form>
-							</div>
-						</div>
-					</div>
-
-					<div class="panel panel-default">
-						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#loccollapse">
-							<h4 class="panel-title">Change Location</h4>
-						</div>
-						<div id="loccollapse" class="panel-collapse collapse">
-							<div class="panel-body">
-								<form id="locChange" action="" method="POST">
-                                    <script type="text/javascript">
-                                                    $( "#locChange" ).attr( 'action', 'http://ustart.today:'+port +'/changeLoc/' );
-                                    </script>
-									<!-- Country, State / City, Zip -->
-									<div class="row">
-										<div class="col-sm-4">
-											<label for="country">Country</label>
-											<label class="switch usr-vis-opt"><input type="checkbox" name="countryVis" checked><span class="slider round"></span></label>
-											<select id="country" class="form-control" name="country" required></select>
-										</div>
-										<div class="col-sm-3">
-											<label for="state">State</label>
-											<label class="switch usr-vis-opt"><input type="checkbox" name="stateVis" checked><span class="slider round"></span></label>
-											<select id="state" class="form-control" name="state" required></select>
-										</div>
-										<script language="javascript">
-											populateCountries("country", "state");
-											$('select#country').val({{.UserInfo.Location.Country}});
-											populateStates("country", "state");
-											$('select#state').val({{.UserInfo.Location.State}});
-										</script>
-										<div class="col-sm-3">
-											<label for="city">City</label>
-											<label class="switch usr-vis-opt"><input type="checkbox" name="cityVis" checked><span class="slider round"></span></label>
-											<input id="city" class="form-control" name="city" value="{{.UserInfo.Location.City}}" placeholder="City" required />
-										</div>
-										<div class="col-sm-2">
-											<label for="zip">Zip</label>
-											<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis" checked><span class="slider round"></span></label>
-											<input id="zip" class="form-control" name="zip" value="{{.UserInfo.Location.Zip}}" placeholder="Zip" required />
-										</div>
-									</div>
-									<hr/>
-									<input type="submit" class="btn btn-info" name="name_submit" value="Change Location" />
-									<div class="save-message fade"></div>
-								</form>
-							</div>
-						</div>
-					</div>
-
-					<div class="panel panel-default">
-						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#educollapse">
-							<h4 class="panel-title">Change Education</h4>
-						</div>
-						<div id="educollapse" class="panel-collapse collapse">
-							<div class="panel-body">
-								<form id="eduChange" action="" method="POST">
-                                    <script type="text/javascript">
-                                                    $( "#eduChange" ).attr( 'action', 'http://ustart.today:'+port +'/changeEDU/' );
-                                    </script>
-									<div>
-										<label for="type_select">User Type</label>
-										<select id="type_select" class="form-control" name="type_selector">
-											<option disabled selected hidden>Select User Type</option>
-											<option>High School Student</option>
-											<option>College Student</option>
-											<option>Finished Education</option>
-										</select>
-										<!-- Convert selected option to index temporary (for backend submission) -->
-										<input type="hidden" name="type_select" value="0">
-									</div>
-									<hr/>
-									<!-- High School -->
-									<div class="row">
-										<div class="dropdown col-sm-7">
-											<label for="schoolname">High School</label>
-											<input type="text" name="schoolname" class="form-control" id="schoolname" placeholder="High School Name" value="{{.UserInfo.HighSchool}}" />
-										</div>
-										<div class="dropdown col-sm-5">
-											<label for="highSchoolGradDate" >Grad Date</label>
-											<input type='text' placeholder="Graduation Date (MM/DD/YYYY)" class="form-control" id="highSchoolGradDate" name="highSchoolGradDate"
-											 disabled value="{{.UserInfo.HSGradDate}}" />
-										</div>
-										<script type="text/javascript">
-											$('#highSchoolGradDate').datepicker({
-												format: 'MM/DD/YYYY',
-												changeYear: true,
-												yearRange: "-100:+0"
-											});
-										</script>
-									</div>
-									<hr/>
-									<!-- College -->
-									<div class="row">
-										<div class="dropdown col-sm-7">
-											<label for="universityName">University/College</label>
-											<input type="text" name="universityName" class="form-control" id="uni" placeholder="University/College Name" value="{{.UserInfo.University}}"/>
-											<script type="text/javascript">
-												$(document).ready(function () {
-													$("#uni").autocomplete({
-														source: function (request, response) {
-															var results = $.ui.autocomplete.filter(universities, request.term);
-															response(results.slice(0, 10));
+														if(cwidth <= 1100 && cwidth >= 320){
+															bwdith = cwidth - 40;
+														}else{
+															bwidth = 1000;
 														}
 													});
-												});
-											</script>
-										</div>
-										<div class="dropdown col-sm-5">
-											<label for="majors">Major</label>
-											<input type="text" id="maj" name="majors" class="form-control" placeholder="Major" />
-											<script type="text/javascript">
-												$(document).ready(function () {
-													$("#maj").autocomplete({
-														source: function (request, response) {
-															var results = $.ui.autocomplete.filter(major, request.term);
-															response(results.slice(0, 10));
+
+													$uploadCrop2 = $('#upload-demo2').croppie({
+														viewport: {
+															width: 1000,
+															height: 300
+														},
+														boundary: {
+															width: bwidth,
+															height: 350
 														}
-													}).val("{{.UserInfo.Majors}}".replace(/\[|\]/g, ''));
-												});
-											</script>
-										</div>
-									</div>
-									<br/>
-									<!-- Grad Date -->
-									<div class="row">
-										<div class="dropdown col-sm-7">
-											<select id="inYr" name="year" class="form-control">
-												<option value='' disabled selected hidden>Select Class Level</option>
-												<option value="Freshman">Freshman</option>
-												<option value="Sophomore">Sophomore</option>
-												<option value="Junior">Junior</option>
-												<option value="Senior">Senior</option>
-												<option value="Graduate">Graduate</option>
-												<option value="PHD">PHD</option>
-												<option value="Professor">Professor</option>
-												<option value="Staff">Staff</option>
-											</select>
-										</div>
-										<div class="dropdown col-sm-5">
-											<input type='text' placeholder="Graduation Date (MM/DD/YYYY)" class="form-control" id="uniGradDate" name="uniGradDate" value="{{.UserInfo.CollegeGradDate}}"/>
-										</div>
-										<script type="text/javascript">
-											$('select#inYr').prop('selectedIndex', {{.UserInfo.Class}});
-											$('#uniGradDate').datepicker({
-												format: 'MM/DD/YYYY',
-												changeYear: true,
-												yearRange: "-100:+0"
-											});
-										</script>
-									</div>
-									<hr/>
-									<input type="submit" class="btn btn-info" name="name_submit" value="Change Education" />
-									<div class="save-message fade"></div>
-								</form>
-							</div>
-						</div>
-					</div>
+													});
+													$uploadCrop2.croppie("bind", {
+														url: "{{.UserInfo.Banner}}",
+														zoom: 1
+													});
 
-					<div class="panel panel-warning">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a href="blocked_users.html">Manage Blocked Users</a>
-							</h4>
-						</div>
-					</div>
+													var isValid = true;
+													$('#upload2').on('change', function () { 
+														var file = $('#upload2')[0];
+														var reader2 = new FileReader();
+														reader2.readAsDataURL(file.files[0])
 
-					<div class="panel panel-danger">
-						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#deleteAccountCollapse">
-							<h4 class="panel-title">Delete Account</h4>
-						</div>
-						<div id="deleteAccountCollapse" class="panel-collapse collapse">
-							<div class="panel-body">
-								<div class="alert alert-danger alert-dismissable fade in">
-									<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> The account will be no longer accessible.
-									However, the account won't be deleted on the server.
+														reader2.onload = function (e) {
+															var image = new Image();
+															image.src = e.target.result;
+
+															image.onload = function(){
+																var height = this.height;
+																var width = this.width;
+																console.log(height +' '+width);
+																if(height < 300 && width < 600){
+																	$("#sizeModal").modal();
+																	BootstrapDialog.show({
+																		message: 'Hi Apple!'
+																	});																		
+																	//return false;
+																	isValid = false;
+																}																	
+															};
+															$uploadCrop2.croppie('bind', {
+																url: e.target.result,
+																zoom: 1
+															});
+														}
+													});
+													
+													 $('#upload-result2').on('click', function (ev) {
+														$uploadCrop2.croppie('result', {
+															type: 'canvas',
+															size: 'viewport'
+														}).then(function (resp2) {
+															if(isValid){
+														   $('#hidden-image-data-2').val(resp2);
+														   $('#banner-form').submit();
+														}
+														});
+													 });
+												</script>
+										</form>																				
+										<div class="save-message fade"></div>										
+									</div>
 								</div>
-								<form id="deleteAccountForm" action="" method="POST">
-                                    <script type="text/javascript">
-                                                    $( "#deleteAccountForm" ).attr( 'action', 'http://ustart.today:'+port +'/deleteAccount/' );
-                                    </script>
-									<input type="submit" class="btn btn-danger" name="name_submit" value="Delete Account" />
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+								<!-- end of images -->	
+
+
+								<div id='password'>
+									<form id="passChange" action="" method="POST" >
+											<script type="text/javascript">
+															$( "#passChange" ).attr( 'action', 'http://ustart.today:'+port +'/changePass/' );
+											</script>
+											<!--
+											<div class="alert alert-info alert-dismissable fade in">
+												<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Password needs to verified. And then,
+												the user is redirected to a password-change email-sent message.
+											</div>
+											-->
+											<!-- Old Password -->
+											<div class="row">
+												<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+													<label for="oldpass"><h5>Old Password</h5></label>
+												</div>
+												<div class="col-sm-9">
+													<input type="password" class="form-control" id="oldpass" name="oldpass" placeholder="Enter the old password"
+													required />
+												</div>
+											</div>
+
+
+											<!-- Confirm Password -->
+											<div class="row">
+												<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+													<label for="newpass"><h5>New Password</h5></label>
+												</div>
+												<div class="col-sm-9">
+													<input type="password" class="form-control" id="newpass" name="newpass" placeholder="Enter the new password"
+													required />
+												</div>
+											</div>											
+											<!-- Confirm Password -->
+											<div class="row">
+												<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+														<label for="newpass"><h5>Confirm Password</h5></label>													
+												</div>
+												<div class="col-sm-9">
+													<input type="password" class="form-control" id="confirmpass" name="confirmpass" placeholder="Reconfirm the new password"
+													required />
+												</div>
+											</div>											
+											<input type="submit" class="btn btn-info" name="pass_submit" value="Confirm Password Change" />
+											<div class="save-message fade"></div>
+										</form>
+								</div>
+								<!-- end of password -->	
+								<div id='account'>
+									<div class="row">
+										<h4 class="panel-title">
+											<a href="blocked_users.html">Manage Blocked Users</a>
+										</h4>										
+									</div>
+									<div class="row">
+										<div class="col">
+											<div id="deleteAccountCollapse" class="panel-collapse collapse">
+												<div class="panel-body">
+													<div class="alert alert-danger alert-dismissable fade in">
+														<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> The account will be no longer accessible.
+														However, the account won't be deleted on the server.
+													</div>
+													<form id="deleteAccountForm" action="" method="POST">
+														<script type="text/javascript">
+																		$( "#deleteAccountForm" ).attr( 'action', 'http://ustart.today:'+port +'/deleteAccount/' );
+														</script>
+														<input type="submit" class="btn btn-danger" name="name_submit" value="Delete Account" />
+													</form>
+													</div>
+												</div>											
+										</div>										
+									</div>
+								</div>
+								<!-- end of account -->	
+						</div>  
+					</div>                    
+				</div> 
+
+
 		</div>
-	</div>
-	<div class="modal fade" id="avatarCropperModal" role="dialog">
-		<div class="modal-dialog">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Crop avatar</h4>
-				</div>
-				<div class="modal-body">
-					<iframe id="cropperiframe"> </iframe>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="footer-placeholder"></div>
-	<script type="text/javascript">
-		$(document).ready(function () {
-			<!-- Automatically open the approriate tab based on the URL -->
-			if(location.hash != null && location.hash != ""){
-				$('.collapse').removeClass('in');
-				$(location.hash + '.collapse').collapse('show');
-			}
-			<!-- end of auto-tab -->
-			
-			$("select#gender_select").val('{{.UserInfo.Gender}}');
-			$("select[name='type_selector']").prop('selectedIndex', {{.UserInfo.AccType}});
-			$("form#eduChange").submit(function() {
-				$("input[name='type_select']").val($("select[name='type_selector']").prop('selectedIndex'));
-			});
-		});
-	</script>
+
+				
+
 </body>
 </html>

@@ -23,7 +23,7 @@
 }
 
 .search-result-title .search-result-pic-link {
-	border-bottom: 1px solid #555555;
+	/*border-bottom: 1px solid #555555;*/
 	border-radius: 0 0 4px 0;
     padding-right: 6px;
 	margin-bottom: 6px;
@@ -41,11 +41,17 @@
     font-size: 1.2em;
     max-height: 2em;
     overflow: hidden;
+    white-space: nowrap;
 }
 
 .search-result-description {
-    max-height: 6em;
+    max-height: 4em;
     overflow: hidden;
+}
+.search-result-description:hover{
+    text-overflow: clip;
+    white-space: normal;
+    word-break: break-all;
 }
 
 .search-result-tags {
@@ -60,8 +66,12 @@
 	display: inline-block;
 	text-align: center;
 	min-width: 2em;
+    max-width: 8em;
 	padding: 0px 10px;
 	border-radius: 8px;
+    overflow: hidden;
+    margin-right:3px;
+    white-space: nowrap;
 	transition: background-color 0.2s, color 0.2s;
 }
 
@@ -69,6 +79,9 @@
 	background-color: black;
 	color: white;
 	box-shadow: 1px 1px 1px;
+    text-overflow: clip;
+    white-space: normal;
+    word-break: break-all;
 }
 
 #filter-adv-search,

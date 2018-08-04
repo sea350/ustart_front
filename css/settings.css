@@ -1,3 +1,70 @@
+@media only screen and (max-width: 810px) {
+    .vertical-menu {
+        display: none;
+    }
+}
+.btn-info{
+    background-color:#00ac7d!important;  
+    float: right;
+}
+#wborder{
+    border-left:1px solid black;    
+}
+@media only screen and (max-width: 767px) {
+    #wborder {
+        border-left-style:none;
+    }
+}
+.panel-group{
+    background-color: white;
+    margin-top: 3em;
+    
+}
+.vertical-menu{
+    padding: 0px;
+    border-right: 1px solid #808080;
+}
+.vertical-menu li {
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+}
+.vertical-menu ul{
+    margin: 0px;
+    padding: 0px;
+}
+.menu-list{
+    width: 100%;
+    height: 90px;
+    padding-left: 2em;
+}
+.vertical-menu ul li h5{
+    line-height: 50px;
+}
+.vertical-menu li.active {
+    border-left: 3px solid#484848;
+    pointer-events: none;  
+       
+}
+.vertical-menu li:hover{
+    background-color: #F8F8F8;
+    border-left: 3px solid #808080;    
+}
+
+#images, #password, #account, #education{
+    margin-bottom: 2em;
+    display: none;
+}
+#images
+#profile{
+    margin-bottom: 2em;
+    display:block;
+}   
+.contents{
+    padding-left: 3em;
+}
+
 .switch {
     position: relative;
     display: inline-block;
@@ -84,6 +151,9 @@ img#bannerImg {
     object-fit: cover;
     border: 1px solid #AAA
 }
+#banner-form{
+    margin: 0em 2em;
+}
 
 span#switchStatusMessage {
     -webkit-transition: color 0.5s, font-size 0.5s;
@@ -147,4 +217,10 @@ textarea#inputDesc {
     border: none;
     height: 48em;
     width: 100%
+}
+#eduChange, #password{
+    margin-top: 3em;
+}
+#eduChange > .row{
+    margin-bottom: 1em;
 }

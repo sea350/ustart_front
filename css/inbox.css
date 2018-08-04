@@ -9,6 +9,11 @@
 .offline>span{
     background-color: grey !important;
 }
+
+.group-message-time.active{
+    color: #00ac7d !important;
+}
+
 .projectMembers {
     background-color: #607D8B;
     height: 2em;
@@ -216,7 +221,7 @@
 }
 
 .inbox-group {
-    color: #37474F;
+ /*color: #37474F;*/
 }
 .inbox-group:hover {
     background-color: #CFD8DC;
