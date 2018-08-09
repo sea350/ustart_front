@@ -14,6 +14,9 @@
     #wborder {
         border-left-style:none;
     }
+    .card {
+        width: calc(100% * (1/2) - 10px - 1px)
+    }    
 }
 .panel-group{
     background-color: white;
@@ -39,6 +42,11 @@
     height: 90px;
     padding-left: 2em;
 }
+.project-menu-list{
+    width: 100%;
+    height: 90px;
+    padding-left: 2em;
+}
 .vertical-menu ul li h5{
     line-height: 50px;
 }
@@ -56,12 +64,23 @@
     margin-bottom: 2em;
     display: none;
 }
-#images
+#projectCategory, #projectImage, #projectLocation, #projectURL, #projectMember{
+    margin-bottom: 2em;
+    display: none;
+}
+
 #profile{
     margin-bottom: 2em;
     display:block;
 }   
+#projectInfo{
+    margin-bottom: 2em;
+    display:block;    
+}
 .contents{
+    padding-left: 3em;
+}
+.projectContents{
     padding-left: 3em;
 }
 
@@ -198,7 +217,7 @@ h4.panel-title a {
 }
 
 textarea#inputDesc {
-    resize: vertical
+    resize: none;
 }
 
 #avatarCropper {
@@ -221,6 +240,23 @@ textarea#inputDesc {
 #eduChange, #password{
     margin-top: 3em;
 }
+#projectCategory, #projectLocation, #projectURL{
+    margin-top: 3em;
+}
 #eduChange > .row{
     margin-bottom: 1em;
+}
+#locChange .row{
+    margin-bottom: 1em;
+}
+#projectInfo .row{
+    margin-bottom: 1em;
+}
+#home{
+    display: flex;
+    flex-wrap:wrap;
+}
+/* Manage Members width */
+.card {
+    width: calc(100% * (1/3) - 10px - 1px)
 }

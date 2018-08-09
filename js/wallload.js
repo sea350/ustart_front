@@ -36,7 +36,7 @@
                          if(status == 'success' || status=='notmodified')
                          {
                             var temp = $.parseJSON(jqXHR.responseText);
-                            console.log(temp);
+                            console.log("initial load");
                             if (temp.JournalEntries!= null){
                                 scrollID = temp.ScrollID;
                                 totalHits = temp.TotalHits;
@@ -161,7 +161,6 @@
                              {
                                var temp = $.parseJSON(jqXHR.responseText);
                                if (temp != null){
-                                   console.log(temp);
                                     if ($(".wallPosts").length >= 1){
                                         $('#wall-dataF').prepend('<hr>');  
                                     }
@@ -260,7 +259,6 @@
      $('body').on("click", ".deletePost", function(e) {
           var temp = e.currentTarget.id;
           var postID = temp.replace("delete-btn",'');
-          console.log(postID);
           $(e.currentTarget).prop('disabled', true);
           var x = document.getElementsByClassName("wallPosts");
           $.ajax({
@@ -301,9 +299,6 @@
           var temp = e.currentTarget.id;
           var postID = temp.replace("share-btn",'');
           var content = $("#shared-content"+postID).val();
-          console.log ($("#shared-content"+postID));
-          console.log('share-post content'+ content);
-
           $(e.currentTarget).prop('disabled', true);
           $.ajax({
                     type: 'GET',
@@ -328,7 +323,6 @@
       $('body').on("click", ".edit-postSubmit", function(e) {
           var temp = e.currentTarget.id;
           var tempID = temp.replace("edit-btn",'');
-          //console.log(tempID);
           var content = $("#content"+tempID).val();
           $(e.currentTarget).prop('disabled', true);
           $.ajax({
@@ -358,7 +352,6 @@
      $('body').on("click", ".remove-comment", function(e) {
           var temp = e.currentTarget.id;
           var tempID = temp.replace("removeComment",'');
-          console.log(tempID);
           e.preventDefault();
           $.ajax({
                     type: 'GET',
@@ -389,7 +382,6 @@
      $('body').on("click", ".remove-comment-o-comment", function(e) {
           var temp = e.currentTarget.id;
           var tempID = temp.replace("removecomment2",'');
-          console.log(tempID);
            e.preventDefault();
           $.ajax({
                     type: 'GET',
@@ -463,13 +455,13 @@
                                      {
                                         var temp = $.parseJSON(jqXHR.responseText);
                                         if (temp != null){
-                                            console.log(temp);
+                                            totalHits = temp.TotalHits;
+                                            console.log("loading more....");
                                             for (i=0; i < temp.JournalEntries.length ; i++){
                                                     if (temp.JournalEntries[i].Element.Classification == 2){
                                                         if (userID == temp.JournalEntries[i].Element.PosterID || editPermission==0 ){createSharedPost(temp.JournalEntries[i].ReferenceElement.Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
                                                         }
                                                         else{createBasicSharedPost(temp.JournalEntries[i].ReferenceElement.Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
-
                                                         }
                                                     }
                                                     else if (temp.JournalEntries[i].Element.Classification == 0){

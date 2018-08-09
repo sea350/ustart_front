@@ -1058,9 +1058,6 @@ function makeNewCommentOfCommentsApplications(parentID, image, fName,lName, cont
 
 
 function createSharedPost(image, fName,lName,elementID, content, sharedContent, posterFname, posterLname,numLikes,numReplies,originaltime, time){
-	console.log('content1'+ content);
-	console.log('sharedContent1'+ sharedContent);
-
 	$('#wall-dataF').append([
 		$('<div/>', {'class' : 'panel-body wallPosts'}).attr('id','Post').each(function(){
 			$(this).attr({"id": $(this).attr("id").concat(elementID)});

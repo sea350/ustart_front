@@ -143,8 +143,6 @@
 									</span>
 								</a>
 								</div>
-								
-
 								<div id="description_modal" class="modal fade">
 										<div class="modal-dialog modal-sm">
 												<div class="modal-content">
@@ -154,11 +152,9 @@
 													</div>
 												</div>
 											</div>									
-									</div>
-									
-
+                                </div>
 								{{end}}
-							</p>
+                            </p>
 						</div>
 
 							
@@ -174,9 +170,9 @@
 								<a href="/followers/{{.UserInfo.Username}}#Following" data-toggle="tooltip" data-placement="top" title="{{len .UserInfo.Following}} Following">
 									<span id="num-following" style="font-weight: bold">{{len .UserInfo.Following}}</span> Following</a>
 							</div>
-							<button id="btn-message" class="btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
 							<!-- if user is visiting the page -->
 							{{if ne ($.Page) ($.DOCID)}}
+                            <button id="btn-message" class="btn btn-default" onclick="location.href='/ch/@'+{{.UserInfo.Username}}"><i class="fa fa-envelope"></i></button>
 							<button id="btn1" class="btn followButton" rel="6">Follow</button>
 							<div class="profile-menu dropdown">
 								<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">

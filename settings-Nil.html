@@ -96,7 +96,7 @@
 											<label class="switch usr-vis-opt"><input type="checkbox" name="lnameVis" checked /><span class="slider round"></span></label>
 											<input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" value="{{.UserInfo.LastName}}" required />																						
 											
-											<br>										
+											<br>			
 
 											<input type="submit" class="btn btn-info" name="name_submit" value="Edit Name" />
 											<br>
@@ -135,8 +135,15 @@
 										<div class="save-message fade"></div>
 										</form>										
 									</div>
-
-								</div>											
+								</div>	
+								<div class="row">
+									<form id="UpdateDescription" action="" method="POST">
+										<label for="inputDesc">Description</label>
+										<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe Your Description" maxlength="100" value="readRuneArrayThatWorks({{.UserInfo.Description}})"></textarea>
+										<!-- <script>$('textarea[name="inputDesc"]').text(readRuneArrayThatWorks({{.UserInfo.Description}});</script>-->
+										<input type="submit" class="btn btn-info" name="name_submit" value="Edit Description" />
+									</form>
+								</div>										
 								</div>
 								<!-- end of profile-->
 		
@@ -329,19 +336,13 @@
 										</div>
 									</div>
 									<div class="col">
-										<style>
-											#upload-demo2{
-												height: 400px;
-											};
-												
-										</style>
 										<h4>Edit your banner</h4>
 										<br>
 										<form id="banner-form" action="/BannerUpload/"  enctype="multipart/form-data"  method="post">
-											<div id="upload-demo2"></div>
+											<div id="upload-demo2" style='height:400px;'></div>
 											<input type="file" name="raw-banner" id="upload2" accept="image/*">
 											<input type="hidden" name="banner-data" id="hidden-image-data-2" />
-											<button type="button" class="btn btn-info" id="upload-result2">Upload Image</button>
+											<button type="button" class="btn btn-info" id="upload-result2">Upload Banner</button>
 											<br>
 												<script>
 													var bwidth;
@@ -386,9 +387,11 @@
 																console.log(height +' '+width);
 																if(height < 300 && width < 600){
 																	$("#sizeModal").modal();
+																	/*
 																	BootstrapDialog.show({
 																		message: 'Hi Apple!'
-																	});																		
+																	});
+																	*/																		
 																	//return false;
 																	isValid = false;
 																}																	

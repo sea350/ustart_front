@@ -222,13 +222,6 @@
                                                             else{
                                                                 populateNewMessageModified(urlid, msg.SenderID, memberList[msg.SenderID][0]+" "+memberList[msg.SenderID][1],msg.Content, memberList[msg.SenderID][2], new Date(msg.TimeStamp).getTime(), senderCheck, prevSender);
                                                                 prevSender=msg.SenderID;
-                                                               /* if (senderCheck==true){
-                                                                $('.inbox-group.active .group-message').text("You: "+msg.Content);
-                                                                }
-                                                                else{
-                                                                    $('.inbox-group.active .group-message').text(memberList[msg.SenderID][0]+" "+memberList[msg.SenderID][1]+": "+msg.Content); 
-                                                                }
-                                                                $('.inbox-group.active .group-message-time').text(formatTime(new Date(msg.TimeStamp).getTime()));*/
                                                             } 
                                                         } 
                                                         socket.onerror= function(err){
@@ -264,9 +257,10 @@
                                                         {
                                                         var temp = $.parseJSON(jqXHR.responseText);
                                                         if (temp.heads != null){
+                                                            console.log(temp);
                                                              $('#inbox-groups').empty();
                                                              for(i=0; i<temp.heads.length; i++){
-                                                                 populateChatRooms(temp.heads[i].Username, temp.heads[i].Image, temp.heads[i].FirstName+' '+temp.heads[i].LastName,temp.heads[i].Classification, readRuneArrayThatWorks(temp.heads[i].Bio), formatTime(temp.heads[i].Time));
+                                                                 populateChatRooms(temp.heads[i].Username, temp.heads[i].Image, temp.heads[i].FirstName+' '+temp.heads[i].LastName,temp.heads[i].Classification, readRuneArrayThatWorks(temp.heads[i].Bio), formatTime(temp.heads[i].Time), temp.heads[i].DocID);
                                                              }
                                                         }
                                                         else{

@@ -16,6 +16,7 @@
     <script src="/ustart_front/js/bootstrap-confirmation.min.js"></script>
     <script src="/ustart_front/js/ascii-convert.js"></script>
     <script src="/ustart_front/js/layout.js"></script>
+    <script src="/ustart_front/js/chat.js"></script>
     <script src="/ustart_front/js/userEdit.js"></script>
     <script>
         var port = window.location.port;
@@ -79,7 +80,7 @@
                          if (temp.heads != null){
                              $('#chatDrop').empty();
                              for(i=0; i<temp.heads.length; i++){
-                                appendChatItem(temp.heads[i].Username,temp.heads[i].FirstName+' '+temp.heads[i].LastName, readRuneArrayThatWorks(temp.heads[i].Bio), formatTime(temp.heads[i].Time), temp.heads[i].Followed, temp.heads[i].Classification, temp.heads[i].Image);
+                                appendChatItem(temp.heads[i].Username,temp.heads[i].FirstName+' '+temp.heads[i].LastName, readRuneArrayThatWorks(temp.heads[i].Bio), formatTime(temp.heads[i].Time), temp.heads[i].Followed, temp.heads[i].Classification, temp.heads[i].Image, temp.heads[i].DocID);
                              }
                          }
                          else{
@@ -111,7 +112,6 @@
                      }
                      roomSocket.onmessage = function(e){
                           var chatNotifications = JSON.parse(e.data);
-
                           if ($('li#chatnotif'+chatNotifications.Username).length > 0){
                               $('li#chatnotif'+chatNotifications.Username).prependTo('#chatDrop');
                               $('li#chatnotif'+chatNotifications.Username+" .notif-message").text(readRuneArrayThatWorks(chatNotifications.Bio));
@@ -127,7 +127,7 @@
                               updateChatBadge();
                           }
                           else{
-                             appendChatItem(chatNotifications.Username,chatNotifications.FirstName+' '+chatNotifications.LastName, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time), true, chatNotifications.Classification, chatNotifications.Image);
+                             appendChatItem(chatNotifications.Username,chatNotifications.FirstName+' '+chatNotifications.LastName, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time), true, chatNotifications.Classification, chatNotifications.Image, chatNotifications.DocID);
                              $('.emptyState').remove();
                           }
                          if (chatNotifications.Classification == 0){ //REGULAR CHAT  
@@ -146,7 +146,7 @@
                            }
                            else{    // chat does not exist
                                console.log("creating new chat");
-                                populateExistingChatRooms(chatNotifications.Username, chatNotifications.Image, chatNotifications.FirstName+" "+chatNotifications.LastName, chatNotifications.Classification, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time));
+                                populateExistingChatRooms(chatNotifications.Username, chatNotifications.Image, chatNotifications.FirstName+" "+chatNotifications.LastName, chatNotifications.Classification, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time), chatNotifications.DocID);
                                 if ($('li#'+$.escapeSelector('@'+chatNotifications.Username)).hasClass('active')){
                                     $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
                                      $('li#'+$.escapeSelector("@"+chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
@@ -159,29 +159,29 @@
                            }
                          }
                         else{//PROJECT CHAT
-                            if ($('li#'+$.escapeSelector(chatNotifications.Username)).length != 0){ //chat exists
+                            if ($('li#'+$.escapeSelector(chatNotifications.DocID)).length != 0){ //chat exists
                                 //$('li#'+$.escapeSelector(chatNotifications.Username)).prependTo('#inbox-groups');
                                 //check for active here
-                                if ($('li#'+$.escapeSelector(chatNotifications.Username)).hasClass('active')){
-                                    $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
-                                     $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
+                                if ($('li#'+$.escapeSelector(chatNotifications.DocID)).hasClass('active')){
+                                    $('li#'+$.escapeSelector(chatNotifications.DocID)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
+                                     $('li#'+$.escapeSelector(chatNotifications.DocID)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
                                 }
                                 else{
-                                     $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-header').css("font-weight", 700);
-                                     $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio)).css("font-weight", 700);
-                                     $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime())).addClass("active").css({'font-weight': "bold"});
+                                     $('li#'+$.escapeSelector(chatNotifications.DocID)+' .group-header').css("font-weight", 700);
+                                     $('li#'+$.escapeSelector(chatNotifications.DocID)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio)).css("font-weight", 700);
+                                     $('li#'+$.escapeSelector(chatNotifications.DocID)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime())).addClass("active").css({'font-weight': "bold"});
                                 }
                            }
                            else{    // chat does not exist
-                               populateExistingChatRooms(chatNotifications.Username, chatNotifications.Image, chatNotifications.FirstName+" "+chatNotifications.LastName, chatNotifications.Classification, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time));
-                               if ($('li#'+$.escapeSelector(chatNotifications.Username)).hasClass('active')){
-                                    $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
-                                     $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
+                               populateExistingChatRooms(chatNotifications.Username, chatNotifications.Image, chatNotifications.FirstName+" "+chatNotifications.LastName, chatNotifications.Classification, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time),chatNotifications.DocID );
+                               if ($('li#'+$.escapeSelector(chatNotifications.DocID)).hasClass('active')){
+                                    $('li#'+$.escapeSelector(chatNotifications.DocID)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio));
+                                     $('li#'+$.escapeSelector(chatNotifications.DocID)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime()));
                                 }
                                 else{
-                                     $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-header').css("font-weight", 700);
-                                     $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio)).css("font-weight", 700);
-                                     $('li#'+$.escapeSelector(chatNotifications.Username)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime())).addClass("active").css({'font-weight': "bold"});
+                                     $('li#'+$.escapeSelector(chatNotifications.DocID)+' .group-header').css("font-weight", 700);
+                                     $('li#'+$.escapeSelector(chatNotifications.DocID)+' .group-message').text(readRuneArrayThatWorks(chatNotifications.Bio)).css("font-weight", 700);
+                                     $('li#'+$.escapeSelector(chatNotifications.DocID)+' .group-message-time').text(formatTime(new Date(chatNotifications.Time).getTime())).addClass("active").css({'font-weight': "bold"});
                                 }
                            }
                         }

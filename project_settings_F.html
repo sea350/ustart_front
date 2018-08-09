@@ -29,161 +29,254 @@
 	<div id="navBar-placeholder"></div>
 	<div id="centering">
 		<!-- Vertical content -->
-		<div id="content">
 			<div id="settings-container" class="container">
-				<h3>Project Settings</h3>
-				<div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
-						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#logocollapse">
-							<h4 class="panel-title">Upload Logo &amp; Banner</h4>
+				<div class="panel-group col-sm-10 col-sm-offset-1">
+					<div class="row">
+						<div class="vertical-menu col-sm-3">
+							<ul>
+								<li data-target='projectInfo' class='project-menu-list'><h5>Edit Project Info</h5></li>
+								<li data-target='projectCategory' class='project-menu-list'><h5>Edit Category</h5></li>
+								<li data-target='projectImage' class='project-menu-list'><h5>Edit Images</h5></li>
+								<li data-target='projectLocation' class='project-menu-list'><h5>Edit Location</h5></li>
+								<li data-target='projectURL' class='project-menu-list'><h5>Edit custom URL</h5></li>
+								<li data-target='projectMember' class='project-menu-list'><h5>Manage Members</h5></li>
+							</ul>
 						</div>
-						<div id="logocollapse" class="panel-collapse collapse in">
-							<div class="panel-body">
-								<form id="img-form" action="/projectLogo/" enctype="multipart/form-data" method="post">
-									<div id="upload-demo" style="width:300px; height:350px"></div>
-									<input type="file" name="raw-image" id="upload" accept="image/*">
-									<input type="hidden" name="image-data" id="hidden-image-data" />
-                                    <input type="hidden" name="projectID" value={{$projectid}} />
-									<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
-									<script type="text/javascript">
-										$uploadCrop = $('#upload-demo').croppie({
-											url: "{{.Project.ProjectData.Avatar}}",
-											viewport: {
-												width: 250,
-												height: 250,
-                                                type: 'square'
-											},
-											boundary: {
-												width: 280,
-												height: 280
-											}
-										});
-										$('#upload').on('change', function () { 
-											var reader = new FileReader();
-											reader.onload = function (e) {
-												$uploadCrop.croppie('bind', {
-													url: e.target.result
-												}).then(function(){
-													console.log('jQuery bind complete');
-												});
-											}
-											reader.readAsDataURL(this.files[0]);
-										});
-										 $('#upload-result').on('click', function (ev) {
-											$uploadCrop.croppie('result', {
-												type: 'canvas',
-												size: 'viewport'
-											}).then(function (resp) {
-												$('#hidden-image-data').val(resp);
-												$('#img-form').submit();
-											});
-										});
-									</script>
-								</form>
-                                <form id="banner-form" action="/projectBannerUpload/" enctype="multipart/form-data" method="post">
-									<div id="upload-demo2"></div>
-									<input type="file" name="raw-banner" id="upload2" accept="image/*">
-									<input type="hidden" name="projectID" value={{$projectid}} />
-									<input type="hidden" name="banner-data" id="hidden-image-data-2" />
-									<button type="button" class="btn btn-info" id="upload-result2">Upload Image</button>
-									<script type="text/javascript">
-										$uploadCrop2 = $('#upload-demo2').croppie({
-											url: "{{.Project.ProjectData.Banner}}",
-											viewport: {
-												width: 1000,
-												height: 300,
-											},
-											boundary: {
-												width: 1050,
-												height: 350
-											}
-										});
-										$('#upload2').on('change', function () { 
-											var reader2 = new FileReader();
-											console.log('upload2 change');
-											//var reader2 = new Image();
-											reader2.onload = function (e) {
-												
-												$uploadCrop2.croppie('bind', {
-													url: e.target.result
-												}).then(function(){
-													console.log('jQuery bind complete');
-												});
-											}
-											reader2.readAsDataURL(this.files[0]);
-										});
-										 $('#upload-result2').on('click', function (ev) {
-											 console.log('clicked?');
-											$uploadCrop2.croppie('result', {
-												type: 'canvas',
-												size: 'viewport'
-											}).then(function (response2) {
-												$('#hidden-image-data-2').val(response2);
-												$('#banner-form').submit();
-											});
-										});
-									</script>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#avatarcollapse">
-							<h4 class="panel-title">Change Name and Description</h4>
-						</div>
-						<div id="avatarcollapse" class="panel-collapse collapse">
-							<div class="panel-body">
-								<div class="form-group">
-									<form id="nameChange" action="/projectName/" method="POST">
-										<div class="row">
-											<div class="col-sm-6">
-												<label for="pname">Name</label>
-												<input type="text" class="form-control" id="pname" name="pname" placeholder="Project Name" value="{{.Project.ProjectData.Name}}" required />
-                                                <input type="hidden" name="projectID" value="{{$projectid}}" />
-											</div>
-											<div class="col-sm-6">
-											</div>
-											<div class="col-sm-12">
-												<label for="inputDesc">Description</label>
-												<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe the goals of your project" maxlength="100"></textarea>
-												<script>$('textarea[name="inputDesc"]').text(defineRuneArray({{.Project.ProjectData.Description}}));</script>
-											</div>
-											<div class="col-sm-12">
-												<label for="recruitSwitch">Recruitment</label>
-												<br>
-												<label class="switch" id="recruitSwitch">
-                                                  <input type="checkbox" checked>
-                                                  <span class="slider round"></span>
-                                                </label>
-											</div>
-										</div>
-										<hr/>
-										<input type="submit" class="btn btn-info" name="name_submit" value="Change" />
-										<div class="save-message fade"></div>
-									</form>
-								</div>
-                                
-							</div>
-						</div>
-					</div>
-
-					<div class="panel panel-default">
-						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#loccollapse">
-							<h4 class="panel-title">Change Location</h4>
-						</div>
-						<div id="loccollapse" class="panel-collapse collapse">
-							<div class="panel-body">
-								<form id="locChange" action="/projectLocation/" method="POST">
-									<input type="hidden" name="projectID" value="{{$projectid}}" />
-									<!-- Country, State / City, Zip -->
+						<div class='col-sm-9 projectContents'>
+							<div id="projectInfo">
+								<form id="nameChange" action="/projectName/" method="POST">
 									<div class="row">
-										<div class="col-sm-4">
+										<label for="recruitSwitch">Recruitment</label>
+										<br>
+										<label class="switch" id="recruitSwitch">
+											<input type="checkbox" checked>
+											<span class="slider round"></span>
+										</label>											
+									</div>
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+											<label for="pname">Name</label>
+										</div>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="pname" name="pname" placeholder="Project Name" value="{{.Project.ProjectData.Name}}" required />
+											<input type="hidden" name="projectID" value="{{$projectid}}" />														
+										</div>
+									</div>	
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+											<label for="inputDesc">Description</label>
+										</div>
+										<div class="col-sm-9">
+											<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe your self" maxlength="100"></textarea>
+											<script>$('textarea[name="inputDesc"]').text(defineRuneArray({{.Project.ProjectData.Description}}));</script>
+										</div>
+									</div>
+									
+									<input type="submit" class="btn btn-info" name="name_submit" value="Change" />
+									<div class="save-message fade"></div>										
+								</form>
+								<br><hr>
+							</div>
+							<!-- end of projectInfo -->
+							<div id="projectCategory">
+								<form id="category-form" action="/projectCategory/">
+									<input type="hidden" name="projectID" value="{{$projectid}}" />
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+											<label for="type_select">Category</label>
+										</div>
+										<div class="col-sm-9">
+											<select id="type_select" class="form-control" name="type_select" required>
+												<option disabled selected hidden>Select Category</option>
+												<option>Art</option>
+												<option>Comics</option>
+												<option>Craft</option>
+												<option>Dancing</option>
+												<option>Design</option>
+												<option>Fashion</option>
+												<option>Film &amp; Video</option>
+												<option>Food</option>
+												<option>Games</option>
+												<option>Jounalism</option>
+												<option>Music</option>
+												<option>Photography</option>
+												<option>Publishing</option>
+												<option>Technology</option>
+												<option>Theater</option>
+											</select>
+										</div>
+										<script>
+											$('select#type_select').val('{{.Project.ProjectData.Category}}');
+										</script>											
+									</div>	
+									<br>
+									<input type="submit" class="btn btn-info" name="name_submit" value="Change Category" />
+									<div class="save-message fade"></div>										
+								</form>
+								<br><hr>
+							</div>
+							<!-- end of projectCategory -->
+							<div id="projectImage">
+								<div class="row">
+									<h4>Edit your Project Image</h4>
+									<div class="col-sm-6 col-sm-offset-3">
+										<form id="img-form" action="/projectLogo/" enctype="multipart/form-data" method="post">
+											<div id="upload-demo" style="width:300px; height:350px"></div>
+											<input type="file" name="raw-image" id="upload" accept="image/*">
+											<input type="hidden" name="image-data" id="hidden-image-data" />
+											<input type="hidden" name="projectID" value={{$projectid}} />
+											<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
+											<script type="text/javascript">
+												$uploadCrop = $('#upload-demo').croppie({
+													url: "{{.Project.ProjectData.Avatar}}",
+													viewport: {
+														width: 250,
+														height: 250,
+														type: 'square'
+													},
+													boundary: {
+														width: 280,
+														height: 280
+													}
+												});
+												$('#upload').on('change', function () { 
+													var reader = new FileReader();
+													reader.onload = function (e) {
+														$uploadCrop.croppie('bind', {
+															url: e.target.result
+														}).then(function(){
+															console.log('jQuery bind complete');
+														});
+													}
+													reader.readAsDataURL(this.files[0]);
+												});
+												 $('#upload-result').on('click', function (ev) {
+													$uploadCrop.croppie('result', {
+														type: 'canvas',
+														size: 'viewport'
+													}).then(function (resp) {
+														$('#hidden-image-data').val(resp);
+														$('#img-form').submit();
+													});
+												});
+											</script>
+										</form>
+									</div>
+								</div>
+								<br><hr>
+								
+								<div class="modal fade" id="sizeModal" role="dialog">
+									<div class="modal-dialog">										
+									<div class="modal-content">
+											<div class="modal-header" style='border-color:#00ac7d!important'>
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title" >USTART info</h4>
+											</div>
+											<div class="modal-body" style='border-color:#00ac7d!important'>
+												<p>Banner Image should be bigger than 300px (height) x 600px (width)</p>
+											</div>
+									</div>	  
+									</div>
+								</div>		
+
+								<div class="col">
+									<h4>Edit your Project banner</h4>
+									<br>
+
+									<form id="banner-form" action="/projectBannerUpload/" enctype="multipart/form-data" method="post">
+										<div id="upload-demo2" style="height:400px"></div>
+										<input type="file" name="raw-banner" id="upload2" accept="image/*">
+										<input type="hidden" name="projectID" value={{$projectid}} />
+										<input type="hidden" name="banner-data" id="hidden-image-data-2" />
+										<button type="button" class="btn btn-info" id="upload-result2">Upload Banner</button>
+										<script type="text/javascript">
+											var bwidth;
+											$(window).resize(function(){
+												cwidth = $(window).width();
+
+												if(cwidth <= 1100 && cwidth >= 320){
+													bwdith = cwidth - 40;
+												}else{
+													bwidth = 1000;
+												}
+											});
+
+											$uploadCrop2 = $('#upload-demo2').croppie({
+												url: "{{.Project.ProjectData.Banner}}",
+												viewport: {
+													width: 1000,
+													height: 300,
+												},
+												boundary: {
+													width: bwidth,
+													height: 350
+												}
+											});
+											
+											var isValid = true;
+											$('#upload2').on('change', function () { 
+												var file = $('#upload2')[0];
+												var reader2 = new FileReader();
+												
+												reader2.readAsDataURL(this.files[0]);
+
+												
+												reader2.onload = function (e) {
+													var image = new Image();
+													image.src = e.target.result;
+
+													image.onload = function(){
+														var height = this.height;
+														var width = this.width;
+														if(height < 300 && width < 600){
+															$("#sizeModal").modal();
+															isValid = false;
+														}
+
+													}
+
+													$uploadCrop2.croppie('bind', {
+														url: e.target.result
+													});
+												}
+												
+											});
+											 $('#upload-result2').on('click', function (ev) {
+												 
+												$uploadCrop2.croppie('result', {
+													type: 'canvas',
+													size: 'viewport'
+												}).then(function (response2) {
+													if(isValid){
+													$('#hidden-image-data-2').val(response2);
+													$('#banner-form').submit();
+												}
+												});
+											});
+										</script>
+									</form>	
+
+									<br><br> <hr>							
+								</div>
+							</div>
+							<!-- end of projectImage -->
+							<div id="projectLocation">
+								<form id="locChange" action="/projectLocation/" method="POST">
+								<input type="hidden" name="projectID" value="{{$projectid}}" />
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
 											<label for="country">Country</label>
+										</div>
+										<div class="col-sm-9">
 											<!--<label class="switch usr-vis-opt"><input type="checkbox" id="countryVis" name="countryVis" checked><span class="slider round"></span></label>-->
 											<select id="country" class="form-control" name="country" required></select>
 										</div>
-										<div class="col-sm-3">
+									</div>
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
 											<label for="state">State</label>
+										</div>
+										<div class="col-sm-9">
 											<!--<label class="switch usr-vis-opt"><input type="checkbox" id="stateVis" name="stateVis" checked><span class="slider round"></span></label>-->
 											<select id="state" class="form-control" name="state" required></select>
 										</div>
@@ -192,102 +285,63 @@
 											$('select#country').val({{.Project.ProjectData.Location.Country}});
 											populateStates("country", "state");
 											$('select#state').val({{.Project.ProjectData.Location.State}});
-										</script>
-										<div class="col-sm-3">
+										</script>										
+									</div>	
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
 											<label for="city">City</label>
+										</div>
+										<div class="col-sm-9">
 											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="cityVis" id="cityVis" checked><span class="slider round"></span></label>-->
 											<input id="city" class="form-control" name="city" placeholder="City" value="{{.Project.ProjectData.Location.City}}" required/>
 										</div>
-										<div class="col-sm-2">
+									</div>	
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
 											<label for="zip">Zip</label>
+										</div>
+										<div class="col-sm-9">
 											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis" id="zipVis"  checked><span class="slider round"></span></label>-->
 											<input id="zip" class="form-control" name="zip" placeholder="Zip" value="{{.Project.ProjectData.Location.Zip}}" required />
 										</div>
-										<div class="col-sm-12">
+									</div>	
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
 											<label for="recruitSwitch">Display on Profile</label>
-											<br>
+										</div>
+										<div class="col-sm-9">
 											<label class="switch" id="countrySwitch">
-													<input type="checkbox" checked>
-													<span class="slider round"></span>
-												</label>
+												<input type="checkbox" checked>
+												<span class="slider round"></span>
+											</label>
 										</div>
-									</div>
-									<hr/>
+									</div>	
 									<input type="submit" class="btn btn-info" name="name_submit" value="Change Location" />
-									<div class="save-message fade"></div>
-								</form>
+									<div class="save-message fade"></div>									
+								</form>	
+								<br><br> <hr>																																											
 							</div>
-						</div>
-					</div>
-
-					<div class="panel panel-default">
-						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#catecollapse">
-							<h4 class="panel-title">Change Category</h4>
-						</div>
-						<div id="catecollapse" class="panel-collapse collapse">
-							<div class="panel-body">
-								<form id="category-form" action="/projectCategory/">
-									<input type="hidden" name="projectID" value="{{$projectid}}" />
-
-									<div class="row">
-										<div class="col-sm-3">
-											<label for="type_select">Category</label>
-											<select id="type_select" class="form-control" name="type_select" required>
-													<option disabled selected hidden>Select Category</option>
-													<option>Art</option>
-													<option>Comics</option>
-													<option>Craft</option>
-													<option>Dancing</option>
-													<option>Design</option>
-													<option>Fashion</option>
-													<option>Film & Video</option>
-													<option>Food</option>
-													<option>Games</option>
-													<option>Jounalism</option>
-													<option>Music</option>
-													<option>Photography</option>
-													<option>Publishing</option>
-													<option>Technology</option>
-													<option>Theater</option>
-												</select>
-										</div>
-										<script>
-											$('select#type_select').val('{{.Project.ProjectData.Category}}');
-										</script>
-									</div>
-									<hr/>
-									<input type="submit" class="btn btn-info" name="name_submit" value="Change Category" />
-									<div class="save-message fade"></div>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#urlcollapse">
-							<h4 class="panel-title">Custom URL</h4>
-						</div>
-						<div id="urlcollapse" class="panel-collapse collapse">
-							<div class="panel-body">
+							<!-- end of projectLocation-->
+							<div id="projectURL">
 								<form id="urlChange" action="/projectCustomURL/">
 									<input type="hidden" name="projectID" value="{{$projectid}}" />
-									<div class="row">
-										<div class="col-sm-12">
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+											<label>Custom URL</label>
+										</div>
+										<div class="col-sm-9">
 											ustart.today/Projects/ <input type="text" class="form-control" id="purl" name="purl" placeholder="url" style="width:auto; display:inline-block;" value="{{.Project.ProjectData.URLName}}" required />
 										</div>
 									</div>
-									<hr/>
+									<br>
 									<input type="submit" class="btn btn-info" name="name_submit" value="Change url" />
-									<div class="save-message fade"></div>
+									<div class="save-message fade"></div>									
 								</form>
+								<br><br> <hr>
 							</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#membcollapse">
-							<h4 class="panel-title">Manage Members</h4>
-						</div>
-						<div id="membcollapse" class="panel-collapse collapse">
-							<div class="panel-body">
+							<div id="projectMember">
+								<h4>Manage Members</h4>
+								<br>
 								<div id="home">
 									{{range $member := .Project.MemberData}}
 									<div class="card" style="height:auto">
@@ -303,24 +357,24 @@
 												<option {{if eq $member.Classification 2}}selected{{end}}>Member</option>
 												{{end}}
 											</select>
-                                            <script>
-                                                $('.role_select').on('change', function(e) {
-                                                    var result = $(e.currentTarget).val();
-                                                    console.log(result);
-                                                    $.ajax({
-                                                        type: 'GET',
-                                                        url: '/changeMemberClass/',
-                                                        contentType: "application/json; charset=utf-8",
-                                                        data: {memberID:{{$member.DocID}}, projectID:{{$projectid}}, newRole:result},
-                                                        success: function(data) {
-                                                            console.log("member role changed");
-                                                        },
-                                                        error: function(err) {
-                                                            console.log('Change Member Class error: ' + err);
-                                                        }
-                                                    });
-                                                });
-                                            </script>
+											<script>
+												$('.role_select').on('change', function(e) {
+													var result = $(e.currentTarget).val();
+													console.log(result);
+													$.ajax({
+														type: 'GET',
+														url: '/changeMemberClass/',
+														contentType: "application/json; charset=utf-8",
+														data: {memberID:{{$member.DocID}}, projectID:{{$projectid}}, newRole:result},
+														success: function(data) {
+															console.log("member role changed");
+														},
+														error: function(err) {
+															console.log('Change Member Class error: ' + err);
+														}
+													});
+												});
+											</script>
 											{{if ge $member.Classification 1}}
 											<div class="middle">
 												<button type="button" onclick="removeMember('{{$member.DocID}}', '{{$projectid}}', this)">Remove</button>
@@ -332,43 +386,46 @@
 										</div>
 									</div>
 									{{end}}
-								</div>
+								</div>								
 							</div>
+					</div>
+					<!-- end of row for the content-->
+				</div>
+				</div>
+			</div>
+			<!-- end of content-->
+			<div class="modal fade" id="avatarCropperModal" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Crop avatar</h4>
+						</div>
+						<div class="modal-body">
+							<iframe id="cropperiframe"> </iframe>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div id="footer-placeholder"></div>		
+			<script type="text/javascript">
+				$(document).ready(function () {
+					<!-- Automatically open the approriate tab based on the URL -->
+					if(location.hash != null && location.hash != ""){
+						$('.collapse').removeClass('in');
+						$(location.hash + '.collapse').collapse('show');
+					} else {
+						$('#avatarcollapse.collapse').collapse('show');
+					}
+					<!-- end of auto-tab -->
+				});
+			</script>									
 		</div>
-	</div>
-	<div class="modal fade" id="avatarCropperModal" role="dialog">
-		<div class="modal-dialog">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Crop avatar</h4>
-				</div>
-				<div class="modal-body">
-					<iframe id="cropperiframe"> </iframe>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="footer-placeholder"></div>
-	<script type="text/javascript">
-		$(document).ready(function () {
-			<!-- Automatically open the approriate tab based on the URL -->
-			if(location.hash != null && location.hash != ""){
-				$('.collapse').removeClass('in');
-				$(location.hash + '.collapse').collapse('show');
-			} else {
-				$('#avatarcollapse.collapse').collapse('show');
-			}
-			<!-- end of auto-tab -->
-		});
-	</script>
+		<!-- end of centering -->
+
 </body>
 </html>

@@ -149,6 +149,7 @@ div#content div.dashboard-left {
 img#head-image {
     width: 100%;
     max-height: 25em;
+    min-height:9em;
     -o-object-fit: contain;
     object-fit: contain;
     border-radius: 0em;

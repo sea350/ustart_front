@@ -27,6 +27,8 @@
 	{{$projecturl := .Project.ProjectData.URLName}}
     <script type ="text/javascript">
         var pageID = {{$projectid}};
+        var scrollID;
+        var maxHits = -1;
     </script>
     <script src="http://www.youtube.com/player_api"></script>
     {{range $loop := .Project.ProjectData.EntryIDs}}
@@ -777,6 +779,8 @@
                                         <div class="media">
                                             <a class="pull-left" href="#">
                                                 <img id="new-post-img" class="media-object img-rounded" src="">
+                                                <script>
+                                                </script>
                                             </a>
                                             <div class="media-body">
                                                 <div class="form-group">

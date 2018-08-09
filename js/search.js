@@ -101,6 +101,7 @@ function createSearchResult (username, icon, firstName, lastName, description, t
 }
 
 $(function() {
+    $("#leftNavSearch").addClass("theActive");
 	var searchQuery = decodeURIComponent(GetQueryStringParams("query").replace(/\+/g, ' '));
 	
 	$("#searchFilters").remove();

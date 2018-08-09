@@ -131,6 +131,23 @@ function eduCheck(usrtype) {
 	}
 }
 $(document).ready(function() {
+	//project setting
+    $('.vertical-menu ul').on('click', '.project-menu-list', function(event) {
+        $('.project-menu-list.active').removeClass('active');
+		$(this).addClass('active');
+		if ($('li[data-target="projectImage"]').hasClass("active")) {
+			console.log('clicked');
+			//$('.vertical-menu').css({'border-right': 'none;'});
+			$('.vertical-menu').css({'border-right': 'none'});			
+			$('.projectContents').css({'border-left': '1px solid #808080'});
+		  }
+		else{	 
+			$('.projectContents').css({'border-left': 'none'});			
+			$('.vertical-menu').css({'border-right': '1px solid #808080'});			
+		}	
+        $("#"+$(this).data('target')).show().siblings("div").hide();
+	}); 	
+	//profile settting
     $('.vertical-menu ul').on('click', '.menu-list', function(event) {
         $('.menu-list.active').removeClass('active');
 		$(this).addClass('active');
@@ -144,7 +161,6 @@ $(document).ready(function() {
 			$('.contents').css({'border-left': 'none'});			
 			$('.vertical-menu').css({'border-right': '1px solid #808080'});			
 		}	
-        
         $("#"+$(this).data('target')).show().siblings("div").hide();
 	}); 
 

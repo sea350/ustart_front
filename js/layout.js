@@ -271,7 +271,7 @@ function appendEmptyItem(destination) {
 }
 
 
-function appendChatItem(chatID, person, message, timestamp, unreadStatus, classification, image) {
+function appendChatItem(chatID, person, message, timestamp, unreadStatus, classification, image, docID) {
     // Load person's icon
     var notifIcon = $('<img></img>').addClass('media-object img-rounded notif-icon');
     notifIcon.attr('alt', '40x40').attr('src', image);
@@ -288,7 +288,7 @@ function appendChatItem(chatID, person, message, timestamp, unreadStatus, classi
         });
     }
     else{
-        var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('/ch/' + chatID)).text(person).click(function(){
+        var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('/ch/' + docID)).text(person).click(function(){
              newLabel.removeClass('label-new');
              newLabel.fadeOut('fast');
              newLabel.text('');

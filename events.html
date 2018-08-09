@@ -1,101 +1,131 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Ustart Event Title</title>
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <script src="/ustart_front/js/ascii-convert.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />
+    <link rel="stylesheet" href="testEVENT.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/ustart_front/js/bootstrap-confirmation.min.js"></script>    
+    <script src='testEVENT.js'></script>
+    <title>Document</title>
 </head>
-
 <body>
-    <input type="hidden" id="pageiden" value='{{.Page}}'>
-    <div id="centering">
-		<img id="head-image">
-        <script type ="text/javascript">
-             $(document).ready(function () {
-                 $('#head-image').attr('src', {{.Event.EventData.Banner}});
-             });
-        </script>
-        <div class="container">
-            <div class="tab-content">
-                <div id="prof-about" class="tab-pane fade in active">
-                    <img id="eventAvatar" />
-                    <script>
-                        $(document).ready(function () {
-                            $("#eventAvatar").attr("src", {{.Event.EventData.Avatar}})
-                        });
-                    </script>
-                    <div>
-                        {{.Event.EventData.Name}}
-                    </div>
-                    <div>
-                        Starts: {{.Event.EventData.EventDateStart}}<br/>
-                        Ends: {{.Event.EventData.EventDateEnd}}
-                    </div>
-                    <div>
-                        {{.Event.EventData.Location}}
-                    </div>
-                    {{if .Event.EventData.Description}}
-                    <div>
-                        <script>readRuneArray({{.Event.EventData.Description}});</script>
-                    </div>
-                    {{end}}
-                    <!-- project widget -->
-                    <div id="projectDisplay" class="ui-state-default widgetListItem">
-                        <div class="projectsWidgetCont">
-                            <div class="widgetTitle">
-                                {{if eq ($.Page) ($.DOCID)}}
-                                <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#projectDisplayModal"></span>
-                                {{end}}
-                                <h4>Project Display</h4>
-                            </div>
-                            <div class="widgetBody">
-                                {{range $project := .ListOfProjects}}
-                                <a class="btn btn-default projectsColumn" href="/Projects/{{$project.Username}}" data-project="{{$project.DocID}}" data-project-visible="{{$project.Followed}}">
-                                    <div class="columnImage" data-toggle="tooltip" data-placement="bottom" title="{{$project.FirstName}}">
-                                        <img id="proj-preview{{$project.DocID}}" class="img-responsive" src="" />
-                                        <script>
-                                            $("#proj-preview{{$project.DocID}}").attr('src', {{ $project.Image }});
-                                        </script>
-                                        <div class="columnTitle">{{$project.FirstName}}</div>
-                                    </div>
-                                </a>
-                                {{end}}
-                            </div>
-                        </div>
-                    </div>
-                    <!--end project widget -->
-                    <!-- people widget -->
-                    <div id="peopleDisplay" class="ui-state-default widgetListItem">
-                        <div class="projectsWidgetCont">
-                            <div class="widgetTitle">
-                                {{if eq ($.Page) ($.DOCID)}}
-                                <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#peopleDisplayModal"></span>
-                                {{end}}
-                                <h4>Attendes</h4>
-                            </div>
-                            <div class="widgetBody">
-                                {{range $person := .ListOfAttendes}}
-                                <a class="btn btn-default projectsColumn" href="/Profile/{{$person.Username}}" data-person="{{$person.DocID}}" data-person-visible="{{$person.Followed}}">
-                                    <div class="columnImage" data-toggle="tooltip" data-placement="bottom" title="{{$person.FirstName}}">
-                                        <img id="person-preview{{$person.DocID}}" class="img-responsive" src="" />
-                                        <script>
-                                            $("#person-preview{{$person.DocID}}").attr('src', {{ $person.Image }});
-                                        </script>
-                                        <div class="columnTitle">{{$person.FirstName}} {{$person.LastName}}</div>
-                                    </div>
-                                </a>
-                                {{end}}
-                            </div>
-                        </div>
-                    </div>
-                    <!--end people widget -->
+
+<div class="container">
+    <!-- banner -->
+    <h1>navbar placeholder</h1>
+    <div class="banner">
+
+    </div>
+    <div class="row" id='event-info'>
+        <div class="col-xs-3" id='date'>
+            <h1>Date</h1>
+        </div>
+        <div class="col-xs-6">
+            <div id="event-title">
+                <h5>title</h5>
+            </div>
+            <div id="event-host">
+                <h5>host</h5>
+            </div>
+            
+        </div>
+        <div class="col-xs-3">
+            <div class="banner-right-img">
+                <img id='profile' src='http://via.placeholder.com/350x150' class="img-circle img-responsive" width="304" height="236">     
+            </div>            
+        </div>
+    </div>
+    <button class="btn btn-default" type="submit">Button</button>
+    <hr>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-2">
+                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                 </div>
+                <div class="col-sm-10">
+                    <h4>time placeholder</h4>
+                </div>                
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-10">
+                    <h4>place placeholder</h4>
+                </div>                
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-10">
+                    <h4>host placeholder</h4>
+                </div>  
+            </div>              
+        </div>                        
+        <div class="col-sm-8">
+            <h4>details</h4>
+            <div id="event-detail">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat impedit esse temporibus! Exercitationem ipsum quis a similique in. Sit, expedita.</p>
             </div>
         </div>
     </div>
-</body>
 
+
+    
+    <!-- tab -->
+    <ul class="nav nav-tabs nav-justified">
+        <li class="active">
+            <a data-toggle="tab" href="#event-about">About</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#event-wall">Discussion</a>
+        </li>
+    </ul>
+    
+    <div class="tab-content">
+        <div id="event-about" class="tab-pane fade in active">
+        <p>users attending</p>
+        <div id='divider'></div>
+            <div class='user-attending-img'>
+                <img id='user-img' src="http://via.placeholder.com/350x150" class="img-circle img-responsive" alt="Cinque Terre">         
+                <img id='user-img' src="http://via.placeholder.com/350x150" class="img-circle img-responsive" alt="Cinque Terre">         
+            </div>
+            <div class='user-attending-info' style='display:none;'>hello</div>
+        <hr>
+        <p>projects attending</p>
+        <div id='divider'></div>
+        <div class='project-attending-img'>
+    
+        </div>
+        <hr>
+        <p>widgets</p>
+        <div id='divider'></div>
+        </div>
+        <div id="event-wall" class="tab-pane fade">
+        <h3>Discussion</h3>
+        </div>
+    </div>          
+       
+</div>
+
+<script>
+    ('.user-img').hover(
+        function () {
+            $('.user-attending-info').show();
+        }, 
+        function () {
+            $('.user-attending-info').hide();
+        }
+        );    
+</script>
+</body>
 </html>

@@ -40,12 +40,13 @@ function populateMemberList(name){
 
 
 
-function populateChatRooms(title, icon, name , classification, message, timestamp) {
+function populateChatRooms(title, icon, name , classification, message, timestamp, docid) {
     if (classification === 0){
         var listItem = $("<li></li>").attr({'class':"inbox-group", 'id' : "@"+title });
     }
     else{
-          var listItem = $("<li></li>").attr({'class':"inbox-group", 'id' : title });
+        console.log("creating project chat");
+          var listItem = $("<li></li>").attr({'class':"inbox-group", 'id' : docid});
     }
     var listImage = $("<img></img>").addClass('inbox-image').attr('src', icon);
     var listContent= $("<div></div>").addClass('inbox-side-content');
@@ -72,12 +73,12 @@ function populateChatRooms(title, icon, name , classification, message, timestam
 }
 
 
-function populateExistingChatRooms(title, icon, name , classification, message, timestamp) {
+function populateExistingChatRooms(title, icon, name , classification, message, timestamp, docid) {
     if (classification === 0){
         var listItem = $("<li></li>").attr({'class':"inbox-group", 'id' : "@"+title });
     }
     else{
-          var listItem = $("<li></li>").attr({'class':"inbox-group", 'id' : title });
+          var listItem = $("<li></li>").attr({'class':"inbox-group", 'id' : docid });
     }
     var listImage = $("<img></img>").addClass('inbox-image').attr('src', icon);
     var listContent= $("<div></div>").addClass('inbox-side-content');
@@ -351,11 +352,12 @@ $(document).ready(function () {
 	
      $('#sidebarCollapse').on('click', function (e) {
          e.preventDefault();
-        $('#sidebar').toggleClass('active');
+         if ($('.sidebar-header').length > 0){
+            $('#sidebar').toggleClass('active');
+         }
     });
     
-    
-    
+    $("#leftNavChat").addClass("theActive");
     
     //test function for message 
 	/*$('#messager-form').submit(function(event) {
