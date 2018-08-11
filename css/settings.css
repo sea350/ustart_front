@@ -25,7 +25,6 @@
 }
 .vertical-menu{
     padding: 0px;
-    border-right: 1px solid #808080;
 }
 .vertical-menu li {
     color: black;
@@ -47,6 +46,11 @@
     height: 90px;
     padding-left: 2em;
 }
+.event-menu-list{
+    width: 100%;
+    height: 90px;
+    padding-left: 2em;
+}
 .vertical-menu ul li h5{
     line-height: 50px;
 }
@@ -54,6 +58,12 @@
     border-left: 3px solid#484848;
     pointer-events: none;  
        
+}
+/*
+$('.vertical-menu').css({'border-right': 'none'});			
+$('.contents').css({'border-left': '1px solid #808080'});*/
+.contents{
+    border-left: 1px solid #808080;
 }
 .vertical-menu li:hover{
     background-color: #F8F8F8;
@@ -68,6 +78,10 @@
     margin-bottom: 2em;
     display: none;
 }
+#eventDate, #eventLocation, #eventImage, #eventMember{
+    margin-bottom: 2em;
+    display: none;
+}
 
 #profile{
     margin-bottom: 2em;
@@ -77,10 +91,17 @@
     margin-bottom: 2em;
     display:block;    
 }
+#eventInfo{
+    margin-bottom: 2em;
+    display:block;    
+}
 .contents{
     padding-left: 3em;
 }
 .projectContents{
+    padding-left: 3em;
+}
+.eventContents{
     padding-left: 3em;
 }
 
@@ -243,6 +264,9 @@ textarea#inputDesc {
 #projectCategory, #projectLocation, #projectURL{
     margin-top: 3em;
 }
+#eventDate, #eventLocation, #eventImage{
+    margin-top: 3em;
+}
 #eduChange > .row{
     margin-bottom: 1em;
 }
@@ -250,6 +274,9 @@ textarea#inputDesc {
     margin-bottom: 1em;
 }
 #projectInfo .row{
+    margin-bottom: 1em;
+}
+#eventInfo .row{
     margin-bottom: 1em;
 }
 #home{

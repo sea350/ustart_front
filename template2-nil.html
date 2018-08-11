@@ -16,7 +16,6 @@
     <script src="/ustart_front/js/bootstrap-confirmation.min.js"></script>
     <script src="/ustart_front/js/ascii-convert.js"></script>
     <script src="/ustart_front/js/layout.js"></script>
-    <script src="/ustart_front/js/chat.js"></script>
     <script src="/ustart_front/js/userEdit.js"></script>
     <script>
         var port = window.location.port;
@@ -66,7 +65,7 @@
             }
             checkWidth();
             $(window).resize(checkWidth);
-            
+            var newMsgReceived = false;
             $.ajax({
                   type: 'GET',
                     url: 'http://ustart.today:'+port+'/AjaxChatNotifications/',
@@ -79,8 +78,16 @@
                         var temp = $.parseJSON(jqXHR.responseText);
                          if (temp.heads != null){
                              $('#chatDrop').empty();
-                             for(i=0; i<temp.heads.length; i++){
-                                appendChatItem(temp.heads[i].Username,temp.heads[i].FirstName+' '+temp.heads[i].LastName, readRuneArrayThatWorks(temp.heads[i].Bio), formatTime(temp.heads[i].Time), temp.heads[i].Followed, temp.heads[i].Classification, temp.heads[i].Image, temp.heads[i].DocID);
+                             for(i=temp.heads.length-1; i >= 0; i--){
+                                if((readRuneArrayThatWorks(temp.heads[i].Bio).includes(":"))){
+                                    if((readRuneArrayThatWorks(temp.heads[i].Bio).substring(0,4) != "You:")){
+                                        newMsgReceived = true;
+                                    }
+                                } 
+                                else{
+                                    newMsgReceived = false;
+                                }
+                                appendChatItem(temp.heads[i].Username,temp.heads[i].FirstName+' '+temp.heads[i].LastName, readRuneArrayThatWorks(temp.heads[i].Bio), formatTime(temp.heads[i].Time),  newMsgReceived, temp.heads[i].Classification, temp.heads[i].Image, temp.heads[i].DocID);
                              }
                          }
                          else{
@@ -112,19 +119,25 @@
                      }
                      roomSocket.onmessage = function(e){
                           var chatNotifications = JSON.parse(e.data);
+                          //console.log(chatNotifications);
                           if ($('li#chatnotif'+chatNotifications.Username).length > 0){
                               $('li#chatnotif'+chatNotifications.Username).prependTo('#chatDrop');
                               $('li#chatnotif'+chatNotifications.Username+" .notif-message").text(readRuneArrayThatWorks(chatNotifications.Bio));
                               $('li#chatnotif'+chatNotifications.Username+" .notif-timestamp").text(formatTime(new Date(chatNotifications.Time).getTime()));
-                              if((readRuneArrayThatWorks(chatNotifications.Bio).substring(0,3)) == "You"){
-                                 $('li#chatnotif'+chatNotifications.Username+" .chat-label").css('display', 'none').removeClass('label-new').text('');
+                              if((readRuneArrayThatWorks(chatNotifications.Bio).includes(":"))){
+                                   if((readRuneArrayThatWorks(chatNotifications.Bio).substring(0,4) == "You:")){
+                                     $('li#chatnotif'+chatNotifications.Username+" .chat-label").css('display', 'none').removeClass('label-new').text('');
+                                   }
+                                  else{
+                                      $('li#chatnotif'+chatNotifications.Username+" .chat-label").addClass('label-new');
+                                      $('li#chatnotif'+chatNotifications.Username+" .chat-label").css('display', 'inline').text("New");
+                                      chatNotifCount= $(".chat-label.label-new").length;
+                                      updateChatBadge();
+                                  }
                               }
                               else{
-                                  $('li#chatnotif'+chatNotifications.Username+" .chat-label").addClass('label-new');
-                                  $('li#chatnotif'+chatNotifications.Username+" .chat-label").css('display', 'inline').text("New");
+                                   $('li#chatnotif'+chatNotifications.Username+" .chat-label").css('display', 'none').removeClass('label-new').text('');
                               }
-                              chatNotifCount= $(".chat-label.label-new").length;
-                              updateChatBadge();
                           }
                           else{
                              appendChatItem(chatNotifications.Username,chatNotifications.FirstName+' '+chatNotifications.LastName, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time), true, chatNotifications.Classification, chatNotifications.Image, chatNotifications.DocID);

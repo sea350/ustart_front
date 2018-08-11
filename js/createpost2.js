@@ -1057,7 +1057,7 @@ function makeNewCommentOfCommentsApplications(parentID, image, fName,lName, cont
 }
 
 
-function createSharedPost(image, fName,lName,elementID, content, sharedContent, posterFname, posterLname,numLikes,numReplies,originaltime, time){
+function createSharedPost(parentImage, image, fName,lName,elementID, content, sharedContent, posterFname, posterLname,numLikes,numReplies,originaltime, time){
 	$('#wall-dataF').append([
 		$('<div/>', {'class' : 'panel-body wallPosts'}).attr('id','Post').each(function(){
 			$(this).attr({"id": $(this).attr("id").concat(elementID)});
@@ -1128,7 +1128,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 					$('<a>',{'class':'btn btn-sm comment-btn'}).attr({'id':'','data-toggle':'modal','data-target':'#main-modal'}).each(function(){
 						$(this).attr({"id": $(this).attr("id").concat(elementID),'data-target': $(this).attr("data-target").concat(elementID)});
 					}).append([$('<span>').append([
-					$('<img>',{'class':'comment-btn-ico'}).attr('src','/ustart_front/ico/like.png'),
+					$('<img>',{'class':'comment-btn-ico'}).attr('src','/ustart_front/ico/no comment.png'),
 					$('<p>',{'class':'mt-0'}).attr({'id':'num-replies'}).each(function(){
 						$(this).attr("id", $(this).attr("id").concat(elementID)).text(numReplies);
 					})
@@ -1157,7 +1157,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 						$('<div>',{'class':'media'}).append([
 							$('<a>',{'class':'pull-left'}).append([
 								$('<img>',{'class':'media-object img-rounded'}).attr({'id':"edit-img","src":""}).each(function(){
-									$(this).attr({"id": $(this).attr("id").concat(elementID),'src': $(this).attr("src").concat(image)});
+									$(this).attr({"id": $(this).attr("id").concat(elementID),'src': $(this).attr("src").concat(parentImage)});
 								})
 								]),
 							$('<div>',{'class':'media-body'}).append([
@@ -1216,7 +1216,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 						$('<div>',{'class':'media'}).append([
 							$('<a>',{'class':'pull-left'}).attr('href',"#").append([
 								$('<img>',{'class':'media-object img-rounded'}).attr({'id':'comment-img','src':''}).each(function(){
-									$(this).attr({"id": $(this).attr("id").concat(elementID),'src': $(this).attr("src").concat(image)});
+									$(this).attr({"id": $(this).attr("id").concat(elementID),'src': $(this).attr("src").concat(parentImage)});
 								})
 								]),
 							$('<div>',{'class':'media-body'}).append([
@@ -1247,7 +1247,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 						$('<br>'),
 						
 						$('<div>',{'class':'comment-lists'}).attr('id','').each(function(){
-							$(this).attr("id",$(this).attr("id").concat(elementID));
+							$(this).attr("id","comment-lists"+(elementID));
 						})
 						])
 					])
@@ -1256,7 +1256,7 @@ function createSharedPost(image, fName,lName,elementID, content, sharedContent, 
 		]);	
 }
 
-function createBasicSharedPost(image, fName,lName,elementID, content, sharedContent, posterFname, posterLname,numLikes,numReplies,originaltime, time){
+function createBasicSharedPost(parentImage,image, fName,lName,elementID, content, sharedContent, posterFname, posterLname,numLikes,numReplies,originaltime, time){
 
 	$('#wall-dataF').append([
 		$('<div/>', {'class' : 'panel-body wallPosts'}).attr('id','Post').each(function(){
@@ -1336,7 +1336,7 @@ function createBasicSharedPost(image, fName,lName,elementID, content, sharedCont
 						$('<div>',{'class':'media'}).append([
 							$('<a>',{'class':'pull-left'}).attr('href',"#").append([
 								$('<img>',{'class':'media-object img-rounded'}).attr({'id':'comment-img','src':''}).each(function(){
-									$(this).attr({"id": $(this).attr("id").concat(elementID),'src': $(this).attr("src").concat(image)});
+									$(this).attr({"id": $(this).attr("id").concat(elementID),'src': $(this).attr("src").concat(parentImage)});
 								})
 								]),
 							$('<div>',{'class':'media-body'}).append([
@@ -1367,7 +1367,7 @@ function createBasicSharedPost(image, fName,lName,elementID, content, sharedCont
 						$('<br>'),
 						
 						$('<div>',{'class':'comment-lists'}).attr('id','').each(function(){
-							$(this).attr("id",$(this).attr("id").concat(elementID));
+							$(this).attr("id","comment-lists"+(elementID));
 						})
 						])
 					])

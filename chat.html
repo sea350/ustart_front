@@ -280,6 +280,11 @@
                                             
                                             
                                             $('.inputMessages').keydown(function (e) {
+                                                var temp = window.location.href.indexOf("ch");
+                                                var targetid = window.location.href.substring(temp+4);
+                                                $('li#chatnotif'+$.escapeSelector(targetid)+" .chat-label").css('display', 'none').removeClass('label-new').text('');
+                                                chatNotifCount= $(".chat-label.label-new").length;
+                                                updateChatBadge();
                                                 if ($(this).val().length > 500) {
                                                     $(this).val($(this).val().substring(0, 500));
                                                 }
@@ -288,7 +293,15 @@
                                                 if (e.keyCode == 13) {
                                                     $('#chat-submit'+$.escapeSelector(id)).click();
                                                 }
-                                            });       
+                                            });    
+                                            $('.inputMessages').click(function(){
+                                                var temp = window.location.href.indexOf("ch");
+                                                var targetid = window.location.href.substring(temp+4);
+                                                console.log(targetid);
+                                                 $('li#chatnotif'+$.escapeSelector(targetid)+" .chat-label").css('display', 'none').removeClass('label-new').text('');
+                                                chatNotifCount= $(".chat-label.label-new").length;
+                                                updateChatBadge();
+                                            });
                                             $('.chat-submit').click(function(){
                                                 var temp = window.location.href.indexOf("ch");
                                                 var id = window.location.href.substring(temp+3);

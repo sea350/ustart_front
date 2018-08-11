@@ -73,36 +73,6 @@ function populateChatRooms(title, icon, name , classification, message, timestam
 }
 
 
-function populateExistingChatRooms(title, icon, name , classification, message, timestamp, docid) {
-    if (classification === 0){
-        var listItem = $("<li></li>").attr({'class':"inbox-group", 'id' : "@"+title });
-    }
-    else{
-          var listItem = $("<li></li>").attr({'class':"inbox-group", 'id' : docid });
-    }
-    var listImage = $("<img></img>").addClass('inbox-image').attr('src', icon);
-    var listContent= $("<div></div>").addClass('inbox-side-content');
-    var listLeftContent= $("<div></div>").addClass('inbox-left-bar');
-    var listInboxHeader= $("<div></div>").addClass('inbox-header');
-    var listTitle = $("<span></span>").addClass('group-header').text(name).attr('title', name);
-    var listTimeStampContainer = $("<div></div>").addClass('inbox-timestamp');
-    if (message != ""){
-        var listTimeStamp = $("<span></span>").addClass('group-message-time').text(timestamp);
-    }
-    else{
-        var listTimeStamp = $("<span></span>").addClass('group-message-time');
-    }
-    var listMessageContainer = $("<div></div>").addClass('inbox-last-msg');
-    var listMessage = $("<span></span>").addClass('group-message').text(message).attr('title', message);
-    
-    listMessageContainer.append(listMessage);
-    listTimeStampContainer.append(listTimeStamp);
-    listInboxHeader.append(listTitle);
-    listLeftContent.append(listInboxHeader,listTimeStampContainer);
-    listContent.append(listLeftContent,listMessageContainer);
-    listItem.append(listImage, listContent);
-    $('#inbox-groups').prepend(listItem);
-}
 
 
 function populateOfflineMessage(parentid, message, time) {
@@ -230,7 +200,6 @@ function populateNewMessageModified(parentid, msgid, username, message, icon, ti
         }
     }
     else{
-        console.log("its you!!")
         $(listItem).css('font-size', '0%').animate({
             "font-size": "100%"
         }, 100 , () => {

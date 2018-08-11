@@ -7,12 +7,33 @@
     <title>Ustart Event Manager</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <script src="/ustart_front/js/ascii-convert.js"></script>
+	<style>
+        #content .panel,
+        #content .panel-group {
+            margin-bottom: 0.5em;
+        }
+        </style>    
 </head>
 
 <body>
     <input type="hidden" id="pageiden" value='{{.Page}}'>
     <div id="centering">
-        <div class="container">
+        <div id="settings-container"  class="container">
+            <div class="panel-group col-sm-10 col-sm-offset-1">            
+                <div class="row">
+                    <div class="vertical-menu col-sm-3">
+                        <ul>
+                            <li data-target='eventInfo' class='event-menu-list'><h5>Edit Event Info</h5></li>
+                            <li data-target='eventDate' class='eventmenu-list'><h5>Edit Event Date &amp; Time</h5></li>
+                            <li data-target='eventLocation' class='event-menu-list'><h5>Edit Location</h5></li>
+                            <li data-target='eventImage' class='event-menu-list'><h5>Edit Images</h5></li>
+                            <li data-target='eventMember' class='event-menu-list'><h5>Manage Member</h5></li>
+                        </ul>
+                    </div>    
+                    <div class='col-sm-9 eventContents'>                                    
+                        <div id="eventInfo">                        
+                    </div>
+                </div>
             <a class="btn btn-info" href="/StartEvent/">Create Event</a>
             <div>Event</div>
             <div>

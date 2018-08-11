@@ -201,11 +201,22 @@
 												}
 											});
 
+											var bheight;
+											$(window).resize(function(){
+												cheight = $(window).width();
+
+												if(cheight <= 1100 && cheight >= 320){
+													bheight = cheight - 12;
+												}else{
+													bheight = 1000;
+												}
+											});											
+
 											$uploadCrop2 = $('#upload-demo2').croppie({
 												url: "{{.Project.ProjectData.Banner}}",
 												viewport: {
-													width: 1000,
-													height: 300,
+													width: 1000 ,
+													height: 300 ,
 												},
 												boundary: {
 													width: bwidth,

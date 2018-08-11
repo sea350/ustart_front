@@ -1,3 +1,4 @@
+ $(document).ready(function() {
 $('body').on("click", "#Wall-loadAJAX", function(e) {
     $("#post-msg").focus(function (e) {
         var textbox = $("#post-msg");
@@ -43,11 +44,10 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                             $('#editModals').empty();
                             $('#deleteModals').empty();
                             $('#commentModals').empty();
-                            console.log(temp);
                             for (i=0; i < temp.JournalEntries.length; i++){
                                  if ((permission != -1 || (permission == 1) || (permission ==0))){
                                     if (temp.JournalEntries[i].Element.Classification == 5){
-                                       console.log("rendering share post"); createSharedPost(temp.JournalEntries[i].Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
+                                       console.log("rendering share post"); createSharedPost(temp.JournalEntries[i].Image, temp.JournalEntries[i].ReferenceElement.Image, temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
                                     }
                                     else if (temp.JournalEntries[i].Element.Classification == 3){
                                          makePostApplications(temp.JournalEntries[i].Image, temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies, temp.JournalEntries[i].NumShares,temp.JournalEntries[i].Element.TimeStamp);
@@ -55,12 +55,19 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                                 }
                                 else{
                                     if (temp.JournalEntries[i].Element.Classification == 5){
-                                       console.log("rendering share post"); createBasicSharedPost(temp.JournalEntries[i].Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
+                                       console.log("rendering share post"); createBasicSharedPost(temp.JournalEntries[i].Image,temp.JournalEntries[i].ReferenceElement.Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
                                     }
                                     else if (temp.JournalEntries[i].Element.Classification == 3) {
                                          makeBasicPostApplications(temp.JournalEntries[i].Image, temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies, temp.JournalEntries[i].NumShares,temp.JournalEntries[i].Element.TimeStamp);
                                     }
                                 }
+                                    var likeBtnImg =  $("#like-btn"+temp.JournalEntries[i].ElementID).find('img');
+                                    if (temp.JournalEntries[i].Liked === true){
+                                        likeBtnImg.attr('src', "/ustart_front/ico/liked.png");      
+                                    }
+                                    else{
+                                        likeBtnImg.attr('src', "/ustart_front/ico/like.png");  
+                                    }
                                  if ($(".wallPosts").length < temp.JournalEntries.length) {
                                     $('#wall-dataF').append('<hr>');
                                 }
@@ -73,7 +80,35 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                     console.log(err);
                 }
     });
+    });
+     
 });
+
+  //like post
+    $('body').on("click", "a.like-btn", function(e) {
+           $(e.currentTarget).prop('disabled', true);
+          var temp = e.currentTarget.id;
+          var postID = temp.replace("like-btn",'');
+           $.ajax({
+                    type: 'GET',
+                    url: 'http://ustart.today:'+port+'/Like/',
+                    contentType: "application/json; charset=utf-8",
+                    data: {PostID:postID},
+                    success: function(data) {
+                       var likeBtnImg = $(e.currentTarget).find('img');
+                       if (likeBtnImg.attr('src') === "/ustart_front/ico/like.png") {
+                         likeBtnImg.attr('src', "/ustart_front/ico/liked.png");
+                       } else {
+                         likeBtnImg.attr('src', "/ustart_front/ico/like.png");
+                       }
+                       $(e.currentTarget).find('p').text(data);
+                       $(e.currentTarget).prop('disabled', false);
+                    },error: function(err) {
+                        console.log('comment Load failed: ');
+                        console.log(err);
+                    }
+            });
+      });
  //render comments
  $('body').on("click", ".comment-btn", function(e) {
       var postID = e.currentTarget.id;
@@ -147,40 +182,6 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
         });
   });
 
- //submit new post
-  $('body').on("click", "#new-postSubmit", function(e) {
-       var content = $("#post-msg").val();
-       $('#new-postSubmit').prop('disabled', true);
-       if (content != ""){
-            $.ajax({
-                    type: 'GET',
-                    url: 'http://ustart.today:'+port+'/ProjectMakeEntry/',
-                    contentType: "application/json; charset=utf-8",
-                    data: {docID:pageID, text:content},
-                    success: function(data) {
-                    },complete: function (jqXHR,status) {
-                         if(status == 'success' || status=='notmodified')
-                         {
-                           var temp = $.parseJSON(jqXHR.responseText);
-                           console.log(temp);
-                           if (temp != null){
-                                if ($(".wallPosts").length >= 1){
-                                    $('#wall-dataF').prepend('<hr>');  
-                                }
-                                IDArray.push(temp.ElementID);
-                                makeNewPostApplications(temp.Image, temp.FirstName,temp.LastName,temp.Element.Content,temp.ElementID,temp.NumLikes, temp.NumReplies, temp.NumShares,temp.Element.TimeStamp);
-                           }
-                           $("#post-msg").empty();
-                           $('#new-postSubmit').prop('disabled', false);
-
-                          }
-                    },error: function(err) {
-                        console.log('comment Load failed: ');
-                        console.log(err);
-                    }
-            });
-           }
-  });
  //submit new comment
   $('body').on("click", ".new-comment-submit", function(e) {
        var postID = e.currentTarget.id;
@@ -212,6 +213,40 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                 }
         });
       }
+  });
+
+ //submit new post
+  $('body').on("click", "#new-postSubmit", function(e) {
+       var content = $("#post-msg").val();
+       $('#new-postSubmit').prop('disabled', true);
+       if (content != ""){
+            $.ajax({
+                    type: 'GET',
+                    url: 'http://ustart.today:'+port+'/ProjectMakeEntry/',
+                    contentType: "application/json; charset=utf-8",
+                    data: {docID:pageID, text:content},
+                    success: function(data) {
+                    },complete: function (jqXHR,status) {
+                         if(status == 'success' || status=='notmodified')
+                         {
+                           var temp = $.parseJSON(jqXHR.responseText);
+                           if (temp != null){
+                                if ($(".wallPosts").length >= 1){
+                                    $('#wall-dataF').prepend('<hr>');  
+                                }
+                                IDArray.push(temp.ElementID);
+                                makeNewPostApplications(temp.Image, temp.FirstName,temp.LastName,temp.Element.Content,temp.ElementID,temp.NumLikes, temp.NumReplies, temp.NumShares,temp.Element.TimeStamp);
+                           }
+                           $("#post-msg").empty();
+                           $('#new-postSubmit').prop('disabled', false);
+
+                          }
+                    },error: function(err) {
+                        console.log('comment Load failed: ');
+                        console.log(err);
+                    }
+            });
+           }
   });
 
  //submit comment of comment
@@ -465,9 +500,9 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                                 console.log(permission);
                                 for (i=0; i < temp.JournalEntries.length ; i++){
                                         if (temp.JournalEntries[i].Element.Classification == 5){
-                                           if ((permission != -1 || (permission == 1) || (permission ==0))){createSharedPost(temp.JournalEntries[i].Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );}
+                                           if ((permission != -1 || (permission == 1) || (permission ==0))){createSharedPost(temp.JournalEntries[i].Image, temp.JournalEntries[i].ReferenceElement.Image, temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );}
                                             else{
-                                                createBasicSharedPost(temp.JournalEntries[i].Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
+                                                createBasicSharedPost(temp.JournalEntries[i].Image,temp.JournalEntries[i].ReferenceElement.Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
                                             }
                                         }
                                         else if (temp.JournalEntries[i].Element.Classification == 3){
@@ -477,6 +512,13 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                                             else{
                                                 makeBasicPostApplications(temp.JournalEntries[i].Image, temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies, temp.JournalEntries[i].NumShares,temp.JournalEntries[i].Element.TimeStamp);
                                             }
+                                        }
+                                        var likeBtnImg =  $("#like-btn"+temp.JournalEntries[i].ElementID).find('img');
+                                        if (temp.JournalEntries[i].Liked === true){
+                                            likeBtnImg.attr('src', "/ustart_front/ico/liked.png");      
+                                        }
+                                        else{
+                                            likeBtnImg.attr('src', "/ustart_front/ico/like.png");  
                                         }
                                         if ($(".wallPosts").length < maxHits) {
                                             $('#wall-dataF').append('<hr>');

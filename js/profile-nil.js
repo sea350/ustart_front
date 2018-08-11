@@ -66,7 +66,7 @@ $(function () {
         $('#btn1').text('Follow');
     }
 });*/
- $('body').on("click", "a.like-btn", function(e) {
+ /*$('body').on("click", "a.like-btn", function(e) {
      var likeBtnImg = $(this).find('img');
     if (likeBtnImg.attr('src') === "/ustart_front/ico/like.png") {
         likeBtnImg.attr('src', "/ustart_front/ico/liked.png");
@@ -74,7 +74,7 @@ $(function () {
         likeBtnImg.attr('src', "/ustart_front/ico/like.png");
     }
     return false;
- });
+ });*/
 
  $('body').on("mouseenter", "a.comment-btn", function(e) {
     var cmtBtnImg = $(this).find('img');

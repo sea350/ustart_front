@@ -1,3 +1,4 @@
+ $(document).ready(function() {
 //render posts
  $('body').on("click", "#Wall-loadAJAX", function(e) {
         $("#post-msg").focus(function (e) {
@@ -36,9 +37,6 @@
                          if(status == 'success' || status=='notmodified')
                          {
                             var tem = $.parseJSON(jqXHR.responseText);
-                            console.log("initial load");
-                             console.log(tem);
-                             console.log(userID);
                             if (tem.JournalEntries!= null){
                                 scrollID = tem.ScrollID;
                                 totalHits = tem.TotalHits;
@@ -47,21 +45,27 @@
                                 $('#editModals').empty();
                                 $('#deleteModals').empty();
                                 $('#commentModals').empty();
-                                console.log(tem.JournalEntries.length);
                                 for (i=0; i <tem.JournalEntries.length; i++){
                                     if (userID == tem.JournalEntries[i].Element.PosterID || editPermission==0 ){
-                                        if (tem.JournalEntries[i].Element.Classification == 2){createSharedPost(tem.JournalEntries[i].ReferenceElement.Image,tem.JournalEntries[i].FirstName,tem.JournalEntries[i].LastName,tem.JournalEntries[i].ElementID,tem.JournalEntries[i].Element.Content,tem.JournalEntries[i].ReferenceElement.Element.Content,tem.JournalEntries[i].ReferenceElement.FirstName,tem.JournalEntries[i].ReferenceElement.LastName,tem.JournalEntries[i].NumLikes, tem.JournalEntries[i].NumReplies,tem.JournalEntries[i].ReferenceElement.Element.TimeStamp, tem.JournalEntries[i].Element.TimeStamp );
+                                        if (tem.JournalEntries[i].Element.Classification == 2){createSharedPost(tem.JournalEntries[i].Image,tem.JournalEntries[i].ReferenceElement.Image,tem.JournalEntries[i].FirstName,tem.JournalEntries[i].LastName,tem.JournalEntries[i].ElementID,tem.JournalEntries[i].Element.Content,tem.JournalEntries[i].ReferenceElement.Element.Content,tem.JournalEntries[i].ReferenceElement.FirstName,tem.JournalEntries[i].ReferenceElement.LastName,tem.JournalEntries[i].NumLikes, tem.JournalEntries[i].NumReplies,tem.JournalEntries[i].ReferenceElement.Element.TimeStamp, tem.JournalEntries[i].Element.TimeStamp );
                                         }
                                         else if (tem.JournalEntries[i].Element.Classification == 0){
                                              makePostApplications(tem.JournalEntries[i].Image, tem.JournalEntries[i].FirstName,tem.JournalEntries[i].LastName,tem.JournalEntries[i].Element.Content,tem.JournalEntries[i].ElementID,tem.JournalEntries[i].NumLikes, tem.JournalEntries[i].NumReplies, tem.JournalEntries[i].NumShares,tem.JournalEntries[i].Element.TimeStamp);
                                         }
                                     }
                                     else{
-                                        if (tem.JournalEntries[i].Element.Classification == 2){createBasicSharedPost(tem.JournalEntries[i].ReferenceElement.Image,tem.JournalEntries[i].FirstName,tem.JournalEntries[i].LastName,tem.JournalEntries[i].ElementID,tem.JournalEntries[i].Element.Content,tem.JournalEntries[i].ReferenceElement.Element.Content,tem.JournalEntries[i].ReferenceElement.FirstName,tem.JournalEntries[i].ReferenceElement.LastName,tem.JournalEntries[i].NumLikes, tem.JournalEntries[i].NumReplies,tem.JournalEntries[i].ReferenceElement.Element.TimeStamp, tem.JournalEntries[i].Element.TimeStamp );
+                                        if (tem.JournalEntries[i].Element.Classification == 2){createBasicSharedPost(tem.JournalEntries[i].Image,tem.JournalEntries[i].ReferenceElement.Image,tem.JournalEntries[i].FirstName,tem.JournalEntries[i].LastName,tem.JournalEntries[i].ElementID,tem.JournalEntries[i].Element.Content,tem.JournalEntries[i].ReferenceElement.Element.Content,tem.JournalEntries[i].ReferenceElement.FirstName,tem.JournalEntries[i].ReferenceElement.LastName,tem.JournalEntries[i].NumLikes, tem.JournalEntries[i].NumReplies,tem.JournalEntries[i].ReferenceElement.Element.TimeStamp, tem.JournalEntries[i].Element.TimeStamp );
                                         }
                                         else if (tem.JournalEntries[i].Element.Classification == 0) {
                                              makeBasicPostApplications(tem.JournalEntries[i].Image, tem.JournalEntries[i].FirstName,tem.JournalEntries[i].LastName,tem.JournalEntries[i].Element.Content,tem.JournalEntries[i].ElementID,tem.JournalEntries[i].NumLikes, tem.JournalEntries[i].NumReplies, tem.JournalEntries[i].NumShares,tem.JournalEntries[i].Element.TimeStamp);
                                         }
+                                    }
+                                    var likeBtnImg =  $("#like-btn"+tem.JournalEntries[i].ElementID).find('img');
+                                    if (tem.JournalEntries[i].Liked === true){
+                                        likeBtnImg.attr('src', "/ustart_front/ico/liked.png");      
+                                    }
+                                    else{
+                                        likeBtnImg.attr('src', "/ustart_front/ico/like.png");  
                                     }
                                     if ($(".wallPosts").length < tem.JournalEntries.length) {
                                         $('#wall-dataF').append('<hr>');
@@ -76,42 +80,39 @@
         });
     });
      
-          //submit new post
-      $('body').on("click", "#new-postSubmit", function(e) {
-           $('#new-postSubmit').prop('disabled', true);
-           var content = $("#post-msg").val();
-           if (content != ""){
-                $.ajax({
-                        type: 'GET',
-                        url: 'http://ustart.today:'+port+'/addPost/',
-                        contentType: "application/json; charset=utf-8",
-                        data: {text:content},
-                        success: function(data) {
-                        },complete: function (jqXHR,status) {
-                             if(status == 'success' || status=='notmodified')
-                             {
-                               var temp = $.parseJSON(jqXHR.responseText);
-                               if (temp != null){
-                                    if ($(".wallPosts").length >= 1){
-                                        $('#wall-dataF').prepend('<hr>');  
-                                    }
-                                    makeNewPostApplications(temp[0].Image, temp[0].FirstName,temp[0].LastName,temp[0].Element.Content,temp[0].ElementID,temp[0].NumLikes, temp[0].NumReplies, temp[0].NumShares,temp[0].Element.TimeStamp);
-                               }
-                               $("#post-msg").empty();
-                               $('#new-postSubmit').prop('disabled', false);
+});
 
-                              }
-                        },error: function(err) {
-                            console.log('comment Load failed: ');
-                            console.log(err);
-                        }
-                });
-               }
+    //like-button
+     $('body').on("click", "a.like-btn", function(e) {
+          $(e.currentTarget).prop('disabled', true);
+          var temp = e.currentTarget.id;
+          var likepostID = temp.replace("like-btn",'');
+           $.ajax({
+                    type: 'GET',
+                    url: 'http://ustart.today:'+port+'/Like/',
+                    contentType: "application/json; charset=utf-8",
+                    data: {PostID:likepostID},
+                    success: function(data) {
+                       var likeBtnImg = $(e.currentTarget).find('img');
+                       console.log(likeBtnImg);
+                       if (likeBtnImg.attr('src') === "/ustart_front/ico/like.png") {
+                         likeBtnImg.attr('src', "/ustart_front/ico/liked.png");
+                       } else {
+                         likeBtnImg.attr('src', "/ustart_front/ico/like.png");
+                       }
+                      $(e.currentTarget).find('p').text(data);
+                      $(e.currentTarget).prop('disabled', false);
+                    },error: function(err) {
+                        console.log('comment Load failed: ');
+                        console.log(err);
+                    }
+            });
       });
-     //render comments
 
+     //render comments
      $('body').on("click", ".comment-btn", function(e) {
           var postID = e.currentTarget.id;
+           $(e.currentTarget).prop('disabled', true);
           $.ajax({
                     type: 'GET',
                     url: 'http://ustart.today:'+port+'/AjaxLoadComments/',
@@ -123,12 +124,15 @@
                          {
                             var temp = $.parseJSON(jqXHR.responseText); 
                             if (temp != null){
+                                console.log(temp);
                                  $('#comment-lists'+postID).empty();
                                  for (i=temp.length-1; i >= 0; i--){
                                      if (userID == temp[i].Element.PosterID || editPermission==0 ){
+                                         console.log("here");
                                         makeCommentApplications(postID, temp[i].Image, temp[i].FirstName, temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].NumReplies,temp[i].Element.TimeStamp);
                                      }
                                      else{
+                                         console.log("there");
                                         makeBasicCommentApplications(postID, temp[i].Image, temp[i].FirstName, temp[i].LastName, temp[i].Element.Content, temp[i].ElementID,temp[i].NumReplies,temp[i].Element.TimeStamp);
                                      }
                                  }
@@ -136,10 +140,12 @@
                             else{
                                 $('#comment-lists'+postID).empty();
                             }
+                            $(e.currentTarget).prop('disabled', false);
                          }
                     },error: function(err) {
                         console.log('comment Load failed: ');
                         console.log(err);
+                        $(e.currentTarget).prop('disabled', false);
                     }
         });  
      });
@@ -179,6 +185,39 @@
 
                     }
             });
+      });
+
+     //submit new post
+      $('body').on("click", "#new-postSubmit", function(e) {
+           $('#new-postSubmit').prop('disabled', true);
+           var content = $("#post-msg").val();
+           if (content != ""){
+                $.ajax({
+                        type: 'GET',
+                        url: 'http://ustart.today:'+port+'/addPost/',
+                        contentType: "application/json; charset=utf-8",
+                        data: {text:content},
+                        success: function(data) {
+                        },complete: function (jqXHR,status) {
+                             if(status == 'success' || status=='notmodified')
+                             {
+                               var temp = $.parseJSON(jqXHR.responseText);
+                               if (temp != null){
+                                    if ($(".wallPosts").length >= 1){
+                                        $('#wall-dataF').prepend('<hr>');  
+                                    }
+                                    makeNewPostApplications(temp[0].Image, temp[0].FirstName,temp[0].LastName,temp[0].Element.Content,temp[0].ElementID,temp[0].NumLikes, temp[0].NumReplies, temp[0].NumShares,temp[0].Element.TimeStamp);
+                               }
+                               $("#post-msg").empty();
+                               $('#new-postSubmit').prop('disabled', false);
+
+                              }
+                        },error: function(err) {
+                            console.log('comment Load failed: ');
+                            console.log(err);
+                        }
+                });
+               }
       });
 
      //submit new comment
@@ -461,11 +500,11 @@
                                         if (temp.JournalEntries != null){
                                             totalHits = temp.TotalHits;
                                             console.log("loading more....");
-                                            for (i=0; i < temp.JournalEntries.length ; i++){
+                                            for (i=0; i < temp.JournalEntries.length ; i++){       
                                                     if (temp.JournalEntries[i].Element.Classification == 2){
-                                                        if (userID == temp.JournalEntries[i].Element.PosterID || editPermission==0 ){createSharedPost(temp.JournalEntries[i].ReferenceElement.Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
+                                                        if (userID == temp.JournalEntries[i].Element.PosterID || editPermission==0 ){createSharedPost(temp.JournalEntries[i].Image, temp.JournalEntries[i].ReferenceElement.Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
                                                         }
-                                                        else{createBasicSharedPost(temp.JournalEntries[i].ReferenceElement.Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
+                                                        else{createBasicSharedPost(temp.JournalEntries[i].Image,temp.JournalEntries[i].ReferenceElement.Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
                                                         }
                                                     }
                                                     else if (temp.JournalEntries[i].Element.Classification == 0){
@@ -475,6 +514,13 @@
                                                         else{
                                                              makeBasicPostApplications(temp.JournalEntries[i].Image, temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies, temp.JournalEntries[i].NumShares,temp.JournalEntries[i].Element.TimeStamp);
                                                         }
+                                                    }
+                                                    var likeBtnImg =  $("#like-btn"+temp.JournalEntries[i].ElementID).find('img');
+                                                    if (temp.JournalEntries[i].Liked === true){
+                                                        likeBtnImg.attr('src', "/ustart_front/ico/liked.png");      
+                                                    }
+                                                    else{
+                                                        likeBtnImg.attr('src', "/ustart_front/ico/like.png");  
                                                     }
                                                     if ($(".wallPosts").length < totalHits) {
                                                         $('#wall-dataF').append('<hr>');
