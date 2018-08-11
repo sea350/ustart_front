@@ -46,6 +46,7 @@ $(document).ready(function () {
 	//GET THE REQUESTS FOR A SPECIFIC PROJECT
    $('.projectList').on( "click", function(e) {
 	   var projectID = e.currentTarget.id;
+       $(this).prop('disabled', true);
 	   $.ajax({
 		   type: 'GET',
 		   url: 'http://ustart.today:'+port+'/LoadJoinRequests/',
@@ -71,6 +72,7 @@ $(document).ready(function () {
 			   else{
 				   $("#request-groups").empty();
 			   }
+               $(this).prop('disabled', false);
 		   },
 		   error: function(err) {
 			   console.log('Project failed: ');
@@ -81,6 +83,7 @@ $(document).ready(function () {
    //HANDLE ACCEPT REQUEST
    $('body').on("click", ".y-btn", function(e) {
 	  e.preventDefault();
+      $(this).prop('disabled', true);
 	   var that = $(this);
 	   var temp = e.currentTarget.id;
 	   var role = $(e.currentTarget).text();
@@ -102,6 +105,7 @@ $(document).ready(function () {
 				else{
 				   $("#totalRequests"+projID).text(testresult);
 				}
+               $(this).prop('disabled', false);
 			   $("#"+usrID).empty();
 			   $("#"+usrID).remove();
 		   },
@@ -113,6 +117,7 @@ $(document).ready(function () {
    });
    $('body').on("click", ".x-btn", function(e) {
 	   e.preventDefault();
+       $(this).prop('disabled', true);
 	   var that = $(this);
 	   var temp = e.currentTarget.id;
 	   var usrID=temp.replace("reject", "");
@@ -132,6 +137,7 @@ $(document).ready(function () {
 				else{
 				   $("#totalRequests"+projID).text(testresult);
 				}
+               $(this).prop('disabled', false);
 			   $("#"+usrID).empty();
 			   $("#"+usrID).remove();
 		   },

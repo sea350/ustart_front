@@ -260,3 +260,6 @@ textarea#inputDesc {
 .card {
     width: calc(100% * (1/3) - 10px - 1px)
 }
+#UpdateDescription{
+    margin-right: 1em;
+}

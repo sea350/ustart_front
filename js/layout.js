@@ -280,6 +280,7 @@ function appendChatItem(chatID, person, message, timestamp, unreadStatus, classi
     if (classification === 0){
         var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('/ch/@' + chatID)).text(person).click(function(){
              console.log("clicked href");
+             var newLabel = $(this).find('.label-new');
              newLabel.removeClass('label-new');
              newLabel.fadeOut('fast');
              newLabel.text('');
@@ -289,6 +290,7 @@ function appendChatItem(chatID, person, message, timestamp, unreadStatus, classi
     }
     else{
         var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('/ch/' + docID)).text(person).click(function(){
+             var newLabel = $(this).find('.label-new');
              newLabel.removeClass('label-new');
              newLabel.fadeOut('fast');
              newLabel.text('');
@@ -297,11 +299,14 @@ function appendChatItem(chatID, person, message, timestamp, unreadStatus, classi
         });
     }
     var notifPersonLabel = $('<strong></strong>').append(notifPersonLabelLink);
-    var notifNewLabel = $('<span></span>').addClass('label-new label label-info chat-label')
     if (unreadStatus) {
-        chatNotifCount= $(".chat-label.label-new").length;
-        updateChatBadge();
+         var notifNewLabel = $('<span></span>').addClass('label-new label label-info chat-label')
     }
+    else{
+         var notifNewLabel = $('<span></span>').addClass('label label-info chat-label');
+    }
+    chatNotifCount= $(".chat-label.label-new").length;
+    updateChatBadge();
     var notifPersonContainer = $('<div></div>').append(notifPersonLabel, notifNewLabel);
     var notifMessage = $('<div></div>').addClass('notif-message').text(message);
     var notifMessageTime = $('<div></div>').addClass('notif-timestamp').text(timestamp);

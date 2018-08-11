@@ -1,4 +1,4 @@
- $('body').on("click", "#Wall-loadAJAX", function(e) {
+$('body').on("click", "#Wall-loadAJAX", function(e) {
     $("#post-msg").focus(function (e) {
         var textbox = $("#post-msg");
         textbox.animate({
@@ -29,14 +29,14 @@
                 type: 'GET',
                 url: 'http://ustart.today:'+port+'/AjaxLoadProjectEntries/',
                 contentType: "application/json; charset=utf-8",
-                data: {userID:pageID},
+                data: {userID:pageID, scrollID:""},
                 success: function(data) {  
                 },complete: function (jqXHR,status) {
                      if(status == 'success' || status=='notmodified')
                      {
                         var temp = $.parseJSON(jqXHR.responseText);
                         if (temp.JournalEntries!= null){
-                            scrollID = temp.ScrollID;
+                            projscrollID = temp.ScrollID;
                             maxHits = temp.TotalHits;
                             $('#wall-dataF').empty();
                             $('#shareModals').empty();
@@ -50,7 +50,6 @@
                                        console.log("rendering share post"); createSharedPost(temp.JournalEntries[i].Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
                                     }
                                     else if (temp.JournalEntries[i].Element.Classification == 3){
-                                        console.log("here"+ temp.JournalEntries[i].Image);
                                          makePostApplications(temp.JournalEntries[i].Image, temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies, temp.JournalEntries[i].NumShares,temp.JournalEntries[i].Element.TimeStamp);
                                     }
                                 }
@@ -62,7 +61,7 @@
                                          makeBasicPostApplications(temp.JournalEntries[i].Image, temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies, temp.JournalEntries[i].NumShares,temp.JournalEntries[i].Element.TimeStamp);
                                     }
                                 }
-                                 if ($(".wallPosts").length < maxHits) {
+                                 if ($(".wallPosts").length < temp.JournalEntries.length) {
                                     $('#wall-dataF').append('<hr>');
                                 }
                             }
@@ -453,7 +452,7 @@
                     type: 'GET',
                     url: 'http://ustart.today:'+port+'/AjaxLoadProjectEntries/',
                     contentType: "application/json; charset=utf-8",
-                    data: {userID:pageID, scrollID: scrollID},
+                    data: {userID:pageID, scrollID: projscrollID},
                     success: function(data) {   
                     },complete: function (jqXHR,status) {
                          flag=1;
@@ -461,7 +460,7 @@
                          {
                             var temp = $.parseJSON(jqXHR.responseText);
                               if (temp.JournalEntries!= null){
-                                scrollID = temp.ScrollID;
+                                projscrollID = temp.ScrollID;
                                 maxHits = temp.TotalHits;
                                 console.log(permission);
                                 for (i=0; i < temp.JournalEntries.length ; i++){

@@ -357,8 +357,6 @@ $(document).ready(function () {
          }
     });
     
-    $("#leftNavChat").addClass("theActive");
-    
     //test function for message 
 	/*$('#messager-form').submit(function(event) {
 		event.preventDefault();

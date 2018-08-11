@@ -30,22 +30,25 @@ $(function () {
         tolerance: "pointer",
         items: "> li.sortable",
         update: function(event, ui) {
-            // Update {{.UserInfo.UserWidgets}} with $("#sortable").sortable("toArray")
-            var asortedWidgets = $("#sortable").sortable("toArray");
-            $.ajax({
-                type: 'GET',
-                url: 'http://ustart.today:'+port+'/sortUserWidgets/',
-                contentType: "application/json; charset=utf-8",
-                data: {sortedWidgets: JSON.stringify(asortedWidgets)},
-                success: function(data) {
-                    console.log('Sorted Widgets are probably saved: ');
-                    console.log(data);
-                },
-                error: function(err) {
-                    console.log('Sorted Widgets failed: ');
-                    console.log(err);
-                }
-            });
+            console.log(doc);
+            if (userID == doc){
+                // Update {{.UserInfo.UserWidgets}} with $("#sortable").sortable("toArray")
+                var asortedWidgets = $("#sortable").sortable("toArray");
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://ustart.today:'+port+'/sortUserWidgets/',
+                    contentType: "application/json; charset=utf-8",
+                    data: {sortedWidgets: JSON.stringify(asortedWidgets), pageID: userID},
+                    success: function(data) {
+                        console.log('Sorted Widgets are probably saved: ');
+                        console.log(data);
+                    },
+                    error: function(err) {
+                        console.log('Sorted Widgets failed: ');
+                        console.log(err);
+                    }
+                });
+            }
         }
     });
 
