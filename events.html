@@ -99,46 +99,37 @@
                 </div>
             </div>
         </div>
-        <!-- tab -->
-        <ul class="nav nav-tabs nav-justified">
-            <li class="active">
-                <a data-toggle="tab" href="#event-about">About</a>
-            </li>
-            <li>
-                <a data-toggle="tab" href="#event-wall">Discussion</a>
-            </li>
-        </ul>
-        
-        <div class="tab-content">
-            <div id="event-about" class="tab-pane fade in active">
-                <p>users attending</p>
-                <div id='divider'></div>
-                    <div class='user-attending-img'>
-                        <img id='user-img' src="http://via.placeholder.com/350x150" class="img-circle img-responsive" alt="Cinque Terre">         
-                        <img id='user-img' src="http://via.placeholder.com/350x150" class="img-circle img-responsive" alt="Cinque Terre">         
-                    </div>
-                    <div class='user-attending-info' style='display:none;'>hello</div>
-                <hr>
-                <p>projects attending</p>
-                <div class='project-attending-img'>
-            
-                </div>
-                <hr>
-                <p>widgets</p>
-            </div>
-            <div id="event-wall" class="tab-pane fade">
-            <h3>Discussion</h3>
-            </div>
-        </div>
 
         <ul class="nav nav-tabs nav-justified proj-tabs">
-            <li class="active"><a data-toggle="tab" href="#proj-about">Showcase</a></li>
-            <li class=""><a data-toggle="tab" id="Wall-loadAJAX" href="#prof-wall">Posts</a></li>
-            <li class=""><a data-toggle="tab" href="#proj-team">Members</a></li>
+            <li class="active"><a data-toggle="tab" href="#proj-about">About</a></li>
+            <li class=""><a data-toggle="tab" id="Wall-loadAJAX" href="#prof-wall">Discussion</a></li>
         </ul>
         <div class="tab-content">
             <div id="proj-about" class="tab-pane fade in active">
                 <ul id="sortable">
+                    <!-- tags widget-->
+                    <li class="ui-state-default">
+                        <div id="tagsWidget" class="projectsWidgetCont">
+                            <div class="widgetTitle">
+                                <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#attendeesModal"></span>
+                                <h4>Users Attending</h4>
+                            </div>
+                            <div class="widgetBody">
+                            </div>
+                        </div>
+                    </li> <!--end tags widget -->
+                    <!-- tags widget-->
+                    <li class="ui-state-default">
+                        <div id="tagsWidget" class="projectsWidgetCont">
+                            <div class="widgetTitle">
+                                <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#showcaseModal"></span>
+                                <h4>Projects Showcasing</h4>
+                            </div>
+                            <div class="widgetBody">
+                            </div>
+                        </div>
+                    </li> <!--end tags widget -->
+                    
                     <li id="widget-insert" class="ui-state-default">
                         <div class="projectsWidgetCont">
                             <div class="widgetTitle">
@@ -546,7 +537,7 @@
                     </li>  
                 {{end}} <!-- end anchor-->
                     {{if eq $loop.Classification 12}}
-                <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                    <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                         <div class="projectsWidgetCont">
                             <div class="widgetTitle">
                             <span class="pull-right fa fa-2x fa-sort"></span>
@@ -700,17 +691,6 @@
                     </div>
                     <!-- end grid -->
             </div> 
-            <div id="proj-team" class="tab-pane panel panel-default panel-body fade">
-                {{range $member := .Event.MemberData}}
-                <a class="member" href="/profile/{{$member.Username}}">
-                        <img id="img{{$member.Username}}" class="img-circle img-responsive">
-                        <div class="member-name">{{$member.FirstName}} {{$member.LastName}}</div>
-                        <script>
-                            $('img#img{{$member.Username}}').attr('src', {{$member.Image}});
-                        </script>
-                </a>
-                {{end}}
-            </div>
             <div id="modal-box">
                 <!-- MODALS -->
                 <!-- edit modal -->
