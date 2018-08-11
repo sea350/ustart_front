@@ -191,38 +191,38 @@
 										<button type="button" class="btn btn-info" id="upload-result2">Upload Banner</button>
 										<script type="text/javascript">
 											var bwidth;
-											$(window).resize(function(){
-												cwidth = $(window).width();
+                                            var vwidth;
+                                            var vheight;
 
-												if(cwidth <= 1100 && cwidth >= 320){
-													bwdith = cwidth - 40;
-												}else{
-													bwidth = 1000;
-												}
-											});
-
-											var bheight;
-											$(window).resize(function(){
-												cheight = $(window).width();
-
-												if(cheight <= 1100 && cheight >= 320){
-													bheight = cheight - 12;
-												}else{
-													bheight = 1000;
-												}
-											});											
-
-											$uploadCrop2 = $('#upload-demo2').croppie({
+                                            cwidth = $(window).width();
+                                            if(cwidth <= 1100 && cwidth >= 320){
+                                                bwdith = cwidth/3;
+                                                vwidth = 325;
+                                                vheight=100;
+                                            }
+                                            else if (cwidth >= 2300){
+                                                bwdith = cwidth/2;
+                                                vwidth = 975;
+                                                vheight=300;
+                                            }
+                                            else{
+                                                bwidth = cwidth/2.25;
+                                                vwidth=650
+                                                 vheight= 200;
+                                            }	
+                                            
+                                             $uploadCrop2 = $('#upload-demo2').croppie({
 												url: "{{.Project.ProjectData.Banner}}",
 												viewport: {
-													width: 1000 ,
-													height: 300 ,
+													width: vwidth,
+													height: vheight,
 												},
 												boundary: {
 													width: bwidth,
 													height: 350
 												}
 											});
+                                        
 											
 											var isValid = true;
 											$('#upload2').on('change', function () { 

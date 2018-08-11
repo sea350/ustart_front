@@ -61,14 +61,175 @@
 					<div class="row">
 						<div class="vertical-menu col-sm-3">
 							<ul>
-								<li data-target='profile' class='menu-list active'><h5>Edit Profile</h5></li>
+                                <li data-target='images' class='menu-list active'><h5>Edit Images</h5></li>
+								<li data-target='profile' class='menu-list'><h5>Edit Profile</h5></li>
 								<li data-target='education' class='menu-list'><h5>Edit Education</h5></li>
-								<li data-target='images' class='menu-list'><h5>Edit Images</h5></li>
 								<li data-target='password' class='menu-list'><h5>Edit Password</h5></li>
 								<li data-target='account' class='menu-list'><h5>Manage Account</h5></li>
 							</ul>
 						</div>
 						<div class='col-sm-9 contents'>
+                                <div id='images'>
+									<div class="row" style='margin-top:3em;'>
+										<h4>Edit your Profile Image</h4>
+									</div>
+									<div class="row">
+										<div class="col-sm-6 col-sm-offset-3">
+											<form id="img-form" action="/ImageUpload/" enctype="multipart/form-data" method="post">
+												<div id="upload-demo" style="width:300px; height:350px"></div>
+												<input type="file" name="raw-image" id="upload" accept="image/*">
+												<input type="hidden" name="image-data" id="hidden-image-data" />
+												<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
+												<script type="text/javascript">
+													$uploadCrop = $('#upload-demo').croppie({
+														enforceBoundary: true,
+														viewport: {
+															width: 250,
+															height: 250,
+															type: 'square'
+														},
+														boundary: {
+															width: 300,
+															height: 300
+														}
+													});
+													$uploadCrop.croppie("bind", {
+														url: "{{.UserInfo.Avatar}}",
+														zoom: 1
+													});
+													$('#upload').on('change', function () { 
+														var reader = new FileReader();
+														reader.onload = function (e) {
+															$uploadCrop.croppie('bind', {
+																url: e.target.result,
+																zoom: 1
+															});
+														}
+														reader.readAsDataURL(this.files[0]);
+													});
+														$('#upload-result').on('click', function (ev) {
+														$uploadCrop.croppie('result', {
+															type: 'canvas',
+															size: 'viewport'
+														}).then(function (resp) {
+															$('#hidden-image-data').val(resp);
+															$('#img-form').submit();
+														});
+													});
+												</script>
+											</form>											
+										</div>
+									</div>
+									
+									<br><hr>
+									<div class="modal fade" id="sizeModal" role="dialog">
+										<div class="modal-dialog">										
+										<div class="modal-content">
+												<div class="modal-header" style='border-color:#00ac7d!important'>
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h4 class="modal-title" >USTART info</h4>
+												</div>
+												<div class="modal-body" style='border-color:#00ac7d!important'>
+													<p>Banner Image should be bigger than 300px (height) x 600px (width)</p>
+												</div>
+										</div>	  
+										</div>
+									</div>
+									<div class="col">
+										<h4>Edit your banner</h4>
+										<br>
+										<form id="banner-form" action="/BannerUpload/"  enctype="multipart/form-data"  method="post">
+											<div id="upload-demo2" style='height:400px;'></div>
+											<input type="file" name="raw-banner" id="upload2" accept="image/*">
+											<input type="hidden" name="banner-data" id="hidden-image-data-2" />
+											<button type="button" class="btn btn-info" id="upload-result2">Upload Banner</button>
+											<br>
+												<script>
+													var bwidth;
+                                                    var vwidth;
+                                                    var vheight;
+
+                                                    cwidth = $(window).width();
+                                                    if(cwidth <= 1100 && cwidth >= 320){
+                                                        bwdith = cwidth/3;
+                                                        vwidth = 325;
+                                                        vheight=100;
+                                                    }
+                                                    else if (cwidth >= 2300){
+                                                        bwdith = cwidth/2;
+                                                        vwidth = 975;
+                                                        vheight=300;
+                                                    }
+                                                    else{
+                                                        bwidth = cwidth/2.25;
+                                                        vwidth=650
+                                                         vheight= 200;
+                                                    }		
+													$uploadCrop2 = $('#upload-demo2').croppie({
+														viewport: {
+															width: vwidth,
+															height: vheight,
+														},
+														boundary: {
+															width: bwdith,
+															height: 350
+														}
+													});
+													$uploadCrop2.croppie("bind", {
+														url: "{{.UserInfo.Banner}}",
+														zoom: 1
+													});
+
+													var isValid = true;
+													$('#upload2').on('change', function () { 
+														var file = $('#upload2')[0];
+														var reader2 = new FileReader();
+														reader2.readAsDataURL(file.files[0])
+
+														reader2.onload = function (e) {
+															var image = new Image();
+															image.src = e.target.result;
+
+															image.onload = function(){
+																var height = this.height;
+																var width = this.width;
+																console.log(height +' '+width);
+																if(height < 300 && width < 600){
+																	$("#sizeModal").modal();
+																	/*
+																	BootstrapDialog.show({
+																		message: 'Hi Apple!'
+																	});
+																	*/																		
+																	//return false;
+																	isValid = false;
+																}																	
+															};
+															$uploadCrop2.croppie('bind', {
+																url: e.target.result,
+																zoom: 1
+															});
+														}
+													});
+													
+													 $('#upload-result2').on('click', function (ev) {
+														$uploadCrop2.croppie('result', {
+															type: 'canvas',
+															size: 'viewport'
+														}).then(function (resp2) {
+															if(isValid){
+														   $('#hidden-image-data-2').val(resp2);
+														   $('#banner-form').submit();
+														}
+														});
+													 });
+												</script>
+										</form>																				
+										<div class="save-message fade"></div>										
+									</div>
+								</div>
+								<!-- end of images -->	
+                            
 								<div id='profile'>
 									<div class="row">
 										<label for="work_availability">Work Status</label>
@@ -273,158 +434,6 @@
 										</form>											
 							</div>    
 							<!-- end of education -->	
-
-								<div id='images'>
-									<div class="row" style='margin-top:3em;'>
-										<h4>Edit your Profile Image</h4>
-									</div>
-									<div class="row">
-										<div class="col-sm-6 col-sm-offset-3">
-											<form id="img-form" action="/ImageUpload/" enctype="multipart/form-data" method="post">
-												<div id="upload-demo" style="width:300px; height:350px"></div>
-												<input type="file" name="raw-image" id="upload" accept="image/*">
-												<input type="hidden" name="image-data" id="hidden-image-data" />
-												<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
-												<script type="text/javascript">
-													$uploadCrop = $('#upload-demo').croppie({
-														enforceBoundary: true,
-														viewport: {
-															width: 250,
-															height: 250,
-															type: 'square'
-														},
-														boundary: {
-															width: 300,
-															height: 300
-														}
-													});
-													$uploadCrop.croppie("bind", {
-														url: "{{.UserInfo.Avatar}}",
-														zoom: 1
-													});
-													$('#upload').on('change', function () { 
-														var reader = new FileReader();
-														reader.onload = function (e) {
-															$uploadCrop.croppie('bind', {
-																url: e.target.result,
-																zoom: 1
-															});
-														}
-														reader.readAsDataURL(this.files[0]);
-													});
-														$('#upload-result').on('click', function (ev) {
-														$uploadCrop.croppie('result', {
-															type: 'canvas',
-															size: 'viewport'
-														}).then(function (resp) {
-															$('#hidden-image-data').val(resp);
-															$('#img-form').submit();
-														});
-													});
-												</script>
-											</form>											
-										</div>
-									</div>
-									
-									<br><hr>
-									<div class="modal fade" id="sizeModal" role="dialog">
-										<div class="modal-dialog">										
-										<div class="modal-content">
-												<div class="modal-header" style='border-color:#00ac7d!important'>
-													<button type="button" class="close" data-dismiss="modal">&times;</button>
-													<h4 class="modal-title" >USTART info</h4>
-												</div>
-												<div class="modal-body" style='border-color:#00ac7d!important'>
-													<p>Banner Image should be bigger than 300px (height) x 600px (width)</p>
-												</div>
-										</div>	  
-										</div>
-									</div>
-									<div class="col">
-										<h4>Edit your banner</h4>
-										<br>
-										<form id="banner-form" action="/BannerUpload/"  enctype="multipart/form-data"  method="post">
-											<div id="upload-demo2" style='height:400px;'></div>
-											<input type="file" name="raw-banner" id="upload2" accept="image/*">
-											<input type="hidden" name="banner-data" id="hidden-image-data-2" />
-											<button type="button" class="btn btn-info" id="upload-result2">Upload Banner</button>
-											<br>
-												<script>
-													var bwidth;
-													$(window).resize(function(){
-														cwidth = $(window).width();
-
-														if(cwidth <= 1100 && cwidth >= 320){
-															bwdith = cwidth - 40;
-														}else{
-															bwidth = 1000;
-														}
-													});
-
-													$uploadCrop2 = $('#upload-demo2').croppie({
-														viewport: {
-															width: 1000,
-															height: 300
-														},
-														boundary: {
-															width: bwidth,
-															height: 350
-														}
-													});
-													$uploadCrop2.croppie("bind", {
-														url: "{{.UserInfo.Banner}}",
-														zoom: 1
-													});
-
-													var isValid = true;
-													$('#upload2').on('change', function () { 
-														var file = $('#upload2')[0];
-														var reader2 = new FileReader();
-														reader2.readAsDataURL(file.files[0])
-
-														reader2.onload = function (e) {
-															var image = new Image();
-															image.src = e.target.result;
-
-															image.onload = function(){
-																var height = this.height;
-																var width = this.width;
-																console.log(height +' '+width);
-																if(height < 300 && width < 600){
-																	$("#sizeModal").modal();
-																	/*
-																	BootstrapDialog.show({
-																		message: 'Hi Apple!'
-																	});
-																	*/																		
-																	//return false;
-																	isValid = false;
-																}																	
-															};
-															$uploadCrop2.croppie('bind', {
-																url: e.target.result,
-																zoom: 1
-															});
-														}
-													});
-													
-													 $('#upload-result2').on('click', function (ev) {
-														$uploadCrop2.croppie('result', {
-															type: 'canvas',
-															size: 'viewport'
-														}).then(function (resp2) {
-															if(isValid){
-														   $('#hidden-image-data-2').val(resp2);
-														   $('#banner-form').submit();
-														}
-														});
-													 });
-												</script>
-										</form>																				
-										<div class="save-message fade"></div>										
-									</div>
-								</div>
-								<!-- end of images -->	
 
 
 								<div id='password'>
