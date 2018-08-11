@@ -59,7 +59,10 @@
             </div>
             <div class="col-xs-3">
                 <div class="banner-right-img">
-                    <img id='profile' src='http://via.placeholder.com/350x150' class="img-circle img-responsive" width="304" height="236">     
+                    <img id="event-logo" class="img-circle img-responsive"/>
+                    <script>
+                        $('#event-logo').attr('src', {{.Event.EventData.Avatar}});
+                    </script>   
                 </div>            
             </div>
         </div>
