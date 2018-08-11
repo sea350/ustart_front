@@ -46,14 +46,14 @@
     <div id="content" class="container">
         <div class="row" id='event-info'>
             <div class="col-xs-3" id='date'>
-                <h1>Date</h1>
+                <h1>{{.Event.EventData.EventDateStart}}</h1>
             </div>
             <div class="col-xs-6">
                 <div id="event-title">
-                    <h5>title</h5>
+                    <h5>{{.Event.EventData.Name}}</h5>
                 </div>
                 <div id="event-host">
-                    <h5>host</h5>
+                    <h5>{{.Event.EventData.Host}}</h5>
                 </div>
                 
             </div>
@@ -75,7 +75,7 @@
                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                     </div>
                     <div class="col-sm-10">
-                        <h4>time placeholder</h4>
+                        <h4>{{.Event.EventData.EventDateStart}} To {{.Event.EventData.EventDateEnd}}</h4>
                     </div>                
                 </div>
                 <div class="row">
@@ -83,7 +83,7 @@
                         <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                     </div>
                     <div class="col-sm-10">
-                        <h4>place placeholder</h4>
+                        <h4>{{.Event.EventData.Location}}</h4>
                     </div>                
                 </div>
                 <div class="row">
@@ -91,14 +91,16 @@
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                     </div>
                     <div class="col-sm-10">
-                        <h4>host placeholder</h4>
+                        <h4>{{.Event.EventData.Host}}</h4>
                     </div>  
                 </div>              
             </div>                        
             <div class="col-sm-8">
-                <h4>details</h4>
+                <h4>Description</h4>
                 <div id="event-detail">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat impedit esse temporibus! Exercitationem ipsum quis a similique in. Sit, expedita.</p>
+                    <script>
+                        readRuneArray({{.Event.EventData.Description}});
+                    </script>
                 </div>
             </div>
         </div>
