@@ -70,28 +70,28 @@ $('.contents').css({'border-left': '1px solid #808080'});*/
     border-left: 3px solid #808080;    
 }
 
-#images, #password, #account, #education{
+#profile, #password, #account, #education{
     margin-bottom: 2em;
     display: none;
 }
-#projectCategory, #projectImage, #projectLocation, #projectURL, #projectMember{
+#projectCategory, #projectInfo, #projectLocation, #projectURL, #projectMember{
     margin-bottom: 2em;
     display: none;
 }
-#eventDate, #eventLocation, #eventImage, #eventMember{
+#eventDate, #eventLocation, #eventInfo, #eventMember{
     margin-bottom: 2em;
     display: none;
 }
 
-#profile{
+#images{
     margin-bottom: 2em;
     display:block;
 }   
-#projectInfo{
+#projectImage{
     margin-bottom: 2em;
     display:block;    
 }
-#eventInfo{
+#eventImage{
     margin-bottom: 2em;
     display:block;    
 }

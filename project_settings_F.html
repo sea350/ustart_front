@@ -13,8 +13,7 @@
 	<script src="/ustart_front/js/majors.js"></script>
 	<script src="/ustart_front/js/settings.js"></script>
 	<script src="/ustart_front/js/project_settings.js"></script>
-    <script src="/ustart_front/js/jquery.cropit.js"></script>
-    <script src="/ustart_front/js/croppie.min.js"></script>
+    <script src="/ustart_front/js/croppie.js"></script>
     <script src="/ustart_front/js/ascii-convert.js"></script>
 	<style>
 		#content .panel,
@@ -23,6 +22,28 @@
 		}
 	</style>
 	{{$projectid := .Project.DocID}}
+    <script>
+        var bwidth;
+        var vwidth;
+        var vheight;
+        var poster = {{.UserInfo.Banner}};
+        var cwidth = $(window).width();
+        if(cwidth <= 1100 && cwidth >= 320){
+            bwidth = cwidth/3;
+            vwidth = 325;
+            vheight=100;
+        }
+        else if (cwidth >= 1920){
+            bwidth = 1100;
+            vwidth = 975;
+            vheight=300;
+        }
+        else{
+            bwidth = 700;
+            vwidth=650
+            vheight= 200;
+        }	
+    </script>
 </head>
 
 <body>
@@ -34,9 +55,9 @@
 					<div class="row">
 						<div class="vertical-menu col-sm-3">
 							<ul>
+                                <li data-target='projectImage' class='project-menu-list active'><h5>Edit Images</h5></li>
 								<li data-target='projectInfo' class='project-menu-list'><h5>Edit Project Info</h5></li>
 								<li data-target='projectCategory' class='project-menu-list'><h5>Edit Category</h5></li>
-								<li data-target='projectImage' class='project-menu-list'><h5>Edit Images</h5></li>
 								<li data-target='projectLocation' class='project-menu-list'><h5>Edit Location</h5></li>
 								<li data-target='projectURL' class='project-menu-list'><h5>Edit custom URL</h5></li>
 								<li data-target='projectMember' class='project-menu-list'><h5>Manage Members</h5></li>
@@ -190,80 +211,94 @@
 										<input type="hidden" name="banner-data" id="hidden-image-data-2" />
 										<button type="button" class="btn btn-info" id="upload-result2">Upload Banner</button>
 										<script type="text/javascript">
-											var bwidth;
-                                            var vwidth;
-                                            var vheight;
+											 function createCroppie(viewportWidth, viewportHeight, boundaryWidth, image) {
+                                                        $uploadCrop2 = $('#upload-demo2').croppie({
+                                                        url:image,
+                                                        viewport: {
+                                                        width: viewportWidth,
+                                                        height: viewportHeight
+                                                        },
+                                                        boundary: {
+                                                        width: boundaryWidth,
+                                                        height:350
+                                                        }
+                                                        });
+                                                    }
+                                                    
+                                                    function resizeCroppie(width, height, bwidth, image) {
+                                                         $('#upload-demo2').croppie('destroy');
+                                                         createCroppie(vwidth, vheight, bwidth, image);
+                                                    }
 
-                                            cwidth = $(window).width();
-                                            if(cwidth <= 1100 && cwidth >= 320){
-                                                bwdith = cwidth/3;
-                                                vwidth = 325;
-                                                vheight=100;
-                                            }
-                                            else if (cwidth >= 2300){
-                                                bwdith = cwidth/2;
-                                                vwidth = 975;
-                                                vheight=300;
-                                            }
-                                            else{
-                                                bwidth = cwidth/2.25;
-                                                vwidth=650
-                                                 vheight= 200;
-                                            }	
-                                            
-                                             $uploadCrop2 = $('#upload-demo2').croppie({
-												url: "{{.Project.ProjectData.Banner}}",
-												viewport: {
-													width: vwidth,
-													height: vheight,
-												},
-												boundary: {
-													width: bwidth,
-													height: 350
-												}
-											});
-                                        
-											
-											var isValid = true;
-											$('#upload2').on('change', function () { 
-												var file = $('#upload2')[0];
-												var reader2 = new FileReader();
-												
-												reader2.readAsDataURL(this.files[0]);
+                                                    $(document).ready(function () {
+                                                        createCroppie(vwidth, vheight, bwidth, poster);
+                                                        setTimeout(function(){
+                                                            $('#upload-demo2').croppie('setZoom', '1.0');
+                                                        },50);
+                                                    });
+                                                    
+                                                    $( window ).resize(function() {
+                                                        
+                                                        cwidth = $(window).width();
+                                                        if(cwidth <= 1100 && cwidth >= 320){
+                                                                bwidth = cwidth/3;
+                                                                vwidth = 325;
+                                                                vheight=100;
+                                                            }
+                                                            else if (cwidth >= 1920){
+                                                                bwidth = 1100;
+                                                                vwidth = 975;
+                                                                vheight=300;
+                                                            }
+                                                            else{
+                                                                bwidth = 700;
+                                                                vwidth=650
+                                                                vheight= 200;
+                                                            }	height= 200;
+                                                        }
+                                                        resizeCroppie(vwidth, vheight, bwidth, poster);
+                                                    });
+                                                    
+                                                        $('#upload2').on('change', function () { 
+                                                            var file = $('#upload2')[0];
+                                                            var reader2 = new FileReader();
+                                                            reader2.readAsDataURL(file.files[0])
 
-												
-												reader2.onload = function (e) {
-													var image = new Image();
-													image.src = e.target.result;
-
-													image.onload = function(){
-														var height = this.height;
-														var width = this.width;
-														if(height < 300 && width < 600){
-															$("#sizeModal").modal();
-															isValid = false;
-														}
-
-													}
-
-													$uploadCrop2.croppie('bind', {
-														url: e.target.result
-													});
-												}
-												
-											});
-											 $('#upload-result2').on('click', function (ev) {
-												 
-												$uploadCrop2.croppie('result', {
-													type: 'canvas',
-													size: 'viewport'
-												}).then(function (response2) {
-													if(isValid){
-													$('#hidden-image-data-2').val(response2);
-													$('#banner-form').submit();
-												}
-												});
-											});
+                                                            reader2.onload = function (e) {
+                                                                var image = new Image();
+                                                                image.src = e.target.result;
+                                                                poster = e.target.result;
+                                                                image.onload = function(){
+                                                                    var height = this.height;
+                                                                    var width = this.width;
+                                                                    console.log(height +' '+width);
+                                                                    if(height < 300 && width < 600){
+                                                                        $('#upload2').val('');
+                                                                        $("#sizeModal").modal();							
+                                                                       poster = {{.UserInfo.Banner}};
+                                                                       resizeCroppie(vwidth, vheight, bwidth, poster);
+                                                                       setTimeout(function(){
+                                                                        $('#upload-demo2').croppie('setZoom', '1.0');
+                                                                        },50);
+                                                                    }
+                                                                    else{
+                                                                        resizeCroppie(vwidth, vheight, bwidth, poster);
+                                                                        setTimeout(function(){
+                                                                        $('#upload-demo2').croppie('setZoom', '1.0');
+                                                                        },50);
+                                                                    }
+                                                                };
+                                                            }
+                                                        });
+                                                        $('#upload-result2').on('click', function (ev) {
+                                                            $uploadCrop2.croppie('result', {
+                                                                type: 'canvas',
+                                                                size: 'viewport'
+                                                            }).then(function (resp2) {
+                                                               $('#hidden-image-data-2').val(resp2);
+                                                               $('#banner-form').submit();
+                                                            });
+                                                         });
 										</script>
 									</form>	
 

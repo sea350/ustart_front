@@ -4,61 +4,44 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Ustart Event Manager</title>
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <script src="/ustart_front/js/ascii-convert.js"></script>
-	<style>
-        #content .panel,
-        #content .panel-group {
-            margin-bottom: 0.5em;
-        }
-        </style>    
+    <title>Ustart MyEvents</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
+	<link rel="stylesheet" type="text/css" href="/ustart_front/css/events_m.css" />
+	<script src="/ustart_front/js/events_m.js"></script>
+	<script src="/ustart_front/js/ascii-convert.js"></script>
+ 
 </head>
 
 <body>
-    <input type="hidden" id="pageiden" value='{{.Page}}'>
+    <style>
+        .card-title, .card-text{
+            text-overflow: ellipsis;
+        }
+        #event-container, #event-container-2{
+            justify-content: center;
+        }
+    </style>
+    <input type="hidden" id='pageiden' value='{{.Page}}'>
     <div id="centering">
-        <div id="settings-container"  class="container">
-            <div class="panel-group col-sm-10 col-sm-offset-1">            
-                <div class="row">
-                    <div class="vertical-menu col-sm-3">
-                        <ul>
-                            <li data-target='eventInfo' class='event-menu-list'><h5>Edit Event Info</h5></li>
-                            <li data-target='eventDate' class='eventmenu-list'><h5>Edit Event Date &amp; Time</h5></li>
-                            <li data-target='eventLocation' class='event-menu-list'><h5>Edit Location</h5></li>
-                            <li data-target='eventImage' class='event-menu-list'><h5>Edit Images</h5></li>
-                            <li data-target='eventMember' class='event-menu-list'><h5>Manage Member</h5></li>
-                        </ul>
-                    </div>    
-                    <div class='col-sm-9 eventContents'>                                    
-                        <div id="eventInfo">                        
-                    </div>
-                </div>
-            <a class="btn btn-info" href="/StartEvent/">Create Event</a>
-            <div>Event</div>
-            <div>
-                {{range $event := .ListOfHeads}}
-                <div class="card">
-                    {{if $event.Image}}
-                    <a href="/Event/{{$event.DocID}}">
-                        <img id="eventHead{{$event.DocID}}" class="img-responsive" />
-                    </a>
-                    <script>$("#eventHead{{$event.DocID}}").attr("src", "{{$event.Image}}")</script>
-                    {{end}}
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="/Event/{{$event.DocID}}">{{$event.FirstName}}</a>
-                        </h4>
-                        <p class="card-text">
-                            <script>readRuneArray({{ $event.Bio }});</script>
-                        </p>
-                        <span>{{$event.Notifications}}</span>
-                        {{if $event.Interface}}
-                        <span>{{$event.Interface}}</span>
-                        {{end}}
-                    </div>
-                </div>
-                {{end}}
+        <div id="content">
+            <div class="container">
+                <h1>
+                    <span id="header-events">Current Events</span>
+					<button id="sortEventButton" type="button" class="btn btn-default pull-right">
+                        <i class="fa fa-sort-amount-desc"></i>
+                    </button>   
+                    <a href="/EventNewMembers/" title="Manage member join requests">
+						<button id="manageMembersButton" type="button" class="btn btn-default pull-right">
+							<i class="fa fa-user-circle"></i>
+						</button>
+					</a>
+					<a href="/StartEvent/">
+						<button id="addEventButton" type="button" class="btn btn-default pull-right">
+							<i class="fa fa-plus-square"></i>
+						</button>
+					</a>                                     
+                </h1>
             </div>
         </div>
     </div>

@@ -4,42 +4,49 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Ustart Event Form</title>
+    <title>Ustart Create Event</title>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">    
     <link rel="stylesheet" href="/ustart_front/css/layout1.css">    
     <link rel="stylesheet" href="/ustart_front/css/register.css">
-    <script type="text/javascript" src="/ustart_front/js/event.js"></script>    
+    <script type="text/javascript" src="/ustart_front/js/event.js"></script>   
+    <!-- Not yet-->
     <script type="text/javascript" src="/ustart_front/js/ascii-convert.js"></script>
     <script type="text/javascript" src="/ustart_front/js/majors.js"></script>
     <script type="text/javascript" src="/ustart_front/js/categories.js"></script>
     <script type="text/javascript" src="/ustart_front/js/countries.js"></script>
 </head>
 
-<body>
-    <!--
-        * event title
-        * time (start end time…)
-        * place
-        * description
-        * date
-        * streetname , city , 
-        * banner
-        * university (optional)   
-    -->         
+<body>      
     <input type="hidden" id="pageiden" value='{{.Page}}'>
     <div id="centering" style="top: 6em;">
         <div class="content">
-            <h2 style="padding:0; text-align: center;">Create Event</h2>                        
+            {{ if .ErrorOutput }}
+            <div id="dup-email-alert" class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
+            </div>
+            {{end}}             
+            <h2 style="padding:0; text-align: center;">Create An Event</h2>                        
             <div class="jumbotron container col-md-8 col-md-offset-2" >            
-            <form action="/AddEvent/" method="POST">
+            <form action="/AddEvent/" id='projectCreateForm' class='form-signup' method="POST">
                 <div class="row">
                     <div class="col-md-7">
-                        <label for="eventTitle">Event Title</label>
-                        <input type="text" id="eventTitle" name="title" class="form-control" placeholder="Event Title"/>
+                        <label for="eventTitle" class='sr-only'>Title</label>
+                        <div class="input-group input-groupz">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-folder-open"></i></span>
+                            <input type="text" id="eventTitle" name="title" class="form-control" placeholder="Event Title"/>
+                        </div>
+                        
                     </div>
                     <div class="col-md-5">
-                        <label for="universityName">University/College</label>                        
-                        <input name="universityName" class="form-control" id="uni" placeholder="University/College" required>
+                        <label for="universityName" class='sr-only'>University/College</label>                        
+                        <div class="input-group input-groupz">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                            <input name="universityName" class="form-control" id="uni" placeholder="University/College" required>                            
+                        </div>
                         <script type="text/javascript">
                         $(document).ready(function() {
                             $("#uni").autocomplete({
@@ -53,57 +60,102 @@
                     </div>
                 </div>
                 <div class="row">
+                        <div class="col-md-7">
+                            <label for="eventURL" class='sr-only'>Custom URL</label>
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                <input type="text" id="eventUrl" name="eventurl" class="form-control" placeholder="Custom URL (ustart.today/events/example/)" pattern="^You're custom URL$/|[A-Za-z\d][\w\d-]+[A-Za-z\d]">
+                            </div>
+                            <span style='color:#999'>Characters, Digits, Dashes, and Underscores Only. <br> No Starting or Ending Symbols (^ $,!,@,#,$. $/)</span>
+                        </div>
+                        <div class="col-md-5">
+                            <label for="category" class='sr-only'>Category</label>                        
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>                                
+                                <select name="eventCategory" class="form-control" id="category" required>                                
+                                    <option></option>
+                                </select>
+                                <script>
+                                        eventList_categories('category');
+                                </script>                                
+                            </div>
+
+                        </div>
+                    </div>                
+                <div class="row">
                     <div class="col-md-6">
-                        <label for="startDate">Start Date & Time</label>
-                        <input id="startDate" name='startDate' class='form-control' type="datetime-local">
+                        <label for="startDate" class='sr-only'>Start Date & Time</label>
+                        <div class="input-group input-groupz">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                            <input id="startDate" name='startDate' class='form-control' type="datetime-local">
+                        </div>
+                        
                     </div>
                     <div class="col-md-6">
-                        <label for="endDate">End Date & Time</label>                        
-                        <input id="endDate" name='endDate' class='form-control' type="datetime-local">
+                        <label for="endDate" class='sr-only'>End Date & Time</label>                        
+                        <div class="input-group input-groupz">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                            <input id="endDate" name='endDate' class='form-control' type="datetime-local">
+                        </div>
                     </div>                 
                 </div>
                 <div class="row">
                         <div class="dropdown col-md-3 col-sm-6">
-                            <label for="country">Country</label>
+                            <label for="country" class='sr-only'>Country</label>
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>                                
                                 <select id="country" name="country" class="form-control" autocomplete="country-name"></select>
+                            </div>  
                         </div>
                         <div class="dropdown col-md-3 col-sm-6">
-                            <label for="state">State</label>
-                            <select name="state" id="state" class="form-control" autocomplete="state"></select>
+                            <label for="state" class='sr-only'>State</label>
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>                                
+                                <select name="state" id="state" class="form-control" autocomplete="state"></select>
+                            </div>
                         </div>
                         <script language="javascript">
 							populateCountries("country", "state");
                         </script>
                         <div class="col-md-3 col-sm-6">
-                            <label for="city">City</label>
-                            <input id="city" name="city" class="form-control" placeholder="City" autocomplete="city">
+                            <label for="city" class='sr-only'>City</label>
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>                                 
+                                <input id="city" name="city" class="form-control" placeholder="City" autocomplete="city">
+                            </div>    
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <label for="zip">Zip Code</label>
-                            <input id="zip" name="zip" class="form-control" placeholder="Zip" autocomplete="postal-code">
+                            <label for="zip" class='sr-only'>Zip Code</label>
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>                                 
+                                <input id="zip" name="zip" class="form-control" placeholder="Zip" autocomplete="postal-code">
+                            </div>
                         </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <label for="street">Street</label>
-                        <input id="street" name="street" class="form-control" placeholder="Street" autocomplete="street">
+                        <label for="street" class='sr-only'>Street</label>
+                        <div class="input-group input-groupz">
+                            <span class="input-group-addon"><i class="fa fa-street-view"></i></span>                             
+                            <input id="street" name="street" class="form-control" placeholder="Street" autocomplete="street">                                
+                        </div>
                     </div>
                 </div>  
 
-                <div class="row">
+                <div class="row" style='margin-top:1em;'>
                         <div class="col-sm-12">
-                            <label for="project_desc">Event Description</label>
-                            <textarea maxlength="1100" style="resize: none;" type="text" class="form-control" id="project_desc" name="project_desc" rows="4" placeholder="Please describe your Event" required></textarea>
-                        </div>
+                        <label for="event_desc" class='sr-only'>Event Description</label>
+                        <textarea maxlength="1100" style="resize: none;" name="event_desc" type="text" class="form-control" id="event_desc" rows="4" placeholder="Please describe your Event" required></textarea>
                     </div>
-                    <div class="row text-center" style="margin-top:1em;">
-                        <button type="submit" style='width:95%;' class="btn btn-lg btn-primary center-block" value="Submit" name="send" id="finished" style="display: inline-block">Make Your Event</button>
-                        <script>
-                            $('form#projectCreateForm').submit(function(){
-                                $("button#finished").prop('disabled', true);
-                            });
-                        </script>
-                    </div>
+                </div>
+                <div class="row text-center" style="margin-top:1em;">
+                    <button type="submit" style='width:95%;' class="btn btn-lg btn-primary center-block" value="Submit" name="send" id="finished" style="display: inline-block">Make Your Event</button>
+                    <script>
+                        $('form#projectCreateForm').submit(function(){
+                            $("button#finished").prop('disabled', true);
+                        });
+                    </script>
+                </div>
                 <br>
                 </form>                
                 </div>
