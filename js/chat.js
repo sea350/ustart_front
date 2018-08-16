@@ -95,6 +95,46 @@ function populateOfflineMessage(parentid, message, time) {
     }
 }
 
+function populateMessageModified2(parentid, msgid, username, message, icon, time, originuser, prevSender) {
+    var dateTime = dateFormat(time);
+	var listTime = $("<div></div>").addClass('message-user-time collapse').text(formatTime(time)).attr("date",dateTime);
+    if (isUrlValid(message)){
+        console.log("url found");
+        var listMessage = $("<span></span>").addClass('message-user-message');
+        var listURL = $("<a></a>").attr({'href':message, 'target':"_blank"}).text(message).on('click', function(e) { return urlConfirm(e) });
+        listMessage.append(listURL);
+    }
+    else{
+         var listMessage = $("<span></span>").addClass('message-user-message').text(message);
+    }
+	var listIcon = $("<img></img>").addClass('message-user-icon').attr('src', icon);
+	var listName = $("<div></div>").addClass('message-user-name').text(username);
+	var listItem = $("<li></li>").attr('sender', msgid);
+    	if ($('#chat'+$.escapeSelector(parentid)).find(".message-timeline").first().text() !== dateTime) {
+		var messageTimeline = $("<li></li>").addClass('message-timeline').text(dateTime);
+		listItem.before(messageTimeline);
+	}
+	if (originuser) {
+		// If the post is by the user, push to the right
+		listItem.addClass('message-user message-user-right');
+		listItem.append(listMessage, listTime);
+	} else {
+		// If the post is not by the user, push to the left
+		listItem.addClass('message-user message-user-left');
+        if (prevSender == ""){
+            listItem.append(listName, listIcon, " ", listMessage, listTime);
+        }
+        else{
+            if (prevSender == msgid){
+                listItem.append(listIcon, " ", listMessage, listTime);
+            }
+            else{
+                listItem.append(listName, listIcon, " ", listMessage, listTime);
+            }
+        }
+	}	
+	return listItem;
+}
 
 //create new function
 function populateMessageModified(parentid, msgid, username, message, icon, time, originuser, prevSender) {

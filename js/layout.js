@@ -334,9 +334,13 @@ function appendChatItem(chatID, person, message, timestamp, unreadStatus, classi
          var notifNewLabel = $('<span></span>').addClass('label-new label label-info chat-label');
          chatNotifCount= $(".chat-label.label-new").length;
          updateChatBadge();
+        console.log("new");
     }
     else{
          var notifNewLabel = $('<span></span>').addClass('label label-info chat-label');
+         chatNotifCount= $(".chat-label.label-new").length;
+         updateChatBadge();
+        console.log("not new");
     }
     var notifPersonContainer = $('<div></div>').append(notifPersonLabel, notifNewLabel);
     var notifMessage = $('<div></div>').addClass('notif-message').text(message);

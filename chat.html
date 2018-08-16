@@ -10,10 +10,12 @@
 	<script src="/ustart_front/js/chat.js"></script>
     <script>
         var sockets = [];
+        var historyArr =[];
         var chatflag = 1;
         var roomflag = 1;
         var timerID=0;
         var prevSender="";
+        var prevSender2="";
         var port = window.location.port;
         var memberList={};
         $(document).ready(function() {
@@ -60,76 +62,7 @@
 						<div class="box-section">
 							<div class="section-left">
 								<ul class="message-box">
-									<script>
-                                        $( document ).ready(function() {
-                                            
-                                             function GetChatRecord(){
-                                                // Do something.
-                                                // Load data or whatever.
-                                              /*   if (chatflag == 1){
-                                                    chatflag=0;
-                                                     $.ajax({
-                                                        type: 'GET',
-                                                        url: 'http://ustart.today:'+port+'//',
-                                                        contentType: "application/json; charset=utf-8",
-                                                        data: {postIndex:JSON.stringify(chatArr)},
-                                                        success: function(data) {   
-                                                        },complete: function (jqXHR,status) {
-                                                             chatflag=1;
-                                                             if(status == 'success' || status=='notmodified')
-                                                             {
-
-                                                             }
-                                                        },error: function(err) {
-                                                            console.log('chat Load failed: ');
-                                                            console.log(err);
-                                                        }
-                                                    });
-                                                }*/
-                                            }
-                                            function GetChatrooms(){
-                                                if (roomflag == 1){
-                                                    roomflag=0;
-                                                   /*  $.ajax({
-                                                        type: 'GET',
-                                                        url: 'http://ustart.today:'+port+'//',
-                                                        contentType: "application/json; charset=utf-8",
-                                                        data: {postIndex:JSON.stringify(roomArr)},
-                                                        success: function(data) {   
-                                                        },complete: function (jqXHR,status) {
-                                                             roomflag=1;
-                                                             if(status == 'success' || status=='notmodified')
-                                                             {
-
-                                                             }
-                                                        },error: function(err) {
-                                                            console.log('chatroom Load failed: ');
-                                                            console.log(err);
-                                                        }
-                                                    });*/
-                                                }
-                                            }
-
-                                            $(".message-box").scroll(function () {
-                                                var $this = $(this);
-                                                var height = this.scrollHeight - $this.height(); // Get the height of the div
-                                                var scroll = $this.scrollTop(); // Get the vertical scroll position
-                                                var isScrolledToEnd = (scroll <= 0);
-                                                if (isScrolledToEnd) {
-                                                    GetChatRecord(); // Get the additional content
-                                                }
-                                            });
-                                            
-                                              $(".container-left").scroll(function () {
-                                                var $this = $(this);
-                                                var roomHeight = this.scrollHeight - $this.height(); // Get the height of the div
-                                                var roomScroll = $this.scrollTop(); // Get the vertical scroll position
-                                                var isScrolledToEnd = (roomScroll > roomHeight);
-                                                if (isScrolledToEnd) {
-                                                    GetChatrooms(); // Get the additional content
-                                                }
-                                             });
-                                            
+									<script>            
                                             function start(){
                                                 //initial set up
                                                 if(!("WebSocket" in window)){
@@ -184,10 +117,18 @@
                                                                                 populateMessageModified(urlid, temp.Messages[i].SenderID, memberList[temp.Messages[i].SenderID][0]+" "+memberList[temp.Messages[i].SenderID][1],
                                                                                 temp.Messages[i].Content, temp.Eavesdroppers[temp.Messages[i].SenderID].Image, new Date(temp.Messages[i].TimeStamp).getTime(), senderChk,prevSender);
                                                                                 prevSender=temp.Messages[i].SenderID;
+                                                                                if (temp.Index > 0){
+                                                                                    $('#chat'+$.escapeSelector(urlid)).attr("index",temp.Index);
+                                                                                }
+                                                                                else{
+                                                                                   $('#chat'+$.escapeSelector(urlid)).attr("index",-1);
+                                                                                }
                                                                            }
+                                                                            
                                                                         }
                                                                       $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
                                                                      }
+                                                                        
                                                                     }
                                                                 }
                                                                 ,error: function(err) {
@@ -214,9 +155,11 @@
                                                             else{
                                                                 var senderCheck = false;
                                                             }
-                                                            if($('#chat'+$.escapeSelector(urlid)+"> li").length >= 100){
+                                                           /* if($('#chat'+$.escapeSelector(urlid)+"> li").length >= 100){
+                                                                var currentIndex = parseInt( $('#chat'+$.escapeSelector(urlid)).attr("index"));
+                                                                 $('#chat'+$.escapeSelector(urlid)).attr("index",currentIndex+1);
                                                                 $('.message-user').first().remove();
-                                                            }
+                                                            }*/
                                                             if (urlid===""){
                                                             populateMessageModified(urlid, msg.SenderID, "Global User",
                                                             msg.Content, 'http://placebear.com/400/400', new Date(msg.TimeStamp).getTime(), senderCheck, prevSender);
@@ -278,7 +221,8 @@
                                                     }
                                             });
                                             
-                                            
+                                            $(document).ready(function() {
+                                                
                                             $('.inputMessages').keydown(function (e) {
                                                 var temp = window.location.href.indexOf("ch");
                                                 var targetid = window.location.href.substring(temp+4);
@@ -303,6 +247,7 @@
                                                 updateChatBadge();
                                             });
                                             $('.chat-submit').click(function(){
+                                                console.log("here");
                                                 var temp = window.location.href.indexOf("ch");
                                                 var id = window.location.href.substring(temp+3);
                                                 if(socket.readyState === socket.OPEN){
@@ -341,7 +286,106 @@
                                                     start();
                                                 }
                                                 prevSender="";
+                                                prevSender2="";
                                             });
+                                                
+                                            function GetChatRecord(){
+                                                // Do something.
+                                                // Load data or whatever.
+                                                 if (chatflag == 1){
+                                                    chatflag=0;
+                                                    var temp = window.location.href.indexOf("ch");
+                                                    var urlid = window.location.href.substring(temp+3);
+                                                    var chatIndex =  $('#chat'+$.escapeSelector(urlid)).attr("index");
+                                                    prevSender2=$('#chat'+$.escapeSelector(urlid)).find(".message-user").attr("sender");
+                                                     if (parseInt(chatIndex) === 0){
+                                                          chatflag=1;
+                                                     }
+                                                     else{
+                                                         $.ajax({
+                                                            type: 'GET',
+                                                            url: 'http://ustart.today:'+port+'/AjaxLoadMoreChat/',
+                                                            contentType: "application/json; charset=utf-8",
+                                                            data: {chatID: urlid, index:chatIndex},
+                                                            success: function(data) {   
+                                                            },complete: function (jqXHR,status) {
+                                                                 chatflag=1;
+                                                                 if(status == 'success' || status=='notmodified')
+                                                                 {
+                                                                  var temp = $.parseJSON(jqXHR.responseText);
+                                                                       for(i=0; i<temp.Messages.length; i++){
+                                                                           if(temp.Messages[i].SenderID == {{.DOCID}}){var senderChk = true;}
+                                                                            else{var senderChk = false;}
+                                                                            historyArr.push(populateMessageModified2(urlid, temp.Messages[i].SenderID, memberList[temp.Messages[i].SenderID][0]+" "+memberList[temp.Messages[i].SenderID][1],
+                                                                            temp.Messages[i].Content, memberList[temp.Messages[i].SenderID].Image, new Date(temp.Messages[i].TimeStamp).getTime(), senderChk,prevSender2));
+                                                                            prevSender2=temp.Messages[i].SenderID;
+                                                                            $('#chat'+$.escapeSelector(urlid)).attr("index",temp.Index);
+                                                                       }
+                                                                     var oldScroll =  $('#chat'+$.escapeSelector(urlid)).scrollTop();
+                                                                     var firstMsg = $('.message-user:first');
+                                                                      $.each(historyArr, function() {
+                                                                          $('#chat'+$.escapeSelector(urlid)).prepend(this);
+                                                                      });
+                                                                      //scroll back to old position
+                                                                      if ( oldScroll < 1) {
+                                                                          $('#chat'+$.escapeSelector(urlid)).scrollTop(firstMsg.offset().top);
+                                                                      }
+                                                                    var oldtimeStamp = $('#chat'+$.escapeSelector(urlid)).find(".message-timeline").first();
+                                                                    var newTimeStamp = $('#chat'+$.escapeSelector(urlid)).find(".message-user-time").first();
+                                                                     if (oldtimeStamp.text() === newTimeStamp.attr("date")) {
+                                                                        oldtimeStamp.insertBefore(newTimeStamp);
+                                                                     }
+                                                            }
+                                                            },error: function(err) {
+                                                                console.log('chat Load failed: ');
+                                                                console.log(err);
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            }
+                                            function GetChatrooms(){
+                                                if (roomflag == 1){
+                                                    roomflag=0;
+                                                   /*  $.ajax({
+                                                        type: 'GET',
+                                                        url: 'http://ustart.today:'+port+'//',
+                                                        contentType: "application/json; charset=utf-8",
+                                                        data: {postIndex:JSON.stringify(roomArr)},
+                                                        success: function(data) {   
+                                                        },complete: function (jqXHR,status) {
+                                                             roomflag=1;
+                                                             if(status == 'success' || status=='notmodified')
+                                                             {
+
+                                                             }
+                                                        },error: function(err) {
+                                                            console.log('chatroom Load failed: ');
+                                                            console.log(err);
+                                                        }
+                                                    });*/
+                                                }
+                                            }
+
+                                            $(".message-box").scroll(function () {
+                                                var $this = $(this);
+                                                var height = this.scrollHeight - $this.height(); // Get the height of the div
+                                                var scroll = $this.scrollTop(); // Get the vertical scroll position
+                                                var isScrolledToEnd = (scroll <= 0);
+                                                if (isScrolledToEnd) {
+                                                    GetChatRecord(); // Get the additional content
+                                                }
+                                            });
+                                            
+                                              $(".container-left").scroll(function () {
+                                                var $this = $(this);
+                                                var roomHeight = this.scrollHeight - $this.height(); // Get the height of the div
+                                                var roomScroll = $this.scrollTop(); // Get the vertical scroll position
+                                                var isScrolledToEnd = (roomScroll > roomHeight);
+                                                if (isScrolledToEnd) {
+                                                    GetChatrooms(); // Get the additional content
+                                                }
+                                             });
                                         });
                                         
                                     </script>

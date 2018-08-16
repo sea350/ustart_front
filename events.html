@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UStart Event - {{.Event.EventData.Name}}</title>
+    <title>UStart Event - </title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick-theme.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/swisnl/jQuery-contextMenu/master/dist/jquery.contextMenu.min.css">
@@ -12,12 +12,19 @@
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-gallery.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/socialMedia.css">
+
+    <link rel="stylesheet" href="/ustart_front/css/evnt.css">
+    <link rel="stylesheet" href="/ustart_front/css/event.css">
+
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/profile.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.7.1/slick/slick.min.js"></script>
     <script type="text/javascript" src="https://rawgit.com/swisnl/jQuery-contextMenu/master/dist/jquery.contextMenu.min.js"></script>
     <script type="text/javascript" src="/ustart_front/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="/ustart_front/ckeditor/config.js"></script>
     <script type="text/javascript" src="/ustart_front/js/jquery.nicescroll.min.js"></script>
+
+    <script type="text/javascript" src="/ustart_front/js/event-nil.js"></script>
+
     {{$userid := .DOCID}}
     {{$eventid := .Event.DocID}}
 	{{$eventurl := .Event.EventData.URLName}}
@@ -29,14 +36,20 @@
         var maxHits = -1;
     </script>
     <script src="http://www.youtube.com/player_api"></script>
+    {{range $loop := .Event.EventData.EntryIDs}}
+    <script>IDArray.push({{$loop}}); </script>
+    {{end}}    
 	<script type="text/javascript" src="/ustart_front/js/layout_tags.js"></script>
     <script type="text/javascript" src="/ustart_front/js/widget-gallery.js"></script>
     <script type="text/javascript" src="/ustart_front/js/widgets.js"></script>
     <script type="text/javascript" src="/ustart_front/js/notify.min.js"></script>
+
+    <script type="text/javascript" src="/ustart_front/js/events.js"></script>
+
     <script type="text/javascript" src="/ustart_front/js/ascii-convert.js"></script>
     <script type="text/javascript" src="/ustart_front/js/createPosts.js"></script>
 </head>
 <body>
-    <h1>helloworld</h1>
+    <input type="hidden" id="followstat">
 </body>
 </html>

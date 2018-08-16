@@ -22,7 +22,6 @@
         var chatNotifCount = 0;
         var chattimerID=0;
         var roomSocket;
-        $(document).ready(function () {
             chatNotifCount = $(".chat-label.label-new").length;
             updateChatBadge();
             $('[data-toggle="tooltip"]').tooltip();
@@ -79,14 +78,13 @@
                          if (temp.heads != null){
                              $('#chatDrop').empty();
                              for(i=temp.heads.length-1; i >= 0; i--){
-                                if((readRuneArrayThatWorks(temp.heads[i].Bio).includes(":"))){
-                                    if((readRuneArrayThatWorks(temp.heads[i].Bio).substring(0,4) != "You:")){
-                                        newMsgReceived = true;
-                                    }
-                                } 
-                                else{
-                                    newMsgReceived = false;
+                                if (!temp.heads[i].Read){
+                                    if((readRuneArrayThatWorks(temp.heads[i].Bio).includes(":"))){
+                                        if((readRuneArrayThatWorks(temp.heads[i].Bio).substring(0,4) != "You:"))  newMsgReceived = true;
+                                    } 
+                                    else newMsgReceived = false;   
                                 }
+                                else newMsgReceived = false;
                                 appendChatItem(temp.heads[i].Username,temp.heads[i].FirstName+' '+temp.heads[i].LastName, readRuneArrayThatWorks(temp.heads[i].Bio), formatTime(temp.heads[i].Time),  newMsgReceived, temp.heads[i].Classification, temp.heads[i].Image, temp.heads[i].DocID);
                              }
                          }
@@ -222,7 +220,6 @@
                     chatNotifstart();}
             }
                
-        });
     </script>
 </head>
 
@@ -257,9 +254,9 @@
                             <ul class="dropdown-menu">
                             <div id ="chatDrop" class = "padded">
                             </div>
-                            <footer class="footer" style ="border-top: 1px solid white;">
+                            <!--<footer class="footer" style ="border-top: 1px solid white;">
                                 <a style="margin-left:1em;" href="/ch/">See All Messages</a>
-                            </footer>
+                            </footer>-->
                             </ul>
                 </li>
                 <li class="navbar-btn nav-item dropdown" data-toggle="tooltip" data-placement="left" title="Notifications">

@@ -42,6 +42,36 @@
 						</button>
 					</a>                                     
                 </h1>
+                <div id='event-container' class='row'>
+                    <!-- 
+                        'FirstName' = evnt.Name
+                        'Bio' = evnt.Description
+                        'Image' = evnt.Avatar
+                        'Username' = evnt.URLName
+                        'DocID' = eventID
+                        'Notifications' = len(evnt.MemberReqReceived)
+                        'Interface' = evnt.Tags                    
+                    -->
+					{{range $event := .ListOfHeads}}
+					<div class="card">
+						<a href="/Event/{{$event.Username}}">
+                            <img id="event-preview{{$event.DocID}}" class="img-responsive" src="" />							
+                        </a>
+						<script>
+                            $("#event-preview{{$event.DocID}}").attr('src', {{ $event.Image }});</script>                        
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="/Event/{{$event.Username}}">{{$event.FirstName}}</a>
+							</h4>
+							<p class="card-text">
+								<script>readRuneArray({{ $event.Bio }});</script>
+							</p>
+						</div>
+					</div>
+					{{end}}
+
+                                   
+            </div>
             </div>
         </div>
     </div>
