@@ -51,6 +51,11 @@
     height: 90px;
     padding-left: 2em;
 }
+.event-menu-list{
+    width: 100%;
+    height: 90px;
+    padding-left: 2em;
+}
 .vertical-menu ul li h5{
     line-height: 50px;
 }
@@ -78,6 +83,10 @@ $('.contents').css({'border-left': '1px solid #808080'});*/
     margin-bottom: 2em;
     display: none;
 }
+#eventCategory, #eventInfo, #eventLocation, #eventURL, #eventMember{
+    margin-bottom: 2em;
+    display: none;
+}
 #eventDate, #eventLocation, #eventInfo, #eventMember{
     margin-bottom: 2em;
     display: none;
@@ -88,6 +97,10 @@ $('.contents').css({'border-left': '1px solid #808080'});*/
     display:block;
 }   
 #projectImage{
+    margin-bottom: 2em;
+    display:block;    
+}
+#eventImage{
     margin-bottom: 2em;
     display:block;    
 }
@@ -264,6 +277,9 @@ textarea#inputDesc {
 #projectCategory, #projectLocation, #projectURL{
     margin-top: 3em;
 }
+#eventCategory, #eventLocation, #eventURL{
+    margin-top: 3em;
+}
 #eventDate, #eventLocation, #eventImage{
     margin-top: 3em;
 }
@@ -276,6 +292,7 @@ textarea#inputDesc {
 #projectInfo .row{
     margin-bottom: 1em;
 }
+
 #eventInfo .row{
     margin-bottom: 1em;
 }
