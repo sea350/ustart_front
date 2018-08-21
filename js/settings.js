@@ -131,6 +131,21 @@ function eduCheck(usrtype) {
 	}
 }
 $(document).ready(function() {
+	//event setting
+    $('.vertical-menu ul').on('click', '.event-menu-list', function(event) {
+        $('.event-menu-list.active').removeClass('active');
+		$(this).addClass('active');
+		if ($('li[data-target="eventImage"]').hasClass("active")) {
+			//$('.vertical-menu').css({'border-right': 'none;'});
+			$('.vertical-menu').css({'border-right': 'none'});			
+			$('.eventContents').css({'border-left': '1px solid #808080'});
+		  }
+		else{	 
+			$('.eventContents').css({'border-left': 'none'});			
+			$('.vertical-menu').css({'border-right': '1px solid #808080'});			
+		}	
+        $("#"+$(this).data('target')).show().siblings("div").hide();
+	}); 		
 	//project setting
     $('.vertical-menu ul').on('click', '.project-menu-list', function(event) {
         $('.project-menu-list.active').removeClass('active');
