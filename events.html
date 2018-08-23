@@ -312,11 +312,11 @@
                                         
                                         <h4>Projects attending</h4>
                                     </div>
-                                    {{range $member := .Event.MemberData}}
-                                    <a class="member" href="/profile/{{$member.Username}}" data-toggle="tooltip" data-placement="right" title="{{$member.FirstName}} {{$member.LastName}}">
-                                            <img id="img{{$member.Username}}" class="img-circle img-responsive">
+                                    {{range $project := .Event.ProjectData}}
+                                    <a class="member" href="/Projects/{{$project.Username}}" data-toggle="tooltip" data-placement="right" title="{{$project.FirstName}}">
+                                            <img id="img{{$project.Username}}" class="img-circle img-responsive">
                                             <script>
-                                                $('img#img{{$member.Username}}').attr('src', {{$member.Image}});
+                                                $('img#img{{$project.Username}}').attr('src', {{$project.Image}});
                                             </script>
                                             <!--
                                             <div class="member-title">C.E.O.</div>
