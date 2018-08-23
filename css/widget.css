@@ -15,7 +15,7 @@
 	display: inline-block;
 }
 
-.projectsWidgetCont, .eventsWidgetCont {
+.profileWidgetCont,.projectsWidgetCont, .eventsWidgetCont {
     position: relative;
 }
 
@@ -295,17 +295,27 @@ span.ui-icon {
     cursor: grab;
 }
 
-#widget-insert .widgetBody > button{
+.addWidgetBtn{
     display:inline-block;
     width:100px;
     height:10em;
 }
-#projectDisplay .widgetBody >a,
+.addProjWidgetBtn{
+    display:inline-block;
+    width:109px;
+    height:10em;
+}
+
+#projectDisplay .widgetBody >a{
+    display:inline-block;
+    width:100px;
+    height:8.5em;
+}
 #eventDisplay .widgetBody> a,
 #eventDisplay .widgetBody>button{
     display:inline-block;
     width:109px;
-    height:10em;
+    height:8.5em;
 }
 #eventDisplay .widgetBody {
 	/*display: grid;

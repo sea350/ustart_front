@@ -396,7 +396,7 @@ $(document).ready(function () {
         console.log('follow clicked');
         $.ajax({
             type: 'GET',  
-            url: 'http://ustart.today:'+port+'/callme/',
+            url: 'http://ustart.today:'+port+'/AjaxUserFollowsUser/',
             contentType: "application/json; charset=utf-8",
             data: {userID:userID, Following:followstatus},
             success: function(data) {
