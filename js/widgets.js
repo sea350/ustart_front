@@ -27,6 +27,7 @@ var galleryDefaultRemoveOption = '<option default selected>Select from your list
 
 function daRender(daUsername, daCount) {
 	$('#widgetBodyDA').rss("https://backend.deviantart.com/rss.xml?q=gallery%3A" + encodeURI(daUsername), {
+		limit: daCount,
 		layoutTemplate: '<ul data-da-username="' + daUsername + '">{entries}</ul>',
 		entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="dArt-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
 		dateFormat: 'MMM Do, YYYY',
