@@ -137,7 +137,12 @@
                             {{end}}
                                 <div id="event-location" class="detail-content">
                                     {{range $member := .Event.MemberData}}
+                                    {{if eq $userid $member.DocID}}
+                                    {{$memberValidity := $member.Classification}}
+                                    {{if le $memberValidity 1}}
                                     <span style='color: #90949c;'>Hosted By </span> <p> <strong>{{$member.FirstName}} {{$member.LastName}}</strong> a.k.a ({{$member.Username}})</p>
+                                    {{end}}
+                                    {{end}}
                                     {{end}}
                                 </div>
                         </div>
@@ -155,7 +160,14 @@
                                         </button>
                                     </form>
                                     {{end}}
+                                    {{range $member := .Event.MemberData}}
+                                    {{if eq $userid $member.DocID}}
+                                    {{$memberValidity := $member.Classification}}
+                                    {{if le $memberValidity 1}}
                                     <a class='btn btn-default' style="padding: 0.5em 1em;" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
+                                    {{end}}
+                                    {{end}}
+                                    {{end}}
                                     <script>
                                     
                                         var Sdate = {{.Event.EventData.EventDateStart}}; 
@@ -258,7 +270,12 @@
                                 </div>
                                 <div class="col-sm-10" >
                                     {{range $member := .Event.MemberData}}
+                                    {{if eq $userid $member.DocID}}
+                                    {{$memberValidity := $member.Classification}}
+                                    {{if le $memberValidity 1}}
                                     <p> <strong> {{$member.FirstName}} {{$member.LastName}}</strong></p>
+                                    {{end}}
+                                    {{end}}
                                     {{end}}
                                 </div>  
                             </div>              
@@ -283,7 +300,7 @@
                         <li class="ui-state-default">
                             <div id="usersWidget" class="eventsWidgetCont">
                                 <div class="widgetTitle">
-                                    <span class="pull-right fa fa-2x fa-plus-circle" data-toggle="modal" data-target="#addUserModal"></span>
+                                    
                                     <h4>Users attending</h4>
                                 </div>
                                 {{range $member := .Event.MemberData}}
@@ -309,14 +326,14 @@
                             <li class="ui-state-default">
                                 <div id="usersWidget" class="eventsWidgetCont">
                                     <div class="widgetTitle">
-                                        <span class="pull-right fa fa-2x fa-plus-circle" data-toggle="modal" data-target="#addProjModal"></span>
+                                        
                                         <h4>Projects attending</h4>
                                     </div>
-                                    {{range $project := .Event.ProjectData}}
-                                    <a class="member" href="/Projects/{{$project.Username}}" data-toggle="tooltip" data-placement="right" title="{{$project.FirstName}}">
-                                            <img id="img{{$project.Username}}" class="img-circle img-responsive">
+                                    {{range $member := .Event.MemberData}}
+                                    <a class="member" href="/profile/{{$member.Username}}" data-toggle="tooltip" data-placement="right" title="{{$member.FirstName}} {{$member.LastName}}">
+                                            <img id="img{{$member.Username}}" class="img-circle img-responsive">
                                             <script>
-                                                $('img#img{{$project.Username}}').attr('src', {{$project.Image}});
+                                                $('img#img{{$member.Username}}').attr('src', {{$member.Image}});
                                             </script>
                                             <!--
                                             <div class="member-title">C.E.O.</div>
@@ -819,7 +836,7 @@
                                 <div id="widgetBodyGit" class="widgetBody">
                                     <script>
                                         $( document ).ready(function() {
-                                           githubRender({{index $loop.Data 0}}, {{index $loop.Data 1}});
+                                           githubRender({{index $loop.Data 0}});
                                         });
                                     </script>
                                 </div>
@@ -1134,423 +1151,420 @@
                           </form>
                       </div>
                   </div>
-                </div><!--end soundcloud widget -->                
-                <!-- codepen widget -->
-                <div class="modal fade" id="code-modal" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Embed CodePen</h4>
-                            </div>
-                            <form id="customCodePenForm" action="/addEventWidget/" method="POST">
-                            <div class="modal-body">
-                                <p>Please paste the CodePen embed code in here:</p>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="code-embed-input" name="codepenInput" pattern='<p data-height="265" data-theme-id="0" data-slug-hash="[A-Za-z]{6}" data-default-tab="css,result" data-user="[^"]+" data-embed-version="2" data-pen-title="[^"]+" class="codepen"\>[^<]+\<a href="https:\/\/codepen\.io\/[^\/]+\/pen\/[A-Za-z]{6}\/">[^<]+<\/a> by [^(]+\(<a href="https:\/\/codepen\.io\/[^"]+">@[^<]+<\/a>\) on <a href="https:\/\/codepen\.io">CodePen<\/a>\.<\/p>\n<script async src="https:\/\/static\.codepen\.io\/assets\/embed\/ei\.js"><\/script>' required>
-                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                    <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value="{{$eventid}}" required/>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" id="code-submit-btn" class="btn btn-info btn-done" name="widgetSubmit" value="7">Done</button>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
-                </div><!-- end codepen widget-->              
-                <!--twitch widget -->
-                <div class="modal fade" id="twitch-modal" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Embed Twitch</h4>
-                            </div>
-                            <form id="customTwitchForm" action="/addEventWidget/" method="POST">
-                                <div class="modal-body">
-                                    <p>Put your Twitch username here to broadcast yourself whenever you stream live:</p>
-                                    <div class="input-group">
-                                        <div class="input-group-btn">
-                                            <button id="twitch-setting" type="button" class="btn btn-secondary" aria-expanded="false">
-                                                Username
-                                            </button>
-                                        </div>
-                                        <input type="text" class="form-control" name="twitchInput" id="twitch-embed-username" required pattern='[0-9A-Za-z_]{1,25}'/>
-                                        <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                        <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value="{{$eventid}}" required/>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" id="twitch-submit-btn" class="btn btn-info btn-done" name="widgetSubmit" value="14">Done</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div> <!--end twitch widget -->             
-                <!-- tumblr widget -->
-                <div class="modal fade" id="tumblr-modal" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Embed Tumblr</h4>
-                            </div>
-                            <form id="customTumblrForm" action="/addEventWidget/" method="POST">
-                                <div class="modal-body">
-                                    <p>Insert Tumblr Username here:</p>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="tumblrInput" id="medium-embed-input" placeholder="ustart" pattern='[A-Za-z0-9\-\.]{1,32}' required>
-                                        <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                    <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" id="tumblr-submit-btn" class="btn btn-info btn-done" name="widgetSubmit" value="9">Done</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div> <!--end tumblr widget -->
-                <!-- spotify widget -->
-                <div class="modal fade" id="spot-modal" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Embed Spotify</h4>
-                            </div>
-                            <form id="customSpotifyForm" action="/addEventWidget/" method="POST">
-                            <div class="modal-body">
-                                <span id="spot-list-title">Removable Spotify Sounds</span>
-                                <ul id="spot-edit-list"></ul>
-                                <p>Please paste the Spotify embed code in here:</p>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="spotInput" id="spot-embed-input" pattern='<iframe src="https:\/\/open\.spotify\.com\/embed\/[^"]+" width="300" height="380" frameborder="0" allowtransparency="true"><\/iframe>' required>
-                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                    <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" id="spot-submit-btn" class="btn btn-info btn-done" name="widgetSubmit" value="10">Done</button>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
-                </div> <!-- end spotify widget -->             
-                <!--pinterest Widget -->
-                <div class="modal fade" id="pin-modal" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Embed Pinterest</h4>
-                            </div>
-                            <div class="modal-body">
-                                <span id="pin-list-title">Removable Pins</span>
-                                <ul id="pin-edit-list"></ul>
-                                <p>Please paste your Pinterest Profile URL here:</p>
-                                <form id="customPinterestForm" action="/addEventWidget/" method="POST">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="http://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+\/' required>
-                                    <!-- Regexp: pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/? -->
-                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                    <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
-                                </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" id="pin-submit-btn" class="btn btn-info btn-done" form="customPinterestForm" name="widgetSubmit" value="8">Done</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!--end pinterest widget-->
-                <!-- link modal-->
-                <div class="modal fade" id="addLinkModal" role="dialog">
-                    <div class="modal-dialog">
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Add Link</h4>
-                            </div>
-                            
-                                <div class="modal-body">
-                                    <p>
-                                        <span class="modal-cell">Title</span>
-                                        <input type="text" class="link-input-read" name="webTitle" placeholder="example: 'My LinkedIn'" spellcheck="false" required autofocus />
-                                    </p>
-                                    <p>
-                                        <span class="modal-cell">URL</span>
-                                        <input type="url" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" required/>
-                                    </p>
-                                    <input type="hidden" name="eventID" value='{{$eventid}}' required/>
-                                </div>
-                                
-                                <div class="modal-footer">
-                                    <div class="numLinks">
-                                        <span id="linkCountIndicator"></span>
-                                    </div>
-                                    <button type="submit" id="link-event-submit-btn" class="btn btn-info btn-done">Done</button>
-                                </div>
-                        </div>
-                    </div>
-                </div><!-- end linkmodal-->
-                <!-- anchor modal-->
-                <div class="modal fade" id="ar-modal" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Embed Anchors</h4>
-                            </div>
-                            <div class="modal-body">
-                                <span id="ar-list-title">Removable Anchors</span>
-                                <ul id="ar-edit-list"></ul>
-                                <p>Insert the Anchor URL:</p>
-                                <form id="customArForm" action="/addEventWidget/" method="POST">
-                                
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="arInput" id="ar-embed-input" pattern='https:\/\/anchor\.fm\/.*\/+' required>
-                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                    <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
-                                </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" id="ar-submit-btn" class="btn btn-info btn-done" form="customArForm" name="widgetSubmit" value="11">Done</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!--end anchor modal-->
-                <!--medium modal-->
-                <div class="modal fade" id="med-modal" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Embed Medium</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>Enter Your Medium username:</p>
-                                <form id="customMedForm" action="/addEventWidget/" method="POST">
-                                    <p>Select a Medium import option, either your username, or your publication name</p>
-                                    <div class="input-group">
-                                        <div class="input-group-btn">
-                                            <button id="med-setting" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Username <i class="glyphicon glyphicon-menu-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a id="med-setting-user" class="dropdown-item" style="display:block;">Username</a>
-                                                <a id="med-setting-pub" class="dropdown-item" style="display:block;">Publication</a>
-                                            </div>
-                                        </div>
-                                        <input type="text" class="form-control" name="medInput" id="med-embed-username" pattern='[0-9A-Za-z\-]{1,32}'/>
-                                        <input type="text" class="form-control" name="medInput2" id="med-embed-publication"/>
-                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                    <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
-                                        
-                                    </div>
-                                    <br/>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Publication Tag</span>
-                                        <input type="text" class="form-control" name="medInput3" id="med-embed-tag" disabled placeholder="(Optional)"/>
-                                    </div>
-                                    <br/>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Article Count</span>
-                                        <input type="number" class="form-control" name="medInput4" id="med-count" min='1' max='12' value='4'/>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" id="ar-submit-btn" class="btn btn-info btn-done" form="customMedForm" name="widgetSubmit" value="12">Done</button>
+              </div><!--end soundcloud widget -->                
+              <!-- codepen widget -->
+              <div class="modal fade" id="code-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed CodePen</h4>
+                         </div>
+                         <form id="customCodePenForm" action="/addEventWidget/" method="POST">
+                         <div class="modal-body">
+                             <p>Please paste the CodePen embed code in here:</p>
+                             <div class="form-group">
+                                 <input type="text" class="form-control" id="code-embed-input" name="codepenInput" pattern='<p data-height="265" data-theme-id="0" data-slug-hash="[A-Za-z]{6}" data-default-tab="css,result" data-user="[^"]+" data-embed-version="2" data-pen-title="[^"]+" class="codepen"\>[^<]+\<a href="https:\/\/codepen\.io\/[^\/]+\/pen\/[A-Za-z]{6}\/">[^<]+<\/a> by [^(]+\(<a href="https:\/\/codepen\.io\/[^"]+">@[^<]+<\/a>\) on <a href="https:\/\/codepen\.io">CodePen<\/a>\.<\/p>\n<script async src="https:\/\/static\.codepen\.io\/assets\/embed\/ei\.js"><\/script>' required>
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value="{{$eventid}}" required/>
+                             </div>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="submit" id="code-submit-btn" class="btn btn-info btn-done" name="widgetSubmit" value="7">Done</button>
+                         </div>
+                         </form>
+                     </div>
+                 </div>
+             </div><!-- end codepen widget-->              
+             <!--twitch widget -->
+             <div class="modal fade" id="twitch-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Twitch</h4>
+                         </div>
+                         <form id="customTwitchForm" action="/addEventWidget/" method="POST">
+                             <div class="modal-body">
+                                 <p>Put your Twitch username here to broadcast yourself whenever you stream live:</p>
+                                 <div class="input-group">
+                                     <div class="input-group-btn">
+                                         <button id="twitch-setting" type="button" class="btn btn-secondary" aria-expanded="false">
+                                             Username
+                                         </button>
+                                     </div>
+                                     <input type="text" class="form-control" name="twitchInput" id="twitch-embed-username" required pattern='[0-9A-Za-z_]{1,25}'/>
+                                     <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                     <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value="{{$eventid}}" required/>
+                                 </div>
+                             </div>
+                             <div class="modal-footer">
+                                 <button type="submit" id="twitch-submit-btn" class="btn btn-info btn-done" name="widgetSubmit" value="14">Done</button>
+                             </div>
+                         </form>
+                     </div>
+                 </div>
+             </div> <!--end twitch widget -->             
+             <!-- tumblr widget -->
+             <div class="modal fade" id="tumblr-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Tumblr</h4>
+                         </div>
+                         <form id="customTumblrForm" action="/addEventWidget/" method="POST">
+                             <div class="modal-body">
+                                 <p>Insert Tumblr Username here:</p>
+                                 <div class="form-group">
+                                     <input type="text" class="form-control" name="tumblrInput" id="medium-embed-input" placeholder="ustart" pattern='[A-Za-z0-9\-\.]{1,32}' required>
+                                     <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                                 </div>
+                             </div>
+                             <div class="modal-footer">
+                                 <button type="submit" id="tumblr-submit-btn" class="btn btn-info btn-done" name="widgetSubmit" value="9">Done</button>
+                             </div>
+                         </form>
+                     </div>
+                 </div>
+             </div> <!--end tumblr widget -->
+             <!-- spotify widget -->
+             <div class="modal fade" id="spot-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Spotify</h4>
+                         </div>
+                         <form id="customSpotifyForm" action="/addEventWidget/" method="POST">
+                         <div class="modal-body">
+                             <span id="spot-list-title">Removable Spotify Sounds</span>
+                             <ul id="spot-edit-list"></ul>
+                             <p>Please paste the Spotify embed code in here:</p>
+                             <div class="form-group">
+                                 <input type="text" class="form-control" name="spotInput" id="spot-embed-input" pattern='<iframe src="https:\/\/open\.spotify\.com\/embed\/[^"]+" width="300" height="380" frameborder="0" allowtransparency="true"><\/iframe>' required>
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                             </div>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="submit" id="spot-submit-btn" class="btn btn-info btn-done" name="widgetSubmit" value="10">Done</button>
+                         </div>
+                         </form>
+                     </div>
+                 </div>
+             </div> <!-- end spotify widget -->             
+             <!--pinterest Widget -->
+             <div class="modal fade" id="pin-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Pinterest</h4>
+                         </div>
+                         <div class="modal-body">
+                             <span id="pin-list-title">Removable Pins</span>
+                             <ul id="pin-edit-list"></ul>
+                             <p>Please paste your Pinterest Profile URL here:</p>
+                             <form id="customPinterestForm" action="/addEventWidget/" method="POST">
+                             <div class="form-group">
+                                 <input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="http://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+\/' required>
+                                 <!-- Regexp: pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/? -->
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                             </div>
+                              </form>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="submit" id="pin-submit-btn" class="btn btn-info btn-done" form="customPinterestForm" name="widgetSubmit" value="8">Done</button>
+                         </div>
+                     </div>
+                 </div>
+             </div> <!--end pinterest widget-->
+             <!-- link modal-->
+             <div class="modal fade" id="addLinkModal" role="dialog">
+                 <div class="modal-dialog">
+                     <!-- Modal content-->
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Add Link</h4>
+                         </div>
+                         
+                             <div class="modal-body">
+                                 <p>
+                                     <span class="modal-cell">Title</span>
+                                     <input type="text" class="link-input-read" name="webTitle" placeholder="example: 'My LinkedIn'" spellcheck="false" required autofocus />
+                                 </p>
+                                 <p>
+                                     <span class="modal-cell">URL</span>
+                                     <input type="url" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" required/>
+                                 </p>
+                                 <input type="hidden" name="eventID" value='{{$eventid}}' required/>
+                             </div>
+                             
+                             <div class="modal-footer">
+                                 <div class="numLinks">
+                                     <span id="linkCountIndicator"></span>
+                                 </div>
+                                 <button type="submit" id="link-event-submit-btn" class="btn btn-info btn-done">Done</button>
+                             </div>
+                     </div>
+                 </div>
+             </div><!-- end linkmodal-->
+             <!-- anchor modal-->
+             <div class="modal fade" id="ar-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Anchors</h4>
+                         </div>
+                         <div class="modal-body">
+                             <span id="ar-list-title">Removable Anchors</span>
+                             <ul id="ar-edit-list"></ul>
+                             <p>Insert the Anchor URL:</p>
+                             <form id="customArForm" action="/addEventWidget/" method="POST">
+                             
+                             <div class="form-group">
+                                 <input type="text" class="form-control" name="arInput" id="ar-embed-input" pattern='https:\/\/anchor\.fm\/.*\/+' required>
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                             </div>
+                             </form>
+                         </div>
+                         <div class="modal-footer">
+                              <button type="submit" id="ar-submit-btn" class="btn btn-info btn-done" form="customArForm" name="widgetSubmit" value="11">Done</button>
+                         </div>
+                     </div>
+                 </div>
+             </div> <!--end anchor modal-->
+             <!--medium modal-->
+             <div class="modal fade" id="med-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Medium</h4>
+                         </div>
+                         <div class="modal-body">
+                             <p>Enter Your Medium username:</p>
+                             <form id="customMedForm" action="/addEventWidget/" method="POST">
+                                 <p>Select a Medium import option, either your username, or your publication name</p>
+                                 <div class="input-group">
+                                     <div class="input-group-btn">
+                                         <button id="med-setting" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             Username <i class="glyphicon glyphicon-menu-down"></i>
+                                         </button>
+                                         <div class="dropdown-menu">
+                                             <a id="med-setting-user" class="dropdown-item" style="display:block;">Username</a>
+                                             <a id="med-setting-pub" class="dropdown-item" style="display:block;">Publication</a>
+                                         </div>
+                                     </div>
+                                     <input type="text" class="form-control" name="medInput" id="med-embed-username" pattern='[0-9A-Za-z\-]{1,32}'/>
+                                     <input type="text" class="form-control" name="medInput2" id="med-embed-publication"/>
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                                     
+                                 </div>
+                                 <br/>
+                                 <div class="input-group">
+                                     <span class="input-group-addon">Publication Tag</span>
+                                     <input type="text" class="form-control" name="medInput3" id="med-embed-tag" disabled placeholder="(Optional)"/>
+                                 </div>
+                                 <br/>
+                                 <div class="input-group">
+                                     <span class="input-group-addon">Article Count</span>
+                                     <input type="number" class="form-control" name="medInput4" id="med-count" min='1' max='12' value='4'/>
+                                 </div>
+                             </form>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="submit" id="ar-submit-btn" class="btn btn-info btn-done" form="customMedForm" name="widgetSubmit" value="12">Done</button>
 
-                            </div>
-                        </div>
-                    </div>
-                </div> <!--end medium-->
-                <!-- deviant art modal-->
-                <div class="modal fade" id="da-modal" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Embed DeviantArt</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>Put your DeviantArt username here to share your newest deviations:</p>
-                                <form id="customDaForm" action="/addEventWidget/" method="POST">
-                                
-                                <div class="input-group">
-                                    <div class="input-group-btn">
-                                        <button id="da-setting" type="button" class="btn btn-secondary" aria-expanded="false">
-                                            Username
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control" name="daInput" id="da-embed-username" required/>
-                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                    <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
-                                    
-                                </div>
-                                <br/>
-                                <div class="input-group">
-                                    <span class="input-group-addon">Article Count</span>
-                                    <input type="number" class="form-control"  name="daInput2" id="da-count" min='1' max='12' value='4'/>
-                                </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" id="da-submit-btn" class="btn btn-info btn-done" form="customDaForm" name="widgetSubmit" value="13">Done</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>             
-                <!-- calendar modal -->
-                <div class="modal fade" id="cal-modal" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Embed Google Calendar</h4>
-                            </div>
-                            <div class="modal-body">
-                                <span id="cal-list-title">Removable cals</span>
-                                <ul id="cal-edit-list"></ul>
-                                <form id="customCalForm" class="form-group" action="/addWidget/" method="POST">
-                                    <label for="gCalEmbed">Share your Google Calendar here:</label>
-                                    <input type="text" id="gCalEmbed" class="form-control" name="gCalEmbed" placeholder="Your Google Calendar Link"
-                                        pattern="(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$)|((<iframe src=\x22)?https:\/\/calendar\.google\.com\/calendar\/((embed)|(htmlembed))\?src=.*)" required/>
-                                    <label for="gCalEmbed">
-                                        <div>
-                                            <span>Example:</span>
-                                            <i>Your Calendar ID: example@gmail.com</i>
-                                            <i>https://calendar.google.com/calendar/embed?src= Your Calendar ID</i>
-                                        </div>
-                                    </label>
-                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" id="cal-submit-btn" class="btn btn-primary" form="customCalForm" name="widgetSubmit" value="15">Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-                <!-- github modal -->
-                <div class="modal fade" id="git-modal" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Embed Github</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form id="customGitForm" class="form-group" action="/addWidget/" method="POST">
-                                    <label for="git-embed-username"><p>Put your Github username here to publish your code:</p></label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Username</span>
-                                        <input type="text" class="form-control" id="git-embed-username" name="username"/>
-                                    </div>
-                                    <br/>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Shown Events Count</span>
-                                        <input type="number" class="form-control" id="git-count" min='1' max='12' value='4'/>
-                                    </div>
-                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" id="git-submit-btn" class="btn btn-primary" form="customGitForm" name="widgetSubmit" value="16">Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>   
-                <!--gallery Widget -->
-                <div class="modal fade" id="gallery-modal" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Embed Gallery</h4>
-                            </div>
-                            <div class="modal-body">
-                                <span id="gallery-list-title">Removable Images</span>
-                                <ul id="gallery-edit-list"></ul>
-                                <p>Upload Image</p>
-                                <form id="imageWidgetUpload" action="/addWidget/" method="POST" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <input type="file" class="form-control" id="gallery-embed-input" name="galleryImageInput" placeholder="Gallery Image" required>
-                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" id="gallery-submit-btn" class="btn btn-info btn-done" form="imageWidgetUpload" name="widgetSubmit" value="17">Done</button>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div> <!--end gallery widget--> 
-                <!-- insert modal -->
-                    <div id="addUserModal" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Add Member to Event</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <label for="eventMemberName">Add Member</label>
-                                    <div class="input-group">
-                                        <input id="eventMemberName" class="form-control" name="eventMemberName" type="text" list="eventMemberList" />
-                                        <datalist id="eventMemberList">
-                                            <select>
-                                                <option>None</option>
-                                            </select>
-                                        </datalist>
-                                        <button class="btn btn-primary">+</button>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="addProjectModal" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Add Project to Event</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <label for="eventProjectName">Add Member</label>
-                                    <div class="input-group">
-                                        <input id="eventProjectName" class="form-control" name="eventProjectName" type="text" list="eventProjectList" />
-                                        <datalist id="eventProjectList">
-                                            <select>
-                                                <option>None</option>
-                                            </select>
-                                        </datalist>
-                                        <button class="btn btn-primary">+</button>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <style>
-                        .ui-autocomplete {
-                            z-index: 30000 !important;
+                         </div>
+                     </div>
+                 </div>
+             </div> <!--end medium-->
+             <!-- deviant art modal-->
+             <div class="modal fade" id="da-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed DeviantArt</h4>
+                         </div>
+                         <div class="modal-body">
+                             <p>Put your DeviantArt username here to share your newest deviations:</p>
+                             <form id="customDaForm" action="/addEventWidget/" method="POST">
+                             
+                             <div class="input-group">
+                                 <div class="input-group-btn">
+                                     <button id="da-setting" type="button" class="btn btn-secondary" aria-expanded="false">
+                                         Username
+                                     </button>
+                                 </div>
+                                 <input type="text" class="form-control" name="daInput" id="da-embed-username" required/>
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                                 
+                             </div>
+                             <br/>
+                             <div class="input-group">
+                                 <span class="input-group-addon">Article Count</span>
+                                 <input type="number" class="form-control"  name="daInput2" id="da-count" min='1' max='12' value='4'/>
+                             </div>
+                             </form>
+                         </div>
+                         <div class="modal-footer">
+                              <button type="submit" id="da-submit-btn" class="btn btn-info btn-done" form="customDaForm" name="widgetSubmit" value="13">Done</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>             
+             <!-- calendar modal -->
+             <div class="modal fade" id="cal-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Google Calendar</h4>
+                         </div>
+                         <div class="modal-body">
+                             <span id="cal-list-title">Removable cals</span>
+                             <ul id="cal-edit-list"></ul>
+                             <form id="customCalForm" class="form-group" action="/addWidget/" method="POST">
+                                 <label for="gCalEmbed">Share your Google Calendar here:</label>
+                                 <input type="text" id="gCalEmbed" class="form-control" name="gCalEmbed" placeholder="Your Google Calendar Link"
+                                     pattern="(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$)|((<iframe src=\x22)?https:\/\/calendar\.google\.com\/calendar\/((embed)|(htmlembed))\?src=.*)" required/>
+                                 <label for="gCalEmbed">
+                                     <div>
+                                         <span>Example:</span>
+                                         <i>Your Calendar ID: example@gmail.com</i>
+                                         <i>https://calendar.google.com/calendar/embed?src= Your Calendar ID</i>
+                                     </div>
+                                 </label>
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                             </form>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                             <button type="submit" id="cal-submit-btn" class="btn btn-primary" form="customCalForm" name="widgetSubmit" value="15">Submit</button>
+                         </div>
+                     </div>
+                 </div>
+             </div> 
+             <!-- github modal -->
+             <div class="modal fade" id="git-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Github</h4>
+                         </div>
+                         <div class="modal-body">
+                             <form id="customGitForm" class="form-group" action="/addWidget/" method="POST">
+                                 <label for="git-embed-username"><p>Put your Github username here to publish your code:</p></label>
+                                 <div class="input-group">
+                                     <span class="input-group-addon">Username</span>
+                                     <input type="text" class="form-control" id="git-embed-username" name="username"/>
+                                 </div>
+                                 <br/>
+                                 <div class="input-group">
+                                     <span class="input-group-addon">Shown Events Count</span>
+                                     <input type="number" class="form-control" id="git-count" min='1' max='12' value='4'/>
+                                 </div>
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                             </form>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                             <button type="submit" id="git-submit-btn" class="btn btn-primary" form="customGitForm" name="widgetSubmit" value="16">Submit</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>   
+             <!--gallery Widget -->
+             <div class="modal fade" id="gallery-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Gallery</h4>
+                         </div>
+                         <div class="modal-body">
+                             <span id="gallery-list-title">Removable Images</span>
+                             <ul id="gallery-edit-list"></ul>
+                             <p>Upload Image</p>
+                             <form id="imageWidgetUpload" action="/addWidget/" method="POST" enctype="multipart/form-data">
+                             <div class="form-group">
+                                 <input type="file" class="form-control" id="gallery-embed-input" name="galleryImageInput" placeholder="Gallery Image" required>
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                             </div>
+                              </form>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="submit" id="gallery-submit-btn" class="btn btn-info btn-done" form="imageWidgetUpload" name="widgetSubmit" value="17">Done</button>
+                         </div>
+                         
+                     </div>
+                 </div>
+             </div> <!--end gallery widget--> 
+             <!-- insert modal -->
+
+             <div id="event-member-add" class="modal fade" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Add Member to Event</h4>
+                         </div>
+                         <div class="modal-body">
+                             <label for="eventMemberName">Add Member</label>
+                             <div class="input-group">
+                                 <input id="eventMemberName" class="form-control" name="eventMemberName" type="text" list="event-member-suggestion" />
+                                 <datalist>
+                                     <option>None</option>
+                                 </datalist>
+                                 <button class="btn btn-primary">+</button>
+                             </div>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>                         
+             <script type="text/javascript">
+                var usersToAdd = new Array("A Ryan", "B Ryan", "C Ryan", "D Ryan", "E Ryan", "F Ryan", "G Ryan", "H Ryan", "I Ryan", "J Ryan", "K Ryan", "L Ryan", "M Ryan", "N Ryan", "O Ryan", "P Ryan", "Q Ryan", "R Ryan", "S Ryan", "T Ryan", "U Ryan", "W Ryan", "X Ryan", "Y Ryan", "Z Ryan");
+                $(document).ready(function () {
+                    $("input[name='event-member-add']").autocomplete({
+                        source: function (request, response) {
+                            var results = $.ui.autocomplete.filter(usersToAdd, request.term);
+                            response(results.slice(0, 10));
+                        },
+                        select: function (event, ui) {
+                            $('.event-member-adder').attr('disabled', false);
                         }
-                    </style>
-                </div> <!-- modal box -->            
+                    });
+                    $('.event-member-adder').click(function () {
+                        if (usersToAdd.indexOf($("input[name='event-member-add']").val()) < 0) {
+                            alert('Invalid User');
+                        } else {
+                            loadMembers($("input[name='event-member-add']").val());
+                            $('#event-member-add').modal('hide');
+                            $('.event-tabs a[href="#event-team"]').tab('show');
+                        }
+                    });
+                });
+            </script>
+            <style>
+                .ui-autocomplete {
+                    z-index: 30000 !important;
+                }
+            </style>
+            </div> <!-- modal box -->            
             </div>
         </div>
     </div>

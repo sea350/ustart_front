@@ -398,7 +398,7 @@ $(document).ready(function () {
             type: 'GET',  
             url: 'http://ustart.today:'+port+'/AjaxUserFollowsUser/',
             contentType: "application/json; charset=utf-8",
-            data: {userID:userID, Following:followstatus},
+            data: {userID:userID},
             success: function(data) {
                 var totalFollowers = parseInt($('#num-followers').html());
                 if ($('#btn1').hasClass('following')) {

@@ -21,7 +21,7 @@
 
 
 .columnTitle {
-    white-space: normal;
+    white-space: nowrap;
 	font-weight: bold;
 	margin: auto;
 	text-overflow: ellipsis;
