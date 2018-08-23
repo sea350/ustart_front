@@ -2,7 +2,19 @@
     width: 624px
 }
 
-.links-container>a {
+.projectsWidgetCont .links-container>a {
+    vertical-align: top;
+    margin: 0.7em;
+    text-align: center
+    margin: 0.5em;
+	margin-bottom: 0.5em !important;
+	/*max-width: 25em;*/
+    padding: 0.5em 0.1em;
+    display: inline-block;
+    width:109px;
+}
+
+.profileWidgetCont .links-container>a {
     vertical-align: top;
     margin: 0.7em;
     text-align: center

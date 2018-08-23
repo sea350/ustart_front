@@ -78,15 +78,20 @@
                             </script>
                         </div>
                     </div>
+                    <button class="btn btn-default btn-block" id='collapseLocationbtn' type="button" data-toggle="collapse" data-target="#collapseLocation" aria-expanded="false" aria-controls="collapseLocation">
+                        (Optional) Location data
+                    </button>
+                    
+                    <div class="collapse" id="collapseLocation">
                     <div class="row">
-                        <div class="dropdown col-md-3 col-sm-6">
+                        <div class="dropdown col-md-3 col-sm-6" >
                             <label for="country" class="sr-only">Country</label>
                             <div class="input-group input-groupz">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
                                 <select id="country" name="country" class="form-control" autocomplete="country-name"></select>
                             </div>
                         </div>
-                        <div class="dropdown col-md-3 col-sm-6">
+                        <div class="dropdown col-md-3 col-sm-6" >
                             <label for="state" class="sr-only">State</label>
                             <div class="input-group input-groupz">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
@@ -104,6 +109,40 @@
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
+                            <label for="zip" class="sr-only">Zip Code</label>
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span> 
+                                <input id="zip" name="zip" class="form-control" placeholder="Zip" autocomplete="postal-code">
+                            </div>
+                        </div>
+                    </div>                    
+                    </div>
+                    <div class="row">
+                        <div class="dropdown col-md-3 col-sm-6" id='location-info' >
+                            <label for="country" class="sr-only">Country</label>
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                <select id="country" name="country" class="form-control" autocomplete="country-name"></select>
+                            </div>
+                        </div>
+                        <div class="dropdown col-md-3 col-sm-6" id='location-info' >
+                            <label for="state" class="sr-only">State</label>
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                                <select name="state" id="state" class="form-control" autocomplete="state"></select>
+                            </div>
+                        </div>
+                        <script language="javascript">
+							populateCountries("country", "state");
+                        </script>
+                        <div class="col-md-3 col-sm-6" id='location-info'>
+                            <label for="city" class="sr-only">City</label>
+                            <div class="input-group input-groupz">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> 
+                                <input id="city" name="city" class="form-control" placeholder="City" autocomplete="city">
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6" id='location-info'>
                             <label for="zip" class="sr-only">Zip Code</label>
                             <div class="input-group input-groupz">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span> 

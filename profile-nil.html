@@ -174,12 +174,12 @@
 						<div id="user-nums">
 							<div id="followers">
 								<a href="/followers/{{.UserInfo.Username}}#FollowersTab" data-toggle="tooltip" data-placement="top" title="{{len .UserInfo.Followers}} Followers">
-									<span id="num-followers" style="font-weight: bold">{{len .UserInfo.Followers}}</span> Followers</a>
+									<span id="num-followers" style="font-weight: bold">{{.Followers}}</span> Followers</a>
 							</div>
 							
 							<div id="following">
 								<a href="/followers/{{.UserInfo.Username}}#FollowingTab" data-toggle="tooltip" data-placement="top" title="{{len .UserInfo.Following}} Following">
-									<span id="num-following" style="font-weight: bold">{{len .UserInfo.Following}}</span> Following</a>
+									<span id="num-following" style="font-weight: bold">{{.Following}}</span> Following</a>
 							</div>
 							<!-- if user is visiting the page -->
 							{{if ne ($.Page) ($.DOCID)}}
@@ -357,102 +357,102 @@
                         <ul id="sortable">
 							{{if eq ($.Page) ($.DOCID)}}
                             <li id="widget-insert" class="ui-state-default">
-								<div class="projectsWidgetCont">
+								<div class="profileWidgetCont">
 									<div class="widgetTitle" data-toggle="collapse" data-target="#widget-insert .widgetBody">
 										<h4>Insert new widget</h4>
 									</div>
 									<div class="widgetBody collapse in">
-										<button id="addTextWidget" class="btn btn-default projectsColumn">
+										<button id="addTextWidget" class="btn btn-default projectsColumn addWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/text.png" />
 												<div class="columnTitle">Custom Text</div>
 											</div>
 										</button>
-										<button id="calendarWidgetBtn" class="btn btn-default projectsColumn">
+										<button id="calendarWidgetBtn" class="btn btn-default projectsColumn addWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/calendar_g.png" />
 												<div class="columnTitle">Google Calendar</div>
 											</div>
 										</button>
-										<button id="PollWidgetBtn" class="btn btn-default projectsColumn" style="display:none">
+										<button id="PollWidgetBtn" class="btn btn-default projectsColumn addWidgetBtn" style="display:none">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/poll.png" />
 												<div class="columnTitle">Poll</div>
 											</div>
 										</button>
-										<button id="igWidgetBtn" class="btn btn-default projectsColumn">
+										<button id="igWidgetBtn" class="btn btn-default projectsColumn addWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/instagram.png" />
 												<div class="columnTitle">Instagram</div>
 											</div>
 										</button>
-										<button id="scWidgetBtn" class="btn btn-default projectsColumn">
+										<button id="scWidgetBtn" class="btn btn-default projectsColumn addWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/soundcloud.png" />
 												<div class="columnTitle">SoundCloud</div>
 											</div>
 										</button>
-										<button id="ytWidgetBtn" class="btn btn-default projectsColumn">
+										<button id="ytWidgetBtn" class="btn btn-default projectsColumn addWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/youtube-1.png" />
 												<div class="columnTitle">YouTube</div>
 											</div>
 										</button>
-										<button id="addCodePenWidget" class="btn btn-default projectsColumn">
+										<button id="addCodePenWidget" class="btn btn-default projectsColumn addWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/codepen.png" />
 												<div class="columnTitle">CodePen</div>
 											</div>
 										</button>
-										<button id="addPinterestWidget" class="btn btn-default projectsColumn">
+										<button id="addPinterestWidget" class="btn btn-default projectsColumn addWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/pinterest.png" />
 												<div class="columnTitle">Pinterest</div>
 											</div>
 										</button>
-										<button id="addTumblrWidget" class="btn btn-default projectsColumn">
+										<button id="addTumblrWidget" class="btn btn-default projectsColumn addWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/twitter-2.png" />
 												<div class="columnTitle">Tumblr</div>
 											</div>
 										</button>
-										<button id="addSpotifyWidget" class="btn btn-default projectsColumn">
+										<button id="addSpotifyWidget" class="btn btn-default projectsColumn addWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/spotify.png" />
 												<div class="columnTitle">Spotify</div>
 											</div>
 										</button>
-										<button id="arWidgetBtn" class="btn btn-default projectsColumn">
+										<button id="arWidgetBtn" class="btn btn-default projectsColumn addWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/anchor.png" />
 												<div class="columnTitle">Anchor</div>
 											</div>
 										</button>
-										<button id="mediumWidgetBtn" class="btn btn-default projectsColumn">
+										<button id="mediumWidgetBtn" class="btn btn-default projectsColumn addWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/medium.png" />
 												<div class="columnTitle">Medium</div>
 											</div>
 										</button>
-										<button id="daWidgetBtn" class="btn btn-default projectsColumn">
+										<button id="daWidgetBtn" class="btn btn-default projectsColumn addWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/deviantart.png" />
 												<div class="columnTitle">DeviantArt</div>
 											</div>
 										</button>
-										<button id="twitchWidgetBtn" class="btn btn-default projectsColumn">
+										<button id="twitchWidgetBtn" class="btn btn-default projectsColumn addWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/twitch.png" />
 												<div class="columnTitle">Twitch</div>
 											</div>
 										</button>
-										<button id="addGithubWidget" class="btn btn-default projectsColumn">
+										<button id="addGithubWidget" class="btn btn-default projectsColumn addWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/github.png" />
 												<div class="columnTitle">Github</div>
 											</div>
 										</button>
-										<button id="addGalleryWidget" class="btn btn-default projectsColumn">
+										<button id="addGalleryWidget" class="btn btn-default projectsColumn addWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/gallery.png" />
 												<div class="columnTitle">Gallery</div>
@@ -464,7 +464,7 @@
 							{{end}}
 							<!-- project widget -->
 							<li id="projectDisplay" class="ui-state-default widgetListItem">
-								<div class="projectsWidgetCont">
+								<div class="profileWidgetCont">
 									<div class="widgetTitle">
 										{{if eq ($.Page) ($.DOCID)}}
 										<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#projectDisplayModal"></span>
@@ -489,7 +489,7 @@
                             
                             <!-- skill widget-->
 							<li class="ui-state-default widgetListItem">
-								<div class="projectsWidgetCont">
+								<div class="profileWidgetCont">
 									<div class="widgetTitle">
 										{{if eq ($.Page) ($.DOCID)}}
 										<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#tagModal"></span>
@@ -513,7 +513,7 @@
 							<!-- link widget-->
 							
                             <li class="ui-state-default widgetListItem">
-								<div id="linksWidget" class="projectsWidgetCont">
+								<div id="linksWidget" class="profileWidgetCont">
 									<div class="widgetTitle">
 										{{if eq ($.Page) ($.DOCID)}}
 										<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#addLinkModal"></span>
@@ -546,7 +546,7 @@
 							{{range $loop := .Widgets }}
 							{{if eq $loop.Classification 0}}<!-- if is text -->  
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-                                <div class="projectsWidgetCont">
+                                <div class="profileWidgetCont">
                                     <div class="widgetTitle">
                                         {{if eq ($.Page) ($.DOCID)}}
 											<span class="pull-right fa fa-2x fa-sort"></span>
@@ -581,7 +581,7 @@
                                 console.log({{index $loop.ID}});
                             </script>
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-                                <div class="projectsWidgetCont">
+                                <div class="profileWidgetCont">
                                     <div class="widgetTitle">
                                         {{if eq ($.Page) ($.DOCID)}}
                                         <span class="pull-right fa fa-2x fa-sort"></span>
@@ -607,7 +607,7 @@
 						
 							{{if eq $loop.Classification 5}}   
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-                                <div class="projectsWidgetCont">
+                                <div class="profileWidgetCont">
                                     <div class="widgetTitle">
                                         {{if eq ($.Page) ($.DOCID)}}
                                         <span class="pull-right fa fa-2x fa-sort"></span>
@@ -628,7 +628,7 @@
 
 							{{if eq $loop.Classification 6}}
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-                                <div class="projectsWidgetCont">
+                                <div class="profileWidgetCont">
                                     <div class="widgetTitle">
                                         {{if eq ($.Page) ($.DOCID)}}
                                         <span class="pull-right fa fa-2x fa-sort"></span>
@@ -656,7 +656,7 @@
 
 							{{if eq $loop.Classification 7}}  
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-                                <div class="projectsWidgetCont">
+                                <div class="profileWidgetCont">
                                     <div class="widgetTitle">
                                         {{if eq ($.Page) ($.DOCID)}}
                                         <span class="pull-right fa fa-2x fa-sort"></span>
@@ -676,7 +676,7 @@
 							{{end}}<!--end codePen -->
 							{{if eq $loop.Classification 9}}  
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-                                <div class="projectsWidgetCont">
+                                <div class="profileWidgetCont">
                                     <div class="widgetTitle">
                                         {{if eq ($.Page) ($.DOCID)}}
                                         <span class="pull-right fa fa-2x fa-sort"></span>
@@ -698,7 +698,7 @@
 							{{end}} <!--end Tumblr -->
 							{{if eq $loop.Classification 8}} <!--pinterest-->
 							<li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-								<div class="projectsWidgetCont">
+								<div class="profileWidgetCont">
 								<div class="widgetTitle">
 									{{if eq ($.Page) ($.DOCID)}}
 									<span class="pull-right fa fa-2x fa-sort"></span>
@@ -724,7 +724,7 @@
 							{{end}}<!-- end pinterest-->
 							{{if eq $loop.Classification 10}} <!--spotify-->
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-								<div class="projectsWidgetCont">
+								<div class="profileWidgetCont">
 								<div class="widgetTitle">
 									{{if eq ($.Page) ($.DOCID)}}
 									<span class="pull-right fa fa-2x fa-sort"></span>
@@ -746,7 +746,7 @@
 							{{end}} <!-- end spotify -->
 							{{if eq $loop.Classification 11}}  <!--anchor--> 
 							<li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-                                <div class="projectsWidgetCont">
+                                <div class="profileWidgetCont">
                                     <div class="widgetTitle">
                                     {{if eq ($.Page) ($.DOCID)}}
                                     <span class="pull-right fa fa-2x fa-sort"></span>
@@ -771,7 +771,7 @@
 							{{end}} <!-- end anchor-->
 							{{if eq $loop.Classification 12}}
 							<li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-                                <div class="projectsWidgetCont">
+                                <div class="profileWidgetCont">
                                     <div class="widgetTitle">
                                     {{if eq ($.Page) ($.DOCID)}}
                                     <span class="pull-right fa fa-2x fa-sort"></span>
@@ -792,7 +792,7 @@
 							{{end}}
 							{{if eq $loop.Classification 13}} <!--deviant art-->
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-                                <div class="projectsWidgetCont">
+                                <div class="profileWidgetCont">
                                     <div class="widgetTitle">
 									{{if eq ($.Page) ($.DOCID)}}
                                     <span class="pull-right fa fa-2x fa-sort"></span>
@@ -815,7 +815,7 @@
                             {{end}}<!--end deviant art-->
 							{{if eq $loop.Classification 14}}  <!--twitch-->
 							<li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-                                <div class="projectsWidgetCont">
+                                <div class="profileWidgetCont">
                                     <div class="widgetTitle">
                                     {{if eq ($.Page) ($.DOCID)}}
                                     <span class="pull-right fa fa-2x fa-sort"></span>
@@ -838,7 +838,7 @@
 							<!-- Calendar Widget -->
 							{{if eq $loop.Classification 15}}
 							<li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-								<div class="projectsWidgetCont">
+								<div class="profileWidgetCont">
 									<div class="widgetTitle">
 										{{if eq ($.Page) ($.DOCID)}}
 										<span class="pull-right fa fa-2x fa-sort"></span>
@@ -860,7 +860,7 @@
                             <!-- Github Widget -->
                             {{if eq $loop.Classification 16}}
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-                                <div class="projectsWidgetCont">
+                                <div class="profileWidgetCont">
                                     <div class="widgetTitle">
 										{{if eq ($.Page) ($.DOCID)}}
                                         <span class="pull-right fa fa-2x fa-sort"></span>
@@ -874,7 +874,7 @@
                                     </div>
                                     <div id="widgetBodyGit" class="widgetBody">
                                         <script>
-											   githubRender({{index $loop.Data 0}}, {{index $loop.Data 1}});
+											   githubRender({{index $loop.Data 0}}, 4);
 										</script>
                                     </div>
                                 </div>
@@ -884,7 +884,7 @@
                             {{if eq $loop.Classification 17}}
                             <!-- Gallery Widget -->
                             <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
-                                <div class="projectsWidgetCont">
+                                <div class="profileWidgetCont">
                                     <div class="widgetTitle">
 										{{if eq ($.Page) ($.DOCID)}}
                                         <span class="pull-right fa fa-2x fa-sort"></span>
@@ -1416,16 +1416,7 @@
 									<div class="input-group">
 										<div class="input-group-btn">
 											<button id="med-setting" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-												Username <i class="glyphicon glyphicon-menu-down"></i>$('#someTextBox').keypress(function(event){
-													var keycode = (event.keyCode ? event.keyCode : event.which);
-													if(keycode == '13'){
-														alert('You pressed a "enter" key in textbox'); 
-													}
-													//Stop the event from propogation to other handlers
-													//If this line will be removed, then keypress event handler attached
-													//at document level will also be triggered
-													event.stopPropagation();
-												});
+												Username <i class="glyphicon glyphicon-menu-down"></i>
 											</button>
 											<div class="dropdown-menu">
 												<a id="med-setting-user" class="dropdown-item" style="display:block;">Username</a>
