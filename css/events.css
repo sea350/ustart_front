@@ -13,7 +13,6 @@
 #event-team {
     text-align: center;
 }
-
 .detail-content {
     overflow-wrap: break-word;
 }
@@ -210,7 +209,4 @@ ul#event-modal-followers-list {
 	#event-name {
 		border-top: solid 1px #b0cec5;
 	}
-}
-.usersWidget{
-    overflow-wrap: nowrap
 }

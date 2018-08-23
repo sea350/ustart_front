@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,6 +32,7 @@
     <script>
         var pageID = {{$eventid}};
         var eventscrollID;
+        var eventID;
         var maxHits = -1;
     </script>
     <script src="http://www.youtube.com/player_api"></script>
@@ -49,6 +50,8 @@
 
     <script type="text/javascript" src="/ustart_front/js/ascii-convert.js"></script>
     <script type="text/javascript" src="/ustart_front/js/createPosts.js"></script>
+
+    <script type="text/javascript" src="/ustart_front/js/eventwallload.js"></script>
 </head>
 <body>
     <input type="hidden" id='followstat'>
@@ -60,7 +63,16 @@
         <div id="content" class="container">
             <div>
                 <div class="followers-cont flex">
-                    
+                    <div class="followers-link-cont">
+                        {{range $member := .Event.MemberData}}
+                        <a href="/profile/{{$member.Username}}" class='followers-link'>
+                            <img alt="Event Image" id="imgFollow{{$member.Username}}" class='followers-mini img-rounded img-responsive'>
+                        </a>
+                        <script>
+                            $('#imgFollow{{$member.Username}}').attr('src', {{$member.Image}});
+                        </script>
+                        {{end}}
+                    </div>
                     <div class="event-toolbar">
                        
                         {{range $member := .Event.MemberData}}
@@ -71,7 +83,7 @@
                         </script>    
 						<form id="event-leave-form" action="/leaveEvent/" style="display:none">
 							<input type="hidden" name="leaverID" value=""/>
-							<input type="hidden" name="eventID" value='{{$eventid}}'/>
+							<input type="hidden" name="eventID" value={{$eventid}}/>
 						</form>                        
                         <div id="event-leave" class="modal fade" role='dialog'>
                             <div class="modal-dialog">
@@ -137,7 +149,7 @@
                             {{end}}
                                 <div id="event-location" class="detail-content">
                                     {{range $member := .Event.MemberData}}
-                                    <span style='color: #90949c;'>Hosted By </span> <p> <strong>{{$member.FirstName}} {{$member.LastName}}</strong> a.k.a ({{$member.Username}})</p>
+                                    <span style='color: #90949c;'>Hosted By: </span> <p>{{$member.FirstName}} {{$member.LastName}} a.k.a ({{$member.Username}})</p>
                                     {{end}}
                                 </div>
                         </div>
@@ -146,25 +158,45 @@
                                     <div data-toggle="tooltip" title="" id="event-startDash"></div>  
                                     <div id='demo'></div>
                                     <button class="event-message btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
-                                    
-                                    {{if eq ($.Event.RequestAllowed) true}}
-                                    <form action="/GuestRequestToJoin/" method="POST" style="display: inline-block;" style='margin-top:0em; margin-bottom:0em;'>
-                                        <input type="hidden" name="projID" value='{{$eventid}}'>
+                                    <form action="/RequestToJoin/" method="POST" style="display: inline-block;" style='margin-top:0em; margin-bottom:0em;'>
+                                        <input type="hidden" name="projID" value={{$eventid}}>
                                         <button class="event-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
-                                            <span>Request to join AS guest</span>
+                                            <span>Request to join</span>
                                         </button>
                                     </form>
-                                    {{end}}
-                                    <a class='btn btn-default' style="padding: 0.5em 1em;" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
                                     <script>
                                     
                                         var Sdate = {{.Event.EventData.EventDateStart}}; 
     
                                         var Syear = Sdate.slice(0, 4);
                                         var Smonth = Sdate.slice(5, 7);
-                                        
-                                        var SmonthEn = switchMonth(Smonth);
-                                            
+                                        var SmonthEn = "";
+                                        switch(Smonth){
+                                            case '01': SmonthEn = "JAN";
+                                                break;
+                                            case '02': SmonthEn = "FEB";
+                                                break;
+                                            case '03': SmonthEn = "MAR";
+                                                break;
+                                            case '04': SmonthEn = "APR";
+                                                break;
+                                            case '05': SmonthEn = "MAY";
+                                                break;
+                                            case '06': SmonthEn = "JUN"; 
+                                                break;
+                                            case '07': SmonthEn = "JUL";
+                                                break;
+                                            case '08': SmonthEn = "AUG";
+                                                break;
+                                            case '09': SmonthEn = "SEPT";
+                                                break;
+                                            case '10': SmonthEn = "OCT";
+                                                break;
+                                            case '11': SmonthEn = "NOV";
+                                                break;
+                                            case '12': SmonthEn = "DEC";
+                                                break;
+                                            }
                                         var Sday = Sdate.slice(8, 10);
                                         document.getElementById("event-startDash").innerHTML = "<h5 style='color:#fa3e3e; margin-bottom:0;'>"+SmonthEn +"</h5>"+ "<span style='font-size:3em'>"+Sday+"<span>";
                                     </script> 
@@ -224,22 +256,10 @@
 
                                         var S1year = Sdate.slice(0, 4);
                                         var S1month = Sdate.slice(5, 7);
-                                        
-                                        var S1monthEn = switchMonth(S1month);
-
                                         var S1day = Sdate.slice(8, 10);
                                         var S1hour = Sdate.slice(11, 13);
                                         var S1min = Sdate.slice(14, 16);
-
-                                        var S2date = {{.Event.EventData.EventDateEnd}}; 
-
-                                        var S2year = S2date.slice(0, 4);
-                                        var S2month = S2date.slice(5, 7);
-                                        var S2monthEn = switchMonth(S2month);
-                                        var S2day = S2date.slice(8, 10);
-                                        var S2hour = S2date.slice(11, 13);
-                                        var S2min = S2date.slice(14, 16);                                        
-                                        document.getElementById("demo1").innerHTML = '<p>'+ S1monthEn + ' ' + S1day + ' - ' + S2monthEn + ' ' + S2day +'</p>'+'<h6 class="text-secondary">' + S1monthEn + " " + S1day +" "+ S1hour+" : "+S1min +" to "+ S2monthEn + " " + S2day +" "+ S2hour+" : "+S2min + '</h6>';
+                                        document.getElementById("demo1").innerHTML = S1hour+" : "+S1min;
                                     </script>
                                 </div>                
                             </div>
@@ -248,8 +268,7 @@
                                     <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-sm-10">
-                                    <p>{{.Event.EventData.Location.City}} <p>
-                                    <h6> {{.Event.EventData.Location.Street}} {{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}</h6>
+                                    <p>{{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}}{{.Event.EventData.Location.Street}}{{.Event.EventData.Location.Zip}}</p>
                                 </div>                
                             </div>
                             <div class="row" style='margin-left:1em'>
@@ -258,13 +277,13 @@
                                 </div>
                                 <div class="col-sm-10" >
                                     {{range $member := .Event.MemberData}}
-                                    <p> <strong> {{$member.FirstName}} {{$member.LastName}}</strong></p>
+                                    <p>{{$member.FirstName}} {{$member.LastName}} a.k.a ({{$member.Username}})</p>
                                     {{end}}
                                 </div>  
                             </div>              
                         </div>                        
                         <div class="col-sm-8">
-                            <h4> <strong style='text-transform: uppercase'>details</strong></h4>
+                            <h4>details</h4>
                             <div id="event-detail">
                                 <script>readRuneArray({{.Event.EventData.Description}});</script>
                             </div>
@@ -274,70 +293,17 @@
                 </div>                
                 <ul class="nav nav-tabs nav-justified event-tabs">
                     <li class="active"><a data-toggle="tab" href="#event-about">Showcase</a></li>
-                    <li class=""><a data-toggle="tab" id="Wall-loadAJAX" href="#prof-wall">Posts</a></li>
-                    
+                    <li class=""><a data-toggle="tab" id="Wall-event-loadAJAX" href="#prof-wall">Posts</a></li>
                 </ul>
                 <div class="tab-content">
                     <div id="event-about" class="tab-pane fade in active">
                         <ul id="sortable">
-                        <li class="ui-state-default">
-                            <div id="usersWidget" class="eventsWidgetCont">
-                                <div class="widgetTitle">
-                                    
-                                    <h4>Users attending</h4>
-                                </div>
-                                {{range $member := .Event.MemberData}}
-                                <a class="member" href="/profile/{{$member.Username}}" data-toggle="tooltip" data-placement="right" title="{{$member.FirstName}} {{$member.LastName}}">
-                                        <img id="img{{$member.Username}}" class="img-circle img-responsive">
-                                        <script>
-                                            $('img#img{{$member.Username}}').attr('src', {{$member.Image}});
-                                        </script>
-                                        <!--
-                                        <div class="member-title">C.E.O.</div>
-                                        <div class="member-followers">888 Followers</div>
-                                        <div class="member-events">25 Events</div>
-                                        -->
-                                </a>
-                                {{end}}
-                            </div>       
-                            <script>
-                                $(document).ready(function(){
-                                    $('[data-toggle="tooltip"]').tooltip();   
-                                });
-                                </script>                         
-                            </li><!--end users attending widget -->   
-                            <li class="ui-state-default">
-                                <div id="usersWidget" class="eventsWidgetCont">
-                                    <div class="widgetTitle">
-                                        
-                                        <h4>Projects attending</h4>
-                                    </div>
-                                    {{range $member := .Event.MemberData}}
-                                    <a class="member" href="/profile/{{$member.Username}}" data-toggle="tooltip" data-placement="right" title="{{$member.FirstName}} {{$member.LastName}}">
-                                            <img id="img{{$member.Username}}" class="img-circle img-responsive">
-                                            <script>
-                                                $('img#img{{$member.Username}}').attr('src', {{$member.Image}});
-                                            </script>
-                                            <!--
-                                            <div class="member-title">C.E.O.</div>
-                                            <div class="member-followers">888 Followers</div>
-                                            <div class="member-events">25 Events</div>
-                                            -->
-                                    </a>
-                                    {{end}}
-                                </div>       
-                                <script>
-                                    $(document).ready(function(){
-                                        $('[data-toggle="tooltip"]').tooltip();   
-                                    });
-                                    </script>                         
-                                </li><!--end projects attending widget -->                                                         
-                            <li id="widget-insert" class="ui-state-default">
+                    <li id="widget-insert" class="ui-state-default">
                             <div class="eventsWidgetCont">
                                 <div class="widgetTitle">
                                     <h4>Insert New widget</h4>
                                 </div>
-                                <div class="widgetBody" style='justify-content: space-between'>
+                                <div class="widgetBody">
                                     <button id="addTextWidget" class="btn btn-default eventsColumn">
                                         <div class="columnImage">
                                             <img src="/ustart_front/img/png/text.png" />
@@ -469,7 +435,7 @@
                                         <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#tagModal"></span>
                                         <h4>Tags</h4>
                                     </div>
-                                    <div id="hashTagsBody" class="widgetBody" style='overflow: hidden; outline: none; cursor: -webkit-grab; justify-content: space-between;'>
+                                    <div id="hashTagsBody" class="widgetBody" style='justify-content: space-between; overflow: hidden; outline: none; cursor: -webkit-grab;'>
                                     </div>       
                                     {{range $loop := .Event.EventData.Tags}}
                                     {{if ne ($loop) ""}}
@@ -481,8 +447,33 @@
                                     {{end}}
                                     {{end}}
                                 </div>                                
-                            </li><!--end tags widget -->                                                            
-                      
+                            </li><!--end tags widget -->   
+                            <li class="ui-state-default">
+                                    <div id="usersWidget" class="eventsWidgetCont">
+                                        <div class="widgetTitle">
+                                            
+                                            <h4>Users attending</h4>
+                                        </div>
+                                        {{range $member := .Event.MemberData}}
+                                        <a class="member" href="/profile/{{$member.Username}}" data-toggle="tooltip" data-placement="right" title="{{$member.FirstName}} {{$member.LastName}}">
+                                                <img id="img{{$member.Username}}" class="img-circle img-responsive">
+                                                <script>
+                                                    $('img#img{{$member.Username}}').attr('src', {{$member.Image}});
+                                                </script>
+                                                <!--
+                                                <div class="member-title">C.E.O.</div>
+                                                <div class="member-followers">888 Followers</div>
+                                                <div class="member-events">25 Events</div>
+                                                -->
+                                        </a>
+                                        {{end}}
+                                    </div>       
+                                    <script>
+                                        $(document).ready(function(){
+                                            $('[data-toggle="tooltip"]').tooltip();   
+                                        });
+                                        </script>                         
+                                </li><!--end users attending widget -->                                                           
 							<!-- link widget-->
 							<script src="/ustart_front/js/layout_links.js"></script>
 							<li class="ui-state-default widgetListItem sortable">
@@ -1102,7 +1093,7 @@
                                     <label>Please paste the Instagram post URL here</label>
                                     <input type="url" class="form-control" name="instagramInput" id="ig-embed-input" placeholder="https://www.instagram.com/p/BageGbgD05c/" pattern="https?:\/\/www\.instagram\.com\/p\/[A-Za-z0-9\-\_]{11}\/.*" required/>
                                     <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                    <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value="{{$eventid}}" required/>
+                                    <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value={{$eventid}} required/>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" id="ig-submit-btn" name="widgetSubmit" value="4" class="btn btn-default">Done</button>
@@ -1125,7 +1116,7 @@
                               <div class="form-group">
                                   <input type="text" class="form-control" id="sc-embed-input" name="scInput" placeholder="Embedded code" pattern='<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https:\/\/w\.soundcloud\.com\/player\/\?url=https%3A\/\/api\.soundcloud\.com\/users\/[0-9]{9}&amp;color=%23[0-9a-f]{6}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true"\>\<\/iframe\>' required>
                                   <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                  <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value="{{$eventid}}" required/>
+                                  <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value={{$eventid}} required/>
                               </div>
                           </div>
                           <div class="modal-footer">
@@ -1149,7 +1140,7 @@
                              <div class="form-group">
                                  <input type="text" class="form-control" id="code-embed-input" name="codepenInput" pattern='<p data-height="265" data-theme-id="0" data-slug-hash="[A-Za-z]{6}" data-default-tab="css,result" data-user="[^"]+" data-embed-version="2" data-pen-title="[^"]+" class="codepen"\>[^<]+\<a href="https:\/\/codepen\.io\/[^\/]+\/pen\/[A-Za-z]{6}\/">[^<]+<\/a> by [^(]+\(<a href="https:\/\/codepen\.io\/[^"]+">@[^<]+<\/a>\) on <a href="https:\/\/codepen\.io">CodePen<\/a>\.<\/p>\n<script async src="https:\/\/static\.codepen\.io\/assets\/embed\/ei\.js"><\/script>' required>
                                  <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value="{{$eventid}}" required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value={{$eventid}} required/>
                              </div>
                          </div>
                          <div class="modal-footer">
@@ -1178,7 +1169,7 @@
                                      </div>
                                      <input type="text" class="form-control" name="twitchInput" id="twitch-embed-username" required pattern='[0-9A-Za-z_]{1,25}'/>
                                      <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                     <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value="{{$eventid}}" required/>
+                                     <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value={{$eventid}} required/>
                                  </div>
                              </div>
                              <div class="modal-footer">
@@ -1202,7 +1193,7 @@
                                  <div class="form-group">
                                      <input type="text" class="form-control" name="tumblrInput" id="medium-embed-input" placeholder="ustart" pattern='[A-Za-z0-9\-\.]{1,32}' required>
                                      <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value={{$eventid}} required/>
                                  </div>
                              </div>
                              <div class="modal-footer">
@@ -1228,7 +1219,7 @@
                              <div class="form-group">
                                  <input type="text" class="form-control" name="spotInput" id="spot-embed-input" pattern='<iframe src="https:\/\/open\.spotify\.com\/embed\/[^"]+" width="300" height="380" frameborder="0" allowtransparency="true"><\/iframe>' required>
                                  <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value={{$eventid}} required/>
                              </div>
                          </div>
                          <div class="modal-footer">
@@ -1255,7 +1246,7 @@
                                  <input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="http://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+\/' required>
                                  <!-- Regexp: pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/? -->
                                  <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value={{$eventid}} required/>
                              </div>
                               </form>
                          </div>
@@ -1284,7 +1275,7 @@
                                      <span class="modal-cell">URL</span>
                                      <input type="url" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" required/>
                                  </p>
-                                 <input type="hidden" name="eventID" value='{{$eventid}}' required/>
+                                 <input type="hidden" name="eventID" value={{$eventid}} required/>
                              </div>
                              
                              <div class="modal-footer">
@@ -1313,7 +1304,7 @@
                              <div class="form-group">
                                  <input type="text" class="form-control" name="arInput" id="ar-embed-input" pattern='https:\/\/anchor\.fm\/.*\/+' required>
                                  <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value={{$eventid}} required/>
                              </div>
                              </form>
                          </div>
@@ -1348,7 +1339,7 @@
                                      <input type="text" class="form-control" name="medInput" id="med-embed-username" pattern='[0-9A-Za-z\-]{1,32}'/>
                                      <input type="text" class="form-control" name="medInput2" id="med-embed-publication"/>
                                  <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value={{$eventid}} required/>
                                      
                                  </div>
                                  <br/>
@@ -1390,7 +1381,7 @@
                                  </div>
                                  <input type="text" class="form-control" name="daInput" id="da-embed-username" required/>
                                  <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value={{$eventid}} required/>
                                  
                              </div>
                              <br/>

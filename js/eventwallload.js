@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('body').on("click", "#Wall-loadAJAX", function(e) {
+    $('body').on("click", "#Wall-event-loadAJAX", function(e) {
         $("#post-msg").focus(function (e) {
             var textbox = $("#post-msg");
             textbox.animate({

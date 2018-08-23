@@ -42,16 +42,8 @@
     margin: 0px;
     padding: 0px;
 }
-.menu-list{
-    width: 100%;
-    height: 90px;
-    padding-left: 2em;
-}
-.project-menu-list{
-    width: 100%;
-    height: 90px;
-    padding-left: 2em;
-}
+.menu-list,
+.project-menu-list,
 .event-menu-list{
     width: 100%;
     height: 90px;
@@ -76,37 +68,22 @@ $('.contents').css({'border-left': '1px solid #808080'});*/
     border-left: 3px solid #808080;    
 }
 
-#profile, #password, #account, #education{
-    margin-bottom: 2em;
-    display: none;
-}
-#projectCategory, #projectInfo, #projectLocation, #projectURL, #projectMember{
-    margin-bottom: 2em;
-    display: none;
-}
-#eventLocation, #eventInfo, #eventMember, #eventCategory, #eventURL{
+#profile, #password, #account, #education,
+#projectCategory, #projectInfo, #projectLocation, #projectURL, #projectMember,
+#eventCategory, #eventInfo, #eventLocation, #eventURL, #eventMember,
+#eventDate, #eventLocation, #eventInfo, #eventMember{
     margin-bottom: 2em;
     display: none;
 }
 
-#images{
-    margin-bottom: 2em;
-    display:block;
-}   
-#projectImage{
-    margin-bottom: 2em;
-    display:block;    
-}
+#images,
+#projectImage,
 #eventImage{
     margin-bottom: 2em;
     display:block;    
 }
-.contents{
-    padding-left: 3em;
-}
-.projectContents{
-    padding-left: 3em;
-}
+.contents,
+.projectContents,
 .eventContents{
     padding-left: 3em;
 }
@@ -119,10 +96,7 @@ $('.contents').css({'border-left': '1px solid #808080'});*/
     float: right
 }
 
-#recruitSwitch {
-    float: left
-}
-
+#recruitSwitch,
 #countrySwitch {
     float: left
 }
@@ -264,27 +238,16 @@ textarea#inputDesc {
     height: 48em;
     width: 100%
 }
-#eduChange, #password{
+#eduChange, #password,
+#projectCategory, #projectLocation, #projectURL,
+#eventCategory, #eventLocation, #eventURL,
+#eventDate, #eventLocation, #eventImage{
     margin-top: 3em;
 }
-#projectCategory, #projectLocation, #projectURL{
-    margin-top: 3em;
-}
-#eventDate, #eventLocation, #eventImage, #eventCategory, #eventURL, #eventInfo{
-    margin-top: 3em;
-}
-#eduChange > .row{
-    margin-bottom: 1em;
-}
-#locChange .row{
-    margin-bottom: 1em;
-}
-#timeChange .row{
-    margin-bottom: 1em;
-}
-#projectInfo .row{
-    margin-bottom: 1em;
-}
+#eduChange > .row,
+#locChange .row,
+#timeChange .row,
+#projectInfo .row,
 #eventInfo .row{
     margin-bottom: 1em;
 }

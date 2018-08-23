@@ -28,8 +28,8 @@
 	overflow: hidden;
 }
 
-.anchor-feed{
-    margin-bottom:1em;
+.widgetBody {
+	min-height: 4em;
 }
 #sortable {
     list-style-type: none;
