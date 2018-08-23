@@ -316,6 +316,11 @@ $(document).ready(function () {
             //$(this).css({'justify-content':'space-between'});
         }
     });
+    $('#post-msg').keyup(function() {
+        var text_length = $('#post-msg').val().length;
+        var text_remaining = 5000 - text_length;
+        $('#textarea_counter').html(text_remaining + ' characters remaining.');
+    });
 
     //modal box
     $('#menu-item-about').hover(function () {

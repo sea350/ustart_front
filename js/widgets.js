@@ -197,11 +197,11 @@ function tumblrRender (tumblrUsername) {
 	});
 }
 
-function githubRender (githubUsername) {
+function githubRender (githubUsername, gitcount) {
 	$.getJSON("https://api.github.com/users/" + encodeURI(githubUsername) + "/repos", function(data) {
 		var githubList = $("<ul></ul>");
 
-		for (var i = 0; i < data.length && i < 12; i++) {
+		for (var i = 0; i < data.length && i < gitcount; i++) {
 			var item = $("<li/>").appendTo(githubList);
 			var gitBody = $("<div/>").addClass("github-body").text(data[i].description).appendTo(item);
 			var headerLink = $("<a/>").prependTo(gitBody);

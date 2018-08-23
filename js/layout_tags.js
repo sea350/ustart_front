@@ -2,6 +2,7 @@ var taglist = [];
 var skilllist = [];
 var MAXTAGS = 16;
 var port=5002;
+const maxTagLength = 20;
 
 function updateTagsCounter(element) {
 	if (taglist.length == MAXTAGS - 1) {
@@ -196,6 +197,18 @@ $(document).ready(function () {
 		}
 	});
     
+    $('#tagLineInput').keyup(function (e) {
+       var length = $(this).val().length;
+       var length = maxTagLength-length;
+        $('#count_message').text(length +" characters remaining.");
+    });
+    
+    $('#wantedSkillLineInput').keyup(function (e) {
+       var length = $(this).val().length;
+       var length = maxTagLength-length;
+        $('#skill_count_message').text(length +" characters remaining.");
+    });
+    
     $('#wantedSkillLineInput').keypress(function (e) {
 		if (e.which == 13 || e.which == 44) {
 			createSkillModalElement($(this).val());
@@ -214,7 +227,7 @@ $(document).ready(function () {
 
 	
     $('#tag-submit').click(function(e) {
-		if ($('#tagLineInput').val().length > 0) {
+		if ($('#tagLineInput').val().length > 0  &&  $('#tagLineInput').val().length <= 20 ) {
 			createTagModalElement($('#tagLineInput').val());
 			return;
 		}
@@ -239,8 +252,7 @@ $(document).ready(function () {
         });
     });
     $('#tag-project-submit').click(function(e) {
-		if ($('#tagLineInput').val().length > 0) {
-            console.log("creating");
+		if ($('#tagLineInput').val().length > 0 && $('#tagLineInput').val().length <= 20 ) {
 			createTagModalElement($('#tagLineInput').val());
 			return;
 		}
@@ -266,7 +278,7 @@ $(document).ready(function () {
         });
     });
     $('#wantedSkill-project-submit').click(function(e) {
-		if ($('#wantedSkillLineInput').val().length > 0) {
+		if ($('#wantedSkillLineInput').val().length > 0  && $('#wantedSkillLineInput').val().length <= 20) {
             console.log("creating");
 			createSkillModalElement($('#wantedSkillLineInput').val());
 			return;

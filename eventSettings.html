@@ -82,6 +82,7 @@
 										<div class="col-sm-9">
 											<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe your self" maxlength="100"></textarea>
 											<script>$('textarea[name="inputDesc"]').text(defineRuneArray({{.Event.EventData.Description}}));</script>
+											<span style='float:left'><span id="chars">5000</span> characters remaining</span>
 										</div>
 									</div>
 									
@@ -326,6 +327,7 @@
 									</div>  
 									<input type="submit" class="btn btn-info" name="name_submit" value="Change Time" />
 									</form>
+
 									<form id="locChange" action="/eventLocation/" method="POST">
 									<input type="hidden" name="eventID" value="{{$eventid}}" />                              
 									<div class='row'>

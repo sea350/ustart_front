@@ -83,6 +83,13 @@ function fitDashboard() {
 }
 
 $(document).ready(function() {
+	//word count limiter
+	var maxLength = 5000;
+	$('textarea').keyup(function() {
+	  var length = $(this).val().length;
+	  var length = maxLength-length;
+	  $('#chars').text(length);
+	});	
     // Follow/Unfollow logic
 	$('#btn1').click(function(e) {
 		if (!$(this).hasClass('unfollow')) {

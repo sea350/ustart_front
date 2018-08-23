@@ -712,7 +712,7 @@
                                     </div>
                                     <div id="widgetBodyGit" class="widgetBody">
                                         <script>
-											   githubRender({{index $loop.Data 0}});
+											   githubRender({{index $loop.Data 0}}, {{index $loop.Data 1}});
 										</script>
                                     </div>
                                 </div>
@@ -767,7 +767,8 @@
                                             </a>
                                             <div class="media-body">
                                                 <div class="form-group">
-                                                        <textarea class="form-control" id="post-msg" name="block" style="resize:none;" placeholder="Share what's new"></textarea>
+                                                        <textarea class="form-control" id="post-msg" maxlength="5000" name="block" style="resize:none;"></textarea>
+                                                        <div class="pull-right" id="textarea_counter">5000 characters remaining.</div>
                                                         <br>
                                                         <button id="new-postSubmit" type="submit" class="btn btn-primary pull-right">Post</button>
                                                 </div>
@@ -916,8 +917,12 @@
 									<div class="modal-body">
 										<div id="hashtags" class="form-group">You haven't added any tags yet.</div>
 										<hr/>
-										<input class="form-control" type="text" id="tagLineInput" name="tagInput" placeholder="Type to add tags" autofocus required />
+										<input class="form-control" type="text" id="tagLineInput" maxlength="20" name="tagInput" placeholder="Type to add tags" autofocus required />
 										<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{$projectid}}" required/>
+                                        <br>
+                                        <div id="count_message" class="pull-right">20 characters remaining
+                                        </div>
+                                        <br>
 									</div>
 									<div class="modal-footer">
 										<span class="pull-left" id="tagCountIndicator">16 Tags Remaining</span>
@@ -939,8 +944,12 @@
 									<div class="modal-body">
 										<div id="hashskills" class="form-group">You haven't added any skill demands yet.</div>
 										<hr/>
-										<input class="form-control" type="text" id="wantedSkillLineInput" name="wantedSkillInput" placeholder="Type to add skill demands" autofocus required />
+										<input class="form-control" type="text" id="wantedSkillLineInput"  maxlength="20" name="wantedSkillInput" placeholder="Type to add skill demands" autofocus required />
 										<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{$projectid}}" required/>
+                                        <br>
+                                        <div id="skill_count_message" class="pull-right">20 characters remaining
+                                        </div>
+                                        <br>
 									</div>
 									<div class="modal-footer">
 										<span class="pull-left" id="wantedSkillCountIndicator">16 Tags Remaining</span>
@@ -1368,7 +1377,7 @@
                                             <br/>
                                             <div class="input-group">
                                                 <span class="input-group-addon">Shown Projects Count</span>
-                                                <input type="number" class="form-control" id="git-count" min='1' max='12' value='4'/>
+                                                <input type="number" class="form-control"  name ="git-count" id="git-count" min='1' max='12' value='4'/>
                                             </div>
                                             <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
                                         </form>

@@ -163,6 +163,7 @@ $(function () {
 		$('#post-msg').val('');
         $('#New-Post-Form').submit();
     }); */
+    
     // like button
      $(".like-btn").click(function (e) {
 		var likeBtnImg = $(this).find('img');
@@ -355,6 +356,11 @@ function formatTime(time) {
 
 
 $(document).ready(function () {
+    $('#post-msg').keyup(function() {
+        var text_length = $('#post-msg').val().length;
+        var text_remaining = 5000 - text_length;
+        $('#textarea_counter').html(text_remaining + ' characters remaining.');
+    });
     //modal box
     $('#menu-item-about').hover(function () {
         $(this).fadeOut(100);

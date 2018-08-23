@@ -131,6 +131,14 @@ function eduCheck(usrtype) {
 	}
 }
 $(document).ready(function() {	
+	//word count limiter
+	var maxLength = 5000;
+	$('textarea').keyup(function() {
+	  var length = $(this).val().length;
+	  var length = maxLength-length;
+	  $('#chars').text(length);
+	});
+
 	//event setting
     $('.vertical-menu ul').on('click', '.event-menu-list', function(event) {
         $('.event-menu-list.active').removeClass('active');

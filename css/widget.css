@@ -28,8 +28,8 @@
 	overflow: hidden;
 }
 
-.widgetBody {
-	min-height: 4em;
+.anchor-feed{
+    margin-bottom:1em;
 }
 #sortable {
     list-style-type: none;
@@ -295,15 +295,18 @@ span.ui-icon {
     cursor: grab;
 }
 
-#widget-insert .widgetBody > button,
+#widget-insert .widgetBody > button{
+    display:inline-block;
+    width:100px;
+    height:10em;
+}
 #projectDisplay .widgetBody >a,
 #eventDisplay .widgetBody> a,
 #eventDisplay .widgetBody>button{
     display:inline-block;
-    width:108px;
+    width:109px;
     height:10em;
 }
-
 #eventDisplay .widgetBody {
 	/*display: grid;
     grid-template-columns: repeat(auto-fit, 122px);

@@ -3,7 +3,8 @@ var linkDesc = [];
 var port=5002;
 
 function updateCounter() {
-	$('#linkCountIndicator').html("" + (16 - linkList.length) + " Link" + (16 - linkList.length == 1 ? "" : "s") + " Remaining");
+    var currentPostCount = (16 - $(".links-container  a").length);
+	$('#linkCountIndicator').html("" + currentPostCount + " Link" + (currentPostCount == 1 ? "" : "s") + " Remaining");
 }
 
 function removeLink(element) {

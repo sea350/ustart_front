@@ -56,7 +56,7 @@
 						<div class="vertical-menu col-sm-3">
 							<ul>
                                 <li data-target='projectImage' class='project-menu-list active'><h5>Edit Images</h5></li>
-								<li data-target='projectInfo' class='project-menu-list'><h5>Edit Info</h5></li>
+								<li data-target='projectInfo' class='project-menu-list'><h5>Edit Project Info</h5></li>
 								<li data-target='projectCategory' class='project-menu-list'><h5>Edit Category</h5></li>
 								<li data-target='projectLocation' class='project-menu-list'><h5>Edit Location</h5></li>
 								<li data-target='projectURL' class='project-menu-list'><h5>Edit custom URL</h5></li>
@@ -90,6 +90,7 @@
 										<div class="col-sm-9">
 											<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe your self" maxlength="100"></textarea>
 											<script>$('textarea[name="inputDesc"]').text(defineRuneArray({{.Project.ProjectData.Description}}));</script>
+											<span style='float:left'><span id="chars">5000</span> characters remaining</span>
 										</div>
 									</div>
 									
