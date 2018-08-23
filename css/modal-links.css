@@ -4,10 +4,14 @@
 
 .links-container>a {
     vertical-align: top;
-    display: inline-block;
-    width: 128px;
     margin: 0.7em;
     text-align: center
+    margin: 0.5em;
+	margin-bottom: 0.5em !important;
+	/*max-width: 25em;*/
+    padding: 0.5em 0.1em;
+    display: inline-block;
+    width:108px;
 }
 
 .links-container a {
@@ -15,8 +19,7 @@
 }
 
 .links-container>a>img {
-    max-width: 128px;
-    min-height: 128px;
+    width: 100%;
     -o-object-fit: contain;
     object-fit: contain
 }
@@ -64,9 +67,9 @@
     -webkit-transition: opacity 0.3s;
     -o-transition: opacity 0.3s;
     transition: opacity 0.3s;
-    -webkit-transform: translate(7.3em, 0.3em);
-    -ms-transform: translate(7.3em, 0.3em);
-    transform: translate(7.3em, 0.3em);
+    -webkit-transform: translate(5.9em, 0.2em);
+    -ms-transform: translate(5.9em, 0.2em);
+    transform: translate(5.9em, 0.2em);
     -webkit-transition-delay: 0.3s;
     -o-transition-delay: 0.3s;
     transition-delay: 0.3s;
@@ -78,7 +81,7 @@
     opacity: 1;
 }
 
-#hashtags>span {
+#hashtags>span, #hashskills>span {
     cursor: pointer;
     background: #607D8B;
     padding: 0.5em 1em;
@@ -90,7 +93,7 @@
     max-width: 100%;
 }
 
-#hashtags>span:hover {
+#hashtags>span:hover, #hashskills>span:hover {
     opacity: 0.8
 }
 .deleteTagBtn {

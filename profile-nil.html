@@ -13,7 +13,6 @@
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/modal-links.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/socialMedia.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-gallery.css">
-	
     <script src="/ustart_front/ckeditor/ckeditor.js"></script>
     <script src="/ustart_front/ckeditor/config.js"></script>
     <script src="/ustart_front/js/jquery.nicescroll.min.js"></script>
@@ -27,7 +26,6 @@
 	<script src="//assets.pinterest.com/js/pinit.js"></script>	
 	<script src="/ustart_front/js/layout_links.js"></script>
 	<script src="http://www.youtube.com/player_api"></script>
-	
     <script src="/ustart_front/js/widgets.js"></script>
     <script src="/ustart_front/js/widget-projectDisplay.js"></script>	   
     <script src="/ustart_front/js/widget-calendar.js"></script>
@@ -43,6 +41,7 @@
     //globals
     var userID = {{.Page}};
     var doc = {{.DOCID}};
+    var linksMap = [];
     var scrollID ="";
     var totalHits =-1;
     var editPermission = 1;
@@ -100,17 +99,23 @@
 											
 										<a data-toggle="tooltip" title= "{{.UserInfo.FirstName}} {{.UserInfo.LastName}}" data-placement='bottom'  href="/profile/{{.UserInfo.Username}}">
 											
-											<strong id="name">{{.UserInfo.FirstName}} {{.UserInfo.LastName}}</strong>
+											<strong id="name" style="vertical-align: middle">{{.UserInfo.FirstName}} {{.UserInfo.LastName}}</strong>
 										</a>
 										<span class="dot">
 											<span class="active">
-												<i class="fa fa-circle" aria-hidden="true" data-toggle="tooltip" title="Active"></i>
+												<i class="fa fa-circle" aria-hidden="true" data-toggle="tooltip" title="Active" style="vertical-align: middle"></i>
 											</span>
 										</span>
 									</h3>
 								</div>
 							</div>
 							<div id="breif-info" style="text-align: left; padding: 1em 1em 0 1em;">
+                                {{ if .UserInfo.Username}}
+								<div id="username-cont" style="color:#00C085">
+									<i class="fa fa-user" aria-hidden="true" style="color:#00C085;"></i> Alias
+									<p id="username" style="color:black">{{.UserInfo.Username}}</p>
+								</div>
+								{{ end }}
 								{{ if .UserInfo.Location.Country }}
 								<div id="location-cont" style="color:#00C085">
 									<i class="fa fa-map-marker" aria-hidden="true" style="color:#00C085;"></i> Location
@@ -121,6 +126,7 @@
 								<div id="edu-link" style="color:#00C085;">
 									<i class="fa fa-graduation-cap" aria-hidden="true" style="color:#00C085;"></i> Education
 									<p style="color:black">{{.UserInfo.University}}</p>
+									{{.UserInfo.Dob}}
 								</div>
 								{{ end }}
 								{{if .UserInfo.Phone}}
@@ -139,14 +145,18 @@
 								{{else}}
 								<div class="ellipsis">
 								<a href="#description_modal" data-toggle="modal"> 
-									<span id="description">
+									<span id="description" style ="color:black">
 										<script>readRuneArray({{.UserInfo.Description}});</script>
 									</span>
 								</a>
 								</div>
-								<div id="description_modal" class="modal fade">
+								<div id="description_modal" class="modal fade" style="width:80%; margin: 0 auto;">
 										<div class="modal-dialog modal-sm">
 												<div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">About</h4>
+                                                    </div>
 													<div class="modal-body">
 														<strong>Description: </strong>
 															<script>readRuneArray({{.UserInfo.Description}});</script>
@@ -163,12 +173,12 @@
 						<hr>
 						<div id="user-nums">
 							<div id="followers">
-								<a href="/followers/{{.UserInfo.Username}}" data-toggle="tooltip" data-placement="top" title="{{len .UserInfo.Followers}} Followers">
+								<a href="/followers/{{.UserInfo.Username}}#FollowersTab" data-toggle="tooltip" data-placement="top" title="{{len .UserInfo.Followers}} Followers">
 									<span id="num-followers" style="font-weight: bold">{{len .UserInfo.Followers}}</span> Followers</a>
 							</div>
 							
 							<div id="following">
-								<a href="/followers/{{.UserInfo.Username}}#Following" data-toggle="tooltip" data-placement="top" title="{{len .UserInfo.Following}} Following">
+								<a href="/followers/{{.UserInfo.Username}}#FollowingTab" data-toggle="tooltip" data-placement="top" title="{{len .UserInfo.Following}} Following">
 									<span id="num-following" style="font-weight: bold">{{len .UserInfo.Following}}</span> Following</a>
 							</div>
 							<!-- if user is visiting the page -->
@@ -463,7 +473,7 @@
 									</div>
 									<div class="widgetBody">
 									{{range $project := .ListOfHeads}}
-										<a class="btn btn-default projectsColumn" href="/Projects/{{$project.Username}}" data-project="{{$project.DocID}}" data-project-visible="{{$project.Followed}}">
+										<a  class = "projectsColumn btn btn-default" href="/Projects/{{$project.Username}}" data-project="{{$project.DocID}}" data-project-visible="{{$project.Followed}}">
 											<div class="columnImage" data-toggle="tooltip" data-placement="top" title="{{$project.FirstName}}">
 												<img id="proj-preview{{$project.DocID}}" class="img-responsive" src=""/>
 												<script>
@@ -473,8 +483,8 @@
 											</div>
 										</a>
 									{{end}}
+                                        </div>
 									</div>
-								</div>
 							</li> <!--end project widget -->
                             
                             <!-- skill widget-->
@@ -494,9 +504,7 @@
 									{{range $loop := .UserInfo.Tags}}
 									{{if ne ($loop) ""}}
 									<script>
-										$(document).ready(function() {
 											createTagWidgetElement("#hashTagsBody", {{$loop}});
-										});
 									</script>
 									{{end}}
 									{{end}}
@@ -512,19 +520,26 @@
 										{{end}}
 										<h4>Links</h4>
 									</div>
-									<div class="widgetBody">
+									<div class="linkBody">
 									<div class="links-container"></div>
+                                    
 									{{range $loop := .UserInfo.QuickLinks}}
 										{{if ne ($loop.URL) ""}}
 										<script>
-											$(document).ready(function() {
-												createLink({{$loop.URL}},{{$loop.Name}});
-											});
+                                                var tempLinks = [{{$loop.URL}}, {{$loop.Name}}];
+                                                linksMap.push(tempLinks);
 										</script>
 										{{end}}
 									{{end}}
 										
 									</div>
+                                    <script>
+                                        $(document).ready(function() {
+                                            $.each(linksMap, function() {
+                                                createLink(this[0],this[1]);  
+                                            });
+                                        });
+                                    </script>
 								</div>
 							</li><!--end link widget -->
                             <!-- for loop goes here -->
@@ -581,7 +596,7 @@
                                     <div id="widgetBodyID" class="widgetBody widgetBodyInstagram">
                                          {{range $loop2 := $loop.Data }}
                                          <!-- loop through the data loop for multiple instagram posts -->
-										<div class="insta-feed"><blockquote class="instagram-media" data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:62.5% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div>
+										<div class="insta-feed"><blockquote class="instagram-media" data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:6px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:62.5% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div>
 											<p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">
 												<a href="{{$loop2}}" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank"></a></p></div></blockquote> <script async defer src="//platform.instagram.com/en_US/embeds.js"></script></div>
                                         {{end}} <!--end data loop -->
@@ -630,9 +645,7 @@
                                              <div id='player{{index $loop.ID}}'>
 											 </div>
 											 <script>
-												$( document ).ready(function() {
 												YoutubeRender({{index $loop.Data 0}},{{index $loop.ID}});
-												});
 											 </script>
                                         </div>
                                     </div>
@@ -677,9 +690,7 @@
                                     </div>
                                     <div id= "widgetBodyTumblr" class="widgetBody">
                                         <script>
-                                            $( document ).ready(function() {
 											   tumblrRender({{index $loop.Data 0}});
-                                            });
 										</script>
                                     </div>
                                 </div>
@@ -703,11 +714,9 @@
 								</div>
 								<div id="widgetBodyPin" class="widgetBody">
 									<script>
-										$( document ).ready(function() {
 										{{range $loop2 := $loop.Data }}
 											pinRender({{$loop2}});
 										{{end}}
-										});
 									</script>
 								</div>
 							</div>
@@ -750,12 +759,11 @@
                                     <h4>Anchor</h4>
                                     </div>
                                     <div id= "widgetBodyAR" class="widgetBody">
+                                         
                                         {{range $loop2 := $loop.Data }}
-                                         <div class="anchor-feed" id="arrender{{index $loop.ID}}">
                                          <script>
                                              ARRender({{$loop2}},{{index $loop.ID}});
                                          </script>
-                                         </div>
                                         {{end}}
                                     </div>
                                 </div>
@@ -777,9 +785,7 @@
                                     </div>
                                     <div id="widgetBodyMed" class="widgetBody"></div>
                                         <script>
-                                            $( document ).ready(function() {
                                             mediumRender({{index $loop.Data 0}},{{index $loop.Data 1}},{{index $loop.Data 2}},{{index $loop.Data 3}});
-                                            });
                                         </script>
                                 </div>
                             </li>
@@ -802,9 +808,7 @@
                                     <div id="widgetBodyDA" class="widgetBody">
                                     </div>
                                     <script>
-                                        $( document ).ready(function() {
                                             daRender({{index $loop.Data 0}},{{index $loop.Data 1}});
-                                        });
                                     </script>
                                 </div>
                             </li>
@@ -870,9 +874,7 @@
                                     </div>
                                     <div id="widgetBodyGit" class="widgetBody">
                                         <script>
-                                            $( document ).ready(function() {
 											   githubRender({{index $loop.Data 0}});
-                                            });
 										</script>
                                     </div>
                                 </div>
@@ -1167,7 +1169,7 @@
                                     <span id="ig-list-title">Removable Instagram posts</span>
                                     <ul id="ig-edit-list"></ul>
                                     <label>Please paste the Instagram post URL here</label>
-                                    <input type="url" class="form-control" name="instagramInput" id="ig-embed-input" placeholder="https://www.instagram.com/p/BageGbgD05c/" pattern="https:\/\/www\.instagram\.com\/p\/[A-Za-z\-_0-9]{2,16}\/.*" required/>
+                                    <input type="url" class="form-control" name="instagramInput" id="ig-embed-input" placeholder="https://www.instagram.com/p/BageGbgD05c/" pattern="https:\/\/www\.instagram\.com\/p\/[A-Za-z\-_0-9]{2,16}.*" required/>
                                     <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
                                 </div>
                                 <div class="modal-footer">
@@ -1313,7 +1315,7 @@
 								<p>Please paste your Pinterest Profile URL here:</p>
 								<form id="customPinterestForm" action="/addWidget/" method="POST">
 								<div class="form-group">
-									<input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="https://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+\/' required>
+									<input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="https://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+' required>
 									<!-- Regexp: pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/? -->
 									<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
 								</div>

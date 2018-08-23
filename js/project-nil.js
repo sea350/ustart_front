@@ -30,7 +30,6 @@ $(function () {
         tolerance: "pointer",
         items: "> li.sortable",
         update: function(event, ui) {
-            console.log(doc);
             if (userID == doc){
                 // Update {{.UserInfo.UserWidgets}} with $("#sortable").sortable("toArray")
                 var asortedWidgets = $("#sortable").sortable("toArray");
@@ -40,8 +39,9 @@ $(function () {
                     contentType: "application/json; charset=utf-8",
                     data: {sortedWidgets: JSON.stringify(asortedWidgets), pageID: userID},
                     success: function(data) {
+                        console.log(userID);
+                        console.log(asortedWidgets);
                         console.log('Sorted Widgets are probably saved: ');
-                        console.log(data);
                     },
                     error: function(err) {
                         console.log('Sorted Widgets failed: ');
@@ -153,20 +153,8 @@ function timeSince(date) {
      shrBtnImg.attr('src', "/ustart_front/ico/not share.png"); 
  });
 $(function () {
-    $('body').confirmation({
-        selector: '[data-toggle="confirmation"]'
-    });
-
-    $('.confirmation-callback').confirmation({
-        onConfirm: function () {
-            alert('confirm')
-        },
-        onCancel: function () {
-            alert('cancel')
-        }
-    });
     
-    //submit button for share
+    /*//submit button for share
     $('body').on('click', '.odom-submit', function (e) {
         $('#shareCommentForm').submit();
     });
@@ -174,7 +162,7 @@ $(function () {
     $('body').on('click', '#new-postSubmit', function (e) {
 		$('#post-msg').val('');
         $('#New-Post-Form').submit();
-    });
+    }); */
     // like button
      $(".like-btn").click(function (e) {
 		var likeBtnImg = $(this).find('img');

@@ -11,21 +11,18 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/layout.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="/ustart_front/js/bootstrap-confirmation.min.js"></script>
     <script src="/ustart_front/js/ascii-convert.js"></script>
     <script src="/ustart_front/js/layout.js"></script>
     <script src="/ustart_front/js/userEdit.js"></script>
     <script>
         var port = window.location.port;
         var chatNotifCount = 0;
+        var newNotifs = 0;
         var chattimerID=0;
         var roomSocket;
-            chatNotifCount = $(".chat-label.label-new").length;
-            updateChatBadge();
             $('[data-toggle="tooltip"]').tooltip();
-
             $('.dropdown').on('show.bs.dropdown', function () {
                 $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
             });
@@ -64,7 +61,13 @@
             }
             checkWidth();
             $(window).resize(checkWidth);
+            // begin loading notifications
             var newMsgReceived = false;
+            chatNotifCount = $(".chat-label.label-new").length;
+            updateChatBadge();
+            newNotifs= $(".notif-label.label-new").length;
+            updateNotifBadge();
+            //chat notification
             $.ajax({
                   type: 'GET',
                     url: 'http://ustart.today:'+port+'/AjaxChatNotifications/',
@@ -93,6 +96,25 @@
                              appendEmptyItem("chatDrop");
                          }
                          chatNotifstart();
+                        }
+                    }
+                    ,error: function(err) {
+                        console.log('chat initial chat failed: ');
+                        console.log(err);
+                    }
+            });
+        
+            $.ajax({
+                  type: 'GET',
+                    url: 'http://ustart.today:'+port+'/AjaxNotifications/',
+                    contentType: "application/json; charset=utf-8",
+                    data: {},
+                    success: function(data) {
+                    },complete: function (jqXHR,status) {
+                        if(status == 'success' || status=='notmodified')
+                        {
+                        var temp = $.parseJSON(jqXHR.responseText);
+                        console.log(temp);
                         }
                     }
                     ,error: function(err) {
@@ -219,6 +241,7 @@
                 if(!roomSocket || roomSocket.readyState == 3){ 
                     chatNotifstart();}
             }
+            
                
     </script>
 </head>
@@ -283,6 +306,11 @@
                                 <i class="fa fa-briefcase fa-2x" aria-hidden="true"></i>
                             </a>
                         </li>
+                        <li>
+                            <a href="/ManageEvents/">Events
+                                <i class="fa fa-calendar fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </li>                        
                         <li class="divider"></li>
                         <li>
                             <a href="/Settings/">Settings

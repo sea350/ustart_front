@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UStart Event - </title>
+    <title>UStart Event - {{.Event.EventData.Name}}</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick-theme.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/swisnl/jQuery-contextMenu/master/dist/jquery.contextMenu.min.css">
@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/socialMedia.css">
 
     <link rel="stylesheet" href="/ustart_front/css/evnt.css">
-    <link rel="stylesheet" href="/ustart_front/css/event.css">
+    <link rel="stylesheet" href="/ustart_front/css/events.css">
 
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/profile.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.7.1/slick/slick.min.js"></script>
@@ -24,21 +24,22 @@
     <script type="text/javascript" src="/ustart_front/js/jquery.nicescroll.min.js"></script>
 
     <script type="text/javascript" src="/ustart_front/js/event-nil.js"></script>
-
     {{$userid := .DOCID}}
     {{$eventid := .Event.DocID}}
-	{{$eventurl := .Event.EventData.URLName}}
+    {{$eventurl := .Event.EventData.URLName}}
     <script type="text/javascript" src="/ustart_front/js/jquery.rss.min.js"></script>
     <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js" data-pin-build="doBuild"></script>
-    <script type="text/javascript" type ="text/javascript">
+    <script>
         var pageID = {{$eventid}};
-        var projscrollID;
+        var eventscrollID;
         var maxHits = -1;
     </script>
     <script src="http://www.youtube.com/player_api"></script>
     {{range $loop := .Event.EventData.EntryIDs}}
-    <script>IDArray.push({{$loop}}); </script>
-    {{end}}    
+    <script>
+        IDArray.push({{$loop}});
+    </script>
+    {{end}}
 	<script type="text/javascript" src="/ustart_front/js/layout_tags.js"></script>
     <script type="text/javascript" src="/ustart_front/js/widget-gallery.js"></script>
     <script type="text/javascript" src="/ustart_front/js/widgets.js"></script>
@@ -50,6 +51,1506 @@
     <script type="text/javascript" src="/ustart_front/js/createPosts.js"></script>
 </head>
 <body>
-    <input type="hidden" id="followstat">
+    <input type="hidden" id='followstat'>
+    <div id="centering">
+        <img id='head-image'>
+        <script>
+            $('#head-image').attr('src', {{.Event.EventData.Banner}});
+        </script>
+        <div id="content" class="container">
+            <div>
+                <div class="followers-cont flex">
+                    
+                    <div class="event-toolbar">
+                       
+                        {{range $member := .Event.MemberData}}
+                        {{if eq $userid $member.DocID}}
+                        {{$memberValidity := $member.Classification}}
+                        <script>
+                            permission= {{$memberValidity}};
+                        </script>    
+						<form id="event-leave-form" action="/leaveEvent/" style="display:none">
+							<input type="hidden" name="leaverID" value=""/>
+							<input type="hidden" name="eventID" value='{{$eventid}}'/>
+						</form>                        
+                        <div id="event-leave" class="modal fade" role='dialog'>
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <button type='button' class="close" data-dismiss='modal'>&times;</button>
+                                    <h4 class="modal-title">Leaving Event</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Confirm that you want to leave this event
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary" form="event-leave-form">Leave</button>
+                                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                </div>                                
+                            </div>
+                        </div>
+						{{if le $memberValidity 2}}
+                        <div id="floating-widget-editor">
+                            <span id="widget-status">Edit Mode</span>
+                            <button class="btn btn-info"><i class="fa fa-pencil-square-o"></i></button>
+                        </div>
+						<script>
+                            var editMode = true;
+                            $('#floating-widget-editor .btn').click(function() {
+                                if (editMode) {
+                                    // Change to View Mode
+                                    $('#widget-status').text('Preview Mode');
+                                    editMode = false;
+                                    if (!$("#tagsWidget .eventsColumn").length) {
+                                        $("#tagsWidget").parent("li").hide("fast");	
+                                    }
+                                    if (!$("#links-container a").length) {
+                                        $("#linksWidget").parent("li").hide("fast");
+                                    }
+                                    $('#widget-insert, .event-options, .widgetTitle .fa-pencil, .widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort').hide("fast");
+                                } else {
+                                    $('#widget-status').text('Edit Mode');
+                                    editMode = true;
+                                    $("#tagsWidget").parent("li").show("fast");	
+                                    $("#linksWidget").parent("li").show("fast");
+                                    $('#widget-insert, .event-options, .widgetTitle .fa-pencil, .widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort').show("fast");
+                                }
+                            });
+                        </script>
+                        {{else}}
+                        <script>
+                            $(document).ready(function() {
+                                $('#widget-insert, .widgetListItem .fa-pencil, .widgetListItem .fa-trash, .widgetListItem .fa-sort, [data-event-visible="false"]').remove();
+                            });                            
+                        </script>
+                        {{end}}
+                    {{end}}
+                {{end}}
+                    </div>
+                </div>
+                <div class="dashboard-top panel panel-default">
+                    <div class="panel-body flex">
+                        <div class="dashboard-top-left flex row flex-col">   
+                            {{if .Event.EventData.Name}}
+                                <div id="event-category" class="detail-content">
+                                    {{.Event.EventData.Name}}
+                                </div>
+                            {{end}}
+                                <div id="event-location" class="detail-content">
+                                    {{range $member := .Event.MemberData}}
+                                    <span style='color: #90949c;'>Hosted By </span> <p> <strong>{{$member.FirstName}} {{$member.LastName}}</strong> a.k.a ({{$member.Username}})</p>
+                                    {{end}}
+                                </div>
+                        </div>
+                        <div class="dashboard-top-right flex-grow">
+                                <div id="event-desc" class="flex-grow col-xs-12">
+                                    <div data-toggle="tooltip" title="" id="event-startDash"></div>  
+                                    <div id='demo'></div>
+                                    <button class="event-message btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
+                                    
+                                    {{if eq ($.Event.RequestAllowed) true}}
+                                    <form action="/GuestRequestToJoin/" method="POST" style="display: inline-block;" style='margin-top:0em; margin-bottom:0em;'>
+                                        <input type="hidden" name="projID" value='{{$eventid}}'>
+                                        <button class="event-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
+                                            <span>Request to join AS guest</span>
+                                        </button>
+                                    </form>
+                                    {{end}}
+                                    <a class='btn btn-default' style="padding: 0.5em 1em;" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
+                                    <script>
+                                    
+                                        var Sdate = {{.Event.EventData.EventDateStart}}; 
+    
+                                        var Syear = Sdate.slice(0, 4);
+                                        var Smonth = Sdate.slice(5, 7);
+                                        
+                                        var SmonthEn = switchMonth(Smonth);
+                                            
+                                        var Sday = Sdate.slice(8, 10);
+                                        document.getElementById("event-startDash").innerHTML = "<h5 style='color:#fa3e3e; margin-bottom:0;'>"+SmonthEn +"</h5>"+ "<span style='font-size:3em'>"+Sday+"<span>";
+                                    </script> 
+                                    <script>
+                                            // Set the date we're counting down to
+                                            var countDownDate = new Date({{.Event.EventData.EventDateStart}}).getTime();
+                                            
+                                            // Update the count down every 1 second
+                                            var x = setInterval(function() {
+                                            
+                                                // Get todays date and time
+                                                var now = new Date().getTime();
+                                                
+                                                // Find the distance between now and the count down date
+                                                var distance = countDownDate - now;
+                                                
+                                                // Time calculations for days, hours, minutes and seconds
+                                                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                                
+
+                                                // Output the result in an element with id="demo"
+                                                eventCount = document.getElementById("event-startDash")
+                                                eventCount.title = days + "d " + hours + "h "
+                                                + minutes + "m " + seconds + "s ";
+                                                
+                                                // If the count down is over, write some text 
+                                                if (distance < 0) {
+                                                    clearInterval(x);
+                                                    document.getElementById("event-startDash").title = "EXPIRED";
+                                                }
+                                            }, 1000);               
+                                    </script>                               
+                                </div>                            
+                        </div>
+
+                        <div class="dashboard-top-mid">
+                                <img id="event-logo" class="img-circle img-responsive"/>
+                                <script>
+                                    $('#event-logo').attr('src', {{.Event.EventData.Avatar}});
+                                </script>
+                            </div>                        
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="row" style='margin-left:1em'>
+                                <div class="col-sm-2">
+                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-sm-10">
+                                    <p id='demo1'></p>
+                                    <script>
+                                        var S1date = {{.Event.EventData.EventDateStart}}; 
+
+                                        var S1year = Sdate.slice(0, 4);
+                                        var S1month = Sdate.slice(5, 7);
+                                        
+                                        var S1monthEn = switchMonth(S1month);
+
+                                        var S1day = Sdate.slice(8, 10);
+                                        var S1hour = Sdate.slice(11, 13);
+                                        var S1min = Sdate.slice(14, 16);
+
+                                        var S2date = {{.Event.EventData.EventDateEnd}}; 
+
+                                        var S2year = S2date.slice(0, 4);
+                                        var S2month = S2date.slice(5, 7);
+                                        var S2monthEn = switchMonth(S2month);
+                                        var S2day = S2date.slice(8, 10);
+                                        var S2hour = S2date.slice(11, 13);
+                                        var S2min = S2date.slice(14, 16);                                        
+                                        document.getElementById("demo1").innerHTML = '<p>'+ S1monthEn + ' ' + S1day + ' - ' + S2monthEn + ' ' + S2day +'</p>'+'<h6 class="text-secondary">' + S1monthEn + " " + S1day +" "+ S1hour+" : "+S1min +" to "+ S2monthEn + " " + S2day +" "+ S2hour+" : "+S2min + '</h6>';
+                                    </script>
+                                </div>                
+                            </div>
+                            <div class="row" style='margin-left:1em'>
+                                <div class="col-sm-2">
+                                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-sm-10">
+                                    <p>{{.Event.EventData.Location.City}} <p>
+                                    <h6> {{.Event.EventData.Location.Street}} {{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}</h6>
+                                </div>                
+                            </div>
+                            <div class="row" style='margin-left:1em'>
+                                <div class="col-sm-2">
+                                    <span class="glyphicon glyphicon-user" style='padding-top:0' aria-hidden="true"></span>
+                                </div>
+                                <div class="col-sm-10" >
+                                    {{range $member := .Event.MemberData}}
+                                    <p> <strong> {{$member.FirstName}} {{$member.LastName}}</strong></p>
+                                    {{end}}
+                                </div>  
+                            </div>              
+                        </div>                        
+                        <div class="col-sm-8">
+                            <h4> <strong style='text-transform: uppercase'>details</strong></h4>
+                            <div id="event-detail">
+                                <script>readRuneArray({{.Event.EventData.Description}});</script>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>                
+                <ul class="nav nav-tabs nav-justified event-tabs">
+                    <li class="active"><a data-toggle="tab" href="#event-about">Showcase</a></li>
+                    <li class=""><a data-toggle="tab" id="Wall-loadAJAX" href="#prof-wall">Posts</a></li>
+                    
+                </ul>
+                <div class="tab-content">
+                    <div id="event-about" class="tab-pane fade in active">
+                        <ul id="sortable">
+                        <li class="ui-state-default">
+                            <div id="usersWidget" class="eventsWidgetCont">
+                                <div class="widgetTitle">
+                                    
+                                    <h4>Users attending</h4>
+                                </div>
+                                {{range $member := .Event.MemberData}}
+                                <a class="member" href="/profile/{{$member.Username}}" data-toggle="tooltip" data-placement="right" title="{{$member.FirstName}} {{$member.LastName}}">
+                                        <img id="img{{$member.Username}}" class="img-circle img-responsive">
+                                        <script>
+                                            $('img#img{{$member.Username}}').attr('src', {{$member.Image}});
+                                        </script>
+                                        <!--
+                                        <div class="member-title">C.E.O.</div>
+                                        <div class="member-followers">888 Followers</div>
+                                        <div class="member-events">25 Events</div>
+                                        -->
+                                </a>
+                                {{end}}
+                            </div>       
+                            <script>
+                                $(document).ready(function(){
+                                    $('[data-toggle="tooltip"]').tooltip();   
+                                });
+                                </script>                         
+                            </li><!--end users attending widget -->   
+                            <li class="ui-state-default">
+                                <div id="usersWidget" class="eventsWidgetCont">
+                                    <div class="widgetTitle">
+                                        
+                                        <h4>Projects attending</h4>
+                                    </div>
+                                    {{range $member := .Event.MemberData}}
+                                    <a class="member" href="/profile/{{$member.Username}}" data-toggle="tooltip" data-placement="right" title="{{$member.FirstName}} {{$member.LastName}}">
+                                            <img id="img{{$member.Username}}" class="img-circle img-responsive">
+                                            <script>
+                                                $('img#img{{$member.Username}}').attr('src', {{$member.Image}});
+                                            </script>
+                                            <!--
+                                            <div class="member-title">C.E.O.</div>
+                                            <div class="member-followers">888 Followers</div>
+                                            <div class="member-events">25 Events</div>
+                                            -->
+                                    </a>
+                                    {{end}}
+                                </div>       
+                                <script>
+                                    $(document).ready(function(){
+                                        $('[data-toggle="tooltip"]').tooltip();   
+                                    });
+                                    </script>                         
+                                </li><!--end projects attending widget -->                                                         
+                            <li id="widget-insert" class="ui-state-default">
+                            <div class="eventsWidgetCont">
+                                <div class="widgetTitle">
+                                    <h4>Insert New widget</h4>
+                                </div>
+                                <div class="widgetBody" style='justify-content: space-between'>
+                                    <button id="addTextWidget" class="btn btn-default eventsColumn">
+                                        <div class="columnImage">
+                                            <img src="/ustart_front/img/png/text.png" />
+                                            <div class="columnTitle">Custom Text</div>
+                                        </div>
+                                    </button>    
+                                    <button id="calendarWidgetBtn" class="btn btn-default eventsColumn" style="display:none">
+                                        <div class="columnImage">
+                                            <img src="/ustart_front/img/png/calendar_g.png" />
+                                            <div class="columnTitle">Google Calendar</div>
+                                        </div>
+                                    </button>                                                                            
+                                    <button id="PollWidgetBtn" class="btn btn-default eventsColumn" style="display:none">
+                                        <div class="columnImage">
+                                            <img src="/ustart_front/img/png/poll.png" />
+                                            <div class="columnTitle">
+                                                Poll
+                                            </div>
+                                        </div>
+                                    </button>    
+                                    <button id="igWidgetBtn" class="btn btn-default eventsColumn">
+                                        <div class="columnImage">
+                                            <img src="/ustart_front/img/png/instagram.png" />
+                                            <div class="columnTitle">
+                                                Instagram
+                                            </div>
+                                        </div>
+                                    </button>   
+                                    <button id="scWidgetBtn" class="btn btn-default eventsColumn">
+                                        <div class="columnImage">
+                                            <img src="/ustart_front/img/png/soundcloud.png" />
+                                            <div class="columnTitle">
+                                                SoundCloud
+                                            </div>
+                                        </div>
+                                    </button>  
+                                    <button id="ytWidgetBtn" class="btn btn-default eventsColumn">
+                                        <div class="columnImage">
+                                            <img src="/ustart_front/img/png/youtube-1.png" />
+                                            <div class="columnTitle">
+                                                YouTube
+                                            </div>
+                                        </div>
+                                    </button> 
+                                    <button id="addCodePenWidget" class="btn btn-default eventsColumn">
+                                        <div class="columnImage">
+                                            <img src="/ustart_front/img/png/codepen.png" />
+                                            <div class="columnTitle">
+                                                CodePen
+                                            </div>
+                                        </div>
+                                    </button>                                                                                                                                                                                              
+                                    <button id="addPinterestWidget" class="btn btn-default eventsColumn">
+                                        <div class="columnImage">
+                                            <img src="/ustart_front/img/png/pinterest.png" />
+                                            <div class="columnTitle">
+                                                Pinterest
+                                            </div>
+                                        </div>
+                                    </button>  
+                                    <button id="addTumblrWidget" class="btn btn-default eventsColumn">
+                                        <div class="columnImage">
+                                            <img src="/ustart_front/img/png/twitter-2.png" />
+                                            <div class="columnTitle">
+                                                Tumblr
+                                            </div>
+                                        </div>
+                                    </button>
+                                    <button id="addSpotifyWidget" class="btn btn-default eventsColumn">
+                                        <div class="columnImage">
+                                            <img src="/ustart_front/img/png/spotify.png" />
+                                            <div class="columnTitle">
+                                                Spotify
+                                            </div>
+                                        </div>
+                                    </button>  
+                                    <button id="arWidgetBtn" class="btn btn-default eventsColumn">
+                                        <div class="columnImage">
+                                            <img src="/ustart_front/img/png/anchor.png" />
+                                            <div class="columnTitle">
+                                                Anchor
+                                            </div>
+                                        </div>
+                                    </button>   
+                                    <button id="mediumWidgetBtn" class="btn btn-default eventsColumn">
+                                        <div class="columnImage">
+                                            <img src="/ustart_front/img/png/medium.png" />
+                                            <div class="columnTitle">
+                                                Medium
+                                            </div>
+                                        </div>
+                                    </button>    
+                                    <button id="daWidgetBtn" class="btn btn-default eventsColumn">
+                                        <div class="columnImage">
+                                            <img src="/ustart_front/img/png/deviantart.png" />
+                                            <div class="columnTitle">
+                                                DeviantArt
+                                            </div>
+                                        </div>
+                                    </button>                                                                                                                                                                                                                                     
+                                    <button id="twitchWidgetBtn" class="btn btn-default eventsColumn">
+                                        <div class="columnImage">
+                                            <img src="/ustart_front/img/png/twitch.png" />
+                                            <div class="columnTitle">
+                                                Twitch
+                                            </div>
+                                        </div>
+                                    </button>
+                                    <button id="addGithubWidget" class="btn btn-default eventsColumn">
+                                        <div class="columnImage">
+                                            <img src="/ustart_front/img/png/github.png" />
+                                            <div class="columnTitle">
+                                                Github
+                                            </div>
+                                        </div>
+                                    </button> 
+                                    <button id="addGalleryWidget" class="btn btn-default eventsColumn">
+                                        <div class="columnImage">
+                                            <img src="/ustart_front/img/png/gallery.png" />
+                                            <div class="columnTitle">Gallery</div>
+                                        </div>
+                                    </button>                                                                                                                       
+                                </div>
+                            </div>
+                        </li>                            
+                        <li class="ui-state-default">
+                                <div id="tagsWidget" class="eventsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#tagModal"></span>
+                                        <h4>Tags</h4>
+                                    </div>
+                                    <div id="hashTagsBody" class="widgetBody" style='overflow: hidden; outline: none; cursor: -webkit-grab; justify-content: space-between;'>
+                                    </div>       
+                                    {{range $loop := .Event.EventData.Tags}}
+                                    {{if ne ($loop) ""}}
+                                    <script>
+                                        $(document).ready(function() {
+                                            createTagWidgetElement("#hashTagsBody", {{$loop}});
+                                        });
+                                    </script>
+                                    {{end}}
+                                    {{end}}
+                                </div>                                
+                            </li><!--end tags widget -->                                                            
+                      
+							<!-- link widget-->
+							<script src="/ustart_front/js/layout_links.js"></script>
+							<li class="ui-state-default widgetListItem sortable">
+                                <div id="linksWidget" class="eventsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#addLinkModal"></span>
+                                        <h4>Links</h4>
+                                    </div>
+                                    <div class="widgetBody">
+                                    <div class="links-container"></div>
+                                    {{range $loop := .Event.EventData.QuickLinks}}
+                                        {{if ne ($loop.URL) ""}}
+                                        <script>
+                                            $(document).ready(function() {
+                                                createLink({{$loop.URL}},{{$loop.Name}});
+                                            });
+                                        </script>
+                                        {{end}}
+                                    {{end}}
+                                    </div>
+                                </div>
+                            </li><!--end link widget -->
+                            {{$eventurl := .Event.EventData.URLName}}
+                            {{range $loop := .Widgets }}
+                            {{if eq $loop.Classification 0}}<!-- if is text -->  
+                            <li class="text ui-state-default" id={{index $loop.ID}}>
+                                <div class="eventsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <script>
+                                            function focusDesc() {
+                                                document.getElementById('text-box').focus();
+                                            }
+                                        </script>
+                                        <span class="pull-right fa fa-2x fa-pencil" onclick="ApplyTextModalID(this)"></span>
+                                        <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                            <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
+                                            <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                            <span name="delete" class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                        </form>
+                                        <h4 id="text-title" name="textEditorHeader">
+                                                {{index $loop.Data 0}}
+                                        </h4>
+                                    </div>
+                                    <div class="widgetBody">
+                                        <div id="text-box" class="text-box" name="textEditorBody">
+                                            {{index $loop.Data 1}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {{end}}<!-- end text -->                            
+                        {{if eq $loop.Classification 4}}
+                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                                <div class="eventsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil" id="ig-edit" onclick="instagramEditor(this)"></span>
+                                        <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                            <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
+                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
+                                            <span name="delete" class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                        </form>
+                                        <h4>Instagram</h4>
+                                    </div>
+                                    <div id="widgetBodyID" class="widgetBody widgetBodyInstagram">
+                                         {{range $loop2 := $loop.Data }}
+                                         <!-- loop through the data loop for multiple instagram posts -->
+                                        <div class="insta-feed"><blockquote class="instagram-media" data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:62.5% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href={{$loop2}} style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank"></a></p></div></blockquote> <script async defer src="//platform.instagram.com/en_US/embeds.js"></script></div>
+                                        {{end}} <!--end data loop -->
+                                    </div>
+                                </div>
+                            </li>
+                        {{end}}<!--end instagram -->
+                        {{if eq $loop.Classification 5}}   
+                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                                <div class="eventsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil" id="sc-edit" onclick="ApplyIDToModal('sc-modal', this)"></span>
+                                        <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                            <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
+                                            <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
+                                            <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                        </form>
+                                        <h4>Soundcloud</h4>
+                                    </div>
+                                    <div id= "widgetBodySC" class="widgetBody">
+                                        {{index $loop.Data 0}}
+                                    </div>
+                                </div>
+                            </li>
+                        {{end}}<!--end soundcloud -->
+                        {{if eq $loop.Classification 6}}   
+                        <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                            <div class="eventsWidgetCont">
+                                <div class="widgetTitle">
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="yt-edit" onclick="ApplyIDToModal('youtubeModal', this)"></span>
+                                    <form id=delete{{index $loop.ID}} action="/deleteEventWidget/" method="POST">
+                                        <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
+                                        <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
+                                        <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                    </form>
+                                    <h4>Youtube</h4>
+                                </div>
+                                <div class="widgetBody">
+                                    <div class="youtube-feed">
+                                        <div id=player{{index $loop.ID}}></div>
+                                         <script type="text/javascript">
+                                              YoutubeRender({{index $loop.Data 0}},{{index $loop.ID}});
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {{end}}<!--end youtube -->                        
+                        {{if eq $loop.Classification 7}}  
+                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                                <div class="eventsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil" id="code-edit" onclick="ApplyIDToModal('code-modal', this)"></span>
+                                        <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                            <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
+                                            <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
+                                            <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                        </form>
+                                        <h4 name="textEditorHeader">CodePen</h4>
+                                    </div>
+                                    <div id="widgetBodyCode" class="widgetBody cpEmbeded">
+                                       {{index $loop.Data 0}}
+                                    </div>
+                                </div>
+                            </li>
+                        {{end}}<!--end codePen -->                        
+                        {{if eq $loop.Classification 9}}  
+                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                                <div class="eventsWidgetCont">
+                                    <div class="widgetTitle">
+                                        <span class="pull-right fa fa-2x fa-sort"></span>
+                                        <span class="pull-right fa fa-2x fa-pencil" id="tumblr-edit"onclick="ApplyIDToModal('tumblr-modal', this)"></span>
+                                        <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                            <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
+                                            <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
+                                            <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                        </form>
+                                        <h4 name="textEditorHeader">Tumblr</h4>
+                                    </div>
+                                    <div id= "widgetBodyTumblr" class="widgetBody">
+                                        <script>
+                                            $( document ).ready(function() {
+											   tumblrRender({{index $loop.Data 0}});
+                                            });
+										</script>
+                                    </div>
+                                </div>
+                            </li>
+                        {{end}} <!--end Tumblr -->   
+                        {{if eq $loop.Classification 8}} <!--pinterest-->
+                        <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                            <div class="eventsWidgetCont">
+                            <div class="widgetTitle">
+                                <span class="pull-right fa fa-2x fa-sort"></span>
+                                <span class="pull-right fa fa-2x fa-pencil" id="pin-edit" onclick="pinterestEditor(this)"></span>
+                                <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                        <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
+                                    <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
+                                    <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                </form>
+                                <h4 name="textEditorHeader">
+                                    Pinterest
+                                </h4>
+                            </div>
+                            <div id="widgetBodyPin" class="widgetBody">
+                                <script>
+                                    $( document ).ready(function() {
+                                    {{range $loop2 := $loop.Data }}
+                                        pinRender({{$loop2}});
+                                    {{end}}
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                        </li>
+                        {{end}}<!-- end pinterest-->                                             
+                        {{if eq $loop.Classification 10}} <!--spotify-->
+                            <li class="ui-state-default widgetListItem sortable" id="{{index $loop.ID}}">
+                            <div class="eventsWidgetCont">
+                            <div class="widgetTitle">
+                                <span class="pull-right fa fa-2x fa-sort"></span>
+                                <span class="pull-right fa fa-2x fa-pencil" id="spot-edit" onclick="spotifyEditor(this)"></span>
+                                <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                        <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
+                                    <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                    <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                </form>
+                                <h4 name="textEditorHeader">Spotify</h4>
+                            </div>
+                            <div id="widgetBodySpot" class="widgetBody">
+                                 {{range $loop2 := $loop.Data }}
+                                        {{$loop2}}
+                                 {{end}}
+                            </div>
+                            </div>
+                        </li>
+                        {{end}} <!-- end spotify -->     
+                        {{if eq $loop.Classification 14}}  <!--twitch-->
+                            <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                                <div class="eventsWidgetCont">
+                                    <div class="widgetTitle">
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="twitch-edit" onclick="ApplyIDToModal('twitch-modal', this)"></span>
+                                    <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                            <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
+                                        <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                        <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                    </form>
+                                    <h4>Twitch</h4>
+                                    </div>
+                                     <div id=twitchrender{{index $loop.ID}} class="widgetBody">
+                                       <!-- <iframe src="https://player.twitch.tv/?channel={{index $loop.Data 0}}" frameborder="0" allowfullscreen="true" scrolling="no" height="640" width="100%"></iframe>-->
+                                      <script type =text/javascript>
+                                         TwitchRender({{index $loop.Data 0}}, {{index $loop.ID}});
+                                      </script>
+                                    </div>
+                                </div>
+                            </li>
+                        {{end}}<!--end twitch -->  
+                        {{if eq $loop.Classification 11}}  <!--anchor--> 
+                        <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                                <div class="eventsWidgetCont">
+                                    <div class="widgetTitle">
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="ar-edit" onclick="anchorEditor(this)"></span>
+                                    <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                            <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
+                                        <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                        <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                    </form>
+                                    <h4>Anchor</h4>
+                                    </div>
+                                    <div id= "widgetBodyAR" class="widgetBody">
+                                        {{range $loop2 := $loop.Data }}
+                                         <div class="anchor-feed" id="arrender{{index $loop.ID}}">
+                                         <script>
+                                             ARRender({{$loop2}},{{index $loop.ID}});
+                                         </script>
+                                         </div>
+                                        {{end}}
+                                    </div>
+                                </div>
+                           </li>  
+                        {{end}} <!-- end anchor--> 
+                        {{if eq $loop.Classification 12}}
+                        <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                            <div class="eventsWidgetCont">
+                                <div class="widgetTitle">
+                                <span class="pull-right fa fa-2x fa-sort"></span>
+                                <span class="pull-right fa fa-2x fa-pencil" id="med-edit" onclick="ApplyIDToModal('med-modal', this)"></span>
+                                <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                        <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
+                                    <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                    <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                </form>
+                                <h4>Medium</h4>
+                                </div>
+                                <div id="widgetBodyMed" class="widgetBody"></div>
+                                <script>
+                                    $( document ).ready(function() {
+                                    mediumRender({{index $loop.Data 0}},{{index $loop.Data 1}},{{index $loop.Data 2}},{{index $loop.Data 3}});
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                        {{end}} 
+                        {{if eq $loop.Classification 13}} <!--deviant art-->
+                        <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                            <div class="eventsWidgetCont">
+                                <div class="widgetTitle">
+                                <span class="pull-right fa fa-2x fa-sort"></span>
+                                <span class="pull-right fa fa-2x fa-pencil" id="da-edit"  onclick="ApplyIDToModal('da-modal', this)"></span>
+                                <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                        <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
+                                    <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                    <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                </form>
+                                <h4>DeviantArt</h4>
+                                </div>
+
+                                <div id="widgetBodyDA" class="widgetBody">
+                                </div>
+                                <script>
+                                    $( document ).ready(function() {
+                                        daRender({{index $loop.Data 0}},{{index $loop.Data 1}});
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                        {{end}}<!--end deviant art-->  
+                        <!-- Calendar -->
+                        {{if eq $loop.Classification 15}}
+                        <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                            <div class="eventsWidgetCont">
+                                <div class="widgetTitle">
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="cal-edit" onclick="ApplyIDToModal('cal-modal', this)"></span>
+                                    <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
+                                        <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                        <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
+                                    </form>
+                                    <h4>Calendar</h4>
+                                </div>
+                                <div id="widgetBodycal" class="widgetBody">
+                                    <iframe src="{{index $loop.Data 0}}" style="border: 0; width: 100%; min-height: 30em;" frameborder="0"></iframe>
+                                </div>
+                            </div>
+                        </li>
+                        {{end}}
+                        <!-- End Calendar -->     
+                        {{if eq $loop.Classification 16}}
+                        <!-- Github Widget -->
+                        <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                            <div class="eventsWidgetCont">
+                                <div class="widgetTitle">
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="git-edit" onclick="ApplyIDToModal('git-modal', this)"></span>
+                                    <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
+                                        <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                        <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
+                                    </form>
+                                    <h4>Github</h4>
+                                </div>
+                                <div id="widgetBodyGit" class="widgetBody">
+                                    <script>
+                                        $( document ).ready(function() {
+                                           githubRender({{index $loop.Data 0}});
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- End Github -->   
+                        {{end}}     
+                        {{if eq $loop.Classification 17}}
+                        <!-- Gallery Widget -->
+                        <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
+                            <div class="eventsWidgetCont">
+                                <div class="widgetTitle">
+                                    {{if eq ($.Page) ($.DOCID)}}
+                                    <span class="pull-right fa fa-2x fa-sort"></span>
+                                    <span class="pull-right fa fa-2x fa-pencil" id="gallery-edit" onclick="ApplyIDToModal('gallery-modal', this)"></span>
+                                    <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
+                                        <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
+                                        <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
+                                    </form>
+                                    {{end}}
+                                    <h4>Gallery</h4>
+                                </div>
+                                <div id="widgetBodyGallery" class="widgetBody">
+                                    {{range $loop2 := $loop.Data }}
+                                        <span>{{$loop2}}</span>
+                                    {{end}}
+                                </div>
+                            </div>
+                        </li>
+                        {{end}}
+                    {{end}}<!-- end for looper -->                                                                                                                                                                        
+                        </ul>
+                    </div>
+                    <script type="text/javascript" src="/ustart_front/js/eventwallload.js"></script>
+                    <div id="prof-wall" class="tab-pane fade">
+                        <div id="main">
+                            <div id= "commentModals" role="dialog"> </div>
+                            <div id= "shareModals" role="dialog"> </div>
+                            <div id= "deleteModals" role="dialog"> </div>
+                            <div id= "editModals" role="dialog"> </div>                            
+                            
+                            {{range $member := .Event.MemberData}}
+                            {{if eq $userid $member.DocID}}
+                            <!-- new post panel-->
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="media">
+                                        <a class="pull-left" href="#">
+                                            <img id="new-post-img" class="media-object img-rounded" src="">
+                                            <script>
+                                            </script>
+                                        </a>
+                                        <div class="media-body">
+                                            <div class="form-group">
+                                                    <textarea class="form-control" id="post-msg" name="block" style="resize:none;" placeholder="Share what's new"></textarea>
+                                                    <br>
+                                                    <button id="new-postSubmit" type="submit" class="btn btn-primary pull-right">Post</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{end}}
+                            {{end}}
+                            <!-- end new post -->
+                            <div id="wallNewPost"></div>
+                            <div class = "panel panel-default" id="wall-dataF"></div>
+                        </div> <!--end main-->
+                    </div><!-- end grid -->
+                </div>
+ 
+                <div id="modal-box">
+                    <!-- MODALS -->
+                    <!-- edit modal -->
+                    <div class="modal fade" id="EditModal" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Edit Post</h4>
+                                </div> 
+                                <div class="modal-body">
+                                    <div class="media">
+                                        <a class="pull-left" href="#">
+                                            <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D" alt="64x64">
+                                        </a>
+                                        <div class="media-body">
+                                            <div class="form-group">
+                                                <form id="Edit-Post-Form">
+                                                    <textarea class="form-control" id="post-msg" style="resize:none;" placeholder=""></textarea>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>     
+                                <div class="modal-footer">
+                                    <button id="edit-postSubmit" class="btn btn-primary pull-right">Post</button>
+                                </div>                                                                                          
+                            </div>
+                        </div>
+                    </div>   <!-- end of edit modal -->
+                    <!-- About Modal  -->
+                    <div class="modal fade" id="aboutModal" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">About</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="about-container">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th class="no-border-top" scope="row">Name</th>
+                                                    <td class="no-border-top"><span id="full-name">Ryan Rozbiani</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Location</th>
+                                                    <td><span id="locat">New York City, New York, United States</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">College</th>
+                                                    <td><span id="college">New York University</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Class</th>
+                                                    <td><span id="class">Undergraduate</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Major</th>
+                                                    <td><span id="major">Computer Engineering</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Birthday</th>
+                                                    <td><span id="dob">April 5, 1995</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Phone</th>
+                                                    <td><span id="phone-num">(877)-393-4448</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">E-mail</th>
+                                                    <td><span id="email">rr2396@nyu.edu</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Gender</th>
+                                                    <td><span id="gender">Male</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Account Created</th>
+                                                    <td><span id="date-start">June 23, 2017</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Full Description</th>
+                                                    <td>
+                                                        <span id="desc">
+                                                            something something
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tag Modal -->
+                    <div class="modal fade" id="tagModal" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Tags</h4>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div id="hashtags" class="form-group">You haven't added any tags yet.</div>
+                                    <hr/>
+                                    <input class="form-control" type="text" id="tagLineInput" name="tagInput" placeholder="Type to add tags" autofocus required />
+                                    <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value="{{$eventid}}" required/>
+                                </div>
+                                <div class="modal-footer">
+                                    <span class="pull-left" id="tagCountIndicator">16 Tags Remaining</span>
+                                    <button type="button" id="tag-event-submit" class="btn btn-info btn-done">Done</button>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                    <!-- WantedSkills Modal -->
+                    <div class="modal fade" id="wantedSkillModal" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Skills Wanted</h4>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div id="hashtags" class="form-group">You haven't added any skill demands yet.</div>
+                                    <hr/>
+                                    <input class="form-control" type="text" id="wantedSkillLineInput" name="wantedSkillInput" placeholder="Type to add skill demands" autofocus required />
+                                    <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value="{{$eventid}}" required/>
+                                </div>
+                                <div class="modal-footer">
+                                    <span class="pull-left" id="wantedSkillCountIndicator">16 Tags Remaining</span>
+                                    <button type="button" id="wantedSkill-event-submit" class="btn btn-info btn-done">Done</button>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Youtube Modal -->
+                    <div class="modal fade" id="youtubeModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Youtube</h4>
+                            </div>
+                            <form id="customYoutubeForm" action="/addEventWidget/" method="POST">
+                                <div class="modal-body">
+                                        <label>Please paste the Youtube URL here</label>
+                                    <input id="youtubeLink" class="form-control" name="ytInput" placeholder="Youtube URL" autofocus required />
+                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                    <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value="{{$eventid}}" required/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-info btn-done" name="widgetSubmit" value="6" >Done</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div><!--end youtube Modal -->
+                <!--text modal-->
+                <div class="modal fade" id="customTextModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Edit Custom Text</h4>
+                            </div>
+                            <form id="customTextForm" action="/addEventWidget/" method="POST">
+                                <div class="modal-body">
+                                    <label>Custom Header</label>
+                                    <input id="customHeader"  name="customHeader" class="form-control" type="text" placeholder="Header" autofocus required/>
+                                    <label>Custom Content</label>
+                                    <textarea id="customContent" name="customContent" required></textarea>
+                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                    <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value="{{$eventid}}" required/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" name="widgetSubmit" value="0" class="btn btn-info btn-done"> Done</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- end text modal-->
+                <!-- instagram modal -->
+                <div class="modal fade" id="ig-modal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Embed Instagram Posts</h4>
+                            </div>
+                            <form id="customInstagramForm" action="/addEventWidget/" method="POST">
+                                <div class="modal-body">
+                                    <span id="ig-list-title">Removable Instagram posts</span>
+                                    <ul id="ig-edit-list"></ul>
+                                    <label>Please paste the Instagram post URL here</label>
+                                    <input type="url" class="form-control" name="instagramInput" id="ig-embed-input" placeholder="https://www.instagram.com/p/BageGbgD05c/" pattern="https?:\/\/www\.instagram\.com\/p\/[A-Za-z0-9\-\_]{11}\/.*" required/>
+                                    <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                    <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value="{{$eventid}}" required/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" id="ig-submit-btn" name="widgetSubmit" value="4" class="btn btn-default">Done</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> <!--end instagram modal-->                
+                <!--sound cloud widget-->
+                <div class="modal fade" id="sc-modal" role="dialog">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">Embed Soundclouds</h4>
+                          </div>
+                          <form id="customSoundcloudForm" action="/addEventWidget/" method="POST">
+                          <div class="modal-body">
+                              <p>Insert the Soundcloud Embed Code here:</p>
+                              <div class="form-group">
+                                  <input type="text" class="form-control" id="sc-embed-input" name="scInput" placeholder="Embedded code" pattern='<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https:\/\/w\.soundcloud\.com\/player\/\?url=https%3A\/\/api\.soundcloud\.com\/users\/[0-9]{9}&amp;color=%23[0-9a-f]{6}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true"\>\<\/iframe\>' required>
+                                  <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                  <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value="{{$eventid}}" required/>
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="submit" class="btn btn-info btn-done" id="sc-submit-btn" name="widgetSubmit" value="5" class="btn btn-default">Done</button>
+                          </div>
+                          </form>
+                      </div>
+                  </div>
+              </div><!--end soundcloud widget -->                
+              <!-- codepen widget -->
+              <div class="modal fade" id="code-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed CodePen</h4>
+                         </div>
+                         <form id="customCodePenForm" action="/addEventWidget/" method="POST">
+                         <div class="modal-body">
+                             <p>Please paste the CodePen embed code in here:</p>
+                             <div class="form-group">
+                                 <input type="text" class="form-control" id="code-embed-input" name="codepenInput" pattern='<p data-height="265" data-theme-id="0" data-slug-hash="[A-Za-z]{6}" data-default-tab="css,result" data-user="[^"]+" data-embed-version="2" data-pen-title="[^"]+" class="codepen"\>[^<]+\<a href="https:\/\/codepen\.io\/[^\/]+\/pen\/[A-Za-z]{6}\/">[^<]+<\/a> by [^(]+\(<a href="https:\/\/codepen\.io\/[^"]+">@[^<]+<\/a>\) on <a href="https:\/\/codepen\.io">CodePen<\/a>\.<\/p>\n<script async src="https:\/\/static\.codepen\.io\/assets\/embed\/ei\.js"><\/script>' required>
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value="{{$eventid}}" required/>
+                             </div>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="submit" id="code-submit-btn" class="btn btn-info btn-done" name="widgetSubmit" value="7">Done</button>
+                         </div>
+                         </form>
+                     </div>
+                 </div>
+             </div><!-- end codepen widget-->              
+             <!--twitch widget -->
+             <div class="modal fade" id="twitch-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Twitch</h4>
+                         </div>
+                         <form id="customTwitchForm" action="/addEventWidget/" method="POST">
+                             <div class="modal-body">
+                                 <p>Put your Twitch username here to broadcast yourself whenever you stream live:</p>
+                                 <div class="input-group">
+                                     <div class="input-group-btn">
+                                         <button id="twitch-setting" type="button" class="btn btn-secondary" aria-expanded="false">
+                                             Username
+                                         </button>
+                                     </div>
+                                     <input type="text" class="form-control" name="twitchInput" id="twitch-embed-username" required pattern='[0-9A-Za-z_]{1,25}'/>
+                                     <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                     <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value="{{$eventid}}" required/>
+                                 </div>
+                             </div>
+                             <div class="modal-footer">
+                                 <button type="submit" id="twitch-submit-btn" class="btn btn-info btn-done" name="widgetSubmit" value="14">Done</button>
+                             </div>
+                         </form>
+                     </div>
+                 </div>
+             </div> <!--end twitch widget -->             
+             <!-- tumblr widget -->
+             <div class="modal fade" id="tumblr-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Tumblr</h4>
+                         </div>
+                         <form id="customTumblrForm" action="/addEventWidget/" method="POST">
+                             <div class="modal-body">
+                                 <p>Insert Tumblr Username here:</p>
+                                 <div class="form-group">
+                                     <input type="text" class="form-control" name="tumblrInput" id="medium-embed-input" placeholder="ustart" pattern='[A-Za-z0-9\-\.]{1,32}' required>
+                                     <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                                 </div>
+                             </div>
+                             <div class="modal-footer">
+                                 <button type="submit" id="tumblr-submit-btn" class="btn btn-info btn-done" name="widgetSubmit" value="9">Done</button>
+                             </div>
+                         </form>
+                     </div>
+                 </div>
+             </div> <!--end tumblr widget -->
+             <!-- spotify widget -->
+             <div class="modal fade" id="spot-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Spotify</h4>
+                         </div>
+                         <form id="customSpotifyForm" action="/addEventWidget/" method="POST">
+                         <div class="modal-body">
+                             <span id="spot-list-title">Removable Spotify Sounds</span>
+                             <ul id="spot-edit-list"></ul>
+                             <p>Please paste the Spotify embed code in here:</p>
+                             <div class="form-group">
+                                 <input type="text" class="form-control" name="spotInput" id="spot-embed-input" pattern='<iframe src="https:\/\/open\.spotify\.com\/embed\/[^"]+" width="300" height="380" frameborder="0" allowtransparency="true"><\/iframe>' required>
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                             </div>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="submit" id="spot-submit-btn" class="btn btn-info btn-done" name="widgetSubmit" value="10">Done</button>
+                         </div>
+                         </form>
+                     </div>
+                 </div>
+             </div> <!-- end spotify widget -->             
+             <!--pinterest Widget -->
+             <div class="modal fade" id="pin-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Pinterest</h4>
+                         </div>
+                         <div class="modal-body">
+                             <span id="pin-list-title">Removable Pins</span>
+                             <ul id="pin-edit-list"></ul>
+                             <p>Please paste your Pinterest Profile URL here:</p>
+                             <form id="customPinterestForm" action="/addEventWidget/" method="POST">
+                             <div class="form-group">
+                                 <input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="http://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+\/' required>
+                                 <!-- Regexp: pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/? -->
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                             </div>
+                              </form>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="submit" id="pin-submit-btn" class="btn btn-info btn-done" form="customPinterestForm" name="widgetSubmit" value="8">Done</button>
+                         </div>
+                     </div>
+                 </div>
+             </div> <!--end pinterest widget-->
+             <!-- link modal-->
+             <div class="modal fade" id="addLinkModal" role="dialog">
+                 <div class="modal-dialog">
+                     <!-- Modal content-->
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Add Link</h4>
+                         </div>
+                         
+                             <div class="modal-body">
+                                 <p>
+                                     <span class="modal-cell">Title</span>
+                                     <input type="text" class="link-input-read" name="webTitle" placeholder="example: 'My LinkedIn'" spellcheck="false" required autofocus />
+                                 </p>
+                                 <p>
+                                     <span class="modal-cell">URL</span>
+                                     <input type="url" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" required/>
+                                 </p>
+                                 <input type="hidden" name="eventID" value='{{$eventid}}' required/>
+                             </div>
+                             
+                             <div class="modal-footer">
+                                 <div class="numLinks">
+                                     <span id="linkCountIndicator"></span>
+                                 </div>
+                                 <button type="submit" id="link-event-submit-btn" class="btn btn-info btn-done">Done</button>
+                             </div>
+                     </div>
+                 </div>
+             </div><!-- end linkmodal-->
+             <!-- anchor modal-->
+             <div class="modal fade" id="ar-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Anchors</h4>
+                         </div>
+                         <div class="modal-body">
+                             <span id="ar-list-title">Removable Anchors</span>
+                             <ul id="ar-edit-list"></ul>
+                             <p>Insert the Anchor URL:</p>
+                             <form id="customArForm" action="/addEventWidget/" method="POST">
+                             
+                             <div class="form-group">
+                                 <input type="text" class="form-control" name="arInput" id="ar-embed-input" pattern='https:\/\/anchor\.fm\/.*\/+' required>
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                             </div>
+                             </form>
+                         </div>
+                         <div class="modal-footer">
+                              <button type="submit" id="ar-submit-btn" class="btn btn-info btn-done" form="customArForm" name="widgetSubmit" value="11">Done</button>
+                         </div>
+                     </div>
+                 </div>
+             </div> <!--end anchor modal-->
+             <!--medium modal-->
+             <div class="modal fade" id="med-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Medium</h4>
+                         </div>
+                         <div class="modal-body">
+                             <p>Enter Your Medium username:</p>
+                             <form id="customMedForm" action="/addEventWidget/" method="POST">
+                                 <p>Select a Medium import option, either your username, or your publication name</p>
+                                 <div class="input-group">
+                                     <div class="input-group-btn">
+                                         <button id="med-setting" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             Username <i class="glyphicon glyphicon-menu-down"></i>
+                                         </button>
+                                         <div class="dropdown-menu">
+                                             <a id="med-setting-user" class="dropdown-item" style="display:block;">Username</a>
+                                             <a id="med-setting-pub" class="dropdown-item" style="display:block;">Publication</a>
+                                         </div>
+                                     </div>
+                                     <input type="text" class="form-control" name="medInput" id="med-embed-username" pattern='[0-9A-Za-z\-]{1,32}'/>
+                                     <input type="text" class="form-control" name="medInput2" id="med-embed-publication"/>
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                                     
+                                 </div>
+                                 <br/>
+                                 <div class="input-group">
+                                     <span class="input-group-addon">Publication Tag</span>
+                                     <input type="text" class="form-control" name="medInput3" id="med-embed-tag" disabled placeholder="(Optional)"/>
+                                 </div>
+                                 <br/>
+                                 <div class="input-group">
+                                     <span class="input-group-addon">Article Count</span>
+                                     <input type="number" class="form-control" name="medInput4" id="med-count" min='1' max='12' value='4'/>
+                                 </div>
+                             </form>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="submit" id="ar-submit-btn" class="btn btn-info btn-done" form="customMedForm" name="widgetSubmit" value="12">Done</button>
+
+                         </div>
+                     </div>
+                 </div>
+             </div> <!--end medium-->
+             <!-- deviant art modal-->
+             <div class="modal fade" id="da-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed DeviantArt</h4>
+                         </div>
+                         <div class="modal-body">
+                             <p>Put your DeviantArt username here to share your newest deviations:</p>
+                             <form id="customDaForm" action="/addEventWidget/" method="POST">
+                             
+                             <div class="input-group">
+                                 <div class="input-group-btn">
+                                     <button id="da-setting" type="button" class="btn btn-secondary" aria-expanded="false">
+                                         Username
+                                     </button>
+                                 </div>
+                                 <input type="text" class="form-control" name="daInput" id="da-embed-username" required/>
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
+                                 
+                             </div>
+                             <br/>
+                             <div class="input-group">
+                                 <span class="input-group-addon">Article Count</span>
+                                 <input type="number" class="form-control"  name="daInput2" id="da-count" min='1' max='12' value='4'/>
+                             </div>
+                             </form>
+                         </div>
+                         <div class="modal-footer">
+                              <button type="submit" id="da-submit-btn" class="btn btn-info btn-done" form="customDaForm" name="widgetSubmit" value="13">Done</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>             
+             <!-- calendar modal -->
+             <div class="modal fade" id="cal-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Google Calendar</h4>
+                         </div>
+                         <div class="modal-body">
+                             <span id="cal-list-title">Removable cals</span>
+                             <ul id="cal-edit-list"></ul>
+                             <form id="customCalForm" class="form-group" action="/addWidget/" method="POST">
+                                 <label for="gCalEmbed">Share your Google Calendar here:</label>
+                                 <input type="text" id="gCalEmbed" class="form-control" name="gCalEmbed" placeholder="Your Google Calendar Link"
+                                     pattern="(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$)|((<iframe src=\x22)?https:\/\/calendar\.google\.com\/calendar\/((embed)|(htmlembed))\?src=.*)" required/>
+                                 <label for="gCalEmbed">
+                                     <div>
+                                         <span>Example:</span>
+                                         <i>Your Calendar ID: example@gmail.com</i>
+                                         <i>https://calendar.google.com/calendar/embed?src= Your Calendar ID</i>
+                                     </div>
+                                 </label>
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                             </form>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                             <button type="submit" id="cal-submit-btn" class="btn btn-primary" form="customCalForm" name="widgetSubmit" value="15">Submit</button>
+                         </div>
+                     </div>
+                 </div>
+             </div> 
+             <!-- github modal -->
+             <div class="modal fade" id="git-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Github</h4>
+                         </div>
+                         <div class="modal-body">
+                             <form id="customGitForm" class="form-group" action="/addWidget/" method="POST">
+                                 <label for="git-embed-username"><p>Put your Github username here to publish your code:</p></label>
+                                 <div class="input-group">
+                                     <span class="input-group-addon">Username</span>
+                                     <input type="text" class="form-control" id="git-embed-username" name="username"/>
+                                 </div>
+                                 <br/>
+                                 <div class="input-group">
+                                     <span class="input-group-addon">Shown Events Count</span>
+                                     <input type="number" class="form-control" id="git-count" min='1' max='12' value='4'/>
+                                 </div>
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                             </form>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                             <button type="submit" id="git-submit-btn" class="btn btn-primary" form="customGitForm" name="widgetSubmit" value="16">Submit</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>   
+             <!--gallery Widget -->
+             <div class="modal fade" id="gallery-modal" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Embed Gallery</h4>
+                         </div>
+                         <div class="modal-body">
+                             <span id="gallery-list-title">Removable Images</span>
+                             <ul id="gallery-edit-list"></ul>
+                             <p>Upload Image</p>
+                             <form id="imageWidgetUpload" action="/addWidget/" method="POST" enctype="multipart/form-data">
+                             <div class="form-group">
+                                 <input type="file" class="form-control" id="gallery-embed-input" name="galleryImageInput" placeholder="Gallery Image" required>
+                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
+                             </div>
+                              </form>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="submit" id="gallery-submit-btn" class="btn btn-info btn-done" form="imageWidgetUpload" name="widgetSubmit" value="17">Done</button>
+                         </div>
+                         
+                     </div>
+                 </div>
+             </div> <!--end gallery widget--> 
+             <!-- insert modal -->
+
+             <div id="event-member-add" class="modal fade" role="dialog">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             <h4 class="modal-title">Add Member to Event</h4>
+                         </div>
+                         <div class="modal-body">
+                             <label for="eventMemberName">Add Member</label>
+                             <div class="input-group">
+                                 <input id="eventMemberName" class="form-control" name="eventMemberName" type="text" list="event-member-suggestion" />
+                                 <datalist>
+                                     <option>None</option>
+                                 </datalist>
+                                 <button class="btn btn-primary">+</button>
+                             </div>
+                         </div>
+                         <div class="modal-footer">
+                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>                         
+             <script type="text/javascript">
+                var usersToAdd = new Array("A Ryan", "B Ryan", "C Ryan", "D Ryan", "E Ryan", "F Ryan", "G Ryan", "H Ryan", "I Ryan", "J Ryan", "K Ryan", "L Ryan", "M Ryan", "N Ryan", "O Ryan", "P Ryan", "Q Ryan", "R Ryan", "S Ryan", "T Ryan", "U Ryan", "W Ryan", "X Ryan", "Y Ryan", "Z Ryan");
+                $(document).ready(function () {
+                    $("input[name='event-member-add']").autocomplete({
+                        source: function (request, response) {
+                            var results = $.ui.autocomplete.filter(usersToAdd, request.term);
+                            response(results.slice(0, 10));
+                        },
+                        select: function (event, ui) {
+                            $('.event-member-adder').attr('disabled', false);
+                        }
+                    });
+                    $('.event-member-adder').click(function () {
+                        if (usersToAdd.indexOf($("input[name='event-member-add']").val()) < 0) {
+                            alert('Invalid User');
+                        } else {
+                            loadMembers($("input[name='event-member-add']").val());
+                            $('#event-member-add').modal('hide');
+                            $('.event-tabs a[href="#event-team"]').tab('show');
+                        }
+                    });
+                });
+            </script>
+            <style>
+                .ui-autocomplete {
+                    z-index: 30000 !important;
+                }
+            </style>
+            </div> <!-- modal box -->            
+            </div>
+        </div>
+    </div>
+    <script src="/ustart_front/js/fadebody.js"></script>
 </body>
 </html>

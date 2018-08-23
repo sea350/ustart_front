@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>ustart</title>
+	<link rel="stylesheet" type="text/css" href="/ustart_front/css/settings.css" />
+	<link rel="stylesheet" type="text/css" href="/ustart_front/css/followers.css" />
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/croppie.css" />
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
+	<script src="/ustart_front/js/countries.js"></script>
+	<script src="/ustart_front/js/majors.js"></script>
+	<script src="/ustart_front/js/settings.js"></script>
+	<script src="/ustart_front/js/project_settings.js"></script>
+    <script src="/ustart_front/js/croppie.js"></script>
+    <script src="/ustart_front/js/ascii-convert.js"></script>
+	<style>
+		#content .panel,
+		#content .panel-group {
+			margin-bottom: 0.5em;
+		}
+	</style>
+	{{$eventid := .Event.DocID}}
+    <script>
+        var bwidth;
+        var vwidth;
+        var vheight;
+        var poster = {{.UserInfo.Banner}};
+        var cwidth = $(window).width();
+        if(cwidth <= 1100 && cwidth >= 320){
+            bwidth = cwidth/3;
+            vwidth = 325;
+            vheight=100;
+        }
+        else if (cwidth >= 1920){
+            bwidth = 1100;
+            vwidth = 975;
+            vheight=300;
+        }
+        else{
+            bwidth = 700;
+            vwidth=650
+            vheight= 200;
+        }	
+    </script>
+</head>
+
+<body>
+	<div id="navBar-placeholder"></div>
+	<div id="centering">
+		<!-- Vertical content -->
+			<div id="settings-container" class="container">
+				<div class="panel-group col-sm-10 col-sm-offset-1">
+					<div class="row">
+						<div class="vertical-menu col-sm-3">
+							<ul>
+                                <li data-target='eventImage' class='event-menu-list active'><h5>Edit Images</h5></li>
+								<li data-target='eventInfo' class='event-menu-list'><h5>Edit Event Info</h5></li>
+								<li data-target='eventCategory' class='event-menu-list'><h5>Edit Category</h5></li>
+								<li data-target='eventLocation' class='event-menu-list'><h5>Edit Time &amp; Location</h5></li>
+								<li data-target='eventURL' class='event-menu-list'><h5>Edit custom URL</h5></li>
+								<li data-target='eventMember' class='event-menu-list'><h5>Manage Members &amp; Projects</h5></li>
+							</ul>
+						</div>
+						<div class='col-sm-9 eventContents'>
+							<div id="eventInfo">
+								<form id="nameChange" action="/eventName/" method="POST">
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+											<label for="pname">Name</label>
+										</div>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="pname" name="pname" placeholder="Event Name" value="{{.Event.EventData.Name}}" required />
+											<input type="hidden" name="eventID" value="{{$eventid}}" />														
+										</div>
+									</div>	
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+											<label for="inputDesc">Description</label>
+										</div>
+										<div class="col-sm-9">
+											<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe your self" maxlength="100"></textarea>
+											<script>$('textarea[name="inputDesc"]').text(defineRuneArray({{.Event.EventData.Description}}));</script>
+										</div>
+									</div>
+									
+									<input type="submit" class="btn btn-info" name="name_submit" value="Change" />
+									<div class="save-message fade"></div>										
+								</form>
+								<br><hr>
+							</div>
+							<!-- end of eventInfo -->
+							<div id="eventCategory">
+								<form id="category-form" action="/eventCategory/">
+									<input type="hidden" name="eventID" value="{{$eventid}}" />
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+											<label for="type_select">Category</label>
+										</div>
+										<div class="col-sm-9">
+											<select id="type_select" class="form-control" name="type_select" required>
+                                                <option disabled selected hidden>Select Category</option>
+                                                <option>Conference</option>
+												<option>Info Session</option>
+												<option>Expo</option>
+												<option>Career Fair</option>
+												<option>Project Showcase</option>
+												<option>Member recruitment</option>
+												<option>General Meeting</option>
+												<option>Mingling Event</option>
+											</select>
+										</div>
+										<script>
+											$('select#type_select').val('{{.Event.EventData.Category}}');
+										</script>											
+									</div>	
+									<br>
+									<input type="submit" class="btn btn-info" name="name_submit" value="Change Category" />
+									<div class="save-message fade"></div>										
+								</form>
+								<br><hr>
+							</div>
+							
+							<!-- end of eventCategory -->
+							<div id="eventImage">
+								<div class="row">
+									
+									<h4>Edit your Event Image</h4>
+									<div class="col-sm-6 col-sm-offset-3">
+										<form id="img-form" action="/eventLogo/" enctype="multipart/form-data" method="post">
+											<div id="upload-demo" style="width:300px; height:350px"></div>
+											<input type="file" name="raw-image" id="upload" accept="image/*">
+											<input type="hidden" name="image-data" id="hidden-image-data" />
+											<input type="hidden" name="eventID" value={{$eventid}} />
+											<div id='form-btn' class="row">
+											<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
+											</div>
+											<script type="text/javascript">
+												$uploadCrop = $('#upload-demo').croppie({
+													url: "{{.Event.EventData.Avatar}}",
+													viewport: {
+														width: 250,
+														height: 250,
+														type: 'square'
+													},
+													boundary: {
+														width: 280,
+														height: 280
+													}
+												});
+												$('#upload').on('change', function () { 
+													var reader = new FileReader();
+													reader.onload = function (e) {
+														$uploadCrop.croppie('bind', {
+															url: e.target.result
+														}).then(function(){
+															console.log('jQuery bind complete');
+														});
+													}
+													reader.readAsDataURL(this.files[0]);
+												});
+												 $('#upload-result').on('click', function (ev) {
+													$uploadCrop.croppie('result', {
+														type: 'canvas',
+														size: 'viewport'
+													}).then(function (resp) {
+														$('#hidden-image-data').val(resp);
+														$('#img-form').submit();
+													});
+												});
+											</script>
+										</form>
+									</div>
+								</div>
+								<br><hr>
+								
+								<div class="modal fade" id="sizeModal" role="dialog">
+									<div class="modal-dialog">										
+									<div class="modal-content">
+											<div class="modal-header" style='border-color:#00ac7d!important'>
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title" >USTART info</h4>
+											</div>
+											<div class="modal-body" style='border-color:#00ac7d!important'>
+												<p>Banner Image should be bigger than 300px (height) x 600px (width)</p>
+											</div>
+									</div>	  
+									</div>
+								</div>		
+
+								<div class="col">
+									<h4>Edit your Event banner</h4>
+									<br>
+
+									<form id="banner-form" action="/eventBannerUpload/" enctype="multipart/form-data" method="post">
+										<div id="upload-demo2" style="height:400px"></div>
+										<input type="file" name="raw-banner" id="upload2" accept="image/*">
+										<input type="hidden" name="eventID" value={{$eventid}} />
+										<input type="hidden" name="banner-data" id="hidden-image-data-2" />
+										<div id='form-btn' class="row">
+										<button type="button" class="btn btn-info" id="upload-result2">Upload Banner</button>
+										</div>
+										<script type="text/javascript">
+											 function createCroppie(viewportWidth, viewportHeight, boundaryWidth, image) {
+                                                        $uploadCrop2 = $('#upload-demo2').croppie({
+                                                        url:image,
+                                                        viewport: {
+                                                        width: viewportWidth,
+                                                        height: viewportHeight
+                                                        },
+                                                        boundary: {
+                                                        width: boundaryWidth,
+                                                        height:350
+                                                        }
+                                                        });
+                                                    };
+                                                    
+                                                    function resizeCroppie(width, height, bwidth, image) {
+                                                         $('#upload-demo2').croppie('destroy');
+                                                         createCroppie(vwidth, vheight, bwidth, image);
+                                                    };
+
+                                                    $(document).ready(function () {
+                                                        createCroppie(vwidth, vheight, bwidth, poster);
+                                                        setTimeout(function(){
+                                                            $('#upload-demo2').croppie('setZoom', '1.0');
+                                                        },50);
+                                                    });
+                                                    
+                                                    $( window ).resize(function() {
+                                                        
+                                                        cwidth = $(window).width();
+                                                        if(cwidth <= 1100 && cwidth >= 320){
+                                                                bwidth = cwidth/3;
+                                                                vwidth = 325;
+                                                                vheight=100;
+                                                            }
+                                                            else if (cwidth >= 1920){
+                                                                bwidth = 1100;
+                                                                vwidth = 975;
+                                                                vheight=300;
+                                                            }
+                                                            else{
+                                                                bwidth = 700;
+                                                                vwidth=650
+                                                                vheight= 200;
+                                                            }	height= 200;
+                                                        resizeCroppie(vwidth, vheight, bwidth, poster);
+                                                    });
+                                                    
+                                                        $('#upload2').on('change', function () { 
+                                                            var file = $('#upload2')[0];
+                                                            var reader2 = new FileReader();
+                                                            reader2.readAsDataURL(file.files[0])
+
+                                                            reader2.onload = function (e) {
+                                                                var image = new Image();
+                                                                image.src = e.target.result;
+                                                                poster = e.target.result;
+                                                                image.onload = function(){
+                                                                    var height = this.height;
+                                                                    var width = this.width;
+                                                                    console.log(height +' '+width);
+                                                                    if(height < 300 && width < 600){
+                                                                        $('#upload2').val('');
+                                                                        $("#sizeModal").modal();							
+                                                                       poster = {{.UserInfo.Banner}};
+                                                                       resizeCroppie(vwidth, vheight, bwidth, poster);
+                                                                       setTimeout(function(){
+                                                                        $('#upload-demo2').croppie('setZoom', '1.0');
+                                                                        },50);
+                                                                    }
+                                                                    else{
+                                                                        resizeCroppie(vwidth, vheight, bwidth, poster);
+                                                                        setTimeout(function(){
+                                                                        $('#upload-demo2').croppie('setZoom', '1.0');
+                                                                        },50);
+                                                                    }
+                                                                };
+                                                            }
+                                                        });
+                                                        $('#upload-result2').on('click', function (ev) {
+                                                            $uploadCrop2.croppie('result', {
+                                                                type: 'canvas',
+                                                                size: 'viewport'
+                                                            }).then(function (resp2) {
+                                                               $('#hidden-image-data-2').val(resp2);
+                                                               $('#banner-form').submit();
+                                                            });
+                                                         });
+										</script>
+									</form>	
+
+									<br><br> <hr>							
+								</div>
+							</div>
+                            <!-- end of eventImage -->
+                            <!-- ADD START DATE AND END DATE-->
+							<div id="eventLocation">
+								<form id="timeChange" action="/eventTime/" method="POST">
+                                <input type="hidden" name="eventID" value="{{$eventid}}" />
+                                    <div class='row'>
+                                        <div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+                                            <label for="startDate">Start Date &amp; Time</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="datetime-local" class='form-control' id="startDate" name="startDate" value=''>
+										</div>
+										<script>
+											var S11date = {{.Event.EventData.EventDateStart}}; 
+											$("#startDate").val(S11date.slice(0,16));
+										</script>
+                                    </div>                                
+                                    <div class='row'>
+                                        <div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+                                            <label for="endDate">End Date &amp; Time</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="datetime-local" class='form-control' id="endDate" name="endDate" value="">
+										</div>
+										<script>
+											var S22date = {{.Event.EventData.EventDateEnd}}; 
+											$("#endDate").val(S22date.slice(0,16));											
+										</script>
+									</div>  
+									<input type="submit" class="btn btn-info" name="name_submit" value="Change Time" />
+									</form>
+									<form id="locChange" action="/eventLocation/" method="POST">
+									<input type="hidden" name="eventID" value="{{$eventid}}" />                              
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+											<label for="country">Country</label>
+										</div>
+										<div class="col-sm-9">
+											<!--<label class="switch usr-vis-opt"><input type="checkbox" id="countryVis" name="countryVis" checked><span class="slider round"></span></label>-->
+											<select id="country" class="form-control" name="country" required></select>
+										</div>
+									</div>
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+											<label for="state">State</label>
+										</div>
+										<div class="col-sm-9">
+											<!--<label class="switch usr-vis-opt"><input type="checkbox" id="stateVis" name="stateVis" checked><span class="slider round"></span></label>-->
+											<select id="state" class="form-control" name="state" required></select>
+										</div>
+										<script language="javascript">
+											populateCountries("country", "state");
+											$('select#country').val({{.Event.EventData.Location.Country}});
+											populateStates("country", "state");
+											$('select#state').val({{.Event.EventData.Location.State}});
+										</script>										
+									</div>	
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+											<label for="city">City</label>
+										</div>
+										<div class="col-sm-9">
+											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="cityVis" id="cityVis" checked><span class="slider round"></span></label>-->
+											<input id="city" class="form-control" name="city" placeholder="City" value="{{.Event.EventData.Location.City}}" required/>
+										</div>
+									</div>
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+											<label for="street">Street</label>
+										</div>
+										<div class="col-sm-9">
+											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="streetVis" id="cityVis" checked><span class="slider round"></span></label>-->
+											<input id="street" class="form-control" name="street" placeholder="Street" value="{{.Event.EventData.Location.Street}}" required/>
+										</div>
+									</div>											
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+											<label for="zip">Zip</label>
+										</div>
+										<div class="col-sm-9">
+											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis" id="zipVis"  checked><span class="slider round"></span></label>-->
+											<input id="zip" class="form-control" name="zip" placeholder="Zip" value="{{.Event.EventData.Location.Zip}}" required />
+										</div>
+									</div>	
+									<input type="submit" class="btn btn-info" name="name_submit" value="Change Location" />
+									<div class="save-message fade"></div>									
+								</form>	
+								<br><br> <hr>																																											
+							</div>
+							<!-- end of event Time and Location-->
+							<div id="eventURL">
+								<form id="urlChange" action="/eventCustomURL/">
+									<input type="hidden" name="eventID" value="{{$eventid}}" />
+									<div class='row'>
+										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
+											<label>Custom URL</label>
+										</div>
+										<div class="col-sm-9">
+											ustart.today/Event/ <input type="text" class="form-control" id="purl" name="purl" placeholder="url" style="width:auto; display:inline-block;" value="{{.Event.EventData.URLName}}" required />
+										</div>
+									</div>
+									<br>
+									<input type="submit" class="btn btn-info" name="name_submit" value="Change url" />
+									<div class="save-message fade"></div>									
+								</form>
+								<br><br> <hr>
+							</div>
+							<div id="eventMember">
+								<h4>Manage Members</h4>
+								<br>
+								<div id="home">
+									{{range $member := .Event.MemberData}}
+									<div class="card" style="height:auto">
+										<div class="container-s">
+											<img id="img{{$member.Username}}" class="image" src="{{$member.Image}}" alt="" onclick="location.href='/profile/{{$member.Username}}'" />
+											<h4><b>{{$member.FirstName}} {{$member.LastName}}</b></h4>
+											<select class="role_select" class="form-control" name="newRank" style="margin: 0 auto; width:10em;">
+												<option {{if not $member.Classification}} selected{{end}} hidden disabled>Select Role</option>
+												{{if le $member.Classification 0}}
+												<option {{if eq $member.Classification 0}}selected{{end}}>Creator</option>
+												{{else}}
+												<option {{if eq $member.Classification 1}}selected{{end}}>Moderator</option>
+												<option {{if eq $member.Classification 2}}selected{{end}}>Member</option>
+												{{end}}
+											</select>
+											<script>
+												$('.role_select').on('change', function(e) {
+													var result = $(e.currentTarget).val();
+													console.log(result);
+													$.ajax({
+														type: 'GET',
+														url: '/changeMemberClass/',
+														contentType: "application/json; charset=utf-8",
+														data: {memberID:{{$member.DocID}}, eventID:{{$eventid}}, newRole:result},
+														success: function(data) {
+															console.log("member role changed");
+														},
+														error: function(err) {
+															console.log('Change Member Class error: ' + err);
+														}
+													});
+												});
+											</script>
+											{{if ge $member.Classification 1}}
+											<div class="middle">
+												<button type="button" onclick="removeMember('{{$member.DocID}}', '{{$eventid}}', this)">Remove</button>
+											</div>
+											{{end}}
+											<script>
+												$('img#img{{$member.Username}}').attr('src', {{$member.Image}});
+											</script>
+										</div>
+									</div>
+									{{end}}
+								</div>								
+							</div>
+					</div>
+					<!-- end of row for the content-->
+				</div>
+				</div>
+			</div>
+			<!-- end of content-->
+			<div class="modal fade" id="avatarCropperModal" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Crop avatar</h4>
+						</div>
+						<div class="modal-body">
+							<iframe id="cropperiframe"> </iframe>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="footer-placeholder"></div>		
+			<script type="text/javascript">
+				$(document).ready(function() {
+					//event setting
+					$('.vertical-menu ul').on('click', '.event-menu-list', function(event) {
+						$('.event-menu-list.active').removeClass('active');
+						$(this).addClass('active');
+						if ($('li[data-target="eventImage"]').hasClass("active")) {
+							//$('.vertical-menu').css({'border-right': 'none;'});
+							$('.vertical-menu').css({'border-right': 'none'});			
+							$('.eventContents').css({'border-left': '1px solid #808080'});
+						  }
+						else{	 
+							$('.eventContents').css({'border-left': 'none'});			
+							$('.vertical-menu').css({'border-right': '1px solid #808080'});			
+						}	
+						$("#"+$(this).data('target')).show().siblings("div").hide();
+					}); 
+				});
+			</script>									
+		</div>
+		<!-- end of centering -->
+
+</body>
+</html>

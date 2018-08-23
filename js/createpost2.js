@@ -51,7 +51,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 			]),
 			$('<li>').append([
 				($('<a>', {'class':'btn btn-sm comment-btn'}).attr({'id':'','data-toggle':'modal','data-target':'#main-modal'}).each(function(){
-					$(this).attr({"id": $(this).attr("id").concat(elementID),'data-target': $(this).attr("data-target").concat(elementID)});
+					$(this).attr({"id": $(this).attr("id").concat(elementID),'data-target': "#main-modal"+elementID});
 				})).append([$('<span>').append([
 				($('<img>',{'class':'comment-btn-ico'}).attr('src', '/ustart_front/ico/no comment.png')),
 				($('<p>',{'class':'mt-0'}).attr('id','num-replies')).each(function(){
@@ -308,9 +308,11 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 			$(this).attr({"id": $(this).attr("id").concat(elementID)});
 		}).append([$('<div>', {'class' : 'media'})
 		.append([
-		$('<a>', {'class':'pull-left'}).append([$('<img>', {'class':'media-object img-rounded'}).attr('id', 'img').each(function(){
-			$(this).attr({"id": $(this).attr("id").concat(elementID),'src': $(this).attr("src").concat(image)});
-		})]),
+		$('<a>',{'class':'pull-left'}).append([
+								$('<img>',{'class':'media-object img-rounded'}).attr({'id':"share-img","src":""}).each(function(){
+									$(this).attr({"id": $(this).attr("id").concat(elementID),'src': $(this).attr("src").concat(image)});
+								})
+								]),
 		$('<div/>', {'class':'media-body'}).append([$('<h6>',{'class':'post-time pull-right text-muted time'}).each(function(){$(this).text(timeSince(time));}),
 		$('<h5>',{'class':'post-name mt-0'}).append($('<a>').each(function(){
 			$(this).text(fName.concat(' ').concat(lName));
@@ -335,7 +337,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 				$(this).attr({"id": $(this).attr("id").concat(elementID),'data-target': $(this).attr("data-target").concat(elementID)});
 
 			})).append([$('<span>').append([
-			$('<img>',{'class':'comment-btn-ico'}).attr('src', 'ustart_front/ico/no comment.png'),
+			$('<img>',{'class':'comment-btn-ico'}).attr('src', '/ustart_front/ico/no-comment.png'),
 			$('<p>',{'class':'mt-0'}).each(function(){
 				$(this).text(numReplies);
 			})
@@ -346,7 +348,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 			($('<a>', {'class':'btn btn-sm share-btn'}).attr({'data-toggle':'modal','data-target':'#share-modal'}).each(function(){
 				$(this).attr({"data-target": $(this).attr("data-target").concat(elementID)});
 			})) .append([$('<span>').append([
-				$('<img>',{'class':'share-btn-ico'}).attr('src','/ustart_front/ico.not share.png'),
+				$('<img>',{'class':'share-btn-ico'}).attr('src','/ustart_front/ico/not share.png'),
 				$('<p>',{'class':'mt-0'}).each(function(){
 					$(this).text(numShares);
 				})
@@ -561,7 +563,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 				($('<a>', {'class':'btn btn-sm comment-btn'}).attr({'id':'','data-toggle':'modal','data-target':'#main-modal'}).each(function(){
 					$(this).attr({"id": $(this).attr("id").concat(elementID),'data-target': $(this).attr("data-target").concat(elementID)});
 				})).append([$('<span>').append([
-				($('<img>',{'class':'comment-btn-ico'}).attr('src', '/ustart_front/ico/no comment.png')),
+				($('<img>',{'class':'comment-btn-ico'}).attr('src', '/ustart_front/ico/no-comment.png')),
 				($('<p>',{'class':'mt-0'}).attr('id','num-replies')).each(function(){
 					$(this).attr("id",$(this).attr("id").concat(elementID)).text(numReplies);
 				})
@@ -779,8 +781,8 @@ function makeCommentApplications(parentID, image, fName,lName, content, postID,n
 				//data-replycount
 				$('<a>',{'class':'view-replies'}).attr({'id':'openReplies','name':'replies','myvalue':''+postID,'data-replycount':numReplies}).each(function(){
 					$(this).attr({"id":$(this).attr("id").concat(postID)})
-					//if(numReplies <= 0){
-					//$(this).hide();
+					if(numReplies <= 0)
+					$(this).hide();
 				//}else{
 					//$(this).attr({"id": $(this).attr("id").concat(postID),'myvalue': $(this).attr("myvalue").concat(postID)}).text("view ".concat(numReplies).concat(" Replies"));
 					$(this).text("view ".concat(numReplies).concat(" Replies"));
@@ -840,6 +842,8 @@ function makeBasicCommentApplications(parentID, image, fName,lName, content, pos
 					//$(this).attr({"id": $(this).attr("id").concat(postID),'myvalue': $(this).attr("myvalue").concat(postID)}).text(numReplies.concat(' Replies'));
 					$(this).attr({"id":$(this).attr("id").concat(postID),'myvalue':$(this).attr("myvalue").concat(postID)});
 					$(this).text(numReplies.concat(' Replies'));
+                    if(numReplies <= 0)
+					$(this).hide();
 				})
 				)
 			]),
@@ -1086,7 +1090,7 @@ function createSharedPost(parentImage, image, fName,lName,elementID, content, sh
 			$(this).text(fName.concat(' ').concat(lName).concat(' shared a post: '));
 		}),
 		$('<p>').each(function(){
-			$(this).text(readRuneArrayThatWorks(content));
+			     $(this).text(readRuneArrayThatWorks(content));
 		}),
 		$('<div>', {'class':'media'}).append([			
 		$('<div>',{'class':'panel panel-default'}).append([
@@ -1099,13 +1103,20 @@ function createSharedPost(parentImage, image, fName,lName,elementID, content, sh
 						]),
 					$('<div>',{'class':'media-body'}).append([
 						$('<h6>',{'class':'pull-right text-muted time'}).each(function(){
-							$(this).text(timeSince(originaltime));
+                            if (sharedContent != null){
+							 $(this).text(timeSince(originaltime));
+                            }
 						}),
 						$('<h5>',{'class':'mt-0'}).each(function(){
 							$(this).text(posterFname.concat(' ').concat(posterLname));
 						}),
 						$('<p>').each(function(){
-							$(this).text(readRuneArrayThatWorks(sharedContent));
+                            if (sharedContent != null){
+                                 $(this).text(readRuneArrayThatWorks(sharedContent));
+                            }
+                            else{
+                               $(this).text("Content has been deleted"); 
+                            }
 						})
 						])
 
@@ -1128,7 +1139,7 @@ function createSharedPost(parentImage, image, fName,lName,elementID, content, sh
 					$('<a>',{'class':'btn btn-sm comment-btn'}).attr({'id':'','data-toggle':'modal','data-target':'#main-modal'}).each(function(){
 						$(this).attr({"id": $(this).attr("id").concat(elementID),'data-target': $(this).attr("data-target").concat(elementID)});
 					}).append([$('<span>').append([
-					$('<img>',{'class':'comment-btn-ico'}).attr('src','/ustart_front/ico/no comment.png'),
+					$('<img>',{'class':'comment-btn-ico'}).attr('src','/ustart_front/ico/no-comment.png'),
 					$('<p>',{'class':'mt-0'}).attr({'id':'num-replies'}).each(function(){
 						$(this).attr("id", $(this).attr("id").concat(elementID)).text(numReplies);
 					})
@@ -1264,7 +1275,7 @@ function createBasicSharedPost(parentImage,image, fName,lName,elementID, content
 		})
 		.append([
 		$('<h6>',{'class':'pull-right text-muted time'}).each(function(){
-			$(this).text(timeSince(time));
+			 $(this).text(timeSince(time));
 		}),
 		$('<h5>',{'class':'mt-0'}).each(function(){
 			$(this).text(fName.concat(' ').concat(lName).concat('shared a post: '));
@@ -1283,13 +1294,22 @@ function createBasicSharedPost(parentImage,image, fName,lName,elementID, content
 						]),
 					$('<div>',{'class':'media-body'}).append([
 						$('<h6>',{'class':'pull-right text-muted time'}).each(function(){
-							$(this).text(timeSince(originaltime));
+                            if (sharedContent != null){
+							     $(this).text(timeSince(originaltime));
+                            }
 						}),
 						$('<h5>',{'class':'mt-0'}).each(function(){
-							$(this).text(posterFname.concat(' ').concat(posterLname));
+                             if (sharedContent != null){
+							     $(this).text(posterFname.concat(' ').concat(posterLname));
+                             }
 						}),
 						$('<p>').each(function(){
-							$(this).text(readRuneArrayThatWorks(sharedContent));
+                            if (sharedContent != null){
+							    $(this).text(readRuneArrayThatWorks(sharedContent));
+                            }
+                            else{
+                                $(this).text("Content has been removed");
+                            }
 						})
 						])
 
@@ -1346,7 +1366,7 @@ function createBasicSharedPost(parentImage,image, fName,lName,elementID, content
 								$('<h5>',{'class':'mt-0'}).each(function(){
 									$(this).text(fName.concat(' ').concat(lName));
 								}) ,
-								$('<p>').text(readRuneArrayThatWorks(sharedContent))
+								$('<p>').text(readRuneArrayThatWorks(content))
 								])
 							])
 						]) ,

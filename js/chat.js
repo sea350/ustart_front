@@ -3,7 +3,7 @@ function isUrlValid(url) {
 }
                      
 function urlConfirm(event){
-   if ( confirm('You are about the leave the great nation of U•START! Be careful out there!')){
+   if ( confirm('You are about the leave U•START! Be careful out there!')){
        return true;
    }
    else{
@@ -90,7 +90,7 @@ function populateOfflineMessage(parentid, message, time) {
         $(listItem).css('font-size', '0%').animate({
             "font-size": "100%"
         }, 100 , () => {
-           $('#chat'+$.escapeSelector(parentid)).scrollTop($('#chat'+$.escapeSelector(parentid))[0].scrollHeight);
+           $(".message-box").scrollTop($(".message-box")[0].scrollHeight);
         });
     }
 }
@@ -99,7 +99,6 @@ function populateMessageModified2(parentid, msgid, username, message, icon, time
     var dateTime = dateFormat(time);
 	var listTime = $("<div></div>").addClass('message-user-time collapse').text(formatTime(time)).attr("date",dateTime);
     if (isUrlValid(message)){
-        console.log("url found");
         var listMessage = $("<span></span>").addClass('message-user-message');
         var listURL = $("<a></a>").attr({'href':message, 'target':"_blank"}).text(message).on('click', function(e) { return urlConfirm(e) });
         listMessage.append(listURL);
@@ -145,7 +144,6 @@ function populateMessageModified(parentid, msgid, username, message, icon, time,
 	}
 	var listTime = $("<div></div>").addClass('message-user-time collapse').text(formatTime(time));
     if (isUrlValid(message)){
-        console.log("url found");
         var listMessage = $("<span></span>").addClass('message-user-message');
         var listURL = $("<a></a>").attr({'href':message, 'target':"_blank"}).text(message).on('click', function(e) { return urlConfirm(e) });
         listMessage.append(listURL);
@@ -180,7 +178,7 @@ function populateMessageModified(parentid, msgid, username, message, icon, time,
     $(listItem).css('font-size', '0%').animate({
         "font-size": "100%"
     }, 100 , () => {
-        $('#chat'+$.escapeSelector(parentid)).scrollTop($('#chat'+$.escapeSelector(parentid))[0].scrollHeight);
+        $(".message-box").scrollTop($(".message-box")[0].scrollHeight);
     });
 }
 
@@ -232,7 +230,7 @@ function populateNewMessageModified(parentid, msgid, username, message, icon, ti
                 $(listItem).css('font-size', '0%').animate({
                     "font-size": "100%"
                 }, 100 , () => {
-                    $('#chat'+$.escapeSelector(parentid)).scrollTop($('#chat'+$.escapeSelector(parentid))[0].scrollHeight);
+                    $(".message-box").scrollTop($(".message-box")[0].scrollHeight);
                 });
         }
         else{
@@ -243,7 +241,7 @@ function populateNewMessageModified(parentid, msgid, username, message, icon, ti
         $(listItem).css('font-size', '0%').animate({
             "font-size": "100%"
         }, 100 , () => {
-            $('#chat'+$.escapeSelector(parentid)).scrollTop($('#chat'+$.escapeSelector(parentid))[0].scrollHeight);
+            $(".message-box").scrollTop($(".message-box")[0].scrollHeight);
         });
     }
 }
@@ -358,13 +356,6 @@ function formatTime(datetime) {
 
 $(document).ready(function () {
 	$('[data-toggle="tooltip"]').tooltip();
-	
-     $('#sidebarCollapse').on('click', function (e) {
-         e.preventDefault();
-         if ($('.sidebar-header').length > 0){
-            $('#sidebar').toggleClass('active');
-         }
-    });
     
     //test function for message 
 	/*$('#messager-form').submit(function(event) {

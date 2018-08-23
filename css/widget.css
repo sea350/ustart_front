@@ -11,10 +11,14 @@
 #projSortable li {
 	display: inline-block;
 }
+#eventSortable li {
+	display: inline-block;
+}
 
-.projectsWidgetCont {
+.projectsWidgetCont, .eventsWidgetCont {
     position: relative;
 }
+
 
 .columnTitle {
     white-space: normal;
@@ -24,9 +28,8 @@
 	overflow: hidden;
 }
 
-.widgetBody {
-	min-height: 4em;
-	justify-content: space-between;
+.anchor-feed{
+    margin-bottom:1em;
 }
 #sortable {
     list-style-type: none;
@@ -76,21 +79,41 @@ span.ui-icon {
     border-radius: 0.4em;
     display: inline-block;
 }
-#hashTagsBody .projectsColumn {
+.eventsColumn {
+    margin: 0.5em;
+	margin-bottom: 0.5em !important;
+	max-width: 25em;
+    padding: 0.5em 0.1em;
+    border-color: #c5c5c5;
+    border-style: solid;
+    border-width: 1px;
+    background: #f5f5f5;
+    border-radius: 0.4em;
+    display: inline-block;
+}
+#hashTagsBody .projectsColumn, .eventsColumn, #hashskillsBody .projectsColumn, .eventsColumn {
 	padding: 0.5em 0.8em;
 }
 
-.sort-project {
+.sort-project, .sort-event {
 	margin: 0.5em !important;
 	padding: 1em;
 	border: solid 1px;
 	border-radius: 0.5em;
 	background-color: white;
 }
+
 .sort-project.invisible-tag {
 	background-color: dimgray;
 }
+.sort-event.invisible-tag {
+	background-color: dimgray;
+}
 .sort-project.invisible-tag img {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+.sort-event.invisible-tag img {
     -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
     filter: grayscale(100%);
 }
@@ -266,8 +289,26 @@ span.ui-icon {
 
 #widget-insert .widgetBody,
 #projectDisplay .widgetBody {
-	display: grid;
+	/*display: grid;
+    grid-template-columns: repeat(auto-fit, 122px);*/
+    overflow: hidden;
+    cursor: grab;
+}
+
+#widget-insert .widgetBody > button,
+#projectDisplay .widgetBody >a,
+#eventDisplay .widgetBody> a,
+#eventDisplay .widgetBody>button{
+    display:inline-block;
+    width:108px;
+    height:10em;
+}
+
+#eventDisplay .widgetBody {
+	/*display: grid;
     grid-template-columns: repeat(auto-fit, 122px);
+    overflow: hidden;
+    cursor: grab;*/
 }
 
 #widget-insert .widgetBody:after {
@@ -276,6 +317,10 @@ span.ui-icon {
 }
 
 [data-project-visible="false"] .columnImage img {
+	opacity: 0.5;
+	filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+[data-event-visible="false"] .columnImage img {
 	opacity: 0.5;
 	filter: alpha(opacity=50); /* For IE8 and earlier */
 }

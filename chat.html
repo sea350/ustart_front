@@ -62,7 +62,88 @@
 						<div class="box-section">
 							<div class="section-left">
 								<ul class="message-box">
-									<script>            
+									<script>        
+                                            function GetChatRecord(){
+                                                // Do something.
+                                                // Load data or whatever.
+                                                 if (chatflag == 1){
+                                                    chatflag=0;
+                                                    var temp = window.location.href.indexOf("ch");
+                                                    var urlid = window.location.href.substring(temp+3);
+                                                    var chatIndex =  $('#chat'+$.escapeSelector(urlid)).attr("index");
+                                                    console.log(chatIndex);
+                                                    prevSender2=$('#chat'+$.escapeSelector(urlid)).find(".message-user").attr("sender");
+                                                     if (parseInt(chatIndex) === 0){
+                                                          chatflag=1;
+                                                     }
+                                                     else{
+                                                         $.ajax({
+                                                            type: 'GET',
+                                                            url: 'http://ustart.today:'+port+'/AjaxLoadMoreChat/',
+                                                            contentType: "application/json; charset=utf-8",
+                                                            data: {chatID: urlid, index:chatIndex},
+                                                            beforeSend: function() {
+                                                                $('#chat'+$.escapeSelector(urlid)).find(".loader").css("display", "block");
+                                                               },complete: function (jqXHR,status) {
+                                                                 chatflag=1;
+                                                                 if(status == 'success' || status=='notmodified')
+                                                                 {
+                                                                  var temp = $.parseJSON(jqXHR.responseText);
+                                                                    $('#chat'+$.escapeSelector(urlid)).attr("index",temp.Index);
+                                                                    historyArr=[];
+                                                                   for(i=0; i<temp.Messages.length; i++){
+                                                                       if(temp.Messages[i].SenderID == {{.DOCID}}){var senderChk = true;}
+                                                                        else{var senderChk = false;}
+                                                                        historyArr.push(populateMessageModified2(urlid, temp.Messages[i].SenderID, memberList[temp.Messages[i].SenderID][0]+" "+memberList[temp.Messages[i].SenderID][1],
+                                                                        temp.Messages[i].Content, memberList[temp.Messages[i].SenderID][2], new Date(temp.Messages[i].TimeStamp).getTime(), senderChk,prevSender2));
+                                                                        prevSender2=temp.Messages[i].SenderID;
+                                                                   }
+                                                                 var oldScroll =  $(".message-box").scrollTop();
+                                                                 var firstMsg = $('.message-user:first');
+                                                                  $('#chat'+$.escapeSelector(urlid)).find(".loader").css("display", "none");
+                                                                  $.each(historyArr, function() {
+                                                                      $('#chat'+$.escapeSelector(urlid)).prepend(this);
+                                                                  });
+                                                                  //scroll back to old position
+                                                                  if ( $('.message-user:first') != null) {
+                                                                      $(".message-box").scrollTop(firstMsg.offset().top);
+                                                                  }
+                                                                var oldtimeStamp = $('#chat'+$.escapeSelector(urlid)).find(".message-timeline").first();
+                                                                var newTimeStamp = $('#chat'+$.escapeSelector(urlid)).find(".message-user-time").first();
+                                                                 if (oldtimeStamp.text() === newTimeStamp.attr("date")) {
+                                                                    oldtimeStamp.insertBefore($('#chat'+$.escapeSelector(urlid)).find(".message-user").first());
+                                                                 }
+                                                                }
+                                                            },error: function(err) {
+                                                                console.log('chat Load failed: ');
+                                                                console.log(err);
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            }
+                                            function GetChatrooms(){
+                                                if (roomflag == 1){
+                                                    roomflag=0;
+                                                   /*  $.ajax({
+                                                        type: 'GET',
+                                                        url: 'http://ustart.today:'+port+'//',
+                                                        contentType: "application/json; charset=utf-8",
+                                                        data: {postIndex:JSON.stringify(roomArr)},
+                                                        success: function(data) {   
+                                                        },complete: function (jqXHR,status) {
+                                                             roomflag=1;
+                                                             if(status == 'success' || status=='notmodified')
+                                                             {
+
+                                                             }
+                                                        },error: function(err) {
+                                                            console.log('chatroom Load failed: ');
+                                                            console.log(err);
+                                                        }
+                                                    });*/
+                                                }
+                                            }
                                             function start(){
                                                 //initial set up
                                                 if(!("WebSocket" in window)){
@@ -91,25 +172,27 @@
                                                             $(".inputMessages").attr("id", "messager"+ urlid);
                                                             $('.chat-submit').attr("id", "chat-submit"+ urlid);
                                                             $('#chat'+$.escapeSelector(urlid)).empty();
+                                                             $('#chat'+$.escapeSelector(urlid)).prepend('<div class="loader" style="display:none"></div>');
                                                            // $('#inbox-groups').prepend($('li#'+$.escapeSelector(urlid)));
                                                             $.ajax({
                                                                 type: 'GET',
                                                                 url: 'http://ustart.today:'+port+'/AjaxLoadChat/',
                                                                 contentType: "application/json; charset=utf-8",
                                                                 data: {chatUrl:urlid},
-                                                                success: function(data) {
-                                                                },complete: function (jqXHR,status) {
+                                                                  beforeSend: function() {
+                                                                    $('#chat'+$.escapeSelector(urlid)).find(".loader").css("display", "block");
+                                                                    $('#sidebar').empty();  
+                                                                   },complete: function (jqXHR,status) {
                                                                     if(status == 'success' || status=='notmodified')
                                                                     { 
                                                                     var temp = $.parseJSON(jqXHR.responseText);
-                                                                    if (temp != null){
-                                                                       $('#sidebar').empty();
-                                                                       $.each(temp.Eavesdroppers, function() {
+                                                                    if (temp != null){ 
+                                                                        $.each(temp.Eavesdroppers, function() {
+                                                                        var tempMember = [this.FirstName, this.LastName, this.Image];
+                                                                        if (!(tempMember in memberList)) memberList[this.DocID]=tempMember;
                                                                          populateMemberList(this.FirstName+' '+this.LastName);
-                                                                           var tempMember = [this.FirstName, this.LastName, this.Image];
-                                                                           if (!(tempMember in memberList))
-                                                                                memberList[this.DocID]=tempMember;
                                                                         });
+                                                                        $('#chat'+$.escapeSelector(urlid)).find(".loader").css("display", "none");
                                                                         if (temp.Messages != null){
                                                                            for(i=0; i<temp.Messages.length; i++){
                                                                                if(temp.Messages[i].SenderID == {{.DOCID}}){var senderChk = true;}
@@ -121,14 +204,25 @@
                                                                                     $('#chat'+$.escapeSelector(urlid)).attr("index",temp.Index);
                                                                                 }
                                                                                 else{
-                                                                                   $('#chat'+$.escapeSelector(urlid)).attr("index",-1);
+                                                                                   $('#chat'+$.escapeSelector(urlid)).attr("index",0);
                                                                                 }
                                                                            }
                                                                             
                                                                         }
                                                                       $('.message-box').scrollTop($('.message-box')[0].scrollHeight);
                                                                      }
-                                                                        
+                                                                      $(".message-box").scroll(function () {
+                                                                        var $this = $(this);
+                                                                        var height = this.scrollHeight - $this.height(); // Get the height of the div
+                                                                        var scroll = $this.scrollTop(); // Get the vertical scroll position
+                                                                        var isScrolledToEnd = (scroll <= 20);
+                                                                        var scrollTest= $(".message-box");
+                                                                        var hasVerticalScrollbar= scrollTest[0].scrollHeight > scrollTest[0].clientHeight;
+                                                                        if (isScrolledToEnd && hasVerticalScrollbar) {
+                                                                            GetChatRecord(); // Get the additional content
+                                                                        }
+                                                                     });
+                                                                   
                                                                     }
                                                                 }
                                                                 ,error: function(err) {
@@ -137,6 +231,12 @@
                                                                 }
                                                             });
                                                         }
+                                                        $('#sidebarCollapse').on('click', function (e) {
+                                                             e.preventDefault();
+                                                             if ($('.sidebar-header').length > 0){
+                                                                $('#sidebar').toggleClass('active');
+                                                             }
+                                                        });
                                                         socket = new WebSocket('ws://' + window.location.host + '/ws/'+urlid);
                                                         socket.onopen = function(){
                                                             console.log('Socket Status: '+socket.readyState+'(open)');
@@ -203,7 +303,6 @@
                                                         {
                                                         var temp = $.parseJSON(jqXHR.responseText);
                                                         if (temp.heads != null){
-                                                            console.log(temp);
                                                              $('#inbox-groups').empty();
                                                              for(i=0; i<temp.heads.length; i++){
                                                                  populateChatRooms(temp.heads[i].Username, temp.heads[i].Image, temp.heads[i].FirstName+' '+temp.heads[i].LastName,temp.heads[i].Classification, readRuneArrayThatWorks(temp.heads[i].Bio), formatTime(temp.heads[i].Time), temp.heads[i].DocID);
@@ -241,13 +340,11 @@
                                             $('.inputMessages').click(function(){
                                                 var temp = window.location.href.indexOf("ch");
                                                 var targetid = window.location.href.substring(temp+4);
-                                                console.log(targetid);
                                                  $('li#chatnotif'+$.escapeSelector(targetid)+" .chat-label").css('display', 'none').removeClass('label-new').text('');
                                                 chatNotifCount= $(".chat-label.label-new").length;
                                                 updateChatBadge();
                                             });
                                             $('.chat-submit').click(function(){
-                                                console.log("here");
                                                 var temp = window.location.href.indexOf("ch");
                                                 var id = window.location.href.substring(temp+3);
                                                 if(socket.readyState === socket.OPEN){
@@ -287,94 +384,6 @@
                                                 }
                                                 prevSender="";
                                                 prevSender2="";
-                                            });
-                                                
-                                            function GetChatRecord(){
-                                                // Do something.
-                                                // Load data or whatever.
-                                                 if (chatflag == 1){
-                                                    chatflag=0;
-                                                    var temp = window.location.href.indexOf("ch");
-                                                    var urlid = window.location.href.substring(temp+3);
-                                                    var chatIndex =  $('#chat'+$.escapeSelector(urlid)).attr("index");
-                                                    prevSender2=$('#chat'+$.escapeSelector(urlid)).find(".message-user").attr("sender");
-                                                     if (parseInt(chatIndex) === 0){
-                                                          chatflag=1;
-                                                     }
-                                                     else{
-                                                         $.ajax({
-                                                            type: 'GET',
-                                                            url: 'http://ustart.today:'+port+'/AjaxLoadMoreChat/',
-                                                            contentType: "application/json; charset=utf-8",
-                                                            data: {chatID: urlid, index:chatIndex},
-                                                            success: function(data) {   
-                                                            },complete: function (jqXHR,status) {
-                                                                 chatflag=1;
-                                                                 if(status == 'success' || status=='notmodified')
-                                                                 {
-                                                                  var temp = $.parseJSON(jqXHR.responseText);
-                                                                       for(i=0; i<temp.Messages.length; i++){
-                                                                           if(temp.Messages[i].SenderID == {{.DOCID}}){var senderChk = true;}
-                                                                            else{var senderChk = false;}
-                                                                            historyArr.push(populateMessageModified2(urlid, temp.Messages[i].SenderID, memberList[temp.Messages[i].SenderID][0]+" "+memberList[temp.Messages[i].SenderID][1],
-                                                                            temp.Messages[i].Content, memberList[temp.Messages[i].SenderID].Image, new Date(temp.Messages[i].TimeStamp).getTime(), senderChk,prevSender2));
-                                                                            prevSender2=temp.Messages[i].SenderID;
-                                                                            $('#chat'+$.escapeSelector(urlid)).attr("index",temp.Index);
-                                                                       }
-                                                                     var oldScroll =  $('#chat'+$.escapeSelector(urlid)).scrollTop();
-                                                                     var firstMsg = $('.message-user:first');
-                                                                      $.each(historyArr, function() {
-                                                                          $('#chat'+$.escapeSelector(urlid)).prepend(this);
-                                                                      });
-                                                                      //scroll back to old position
-                                                                      if ( oldScroll < 1) {
-                                                                          $('#chat'+$.escapeSelector(urlid)).scrollTop(firstMsg.offset().top);
-                                                                      }
-                                                                    var oldtimeStamp = $('#chat'+$.escapeSelector(urlid)).find(".message-timeline").first();
-                                                                    var newTimeStamp = $('#chat'+$.escapeSelector(urlid)).find(".message-user-time").first();
-                                                                     if (oldtimeStamp.text() === newTimeStamp.attr("date")) {
-                                                                        oldtimeStamp.insertBefore(newTimeStamp);
-                                                                     }
-                                                            }
-                                                            },error: function(err) {
-                                                                console.log('chat Load failed: ');
-                                                                console.log(err);
-                                                            }
-                                                        });
-                                                    }
-                                                }
-                                            }
-                                            function GetChatrooms(){
-                                                if (roomflag == 1){
-                                                    roomflag=0;
-                                                   /*  $.ajax({
-                                                        type: 'GET',
-                                                        url: 'http://ustart.today:'+port+'//',
-                                                        contentType: "application/json; charset=utf-8",
-                                                        data: {postIndex:JSON.stringify(roomArr)},
-                                                        success: function(data) {   
-                                                        },complete: function (jqXHR,status) {
-                                                             roomflag=1;
-                                                             if(status == 'success' || status=='notmodified')
-                                                             {
-
-                                                             }
-                                                        },error: function(err) {
-                                                            console.log('chatroom Load failed: ');
-                                                            console.log(err);
-                                                        }
-                                                    });*/
-                                                }
-                                            }
-
-                                            $(".message-box").scroll(function () {
-                                                var $this = $(this);
-                                                var height = this.scrollHeight - $this.height(); // Get the height of the div
-                                                var scroll = $this.scrollTop(); // Get the vertical scroll position
-                                                var isScrolledToEnd = (scroll <= 0);
-                                                if (isScrolledToEnd) {
-                                                    GetChatRecord(); // Get the additional content
-                                                }
                                             });
                                             
                                               $(".container-left").scroll(function () {

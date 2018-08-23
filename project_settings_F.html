@@ -51,7 +51,7 @@
 	<div id="centering">
 		<!-- Vertical content -->
 			<div id="settings-container" class="container">
-				<div class="panel-group col-sm-10 col-sm-offset-1">
+				<div class="panel-group col-sm-11 col-sm-offset-1">
 					<div class="row">
 						<div class="vertical-menu col-sm-3">
 							<ul>
@@ -146,7 +146,9 @@
 											<input type="file" name="raw-image" id="upload" accept="image/*">
 											<input type="hidden" name="image-data" id="hidden-image-data" />
 											<input type="hidden" name="projectID" value={{$projectid}} />
+											<div id='form-btn' class="row">
 											<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
+											</div>
 											<script type="text/javascript">
 												$uploadCrop = $('#upload-demo').croppie({
 													url: "{{.Project.ProjectData.Avatar}}",
@@ -209,7 +211,9 @@
 										<input type="file" name="raw-banner" id="upload2" accept="image/*">
 										<input type="hidden" name="projectID" value={{$projectid}} />
 										<input type="hidden" name="banner-data" id="hidden-image-data-2" />
+										<div id='form-btn' class="row">
 										<button type="button" class="btn btn-info" id="upload-result2">Upload Banner</button>
+										</div>
 										<script type="text/javascript">
 											 function createCroppie(viewportWidth, viewportHeight, boundaryWidth, image) {
                                                         $uploadCrop2 = $('#upload-demo2').croppie({
@@ -223,12 +227,12 @@
                                                         height:350
                                                         }
                                                         });
-                                                    }
+                                                    };
                                                     
                                                     function resizeCroppie(width, height, bwidth, image) {
                                                          $('#upload-demo2').croppie('destroy');
                                                          createCroppie(vwidth, vheight, bwidth, image);
-                                                    }
+                                                    };
 
                                                     $(document).ready(function () {
                                                         createCroppie(vwidth, vheight, bwidth, poster);
@@ -255,7 +259,6 @@
                                                                 vwidth=650
                                                                 vheight= 200;
                                                             }	height= 200;
-                                                        }
                                                         resizeCroppie(vwidth, vheight, bwidth, poster);
                                                     });
                                                     
@@ -466,10 +469,24 @@
 						$(location.hash + '.collapse').collapse('show');
 					} else {
 						$('#avatarcollapse.collapse').collapse('show');
-					}
-					<!-- end of auto-tab -->
+					};
+					$('.vertical-menu ul').on('click', '.project-menu-list', function(event) {
+						$('.project-menu-list.active').removeClass('active');
+						$(this).addClass('active');
+						if ($('li[data-target="projectImage"]').hasClass("active")) {
+							//$('.vertical-menu').css({'border-right': 'none;'});
+							$('.vertical-menu').css({'border-right': 'none'});			
+							$('.projectContents').css({'border-left': '1px solid #808080'});
+						  }
+						else{	 
+							$('.projectContents').css({'border-left': 'none'});			
+							$('.vertical-menu').css({'border-right': '1px solid #808080'});			
+						}	
+						$("#"+$(this).data('target')).show().siblings("div").hide();
+					}); 					
+					
 				});
-			</script>									
+			</script>												
 		</div>
 		<!-- end of centering -->
 

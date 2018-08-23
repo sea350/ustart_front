@@ -36,6 +36,7 @@
     <script>IDArray.push({{$loop}}); </script>
     {{end}}
 	<script type="text/javascript" src="/ustart_front/js/layout_tags.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/layout_links.js"></script>
     <script type="text/javascript" src="/ustart_front/js/widget-gallery.js"></script>
     <script type="text/javascript" src="/ustart_front/js/widgets.js"></script>
     <script type="text/javascript" src="/ustart_front/js/notify.min.js"></script>
@@ -68,7 +69,7 @@
                         <button class="project-message btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
                         {{if eq ($.Project.RequestAllowed) true}}
                         <form action="/RequestToJoin/" method="POST" style="display: inline-block;">
-                            <input type="hidden" name="projID" value={{$projectid}}>
+                            <input type="hidden" name="projID" value='{{$projectid}}'>
                             <button class="project-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
                                 <span>Request to join</span>
                             </button>
@@ -99,7 +100,7 @@
 						</div>
 						<form id="project-leave-form" action="/leaveProject/" style="display:none">
 							<input type="hidden" name="leaverID" value=""/>
-							<input type="hidden" name="projectID" value={{$projectid}}/>
+							<input type="hidden" name="projectID" value='{{$projectid}}'/>
 						</form>
                         <div id="project-leave" class="modal fade" role="dialog">
                             <div class="modal-dialog">
@@ -209,7 +210,7 @@
 						<!-- ADDPROJECTNAME -->
 						{{.Project.ProjectData.Name}}
 					</h3>
-                </div>
+				</div>
                 <ul class="nav nav-tabs nav-justified proj-tabs">
                     <li class="active"><a data-toggle="tab" href="#proj-about">Showcase</a></li>
                     <li class=""><a data-toggle="tab" id="Wall-loadAJAX" href="#prof-wall">Posts</a></li>
@@ -361,9 +362,7 @@
 									{{range $loop := .Project.ProjectData.Tags}}
 									{{if ne ($loop) ""}}
 									<script>
-										$(document).ready(function() {
-											createTagWidgetElement("#hashTagsBody", {{$loop}});
-										});
+								        createTagWidgetElement("#hashTagsBody", {{$loop}});
 									</script>
 									{{end}}
 									{{end}}
@@ -376,21 +375,18 @@
 										<span class="pull-right fa fa-2x fa-pencil" data-toggle="modal" data-target="#wantedSkillModal"></span>
 										<h4>Skills Wanted</h4>
 									</div>
-									<div id="wantedSkillBody" class="widgetBody">
+									<div id="hashskillsBody" class="widgetBody">
 									</div>       
 									{{range $loop := .Project.ProjectData.ListNeeded}}
 									{{if ne ($loop) ""}}
 									<script>
-										$(document).ready(function() {
-											createTagWidgetElement("#wantedSkillBody", {{$loop}});
-										});
+											createTagWidgetElement("#hashskillsBody", {{$loop}});
 									</script>
 									{{end}}
 									{{end}}
 								</div>
 							</li> <!--end skill widget -->
 							<!-- link widget-->
-							<script src="/ustart_front/js/layout_links.js"></script>
 							<li class="ui-state-default widgetListItem sortable">
 								<div id="linksWidget" class="projectsWidgetCont">
 									<div class="widgetTitle">
@@ -402,9 +398,7 @@
 									{{range $loop := .Project.ProjectData.QuickLinks}}
 										{{if ne ($loop.URL) ""}}
 										<script>
-											$(document).ready(function() {
-												createLink({{$loop.URL}},{{$loop.Name}});
-											});
+								            createLink({{$loop.URL}},{{$loop.Name}});
 										</script>
 										{{end}}
 									{{end}}
@@ -490,7 +484,7 @@
                                     <div class="widgetTitle">
                                         <span class="pull-right fa fa-2x fa-sort"></span>
                                         <span class="pull-right fa fa-2x fa-pencil" id="yt-edit" onclick="ApplyIDToModal('youtubeModal', this)"></span>
-                                        <form id=delete{{index $loop.ID}} action="/deleteProjectWidget/" method="POST">
+                                        <form id='delete{{index $loop.ID}}' action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
 											<input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
 											<span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
@@ -542,9 +536,7 @@
                                     </div>
                                     <div id= "widgetBodyTumblr" class="widgetBody">
                                         <script>
-                                            $( document ).ready(function() {
 											   tumblrRender({{index $loop.Data 0}});
-                                            });
 										</script>
                                     </div>
                                 </div>
@@ -567,11 +559,9 @@
                             </div>
                             <div id="widgetBodyPin" class="widgetBody">
                                 <script>
-                                    $( document ).ready(function() {
                                     {{range $loop2 := $loop.Data }}
                                         pinRender({{$loop2}});
                                     {{end}}
-                                    });
                                 </script>
                             </div>
                         </div>
@@ -660,9 +650,7 @@
                                     </div>
                                     <div id="widgetBodyMed" class="widgetBody"></div>
                                         <script>
-                                            $( document ).ready(function() {
                                             mediumRender({{index $loop.Data 0}},{{index $loop.Data 1}},{{index $loop.Data 2}},{{index $loop.Data 3}});
-                                            });
                                         </script>
                                 </div>
                             </li>
@@ -684,9 +672,7 @@
                                     <div id="widgetBodyDA" class="widgetBody">
                                     </div>
                                     <script>
-                                        $( document ).ready(function() {
                                             daRender({{index $loop.Data 0}},{{index $loop.Data 1}});
-                                        });
                                     </script>
                                 </div>
                             </li>
@@ -726,9 +712,7 @@
                                     </div>
                                     <div id="widgetBodyGit" class="widgetBody">
                                         <script>
-                                            $( document ).ready(function() {
 											   githubRender({{index $loop.Data 0}});
-                                            });
 										</script>
                                     </div>
                                 </div>
@@ -953,7 +937,7 @@
 									</div>
 
 									<div class="modal-body">
-										<div id="hashtags" class="form-group">You haven't added any skill demands yet.</div>
+										<div id="hashskills" class="form-group">You haven't added any skill demands yet.</div>
 										<hr/>
 										<input class="form-control" type="text" id="wantedSkillLineInput" name="wantedSkillInput" placeholder="Type to add skill demands" autofocus required />
 										<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{$projectid}}" required/>
@@ -1028,7 +1012,7 @@
 											<label>Please paste the Instagram post URL here</label>
 											<input type="url" class="form-control" name="instagramInput" id="ig-embed-input" placeholder="https://www.instagram.com/p/BageGbgD05c/" pattern="https?:\/\/www\.instagram\.com\/p\/[A-Za-z0-9\-\_]{11}\/.*" required/>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value='{{$projectid}}' required/>
 										</div>
 										<div class="modal-footer">
 											<button type="submit" id="ig-submit-btn" name="widgetSubmit" value="4" class="btn btn-default">Done</button>
@@ -1051,7 +1035,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" id="sc-embed-input" name="scInput" placeholder="Embedded code" pattern='<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https:\/\/w\.soundcloud\.com\/player\/\?url=https%3A\/\/api\.soundcloud\.com\/users\/[0-9]{9}&amp;color=%23[0-9a-f]{6}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true"\>\<\/iframe\>' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value='{{$projectid}}' required/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -1075,7 +1059,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" id="code-embed-input" name="codepenInput" pattern='<p data-height="265" data-theme-id="0" data-slug-hash="[A-Za-z]{6}" data-default-tab="css,result" data-user="[^"]+" data-embed-version="2" data-pen-title="[^"]+" class="codepen"\>[^<]+\<a href="https:\/\/codepen\.io\/[^\/]+\/pen\/[A-Za-z]{6}\/">[^<]+<\/a> by [^(]+\(<a href="https:\/\/codepen\.io\/[^"]+">@[^<]+<\/a>\) on <a href="https:\/\/codepen\.io">CodePen<\/a>\.<\/p>\n<script async src="https:\/\/static\.codepen\.io\/assets\/embed\/ei\.js"><\/script>' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value='{{$projectid}}' required/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -1104,7 +1088,7 @@
 												</div>
 												<input type="text" class="form-control" name="twitchInput" id="twitch-embed-username" required pattern='[0-9A-Za-z_]{1,25}'/>
 												<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-												<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
+												<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value='{{$projectid}}' required/>
 											</div>
 										</div>
 										<div class="modal-footer">
@@ -1128,7 +1112,7 @@
 											<div class="form-group">
 												<input type="text" class="form-control" name="tumblrInput" id="medium-embed-input" placeholder="ustart" pattern='[A-Za-z0-9\-\.]{1,32}' required>
 												<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value='{{$projectid}}' required/>
 											</div>
 										</div>
 										<div class="modal-footer">
@@ -1154,7 +1138,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" name="spotInput" id="spot-embed-input" pattern='<iframe src="https:\/\/open\.spotify\.com\/embed\/[^"]+" width="300" height="380" frameborder="0" allowtransparency="true"><\/iframe>' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value='{{$projectid}}' required/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -1181,7 +1165,7 @@
 											<input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="http://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+\/' required>
 											<!-- Regexp: pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/? -->
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value='{{$projectid}}' required/>
 										</div>
 										 </form>
 									</div>
@@ -1211,7 +1195,7 @@
 												<span class="modal-cell">URL</span>
 												<input type="url" class="link-input-read" name="webURL" placeholder="example: 'https://www.linkedin.com'" spellcheck="false" required/>
 											</p>
-											<input type="hidden" name="projectID" value={{$projectid}} required/>
+											<input type="hidden" name="projectID" value='{{$projectid}}' required/>
 										</div>
 										
 										<div class="modal-footer">
@@ -1240,7 +1224,7 @@
 										<div class="form-group">
 											<input type="text" class="form-control" name="arInput" id="ar-embed-input" pattern='https:\/\/anchor\.fm\/.*\/+' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value='{{$projectid}}' required/>
 										</div>
 										</form>
 									</div>
@@ -1276,7 +1260,7 @@
 												<input type="text" class="form-control" name="medInput" id="med-embed-username" pattern='[0-9A-Za-z\-]{1,32}'/>
 												<input type="text" class="form-control" name="medInput2" id="med-embed-publication"/>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value='{{$projectid}}' required/>
 												
 											</div>
 											<br/>
@@ -1318,7 +1302,7 @@
 											</div>
 											<input type="text" class="form-control" name="daInput" id="da-embed-username" required/>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
-											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value={{$projectid}} required/>
+											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value='{{$projectid}}' required/>
 											
 										</div>
 										<br/>

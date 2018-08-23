@@ -226,20 +226,25 @@ function updateChatBadge() {
     }
 }
 
-function appendNotifItem(person, message, timestamp, unreadStatus) {
+function appendNotifItem(image, link, message, timestamp, unreadStatus) {
     // Load person's icon
     var notifIcon = $('<img></img>').addClass('media-object img-rounded notif-icon');
-    $(notifIcon).attr('alt', '40x40').attr('src', 'http://placehold.it/40x40');
+    $(notifIcon).attr('alt', '40x40').attr('src', image);
     
     var notifIconHolder = $('<div></div>').addClass('media-left').append(notifIcon);
     var notifDismisser = $('<a></a>').addClass('close').attr('href', '#').attr('data-dismiss', 'alert').attr('aria-label', 'close').text('×');
-    var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('profile.html#' + person)).text(person);
+    var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI(link)).text(person);
     var notifPersonLabel = $('<strong></strong>').append(notifPersonLabelLink, notifDismisser);
-    var notifNewLabel = $('<span></span>').addClass('label-new label label-info')
+    
     if (unreadStatus) {
-        notifNewLabel.text('New');
-        newNotifs++;
-        updateNotifBadge();
+         var notifNewLabel = $('<span></span>').addClass('label-new label label-info notif-label');
+         newNotifs= $(".notif-label.label-new").length;
+         updateNotifBadge();
+    }
+    else{
+         var notifNewLabel = $('<span></span>').addClass('label label-info notif-label');
+         newNotifs= $(".notif-label.label-new").length;
+         updateNotifBadge();
     }
     var notifPersonContainer = $('<div></div>').append(notifPersonLabel, notifNewLabel);
     var notifMessage = $('<div></div>').addClass('notif-message').text(message);
@@ -250,7 +255,8 @@ function appendNotifItem(person, message, timestamp, unreadStatus) {
         if (newLabel.length > 0) {
             newLabel.removeClass('label-new');
             newLabel.fadeOut('fast');
-            newNotifs--;
+            newLabel.text('');
+            newNotifs= $(".notif-label.label-new").length;
             updateNotifBadge();
         }
     });
@@ -310,7 +316,6 @@ function appendChatItem(chatID, person, message, timestamp, unreadStatus, classi
     //var notifDismisser = $('<a></a>').addClass('close').attr('href', '#').attr('data-dismiss', 'alert').attr('aria-label', 'close').text('×');
     if (classification === 0){
         var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI('/ch/@' + chatID)).text(person).click(function(){
-             console.log("clicked href");
              var newLabel = $(this).find('.label-new');
              newLabel.removeClass('label-new');
              newLabel.fadeOut('fast');
@@ -334,13 +339,11 @@ function appendChatItem(chatID, person, message, timestamp, unreadStatus, classi
          var notifNewLabel = $('<span></span>').addClass('label-new label label-info chat-label');
          chatNotifCount= $(".chat-label.label-new").length;
          updateChatBadge();
-        console.log("new");
     }
     else{
          var notifNewLabel = $('<span></span>').addClass('label label-info chat-label');
          chatNotifCount= $(".chat-label.label-new").length;
          updateChatBadge();
-        console.log("not new");
     }
     var notifPersonContainer = $('<div></div>').append(notifPersonLabel, notifNewLabel);
     var notifMessage = $('<div></div>').addClass('notif-message').text(message);
@@ -383,14 +386,7 @@ function fitNavbar() {
 
 $(document).ready(function () {
     appendEmptyItem("notifDrop");
-    appendNotifItem('Reflector Pinpointer', 'is following you', 'NOW', true);
-    appendNotifItem('Broadside Chromedome', 'is following you', 'NOW', true);
-    appendNotifItem('Reflector Pinpointer', 'suggested ?link', 'NOW', true);
-    appendNotifItem('Broadside Chromedome', 'suggested ?project', 'NOW', true);
-    appendNotifItem('Reflector Pinpointer', 'YO! You following me?', 'NOW', true);
-    appendNotifItem('Broadside Chromedome', "WHAT'S UP?", 'NOW', true);
-    
-    //appendChatItem(1,'Reflector Pinpointer', 'is following you', 'NOW', true);
+    /*appendNotifItem('Reflector Pinpointer', 'is following you', 'NOW', true);
     /*
     $(window).resize(function() {
         fitNavbar();

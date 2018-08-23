@@ -1,7 +1,6 @@
 // globals
 var port = location.port;
 var flag = 1;
-var IDArray= []
 document.addEventListener('DOMContentLoaded', function () { window.scrollTo(0, 200) });
 
 window.___gcfg = { "parsetags": "explicit" };
@@ -17,21 +16,22 @@ $(function () {
         items: "> li.sortable",
         update: function(event, ui) {
             // Update {{.UserInfo.UserWidgets}} with $("#sortable").sortable("toArray")
-            var asortedWidgets = $("#sortable").sortable("toArray");
-            $.ajax({
-                type: 'GET',
-                url: 'http://ustart.today:'+port+'/sortUserWidgets/',
-                contentType: "application/json; charset=utf-8",
-                data: {sortedWidgets: JSON.stringify(asortedWidgets)},
-                success: function(data) {
-                    console.log('Sorted Widgets are probably saved: ');
-                    console.log(data);
-                },
-                error: function(err) {
-                    console.log('Sorted Widgets failed: ');
-                    console.log(err);
-                }
-            });
+            if (userID == doc){
+                var asortedWidgets = $("#sortable").sortable("toArray");
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://ustart.today:'+port+'/sortUserWidgets/',
+                    contentType: "application/json; charset=utf-8",
+                    data: {sortedWidgets: JSON.stringify(asortedWidgets), pageID: userID},
+                    success: function(data) {
+                        console.log('Sorted Widgets are probably saved: ');
+                    },
+                    error: function(err) {
+                        console.log('Sorted Widgets failed: ');
+                        console.log(err);
+                    }
+                });
+            }
         }
     });
 
@@ -95,6 +95,7 @@ $(function () {
      shrBtnImg.attr('src', "/ustart_front/ico/not share.png"); 
  });
 $(function () {
+    /*
     $('body').confirmation({
         selector: '[data-toggle="confirmation"]'
     });
@@ -116,7 +117,7 @@ $(function () {
     $('body').on('click', '#new-postSubmit', function (e) {
 		$('#post-msg').val('');
         $('#New-Post-Form').submit();
-    });
+    });*/
     // like button
      $(".like-btn").click(function (e) {
 		var likeBtnImg = $(this).find('img');
@@ -136,7 +137,7 @@ $(function () {
         return false;
     });
     
-     $(".comment-btn").hover(function (e) {
+     $(".comments-btn").hover(function (e) {
         var cmtBtnImg = $(this).find('img');
         cmtBtnImg.attr('src', "/www/ustart.tech/ico/comment.png");     
      },function (e) {
@@ -312,7 +313,7 @@ $(document).ready(function () {
     //widget children count
     $('.widgetBody').each(function(){
         if ($(this).children().length > 3){
-            $(this).css({'justify-content':'space-between'});
+            //$(this).css({'justify-content':'space-between'});
         }
     });
 

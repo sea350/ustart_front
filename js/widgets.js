@@ -109,14 +109,17 @@ function ARRender(anchorID, widgetID) {
     var ARURL = AnchorGetID(anchorID);
     var divprefix = "#arrender";
     var finalDest = divprefix.concat(widgetID);
+    console.log(finalDest);
     var iframe = document.createElement( "iframe" );
+    var AROuterDiv= $("<div></div>").addClass('anchor-feed').attr("id","arrender"+widgetID);
     iframe.setAttribute( "frameborder", "0" );
     iframe.setAttribute( "scrolling", "no" );
     iframe.style.marginbottom = "0.5em";
     iframe.style.width = "100%"
     iframe.style.display = "inline-block"
     iframe.setAttribute( "src", encodeURI(ARURL));
-    $(finalDest).append(iframe);
+    AROuterDiv.append(iframe);
+    $('#widgetBodyAR').append(AROuterDiv);
 }
 
 

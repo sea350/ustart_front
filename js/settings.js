@@ -130,22 +130,7 @@ function eduCheck(usrtype) {
 		$('input#uniGradDate').attr('disabled', false);
 	}
 }
-$(document).ready(function() {
-	//project setting
-    $('.vertical-menu ul').on('click', '.project-menu-list', function(event) {
-        $('.project-menu-list.active').removeClass('active');
-		$(this).addClass('active');
-		if ($('li[data-target="projectImage"]').hasClass("active")) {
-			//$('.vertical-menu').css({'border-right': 'none;'});
-			$('.vertical-menu').css({'border-right': 'none'});			
-			$('.projectContents').css({'border-left': '1px solid #808080'});
-		  }
-		else{	 
-			$('.projectContents').css({'border-left': 'none'});			
-			$('.vertical-menu').css({'border-right': '1px solid #808080'});			
-		}	
-        $("#"+$(this).data('target')).show().siblings("div").hide();
-	}); 	
+$(document).ready(function() {	
 	//profile settting
     $('.vertical-menu ul').on('click', '.menu-list', function(event) {
         $('.menu-list.active').removeClass('active');

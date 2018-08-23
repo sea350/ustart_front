@@ -19,9 +19,13 @@
 		<img id="head-image" alt="User Banner">
 		<script>
             var port = location.port;
-			$( document ).ready(function() {
-				$("#head-image").attr("src",{{.UserInfo.Banner}});
-			});
+            $("#head-image").attr("src",{{.UserInfo.Banner}});
+            $(document).ready(function(){
+                console.log(window.location.hash);
+            if(window.location.hash != "") {
+                $('a[href="' + window.location.hash + '"]').click()
+            }
+        });
 		</script>
         <!-- Vertical content -->
         <div id="content" class="container">
@@ -88,12 +92,11 @@
 						<hr>
 						<div id="user-nums">
 							<div id="followers">
-								<a href="/followers/{{.UserInfo.Username}}#FollowersTab">
+								<a href="#">
 									<span id="num-followers" style="font-weight: bold">{{len .UserInfo.Followers}}</span> Followers</a>
 							</div>
-							
 							<div id="following">
-								<a href="/followers/{{.UserInfo.Username}}#FollowingTab">
+								<a href="#">
 									<span id="num-following" style="font-weight: bold">{{len .UserInfo.Following}}</span> Following</a>
 							</div>
 							<button id="btn-message" class="btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
@@ -181,8 +184,12 @@
 				</div>
 				<div class="grid">
 					<ul class="nav nav-tabs nav-justified proj-tabs">
-						<li class="active"><a data-toggle="tab" href="#FollowersTab">Followers</a></li>
-						<li><a data-toggle="tab" href="#FollowingTab">Following</a></li>
+                         <li class="nav-item">
+                            <a class="nav-link active"  data-toggle="tab" href="#FollowersTab">Followers</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#FollowingTab">Following</a>
+                       </li>
 					</ul>
 					<div class="tab-content">
 						<div id="FollowersTab" class="tab-pane fade in active">
@@ -208,7 +215,6 @@
                                $('body').on("click", ".followButton", function(e) {
                                    var docID = e.currentTarget.id;
                                    var followerstat = {{$follower.Followed}};
-                                   console.log(docID);
                                    $.ajax({
 											type: 'GET',  
 											url: 'http://ustart.today:'+port+'/callme/',
@@ -284,11 +290,6 @@
 			</div>
 		</div>
     </div>
-	<script>
-		if(location.hash != null && location.hash != ""){
-			$("a[href='" + location.hash + "'").tab("show");
-		}
-	</script>
 </body>
 
 </html>

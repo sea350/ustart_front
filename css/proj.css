@@ -26,6 +26,30 @@
     text-align: left
 }
 
+#wall-dataF hr {
+    margin-top: 0;
+    margin-bottom:0;
+}
+
+#editModals img.img-rounded{
+    margin-top: 0 !important;
+}
+
+#wall-dataF h5, #commentModals h5, #commentModals h6, #shareModals h5, #shareModals h6 {
+    margin-top: 7px !important;
+}
+#wall-dataF h6{
+    margin-top: 2px !important;
+}
+
+#commentModals p{
+    margin-bottom: 5px !important;
+}
+
+.user_name{
+    margin-top:6px !important;
+}
+
 #img-cont {
     border-radius: 10px;
     padding: 0.2em
