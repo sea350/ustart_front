@@ -300,7 +300,7 @@
                         <li class="ui-state-default">
                             <div id="usersWidget" class="eventsWidgetCont">
                                 <div class="widgetTitle">
-                                    
+                                    <span class="pull-right fa fa-2x fa-plus-circle" data-toggle="modal" data-target="#addUserModal"></span>
                                     <h4>Users attending</h4>
                                 </div>
                                 {{range $member := .Event.MemberData}}
@@ -326,7 +326,7 @@
                             <li class="ui-state-default">
                                 <div id="usersWidget" class="eventsWidgetCont">
                                     <div class="widgetTitle">
-                                        
+                                        <span class="pull-right fa fa-2x fa-plus-circle" data-toggle="modal" data-target="#addProjectModal"></span>
                                         <h4>Projects attending</h4>
                                     </div>
                                     {{range $member := .Event.MemberData}}
