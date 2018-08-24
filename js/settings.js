@@ -130,7 +130,106 @@ function eduCheck(usrtype) {
 		$('input#uniGradDate').attr('disabled', false);
 	}
 }
-$(document).ready(function() {	
+$(document).ready(function() {
+
+	var pass = document.getElementById('newpass');
+    var mcont = document.getElementById('meter-cont');
+    var meter = document.getElementById('meter');
+    var empty = document.getElementById('left-empty');
+    var bad = document.getElementById('bad-pass');
+    meter.style.display = "none";
+    empty.style.display = "none";
+    bad.style.display = "none";
+    mcont.style.display = "none";
+    pass.addEventListener('input', function() {
+
+        var val = pass.value;
+
+        meter.style.display = "block";
+        if (val == '') {
+            empty.style.display = "block";
+            bad.style.display = "none";
+            meter.style.display = "none";
+            mcont.style.display = "none";
+
+        }
+        // pass into function to measure strength
+        var result = zxcvbn(val);
+
+        // Password progress bar
+        var $bar = $('#meter');
+
+        if (result.score == 0) {
+            if (val == '') {
+                empty.style.display = "block";
+                bad.style.display = "none";
+                meter.style.display = "none";
+                mcont.style.display = "block";
+
+            } else {
+                $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '0%');
+                bad.style.display = "block";
+                empty.style.display = "none";
+                mcont.style.display = "block";
+            }
+
+        } else if (result.score == 1) {
+            $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '25%');
+            bad.style.display = "block";
+            empty.style.display = "none";
+
+        } else if (result.score == 2) {
+
+            $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '50%');
+            bad.style.display = "block";
+            empty.style.display = "none";
+        } else if (result.score == 3) {
+
+            $bar.attr('class', 'progress-bar progress-bar-warning').css('width', '75%');
+            bad.style.display = "none";
+            empty.style.display = "none";
+        } else { // score == 4
+            $bar.attr('class', 'progress-bar progress-bar-success').css('width', '100%');
+            bad.style.display = "none";
+            empty.style.display = "none";
+        }
+    });
+	
+	$('#newpass').keyup(function() {
+
+        if ($(this).val() == $('#confirmpass').val()) {
+            $('#pwNoMatch').css('display', 'none');
+        } else {
+
+            if ($('#confirmpass').val() == '') {
+                $('#pwNoMatch').css('display', 'none');
+                // $('#meter').css('display', 'none');
+
+            } else {
+                $('#pwNoMatch').css('display', 'block');
+            }
+        }
+    });
+
+    $('#confirmpass').keyup(function() {
+        if ($(this).val() == $('#newpass').val()) {
+            $('#pwNoMatch').css('display', 'none');
+
+
+        } else {
+
+            if ($('#inPassword').val() == '') {
+                $('#pwNoMatch').css('display', 'none');
+            } else {
+                $('#pwNoMatch').css('display', 'block');
+            }
+
+        }
+    });
+	
+
+
+
 	//word count limiter
 	var maxLength = 5000;
 	$('textarea').keyup(function() {

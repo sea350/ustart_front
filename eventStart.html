@@ -97,9 +97,15 @@
                             <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
                             <input id="endDate" name='endDate' class='form-control' type="datetime-local">
                         </div>
+                        <span id='dateComplain' style='color:red;'></span>
                     </div>                 
                 </div>
-                <div class="row">
+                
+                        <button class="btn btn-default btn-block" id='collapseLocationbtn' type="button" data-toggle="collapse" data-target="#collapseLocation" aria-expanded="false" aria-controls="collapseLocation">
+                            (Location data) Click to enter Location information
+                        </button> 
+                        <div class="collapse" id="collapseLocation">
+                        <div class="row">
                         <div class="dropdown col-md-3 col-sm-6">
                             <label for="country" class='sr-only'>Country</label>
                             <div class="input-group input-groupz">
@@ -131,7 +137,8 @@
                                 <input id="zip" name="zip" class="form-control" placeholder="Zip" autocomplete="postal-code">
                             </div>
                         </div>
-                </div>
+                    </div>
+                
                 <div class="row">
                     <div class="col-sm-12">
                         <label for="street" class='sr-only'>Street</label>
@@ -140,7 +147,8 @@
                             <input id="street" name="street" class="form-control" placeholder="Street" autocomplete="street">                                
                         </div>
                     </div>
-                </div>  
+                </div> 
+                </div> 
 
                 <div class="row" style='margin-top:1em;'>
                         <div class="col-sm-12">

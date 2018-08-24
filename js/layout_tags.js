@@ -299,7 +299,8 @@ $(document).ready(function () {
                 console.log(skillNeededList);
                 $(skillNeededList).each(function(index, element) {
                     var tag = element;
-					createSkillModalElement("#hashskillsBody", tag);
+                    console.log(tag);
+					createTagWidgetElement("#hashskillsBody", tag);
                 });
                 $("#wantedSkillModal").modal('hide');
             }

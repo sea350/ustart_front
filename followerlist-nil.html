@@ -13,12 +13,11 @@
 </head>
 
 <body>
-    <input type="hidden" id="pageiden" value='{{.Page}}'>
-    <input type="hidden" id="followstat" value='{{.FollowingStatus}}'>
     <div id="centering">
 		<img id="head-image" alt="User Banner">
 		<script>
             var port = location.port;
+            var followstatus={{.FollowingStatus}};
             $("#head-image").attr("src",{{.UserInfo.Banner}});
             $(document).ready(function(){
                 console.log(window.location.hash);
@@ -92,12 +91,12 @@
 						<hr>
 						<div id="user-nums">
 							<div id="followers">
-								<a href="#">
-									<span id="num-followers" style="font-weight: bold">{{len .UserInfo.Followers}}</span> Followers</a>
+								<a href="">
+									<span id="num-followers" style="font-weight: bold">{{.Followers}}</span> Followers</a>
 							</div>
 							<div id="following">
-								<a href="#">
-									<span id="num-following" style="font-weight: bold">{{len .UserInfo.Following}}</span> Following</a>
+								<a href="">
+									<span id="num-following" style="font-weight: bold">{{.Following}}</span> Following</a>
 							</div>
 							<button id="btn-message" class="btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
 							<!-- if user is visiting the page -->
@@ -105,9 +104,8 @@
 							<button id="btn1" class="btn followButton" rel="6">Follow</button>
 							<script type="text/javascript">
 								$(document).ready(function() {
-									var pageID= document.getElementById("pageiden").value;
-									var followstatus=document.getElementById("followstat").value;
-									if(followstatus == "yes") {
+									var pageID={{.Page}};
+									if(followstatus == true) {
 										$('#btn1').attr('class', 'btn followButton following');
 										$('#btn1').text('Following');
 									}
@@ -128,14 +126,13 @@
                                         }
 									});
 									$('#btn1').click(function(e) {
-										//e.preventDefault();
+										$( "#btn1" ).prop( "disabled", true );
 										$.ajax({
 											type: 'GET',  
-											url: 'http://ustart.today:'+port+'/callme/',
+											url: 'http://ustart.today:'+port+'/AjaxUserFollowsUser/',
 											contentType: "application/json; charset=utf-8",
-											data: {userID:pageID, Following:followstatus},
+											data: {userID:pageID},
 											success: function(data) {
-												$("#responsenil").html(data);
 												var totalFollowers = parseInt($('#num-followers').html());
 												if ($('#btn1').hasClass('following')) {
 													//$.ajax(); Do Unfollow
@@ -146,7 +143,7 @@
 													$('#btn1').text('Follow');
 													$('#num-followers').html(totalFollowers-1);
 													$("#followstat").val("no");
-													followstatus ="no";
+													followstatus =false;
 												} else {
 													// $.ajax(); Do Follow
 													console.log("Let's follow");
@@ -155,8 +152,9 @@
 													$('#btn1').text('Following');
 													$('#num-followers').html(totalFollowers+1);
 													$("#followstat").val("yes");
-													followstatus ="yes";
+													followstatus =true;
 												}
+                                                $( "#btn1" ).prop( "disabled", false );
 											},
 											error: function(error) {
 												console.log("It just doesn't work");
@@ -213,13 +211,14 @@
 							</div>
                              <script>
                                $('body').on("click", ".followButton", function(e) {
+                                   $(e.currentTarget).prop( "disabled", true );
                                    var docID = e.currentTarget.id;
                                    var followerstat = {{$follower.Followed}};
                                    $.ajax({
 											type: 'GET',  
-											url: 'http://ustart.today:'+port+'/callme/',
+											url: 'http://ustart.today:'+port+'/AjaxUserFollowsUser/',
 											contentType: "application/json; charset=utf-8",
-											data: {userID:docID, Following:followerstat},
+											data: {userID:docID},
 											success: function(data) {
                                                 if ($(e.currentTarget).text()=="Follow"){
                                                     $(e.currentTarget).text('Unfollow');
@@ -227,6 +226,7 @@
                                                 else if ($(e.currentTarget).text()=="Unfollow"){
                                                     $(e.currentTarget).text('Follow');
                                                 }
+                                                $(e.currentTarget).prop( "disabled", false );
                                             },
 											error: function(error) {
 												console.log("It just doesn't work");
@@ -257,14 +257,14 @@
 								</div>
                                 <script>
                                $('body').on("click", ".unfollowButton", function(e) {
+                                   $(e.currentTarget).prop( "disabled", true );
                                    var unfollowdocID = e.currentTarget.id;
                                    var followerstat = {{$following.Followed}};
-                                   console.log(followerstat);
                                    $.ajax({
                                         type: 'GET',  
-                                        url: 'http://ustart.today:'+port+'/callme/',
+                                        url: 'http://ustart.today:'+port+'/AjaxUserFollowsUser/',
                                         contentType: "application/json; charset=utf-8",
-                                        data: {userID:unfollowdocID, Following:followerstat},
+                                        data: {userID:unfollowdocID},
                                         success: function(data) {
                                             console.log("unfollowed");
                                             if ($(e.currentTarget).text()=="Follow") {
@@ -273,6 +273,7 @@
                                             else if ($(e.currentTarget).text()=="Unfollow") {
                                                 $(e.currentTarget).text('Follow');
                                             }
+                                            $(e.currentTarget).prop( "disabled", false );
                                         },
                                         error: function(error) {
                                             console.log("It just doesn't work");

@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/croppie.css" />
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
 	<script src="/ustart_front/js/countries.js"></script>
+	<script type="text/javascript" src="/ustart_front/js/zxcvbn.js"></script>
 	<script src="/ustart_front/js/majors.js"></script>
 	<script src="/ustart_front/js/settings.js"></script>
     <script src="/ustart_front/js/croppie.js"></script>
@@ -504,6 +505,15 @@
 													<input type="password" class="form-control" id="newpass" name="newpass" placeholder="Enter the new password"
 													required />
 												</div>
+												<div id="meter-cont" class="progress password-progress" style=" margin-top: 5px; margin-bottom: 5px;">
+														<div id="meter" class="progress-bar" role="progressbar" style="width: 0;"></div>
+													</div>
+													<div id="bad-pass" style="display: none">
+														<span style="color: red;">Password not strong enough.</span>
+													</div>
+													<div id="left-empty" style="display: none">
+														<span style="color: red;">You must enter a password.</span>
+												</div>  												
 											</div>											
 											<!-- Confirm Password -->
 											<div class="row">
@@ -513,6 +523,7 @@
 												<div class="col-sm-9">
 													<input type="password" class="form-control" id="confirmpass" name="confirmpass" placeholder="Reconfirm the new password"
 													required />
+													<span id="pwNoMatch" style="color:red; display:none;">Sorry, passwords do not match.</span>
 												</div>
 											</div>											
 											<input type="submit" class="btn btn-info" name="pass_submit" value="Confirm Password Change" />

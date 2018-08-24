@@ -208,9 +208,8 @@
                                     }
                                     makeNewPostApplications(temp[0].Image, temp[0].FirstName,temp[0].LastName,temp[0].Element.Content,temp[0].ElementID,temp[0].NumLikes, temp[0].NumReplies, temp[0].NumShares,temp[0].Element.TimeStamp);
                                }
-                               $("#post-msg").empty();
+                               $("#post-msg").val('');
                                $('#new-postSubmit').prop('disabled', false);
-
                               }
                         },error: function(err) {
                             console.log('comment Load failed: ');

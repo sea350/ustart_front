@@ -7,6 +7,15 @@ document.addEventListener('DOMContentLoaded', function () { window.scrollTo(0, 2
 
 
 $(document).ready(function () {
+    $("#endDate").blur(function(){
+        var start = $('#startDate').val();
+        var end = $('#endDate').val();
+        if (start > end){
+            $('#dateComplain').text('end date should not be earlier than start date');
+        }        
+    });
+    
+
     if (permission < 0) {
         $("#widget-insert, .fa-pencil, .fa-sort, .fa-trash").remove();
     }
@@ -397,6 +406,18 @@ function formatTime(time) {
 
 
 $(document).ready(function () {
+    datetimeStart = $('#startDate');
+    datetimeEnd = $('#endDate');
+    if(Date.parse(datetimeStart) > Date.parse(datetimeEnd)){
+        $('dateComplain').html('nonono');
+    }
+	//word count limiter
+	var maxLength = 5000;
+	$('textarea').keyup(function() {
+	  var length = $(this).val().length;
+	  var length = maxLength-length;
+	  $('#chars').text(length);
+	});	    
     //modal box
     $('#menu-item-about').hover(function () {
         $(this).fadeOut(100);

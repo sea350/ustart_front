@@ -306,7 +306,7 @@ div.navbar-filler-filter {
         vertical-align: middle
     }
     .navbar-form .form-control {
-        display: inline-block;
+        display: none;
         vertical-align: middle
     }
     .navbar-form .control-label {

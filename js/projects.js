@@ -82,6 +82,7 @@ function fitDashboard() {
 }
 
 $(document).ready(function() {
+
     // Follow/Unfollow logic
 	$('#btn1').click(function(e) {
 		if (!$(this).hasClass('unfollow')) {

@@ -59,7 +59,7 @@ function fitDashboard() {
         widthLength = widthLength - 17;
     }
     if ($(window).innerWidth() < widthLength) {
-		$('#event-logo').css('margin-top', '-5em');
+		$('#event-logo').css('margin-top', '1em');
 		$('.dashboard-top-mid').after($('.dashboard-top-left'));
 		$('.dashboard-top .panel-body').addClass('flex-col');
 		$('.dashboard-top-left').removeClass('flex');

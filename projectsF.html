@@ -75,12 +75,11 @@
                             </button>
                         </form>
                         {{end}}
-                        <button class="project-btn-follow btn btn-default">
-                            <div class="project-btn-text-followers">
-                                <strong id="project-follow-count">{{len .Project.ProjectData.Members}}</strong>
-                                <span>Followers</span>
-                            </div>
-                        </button>
+                        <span class="follow-btn-container">
+                            <button class="proj-follow-btn">
+                                <span class ="follow-btn-text">Follow</span>
+                            </button><span class="follower-count">24k</span>
+                        </span>
 				{{range $member := .Project.MemberData}}
 					{{if eq $userid $member.DocID}}
 						{{$memberValidity := $member.Classification}}
@@ -970,7 +969,7 @@
 									<form id="customYoutubeForm" action="/addProjectWidget/" method="POST">
 										<div class="modal-body">
 											 <label>Please paste the Youtube URL here</label>
-											<input id="youtubeLink" class="form-control" name="ytInput" placeholder="Youtube URL" autofocus required />
+											<input id="youtubeLink" class="form-control" name="ytinput" placeholder="Youtube URL" autofocus required />
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
 											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value="{{$projectid}}" required/>
 										</div>

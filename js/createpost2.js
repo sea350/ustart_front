@@ -35,7 +35,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 			$(this).text(fName.concat(' ').concat(lName));
 		})),
 		$('<p>',{'class':'post-message'}).attr('id','post-msg').each(function(){
-			$(this).text(readRuneArrayThatWorks(content)).attr({"id": $(this).attr("id").concat(elementID)}); 
+			$(this).html(readRuneArrayThatWorks(content)).attr({"id": $(this).attr("id").concat(elementID)}); 
 		}) ]),
 		$('<ul>').append([
 			$('<li>').append([

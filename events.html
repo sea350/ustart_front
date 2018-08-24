@@ -23,6 +23,7 @@
     <script type="text/javascript" src="/ustart_front/ckeditor/config.js"></script>
     <script type="text/javascript" src="/ustart_front/js/jquery.nicescroll.min.js"></script>
 
+    <!-- there are event.js & event.js-->
     <script type="text/javascript" src="/ustart_front/js/event.js"></script>
     {{$userid := .DOCID}}
     {{$eventid := .Event.DocID}}
@@ -137,12 +138,12 @@
                             {{end}}
                                 <div id="event-location" class="detail-content">
                                     {{range $member := .Event.MemberData}}
-                                    {{if eq $userid $member.DocID}}
+                                    
                                     {{$memberValidity := $member.Classification}}
                                     {{if le $memberValidity 1}}
                                     <span style='color: #90949c;'>Hosted By </span> <p> <strong>{{$member.FirstName}} {{$member.LastName}}</strong> a.k.a ({{$member.Username}})</p>
                                     {{end}}
-                                    {{end}}
+                                    
                                     {{end}}
                                 </div>
                         </div>
@@ -154,7 +155,7 @@
                                     
                                     {{if eq ($.Event.RequestAllowed) true}}
                                     <form action="/GuestRequestToJoin/" method="POST" style="display: inline-block;" style='margin-top:0em; margin-bottom:0em;'>
-                                        <input type="hidden" name="projID" value='{{$eventid}}'>
+                                        <input type="hidden" name="eventID" value='{{$eventid}}'>
                                         <button class="event-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
                                             <span>Request to join as GUEST</span>
                                         </button>
@@ -223,7 +224,7 @@
                             </div>                        
                     </div>
                     <hr>
-                    <div class="row">
+                    <div class="row" style='margin: auto 0'>
                         <div class="col-sm-4">
                             <div class="row" style='margin-left:1em'>
                                 <div class="col-sm-2">
@@ -260,8 +261,8 @@
                                     <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-sm-10">
-                                    <p>{{.Event.EventData.Location.City}} <p>
-                                    <h6> {{.Event.EventData.Location.Street}} {{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}</h6>
+                                    <p>{{.Event.EventData.Location.Street}} <p>
+                                    <h6>{{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}</h6>
                                 </div>                
                             </div>
                             <div class="row" style='margin-left:1em'>
@@ -270,11 +271,10 @@
                                 </div>
                                 <div class="col-sm-10" >
                                     {{range $member := .Event.MemberData}}
-                                    {{if eq $userid $member.DocID}}
+                                    
                                     {{$memberValidity := $member.Classification}}
                                     {{if le $memberValidity 1}}
-                                    <p> <strong> {{$member.FirstName}} {{$member.LastName}}</strong></p>
-                                    {{end}}
+                                    <strong>  <a style='color:black;' href="/profile/{{$member.Username}}"> {{$member.FirstName}} {{$member.LastName}}</a></strong> 
                                     {{end}}
                                     {{end}}
                                 </div>  
@@ -285,6 +285,7 @@
                             <div id="event-detail">
                                 <script>readRuneArray({{.Event.EventData.Description}});</script>
                             </div>
+                            <br>
                         </div>
                     </div>
                    
@@ -322,33 +323,7 @@
                                     $('[data-toggle="tooltip"]').tooltip();   
                                 });
                                 </script>                         
-                            </li><!--end users attending widget -->   
-                            <li class="ui-state-default">
-                                <div id="usersWidget" class="eventsWidgetCont">
-                                    <div class="widgetTitle">
-                                        <span class="pull-right fa fa-2x fa-plus-circle" data-toggle="modal" data-target="#addProjectModal"></span>
-                                        <h4>Projects attending</h4>
-                                    </div>
-                                    {{range $member := .Event.MemberData}}
-                                    <a class="member" href="/profile/{{$member.Username}}" data-toggle="tooltip" data-placement="right" title="{{$member.FirstName}} {{$member.LastName}}">
-                                            <img id="img{{$member.Username}}" class="img-circle img-responsive">
-                                            <script>
-                                                $('img#img{{$member.Username}}').attr('src', {{$member.Image}});
-                                            </script>
-                                            <!--
-                                            <div class="member-title">C.E.O.</div>
-                                            <div class="member-followers">888 Followers</div>
-                                            <div class="member-events">25 Events</div>
-                                            -->
-                                    </a>
-                                    {{end}}
-                                </div>       
-                                <script>
-                                    $(document).ready(function(){
-                                        $('[data-toggle="tooltip"]').tooltip();   
-                                    });
-                                    </script>                         
-                                </li><!--end projects attending widget -->                                                         
+                            </li><!--end users attending widget -->                                                       
                             <li id="widget-insert" class="ui-state-default">
                             <div class="eventsWidgetCont">
                                 <div class="widgetTitle">

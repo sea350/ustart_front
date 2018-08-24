@@ -4,6 +4,9 @@
     text-align: center;
 }
 
+#inbox-groups, .inner-section-left{
+    overflow-y: auto;
+}
 /* Toggling the sidebar header content, hide the big heading [h3] and showing the small heading [strong] and vice versa*/
 #sidebar .sidebar-header strong {
     display: none;
@@ -13,6 +16,12 @@
 }
 #sidebar.active .sidebar-header strong {
     display: block;
+}
+
+.badge{
+    padding:4px 7px;
+    max-height:19px;
+    background-color:orangered;
 }
 
 #sidebar ul li a {

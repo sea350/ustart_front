@@ -370,8 +370,7 @@ $(document).ready(function () {
     });
     $('[data-toggle="tooltip"]').tooltip();
 
-    var followstatus=document.getElementById("followstat").value;
-    if(followstatus == "yes"){
+    if(followstatus == true){
          $('#btn1').attr('class', 'btn followButton following');
          $('#btn1').text('Following');
     }
@@ -393,7 +392,8 @@ $(document).ready(function () {
     });
 
      $('#btn1').click(function(e) {
-        console.log('follow clicked');
+         $( "#btn1" ).prop( "disabled", true );
+         console.log(userID);
         $.ajax({
             type: 'GET',  
             url: 'http://ustart.today:'+port+'/AjaxUserFollowsUser/',
@@ -409,7 +409,7 @@ $(document).ready(function () {
                     $('#btn1').text('Follow');
                     $('#num-followers').html(totalFollowers-1);
                     $("#followstat").val("no");
-                    followstatus ="no";
+                    followstatus =false;
                 } else {
                     console.log("Let's follow");
                     // $.ajax(); Do Follow
@@ -417,8 +417,9 @@ $(document).ready(function () {
                     $('#btn1').text('Following');
                     $('#num-followers').html(totalFollowers+1);
                     $("#followstat").val("yes");
-                    followstatus ="yes";
+                    followstatus =true;
                 }
+                 $( "#btn1" ).prop( "disabled", false );
             },
             error: function(error) {
                 console.log("It just doesn't work");

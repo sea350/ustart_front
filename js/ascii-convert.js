@@ -1,10 +1,17 @@
+//conversion for html encodedstrings
+function decodeEntities(encodedString) {
+    var textArea = document.createElement('textarea');
+    textArea.innerHTML = encodedString;
+    return textArea.value;
+}
+
 function readRuneArray(runeArray) {
 	if (runeArray) {
 		var runeOutput = '';
 		runeArray.forEach(function(element) {
 			runeOutput += String.fromCharCode(element);
 		});
-		document.write(runeOutput);
+		document.write(decodeEntities(runeOutput));
 	}
 }
 
@@ -14,7 +21,7 @@ function readRuneArrayThatWorks(runeArray) {
 		runeArray.forEach(function(element) {
 			runeOutput += String.fromCharCode(element);
 		});
-		return runeOutput;
+		return decodeEntities(runeOutput);
 	}
 }
 function formatTime(datetime) {

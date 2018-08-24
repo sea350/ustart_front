@@ -98,6 +98,7 @@ $(document).ready(function () {
 		   data: {userID:usrID, role:role, projectID: projID},
 		   success: function(result) {
 			   //update notification
+               console.log(result);
 				var testresult = parseInt(result);
 				if (testresult <=0){
 				   $("#totalRequests"+projID).hide();    
@@ -158,8 +159,8 @@ $(document).ready(function () {
 	   });
 	   
 	   $.each($('.badge'), function() {
-		   if ($(this).text() == "0") {
-				   $(this).hide();
+		   if ($(this).text() <= "0") {
+				   $(this).css("display", "none");
 		   }
 	   });
 	   

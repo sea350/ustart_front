@@ -36,6 +36,80 @@
     flex-basis: 0;
 }
 
+.follow-btn-container{
+    display: inline-block;
+    
+}
+.follower-count{
+    display: inline-block;
+    border-left: none;
+    padding-left: 7px;
+    padding: 0 7px;
+    background-color:whitesmoke;
+    color: #737373;
+    font-size:11px;
+    text-align: center;
+    white-space: nowrap;
+    height:30px;
+    vertical-align: middle;
+    line-height: 30px;
+    border-radius: 0 5px 5px 0;
+}
+.proj-follow-btn{
+    width:80px;
+    height:30px;
+    display: inline-block;
+    border:solid 1px transparent;
+    outline:0;
+    background-color: #00ac7d;
+    font-weight:500;
+    font-size: 12px;
+    text-decoration: none;
+    white-space: nowrap;
+    word-wrap: normal;
+    line-height: normal;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 5px 0 0 5px;
+    box-shadow:0 1px 0 rgba(0,0,0,0.05);
+}
+
+.proj-follow-btn:hover{
+    background-color: #fefefe;
+    border: none
+}
+.proj-follow-btn:hover .follow-btn-text{
+    color: #00ac7d;
+}
+
+.proj-follow-btn:focus {
+    outline: none
+}
+.follow-btn-text{
+    color:#fefefe;
+    cursor:pointer;
+    line-height:normal;
+    font-size:12px;
+}
+
+button.proj-follow-btn{
+    -webkit-transition: background-color 0.2s, color 0.2s, width 0.5s;
+    -o-transition: background-color 0.2s, color 0.2s, width 0.5s;
+    transition: background-color 0.2s, color 0.2s, width 0.5s;
+}
+
+button.proj-follow-btn.following {
+    background-color: #00ac7d;
+}
+
+button.proj-follow-btn.unfollow:hover {
+    background-color: #EB2323!important;
+}
+
+button.proj-follow-btn.unfollow:hover .follow-btn-text{
+    color:#fefefe; !important;
+}
+
 .flex-center {
     align-self: center;
 }
@@ -67,13 +141,22 @@
     -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
-@media only screen and (max-width: 428px) {
+@media only screen and (max-width: 499px) {
     #project-logo{
         margin: auto;
-        padding-top: 3em;
+    }
+    .dashboard-top-mid{
+        margin-top: 7em;
+    }
+
+}
+@media only screen and (max-width: 768px) {
+
+    #searchFilterFormSubmit{
+        background: none;
+        border: none;
     }
 }
-
 .detail-head {
     color: #00ac7d;
 }
@@ -84,42 +167,6 @@
     color: #00ac7d;
 }
 
-button.followButton {
-    width: 8em;
-    -webkit-transition: background-color 0.2s, color 0.2s, width 0.5s;
-    -o-transition: background-color 0.2s, color 0.2s, width 0.5s;
-    transition: background-color 0.2s, color 0.2s, width 0.5s;
-}
-
-button.followButton.following {
-    background-color: #00C085;
-    color: white
-}
-
-button.followButton.unfollow {
-    background-color: #EB2323!important;
-    color: white
-}
-
-#btn1 {
-    cursor: pointer;
-    border-radius: 0.4em;
-    border: 1px solid lightgray;
-    background-color: white;
-    color: #00ac7d;
-    text-align: center;
-    text-decoration: none;
-}
-
-#btn1:hover {
-    background-color: #00ac7d;
-    color: white;
-    border: none
-}
-
-#btn1:focus {
-    outline: none
-}
 
 .dashboard-top-left,
 .dashboard-top-right {
