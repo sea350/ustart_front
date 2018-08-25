@@ -30,6 +30,7 @@
         var pageID = {{$projectid}};
         var projscrollID;
         var maxHits = -1;
+        followstatus=true;
     </script>
     <script src="http://www.youtube.com/player_api"></script>
     {{range $loop := .Project.ProjectData.EntryIDs}}
@@ -45,7 +46,6 @@
     <script type="text/javascript" src="/ustart_front/js/createPosts.js"></script>
 </head>
 <body>
-    <input type="hidden" id="followstat">
     <div id="centering">
 		<img id="head-image">
         <script>
@@ -76,9 +76,9 @@
                         </form>
                         {{end}}
                         <span class="follow-btn-container">
-                            <button class="proj-follow-btn">
+                            <button id ="projFollow" class="proj-follow-btn">
                                 <span class ="follow-btn-text">Follow</span>
-                            </button><span class="follower-count">24k</span>
+                            </button><span class="follower-count"><script>document.write(intToString(0));</script></span>
                         </span>
 				{{range $member := .Project.MemberData}}
 					{{if eq $userid $member.DocID}}
@@ -1041,7 +1041,7 @@
 									<div class="modal-body">
 										<p>Insert the Soundcloud Embed Code here:</p>
 										<div class="form-group">
-											<input type="text" class="form-control" id="sc-embed-input" name="scInput" placeholder="Embedded code" pattern='<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https:\/\/w\.soundcloud\.com\/player\/\?url=https%3A\/\/api\.soundcloud\.com\/users\/[0-9]{9}&amp;color=%23[0-9a-f]{6}&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true"\>\<\/iframe\>' required>
+											<input type="text" class="form-control" id="sc-embed-input" name="scInput" placeholder="Embedded code" pattern='<iframe width="[0-9%]{0,4}" height="[0-9%]{0,4}" scrolling="[a-z]+" frameborder="[a-z]+" allow="autoplay" src="https:\/\/w\.soundcloud\.com\/player\/\?url=https%3A\/\/api\.soundcloud\.com\/[a-z]+\/[0-9]{6,9}&color=%23[0-9a-f]{6}&auto_play=[a-z]+&hide_related=[a-z]+&show_comments=[a-z]+&show_user=[a-z]+&show_reposts=[a-z]+&show_teaser=[a-z]+(&visual=[a-z]+)*"><\/iframe>' required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
 											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value='{{$projectid}}' required/>
 										</div>

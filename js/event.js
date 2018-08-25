@@ -7,6 +7,11 @@ document.addEventListener('DOMContentLoaded', function () { window.scrollTo(0, 2
 
 
 $(document).ready(function () {
+    $('#post-msg').keyup(function() {
+        var text_length = $('#post-msg').val().length;
+        var text_remaining = 5000 - text_length;
+        $('#textarea_counter').html(text_remaining + ' characters remaining.');
+    });
     $("#endDate").blur(function(){
         var start = $('#startDate').val();
         var end = $('#endDate').val();

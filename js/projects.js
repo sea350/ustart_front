@@ -59,7 +59,7 @@ function fitDashboard() {
     }
     if ($(window).innerWidth() < widthLength) {
 		$('#project-logo').css('margin-top', '-5em');
-		$('.dashboard-top-mid').after($('.dashboard-top-left'));
+		$('.dashboard-top-mid').after($('.dasfhboard-top-left'));
 		$('.dashboard-top .panel-body').addClass('flex-col');
 		$('.dashboard-top-left').removeClass('flex');
 		$('.dashboard-top-right').after($('.followers-cont'));
@@ -83,56 +83,62 @@ function fitDashboard() {
 
 $(document).ready(function() {
 
-    // Follow/Unfollow logic
-	$('#btn1').click(function(e) {
-		if (!$(this).hasClass('unfollow')) {
-			/*
-			// Do Follow
-			$.ajax({
-				type: 'GET',  
-				url: 'http://ustart.today:5002/callme/',
-				contentType: "application/json; charset=utf-8",
-				data: {userID:"123"},
-				dataType: "json",
-				success: function(data) {*/
-					$('#btn1').addClass('following').removeClass('unfollow').html(followedIcon).css('width', '4em');
-					$('#btn-message').show('fast');/*
-				},
-			});*/
-		} else if ($(this).hasClass('unfollow')) {
-			/*
-			// Do Unfollow
-			$.ajax({
-				type: 'GET',  
-				url: 'http://ustart.today:5002/callme/',
-				contentType: "application/json; charset=utf-8",
-				data: {userID:"123"},
-				dataType: "json",
-				success: function(data) {*/
-					$('#btn1').removeClass('following').html('Unfollowed').css('width', '8em');
-					$('#btn-message').hide('fast');/*
-				},
-			});*/
-		}
-	});
-    $('#btn1').hover(function () {
+    if(followstatus == true){
+         $('#projFollow').attr('class', 'proj-follow-btn following');
+         $('.follow-btn-text').text('Following');
+    }
+    else{
+        $('#projFollow').attr('class', 'proj-follow-btn');
+        $('.follow-btn-text').text('Follow');
+    } 
+    $('#projFollow').hover(function () {
         $button = $(this);
         if ($button.hasClass('following')) {
             $button.addClass('unfollow');
-            $button.html('Unfollow').css('width', '8em');
+            $('.follow-btn-text').text('Unfollow');
         }
-	}, function () {
+        }, function () {
         if ($button.hasClass('following')) {
             $button.removeClass('unfollow');
-            $button.html(followedIcon).css('width', '4em');
-        } else {
-            $button.removeClass('unfollow');
-            $button.html('Follow').css('width', '8em');
-		}
+            $('.follow-btn-text').text('Following');
+        }
     });
-	$('#btn-message').click(function() {
-		window.location.href = "inbox.html";
-	});
+    
+    $('#projFollow').click(function(e) {
+        $( "#projFollow" ).prop( "disabled", true );
+        $.ajax({
+            type: 'GET',  
+            url: 'http://ustart.today:'+port+'//',
+            contentType: "application/json; charset=utf-8",
+            data: {projID:pageID},
+            success: function(data) {
+                var totalFollowers = parseInt($('.follower-count').html());
+                if ($('#projFollow').hasClass('following')) {
+                    console.log("Let's Unfollow");
+                    //$.ajax(); Do Unfollow
+                    $('#projFollow').removeClass('following');
+                    $('#projFollow').removeClass('unfollow');
+                    $('#projFollow').text('Follow');
+                    $('.follower-count').html(totalFollowers-1);
+                    $("#followstat").val("no");
+                    followstatus =false;
+                } else {
+                    console.log("Let's follow");
+                    // $.ajax(); Do Follow
+                    $('#projFollow').addClass('following');
+                    $('#projFollow').text('Following');
+                    $('.follower-count').html(totalFollowers+1);
+                    $("#followstat").val("yes");
+                    followstatus =true;
+                }
+                $( "#projFollow" ).prop( "disabled", false );
+            },
+            error: function(error) {
+                console.log("It just doesn't work");
+                console.log(error);
+            }
+        });
+    });
 
     // Load members of the project.
     for (i = 1; i < 0; i++) {
