@@ -82,6 +82,12 @@ function fitDashboard() {
 }
 
 $(document).ready(function() {
+    $("#post-msg").keydown(function(event) {
+        if (event.keyCode === 13 && event.metaKey) {
+        $(this).siblings('#new-postSubmit').click();
+        $('#post-msg').val('');
+        }
+        });
 
     if(followstatus == true){
          $('#projFollow').attr('class', 'proj-follow-btn following');
@@ -108,18 +114,20 @@ $(document).ready(function() {
         $( "#projFollow" ).prop( "disabled", true );
         $.ajax({
             type: 'GET',  
-            url: 'http://ustart.today:'+port+'//',
+            url: 'http://ustart.today:'+port+'/AjaxUserFollowProjectToggle/',
             contentType: "application/json; charset=utf-8",
-            data: {projID:pageID},
+            data: {projectID: pageID},
             success: function(data) {
-                var totalFollowers = parseInt($('.follower-count').html());
+                var totalFollowers = parseInt($('.follower-count').attr("followers"));
+                console.log(totalFollowers);
                 if ($('#projFollow').hasClass('following')) {
                     console.log("Let's Unfollow");
                     //$.ajax(); Do Unfollow
                     $('#projFollow').removeClass('following');
                     $('#projFollow').removeClass('unfollow');
                     $('#projFollow').text('Follow');
-                    $('.follower-count').html(totalFollowers-1);
+                    $('.follower-count').html(intToString(totalFollowers-1));
+                    $('.follower-count').attr("followers", totalFollowers-1);
                     $("#followstat").val("no");
                     followstatus =false;
                 } else {
@@ -127,7 +135,8 @@ $(document).ready(function() {
                     // $.ajax(); Do Follow
                     $('#projFollow').addClass('following');
                     $('#projFollow').text('Following');
-                    $('.follower-count').html(totalFollowers+1);
+                   $('.follower-count').attr("followers", totalFollowers+1);
+                    $('.follower-count').html(intToString(totalFollowers+1));
                     $("#followstat").val("yes");
                     followstatus =true;
                 }

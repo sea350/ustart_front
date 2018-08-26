@@ -147,13 +147,6 @@ ul.event-tabs li.active a,ul.event-tabs li.active a:focus,ul.event-tabs li.activ
 .member:hover {
 }
 
-.member img {
-    width: 4em;
-    height: 4em;
-    -o-object-fit: cover;
-    object-fit: cover;
-    margin-top: 1em;
-}
 .member .member-name{
     visibility: hidden;
     width: 120px;

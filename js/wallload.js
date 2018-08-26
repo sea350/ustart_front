@@ -38,6 +38,7 @@
                          {
                             var tem = $.parseJSON(jqXHR.responseText);
                             if (tem.JournalEntries!= null){
+                                console.log(tem);
                                 scrollID = tem.ScrollID;
                                 totalHits = tem.TotalHits;
                                 $('#wall-dataF').empty();

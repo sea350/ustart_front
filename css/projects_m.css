@@ -6,6 +6,7 @@
 .card{  
     overflow:hidden; 
     width: 10em;
+    height:18em;
     border: 1px solid rgba(0,0,0,.25); 
     border-radius: 6px; 
     margin: 12px; 

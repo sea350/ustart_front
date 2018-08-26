@@ -160,7 +160,36 @@ ul.proj-tabs li.active a,ul.proj-tabs li.active a:focus,ul.proj-tabs li.active a
     font-weight: bold;
     color: #00ac7d
 }
-
+.follower {
+    margin: 0.5em;
+    width: 10em;
+    display: inline-block;
+    vertical-align: text-top;
+    margin-top: -2px;
+    background-color: #ECEFF1;
+    border: solid 1px #B0BEC5;
+}
+.follower img {
+   width: 5em;
+    height: 5em;
+    -o-object-fit: cover;
+    object-fit: cover;
+    margin: 1em auto;
+}
+.follower .member-name{
+    color: #455A64;
+    overflow: hidden;
+    margin: 0;
+    text-align: center;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    background-color: white;
+    -webkit-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    transition: background-color 0.5s;
+    padding: 0.5em;
+}
 .member {
     margin: 0.5em;
     width: 14em;
@@ -187,6 +216,7 @@ ul.proj-tabs li.active a,ul.proj-tabs li.active a:focus,ul.proj-tabs li.active a
 .member .member-title,
 .member .member-followers,
 .member .member-projects {
+    white-space: nowrap;
     color: #455A64;
     overflow: hidden;
     margin: 0;

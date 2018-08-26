@@ -237,7 +237,7 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                                 IDArray.push(temp.ElementID);
                                 makeNewPostApplications(temp.Image, temp.FirstName,temp.LastName,temp.Element.Content,temp.ElementID,temp.NumLikes, temp.NumReplies, temp.NumShares,temp.Element.TimeStamp);
                            }
-                           $("#post-msg").empty();
+                           $("#post-msg").val('');
                            $('#new-postSubmit').prop('disabled', false);
 
                           }

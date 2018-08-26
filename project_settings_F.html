@@ -88,7 +88,7 @@
 											<label for="inputDesc">Description</label>
 										</div>
 										<div class="col-sm-9">
-											<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe your self" maxlength="100"></textarea>
+											<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe your self" maxlength="5000"></textarea>
 											<script>$('textarea[name="inputDesc"]').text(defineRuneArray({{.Project.ProjectData.Description}}));</script>
 											<span style='float:left'><span id="chars">5000</span> characters remaining</span>
 										</div>
@@ -147,9 +147,7 @@
 											<input type="file" name="raw-image" id="upload" accept="image/*">
 											<input type="hidden" name="image-data" id="hidden-image-data" />
 											<input type="hidden" name="projectID" value={{$projectid}} />
-											<div id='form-btn' class="row">
 											<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
-											</div>
 											<script type="text/javascript">
 												$uploadCrop = $('#upload-demo').croppie({
 													url: "{{.Project.ProjectData.Avatar}}",
@@ -212,9 +210,7 @@
 										<input type="file" name="raw-banner" id="upload2" accept="image/*">
 										<input type="hidden" name="projectID" value={{$projectid}} />
 										<input type="hidden" name="banner-data" id="hidden-image-data-2" />
-										<div id='form-btn' class="row">
 										<button type="button" class="btn btn-info" id="upload-result2">Upload Banner</button>
-										</div>
 										<script type="text/javascript">
 											 function createCroppie(viewportWidth, viewportHeight, boundaryWidth, image) {
 														

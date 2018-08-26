@@ -214,11 +214,7 @@ $(function () {
     $('body').on('click', '.odom-submit', function (e) {
         $('#shareCommentForm').submit();
     });
-    //submit button for new posts
-    $('body').on('click', '#new-postSubmit', function (e) {
-		$('#post-msg').val('');
-        $('#New-Post-Form').submit();
-    });
+
     // like button
      $(".like-btn").click(function (e) {
 		var likeBtnImg = $(this).find('img');
@@ -411,6 +407,14 @@ function formatTime(time) {
 
 
 $(document).ready(function () {
+    $("#post-msg").keydown(function(event) {
+        if (event.keyCode === 13 && event.metaKey) {
+        $(this).siblings('#new-postSubmit').click();
+        $('#post-msg').val('');
+        
+        }
+        });
+
     datetimeStart = $('#startDate');
     datetimeEnd = $('#endDate');
     if(Date.parse(datetimeStart) > Date.parse(datetimeEnd)){

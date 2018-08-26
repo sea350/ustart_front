@@ -91,10 +91,18 @@ li>a {
 .menu a:hover {
     color: #00C085
 }
-
+#container-follow{
+    padding-left: 0;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction:row;
+    align-items:center;
+}
+#container-follow li{
+    display: inline;
+}
 .menu #box {
     color: #00C085;
-    text-transform: uppercase;
     font-size: 150%;
     padding-left: 1em;
     overflow: hidden;
@@ -286,7 +294,6 @@ div.dashboard {
 
 #user-nums #followers,
 #user-nums #following {
-	text-transform: uppercase;
 }
 
 #btn1 {

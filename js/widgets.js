@@ -80,9 +80,8 @@ function YouTubeGetID(url) {
     return ID;
 }
 
+
 function YoutubeRender(youtubeID, widgetID) {
-	console.log(youtubeID);
-	console.log(widgetID);
     var youtubeURL = YouTubeGetID(youtubeID);
     var divprefix = "#player";
     var finalDest = divprefix.concat(widgetID);
@@ -95,6 +94,39 @@ function YoutubeRender(youtubeID, widgetID) {
     $(finalDest).append(iframe);
 }
 
+
+function getSpotifyURL(url){
+    if(/\.spotify\.com/.test(url))
+    {
+     // contains spotify
+        var part = url.split("https://open.spotify.com")[1];
+        return part;
+    }
+    else{
+        return null;
+    }
+}
+function spotifyRender(spotifyURL){
+     var spotifyID = getSpotifyURL(spotifyURL);
+     if (spotifyID == null){
+          var error = document.createElement( "p" );
+          var node = document.createTextNode("There appears to be a faulty URL");
+          error.appendChild(node);
+          $('#widgetBodySpot').append(error);
+     }
+     else{
+         var spotifyprefix="https://open.spotify.com/embed";
+         var iframe = document.createElement( "iframe" );
+         var finalURL = spotifyprefix.concat(spotifyID);
+        iframe.setAttribute( "width", "32%" );
+        iframe.setAttribute( "width", "48%" );
+         iframe.setAttribute( "height", "380" );
+         iframe.setAttribute( "frameborder", "0" );
+         iframe.setAttribute( "allowtransparency", true );
+         iframe.setAttribute( "src", encodeURI(finalURL));
+         $('#widgetBodySpot').append(iframe);
+     }
+}
 
 
 function AnchorGetID(url) {
@@ -378,6 +410,7 @@ function spotifyEditor(element) {
 		// Add List Items
 		$('#widgetBodySpot iframe').each(function(idx, element) {
 			var spotSource = $(this).attr('src');
+            spotSource = spotSource.replace("/embed/", "/")
 			var spotListItem = '<li><form action="/deleteLinkFromWidget/"><input name="deleteURL" type="text" value="' + spotSource + '" readonly="readonly"/> <button type="submit"><i class="fa fa-times"></i></button><input name="editID" type="hidden" value="' + $('#spot-modal #editID').val() + '" /></form></li>';
 			$('#spot-edit-list').append(spotListItem);
 		});

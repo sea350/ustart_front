@@ -24,6 +24,8 @@
     <script type="text/javascript" src="/ustart_front/js/jquery.nicescroll.min.js"></script>
 
     <!-- there are event.js & event.js-->
+    <script type="text/javascript" src="/ustart_front/js/createPosts.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/eventwallload.js"></script>
     <script type="text/javascript" src="/ustart_front/js/event.js"></script>
     {{$userid := .DOCID}}
     {{$eventid := .Event.DocID}}
@@ -49,9 +51,10 @@
     <script type="text/javascript" src="/ustart_front/js/events.js"></script>
 
     <script type="text/javascript" src="/ustart_front/js/ascii-convert.js"></script>
-    <script type="text/javascript" src="/ustart_front/js/createPosts.js"></script>
+    
 </head>
 <body>
+    
     <input type="hidden" id='followstat'>
     <div id="centering">
         <img id='head-image'>
@@ -128,6 +131,7 @@
                 {{end}}
                     </div>
                 </div>
+                <h1></h1>
                 <div class="dashboard-top panel panel-default">
                     <div class="panel-body flex">
                         <div class="dashboard-top-left flex row flex-col">   
@@ -142,9 +146,11 @@
                                     {{$memberValidity := $member.Classification}}
                                     {{if le $memberValidity 1}}
                                     <span style='color: #90949c;'>Hosted By </span> <p> <strong>{{$member.FirstName}} {{$member.LastName}}</strong> a.k.a ({{$member.Username}})</p>
+
                                     {{end}}
                                     
                                     {{end}}
+
                                 </div>
                         </div>
                         <div class="dashboard-top-right flex-grow">
@@ -153,14 +159,9 @@
                                     <div id='demo'></div>
                                     <button class="event-message btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
                                     
-                                    {{if eq ($.Event.RequestAllowed) true}}
-                                    <form action="/GuestRequestToJoin/" method="POST" style="display: inline-block;" style='margin-top:0em; margin-bottom:0em;'>
-                                        <input type="hidden" name="eventID" value='{{$eventid}}'>
-                                        <button class="event-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
-                                            <span>Request to join as GUEST</span>
-                                        </button>
-                                    </form>
-                                    {{end}}
+                                    
+
+                                    
                                     {{range $member := .Event.MemberData}}
                                     {{if eq $userid $member.DocID}}
                                     {{$memberValidity := $member.Classification}}
@@ -215,13 +216,24 @@
                                     </script>                               
                                 </div>                            
                         </div>
-
+                        
+                        
                         <div class="dashboard-top-mid">
-                                <img id="event-logo" class="img-circle img-responsive"/>
-                                <script>
-                                    $('#event-logo').attr('src', {{.Event.EventData.Avatar}});
-                                </script>
-                            </div>                        
+                            <img id="event-logo" class="img-circle img-responsive"/>
+                            <script>
+                                $('#event-logo').attr('src', {{.Event.EventData.Avatar}});
+                            </script>
+                            {{if eq ($.Event.RequestAllowed) true}}
+                            <form action="/AjaxNewGuest/" method="POST" style="display: inline-block;" style='margin-top:0em; margin-bottom:0em;'>
+                                <input type="hidden" name="eventID" value='{{$eventid}}'>
+                                <button class="event-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
+                                    <span>Request to join as GUEST</span>
+                                </button>
+                            </form>
+                            
+                            {{end}}
+                        </div>       
+                             
                     </div>
                     <hr>
                     <div class="row" style='margin: auto 0'>
@@ -302,19 +314,15 @@
                             <div id="usersWidget" class="eventsWidgetCont">
                                 <div class="widgetTitle">
                                     <span class="pull-right fa fa-2x fa-plus-circle" data-toggle="modal" data-target="#addUserModal"></span>
-                                    <h4>Users attending</h4>
+                                    <h4>Guests attending</h4>
                                 </div>
-                                {{range $member := .Event.MemberData}}
-                                <a class="member" href="/profile/{{$member.Username}}" data-toggle="tooltip" data-placement="right" title="{{$member.FirstName}} {{$member.LastName}}">
-                                        <img id="img{{$member.Username}}" class="img-circle img-responsive">
+                                {{range $guest := .Event.GuestData}}
+                                <a class="member" class='btn btn-default' href="/profile/{{$guest.Username}}" >
+                                        <img id="img{{$guest.Username}}" data-toggle="tooltip" data-placement="right" title="{{$guest.FirstName}} {{$guest.LastName}}" class="img-circle img-responsive">
                                         <script>
-                                            $('img#img{{$member.Username}}').attr('src', {{$member.Image}});
+                                            $('img#img{{$guest.Username}}').attr('src', {{$guest.Image}});
                                         </script>
-                                        <!--
-                                        <div class="member-title">C.E.O.</div>
-                                        <div class="member-followers">888 Followers</div>
-                                        <div class="member-events">25 Events</div>
-                                        -->
+                                        <div id='member-title'>{{$guest.FirstName}} {{$guest.LastName}}</div>
                                 </a>
                                 {{end}}
                             </div>       
@@ -845,7 +853,7 @@
                     {{end}}<!-- end for looper -->                                                                                                                                                                        
                         </ul>
                     </div>
-                    <script type="text/javascript" src="/ustart_front/js/eventwallload.js"></script>
+                    
                     <div id="prof-wall" class="tab-pane fade">
                         <div id="main">
                             <div id= "commentModals" role="dialog"> </div>
@@ -854,15 +862,13 @@
                             <div id= "editModals" role="dialog"> </div>                            
                             
                             {{range $member := .Event.MemberData}}
-                            {{if eq $userid $member.DocID}}
                             <!-- new post panel-->
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     <div class="media">
+                                        
                                         <a class="pull-left" href="#">
                                             <img id="new-post-img" class="media-object img-rounded" src="">
-                                            <script>
-                                            </script>
                                         </a>
                                         <div class="media-body">
                                             <div class="form-group">
@@ -876,7 +882,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{end}}
+                            
                             {{end}}
                             <!-- end new post -->
                             <div id="wallNewPost"></div>

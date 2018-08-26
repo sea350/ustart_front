@@ -35,15 +35,17 @@
     <script src="http://www.youtube.com/player_api"></script>
     {{range $loop := .Project.ProjectData.EntryIDs}}
     <script>IDArray.push({{$loop}}); </script>
-    {{end}}
+	{{end}}
+	<script type="text/javascript" src="/ustart_front/js/createPosts.js"></script>
 	<script type="text/javascript" src="/ustart_front/js/layout_tags.js"></script>
     <script type="text/javascript" src="/ustart_front/js/layout_links.js"></script>
     <script type="text/javascript" src="/ustart_front/js/widget-gallery.js"></script>
     <script type="text/javascript" src="/ustart_front/js/widgets.js"></script>
     <script type="text/javascript" src="/ustart_front/js/notify.min.js"></script>
     <script type="text/javascript" src="/ustart_front/js/projects.js"></script>
-    <script type="text/javascript" src="/ustart_front/js/ascii-convert.js"></script>
-    <script type="text/javascript" src="/ustart_front/js/createPosts.js"></script>
+	<script type="text/javascript" src="/ustart_front/js/ascii-convert.js"></script>
+	<script type="text/javascript" src="/ustart_front/js/projwallload.js"></script>
+    
 </head>
 <body>
     <div id="centering">
@@ -67,7 +69,9 @@
                     </div>
                     <div class="project-toolbar">
                         <button class="project-message btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
-                        {{if eq ($.Project.RequestAllowed) true}}
+						{{if eq ($.Project.RequestAllowed) true}}
+						
+						
                         <form action="/RequestToJoin/" method="POST" style="display: inline-block;">
                             <input type="hidden" name="projID" value='{{$projectid}}'>
                             <button class="project-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
@@ -744,7 +748,7 @@
                      {{end}}<!-- end for looper -->
                         </ul>
                     </div>
-                    <script type="text/javascript" src="/ustart_front/js/projwallload.js"></script>
+                    
                     <div id="prof-wall" class="tab-pane fade">
                         <div class="grid">
                             <!-- main Modal -->
@@ -754,15 +758,16 @@
                                 <div id= "deleteModals" role="dialog"> </div>
                                 <div id= "editModals" role="dialog"> </div>
                                  {{range $member := .Project.MemberData}}
-					               {{if eq $userid $member.DocID}}
+					               
                                 <!-- new post panel-->
                                 <div class="panel panel-default">
                                     <div class="panel-body">
                                         <div class="media">
                                             <a class="pull-left" href="#">
+												
                                                 <img id="new-post-img" class="media-object img-rounded" src="">
-                                                <script>
-                                                </script>
+                                                
+												
                                             </a>
                                             <div class="media-body">
                                                 <div class="form-group">
@@ -776,7 +781,7 @@
                                     </div>
                                 </div>
                                 {{end}}
-                                {{end}}
+                                
                                 <!-- end new post -->
                             <div id="wallNewPost"></div>
                             <div class = "panel panel-default" id="wall-dataF"></div>
@@ -792,11 +797,6 @@
 								<script>
 									$('img#img{{$member.Username}}').attr('src', {{$member.Image}});
 								</script>
-								<!--
-                                <div class="member-title">C.E.O.</div>
-                                <div class="member-followers">888 Followers</div>
-                                <div class="member-projects">25 Projects</div>
-								-->
                         </a>
 						{{end}}
                     </div>

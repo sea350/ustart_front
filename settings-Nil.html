@@ -101,9 +101,7 @@
 												<div id="upload-demo" style="width:300px; height:350px"></div>
 												<input type="file" name="raw-image" id="upload" accept="image/*">
 												<input type="hidden" name="image-data" id="hidden-image-data" />
-												<div id='form-btn' class="row">
 												<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
-												</div>
 												<script type="text/javascript">
 													$uploadCrop = $('#upload-demo').croppie({
 														enforceBoundary: true,
@@ -165,10 +163,8 @@
 										<form id="banner-form" action="/BannerUpload/"  enctype="multipart/form-data"  method="post">
 											<div id="upload-demo2" style='height:400px;'></div>
 											<input type="file" name="raw-banner" id="upload2" accept="image/*">
-											<input type="hidden" name="banner-data" id="hidden-image-data-2" />
-											<div id='form-btn' class="row">
+											<input type="hidden" name="banner-data" id="hidden-image-data-2" />	
 											<button type="button" class="btn btn-info" id="upload-result2">Upload Banner</button>
-											</div>
 											<br>
 												<script type="text/javascript">	
                                                     function createCroppie(viewportWidth, viewportHeight, boundaryWidth, image) {
@@ -292,10 +288,18 @@
 											<label for="lname">Last Name</label>
 											<label class="switch usr-vis-opt"><input type="checkbox" name="lnameVis" checked /><span class="slider round"></span></label>
 											<input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" value="{{.UserInfo.LastName}}" required />																						
+
+											<label for="dob">DOB</label>
+											<label class="switch usr-vis-opt"><input type="checkbox" name="dobVis" checked /><span class="slider round"></span></label>
+											<input type="date" class="form-control" id="dob" name="dob" placeholder="Date Of Birth" value="" required />																						
+											<script>
+												let dob = {{.UserInfo.Dob}}.slice(0,10);
+												$('#dob').val(dob);
+											</script>
 											
 											<br>			
 
-											<input type="submit" class="btn btn-info" name="name_submit" value="Edit Name" />
+											<input type="submit" class="btn btn-info" name="name_submit" value="Edit Bio" />
 											<br>
 											<div class="save-message fade"></div>												
 										</form>
@@ -339,7 +343,7 @@
 											$( "#UpdateDescription" ).attr( 'action', 'http://ustart.today:'+port +'/UpdateDescription/' );
 										</script>										
 										<label for="inputDesc">Description</label>
-										<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe Your Description" maxlength="100" value="readRuneArrayThatWorks({{.UserInfo.Description}})"></textarea>
+										<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Describe Your Description" maxlength="5000" value="readRuneArrayThatWorks({{.UserInfo.Description}})"></textarea>
 										<!-- <script>$('textarea[name="inputDesc"]').text(readRuneArrayThatWorks({{.UserInfo.Description}});</script>-->
 										<span style='float:left'><span id="chars">5000</span> characters remaining</span>
 										<br>

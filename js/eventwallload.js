@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('body').on("click", "#Wall-event-loadAJAX", function(e) {
+    $('body').on("click", "#Wall-loadAJAX", function(e) {
         $("#post-msg").focus(function (e) {
             var textbox = $("#post-msg");
             textbox.animate({
@@ -46,18 +46,18 @@ $(document).ready(function() {
                                 $('#commentModals').empty();
                                 for (i=0; i < temp.JournalEntries.length; i++){
                                      if ((permission != -1 || (permission == 1) || (permission ==0))){
-                                        if (temp.JournalEntries[i].Element.Classification == 5){
+                                        if (temp.JournalEntries[i].Element.Classification == 7){
                                            console.log("rendering share post"); createSharedPost(temp.JournalEntries[i].Image, temp.JournalEntries[i].ReferenceElement.Image, temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
                                         }
-                                        else if (temp.JournalEntries[i].Element.Classification == 3){
+                                        else if (temp.JournalEntries[i].Element.Classification == 6){
                                              makePostApplications(temp.JournalEntries[i].Image, temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies, temp.JournalEntries[i].NumShares,temp.JournalEntries[i].Element.TimeStamp);
                                         }
                                     }
                                     else{
-                                        if (temp.JournalEntries[i].Element.Classification == 5){
+                                        if (temp.JournalEntries[i].Element.Classification == 7){
                                            console.log("rendering share post"); createBasicSharedPost(temp.JournalEntries[i].Image,temp.JournalEntries[i].ReferenceElement.Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
                                         }
-                                        else if (temp.JournalEntries[i].Element.Classification == 3) {
+                                        else if (temp.JournalEntries[i].Element.Classification == 6) {
                                              makeBasicPostApplications(temp.JournalEntries[i].Image, temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies, temp.JournalEntries[i].NumShares,temp.JournalEntries[i].Element.TimeStamp);
                                         }
                                     }
@@ -236,8 +236,9 @@ $(document).ready(function() {
                                     }
                                     IDArray.push(temp.ElementID);
                                     makeNewPostApplications(temp.Image, temp.FirstName,temp.LastName,temp.Element.Content,temp.ElementID,temp.NumLikes, temp.NumReplies, temp.NumShares,temp.Element.TimeStamp);
+                                    console.log('makeNewPostApplication working')
                                }
-                               $("#post-msg").empty();
+                               $("#post-msg").val('');
                                $('#new-postSubmit').prop('disabled', false);
     
                               }
@@ -494,20 +495,23 @@ $(document).ready(function() {
                              if(status == 'success' || status=='notmodified')
                              {
                                 var temp = $.parseJSON(jqXHR.responseText);
+                                //print temp
+                                console.log(temp);
                                   if (temp.JournalEntries!= null){
                                     eventscrollID = temp.ScrollID;
                                     maxHits = temp.TotalHits;
-                                    console.log(permission);
+                                    
                                     for (i=0; i < temp.JournalEntries.length ; i++){
-                                            if (temp.JournalEntries[i].Element.Classification == 5){
+                                            if (temp.JournalEntries[i].Element.Classification == 7){
                                                if ((permission != -1 || (permission == 1) || (permission ==0))){createSharedPost(temp.JournalEntries[i].Image, temp.JournalEntries[i].ReferenceElement.Image, temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );}
                                                 else{
                                                     createBasicSharedPost(temp.JournalEntries[i].Image,temp.JournalEntries[i].ReferenceElement.Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
                                                 }
                                             }
-                                            else if (temp.JournalEntries[i].Element.Classification == 3){
+                                            else if (temp.JournalEntries[i].Element.Classification == 6){
                                                  if ((permission != -1 || (permission == 1) || (permission ==0))){
                                                  makePostApplications(temp.JournalEntries[i].Image, temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies, temp.JournalEntries[i].NumShares,temp.JournalEntries[i].Element.TimeStamp);
+                                                 console.log('makepostapplication')
                                                  }
                                                 else{
                                                     makeBasicPostApplications(temp.JournalEntries[i].Image, temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies, temp.JournalEntries[i].NumShares,temp.JournalEntries[i].Element.TimeStamp);

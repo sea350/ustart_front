@@ -5,6 +5,9 @@
     font-family: sans-serif
 }
 
+#chatDrop li, #notifDrop li{
+    max-height: 8em;
+}
 .btn-link {
     color: #CFD8DC
 }
