@@ -100,12 +100,27 @@ $(document).ready(function() {
 function addingAutoComplete() {
 	var magicSource = ["Magic Johnson, Magic Johnson"];
 	$("#eventMemberName").autocomplete({
-		source: "/FindEventMember/"
+		source: "/FindEventMember/",
+		_renderItem: function(ul,item) {
+			var liItem = $("<li>").attr("data-value", item.value).append(item.label);
+			$("<img>").attr("src", item.logo).appendTo(liItem);
+			liItem.appendTo(ul);
+		}
 	});
 	$("#eventProjectName").autocomplete({
-		source: "/FindEventProject/"
+		source: "/FindEventProject/",
+		_renderItem: function(ul,item) {
+			var liItem = $("<li>").attr("data-value", item.value).append(item.label);
+			$("<img>").attr("src", item.logo).appendTo(liItem);
+			liItem.appendTo(ul);
+		}
 	});
 	$("#eventGuestName").autocomplete({
-		source: "/FindEventGuest/"
+		source: "/FindEventGuest/",
+		_renderItem: function(ul,item) {
+			var liItem = $("<li>").attr("data-value", item.value).append(item.label);
+			$("<img>").attr("src", item.logo).appendTo(liItem);
+			liItem.appendTo(ul);
+		}
 	});
 }
