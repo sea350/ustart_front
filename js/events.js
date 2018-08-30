@@ -101,47 +101,44 @@ function addingAutoComplete() {
 	var magicSource = ["Magic Johnson, Magic Johnson"];
 	$("#eventMemberName").autocomplete({
 		source: function (request, response) {
-			$.ajax({
-				type: "GET",
-				url: "/FindEventMember/",
-				data: { term: request.term },
-				contentType: "application/json",
-				dataType: "json",
-				success: function (result) {
-					alert("Success");
-					console.log(result);
-				}
+			$.ajax("/FindEventMember/")
+			.done(function() {
+				alert("Done");
 			})
+			.fail(function() {
+				alert("Fail");
+			})
+			.always(function() {
+				alert("Always");
+			});
 		}
 	});
 	$("#eventProjectName").autocomplete({
 		source:  function (request, response) {
-			$.ajax({
-				type: "GET",
-				url: "/FindEventProject/",
-				data: { term: request.term },
-				contentType: "application/json",
-				dataType: "json",
-				success: function (result) {
-					alert("Success");
-					console.log(result);
-				}
+			$.ajax("/FindEventMember/")
+			.done(function() {
+				alert("Done");
 			})
+			.fail(function() {
+				alert("Fail");
+			})
+			.always(function() {
+				alert("Always");
+			});
 		}
 	});
 	$("#eventGuestName").autocomplete({
 		source:  function (request, response) {
-			$.ajax({
-				type: "GET",
-				url: "/FindEventGuest/",
-				data: { term: request.term },
-				contentType: "application/json",
-				dataType: "json",
-				success: function (result) {
-					alert("Success");
-					console.log(result);
-				}
+			$.ajax("/FindEventMember/")
+			.done(function() {
+				alert("Done");
 			})
+			.fail(function() {
+				alert("Fail");
+			})
+			.always(function() {
+				alert("Always");
+			});
 		}
 	});
 }
