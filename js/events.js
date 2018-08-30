@@ -99,27 +99,12 @@ $(document).ready(function() {
 
 function addingAutoComplete() {
 	$("#eventMemberName").autocomplete({
-		source: "/FindEventMember/",
-		_renderItem: function(ul,item) {
-			var liItem = $("<li>").attr("data-value", item.value).append(item.label);
-			$("<img>").attr("src", item.logo).appendTo(liItem);
-			return liItem.appendTo(ul);
-		}
+		source: "/FindEventMember/"
 	});
 	$("#eventProjectName").autocomplete({
-		source: "/FindEventProject/",
-		_renderItem: function(ul,item) {
-			var liItem = $("<li>").attr("data-value", item.value).append(item.label);
-			$("<img>").attr("src", item.logo).appendTo(liItem);
-			return liItem.appendTo(ul);
-		}
+		source: "/FindEventProject/"
 	});
 	$("#eventGuestName").autocomplete({
-		source: "/FindEventGuest/",
-		_renderItem: function(ul,item) {
-			var liItem = $("<li>").attr("data-value", item.value).append(item.label);
-			$("<img>").attr("src", item.logo).appendTo(liItem);
-			return liItem.appendTo(ul);
-		}
+		source: "/FindEventGuest/"
 	});
 }
