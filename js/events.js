@@ -112,7 +112,7 @@ function addingAutoComplete() {
 		source: function () {
 			$.ajax("/FindEventMember/")
 			.done(function(data) {
-				return runeArrayToString(data);
+				console.log(runeArrayToString(data));
 			});
 		}
 	});
@@ -120,7 +120,7 @@ function addingAutoComplete() {
 		source:  function () {
 			$.ajax("/FindEventProject/")
 			.done(function(data) {
-				return runeArrayToString(data);
+				console.log(runeArrayToString(data));
 			});
 		}
 	});
@@ -128,7 +128,7 @@ function addingAutoComplete() {
 		source:  function () {
 			$.ajax("/FindEventGuest/")
 			.done(function(data) {
-				return runeArrayToString(data);
+				console.log(runeArrayToString(data));
 			});
 		}
 	});
