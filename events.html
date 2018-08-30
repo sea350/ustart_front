@@ -54,7 +54,6 @@
     
 </head>
 <body>
-    
     <input type="hidden" id='followstat'>
     <div id="centering">
         <img id='head-image'>
@@ -319,31 +318,16 @@
                         <li class="ui-state-default">
                             <div id="projectsDisplayCase" class="eventsWidgetCont">
                                 <div class="widgetTitle">
-                                    <span class="pull-right fa fa-2x fa-plus-circle" data-toggle="modal" data-target="#addUserModal"></span>
+                                    <span class="pull-right fa fa-2x fa-plus-circle" data-toggle="modal" data-target="#addProjectModal"></span>
                                     <h4>Projects Display Case</h4>
                                 </div>
                                 {{range $project := .Event.ProjectData}}
                                 <a class="member" class='btn btn-default' href="/profile/{{$project.Username}}" >
-                                        <img id="img{{$project.Username}}" data-toggle="tooltip" data-placement="right" title="{{$project.FirstName}}/" class="img-circle img-responsive">
-                                        <script>
-                                            $('img#img{{$project.Username}}').attr('src', {{$project.Image}});
-                                        </script>
-                                        <div id='member-title'>{{$project.FirstName}}</div>
-                                </a>
-                                {{end}}
-                            </div>
-                            <div id="guestWidget" class="eventsWidgetCont">
-                                <div class="widgetTitle">
-                                    <span class="pull-right fa fa-2x fa-plus-circle" data-toggle="modal" data-target="#addGuestModal"></span>
-                                    <h4>Guests of Honor</h4>
-                                </div>
-                                {{range $guest := .Event.GuestData}}
-                                <a class="member" class='btn btn-default' href="/profile/{{$guest.Username}}" >
-                                        <img id="img{{$guest.Username}}" data-toggle="tooltip" data-placement="right" title="{{$guest.FirstName}} {{$guest.LastName}}" class="img-circle img-responsive">
-                                        <script>
-                                            $('img#img{{$guest.Username}}').attr('src', {{$guest.Image}});
-                                        </script>
-                                        <div id='member-title'>{{$guest.FirstName}} {{$guest.LastName}}</div>
+                                    <img id="img{{$project.Username}}" data-toggle="tooltip" data-placement="right" title="{{$project.FirstName}}/" class="img-circle img-responsive">
+                                    <script>
+                                        $('img#img{{$project.Username}}').attr('src', {{$project.Image}});
+                                    </script>
+                                    <div id='member-title'>{{$project.FirstName}}</div>
                                 </a>
                                 {{end}}
                             </div>
@@ -354,11 +338,26 @@
                                 </div>
                                 {{range $member := .Event.MemberData}}
                                 <a class="member" class='btn btn-default' href="/profile/{{$member.Username}}" >
-                                        <img id="img{{$member.Username}}" data-toggle="tooltip" data-placement="right" title="{{$member.FirstName}} {{$member.LastName}}" class="img-circle img-responsive">
-                                        <script>
-                                            $('img#img{{$member.Username}}').attr('src', {{$member.Image}});
-                                        </script>
-                                        <div id='member-title'>{{$member.FirstName}} {{$member.LastName}}</div>
+                                    <img id="img{{$member.Username}}" data-toggle="tooltip" data-placement="right" title="{{$member.FirstName}} {{$member.LastName}}" class="img-circle img-responsive">
+                                    <script>
+                                        $('img#img{{$member.Username}}').attr('src', {{$member.Image}});
+                                    </script>
+                                    <div id='member-title'>{{$member.FirstName}} {{$member.LastName}}</div>
+                                </a>
+                                {{end}}
+                            </div>
+                            <div id="guestWidget" class="eventsWidgetCont">
+                                <div class="widgetTitle">
+                                    <span class="pull-right fa fa-2x fa-plus-circle" data-toggle="modal" data-target="#addGuestModal"></span>
+                                    <h4>Attendees</h4>
+                                </div>
+                                {{range $guest := .Event.GuestData}}
+                                <a class="member" class='btn btn-default' href="/profile/{{$guest.Username}}" >
+                                    <img id="img{{$guest.Username}}" data-toggle="tooltip" data-placement="right" title="{{$guest.FirstName}} {{$guest.LastName}}" class="img-circle img-responsive">
+                                    <script>
+                                        $('img#img{{$guest.Username}}').attr('src', {{$guest.Image}});
+                                    </script>
+                                    <div id='member-title'>{{$guest.FirstName}} {{$guest.LastName}}</div>
                                 </a>
                                 {{end}}
                             </div>
@@ -1530,62 +1529,80 @@
                     </div>
                 </div> <!--end gallery widget--> 
                 <!-- insert modal -->
-                    <div id="addUserModal" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Add Member to Event</h4>
+                <div id="addUserModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Add Member to Event</h4>
+                            </div>
+                            <div class="modal-body">
+                                <label for="eventMemberName">Add Member</label>
+                                <div class="input-group">
+                                    <input id="eventMemberName" class="form-control" name="eventMemberName" type="text" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary">+</button>
+                                    </span>
                                 </div>
-                                <div class="modal-body">
-                                    <label for="eventMemberName">Add Member</label>
-                                    <div class="input-group">
-                                        <input id="eventMemberName" class="form-control" name="eventMemberName" type="text" />
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary">+</button>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                             </div>
                         </div>
                     </div>
-                    <div id="addProjectModal" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Add Project to Event</h4>
+                </div>
+                <div id="addProjectModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Add Project to Event</h4>
+                            </div>
+                            <div class="modal-body">
+                                <label for="eventProjectName">Add Member</label>
+                                <div class="input-group">
+                                    <input id="eventProjectName" class="form-control" name="eventProjectName" type="text" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary">+</button>
+                                    </span>
                                 </div>
-                                <div class="modal-body">
-                                    <label for="eventProjectName">Add Member</label>
-                                    <div class="input-group">
-                                        <input id="eventProjectName" class="form-control" name="eventProjectName" type="text" />
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary">+</button>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                             </div>
                         </div>
                     </div>
-            <style>
-                .ui-autocomplete {
-                    z-index: 30000 !important;
-                }
-            </style>
-            </div> <!-- modal box -->            
+                </div>
+                <div id="addGuestModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Invite Guest to Event</h4>
+                            </div>
+                            <div class="modal-body">
+                                <label for="eventGuestName">Add Guest</label>
+                                <div class="input-group">
+                                    <input id="eventGuestName" class="form-control" name="eventGuestName" type="text" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary">+</button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <style>
+                    .ui-autocomplete {
+                        z-index: 30000 !important;
+                    }
+                </style>
+                </div> <!-- modal box -->            
             </div>
         </div>
     </div>
-    <script src="/ustart_front/js/fadebody.js"></script>
-    <script>
-      
-    </script>
 </body>
 </html>
