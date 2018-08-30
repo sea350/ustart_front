@@ -100,9 +100,11 @@ $(document).ready(function() {
 function runeArrayToString(runeArray) {
 	runa = runeArray.split(" ");
 	runeOutput = '';
+	console.log(runa);
 	runa.forEach(function(element) {
 		runeOutput += String.fromCharCode(element);
 	});
+	console.log(runeOutput);
 	return runeOutput.split(",");
 }
 
