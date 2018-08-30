@@ -98,7 +98,7 @@ $(document).ready(function() {
 });
 
 function runeArrayToString(runeArray) {
-	var runa = runeArray.slice(1, -1).split(" ");
+	var runa = runeArray.slice(2, -1).split(" ");
 	runeOutput = '';
 	runa.forEach(function(element) {
 		runeOutput += String.fromCharCode(element);
@@ -112,7 +112,7 @@ function addingAutoComplete() {
 		source: function () {
 			$.ajax("/FindEventMember/")
 			.done(function(data) {
-				alert(runeArrayToString(data));
+				console.log(runeArrayToString(data));
 			});
 		}
 	});
@@ -120,7 +120,7 @@ function addingAutoComplete() {
 		source:  function () {
 			$.ajax("/FindEventProject/")
 			.done(function(data) {
-				alert(runeArrayToString(data));
+				console.log(runeArrayToString(data));
 			});
 		}
 	});
@@ -128,7 +128,7 @@ function addingAutoComplete() {
 		source:  function () {
 			$.ajax("/FindEventGuest/")
 			.done(function(data) {
-				alert(runeArrayToString(data));
+				console.log(runeArrayToString(data));
 			});
 		}
 	});
