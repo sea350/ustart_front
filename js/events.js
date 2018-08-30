@@ -103,7 +103,7 @@ function runeArrayToString(runeArray) {
 	runa.forEach(function(element) {
 		runeOutput += String.fromCharCode(element);
 	});
-	return runeOutput;
+	return runeOutput.split(",");
 }
 
 function addingAutoComplete() {
