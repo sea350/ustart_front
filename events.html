@@ -324,7 +324,7 @@
                                 </div>
                                 {{range $project := .Event.ProjectData}}
                                 <a class="member" class='btn btn-default' href="/profile/{{$project.Username}}" >
-                                        <img id="img{{$project.Username}}" data-toggle="tooltip" data-placement="right" title="{{$project.FirstName}}" class="img-circle img-responsive">
+                                        <img id="img{{$project.Username}}" data-toggle="tooltip" data-placement="right" title="{{$project.FirstName}}/" class="img-circle img-responsive">
                                         <script>
                                             $('img#img{{$project.Username}}').attr('src', {{$project.Image}});
                                         </script>
