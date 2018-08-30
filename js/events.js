@@ -97,41 +97,15 @@ $(document).ready(function() {
 	addingAutoComplete();
 });
 
-function runeArrayToString(runeArray) {
-	runa = runeArray.split(" ");
-	runeOutput = '';
-	console.log(runa);
-	runa.forEach(function(element) {
-		runeOutput += String.fromCharCode(element);
-	});
-	console.log(runeOutput);
-	return runeOutput.split(",");
-}
-
 function addingAutoComplete() {
 	var magicSource = ["Magic Johnson, Magic Johnson"];
 	$("#eventMemberName").autocomplete({
-		source: function () {
-			$.ajax("/FindEventMember/")
-			.done(function(data) {
-				console.log(runeArrayToString(data));
-			});
-		}
+		source: "/FindEventMember/"
 	});
 	$("#eventProjectName").autocomplete({
-		source:  function () {
-			$.ajax("/FindEventProject/")
-			.done(function(data) {
-				console.log(runeArrayToString(data));
-			});
-		}
+		source: "/FindEventProject/"
 	});
 	$("#eventGuestName").autocomplete({
-		source:  function () {
-			$.ajax("/FindEventGuest/")
-			.done(function(data) {
-				console.log(runeArrayToString(data));
-			});
-		}
+		source: "/FindEventGuest/"
 	});
 }
