@@ -97,50 +97,39 @@ $(document).ready(function() {
 	addingAutoComplete();
 });
 
+function runeArrayToString(runeArray) {
+	if (runeArray) {
+		var runeOutput = '';
+		runeArray.forEach(function(element) {
+			runeOutput += String.fromCharCode(element);
+		});
+		return runeOutput;
+	}
+}
+
 function addingAutoComplete() {
 	var magicSource = ["Magic Johnson, Magic Johnson"];
 	$("#eventMemberName").autocomplete({
-		source: function (request, response) {
+		source: function () {
 			$.ajax("/FindEventMember/")
 			.done(function(data) {
-				alert("Done");
-				console.log(data);
-			})
-			.fail(function() {
-				alert("Fail");
-			})
-			.always(function() {
-				alert("Always");
+				alert(runeArrayToString(data));
 			});
 		}
 	});
 	$("#eventProjectName").autocomplete({
-		source:  function (request, response) {
-			$.ajax("/FindEventMember/")
+		source:  function () {
+			$.ajax("/FindEventProject/")
 			.done(function(data) {
-				alert("Done");
-				console.log(data);
-			})
-			.fail(function() {
-				alert("Fail");
-			})
-			.always(function() {
-				alert("Always");
+				alert(runeArrayToString(data));
 			});
 		}
 	});
 	$("#eventGuestName").autocomplete({
-		source:  function (request, response) {
-			$.ajax("/FindEventMember/")
+		source:  function () {
+			$.ajax("/FindEventGuest/")
 			.done(function(data) {
-				alert("Done");
-				console.log(data);
-			})
-			.fail(function() {
-				alert("Fail");
-			})
-			.always(function() {
-				alert("Always");
+				alert(runeArrayToString(data));
 			});
 		}
 	});
