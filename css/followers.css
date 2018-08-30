@@ -5,25 +5,55 @@
 #ProjFollowingTab.active,
 #FollowersTab.active,
 #FollowingTab.active {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 160px);
+    display: flex;
+    /*grid-template-columns: repeat(auto-fit, 160px);*/
 }
 
 .followerBox {
 	padding: 1em;
 }
+
+.proj-tabs{
+    margin-top: 4px;
+}
+
+.grid ul.list-social > li {
+  line-height: 2.3;
+}
+.nav-pills-custom-minimal{
+    border-bottom: 1px solid #ccc;
+    margin-left:-1em;
+    padding-left:1.5em;
+    margin-top:0em;
+    background-color:#fff;
+}
+
+.nav-pills-custom-minimal.custom-minimal-bottom > li.active > a, .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a:hover, .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a:focus{
+    border-bottom-color:#94c632;
+}
+
+.nav-pills-custom-minimal.custom-minimal-bottom > li a{
+    border-top:none;
+    border-bottom:4px solid transparent;
+}
+
+.nav-pills-custom-minimal > li.active > a, .nav-pills-custom-minimal > li.active > a:hover, .nav-pills-custom-minimal > li.active > a:focus{
+    background-color:transparent;
+    color:#696565;
+}
+
+
 .tab-content{
-    margin-top: 1em;
     padding:15px;
     margin-bottom:20px;
-    background-color:#fff;
     border:1px solid transparent;
     border-radius:4px;
-    box-shadow:0 1px 1px rgba(0,0,0,.05);
-    -webkit-box-shadow:0 1px 1px rgba(0,0,0,.05);
+    /*box-shadow:0 1px 1px rgba(0,0,0,.05);
+    -webkit-box-shadow:0 1px 1px rgba(0,0,0,.05);*/
     
 }
 .follow-card {
+    padding-top:2em;
     border-color: #c5c5c5;
     border-style: solid;
     border-width: 1px;
@@ -33,6 +63,7 @@
     margin-bottom: 0.5em !important;
 	padding: 0.5em 0.1em;
 	vertical-align: top;
+    width:25rem;
 }
 .follow-card img {
 	border-radius: 0.5em;

@@ -179,7 +179,7 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 		$('#widgetBodyMed').rss("https://medium.com/feed/@" +encodeURI(medUsername), {
 			limit: medCount,
 			layoutTemplate: '<ul data-med-username="' + medUsername + '">{entries}</ul>',
-			entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="medium-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+			entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="medium-body"><a href="{url}"><h3>{title}</h3></a>{shortBody}...</div></li>',
 			dateFormat: 'MMM Do, YYYY',
 			effect: 'slideFastSynced',
 			error: function() {
@@ -192,7 +192,7 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 			$('#widgetBodyMed').rss("https://medium.com/feed/@" + encodeURI(medPublication), {
 				limit: medCount,
 				layoutTemplate: '<ul data-med-publication="' + medPublication + '">{entries}</ul>',
-				entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="medium-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+				entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="medium-body"><a href="{url}"><h3>{title}</h3></a>{shortBody}...</div></li>',
 				dateFormat: 'MMM Do, YYYY',
 				effect: 'slideFastSynced',
 				error: function() {
@@ -203,7 +203,7 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 			$('#widgetBodyMed').rss("https://medium.com/feed/@" + encodeURI(medPublication) + "/tagged/" + encodeURI(medTag), {
 				limit: medCount,
 				layoutTemplate: '<ul data-med-publication="' + medPublication + '" data-med-tag="' + medTag + '">{entries}</ul>',
-				entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="medium-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
+				entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="medium-body"><a href="{url}"><h3>{title}</h3></a>{shortBody}...</div></li>',
 				dateFormat: 'MMM Do, YYYY',
 				effect: 'slideFastSynced',
 				error: function() {

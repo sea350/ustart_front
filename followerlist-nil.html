@@ -15,7 +15,6 @@
         var doc = {{.DOCID}};
         var port = location.port;
         var followstatus={{.FollowingStatus}};
-        $("#head-image").attr("src",{{.UserInfo.Banner}});
         $(document).ready(function(){
             console.log(window.location.hash);
         if(window.location.hash != "") {
@@ -45,15 +44,16 @@
 				              $("#user-avatar").attr("src",{{.UserInfo.Avatar}});
 						</script>
 						<div id="user-brief-info">
-							<div id="info-wrap">
+								<div id="info-wrap">
 								<div id="name-cont">
 									<h3 style="margin-bottom: 0.2em;">
-										<a href="/profile/{{.UserInfo.Username}}">
-											<strong id="name">{{.UserInfo.FirstName}} {{.UserInfo.LastName}} <!-- {{.DOCID}} {{.Page}} page is viewingDOCID--></strong>
+										<a data-toggle="tooltip" title= "{{.UserInfo.FirstName}} {{.UserInfo.LastName}}" data-placement='bottom'  href="/profile/{{.UserInfo.Username}}">
+											
+											<strong id="name" style="vertical-align: middle">{{.UserInfo.FirstName}} {{.UserInfo.LastName}}</strong>
 										</a>
 										<span class="dot">
 											<span class="active">
-												<i class="fa fa-circle" aria-hidden="true" data-toggle="tooltip" title="Active"></i>
+												<i class="fa fa-circle" aria-hidden="true" data-toggle="tooltip" title="Active" style="vertical-align: middle"></i>
 											</span>
 										</span>
 									</h3>
@@ -90,11 +90,33 @@
 						<hr>
 						<div class="user-desc">
 							<p style="margin-bottom: 0;">
-								<span id="description">
-									<script>readRuneArray({{.UserInfo.Description}});</script>
-								</span>
-							</p>
-						</div>
+								{{if not .UserInfo.Description}}
+									<i>No Description</i>
+								{{else}}
+								<div class="ellipsis">
+								<a href="#description_modal" data-toggle="modal"> 
+									<span id="description" style ="color:black">
+										<script>readRuneArray({{.UserInfo.Description}});</script>
+									</span>
+								</a>
+								</div>
+								<div id="description_modal" class="modal fade" style="width:60%; margin: 0 auto;">
+										<div class="modal-dialog modal-sm">
+												<div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">About</h4>
+                                                    </div>
+													<div class="modal-body">
+														<strong>Description: </strong>
+															<script>readRuneArray({{.UserInfo.Description}});</script>
+													</div>
+												</div>
+											</div>									
+                                </div>
+								{{end}}
+                            </p>
+						</div>	
 						<hr>
 						<div id="user-nums">
 							<div id="followers">
@@ -115,68 +137,6 @@
 							<!-- if user is visiting the page -->
 							{{if ne ($.Page) ($.DOCID)}}
 							<button id="btn1" class="btn followButton" rel="6">Follow</button>
-							<script type="text/javascript">
-								$(document).ready(function() {
-									var pageID={{.Page}};
-									if(followstatus == true) {
-										$('#btn1').attr('class', 'btn followButton following');
-										$('#btn1').text('Following');
-									}
-									else {
-										$('#btn1').attr('class', 'btn followButton');
-										$('#btn1').text('Follow');
-									} 
-									$('#btn1').hover(function () {
-										$button = $(this);
-										if ($button.hasClass('following')) {
-											$button.addClass('unfollow');
-											$button.text('Unfollow');
-										}
-									}, function () {
-										if ($button.hasClass('following')) {
-											$button.removeClass('unfollow');
-                                            $button.text('Following');
-                                        }
-									});
-									$('#btn1').click(function(e) {
-										$( "#btn1" ).prop( "disabled", true );
-										$.ajax({
-											type: 'GET',  
-											url: 'http://ustart.today:'+port+'/AjaxUserFollowsUser/',
-											contentType: "application/json; charset=utf-8",
-											data: {userID:pageID},
-											success: function(data) {
-												var totalFollowers = parseInt($('#num-followers').html());
-												if ($('#btn1').hasClass('following')) {
-													//$.ajax(); Do Unfollow
-													console.log("Let's Unfollow");
-													//$.ajax(); Do Unfollow
-													$('#btn1').removeClass('following');
-													$('#btn1').removeClass('unfollow');
-													$('#btn1').text('Follow');
-													$('#num-followers').html(totalFollowers-1);
-													$("#followstat").val("no");
-													followstatus =false;
-												} else {
-													// $.ajax(); Do Follow
-													console.log("Let's follow");
-													// $.ajax(); Do Follow
-													$('#btn1').addClass('following');
-													$('#btn1').text('Following');
-													$('#num-followers').html(totalFollowers+1);
-													$("#followstat").val("yes");
-													followstatus =true;
-												}
-                                                $( "#btn1" ).prop( "disabled", false );
-											},
-											error: function(error) {
-												console.log("It just doesn't work");
-												console.log(error);
-											}
-                                        });
-                                    });
-                                });
-							</script>
 							<div class="profile-menu dropdown">
 								<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 									<i class="fa fa-ellipsis-v"></i>
@@ -193,16 +153,78 @@
 						</div>
 					</div>
 				</div>
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        var pageID={{.Page}};
+                        if(followstatus == true) {
+                            $('#btn1').attr('class', 'btn followButton following');
+                            $('#btn1').text('Following');
+                        }
+                        else {
+                            $('#btn1').attr('class', 'btn followButton');
+                            $('#btn1').text('Follow');
+                        } 
+                        $('#btn1').hover(function () {
+                            $button = $(this);
+                            if ($button.hasClass('following')) {
+                                $button.addClass('unfollow');
+                                $button.text('Unfollow');
+                            }
+                        }, function () {
+                            if ($button.hasClass('following')) {
+                                $button.removeClass('unfollow');
+                                $button.text('Following');
+                            }
+                        });
+                        $('#btn1').click(function(e) {
+                            $( "#btn1" ).prop( "disabled", true );
+                            $.ajax({
+                                type: 'GET',  
+                                url: 'http://ustart.today:'+port+'/AjaxUserFollowsUser/',
+                                contentType: "application/json; charset=utf-8",
+                                data: {userID:pageID},
+                                success: function(data) {
+                                    var totalFollowers = parseInt($('#num-followers').html());
+                                    if ($('#btn1').hasClass('following')) {
+                                        //$.ajax(); Do Unfollow
+                                        console.log("Let's Unfollow");
+                                        //$.ajax(); Do Unfollow
+                                        $('#btn1').removeClass('following');
+                                        $('#btn1').removeClass('unfollow');
+                                        $('#btn1').text('Follow');
+                                        $('#num-followers').html(totalFollowers-1);
+                                        $("#followstat").val("no");
+                                        followstatus =false;
+                                    } else {
+                                        // $.ajax(); Do Follow
+                                        console.log("Let's follow");
+                                        // $.ajax(); Do Follow
+                                        $('#btn1').addClass('following');
+                                        $('#btn1').text('Following');
+                                        $('#num-followers').html(totalFollowers+1);
+                                        $("#followstat").val("yes");
+                                        followstatus =true;
+                                    }
+                                    $( "#btn1" ).prop( "disabled", false );
+                                },
+                                error: function(error) {
+                                    console.log("It just doesn't work");
+                                    console.log(error);
+                                }
+                            });
+                        });
+                    });
+                </script>
 				<div class="grid">
-					<ul class="nav nav-tabs nav-justified proj-tabs">
-                         <li class="nav-item">
-                            <a class="nav-link"  data-toggle="tab" href="#FollowersTab">Followers</a>
+					<ul class="nav nav-pills nav-pills-custom-minimal custom-minimal-bottom proj-tabs">
+                         <li class="">
+                            <a class=""  data-toggle="tab" href="#FollowersTab">Followers</a>
                         </li>
-                        <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#FollowingTab">User Following</a>
+                        <li class="">
+                        <a class="" data-toggle="tab" href="#FollowingTab">User Following</a>
                        </li>
-                       <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#ProjFollowingTab">Project Following</a>
+                       <li class="">
+                        <a class="" data-toggle="tab" href="#ProjFollowingTab">Project Following</a>
                        </li>
 					</ul>
 					<div class="tab-content">
@@ -217,6 +239,7 @@
 										<img id="followerAvatar{{$follower.Username}}" class="image"/>
 										<div><b class="followerUsername" >{{$follower.FirstName}} {{$follower.LastName}}</b></div>
                                     </a>
+                                    <hr>
                                     <script>
 										$('#followerAvatar{{$follower.Username}}').attr('src', '{{$follower.Image}}');
 									</script>
@@ -323,6 +346,7 @@
 										   $('#projFollowingAvatar{{$projfollowing.Username}}').attr('src', '{{$projfollowing.Image}}');
 									    </script>
                                     </a>
+                                    <hr>
                                     {{if ne ($projfollowing.DocID) ($.DOCID)}}
                                         {{if eq ($projfollowing.Followed) false }}
                                         <button class="btn btn-primary projunfollowButton" id={{$projfollowing.DocID}} rel="6">Follow</button>
