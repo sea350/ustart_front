@@ -3,7 +3,7 @@
 }
 
 
-.card{  
+#project-container .card{  
     overflow:hidden; 
     width: 10em;
     height:18em;
@@ -14,13 +14,13 @@
     text-overflow:ellipsis;
 }
 
-.card img{
+#project-container .card img{
     border-radius: 50%;
 	display: block;
 	margin: auto;
 }
 
-.card-title, .card-text{
+#project-container .card-title, #project-container .card-text{
     overflow:hidden;
 }
 button#addProjButton,button#sortProjButton,button#manageMembersButton{

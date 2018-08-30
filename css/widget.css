@@ -28,6 +28,9 @@
 	overflow: hidden;
 }
 
+.addWidgetBtn .columnTitle{
+    white-space: initial;
+}
 .anchor-feed{
     margin-bottom:1em;
 }

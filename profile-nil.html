@@ -73,7 +73,7 @@
 			<strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
 		</div>
 		{{end}}
-		<img id="head-image">
+		<img id="head-image" src="">
         <!-- Vertical content -->
         <div id="content" class="container">
 			<div class="flex-box">
@@ -81,8 +81,16 @@
 					<div class="user-info">
 						<div class="user-img-container">
 							<img class="user-img" id="user-avatar" alt="User Profile Image">
+                            {{ if eq .UserInfo.Banner ""}}
+                            <script>
+                                 $('#head-image').attr('src', "_blank");
+                            </script>
+                            {{else}}
                             <script>
                                   $("#head-image").attr("src",{{.UserInfo.Banner}});
+                            </script>
+                            {{end}}
+                            <script>
                                   $("#user-avatar").attr("src",{{.UserInfo.Avatar}});
                             </script>
 							{{if eq ($.Page) ($.DOCID)}}
@@ -115,11 +123,18 @@
 									<p id="username" style="color:black">{{.UserInfo.Username}}</p>
 								</div>
 								{{ end }}
-								{{ if .UserInfo.Location.Country }}
+								{{ if and .UserInfo.Location.State .UserInfo.Location.Country .UserInfo.Location.City }}
 								<div id="location-cont" style="color:#00C085">
 									<i class="fa fa-map-marker" aria-hidden="true" style="color:#00C085;"></i> Location
 									<p id="location" style="color:black">{{.UserInfo.Location.City}}, {{.UserInfo.Location.State}}, {{.UserInfo.Location.Country}}</p>
 								</div>
+                                {{else}}
+                                {{if eq ($.Page) ($.DOCID)}}
+                                    <div id="location-cont" style="color:#00C085">
+									   <i class="fa fa-map-marker" aria-hidden="true" style="color:#00C085;"></i> Location
+                                        <p id="location" style="color:black">Please update your location in <a href="/Settings/">settings.</a></p>
+								    </div>
+                                {{ end }}
 								{{ end }}
 								{{ if .UserInfo.University }}
 								<div id="edu-link" style="color:#00C085;">
@@ -130,8 +145,8 @@
                                     <i class="fa fa-birthday-cake" aria-hidden="true" style="color:#00C085;"></i> DoB
                                     <p style="color:black">
                                    <script>
-									var date = new Date({{.UserInfo.Dob}});
-                                    document.write(date.toLocaleDateString());
+									var dateTime = new Date({{.UserInfo.Dob}});
+                                    document.write(month[dateTime.getUTCMonth()]+" "+ dateTime.getUTCDate()+","+dateTime.getFullYear());
                                     </script>
                                     </p>
                                 </div>
@@ -173,10 +188,7 @@
                                 </div>
 								{{end}}
                             </p>
-						</div>
-
-							
-							
+						</div>	
 						<hr>
 						<div id="user-nums">
 							<div id="followers">
@@ -188,10 +200,10 @@
 							<div id="following">
                                  <h4>Following </h4>
                                 <ul  id ="container-follow">
-								<li><a href="/followers/{{.UserInfo.Username}}#FollowingTab" data-toggle="tooltip" data-placement="top" title="{{.Following}} Following">
-								<span id="num-following" style="font-weight: bold">{{.Following}}</span> <h6>USERS</h6></a></li>
+								<li><a href="/followers/{{.UserInfo.Username}}#FollowingTab" data-toggle="tooltip" data-placement="top" title="{{.UserFollowing}} User Following">
+								<span id="num-following" style="font-weight: bold">{{.UserFollowing}}</span> <h6>USERS</h6></a></li>
                                     
-                                <li><a href="/followers/{{.UserInfo.Username}}#FollowingTab" data-toggle="tooltip" data-placement="top" title="{{.Following}} Following">    <span id="proj-following" style="font-weight: bold">{{.Following}}</span><h6> PROJECTS</h6> </a></li>
+                                <li><a href="/followers/{{.UserInfo.Username}}#ProjFollowingTab" data-toggle="tooltip" data-placement="top" title="{{.ProjFollowing}} Project Following">    <span id="proj-following" style="font-weight: bold">{{.ProjFollowing}}</span><h6> PROJECTS</h6> </a></li>
                                 </ul>
 							</div>
 							<!-- if user is visiting the page -->
@@ -204,7 +216,7 @@
 								</button>
 								<ul class="dropdown-menu dropdown-menu-right">
 									<li>
-										<a id="block-user" href="#">
+										<a id="block-user" href="#" style="cursor: not-allowed; pointer-events: none;">
 											<i class="fa fa-ban"></i> Block
 											<span class="block-user-text"></span> User</a>
 									</li>
@@ -465,12 +477,14 @@
 												<div class="columnTitle">Github</div>
 											</div>
 										</button>
+                                        <!--
 										<button id="addGalleryWidget" class="btn btn-default projectsColumn addWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/gallery.png" />
 												<div class="columnTitle">Gallery</div>
 											</div>
 										</button>
+                                        -->
 									</div>
 								</div>
 							</li>
@@ -983,9 +997,8 @@
             <div id="modal-box">
                 <!--  WIDGET MODALS -->
                 <!-- About Modal  -->
-                <div class="modal fade" id="aboutModal" role="dialog">
+               <!-- <div class="modal fade" id="aboutModal" role="dialog">
                     <div class="modal-dialog">
-                        <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -998,68 +1011,67 @@
                                             <tr>
                                                 <th class="no-border-top" scope="row">Name</th>
                                                 <td class="no-border-top">
-                                                    <span id="full-name">Ryan Rozbiani</span>
+                                                    <span id="full-name"></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Location</th>
                                                 <td>
-                                                    <span id="locat">New York City, New York, United States</span>
+                                                    <span id="locat"></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">College</th>
                                                 <td>
-                                                    <span id="college">New York University</span>
+                                                    <span id="college"></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Class</th>
                                                 <td>
-                                                    <span id="class">Undergraduate</span>
+                                                    <span id="class"></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Major</th>
                                                 <td>
-                                                    <span id="major">Computer Engineering</span>
+                                                    <span id="major"></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Birthday</th>
                                                 <td>
-                                                    <span id="dob">April 5, 1995</span>
+                                                    <span id="dob"></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Phone</th>
                                                 <td>
-                                                    <span id="phone-num">(877)-393-4448</span>
+                                                    <span id="phone-num"></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">E-mail</th>
                                                 <td>
-                                                    <span id="email">rr2396@nyu.edu</span>
+                                                    <span id="email"></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Gender</th>
                                                 <td>
-                                                    <span id="gender">Male</span>
+                                                    <span id="gender"></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Account Created</th>
                                                 <td>
-                                                    <span id="date-start">June 23, 2017</span>
+                                                    <span id="date-start"></span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Full Description</th>
                                                 <td>
                                                     <span id="desc">
-                                                        something something
                                                     </span>
                                                 </td>
                                             </tr>
@@ -1072,7 +1084,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- Project Display Modal -->
                 <div class="modal fade" id="projectDisplayModal" role="dialog">
                     <div class="modal-dialog">

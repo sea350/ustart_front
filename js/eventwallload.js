@@ -240,6 +240,7 @@ $(document).ready(function() {
                                }
                                $("#post-msg").val('');
                                $('#new-postSubmit').prop('disabled', false);
+                               $('#textarea_counter').html('5000 characters remaining.');
     
                               }
                         },error: function(err) {

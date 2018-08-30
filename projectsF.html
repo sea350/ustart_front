@@ -30,7 +30,7 @@
         var pageID = {{$projectid}};
         var projscrollID;
         var maxHits = -1;
-        followstatus=true;
+        followstatus={{.FollowingStatus}};
     </script>
     <script src="http://www.youtube.com/player_api"></script>
     {{range $loop := .Project.ProjectData.EntryIDs}}
@@ -50,9 +50,15 @@
 <body>
     <div id="centering">
 		<img id="head-image">
+        {{ if eq .Project.ProjectData.Banner ""}}
         <script>
+             $('#head-image').attr('src', "_blank");
+        </script>
+        {{else}}
+         <script>
              $('#head-image').attr('src', {{.Project.ProjectData.Banner}});
         </script>
+        {{end}}
         <!-- Vertical content -->
         <div id="content" class="container">
             <div>
@@ -82,7 +88,7 @@
                         <span class="follow-btn-container">
                             <button id ="projFollow" class="proj-follow-btn">
                                 <span class ="follow-btn-text">Follow</span>
-                            </button><span class="follower-count"><script>document.write(intToString(0));</script></span>
+                            </button><span class="follower-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
                         </span>
 				{{range $member := .Project.MemberData}}
 					{{if eq $userid $member.DocID}}
@@ -199,13 +205,21 @@
                                 </div>
                             </div>
 							{{end}}
-							{{if .Project.ProjectData.Location.Country}}
+							
+							{{if and .Project.ProjectData.Location.Country .Project.ProjectData.Location.State .Project.ProjectData.Location.City .Project.ProjectData.Location.Zip }}
                             <div class="col-xs-4">
                                 <div class="detail-head"><i class="fa fa-map-marker" aria-hidden="true"></i> Location</div>
                                 <div id="project-location" class="detail-content">
 									{{.Project.ProjectData.Location.City}}, {{.Project.ProjectData.Location.State}}, {{.Project.ProjectData.Location.Country}} {{.Project.ProjectData.Location.Zip}}
                                 </div>
                             </div>
+                            {{else}}
+                                <div class="col-xs-4">
+                                <div class="detail-head"><i class="fa fa-map-marker" aria-hidden="true"></i> Location</div>
+                                <div id="project-location" class="detail-content">
+									Not Specified
+                                </div>
+                                </div>
 							{{end}}
                         </div>
                     </div>
@@ -344,12 +358,14 @@
 												</div>
 											</div>
 										</button>
+                                        <!--
 										<button id="addGalleryWidget" class="btn btn-default projectsColumn addProjWidgetBtn">
 											<div class="columnImage">
 												<img src="/ustart_front/img/png/gallery.png" />
 												<div class="columnTitle">Gallery</div>
 											</div>
 										</button>
+                                        -->
 									</div>
 								</div>
 							</li>
@@ -757,31 +773,33 @@
                                 <div id= "shareModals" role="dialog"> </div>
                                 <div id= "deleteModals" role="dialog"> </div>
                                 <div id= "editModals" role="dialog"> </div>
-                                 {{range $member := .Project.MemberData}}
-					               
-                                <!-- new post panel-->
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <div class="media">
-                                            <a class="pull-left" href="#">
-												
-                                                <img id="new-post-img" class="media-object img-rounded" src="">
-                                                
-												
-                                            </a>
-                                            <div class="media-body">
-                                                <div class="form-group">
-                                                        <textarea class="form-control" id="post-msg" maxlength="5000" name="block" style="resize:none;"></textarea>
-                                                        <div class="pull-right" id="textarea_counter">5000 characters remaining.</div>
-                                                        <br>
-                                                        <button id="new-postSubmit" type="submit" class="btn btn-primary pull-right">Post</button>
+                                 
+                                {{range $member := .Project.MemberData}}
+					               {{if eq $userid $member.DocID}}
+                                        <!-- new post panel-->
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="media">
+                                                    <a class="pull-left" href="#">
+
+                                                        <img id="new-post-img" class="media-object img-rounded" src="">
+
+
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <div class="form-group">
+                                                                <textarea class="form-control" id="post-msg" maxlength="5000" name="block" style="resize:none;"></textarea>
+                                                              <div class ="submit-container">
+                                                                <button id="new-postSubmit" type="submit" class="btn btn-primary pull-right">Post</button>
+                                                                <div class="pull-right" id="textarea_counter"  style="margin-right: 10px; margin-top: 8px">5000 characters remaining.</div>
+                                                              </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
                                 {{end}}
-                                
+                                {{end}}
                                 <!-- end new post -->
                             <div id="wallNewPost"></div>
                             <div class = "panel panel-default" id="wall-dataF"></div>
@@ -833,9 +851,8 @@
                         </div>
                         <!-- end edit modal -->
                         <!-- About Modal  -->
-                        <div class="modal fade" id="aboutModal" role="dialog">
+                        <!--<div class="modal fade" id="aboutModal" role="dialog">
                             <div class="modal-dialog">
-                                <!-- Modal content-->
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -902,7 +919,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <!-- Tag Modal -->
 						<div class="modal fade" id="tagModal" role="dialog">
 							<div class="modal-dialog">

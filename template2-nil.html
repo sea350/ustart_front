@@ -50,7 +50,7 @@
                 if (windowSize < 769){
                     $searchForm.hide();
                     $('#searchFilterFormSubmit').addClass('searchResponsive');
-                    $('.searchResponsive').css({'background':'none','border':'none'});
+                   $('.searchResponsive').css({'border':'none', 'border-radius': '4px 4px 4px 4px'});
                     
                 }
                 else{
@@ -67,6 +67,28 @@
             updateChatBadge();
             newNotifs= $(".notif-label.label-new").length;
             updateNotifBadge();
+            //normal notification
+            setInterval(function(){
+                $.ajax({
+                  type: 'GET',
+                    url: 'http://ustart.today:'+port+'/AjaxNotifications/',
+                    contentType: "application/json; charset=utf-8",
+                    data: {},
+                    success: function(data) {
+                    },complete: function (jqXHR,status) {
+                        if(status == 'success' || status=='notmodified')
+                        {
+                        var temp = $.parseJSON(jqXHR.responseText);
+                        console.log(temp);
+                        }
+                    }
+                    ,error: function(err) {
+                        console.log('chat initial chat failed: ');
+                        console.log(err);
+                    }
+                });
+            }, 10000);
+        
             //chat notification
             $.ajax({
                   type: 'GET',
@@ -104,24 +126,6 @@
                     }
             });
         
-            $.ajax({
-                  type: 'GET',
-                    url: 'http://ustart.today:'+port+'/AjaxNotifications/',
-                    contentType: "application/json; charset=utf-8",
-                    data: {},
-                    success: function(data) {
-                    },complete: function (jqXHR,status) {
-                        if(status == 'success' || status=='notmodified')
-                        {
-                        var temp = $.parseJSON(jqXHR.responseText);
-                        console.log(temp);
-                        }
-                    }
-                    ,error: function(err) {
-                        console.log('chat initial chat failed: ');
-                        console.log(err);
-                    }
-            });
             
              function chatNotifstart(){
                 //initial set up
@@ -264,10 +268,35 @@
                 </div>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li class="navbar-btn nav-item inbox-list-item" data-toggle="tooltip" data-placement="left" title="Inbox">
-                    <a href="/Inbox/">
-                        <i class="fa fa-inbox fa-2x" style="color:white;"></i>
-                    </a>
+                <li class="navbar-btn nav-item">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" id="create-all"><i class="fa fa-plus-circle fa-2x"></i> Create</a>
+                    <ul class="dropdown-menu">
+                            <div id ="startDrop">
+                                <div class = "create-container" style="display: flex;">
+                                    <a class="btn btn-default"  href ="/CreateProjectPage/" style="margin-right:0.5em;margin-left: 1em;">
+                                        <div class="card" style="width: 10rem;">
+                                            <div class="card-body" style="margin-top: 0.5em;">
+                                                <i class="fa fa-briefcase fa-2x" aria-hidden="true"></i>
+                                                <h5 class="card-title">Create Project</h5>
+                                                <h6 class="card-subtitle mb-2" style="white-space: initial">Find Collaborators</h6>
+                                              </div>
+                                        </div>
+                                    </a>
+                                    <a class="btn btn-default" href="/StartEvent/"  style="margin-left:0.5em;margin-right: 1em;">
+                                        <div class="card" style="width: 10rem;">
+                                            <div class="card-body" style="margin-top: 0.5em;">
+                                                <i class="fa fa-calendar fa-2x" aria-hidden="true"></i>
+                                                <h5 class="card-title">Create Event</h5>
+                                                <h6 class="card-subtitle mb-2" style="white-space: initial">Meet Creators</h6>
+                                              </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <!--<footer class="footer" style ="border-top: 1px solid white;">
+                                <a style="margin-left:1em;" href="/ch/">See All Messages</a>
+                            </footer>-->
+                    </ul>
                 </li>
                 <li class="navbar-btn nav-item" data-toggle="tooltip" data-placement="left" title="Messages">
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -326,6 +355,7 @@
                     </ul>
                 </li>
             </ul>
+
         </div>
         <div id="searchFilters" style="background-color: white; ">
             <div class="navbar-filler navbar-filler-filter navbar-left"></div>

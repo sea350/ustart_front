@@ -166,7 +166,13 @@
                                     {{if eq $userid $member.DocID}}
                                     {{$memberValidity := $member.Classification}}
                                     {{if le $memberValidity 1}}
-                                    <a class='btn btn-default' style="padding: 0.5em 1em;" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
+                                    <div class="dropdown dropdown-btn">
+                                        <button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
+                                        <ul class="dropdown-menu dropdown-menu-right" style='left: 1px;'>
+                                            <li><a href="#" style="padding: 0.5em 1em;" data-toggle="modal" data-target="#event-member-add"><i class="fa fa-paw"></i>Recruit Members</a></li>
+                                            <li><a style="padding: 0.5em 1em;" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i> Edit Settings</a></li>
+                                        </ul>
+                                    </div>
                                     {{end}}
                                     {{end}}
                                     {{end}}
@@ -227,7 +233,7 @@
                             <form action="/AjaxNewGuest/" method="POST" style="display: inline-block;" style='margin-top:0em; margin-bottom:0em;'>
                                 <input type="hidden" name="eventID" value='{{$eventid}}'>
                                 <button class="event-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
-                                    <span>Request to join as GUEST</span>
+                                    <span>JOIN AS GUEST</span>
                                 </button>
                             </form>
                             
@@ -454,12 +460,12 @@
                                             </div>
                                         </div>
                                     </button> 
-                                    <button id="addGalleryWidget" class="btn btn-default eventsColumn">
+                                    <!--<button id="addGalleryWidget" class="btn btn-default eventsColumn">
                                         <div class="columnImage">
                                             <img src="/ustart_front/img/png/gallery.png" />
                                             <div class="columnTitle">Gallery</div>
                                         </div>
-                                    </button>                                                                                                                       
+                                    </button>     -->                                                                                                                  
                                 </div>
                             </div>
                         </li>                            

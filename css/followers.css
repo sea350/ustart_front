@@ -1,6 +1,8 @@
 *{
 	font-family:'Raleway', sans-serif
 }
+
+#ProjFollowingTab.active,
 #FollowersTab.active,
 #FollowingTab.active {
     display: grid;
@@ -10,7 +12,18 @@
 .followerBox {
 	padding: 1em;
 }
-.card {
+.tab-content{
+    margin-top: 1em;
+    padding:15px;
+    margin-bottom:20px;
+    background-color:#fff;
+    border:1px solid transparent;
+    border-radius:4px;
+    box-shadow:0 1px 1px rgba(0,0,0,.05);
+    -webkit-box-shadow:0 1px 1px rgba(0,0,0,.05);
+    
+}
+.follow-card {
     border-color: #c5c5c5;
     border-style: solid;
     border-width: 1px;
@@ -21,7 +34,7 @@
 	padding: 0.5em 0.1em;
 	vertical-align: top;
 }
-.card img {
+.follow-card img {
 	border-radius: 0.5em;
     margin-left: auto;
     margin-right: auto;
@@ -31,12 +44,8 @@
 	max-width: 80px;
 	max-height: 80px;
 }
-.card button.followButton {
+.follow-card button.followButton {
 	width: auto;
-}
-.card .followerUsername {
-	width: 80px;
-	white-space: initial;
 }
 .container-s{
 	position:relative
@@ -57,6 +66,12 @@ div.grid{
 }
 .container-s{
 	text-align:center
+}
+
+.container-s div{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .grid_wrapper{
 	margin-top:1.5em!important

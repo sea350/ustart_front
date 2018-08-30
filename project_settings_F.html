@@ -93,11 +93,35 @@
 											<span style='float:left'><span id="chars">5000</span> characters remaining</span>
 										</div>
 									</div>
-									
 									<input type="submit" class="btn btn-info" name="name_submit" value="Change" />
 									<div class="save-message fade"></div>										
 								</form>
 								<br><hr>
+
+								<button type="button" style='float:right' class="btn btn-danger btn-md" data-toggle="modal" data-target="#proj-del">Delete Project</button>
+
+								<!-- Modal -->
+								<div class="modal fade" id="proj-del" role="dialog">
+								  <div class="modal-dialog">
+								  
+									<!-- Modal content-->
+									<div class="modal-content">
+									  <div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+									  </div>
+									  <div class="modal-body">
+										<p>Are you sure you want to delete <strong>{{.Project.ProjectData.Name}}</strong> ?</p>
+										<form id="nameChange" action="/projectDel/" method="POST">
+											<input type="hidden" name="projectID" value="{{$projectid}}" />
+											<input style='float:right' type="submit" class="btn btn-danger" name="name_submit" value="Delete Project" />
+											<br>
+											<br>
+										</form>							
+									  </div>
+									</div>
+									
+								  </div>
+								</div>
 							</div>
 							<!-- end of projectInfo -->
 							<div id="projectCategory">

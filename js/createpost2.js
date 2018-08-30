@@ -1103,7 +1103,7 @@ function createSharedPost(parentImage, image, fName,lName,elementID, content, sh
 						]),
 					$('<div>',{'class':'media-body'}).append([
 						$('<h6>',{'class':'pull-right text-muted time'}).each(function(){
-                            if (sharedContent != null){
+                            if (sharedContent != 0){
 							 $(this).text(timeSince(originaltime));
                             }
 						}),
@@ -1111,11 +1111,11 @@ function createSharedPost(parentImage, image, fName,lName,elementID, content, sh
 							$(this).text(posterFname.concat(' ').concat(posterLname));
 						}),
 						$('<p>').each(function(){
-                            if (sharedContent != null){
-                                 $(this).text(readRuneArrayThatWorks(sharedContent));
+                            if (sharedContent == 0){
+                                $(this).text("Content has been deleted"); 
                             }
                             else{
-                               $(this).text("Content has been deleted"); 
+                                $(this).text(readRuneArrayThatWorks(sharedContent));
                             }
 						})
 						])
@@ -1294,21 +1294,21 @@ function createBasicSharedPost(parentImage,image, fName,lName,elementID, content
 						]),
 					$('<div>',{'class':'media-body'}).append([
 						$('<h6>',{'class':'pull-right text-muted time'}).each(function(){
-                            if (sharedContent != null){
+                            if (sharedContent != 0){
 							     $(this).text(timeSince(originaltime));
                             }
 						}),
 						$('<h5>',{'class':'mt-0'}).each(function(){
-                             if (sharedContent != null){
+                             if (sharedContent != 0){
 							     $(this).text(posterFname.concat(' ').concat(posterLname));
                              }
 						}),
 						$('<p>').each(function(){
-                            if (sharedContent != null){
-							    $(this).text(readRuneArrayThatWorks(sharedContent));
+                            if (sharedContent == 0){
+                                $(this).text("Content has been removed");	   
                             }
                             else{
-                                $(this).text("Content has been removed");
+                                $(this).text(readRuneArrayThatWorks(sharedContent));
                             }
 						})
 						])

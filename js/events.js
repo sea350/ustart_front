@@ -161,7 +161,7 @@ $(document).ready(function() {
     $(window).resize(function() {
 		fitDashboard();
     });
-    fitDashboard();
+   // fitDashboard();
 	
 	$('#eventFollowerModal').on('shown.bs.modal', function() {
 		// Generate followers

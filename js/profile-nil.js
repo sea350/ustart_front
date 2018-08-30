@@ -316,6 +316,7 @@ $(document).ready(function () {
             //$(this).css({'justify-content':'space-between'});
         }
     });
+    
     $('#post-msg').keyup(function() {
         var text_length = $('#post-msg').val().length;
         var text_remaining = 5000 - text_length;

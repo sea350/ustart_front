@@ -10,29 +10,30 @@
     <link href="/ustart_front/css/followers.css" rel="stylesheet" type="text/css" />
 	<script src="/ustart_front/js/ascii-convert.js"></script>
     <script src="/ustart_front/js/follow.js"></script>
+    <script>
+        var userID = {{.Page}};
+        var doc = {{.DOCID}};
+        var port = location.port;
+        var followstatus={{.FollowingStatus}};
+        $("#head-image").attr("src",{{.UserInfo.Banner}});
+        $(document).ready(function(){
+            console.log(window.location.hash);
+        if(window.location.hash != "") {
+            $('a[href="' + window.location.hash + '"]').click()
+        }
+        });
+    </script>
 </head>
-
 <body>
     <div id="centering">
-		<img id="head-image" alt="User Banner">
-		<script>
-            var port = location.port;
-            var followstatus={{.FollowingStatus}};
-            $("#head-image").attr("src",{{.UserInfo.Banner}});
-            $(document).ready(function(){
-                console.log(window.location.hash);
-            if(window.location.hash != "") {
-                $('a[href="' + window.location.hash + '"]').click()
-            }
-        });
-		</script>
+		<img id="head-image">
         <!-- Vertical content -->
         <div id="content" class="container">
 			<div class="flex-box">
 				<div class="dashboard-left">
 					<div class="user-info">
 						<div class="user-img-container">
-							<img class="user-img" id="user-avatar" alt="User Profile Image">
+							<img class="user-img" id="user-avatar">
 							{{if eq ($.Page) ($.DOCID)}}
 							<div class="user-img-option">
 								<a href="/Settings/#avatarcollapse">Change Profile Image</a>
@@ -40,9 +41,8 @@
 							{{end}}
 						</div>
 						<script>
-							$( document ).ready(function() {
-								$("#user-avatar").attr("src",{{.UserInfo.Avatar}});
-							});
+                              $("#head-image").attr("src",{{.UserInfo.Banner}});
+				              $("#user-avatar").attr("src",{{.UserInfo.Avatar}});
 						</script>
 						<div id="user-brief-info">
 							<div id="info-wrap">
@@ -60,12 +60,19 @@
 								</div>
 							</div>
 							<div id="brief-info" style="text-align: left; padding: 1em 1em 0 1em;">
-								{{if .UserInfo.Location.Country}}
+								{{ if and .UserInfo.Location.State .UserInfo.Location.Country .UserInfo.Location.City }}
 								<div id="location-cont" style="color:#00C085">
 									<i class="fa fa-map-marker" aria-hidden="true" style="color:#00C085;"></i> Location
 									<p id="location" style="color:black">{{.UserInfo.Location.City}}, {{.UserInfo.Location.State}}, {{.UserInfo.Location.Country}}</p>
 								</div>
-								{{end}}
+                                {{else}}
+                                {{if eq ($.Page) ($.DOCID)}}
+                                    <div id="location-cont" style="color:#00C085">
+									   <i class="fa fa-map-marker" aria-hidden="true" style="color:#00C085;"></i> Location
+                                        <p id="location" style="color:black">Please update your location in <a href="/Settings/">settings.</a></p>
+								    </div>
+                                {{ end }}
+								{{ end }}
 								{{if .UserInfo.University}}
 								<div id="edu-link" style="color:#00C085;">
 									<i class="fa fa-graduation-cap" aria-hidden="true" style="color:#00C085;"></i> Education
@@ -91,12 +98,18 @@
 						<hr>
 						<div id="user-nums">
 							<div id="followers">
-								<a href="">
-									<span id="num-followers" style="font-weight: bold">{{.Followers}}</span> Followers</a>
+                                <h4>Followers </h4>
+                                <a data-toggle="tooltip" data-placement="top" title="{{.Followers}} Followers"><span id="num-followers" style="font-weight: bold">{{.Followers}}</span></a>
+                                <h6>USERS</h6>
 							</div>
 							<div id="following">
-								<a href="">
-									<span id="num-following" style="font-weight: bold">{{.Following}}</span> Following</a>
+                                 <h4>Following </h4>
+                                <ul  id ="container-follow">
+								<li><a data-toggle="tooltip" data-placement="top" title="{{.UserFollowing}} User Following">
+								<span id="num-following" style="font-weight: bold">{{.UserFollowing}}</span> <h6>USERS</h6></a></li>
+                                    
+                                <li><a data-toggle="tooltip" data-placement="top" title="{{.ProjFollowing}} Project Following"> <span id="proj-following" style="font-weight: bold">{{.ProjFollowing}}</span><h6> PROJECTS</h6> </a></li>
+                                </ul>
 							</div>
 							<button id="btn-message" class="btn btn-default" style="display: none;"><i class="fa fa-envelope"></i></button>
 							<!-- if user is visiting the page -->
@@ -183,16 +196,22 @@
 				<div class="grid">
 					<ul class="nav nav-tabs nav-justified proj-tabs">
                          <li class="nav-item">
-                            <a class="nav-link active"  data-toggle="tab" href="#FollowersTab">Followers</a>
+                            <a class="nav-link"  data-toggle="tab" href="#FollowersTab">Followers</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#FollowingTab">Following</a>
+                        <a class="nav-link" data-toggle="tab" href="#FollowingTab">User Following</a>
+                       </li>
+                       <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#ProjFollowingTab">Project Following</a>
                        </li>
 					</ul>
 					<div class="tab-content">
-						<div id="FollowersTab" class="tab-pane fade in active">
+						<div id="FollowersTab" class="tab-pane fade in">
+                            {{ if eq (len .ListOfHeads) (0) }}
+                             <h5>You have no followers.</h5>
+                            {{end}}
 							{{range $follower := .ListOfHeads}}
-							<div class="card btn btn-default">
+							<div class="card follow-card btn btn-default">
 								<div class="container-s">
                                     <a href="/profile/{{$follower.Username}}">
 										<img id="followerAvatar{{$follower.Username}}" class="image"/>
@@ -201,19 +220,21 @@
                                     <script>
 										$('#followerAvatar{{$follower.Username}}').attr('src', '{{$follower.Image}}');
 									</script>
-                                    {{if eq ($follower.Followed) false }}
-									<button class="btn btn-primary followButton" id={{$follower.DocID}} rel="6">Follow</button>
-                                    {{end}}
-                                    {{if eq ($follower.Followed) true }}
-									<button class="btn btn-primary followButton" id={{$follower.DocID}} rel="6">Unfollow</button>
+                                    {{if ne ($follower.DocID) ($.DOCID)}}
+                                        {{if eq ($follower.Followed) false }}
+                                        <button class="btn btn-primary followButton" id={{$follower.DocID}} rel="6">Follow</button>
+                                        {{end}}
+                                        {{if eq ($follower.Followed) true }}
+                                        <button class="btn btn-primary followButton" id={{$follower.DocID}} rel="6">Unfollow</button>
+                                        {{end}}
                                     {{end}}
 								</div>
 							</div>
-                             <script>
+							{{end}}
+                            <script>
                                $('body').on("click", ".followButton", function(e) {
                                    $(e.currentTarget).prop( "disabled", true );
                                    var docID = e.currentTarget.id;
-                                   var followerstat = {{$follower.Followed}};
                                    $.ajax({
 											type: 'GET',  
 											url: 'http://ustart.today:'+port+'/AjaxUserFollowsUser/',
@@ -235,38 +256,42 @@
 										});
                                 });
                              </script>
-							{{end}}
 						</div>
 						<div id="FollowingTab" class="tab-pane fade in">
+                            {{ if eq (len .ListOfHeads2) (0) }}
+                                <h5>You have not followed any user.</h5>
+                            {{end}}
 							{{range $following := .ListOfHeads2}}
-							<div class="card btn btn-default">
+							<div class="card follow-card btn btn-default">
 								<div class="container-s">
                                     <a href="/profile/{{$following.Username}}">
 										<img id="followingAvatar{{$following.Username}}" class="image"/>
-										<div><b class="followerUsername">{{$following.FirstName}} {{$following.LastName}}</b></div>
+										<div><b class="followingUsername">{{$following.FirstName}} {{$following.LastName}}</b></div>
                                         <script>
 										   $('#followingAvatar{{$following.Username}}').attr('src', '{{$following.Image}}');
 									    </script>
                                     </a>
-                                    {{if eq ($following.Followed) false }}
-									<button class="btn btn-primary unfollowButton" id={{$following.DocID}} rel="6">Follow</button>
-                                    {{end}}
-                                     {{if eq ($following.Followed) true }}
-									<button class="btn btn-primary unfollowButton" id={{$following.DocID}} rel="6">Unfollow</button>
+                                    {{if ne ($following.DocID) ($.DOCID)}}
+                                        {{if eq ($following.Followed) false }}
+                                        <button class="btn btn-primary unfollowButton" id={{$following.DocID}} rel="6">Follow</button>
+                                        {{end}}
+                                         {{if eq ($following.Followed) true }}
+                                        <button class="btn btn-primary unfollowButton" id={{$following.DocID}} rel="6">Unfollow</button>
+                                        {{end}}
                                     {{end}}
 								</div>
-                                <script>
+							</div>
+							{{end}}
+                            <script>
                                $('body').on("click", ".unfollowButton", function(e) {
                                    $(e.currentTarget).prop( "disabled", true );
                                    var unfollowdocID = e.currentTarget.id;
-                                   var followerstat = {{$following.Followed}};
                                    $.ajax({
                                         type: 'GET',  
                                         url: 'http://ustart.today:'+port+'/AjaxUserFollowsUser/',
                                         contentType: "application/json; charset=utf-8",
                                         data: {userID:unfollowdocID},
                                         success: function(data) {
-                                            console.log("unfollowed");
                                             if ($(e.currentTarget).text()=="Follow") {
                                                 $(e.currentTarget).text('Unfollow');
                                             }
@@ -282,9 +307,60 @@
                                     });
                                 });
                              </script>
+						</div>
+                        
+                        <div id="ProjFollowingTab" class="tab-pane fade in">
+                            {{ if eq (len .ListOfHeads3) (0) }}
+                               <h5>You have not followed any project.</h5> 
+                            {{end}}
+							{{range $projfollowing := .ListOfHeads3}}
+							<div class="card follow-card btn btn-default">
+								<div class="container-s">
+                                    <a href="/Projects/{{$projfollowing.Username}}">
+										<img id="projFollowingAvatar{{$projfollowing.Username}}" class="image"/>
+										<div><b class="projFollowerUsername">{{$projfollowing.FirstName}} {{$projfollowing.LastName}}</b></div>
+                                        <script>
+										   $('#projFollowingAvatar{{$projfollowing.Username}}').attr('src', '{{$projfollowing.Image}}');
+									    </script>
+                                    </a>
+                                    {{if ne ($projfollowing.DocID) ($.DOCID)}}
+                                        {{if eq ($projfollowing.Followed) false }}
+                                        <button class="btn btn-primary projunfollowButton" id={{$projfollowing.DocID}} rel="6">Follow</button>
+                                        {{end}}
+                                         {{if eq ($projfollowing.Followed) true }}
+                                        <button class="btn btn-primary projunfollowButton" id={{$projfollowing.DocID}} rel="6">Unfollow</button>
+                                        {{end}}
+                                    {{end}}
+								</div>
 							</div>
 							{{end}}
+                            <script>
+                               $('body').on("click", ".projunfollowButton", function(e) {
+                                   $(e.currentTarget).prop( "disabled", true );
+                                   var unfollowdocID = e.currentTarget.id;
+                                   $.ajax({
+                                        type: 'GET',  
+                                        url: 'http://ustart.today:'+port+'/AjaxUserFollowProjectToggle/',
+                                        contentType: "application/json; charset=utf-8",
+                                        data: {projectID:unfollowdocID},
+                                        success: function(data) {
+                                            if ($(e.currentTarget).text()=="Follow") {
+                                                $(e.currentTarget).text('Unfollow');
+                                            }
+                                            else if ($(e.currentTarget).text()=="Unfollow") {
+                                                $(e.currentTarget).text('Follow');
+                                            }
+                                            $(e.currentTarget).prop( "disabled", false );
+                                        },
+                                        error: function(error) {
+                                            console.log("It just doesn't work");
+                                            console.log(error);
+                                        }
+                                    });
+                                });
+                             </script>
 						</div>
+                        
 					</div>
 				</div>
 				

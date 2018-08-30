@@ -51,6 +51,8 @@
 						'Bio' is the description
 						'Image' is the project logo
 						'Followed' is not used-->
+                    {{if .ListOfHeads }}
+                        
 					{{range $project := .ListOfHeads}}
 					<div class="card">
 						<a href="/Projects/{{$project.Username}}">
@@ -68,6 +70,9 @@
 						</div>
 					</div>
 					{{end}}
+                    {{else}}
+                        <p>You are currently not a part of any project.</p>
+                    {{end}}
 				</div>
 			</div>
 		</div>

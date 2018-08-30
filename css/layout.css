@@ -143,6 +143,14 @@ body {
 .message-container .label {
     margin-left: 0.4em
 }
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover{
+     border-color: transparent !important;
+}
+
+#startDrop a:hover {
+     background-color: #00ac7d;
+}
 #optionDrop>li>a {
     -webkit-transition: background-color 0.5s;
     -o-transition: background-color 0.5s;

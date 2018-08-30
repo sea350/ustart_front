@@ -10,6 +10,12 @@
     background-color: #D0312D !important;
 }
 
+.notif-message{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .group-message-time.active{
     color: #00ac7d !important;
 }

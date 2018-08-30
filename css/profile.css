@@ -65,6 +65,12 @@ li>a {
     vertical-align: middle;
 }
 
+.dot .inactive{
+    color: orangered;
+    font-size: 11px;
+    vertical-align: middle;
+}
+
 #main {
     margin-top: 1em;
 }
@@ -469,6 +475,15 @@ form#shareCommentForm .btn {
     img#head-image {
         display: none;
     }
+    strong#name{
+        font-weight: 500 !important;
+    }
+    #user-nums h4{
+        font-size:17px;
+    }
+    #user-nums h6{
+        font-size:11px;
+    }
     div.dashboard-left {
         top: 0
     }
@@ -583,6 +598,9 @@ form#shareCommentForm .btn {
 	padding: 1em;
 }
 
+.submit-container{
+    margin-top:5px;
+}
 .user-img-container:hover .user-img-option {
 	transform: translateY(-100%);
 	opacity: 0.8;

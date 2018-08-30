@@ -49,14 +49,23 @@
                                 for (i=0; i <tem.JournalEntries.length; i++){
                                     if (doc == tem.JournalEntries[i].Element.PosterID){
                                         if (tem.JournalEntries[i].Element.Classification == 2){
-                                         createSharedPost(tem.JournalEntries[i].Image,tem.JournalEntries[i].ReferenceElement.Image,tem.JournalEntries[i].FirstName,tem.JournalEntries[i].LastName,tem.JournalEntries[i].ElementID,tem.JournalEntries[i].Element.Content,tem.JournalEntries[i].ReferenceElement.Element.Content,tem.JournalEntries[i].ReferenceElement.FirstName,tem.JournalEntries[i].ReferenceElement.LastName,tem.JournalEntries[i].NumLikes, tem.JournalEntries[i].NumReplies,tem.JournalEntries[i].ReferenceElement.Element.TimeStamp, tem.JournalEntries[i].Element.TimeStamp); 
+                                         if (tem.JournalEntries[i].ReferenceElement != null){createSharedPost(tem.JournalEntries[i].Image,tem.JournalEntries[i].ReferenceElement.Image,tem.JournalEntries[i].FirstName,tem.JournalEntries[i].LastName,tem.JournalEntries[i].ElementID,tem.JournalEntries[i].Element.Content,tem.JournalEntries[i].ReferenceElement.Element.Content,tem.JournalEntries[i].ReferenceElement.FirstName,tem.JournalEntries[i].ReferenceElement.LastName,tem.JournalEntries[i].NumLikes, tem.JournalEntries[i].NumReplies,tem.JournalEntries[i].ReferenceElement.Element.TimeStamp, tem.JournalEntries[i].Element.TimeStamp); 
+                                         }
+                                        else{
+                                            createSharedPost(tem.JournalEntries[i].Image,"",tem.JournalEntries[i].FirstName,tem.JournalEntries[i].LastName,tem.JournalEntries[i].ElementID,tem.JournalEntries[i].Element.Content,0,"","",tem.JournalEntries[i].NumLikes, tem.JournalEntries[i].NumReplies,"", tem.JournalEntries[i].Element.TimeStamp)   
+                                        }
                                         }
                                         else if (tem.JournalEntries[i].Element.Classification == 0){
                                              makePostApplications(tem.JournalEntries[i].Image, tem.JournalEntries[i].FirstName,tem.JournalEntries[i].LastName,tem.JournalEntries[i].Element.Content,tem.JournalEntries[i].ElementID,tem.JournalEntries[i].NumLikes, tem.JournalEntries[i].NumReplies, tem.JournalEntries[i].NumShares,tem.JournalEntries[i].Element.TimeStamp);
                                         }
                                     }
                                     else{
-                                        if (tem.JournalEntries[i].Element.Classification == 2){createBasicSharedPost(tem.JournalEntries[i].Image,tem.JournalEntries[i].ReferenceElement.Image,tem.JournalEntries[i].FirstName,tem.JournalEntries[i].LastName,tem.JournalEntries[i].ElementID,tem.JournalEntries[i].Element.Content,tem.JournalEntries[i].ReferenceElement.Element.Content,tem.JournalEntries[i].ReferenceElement.FirstName,tem.JournalEntries[i].ReferenceElement.LastName,tem.JournalEntries[i].NumLikes, tem.JournalEntries[i].NumReplies,tem.JournalEntries[i].ReferenceElement.Element.TimeStamp, tem.JournalEntries[i].Element.TimeStamp );
+                                        if (tem.JournalEntries[i].Element.Classification == 2){
+                                           if (tem.JournalEntries[i].ReferenceElement != null){ createBasicSharedPost(tem.JournalEntries[i].Image,tem.JournalEntries[i].ReferenceElement.Image,tem.JournalEntries[i].FirstName,tem.JournalEntries[i].LastName,tem.JournalEntries[i].ElementID,tem.JournalEntries[i].Element.Content,tem.JournalEntries[i].ReferenceElement.Element.Content,tem.JournalEntries[i].ReferenceElement.FirstName,tem.JournalEntries[i].ReferenceElement.LastName,tem.JournalEntries[i].NumLikes, tem.JournalEntries[i].NumReplies,tem.JournalEntries[i].ReferenceElement.Element.TimeStamp, tem.JournalEntries[i].Element.TimeStamp );
+                                            }
+                                            else{
+                                             createBasicSharedPost(tem.JournalEntries[i].Image,"",tem.JournalEntries[i].FirstName,tem.JournalEntries[i].LastName,tem.JournalEntries[i].ElementID,tem.JournalEntries[i].Element.Content,0,"","",tem.JournalEntries[i].NumLikes, tem.JournalEntries[i].NumReplies,"", tem.JournalEntries[i].Element.TimeStamp );
+                                            }
                                         }
                                         else if (tem.JournalEntries[i].Element.Classification == 0) {
                                              makeBasicPostApplications(tem.JournalEntries[i].Image, tem.JournalEntries[i].FirstName,tem.JournalEntries[i].LastName,tem.JournalEntries[i].Element.Content,tem.JournalEntries[i].ElementID,tem.JournalEntries[i].NumLikes, tem.JournalEntries[i].NumReplies, tem.JournalEntries[i].NumShares,tem.JournalEntries[i].Element.TimeStamp);
@@ -86,6 +95,7 @@
         //render comments
      $('body').on("click", ".comment-btn", function(e) {
           var postID = e.currentTarget.id;
+         console.log(postID);
            $(e.currentTarget).prop('disabled', true);
            $("#main-modal"+postID).modal();
           $.ajax({
@@ -98,8 +108,8 @@
                          if(status == 'success' || status=='notmodified')
                          {
                             var temp = $.parseJSON(jqXHR.responseText); 
+                            console.log(temp);
                             if (temp != null){
-                                console.log(temp);
                                  $('#comment-lists'+postID).empty();
                                  for (i=temp.length-1; i >= 0; i--){
                                      if (doc == temp[i].Element.PosterID){
@@ -203,14 +213,16 @@
                              if(status == 'success' || status=='notmodified')
                              {
                                var temp = $.parseJSON(jqXHR.responseText);
+                              console.log(temp);
                                if (temp != null){
                                     if ($(".wallPosts").length >= 1){
                                         $('#wall-dataF').prepend('<hr>');  
                                     }
-                                    makeNewPostApplications(temp[0].Image, temp[0].FirstName,temp[0].LastName,temp[0].Element.Content,temp[0].ElementID,temp[0].NumLikes, temp[0].NumReplies, temp[0].NumShares,temp[0].Element.TimeStamp);
+                                    makeNewPostApplications(temp.Image, temp.FirstName,temp.LastName,temp.Element.Content,temp.ElementID,temp.NumLikes, temp.NumReplies, temp.NumShares,temp.Element.TimeStamp);
                                }
                                $("#post-msg").val('');
                                $('#new-postSubmit').prop('disabled', false);
+                               $('#textarea_counter').html('5000 characters remaining.');
                               }
                         },error: function(err) {
                             console.log('comment Load failed: ');
@@ -379,6 +391,7 @@
                          {
                            var temp = $.parseJSON(jqXHR.responseText);
                               if (temp != null){
+                                    console.log(temp);
                                     $("#post-msg"+tempID).text(content);
                                     $(e.currentTarget).prop('disabled', false);
                                     $("#edit-modal"+tempID).modal('toggle'); 
@@ -502,9 +515,20 @@
                                             console.log("loading more....");
                                             for (i=0; i < temp.JournalEntries.length ; i++){       
                                                     if (temp.JournalEntries[i].Element.Classification == 2){
-                                                        if (doc == temp.JournalEntries[i].Element.PosterID ){createSharedPost(temp.JournalEntries[i].Image, temp.JournalEntries[i].ReferenceElement.Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
+                                                        if (doc == temp.JournalEntries[i].Element.PosterID ){
+                                                            if (temp.JournalEntries[i].ReferenceElement !=null){
+                                                            createSharedPost(temp.JournalEntries[i].Image, temp.JournalEntries[i].ReferenceElement.Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
+                                                            }
+                                                            else{
+                                                                createSharedPost(temp.JournalEntries[i].Image, "",temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,0,"","",temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,"", temp.JournalEntries[i].Element.TimeStamp );
+                                                            }
                                                         }
-                                                        else{createBasicSharedPost(temp.JournalEntries[i].Image,temp.JournalEntries[i].ReferenceElement.Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
+                                                        else{
+                                                            if (temp.JournalEntries[i].ReferenceElement !=null){ createBasicSharedPost(temp.JournalEntries[i].Image,temp.JournalEntries[i].ReferenceElement.Image,temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].ReferenceElement.Element.Content,temp.JournalEntries[i].ReferenceElement.FirstName,temp.JournalEntries[i].ReferenceElement.LastName,temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,temp.JournalEntries[i].ReferenceElement.Element.TimeStamp, temp.JournalEntries[i].Element.TimeStamp );
+                                                            }
+                                                            else{
+                                                                createBasicSharedPost(temp.JournalEntries[i].Image,"",temp.JournalEntries[i].FirstName,temp.JournalEntries[i].LastName,temp.JournalEntries[i].ElementID,temp.JournalEntries[i].Element.Content,0,"","",temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies,"", temp.JournalEntries[i].Element.TimeStamp );
+                                                            }
                                                         }
                                                     }
                                                     else if (temp.JournalEntries[i].Element.Classification == 0){

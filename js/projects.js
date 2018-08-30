@@ -112,6 +112,7 @@ $(document).ready(function() {
     
     $('#projFollow').click(function(e) {
         $( "#projFollow" ).prop( "disabled", true );
+        console.log(pageID);
         $.ajax({
             type: 'GET',  
             url: 'http://ustart.today:'+port+'/AjaxUserFollowProjectToggle/',
@@ -119,7 +120,7 @@ $(document).ready(function() {
             data: {projectID: pageID},
             success: function(data) {
                 var totalFollowers = parseInt($('.follower-count').attr("followers"));
-                console.log(totalFollowers);
+                console.log(followstatus);
                 if ($('#projFollow').hasClass('following')) {
                     console.log("Let's Unfollow");
                     //$.ajax(); Do Unfollow
@@ -169,7 +170,7 @@ $(document).ready(function() {
     $(window).resize(function() {
 		fitDashboard();
     });
-    fitDashboard();
+    //fitDashboard();
 	
 	$('#projectFollowerModal').on('shown.bs.modal', function() {
 		// Generate followers
