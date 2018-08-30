@@ -98,9 +98,8 @@ $(document).ready(function() {
 });
 
 function runeArrayToString(runeArray) {
-	var runa = runeArray.split(" ");
 	runeOutput = '';
-	runa.forEach(function(element) {
+	runeArray.forEach(function(element) {
 		runeOutput += String.fromCharCode(element);
 	});
 	return runeOutput.split(",");
