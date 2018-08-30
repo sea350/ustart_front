@@ -101,13 +101,22 @@ function addingAutoComplete() {
 	$("#eventMemberName").autocomplete({
 		source: "/FindEventMember/",
 		minLength: 3,
+		select: function(event, ui) {
+			log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+		}
 	});
 	$("#eventProjectName").autocomplete({
 		source: "/FindEventProject/",
 		minLength: 3,
+		select: function(event, ui) {
+			log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+		}
 	});
 	$("#eventGuestName").autocomplete({
 		source: "/FindEventGuest/",
 		minLength: 3,
+		select: function(event, ui) {
+			log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+		}
 	});
 }
