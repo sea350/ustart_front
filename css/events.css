@@ -85,6 +85,7 @@
     height: 14em;
     object-fit: cover;
     margin-top: -8em;
+    margin-right: 2em;
     -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
@@ -165,7 +166,9 @@ button.followButton.unfollow {
 
 .dashboard-top-left,
 .dashboard-top-right {
-	padding-top: 0.5em;
+    padding-top: 0.5em;
+    margin-left: 2em;
+    margin-right: 2em;
 }
 
 .followers-cont {
