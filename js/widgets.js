@@ -1126,15 +1126,6 @@ $(document).ready(function() {
 		hidescursordelay: 0
 	});
 
-}).delay(2000).queue(function() {
-	// Jank code in order to reload Masonry (fit elements)
-	try {
-		$('.widgetBodyInstagram').masonry();
-		$('.widgetBodyPin').masonry();
-	} catch (error) {
-		
-	}
-	$(this).dequeue();
 });
 
 function addWidgetByHTML(h) {
