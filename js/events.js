@@ -98,25 +98,50 @@ $(document).ready(function() {
 });
 
 function addingAutoComplete() {
+	var magicSource = ["Magic Johnson, Magic Johnson"];
 	$("#eventMemberName").autocomplete({
-		source: "/FindEventMember/",
-		minLength: 3,
-		select: function(event, ui) {
-			log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+		source: function (request, response) {
+			$.ajax({
+				type: "GET",
+				url: "/FindEventMember/",
+				data: { term: request.term },
+				contentType: "application/json",
+				dataType: "json",
+				success: function (result) {
+					alert("Success");
+					console.log(result);
+				}
+			})
 		}
 	});
 	$("#eventProjectName").autocomplete({
-		source: "/FindEventProject/",
-		minLength: 3,
-		select: function(event, ui) {
-			log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+		source:  function (request, response) {
+			$.ajax({
+				type: "GET",
+				url: "/FindEventProject/",
+				data: { term: request.term },
+				contentType: "application/json",
+				dataType: "json",
+				success: function (result) {
+					alert("Success");
+					console.log(result);
+				}
+			})
 		}
 	});
 	$("#eventGuestName").autocomplete({
-		source: "/FindEventGuest/",
-		minLength: 3,
-		select: function(event, ui) {
-			log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+		source:  function (request, response) {
+			$.ajax({
+				type: "GET",
+				url: "/FindEventGuest/",
+				data: { term: request.term },
+				contentType: "application/json",
+				dataType: "json",
+				success: function (result) {
+					alert("Success");
+					console.log(result);
+				}
+			})
 		}
 	});
 }
