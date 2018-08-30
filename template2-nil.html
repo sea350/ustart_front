@@ -68,7 +68,7 @@
             newNotifs= $(".notif-label.label-new").length;
             updateNotifBadge();
             //normal notification
-            setInterval(function(){
+           /* setInterval(function(){
                 $.ajax({
                   type: 'GET',
                     url: 'http://ustart.today:'+port+'/AjaxNotifications/',
@@ -87,7 +87,7 @@
                         console.log(err);
                     }
                 });
-            }, 10000);
+            }, 10000); */
         
             //chat notification
             $.ajax({
