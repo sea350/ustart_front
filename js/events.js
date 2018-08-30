@@ -100,7 +100,7 @@ $(document).ready(function() {
 function runeArrayToString(runeArray) {
 	var runa = runeArray.slice(1, -1).split(" ");
 	runeOutput = '';
-	runeArray.forEach(function(element) {
+	runa.forEach(function(element) {
 		runeOutput += String.fromCharCode(element);
 	});
 	return runeOutput;
