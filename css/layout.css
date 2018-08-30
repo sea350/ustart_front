@@ -136,6 +136,17 @@ body {
     background-color: #f7f7f9;
 }
 
+.notif-message{
+    max-width: 19em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+#chatDrop > li > a, #notifDrop > li > a{
+    display: block;
+}
+#notifDrop > li >a:hover, #chatDrop > li > a:hover{
+    text-decoration: none;
+}
 .message-container {
     margin-left: 3.8em;
     text-align: justify

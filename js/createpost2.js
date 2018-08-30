@@ -1098,7 +1098,9 @@ function createSharedPost(parentImage, image, fName,lName,elementID, content, sh
 				$('<div>',{'class':'media'}).append([
 					$('<a>',{'class':'pull-left'}).append([
 						$('<img>',{'class':'media-object img-rounded'}).attr({'id':'img','src':''}).each(function(){
+                            if(sharedContent != 0)
 							$(this).attr({"id": $(this).attr("id").concat(elementID),'src': $(this).attr("src").concat(image)});
+                            }
 						})
 						]),
 					$('<div>',{'class':'media-body'}).append([
@@ -1289,7 +1291,9 @@ function createBasicSharedPost(parentImage,image, fName,lName,elementID, content
 				$('<div>',{'class':'media'}).append([
 					$('<a>',{'class':'pull-left'}).append([
 						$('<img>',{'class':'media-object img-rounded'}).attr({'id':'img','src':''}).each(function(){
+                            if(sharedContent != 0){
 							$(this).attr({"id": $(this).attr("id").concat(elementID),'src': $(this).attr("src").concat(image)});
+                            }
 						})
 						]),
 					$('<div>',{'class':'media-body'}).append([

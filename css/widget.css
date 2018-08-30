@@ -65,6 +65,9 @@ span.ui-icon {
     margin: 0;
     border-bottom: solid 1px #c5c5c5;
 }
+.insta-feed{
+    margin-right: 15px !important;
+}
 #content .widgetTitle .pull-right {
     color:#607D8B;
     font-size: 1.5em;
@@ -288,6 +291,9 @@ span.ui-icon {
 	max-height: 38em;
 	-moz-column-width: 18em;
 	-webkit-column-width: 18em;
+   /* display:flex;
+    flex-direction:row;
+    justify-content:flex-start;*/
 }
 
 #widget-insert .widgetBody,

@@ -334,7 +334,7 @@ function appendChatItem(chatID, person, message, timestamp, unreadStatus, classi
              chatNotifCount= $(".chat-label.label-new").length;
              updateChatBadge();
         });
-        var OuterMostLink= $('<a></a>').attr('href', encodeURI('/ch/@' + chatID));
+        var OuterMostLink= $('<a></a>').attr('href', encodeURI('/ch/' + docID));
     }
     var notifPersonLabel = $('<strong></strong>').append(notifPersonLabelLink);
     if (unreadStatus) {
