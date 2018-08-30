@@ -98,13 +98,8 @@ $(document).ready(function() {
 });
 
 function runeArrayToString(runeArray) {
-	if (runeArray) {
-		var runeOutput = '';
-		runeArray.forEach(function(element) {
-			runeOutput += String.fromCharCode(element);
-		});
-		return runeOutput;
-	}
+	console.log(runeArray)
+	return runeArray;
 }
 
 function addingAutoComplete() {
