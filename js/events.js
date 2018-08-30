@@ -102,8 +102,9 @@ function addingAutoComplete() {
 	$("#eventMemberName").autocomplete({
 		source: function (request, response) {
 			$.ajax("/FindEventMember/")
-			.done(function() {
+			.done(function(data) {
 				alert("Done");
+				console.log(data);
 			})
 			.fail(function() {
 				alert("Fail");
@@ -116,8 +117,9 @@ function addingAutoComplete() {
 	$("#eventProjectName").autocomplete({
 		source:  function (request, response) {
 			$.ajax("/FindEventMember/")
-			.done(function() {
+			.done(function(data) {
 				alert("Done");
+				console.log(data);
 			})
 			.fail(function() {
 				alert("Fail");
@@ -130,8 +132,9 @@ function addingAutoComplete() {
 	$("#eventGuestName").autocomplete({
 		source:  function (request, response) {
 			$.ajax("/FindEventMember/")
-			.done(function() {
+			.done(function(data) {
 				alert("Done");
+				console.log(data);
 			})
 			.fail(function() {
 				alert("Fail");
