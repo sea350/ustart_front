@@ -98,8 +98,12 @@ $(document).ready(function() {
 });
 
 function runeArrayToString(runeArray) {
-	console.log(runeArray)
-	return runeArray;
+	var runa = runeArray.slice(1, -1).split(" ");
+	runeOutput = '';
+	runeArray.forEach(function(element) {
+		runeOutput += String.fromCharCode(element);
+	});
+	return runeOutput;
 }
 
 function addingAutoComplete() {
