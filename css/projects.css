@@ -262,3 +262,35 @@ ul#proj-modal-followers-list {
 		border-top: solid 1px #b0cec5;
 	}
 }
+
+.badge {
+	position:relative;
+}
+.badge::before {
+	content: '';
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	line-height: 1.5;
+	font-size: 1.5em;
+	position: absolute;
+	height: 2.2em;
+	width: 2.2em;
+	background-color: #00ac7d;
+	top: 0.8em;
+	right: 1.4em;
+	border-radius:50%;
+	border: 3px solid white;
+	box-shadow: 0px 2px 1em #607D8B;
+}
+.badge::after {
+	content: '';
+	background-image: url('https://cdn0.iconfinder.com/data/icons/layout-and-location/24/Untitled-2-16-512.png');
+	background-size: contain;
+	font-size: 1em;
+	position: absolute;
+	height: 2.2em;
+	width: 2.2em;
+	top: 1.65em;
+	right: 2.6em;
+}
