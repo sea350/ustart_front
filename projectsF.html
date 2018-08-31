@@ -36,7 +36,7 @@
     {{range $loop := .Project.ProjectData.EntryIDs}}
     <script>IDArray.push({{$loop}}); </script>
 	{{end}}
-	<script type="text/javascript" src="/ustart_front/js/createPosts.js"></script>
+	<script type="text/javascript" src="/ustart_front/js/createpost2.js"></script>
 	<script type="text/javascript" src="/ustart_front/js/layout_tags.js"></script>
     <script type="text/javascript" src="/ustart_front/js/layout_links.js"></script>
     <script type="text/javascript" src="/ustart_front/js/widget-gallery.js"></script>
@@ -100,8 +100,8 @@
 							<button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
 							<ul class="dropdown-menu dropdown-menu-right">
 								<span style="display:none">{{$memberValidity}}</span>
-								{{if le $memberValidity 1}}
-								<li><a href="#" style="padding: 0.5em 1em;" data-toggle="modal" data-target="#project-member-add"><i class="fa fa-paw"></i>Recruit Members</a></li>
+								{{if le $memberValidity 0}}
+								<!--<li><a href="#" style="padding: 0.5em 1em;" data-toggle="modal" data-target="#project-member-add"><i class="fa fa-paw"></i>Recruit Members</a></li> -->
 								<li><a style="padding: 0.5em 1em;" href="/ProjectSettings/{{$projecturl}}"><i class="fa fa-gear"></i> Edit Settings</a></li>
 								{{end}}
 								{{if ne $memberValidity 0}}<li><a style="padding: 0.5em 1em;" href="#" data-toggle="modal" data-target="#project-leave"><i class="fa fa-fire"></i> Leave Project</a></li>{{end}}
@@ -206,11 +206,11 @@
                             </div>
 							{{end}}
 							
-							{{if and .Project.ProjectData.Location.Country .Project.ProjectData.Location.State .Project.ProjectData.Location.City .Project.ProjectData.Location.Zip }}
+							{{if and .Project.ProjectData.Location.Country .Project.ProjectData.Location.State .Project.ProjectData.Location.City }}
                             <div class="col-xs-4">
                                 <div class="detail-head"><i class="fa fa-map-marker" aria-hidden="true"></i> Location</div>
                                 <div id="project-location" class="detail-content">
-									{{.Project.ProjectData.Location.City}}, {{.Project.ProjectData.Location.State}}, {{.Project.ProjectData.Location.Country}} {{.Project.ProjectData.Location.Zip}}
+									{{.Project.ProjectData.Location.City}}, {{.Project.ProjectData.Location.State}}, {{.Project.ProjectData.Location.Country}}
                                 </div>
                             </div>
                             {{else}}
@@ -470,8 +470,7 @@
                                     </div>
                                     <div id="widgetBodyID" class="widgetBody widgetBodyInstagram">
                                          {{range $loop2 := $loop.Data }}
-                                         <!-- loop through the data loop for multiple instagram posts -->
-                                        <div class="insta-feed"><blockquote class="instagram-media" data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:100%;"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:62.5% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href={{$loop2}} style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank"></a></p></div></blockquote> <script async defer src="//platform.instagram.com/en_US/embeds.js"></script></div>
+                                        <blockquote class="instagram-media" data-instgrm-permalink="{{$loop2}}" data-instgrm-version="9" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin-bottom: 2em; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:0px; padding:62.42672919109027% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="{{$loop2}}" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank"></a></p></div></blockquote><script async defer src="//www.instagram.com/embed.js"></script>
                                         {{end}} <!--end data loop -->
                                     </div>
                                 </div>
@@ -768,47 +767,159 @@
                     </div>
                     
                     <div id="prof-wall" class="tab-pane fade">
-                        <div class="grid">
-                            <!-- main Modal -->
-                             <div id="main">
                                 <div id= "commentModals" role="dialog"> </div>
                                 <div id= "shareModals" role="dialog"> </div>
                                 <div id= "deleteModals" role="dialog"> </div>
                                 <div id= "editModals" role="dialog"> </div>
-                                 
-                                {{range $member := .Project.MemberData}}
-					               {{if eq $userid $member.DocID}}
-                                        <!-- new post panel-->
-                                        <div class="panel panel-default">
-                                            <div class="panel-body">
-                                                <div class="media">
-                                                    <a class="pull-left" href="#">
-
-                                                        <img id="new-post-img" class="media-object img-rounded" src="">
-
-
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <div class="form-group">
-                                                                <textarea class="form-control" id="post-msg" maxlength="5000" name="block" style="resize:none;"></textarea>
-                                                              <div class ="submit-container">
-                                                                <button id="new-postSubmit" type="submit" class="btn btn-primary pull-right">Post</button>
-                                                                <div class="pull-right" id="textarea_counter"  style="margin-right: 10px; margin-top: 8px">5000 characters remaining.</div>
-                                                              </div>
+                                <div class="flex-box">
+                                    <div class="col-4" style="flex:0;">
+                                	<div class="dashboard-right" style="margin-right:1em;">
+                                        <div id="suggestedUser">
+                                            <div class="dashboard panel panel-default">
+                                                <div id="dash-header">
+                                                    <h4>Suggested Users</h4>
+                                                    <div class="suggested-users-cont">
+                                                        <div class="user-card">
+                                                            <div class="dismiss">
+                                                                <span id="dismiss">&times;</span>
+                                                            </div>
+                                                            <div class="content">
+                                                                <img class="avatar" src="https://engineering.nyu.edu/sites/default/files/styles/square_large_620_2x/public/migrated/2009-06/pictures/picture-126.jpg">
+                                                                <div class="user-card-info">
+                                                                    <a href="profile.html">
+                                                                        <strong class="user-card-name">Fred Strauss</strong>
+                                                                    </a>
+                                                                    <br/>
+                                                                    <button id="btn-small" class="btn btnX" rel="6">Follow</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="user-card">
+                                                            <div class="dismiss">
+                                                                <span id="dismiss">&times;</span>
+                                                            </div>
+                                                            <div class="content">
+                                                                <img class="avatar" src="https://engineering.nyu.edu/sites/default/files/styles/square_large_620_2x/public/migrated/2009-06/pictures/picture-192.jpg">
+                                                                <div class="user-card-info">
+                                                                    <a href="profile.html">
+                                                                        <strong class="user-card-name">John Sterling</strong>
+                                                                    </a>
+                                                                    <br/>
+                                                                    <button id="btn-small" class="btn btnX" rel="6">Follow</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="user-card">
+                                                            <div class="dismiss">
+                                                                <span id="dismiss">&times;</span>
+                                                            </div>
+                                                            <div class="content">
+                                                                <img class="avatar" src="https://engineering.nyu.edu/sites/default/files/styles/square_large_620_2x/public/migrated/2009-06/pictures/picture-341.jpg">
+                                                                <div class="user-card-info">
+                                                                    <a href="profile.html">
+                                                                        <strong class="user-card-name">Haldun Hadimioglu</strong>
+                                                                    </a>
+                                                                    <br/>
+                                                                    <button id="btn-small" class="btn btnX" rel="6">Follow</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                {{end}}
-                                {{end}}
-                                <!-- end new post -->
-                            <div id="wallNewPost"></div>
-                            <div class = "panel panel-default" id="wall-dataF"></div>
-                            </div> <!--end main-->
-                            </div>
-                            <!-- end grid -->
-                    </div> 
+                                        <div id="suggestedProj" class="margin-top">
+                                            <div class="dashboard panel panel-default">
+                                                <div id="dash-header">
+                                                    <h4>Suggested Projects</h4>
+                                                    <div class="suggested-projects-cont">
+                                                        <div class="proj-card">
+                                                            <div class="dismiss">
+                                                                <span id="dismiss">&times;</span>
+                                                            </div>
+                                                            <div class="content">
+                                                                <img class="avatar" src="/ustart_front/img/image.jpg">
+                                                                <div class="proj-card-info">
+                                                                    <a href="projects.html">
+                                                                        <strong class="proj-card-name">U●Start </strong>
+                                                                    </a>
+                                                                    <br/>
+                                                                    <button id="btn-small" class="btn btnY" rel="6">Follow</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="proj-card">
+                                                            <div class="dismiss">
+                                                                <span id="dismiss">&times;</span>
+                                                            </div>
+                                                            <div class="content">
+                                                                <img class="avatar" src="https://pbs.twimg.com/profile_images/758427355920621568/8ouHUoFi_400x400.jpg">
+                                                                <div class="proj-card-info">
+                                                                    <a href="projects.html">
+                                                                        <strong class="proj-card-name">NYU Future Labs</strong>
+                                                                    </a>
+                                                                    <br/>
+                                                                    <button id="btn-small" class="btn btnY" rel="6">Follow</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="proj-card">
+                                                            <div class="dismiss">
+                                                                <span id="dismiss">&times;</span>
+                                                            </div>
+                                                            <div class="content">
+                                                                <img class="avatar" src="https://pbs.twimg.com/profile_images/773317101012586496/q8sc1KuZ_400x400.jpg">
+                                                                <div class="proj-card-info">
+                                                                    <a href="projects.html">
+                                                                        <strong class="proj-card-name">TensorFlow</strong>
+                                                                    </a>
+                                                                    <br/>
+                                                                    <button id="btn-small" class="btn btnY" rel="6">Follow</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div> <!-- end col 6 -->
+                                    <div class="col-8" style="flex:1;">
+                                        <div class="grid">
+                                        <!-- main Modal -->
+                                         <div id="main">
+                                            {{range $member := .Project.MemberData}}
+                                               {{if eq $userid $member.DocID}}
+                                                    <!-- new post panel-->
+                                                    <div class="panel panel-default" style="margin-top:20px;" >
+                                                        <div class="panel-body">
+                                                            <div class="media">
+                                                                <a class="pull-left" href="#">
+                                                                    <img id="new-post-img" class="media-object img-rounded" src="">
+                                                                </a>
+                                                                <div class="media-body">
+                                                                    <div class="form-group">
+                                                                            <textarea class="form-control" id="post-msg" maxlength="5000" name="block" style="resize:none;"></textarea>
+                                                                          <div class ="submit-container">
+                                                                            <button id="new-postSubmit" type="submit" class="btn btn-primary pull-right">Post</button>
+                                                                            <div class="pull-right" id="textarea_counter"  style="margin-right: 10px; margin-top: 8px">5000 characters remaining.</div>
+                                                                          </div>
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                             </div>
+                                            {{end}}
+                                            {{end}}
+                                            <!-- end new post -->
+                                            <div id="wallNewPost"></div>
+                                            <div class = "panel panel-default" id="wall-dataF"></div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div> <!--end main-->
+                        </div>
+                            <!-- end prof wall --> 
                     <div id="proj-team" class="tab-pane panel panel-default panel-body fade">
 						{{range $member := .Project.MemberData}}
                         <a class="member" href="/profile/{{$member.Username}}">
@@ -1084,7 +1195,7 @@
 									<div class="modal-body">
 										<p>Please paste the CodePen embed code in here:</p>
 										<div class="form-group">
-											<input type="text" class="form-control" id="code-embed-input" name="codepenInput" pattern='<p data-height="265" data-theme-id="0" data-slug-hash="[A-Za-z]{6}" data-default-tab="css,result" data-user="[^"]+" data-embed-version="2" data-pen-title="[^"]+" class="codepen"\>[^<]+\<a href="https:\/\/codepen\.io\/[^\/]+\/pen\/[A-Za-z]{6}\/">[^<]+<\/a> by [^(]+\(<a href="https:\/\/codepen\.io\/[^"]+">@[^<]+<\/a>\) on <a href="https:\/\/codepen\.io">CodePen<\/a>\.<\/p>\n<script async src="https:\/\/static\.codepen\.io\/assets\/embed\/ei\.js"><\/script>' required>
+											<input type="text" class="form-control" id="code-embed-input" name="codepenInput" pattern="<iframe height='[0-9%]{0,4}' scrolling='no' title='(.*?)' src='\/\/codepen\.io\/(.*?)\/embed\/(.*?)\/?height=[0-9%]{0,4}&theme-id=(.*?)&default-tab=(.*?),result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https:\/\/codepen.io\/(.*?)\/pen\/(.*?)\/'>(.*?)<\/a> by (.*?)\(<a href='https:\/\/codepen.io\/(.*?)'>@(.*?)<\/a>\) on <a href='https:\/\/codepen.io'>CodePen<\/a>. <\/iframe>" required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
 											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value='{{$projectid}}' required/>
 										</div>

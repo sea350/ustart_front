@@ -129,12 +129,34 @@
 									<p id="location" style="color:black">{{.UserInfo.Location.City}}, {{.UserInfo.Location.State}}, {{.UserInfo.Location.Country}}</p>
 								</div>
                                 {{else}}
-                                {{if eq ($.Page) ($.DOCID)}}
+                                {{ if not .UserInfo.Location.Country}}
+                                 {{ if not .UserInfo.Location.State}} 
+                                  {{if not .UserInfo.Location.City }}
+                                    {{if eq ($.Page) ($.DOCID)}}
                                     <div id="location-cont" style="color:#00C085">
 									   <i class="fa fa-map-marker" aria-hidden="true" style="color:#00C085;"></i> Location
                                         <p id="location" style="color:black">Please update your location in <a href="/Settings/">settings.</a></p>
 								    </div>
+                                   {{ end }}
+                                    {{else}}
+                                         <div id="location-cont" style="color:#00C085">
+                                            <i class="fa fa-map-marker" aria-hidden="true" style="color:#00C085;"></i> Location
+                                            <p id="location" style="color:black">{{.UserInfo.Location.City}} {{.UserInfo.Location.State}}{{.UserInfo.Location.Country}}</p>
+                                            </div>
+                                   {{end}}
+                                  {{else}}
+                                    <div id="location-cont" style="color:#00C085">
+                                            <i class="fa fa-map-marker" aria-hidden="true" style="color:#00C085;"></i> Location
+                                            <p id="location" style="color:black">{{.UserInfo.Location.City}} {{.UserInfo.Location.State}} {{.UserInfo.Location.Country}}</p>
+                                            </div>
+                                  {{end}}
+                                    {{else}}
+                                            <div id="location-cont" style="color:#00C085">
+                                            <i class="fa fa-map-marker" aria-hidden="true" style="color:#00C085;"></i> Location
+                                            <p id="location" style="color:black">{{.UserInfo.Location.City}} {{.UserInfo.Location.State}} {{.UserInfo.Location.Country}}</p>
+                                            </div>
                                 {{ end }}
+                            
 								{{ end }}
 								{{ if .UserInfo.University }}
 								<div id="edu-link" style="color:#00C085;">
@@ -626,16 +648,7 @@
                                          <!-- loop through the data loop for multiple instagram posts -->
 
 										<div class="insta-feed">
-                                            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="6" style=" background:#FFF; flex:1; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
-                                          <div style="padding:8px;">
-                                            <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:62.5% 0; text-align:center; width:100%;">
-                                              <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAGFBMVEUiIiI9PT0eHh4gIB4hIBkcHBwcHBwcHBydr+JQAAAACHRSTlMABA4YHyQsM5jtaMwAAADfSURBVDjL7ZVBEgMhCAQBAf//42xcNbpAqakcM0ftUmFAAIBE81IqBJdS3lS6zs3bIpB9WED3YYXFPmHRfT8sgyrCP1x8uEUxLMzNWElFOYCV6mHWWwMzdPEKHlhLw7NWJqkHc4uIZphavDzA2JPzUDsBZziNae2S6owH8xPmX8G7zzgKEOPUoYHvGz1TBCxMkd3kwNVbU0gKHkx+iZILf77IofhrY1nYFnB/lQPb79drWOyJVa/DAvg9B/rLB4cC+Nqgdz/TvBbBnr6GBReqn/nRmDgaQEej7WhonozjF+Y2I/fZou/qAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div>
-                                            </div>
-                                            <p style=" margin:8px 0 0 0; padding:0 4px;">
-                                              <a href="{{$loop2}}" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_blank">📸 </a>
-                                            </p>
-                                          </div>
-                                        </blockquote>
+                                            <blockquote class="instagram-media" data-instgrm-permalink="{{$loop2}}" data-instgrm-version="9" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin-bottom: 2em; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:0px; padding:62.42672919109027% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="{{$loop2}}" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank"></a></p></div></blockquote><script async defer src="//www.instagram.com/embed.js"></script>
                                         </div>
                                         {{end}} <!--end data loop -->
                                     </div>
@@ -1166,7 +1179,7 @@
 							<form id="customYoutubeForm" action="/addWidget/" method="POST">
                                 <div class="modal-body">
                                      <label>Please paste the Youtube URL here</label>
-                                    <input id="youtubeLink" class="form-control" name="ytinput" placeholder="Youtube URL" autofocus required />
+                                    <input id="youtubeLink" class="form-control" name="ytinput" pattern ="^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$" placeholder="Youtube URL" autofocus required />
                                     <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
                                 </div>
                                 <div class="modal-footer">
@@ -1258,7 +1271,7 @@
                             <div class="modal-body">
                                 <p>Please paste the CodePen embed code in here:</p>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="code-embed-input" name="codepenInput" pattern='<p data-height="265" data-theme-id="0" data-slug-hash="[A-Za-z]{6}" data-default-tab="css,result" data-user="[^"]+" data-embed-version="2" data-pen-title="[^"]+" class="codepen"\>[^<]+\<a href="https:\/\/codepen\.io\/[^\/]+\/pen\/[A-Za-z]{6}\/">[^<]+<\/a> by [^(]+\(<a href="https:\/\/codepen\.io\/[^"]+">@[^<]+<\/a>\) on <a href="https:\/\/codepen\.io">CodePen<\/a>\.<\/p>\n<script async src="https:\/\/static\.codepen\.io\/assets\/embed\/ei\.js"><\/script>' required>
+                                    <input type="text" class="form-control" id="code-embed-input" name="codepenInput" pattern="<iframe height='[0-9%]{0,4}' scrolling='no' title='(.*?)' src='\/\/codepen\.io\/(.*?)\/embed\/(.*?)\/?height=[0-9%]{0,4}&theme-id=(.*?)&default-tab=(.*?),result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https:\/\/codepen.io\/(.*?)\/pen\/(.*?)\/'>(.*?)<\/a> by (.*?)\(<a href='https:\/\/codepen.io\/(.*?)'>@(.*?)<\/a>\) on <a href='https:\/\/codepen.io'>CodePen<\/a>. <\/iframe>" required>
                                     <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
                                 </div>
                             </div>

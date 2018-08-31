@@ -17,7 +17,7 @@
     margin-top: 4px;
 }
 
-.grid ul.list-social > li {
+.menu-wrap ul.list-social > li {
   line-height: 2.3;
 }
 .search-result-tag{
@@ -52,7 +52,7 @@
 }
 
 .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a, .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a:hover, .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a:focus{
-    border-bottom-color:#94c632;
+    border-bottom-color:#00ac7d;
 }
 
 .nav-pills-custom-minimal.custom-minimal-bottom > li a{
@@ -126,7 +126,7 @@
 	height:1.2em;
 	padding:0.3em
 }
-div.grid{
+div.menu-wrap{
 	width: 100%;
 	flex: 1;
 }
@@ -155,7 +155,7 @@ div.grid{
 .image{
 	opacity:1;
 	display:block;
-	width:100%;
+	/*width:100%;*/
 	height:auto;
 	-webkit-transition:.5s ease;
 	-o-transition:.5s ease;

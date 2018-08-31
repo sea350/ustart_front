@@ -58,6 +58,7 @@
             vheight=100;
         }
         else if (cwidth >= 2300){
+            
             bwidth = 1100;
             vwidth = 975;
             vheight=300;
@@ -117,7 +118,7 @@
 													});
 													$uploadCrop.croppie("bind", {
 														url: {{.UserInfo.Avatar}},
-														zoom: 1
+														zoom: 0
 													});
 													$('#upload').on('change', function () { 
 														var reader = new FileReader();
@@ -180,7 +181,7 @@
                                                         }
                                                         });
                                                         setTimeout(function(){
-                                                            $('#upload-demo2').croppie('setZoom', '1.0');
+                                                            $('#upload-demo2').croppie('setZoom', '0');
                                                          },50);
                                                     }
                                                     
@@ -233,15 +234,20 @@
                                                                 image.onload = function(){
                                                                     var height = this.height;
                                                                     var width = this.width;
-                                                                    console.log(height +' '+width);
                                                                     if(height < 300 && width < 600){
                                                                         $('#upload2').val('');
                                                                         $("#sizeModal").modal();							
                                                                        poster = {{.UserInfo.Banner}};
                                                                        resizeCroppie(vwidth, vheight, bwidth, poster);
+                                                                       setTimeout(function(){
+                                                                        $('#upload-demo2').croppie('setZoom', '0');
+                                                                        },50);
                                                                     }
                                                                     else{
                                                                         resizeCroppie(vwidth, vheight, bwidth, poster);
+                                                                         setTimeout(function(){
+                                                                        $('#upload-demo2').croppie('setZoom', '0');
+                                                                        },50);
                                                                     }
                                                                 };
                                                             }

@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width">
     <title>Ustart {{.UserInfo.Username}} Followers</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link href="/ustart_front/css/profile.css" rel="stylesheet" type="text/css" />
     <link href="/ustart_front/css/followers.css" rel="stylesheet" type="text/css" />
+    <link href="/ustart_front/css/profile.css" rel="stylesheet" type="text/css" />
 	<script src="/ustart_front/js/ascii-convert.js"></script>
     <script src="/ustart_front/js/follow.js"></script>
+    <script src="/ustart_front/js/profile.js"></script>
     <script>
         var userID = {{.Page}};
         var doc = {{.DOCID}};
@@ -215,7 +216,7 @@
                         });
                     });
                 </script>
-				<div class="grid">
+				<div class="menu-wrap">
 					<ul class="nav nav-pills nav-pills-custom-minimal custom-minimal-bottom proj-tabs">
                          <li class="">
                             <a class=""  data-toggle="tab" href="#FollowersTab">Followers</a>

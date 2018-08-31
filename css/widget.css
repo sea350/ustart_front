@@ -19,7 +19,9 @@
     position: relative;
 }
 
-
+#widgetBodyCode{
+    height:auto;
+}
 .columnTitle {
     white-space: nowrap;
 	font-weight: bold;
@@ -288,7 +290,9 @@ span.ui-icon {
 
 .widgetBodyInstagram {
 	overflow-y: auto;
-	max-height: 38em;
+    height:auto !important;
+	max-height: 38em !important;
+    min-height:33em !important;
 	-moz-column-width: 18em;
 	-webkit-column-width: 18em;
    /* display:flex;

@@ -35,7 +35,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 			$(this).text(fName.concat(' ').concat(lName));
 		})),
 		$('<p>',{'class':'post-message'}).attr('id','post-msg').each(function(){
-			$(this).html(readRuneArrayThatWorks(content)).attr({"id": $(this).attr("id").concat(elementID)}); 
+			$(this).text(readRuneArrayThatWorks(content)).attr({"id": $(this).attr("id").concat(elementID)}); 
 		}) ]),
 		$('<ul>').append([
 			$('<li>').append([
@@ -1098,7 +1098,7 @@ function createSharedPost(parentImage, image, fName,lName,elementID, content, sh
 				$('<div>',{'class':'media'}).append([
 					$('<a>',{'class':'pull-left'}).append([
 						$('<img>',{'class':'media-object img-rounded'}).attr({'id':'img','src':''}).each(function(){
-                            if(sharedContent != 0)
+                            if(sharedContent != 0){
 							$(this).attr({"id": $(this).attr("id").concat(elementID),'src': $(this).attr("src").concat(image)});
                             }
 						})

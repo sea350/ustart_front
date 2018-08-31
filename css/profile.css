@@ -11,7 +11,7 @@
 }
 
 .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a, .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a:hover, .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a:focus{
-    border-bottom-color:#94c632;
+    border-bottom-color:#00ac7d;
 }
 
 .nav-pills-custom-minimal.custom-minimal-bottom > li a{
@@ -462,7 +462,27 @@ form#shareCommentForm .btn {
         padding-right:0;
     }
 }
-@media (min-width: 992px) {
+@media (min-width: 1000px) {
+    div.user-info {
+        width: 300px;
+        display: inline-block
+    }
+    div.dashboard-right {
+        padding-top: 0;
+        padding-left: 0;
+    }
+    .menu-wrap{
+        min-width: 550px;
+    }
+}
+
+@media (max-width: 1200px) {
+    div#content, #head-image {
+        min-width: 768px
+    }
+    .menu-wrap{
+        min-width: 725px;
+    }
     div.user-info {
         width: 300px;
         display: inline-block

@@ -5,8 +5,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<title>ustart</title>
-	<link rel="stylesheet" type="text/css" href="/ustart_front/css/settings.css" />
 	<link rel="stylesheet" type="text/css" href="/ustart_front/css/followers.css" />
+    	<link rel="stylesheet" type="text/css" href="/ustart_front/css/settings.css" />
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/croppie.css" />
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
 	<script src="/ustart_front/js/countries.js"></script>
@@ -26,14 +26,14 @@
         var bwidth;
         var vwidth;
         var vheight;
-        var poster = {{.UserInfo.Banner}};
+        var poster = {{.Project.ProjectData.Banner}};
         var cwidth = $(window).width();
         if(cwidth <= 1100 && cwidth >= 320){
             bwidth = cwidth/3;
             vwidth = 325;
             vheight=100;
         }
-        else if (cwidth >= 1920){
+        else if (cwidth >= 2300){
             bwidth = 1100;
             vwidth = 975;
             vheight=300;
@@ -237,7 +237,6 @@
 										<button type="button" class="btn btn-info" id="upload-result2">Upload Banner</button>
 										<script type="text/javascript">
 											 function createCroppie(viewportWidth, viewportHeight, boundaryWidth, image) {
-														
                                                         $uploadCrop2 = $('#upload-demo2').croppie({
                                                         url:image,
                                                         viewport: {
@@ -259,7 +258,7 @@
                                                     $(document).ready(function () {
                                                         createCroppie(vwidth, vheight, bwidth, poster);
                                                         setTimeout(function(){
-                                                            $('#upload-demo2').croppie('setZoom', '1.0');
+                                                            $('#upload-demo2').croppie('setZoom', '0');
                                                         },50);
                                                     });
                                                     
@@ -271,7 +270,7 @@
                                                                 vwidth = 325;
                                                                 vheight=100;
                                                             }
-                                                            else if (cwidth >= 1920){
+                                                            else if (cwidth >= 2300){
                                                                 bwidth = 1100;
                                                                 vwidth = 975;
                                                                 vheight=300;
@@ -296,20 +295,19 @@
                                                                 image.onload = function(){
                                                                     var height = this.height;
                                                                     var width = this.width;
-                                                                    console.log(height +' '+width);
                                                                     if(height < 300 && width < 600){
                                                                         $('#upload2').val('');
                                                                         $("#sizeModal").modal();							
                                                                        poster = {{.UserInfo.Banner}};
                                                                        resizeCroppie(vwidth, vheight, bwidth, poster);
                                                                        setTimeout(function(){
-                                                                        $('#upload-demo2').croppie('setZoom', '1.0');
+                                                                        $('#upload-demo2').croppie('setZoom', '0');
                                                                         },50);
                                                                     }
                                                                     else{
                                                                         resizeCroppie(vwidth, vheight, bwidth, poster);
                                                                         setTimeout(function(){
-                                                                        $('#upload-demo2').croppie('setZoom', '1.0');
+                                                                        $('#upload-demo2').croppie('setZoom', '0');
                                                                         },50);
                                                                     }
                                                                 };
@@ -332,7 +330,7 @@
 							</div>
 							<!-- end of projectImage -->
 							<div id="projectLocation">
-								<form id="locChange" action="/projectLocation/" method="POST">
+								<form id="locChange" action="/ProjectLocChange/" method="POST">
 								<input type="hidden" name="projectID" value="{{$projectid}}" />
 									<div class='row'>
 										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
@@ -415,10 +413,13 @@
 								<br>
 								<div id="home">
 									{{range $member := .Project.MemberData}}
-									<div class="card" style="height:auto">
-										<div class="container-s">
-											<img id="img{{$member.Username}}" class="image" src="{{$member.Image}}" alt="" onclick="location.href='/profile/{{$member.Username}}'" />
-											<h4><b>{{$member.FirstName}} {{$member.LastName}}</b></h4>
+										<div class="card follow-card">
+								        <div class="container-s">
+                                            <a href="/profile/{{$member.Username}}">
+											<img id="img{{$member.Username}}" class="image" src="{{$member.Image}}"/>
+                                            <div><b class="followerUsername" >{{$member.FirstName}} {{$member.LastName}}</b></div>
+                                            </a>
+                                             <hr>
 											<select class="role_select" class="form-control" name="newRank" style="margin: 0 auto; width:10em;">
 												<option {{if not $member.Classification}} selected{{end}} hidden disabled>Select Role</option>
 												{{if le $member.Classification 0}}
@@ -447,9 +448,7 @@
 												});
 											</script>
 											{{if ge $member.Classification 1}}
-											<div class="middle">
-												<button type="button" onclick="removeMember('{{$member.DocID}}', '{{$projectid}}', this)">Remove</button>
-											</div>
+								            <button class="btn btn-primary followButton" style="width:10em; margin-top:15px;" onclick="removeMember('{{$member.DocID}}', '{{$projectid}}', this)">Remove</button>
 											{{end}}
 											<script>
 												$('img#img{{$member.Username}}').attr('src', {{$member.Image}});

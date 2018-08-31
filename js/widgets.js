@@ -80,7 +80,6 @@ function YouTubeGetID(url) {
     return ID;
 }
 
-
 function YoutubeRender(youtubeID, widgetID) {
     var youtubeURL = YouTubeGetID(youtubeID);
     var divprefix = "#player";
