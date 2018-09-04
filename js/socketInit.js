@@ -96,7 +96,7 @@
                                     else newMsgReceived = false;   
                                 }
                                 else newMsgReceived = false;
-                                appendChatItem(temp.heads[i].Username,temp.heads[i].FirstName+' '+temp.heads[i].LastName, readRuneArrayThatWorks(temp.heads[i].Bio), formatTime(temp.heads[i].Time),  newMsgReceived, temp.heads[i].Classification, temp.heads[i].Image, temp.heads[i].DocID);
+                                appendChatItem(temp.heads[i].Username,temp.heads[i].FirstName+' '+temp.heads[i].LastName, readRuneArrayThatWorks(temp.heads[i].Bio), timeSince(temp.heads[i].Time),  newMsgReceived, temp.heads[i].Classification, temp.heads[i].Image, temp.heads[i].DocID);
                                 newMsgReceived = false;  
                              }
                          }
@@ -151,7 +151,7 @@
                               }
                           }
                           else{
-                             appendChatItem(chatNotifications.Username,chatNotifications.FirstName+' '+chatNotifications.LastName, readRuneArrayThatWorks(chatNotifications.Bio), formatTime(chatNotifications.Time), true, chatNotifications.Classification, chatNotifications.Image, chatNotifications.DocID);
+                             appendChatItem(chatNotifications.Username,chatNotifications.FirstName+' '+chatNotifications.LastName, readRuneArrayThatWorks(chatNotifications.Bio), timeSince(chatNotifications.Time), true, chatNotifications.Classification, chatNotifications.Image, chatNotifications.DocID);
                              $('.emptyState').remove();
                           }
                          if (chatNotifications.Classification == 0){ //REGULAR CHAT  

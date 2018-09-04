@@ -33,7 +33,11 @@
     position:relative;
     text-align:center;
 }
-
+.prole{
+    width:165px !important;
+    margin:0 auto;
+    height:30px !important;
+}
 #home.card{
     background-color:#fff;
     padding-top:2em !important;

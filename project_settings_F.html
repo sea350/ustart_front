@@ -103,7 +103,6 @@
 								<!-- Modal -->
 								<div class="modal fade" id="proj-del" role="dialog">
 								  <div class="modal-dialog">
-								  
 									<!-- Modal content-->
 									<div class="modal-content">
 									  <div class="modal-header">
@@ -178,7 +177,8 @@
 													viewport: {
 														width: 250,
 														height: 250,
-														type: 'square'
+														type: 'circle',
+                                                       
 													},
 													boundary: {
 														width: 280,
@@ -330,7 +330,7 @@
 							</div>
 							<!-- end of projectImage -->
 							<div id="projectLocation">
-								<form id="locChange" action="/ProjectLocChange/" method="POST">
+								<form id="locChange" action="/projectLocChange/" method="POST">
 								<input type="hidden" name="projectID" value="{{$projectid}}" />
 									<div class='row'>
 										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
@@ -380,7 +380,7 @@
 										</div>
 										<div class="col-sm-9">
 											<label class="switch" id="countrySwitch">
-												<input type="checkbox" checked>
+												<input type="checkbox" name="locVis" checked>
 												<span class="slider round"></span>
 											</label>
 										</div>
@@ -419,8 +419,12 @@
 											<img id="img{{$member.Username}}" class="image" src="{{$member.Image}}"/>
                                             <div><b class="followerUsername" >{{$member.FirstName}} {{$member.LastName}}</b></div>
                                             </a>
+                                            {{if le $member.Classification 0}}
+                                            <br>
+                                            <input type="text" class="form-control prole" name="prole" placeholder="Role" value="" />
+                                            {{end}}
                                              <hr>
-											<select class="role_select" class="form-control" name="newRank" style="margin: 0 auto; width:10em;">
+											<select class="role_select form-control" name="newRank" style="margin: 0 auto; width:10em;">
 												<option {{if not $member.Classification}} selected{{end}} hidden disabled>Select Role</option>
 												{{if le $member.Classification 0}}
 												<option {{if eq $member.Classification 0}}selected{{end}}>Creator</option>

@@ -288,11 +288,10 @@
 											<label for="fname" style='text-align:center; font-weight:bold;'>First Name</label>										
 											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="fnameVis" checked /><span class="slider round"></span></label>	-->										
 											<input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" value="{{.UserInfo.FirstName}}" required />
-											<p>Names can only be Edited twice a year.</p>
 											
 
 											<label for="lname">Last Name</label>
-											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="lnameVis" checked /><span class="slider round"></span></label>-->
+											<label class="switch usr-vis-opt"><input type="checkbox" name="lnameVis" checked /><span class="slider round"></span></label>
 											<input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" value="{{.UserInfo.LastName}}" required />																						
 
 											<label for="dob">DOB</label>
@@ -305,7 +304,7 @@
 											
 											<br>			
 
-											<input type="submit" class="btn btn-info" name="name_submit" value="Edit Bio" />
+											<input type="submit" id="bio-btn" class="btn btn-info" name="name_submit" value="Edit Bio" />
 											<br>
 											<div class="save-message fade"></div>												
 										</form>
@@ -347,7 +346,7 @@
                                         {{else}}
                                         <label for="city">City</label>
 										<label class="switch usr-vis-opt"><input type="checkbox" name="cityVis"><span class="slider round"></span></label>
-										<input id="city" class="form-control" name="city" value="" placeholder="City" required disabled/>
+										<input id="city" class="form-control" name="city" value="{{.UserInfo.Location.City}}" placeholder="City" required disabled/>
                                         {{end}}
                                         {{if .UserInfo.Location.ZipVis}}
 										<label for="zip">Zip</label>
@@ -355,11 +354,11 @@
 										<input id="zip" class="form-control" name="zip" value="{{.UserInfo.Location.Zip}}" placeholder="Zip" required />{{else}}
                                         <label for="zip">Zip</label>
 										<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis"><span class="slider round"></span></label>
-										<input id="zip" class="form-control" name="zip" value="" placeholder="Zip" required disabled/>
+										<input id="zip" class="form-control" name="zip" value="{{.UserInfo.Location.Zip}}" placeholder="Zip" required disabled/>
                                         {{end}}
 
 										<br>
-										<input type="submit" class="btn btn-info" name="name_submit" value="Edit Location" />
+										<input type="submit" class="btn btn-info" id="loc-btn" name="name_submit" value="Edit Location" />
 										<div class="save-message fade"></div>
 										</form>										
 									</div>
@@ -487,20 +486,15 @@
 														<label for="uniGradDate">Expected Grad</label>
 												</div>												
 												<div class="col-sm-9">
-													<input type='text' placeholder="Graduation Date (MM/DD/YYYY)" class="form-control" id="uniGradDate" name="uniGradDate" value="{{.UserInfo.CollegeGradDate}}"/>												
+													<input type='date' placeholder="Graduation Date (MM/DD/YYYY)" class="form-control" id="uniGradDate" name="uniGradDate" value="{{.UserInfo.CollegeGradDate}}"/>												
 													<script type="text/javascript">
 														$('select#inYr').prop('selectedIndex', {{.UserInfo.Class}});
-														$('#uniGradDate').datepicker({
-															format: 'MM/DD/YYYY',
-															changeYear: true,
-															yearRange: "-100:+0"
-														});
 													</script>														
 												</div>
 											</div>	
 																				
 											
-										<input type="submit" class="btn btn-info" name="name_submit" value="Edit Education" />
+										<input type="submit" id="edu-btn" class="btn btn-info" name="name_submit" value="Edit Education" />
 										<div class="save-message fade"></div>
 										</form>											
 							</div>    
@@ -560,7 +554,7 @@
 													<span id="pwNoMatch" style="color:red; display:none;">Sorry, passwords do not match.</span>
 												</div>
 											</div>											
-											<input type="submit" class="btn btn-info" name="pass_submit" value="Confirm Password Change" />
+											<input type="submit" id="pass-change" class="btn btn-info" name="pass_submit" value="Confirm Password Change" />
 											<div class="save-message fade"></div>
 										</form>
 								</div>

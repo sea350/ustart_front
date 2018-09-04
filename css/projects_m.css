@@ -4,25 +4,40 @@
 
 
 #project-container .card{  
-    overflow:hidden; 
-    width: 10em;
-    height:18em;
-    border: 1px solid rgba(0,0,0,.25); 
-    border-radius: 6px; 
-    margin: 12px; 
-    padding: 8px;
-    text-overflow:ellipsis;
+    background-color:#fff;
+    padding-top:2em !important;
+    padding-bottom: 2em !important;
+    border-color: #c5c5c5;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.4em;
+	display:inline-block;
+	margin: 0.5em;
+	vertical-align: top;
+    width:25rem;
 }
 
 #project-container .card img{
-    border-radius: 50%;
-	display: block;
-	margin: auto;
+    border-radius: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0.4em;
+	-o-object-fit: contain;
+	object-fit: contain;
+	max-width: 80px;
+	max-height: 80px;
 }
 
 #project-container .card-title, #project-container .card-text{
-    overflow:hidden;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
 }
+.card-text{
+    max-height: 7em;
+    text-overflow: ellipsis;
+}
+
 button#addProjButton,button#sortProjButton,button#manageMembersButton{
     margin: 0 0.5em;
 	height: 2.4em;

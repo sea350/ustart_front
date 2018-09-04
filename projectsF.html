@@ -895,7 +895,7 @@
                                                         <div class="panel-body">
                                                             <div class="media">
                                                                 <a class="pull-left" href="#">
-                                                                    <img id="new-post-img" class="media-object img-rounded" src="">
+                                                                    <img id="new-post-img" style="display:none;" class="media-object img-rounded" src="">
                                                                 </a>
                                                                 <div class="media-body">
                                                                     <div class="form-group">
@@ -1248,7 +1248,7 @@
 										<div class="modal-body">
 											<p>Insert Tumblr Username here:</p>
 											<div class="form-group">
-												<input type="text" class="form-control" name="tumblrInput" id="medium-embed-input" placeholder="ustart" pattern='[A-Za-z0-9\-\.]{1,32}' required>
+												<input type="text" class="form-control" name="tumblrInput" id="tumblr-embed-input" placeholder="ustart" pattern='[A-Za-z0-9\-\.]{1,32}' required>
 												<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
 											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value='{{$projectid}}' required/>
 											</div>
@@ -1274,7 +1274,7 @@
 										<ul id="spot-edit-list"></ul>
 										<p>Please paste the Spotify embed code in here:</p>
 										<div class="form-group">
-											<input type="text" class="form-control" name="spotInput" id="spot-embed-input" pattern='<iframe src="https:\/\/open\.spotify\.com\/embed\/[^"]+" width="300" height="380" frameborder="0" allowtransparency="true"><\/iframe>' required>
+											<input type="text" class="form-control" name="spotInput" id="spot-embed-input"  required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
 											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value='{{$projectid}}' required/>
 										</div>

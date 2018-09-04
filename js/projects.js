@@ -168,7 +168,7 @@ $(document).ready(function() {
     });
 	
     $(window).resize(function() {
-		fitDashboard();
+		//fitDashboard();
     });
     //fitDashboard();
 	

@@ -295,9 +295,16 @@ $(document).ready(function() {
 	alterStatus();
 	eduCheck($('select#type_select option:selected').val());
 	
-	$("form#avatarChange").submit(function(event) {
+	$("form#img-form").submit(function(event) {
 		//event.preventDefault();
-		createAlert(this, "Account images and status have been altered and saved.");
+        $("#upload-result").prop('disabled', true);
+		createAlert(this, "Account avatar have been altered and saved.");
+	});
+    
+    $("form#banner-form").submit(function(event) {
+		//event.preventDefault();
+        $("#upload-result2").prop('disabled', true);
+		createAlert(this, "Account banner have been altered and saved.");
 	});
 	
 	$("form#contactChange").submit(function(event) {
@@ -307,6 +314,7 @@ $(document).ready(function() {
 	
 	$("form#nameChange").submit(function(event) {
 		//event.preventDefault();
+        $("#bio-btn").prop('disabled', true);
 		createAlert(this, "Your name have been altered and saved.");
 	});
 	
@@ -318,12 +326,14 @@ $(document).ready(function() {
 			createAlert(this, "Password does not match.");
 			return false;
 		} else {
+            $("#pass-change").prop('disabled', true);
 			$(this).find('div.save-message').removeClass('error-message');
 			createAlert(this, "Request found. Performing password match.");
 		}
 	});
 	
 	$("form#locChange").submit(function(event) {
+         $('#loc-btn').prop('disabled', true);
 		//event.preventDefault();
 		createAlert(this, "Location details have been altered and saved.");
 	});
@@ -334,6 +344,7 @@ $(document).ready(function() {
 	});
 	
 	$("form#eduChange").submit(function(event) {
+         $('#edu-btn').prop('disabled', true);
 		//event.preventDefault();
 		createAlert(this, "Education details have been altered and saved.");
 	});

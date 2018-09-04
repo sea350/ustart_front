@@ -15,6 +15,7 @@ function escapeOutput(toOutput){
 }
 
 
+
 var galleryDefaultRemoveOption = '<option default selected>Select from your list of pictures here</option>';
 /*function attachRemoveWidgetFunction() {
     $(".fa-trash").unbind('click');
@@ -461,50 +462,100 @@ $(document).ready(function() {
     
     //submit button handling for all widgets
 	$('#customTextForm').submit(function(event) {
+        if( ($('#customHeader').val() == "") && ($('#customContent').val() == "") ) {
+              event.preventDefault();
+        }
         $('#customTextModal').modal('hide'); 
 	});
     
+     $('#customCalForm').submit(function(event) {
+        if( $('#gCalEmbed').val() == "") {
+              event.preventDefault();
+        }
+        $('#cal-modal').modal('hide'); 
+	});
+    
     $('#customInstagramForm').submit(function(event) {
+        if( $('#instagramInput').val() == "") {
+            event.preventDefault();
+        }
         $('#ig-modal').modal('hide'); 
 	});
     
     $('#customSoundcloudForm').submit(function(event) {
+        if( $('#sg-embed-input').val() == "") {
+              event.preventDefault();
+        }
         $('#sc-modal').modal('hide'); 
 	});
     $('#customYoutubeForm').submit(function(event) {
+        if( $('#youtubeLink').val() == "") {
+              event.preventDefault();
+        }
         $('#youtubeModal').modal('hide'); 
 	});
     
     $('#customCodePenForm').submit(function(event) {
+        if( $('#code-embed-input').val() == "") {
+              event.preventDefault();
+        }
         $('#code-modal').modal('hide'); 
 	});
     
      $('#customPinterestForm').submit(function(event) {
+        if( $('#pin-embed-input').val() == "") {
+              event.preventDefault();
+        }
         $('#pin-modal').modal('hide'); 
 	});
     
     $('#customTumblrForm').submit(function(event) {
+        if( $('#tumblr-embed-input').val() == "") {
+              event.preventDefault();
+        }
         $('#tumblr-modal').modal('hide'); 
 	});
     
     $('#customSpotifyForm').submit(function(event) {
+        if( $('#spot-embed-input').val() == "") {
+              event.preventDefault();
+        }
         $('#spot-modal').modal('hide'); 
 	});
     
     $('#customArForm').submit(function(event) {
+        if( $('#ar-embed-input').val() == "") {
+              event.preventDefault();
+        }
         $('#ar-modal').modal('hide'); 
 	});
     
     $('#customMedForm').submit(function(event) {
+        if( $('#med-embed-username').val() == "") {
+              event.preventDefault();
+        }
         $('#med-modal').modal('hide'); 
 	});
     
      $('#customDaForm').submit(function(event) {
+         if( $('#da-embed-username').val() == "") {
+              event.preventDefault();
+        }
         $('#da-modal').modal('hide'); 
 	});
     
     $('#customTwitchForm').submit(function(event) {
+        if( $('#twitch-embed-username').val() == "") {
+              event.preventDefault();
+        }
         $('#twitch-modal').modal('hide'); 
+	});
+    
+    $('#customGitForm').submit(function(event) {
+        if( $('#git-embed-username').val() == "") {
+              event.preventDefault();
+        }
+        $('#git-modal').modal('hide'); 
 	});
     
     
