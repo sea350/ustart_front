@@ -1,207 +1,222 @@
-.clearfit {
-	clear: both;
+.search-result *,.search-result-pic-link{
+    float:left
 }
-
-.search-result {
-    margin: 1em 0;
-    border: solid 1px #ddd;
-    border-radius: 60px 8px 8px 60px;
-	padding-bottom: 4em;
-    background-color: white;
-    overflow: hidden;
-    max-height: 20em;
-    position: relative;
-    transition: all 0.5s;
+.clearfit{
+    clear:both
 }
-.search-result:hover {
-    -webkit-box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+.search-result{
+    margin:.5em;
+    border:1px solid #ddd;
+    border-radius:.4em;
+    background-color:#fff;
+    overflow:hidden;
+    width:18em;
+    height:22em;
+    position:relative;
+    transition:all .5s;
+    float:left;
+    line-height:1.5
 }
-
-.search-result-pic-link {
-	float: left;
+.search-result:hover{
+    -webkit-box-shadow:0 8px 16px 0 rgba(0,0,0,.2);
+    box-shadow:0 8px 16px 0 rgba(0,0,0,.2)
 }
-
-.search-result-title .search-result-pic-link {
-	/*border-bottom: 1px solid #555555;*/
-	border-radius: 0 0 4px 0;
-    padding-right: 6px;
-	margin-bottom: 6px;
+.search-result-title .search-result-pic-link{
+    border-radius:0 0 4px;
+    width:100%;
+    text-align:center
 }
-.search-result-pic {
-    width: 8em;
-    height: 8em;
-    background-color: #ddd;
-    border-radius: 100%;
-    margin: 0.5em 1em;
+.search-result-pic{
+    width:8em;
+    height:8em;
+    background-color:#ddd;
+    border-radius:.4em;
+    margin:.5em 5em
 }
-
-.search-result-title {
-    color: #00C085;
-    font-size: 1.2em;
-    max-height: 2em;
-    overflow: hidden;
-    white-space: nowrap;
+.search-result-title{
+    color:#00C085;
+    max-height:2em;
+    overflow:hidden;
+    white-space:nowrap;
+    width:100%
 }
-
-.search-result-description {
-    max-height: 4em;
-    overflow: hidden;
+.search-result-description{
+    overflow:hidden;
+    margin:.5em;
+    font-size:.9em;
+    line-height:1.8;
+    width:calc(100% - 1em)
 }
 .search-result-description:hover{
-    text-overflow: clip;
-    white-space: normal;
-    word-break: break-all;
+    text-overflow:clip;
+    white-space:normal;
+    word-break:break-all
 }
-
-.search-result-tags {
-	background-color: white;
-	position: absolute;
-	bottom: 3px;
-	right: 3px;
+.search-result-tags{
+    margin:.5em
 }
-
-.search-result-tag {
-	background-color: #DDDDDD;
-	display: inline-block;
-	text-align: center;
-	min-width: 2em;
-    max-width: 8em;
-	padding: 0px 10px;
-	border-radius: 8px;
-    overflow: hidden;
-    margin-right:3px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-	transition: background-color 0.2s, color 0.2s;
+.search-result-tag{
+    border:1px solid #00ac7d;
+    display:inline-block;
+    text-align:center;
+    min-width:2em;
+    max-width:8em;
+    padding:.4em;
+    border-radius:8px;
+    overflow:hidden;
+    margin:.4em;
+    font-size:.8em;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    transition:background-color .2s,color .2s
 }
-
-.search-result-tag:hover {
-	background-color: black;
-	color: white;
-	box-shadow: 1px 1px 1px;
-    text-overflow: clip;
-    white-space: normal;
-    word-break: break-all;
+.search-result-tag:hover{
+    background-color:#000;
+    color:#fff;
+    box-shadow:1px 1px 1px;
+    text-overflow:clip;
+    white-space:normal;
+    word-break:break-all
 }
-
-#filter-adv-search,
-#filter-required {
-	padding: 6px;
+#filter-adv-search,#filter-required{
+    padding:6px;
+    line-height:2
 }
-
-#search-results-container {
-	margin: 1em 0.5em;
-	max-width: 100%;
+#search-results-container{
+    margin:1em .5em;
+    max-width:100%
 }
-
-#search-filter {
-    background-color: white;
-    padding: 1em;
-    border-radius: 0.5em;
-    border: solid 1px #ddd;
-    margin: 1em 0.5em;
-    width: 22em;
-	float: right;
-	
-	position: absolute;
-	right: 0;
-	top: -9999px;
-	z-index: 1;
+#search-filter{
+    background-color:#fff;
+    padding: 0.8em;
+    border-radius:.5em;
+    border:1px solid #ddd;
+    margin:1em .5em;
+    width:22em;
+    float:right;
+    position:absolute;
+    right:0;
+    top:-9999px;
+    z-index:1;
 }
-
-#search-filter.search-filter-hided {
-	top: 0;
+#search-filter-hider{
+    font-size:initial;
+    position:fixed;
+    right:0;
+    top:70px;
+    padding:6px;
+    border:1px solid #DDD;
+    border-right:none;
+    background-color:#fff;
+    border-radius:16px 0 0 16px
 }
-
-#search-filter-hider {
-	font-size: initial;
-	position: fixed;
-	right: 0;
-	top: 70px;
-	padding: 6px;
-    border: solid 1px #DDDDDD;
-    border-right: none;
-    background-color: white;
-	border-radius: 16px 0 0 16px;
+#search-filter-hider.search-filter-shower{
+    border-right:solid 1px #DDD;
+    border-radius:16px;
+    position:static;
+    float:right
 }
-
-#search-filter-hider.search-filter-shower {
-	border-right: solid 1px #DDDDDD;
-	border-radius: 16px;
-	position: static;
-	float: right;
+@media (min-width:992px){
+    .search-result{
+        padding-bottom:initial
+    }
+    #search-results-container{
+        max-width:calc(100% - 330px)
+    }
+    #search-filter{
+        position:initial;
+        margin-top: 1.5em;
+    }
+    #search-filter-hider{
+        opacity:0
+    }
 }
-
-@media (min-width: 992px) {
-	.search-result {
-		padding-bottom: initial;
-	}
-	#search-results-container {
-		max-width: calc(100% - 330px);
-	}
-	#search-filter {
-		position: initial;
-		margin-top: 1em;
-	}
-	#search-filter-hider {
-		opacity: 0;
-	}
+#search-filter h3{
+    margin-top:0
 }
-
-#search-filter h3 {
-    margin-top: 0;
+#filOptions li{
+    list-style:none
 }
-#filOptions li {
-    list-style: none;
+#filOptions input,#filOptions select{
+    padding:.5em;
+    margin:.5em;
+    outline:0;
+    border:none
 }
-#filOptions input, #filOptions select {
-    padding: 0.5em;
-    margin: 0.5em;
-    outline: none;
-    border: none;
+#filOptions input[type=text],#filOptions select{
+    border-bottom:solid 2px #00C085
 }
-#filOptions input[type=text], #filOptions select {
-    border-bottom: solid 2px #00C085;
+#filApply{
+    background-color:#00C085;
+    border-radius:.4em;
+    width: 100%;
+    color:#fff;
+    font-size: 1em;
+    padding:1em 0;
+    margin: auto;
 }
-#filApply {
-    background-color: #00C085;
-    border-radius: 0.4em;
-    width: 6em;
-    color: white;
-    font-size: 0.9em;
-    float: right;
+.removable{
+    display:inline-block;
+    margin:.5em;
+    padding:.5em;
+    border:1px solid #888;
+    border-radius:6px
 }
-
-.removable {
-	display: inline-block;
+.removable span{
+    margin-right:.5em
+}
+#filter-type input[type=radio]{
+    display:none
+}
+#filter-type input[type=radio]+label{
+    margin-top:.5em;
+    margin-left:.5em;
+    border:1px solid #ccc;
+    border-radius:.5em;
+    padding:.5em 1em
+}
+#filter-type input[type=radio]+label:hover{
+    background-color:#b2b2b2
+}
+#filter-type input[type=radio]:checked+label{
+    color:#fff;
+    background-color:#000
+}
+.panel-group:nth-child(2) {
+	display: none!important;
+}
+#search-filters label {
+	font-weight: normal;
 	margin: 0.5em;
-	padding: 0.5em;
-	border: solid 1px #888;
-	border-radius: 6px;
+	line-height: 1;
 }
-
-.removable span {
-	margin-right: 0.5em;
+#search-filter .panel-default {
+	border: none;
+	box-shadow: none;
 }
-
-#filter-type input[type="radio"] {
+#search-filter .panel-default>.panel-heading {
+	background-color: transparent;
+	border: none;
+}
+#search-filter .panel-title {
+    margin-left: -1em;
+    margin-bottom: 0;
+    font-size: 1em;
+    color: inherit;
+    font-weight: bold;
+}
+#search-filter h3 {
+    display: none;
+}
+#search-filter .panel-group {
+	margin: 0;
+	padding: 0.8em;
+	border: none;
+	border-bottom: 2px solid #e5e5e6;
+}
+#search-filter hr {
 	display: none;
 }
-#filter-type input[type="radio"]+label {
-	padding-top: 0.5em;
-	padding-left: 1em;
-	padding-right: 1em;
-	padding-bottom: 0.5em;
-	margin-top: 0.5em;
-	margin-left: 0.5em;
-	border: solid 1px hsl(0, 0%, 80%);
-	border-radius: 0.5em;
-}
-#filter-type input[type="radio"]+label:hover {
-	background-color: hsl(0, 0%, 70%);
-}
-#filter-type input[type="radio"]:checked+label {
-	color: white;
-	background-color: black;
+#search-filter .panel-collapse {
+	line-height: 1.5;
 }
