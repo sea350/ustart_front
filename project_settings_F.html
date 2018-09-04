@@ -155,7 +155,7 @@
 										</script>											
 									</div>	
 									<br>
-									<input type="submit" class="btn btn-info" name="name_submit" value="Change Category" />
+									<input type="submit" id="cata-btn" class="btn btn-info" name="name_submit" value="Change Category" />
 									<div class="save-message fade"></div>										
 								</form>
 								<br><hr>
@@ -330,7 +330,10 @@
 							</div>
 							<!-- end of projectImage -->
 							<div id="projectLocation">
-								<form id="locChange" action="/projectLocChange/" method="POST">
+								<form id="projlocChange" action="" method="post">
+                                <script type="text/javascript">
+				                    $( "#projlocChange" ).attr( 'action', '/projectLocChange/' );
+								</script>		
 								<input type="hidden" name="projectID" value="{{$projectid}}" />
 									<div class='row'>
 										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
@@ -385,7 +388,7 @@
 											</label>
 										</div>
 									</div>	
-									<input type="submit" class="btn btn-info" name="name_submit" value="Change Location" />
+									<input type="submit" id="proj-loc-btn" class="btn btn-info" name="name_submit" value="Change Location" form="projlocChange"/>
 									<div class="save-message fade"></div>									
 								</form>	
 								<br><br> <hr>																																											

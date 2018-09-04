@@ -322,13 +322,15 @@ span.ui-icon {
 #projectDisplay .widgetBody >a{
     display:inline-block;
     width:100px;
-    height:8.5em;
+    height:10em;
+    padding-top: 1em;
 }
 #eventDisplay .widgetBody> a,
 #eventDisplay .widgetBody>button{
     display:inline-block;
     width:109px;
-    height:8.5em;
+    height:10em;
+    padding-top: 1em;
 }
 #eventDisplay .widgetBody {
 	/*display: grid;

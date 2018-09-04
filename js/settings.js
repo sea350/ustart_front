@@ -337,6 +337,12 @@ $(document).ready(function() {
 		//event.preventDefault();
 		createAlert(this, "Location details have been altered and saved.");
 	});
+    
+    $("form#category-form").submit(function(event) {
+         $('#cata-btn').prop('disabled', true);
+		//event.preventDefault();
+		createAlert(this, "Category details have been altered and saved.");
+	});
 	
 	$('select#type_select').change(function() {
 		var usrtype = $('select#type_select option:selected').val();

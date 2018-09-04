@@ -27,6 +27,15 @@
 <body>
     <div id="centering">
 		<img id="head-image">
+        {{ if eq .UserInfo.Banner ""}}
+        <script>
+             $('#head-image').attr('src', "_blank");
+        </script>
+        {{else}}
+        <script>
+              $("#head-image").attr("src",{{.UserInfo.Banner}});
+        </script>
+        {{end}}
         <!-- Vertical content -->
         <div id="content" class="container">
 			<div class="flex-box">
@@ -41,7 +50,6 @@
 							{{end}}
 						</div>
 						<script>
-                              $("#head-image").attr("src",{{.UserInfo.Banner}});
 				              $("#user-avatar").attr("src",{{.UserInfo.Avatar}});
 						</script>
 						<div id="user-brief-info">
@@ -413,7 +421,7 @@
 						</div>
                         
 					</div>
-            </div>
+                    </div>
 				</div>
 				
 			</div>

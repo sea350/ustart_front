@@ -464,9 +464,9 @@ $(document).ready(function () {
     });
 
     $(window).resize(function() {
-      fitDashboard();
+      //fitDashboard();
     });
-    fitDashboard();
+    //fitDashboard();
 
     $(document).on("click", '.dismiss', function () {
         var max = 9,

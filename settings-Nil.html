@@ -396,8 +396,8 @@
 												<select id="type_select" class="form-control" name="type_selector">
 													<option disabled selected hidden>Select User Type</option>
 													<option>High School Student</option>
-													<option>College Student</option>
-													<option>Finished Education</option>
+													<option selected>College Student</option>
+													<option>Alumni</option>
 												</select>	
 												<input type="hidden" name="type_select" value="0"/>	
 											</div>
@@ -432,7 +432,7 @@
 												<label for="universityName">University/College</label>
 											</div>
 											<div class="col-sm-9">
-												<input type="text" name="universityName" class="form-control" id="uni" placeholder="University/College Name" value="{{.UserInfo.University}}"/>
+												<input type="text" name="universityName" class="form-control" id="uni" placeholder="University/College Name" />
 											</div>
 											<script type="text/javascript">
 												$(document).ready(function () {
@@ -441,7 +441,7 @@
 															var results = $.ui.autocomplete.filter(universities, request.term);
 															response(results.slice(0, 10));
 														}
-													});
+													}).val("{{.UserInfo.University}}".replace(/\[|\]/g, ''));
 												});
 											</script>	
 										</div>
@@ -463,12 +463,12 @@
 												}).val("{{.UserInfo.Majors}}".replace(/\[|\]/g, ''));
 											});
 										</script>	
-										<div class="row">
+										<!--<div class="row">
 											<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
 													<label for="inYr">Years</label>
 											</div>											
 											<div class="col-sm-9">
-												<select id="inYr" name="year" class="form-control">
+												<select id="inYr" name="year" class="form-control" >
 														<option value='' disabled selected hidden>Select Class Level</option>
 														<option value="Freshman">Freshman</option>
 														<option value="Sophomore">Sophomore</option>
@@ -480,18 +480,19 @@
 														<option value="Staff">Staff</option>
 													</select>
 											</div>
-										</div>
-										<div class="row">
+										</div> -->
+										<!--<div class="row">
 												<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
 														<label for="uniGradDate">Expected Grad</label>
 												</div>												
 												<div class="col-sm-9">
-													<input type='date' placeholder="Graduation Date (MM/DD/YYYY)" class="form-control" id="uniGradDate" name="uniGradDate" value="{{.UserInfo.CollegeGradDate}}"/>												
+													<input type='date' placeholder="Graduation Date (MM/DD/YYYY)" class="form-control" id="uniGradDate" name="uniGradDate"/>												
 													<script type="text/javascript">
 														$('select#inYr').prop('selectedIndex', {{.UserInfo.Class}});
+                                                        $('#uniGradDate').val({{.UserInfo.CollegeGradDate}});
 													</script>														
 												</div>
-											</div>	
+								        </div>	-->
 																				
 											
 										<input type="submit" id="edu-btn" class="btn btn-info" name="name_submit" value="Edit Education" />
