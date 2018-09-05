@@ -29,7 +29,8 @@
 								<label for="searchFilterGroupUsers">Users</label>
 								<input type="radio" id="searchFilterGroupProjects" name="searchFilterGroup" value="projects"/>
 								<label for="searchFilterGroupProjects">Projects</label>
-								
+								<input type="radio" id="searchFilterGroupEvents" name="searchFilterGroup" value="events"/>
+								<label for="searchFilterGroupEvents">Events</label>
 							</div>
 						</div>
 					</div>
@@ -154,6 +155,17 @@
 				</form>
 				<div class="clearfit"></div>
 			</div>
+			<ul class="nav nav-pills nav-pills-custom-minimal custom-minimal-bottom">
+				<li class="active">
+					<a data-toggle="tab" id="searchUser">Users</a>
+				</li>
+				<li class="">
+					<a data-toggle="tab" id="searchProject">Projects</a>
+				</li>
+				<li class="">
+					<a data-toggle="tab" id="searchEvent">Events</a>
+				</li>
+			</ul>
             <div id="search-results-container" >
 				{{range $searchResult := .ListOfHeads}}
                 <div class="search-result" >

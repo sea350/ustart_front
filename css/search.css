@@ -220,3 +220,25 @@
 #search-filter .panel-collapse {
 	line-height: 1.5;
 }
+
+.nav-pills-custom-minimal{
+    border-bottom: 1px solid #ccc;
+    margin-left:-1em;
+    padding-left:1.5em;
+    margin-top:0em;
+    background-color:#fff;
+}
+
+.nav-pills-custom-minimal.custom-minimal-bottom > li.active > a, .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a:hover, .nav-pills-custom-minimal.custom-minimal-bottom > li.active > a:focus{
+    border-bottom-color:#00ac7d;
+}
+
+.nav-pills-custom-minimal.custom-minimal-bottom > li a{
+    border-top:none;
+    border-bottom:4px solid transparent;
+}
+
+.nav-pills-custom-minimal > li.active > a, .nav-pills-custom-minimal > li.active > a:hover, .nav-pills-custom-minimal > li.active > a:focus{
+    background-color:transparent;
+    color:#696565;
+}
