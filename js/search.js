@@ -118,11 +118,13 @@ $(function () {
 		case "Events":
 			tabIndex = 2;
 			$("#searchEvent").parent().addClass("active");
+			break;
 		case "users":
 		case "Users":
 		default:
 			tabIndex = 0;
 			$("#searchUser").parent().addClass("active");
+			break;
 	}
 	console.log("TabIndex is " + tabIndex);
 	$("#searchTabs").tabs({
