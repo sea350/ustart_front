@@ -105,15 +105,24 @@ $(function () {
 
 	searchType = GetQueryStringParams("searchFilterGroup");
 	$("#searchFilterGroup").val(searchType);
-	var tabIndex = 0;
+
+	$("#searchTabs li").removeClass("active");
+	var tabIndex;
 	switch(searchType) {
 		case "projects":
 		case "Projects":
 			tabIndex = 1;
+			$("#searchProject").parent().addClass("active");
 			break;
 		case "events":
 		case "Events":
 			tabIndex = 2;
+			$("#searchEvent").parent().addClass("active");
+		case "users":
+		case "Users":
+		default:
+			tabIndex = 0;
+			$("#searchUser").parent().addClass("active");
 	}
 	console.log("TabIndex is " + tabIndex);
 	$("#searchTabs").tabs({
