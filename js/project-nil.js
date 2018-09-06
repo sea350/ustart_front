@@ -33,6 +33,7 @@ $(function () {
             if (userID == doc){
                 // Update {{.UserInfo.UserWidgets}} with $("#sortable").sortable("toArray")
                 var asortedWidgets = $("#sortable").sortable("toArray");
+                console.log("AsortedWidgets: " + asortedWidgets);
                 $.ajax({
                     type: 'GET',
                     url: 'http://ustart.today:'+port+'/sortUserWidgets/',

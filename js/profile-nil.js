@@ -18,6 +18,7 @@ $(function () {
             // Update {{.UserInfo.UserWidgets}} with $("#sortable").sortable("toArray")
             if (userID == doc){
                 var asortedWidgets = $("#sortable").sortable("toArray");
+                console.log("AsortedWidgets: " + asortedWidgets);
                 $.ajax({
                     type: 'GET',
                     url: 'http://ustart.today:'+port+'/sortUserWidgets/',
