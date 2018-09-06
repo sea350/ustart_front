@@ -181,11 +181,11 @@
 							{{ end }}
 						</div>
 						<div class="search-result-tags">
-							{{range $i, $tag := $searchResult.Interface}}
-								{{if lt $i 6}}
-									<span class="search-result-tag">{{$tag}}</span>
-								{{end}}
+						{{range $i, $tag := $searchResult.Interface}}
+							{{if lt $i 6}}
+							<span class="search-result-tag">{{$tag}}</span>
 							{{end}}
+						{{end}}
 						</div>
                     </div>
                 </div>
