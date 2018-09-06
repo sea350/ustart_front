@@ -288,5 +288,5 @@ function searchOption(e) {
 		default:
 			return;
 	}
-	document.getElementById("search-filters").submit();
+	//document.getElementById("search-filters").submit();
 }
