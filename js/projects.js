@@ -98,21 +98,20 @@ $(document).ready(function() {
         $('.follow-btn-text').text('Follow');
     } 
     $('#projFollow').hover(function () {
-        $button = $(this);
-        if ($button.hasClass('following')) {
-            $button.addClass('unfollow');
+        var button = $(this);
+        if (button.hasClass('following')) {
+            button.addClass('unfollow');
             $('.follow-btn-text').text('Unfollow');
         }
         }, function () {
-        if ($button.hasClass('following')) {
-            $button.removeClass('unfollow');
+        if (button.hasClass('following')) {
+            button.removeClass('unfollow');
             $('.follow-btn-text').text('Following');
         }
     });
     
     $('#projFollow').click(function(e) {
         $( "#projFollow" ).prop( "disabled", true );
-        console.log(pageID);
         $.ajax({
             type: 'GET',  
             url: 'http://ustart.today:'+port+'/AjaxUserFollowProjectToggle/',

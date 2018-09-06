@@ -27,7 +27,7 @@ var galleryDefaultRemoveOption = '<option default selected>Select from your list
 }*/
 
 function daRender(daUsername, daCount) {
-	$('#widgetBodyDA').rss("https://backend.deviantart.com/rss.xml?q=gallery%3A" + encodeURI(daUsername), {
+	/*$('#widgetBodyDA').rss("https://backend.deviantart.com/rss.xml?q=gallery%3A" + encodeURI(daUsername), {
 		limit: daCount,
 		layoutTemplate: '<ul data-da-username="' + daUsername + '">{entries}</ul>',
 		entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><a href="{url}"><div class="dArt-body"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
@@ -39,7 +39,7 @@ function daRender(daUsername, daCount) {
 		error: function() {
 			$('#widgetBodyDA').text("The URL didn't work");
 		}
-	});
+	});*/
 }
 
 function pinRender(pinURL) {
@@ -142,7 +142,6 @@ function ARRender(anchorID, widgetID) {
     var ARURL = AnchorGetID(anchorID);
     var divprefix = "#arrender";
     var finalDest = divprefix.concat(widgetID);
-    console.log(finalDest);
     var iframe = document.createElement( "iframe" );
     var AROuterDiv= $("<div></div>").addClass('anchor-feed').attr("id","arrender"+widgetID);
     iframe.setAttribute( "frameborder", "0" );
@@ -214,19 +213,30 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 	}
 }
 
-function tumblrRender (tumblrUsername) {
-	console.log('tumblur'+tumblrUsername);
+function tumblrRender(tumblrUsername) {
+	console.log('tumblur: '+tumblrUsername);
 	// Using RSS to render custom containers
-	$('#widgetBodyTumblr').rss("http://" + tumblrUsername + ".tumblr.com/rss", {
+	/*$('#widgetBodyTumblr').rss("http://"+tumblrUsername+".tumblr.com/rss", {
 		limit: 12,
 		layoutTemplate: '<ul data-tumblr-username="' + tumblrUsername + '">{entries}</ul>',
 		entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="tumblr-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
 		dateFormat: 'MMM Do, YYYY',
 		effect: 'slideFastSynced',
+		ssl: true,
 		error: function() {
 			$('#widgetBodyTumblr').text("The URL didn't work");
 		}
-	});
+	});*/
+    $('#widgetBodyTumblr').FeedEk({
+      FeedUrl:"http://"+tumblrUsername+".tumblr.com/rss",
+      MaxCount : 12,
+      ShowDesc : true,
+      ShowPubDate:true,
+      DescCharacterLimit:1000,
+      TitleLinkTarget:'_blank',
+      DateFormat: 'MM/DD/YYYY',
+      DateFormatLang:'en'
+    });
 }
 
 function githubRender (githubUsername, gitcount) {

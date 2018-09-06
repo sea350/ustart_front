@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/modal-links.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget.css">
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/FeedEk.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-gallery.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/socialMedia.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/proj.css"/>
@@ -24,6 +25,7 @@
 	{{$userid := .DOCID}}
 	{{$projectid := .Project.DocID}}
 	{{$projecturl := .Project.ProjectData.URLName}}
+    <script src="/ustart_front/js/FeedEk.js"></script>
     <script type="text/javascript" src="/ustart_front/js/jquery.rss.min.js"></script>
     <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js" data-pin-build="doBuild"></script>
     <script type="text/javascript" type ="text/javascript">
@@ -103,6 +105,43 @@
 								{{if le $memberValidity 0}}
 								<!--<li><a href="#" style="padding: 0.5em 1em;" data-toggle="modal" data-target="#project-member-add"><i class="fa fa-paw"></i>Recruit Members</a></li> -->
 								<li><a style="padding: 0.5em 1em;" href="/ProjectSettings/{{$projecturl}}"><i class="fa fa-gear"></i> Edit Settings</a></li>
+                                <script>
+                                    $(function () {
+                                        // Enables drag-n-drop list items (using the header)
+                                        $("#sortable").sortable({
+                                            handle: ".widgetTitle",
+                                            revert: true,
+                                            tolerance: "pointer",
+                                            items: "> li.sortable",
+                                            update: function(event, ui) {
+                                                    var asortedWidgets = $("#sortable").sortable("toArray");
+                                                    $.ajax({
+                                                        type: 'GET',
+                                                        url: 'http://ustart.today:'+port+'/sortUserWidgets/',
+                                                        contentType: "application/json; charset=utf-8",
+                                                        data: {sortedWidgets: JSON.stringify(asortedWidgets), pageID: pageID},
+                                                        success: function(data) {
+                                                            console.log(asortedWidgets);
+                                                            console.log('Sorted Widgets are probably saved: ');
+                                                        },
+                                                        error: function(err) {
+                                                            console.log('Sorted Widgets failed: ');
+                                                            console.log(err);
+                                                        }
+                                                    });
+
+                                            }
+                                        });
+
+                                        $('#projSortable').sortable();
+                                        $('#projectWidget .widgetBody').sortable({
+                                            cancel: ''
+                                        }).disableSelection();
+                                        $('#hashTagsBody').sortable({
+                                            cancel: ''
+                                        }).disableSelection();
+                                    });
+                                </script>
 								{{end}}
 								{{if ne $memberValidity 0}}<li><a style="padding: 0.5em 1em;" href="#" data-toggle="modal" data-target="#project-leave"><i class="fa fa-fire"></i> Leave Project</a></li>{{end}}
 							</ul>

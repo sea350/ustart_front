@@ -256,7 +256,6 @@ $(document).ready(function () {
 			createTagModalElement($('#tagLineInput').val());
 			return;
 		}
-		
         var skillList = [];
         $('#hashTags .columnTitle').each(function(index, element) {
             skillList.push($(element).text());
@@ -267,6 +266,7 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             data: {skillArray:JSON.stringify(skillList), projectWidget: $('#tagModal .projectWidget').val()},
             success: function(data) {
+                
                 $("#hashtags, #hashTagsBody").html('');
 				$('#tag-project-submit').text('Done');
                 $(skillList).each(function(index, element) {

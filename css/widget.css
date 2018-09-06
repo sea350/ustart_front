@@ -310,8 +310,8 @@ span.ui-icon {
 
 .addWidgetBtn{
     display:inline-block;
-    width:100px;
-    height:10em;
+    width:113px;
+    height:11em;
 }
 .addProjWidgetBtn{
     display:inline-block;
@@ -321,9 +321,12 @@ span.ui-icon {
 
 #projectDisplay .widgetBody >a{
     display:inline-block;
-    width:100px;
-    height:10em;
+    width:113px;
+    height:11em;
     padding-top: 1em;
+}
+#projectDisplay .widgetBody >a img{
+    padding-top:1em;
 }
 #eventDisplay .widgetBody> a,
 #eventDisplay .widgetBody>button{
@@ -362,13 +365,52 @@ span.ui-icon {
 	min-height: 80px;
 }
 
+@media only screen and (max-width: 1200px) {
+    #widgetBodySpot iframe {
+        width:49%;
+    }
+    .addWidgetBtn{
+        width:10px;
+        height:10em;
+    }
+    #projectDisplay .widgetBody >a{
+        width:109px;
+        height:10em;
+        padding-top: 0em;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    #widgetBodySpot iframe {
+        width:49%;
+    }
+    .addWidgetBtn{
+        width:100px;
+        height:10em;
+    }
+    #projectDisplay .widgetBody >a{
+        width:100px;
+        height:10em;
+        padding-top: 0em;
+    }
+}
+
 @media only screen and (max-width: 992px) {
     #widgetBodySpot iframe {
         width:49%;
+    }
+    .addWidgetBtn{
+        width:100px;
+        height:10em;
+    }
+    #projectDisplay .widgetBody >a{
+        width:100px;
+        height:10em;
     }
 }
 @media only screen and (min-width: 992px) {
     #widgetBodySpot iframe {
         width:32%;
     }
+    
 }

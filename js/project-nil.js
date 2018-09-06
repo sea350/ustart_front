@@ -19,58 +19,6 @@ $(document).ready(function () {
 });
 
 window.___gcfg = { "parsetags": "explicit" };
-$(function () {
-   /* $("#LeftNavBar-placeholder").load("/ustart_front/leftnav-nil.html", function (e) {
-        $("#leftNavProfile").addClass("theActive");
-    });*/
-    // Enables drag-n-drop list items (using the header)
-    $("#sortable").sortable({
-        handle: ".widgetTitle",
-        revert: true,
-        tolerance: "pointer",
-        items: "> li.sortable",
-        update: function(event, ui) {
-            if (userID == doc){
-                // Update {{.UserInfo.UserWidgets}} with $("#sortable").sortable("toArray")
-                var asortedWidgets = $("#sortable").sortable("toArray");
-                $.ajax({
-                    type: 'GET',
-                    url: 'http://ustart.today:'+port+'/sortUserWidgets/',
-                    contentType: "application/json; charset=utf-8",
-                    data: {sortedWidgets: JSON.stringify(asortedWidgets), pageID: userID},
-                    success: function(data) {
-                        console.log(userID);
-                        console.log(asortedWidgets);
-                        console.log('Sorted Widgets are probably saved: ');
-                    },
-                    error: function(err) {
-                        console.log('Sorted Widgets failed: ');
-                        console.log(err);
-                    }
-                });
-            }
-        }
-    });
-
-
-    $('#projSortable').sortable();
-    $('#projectWidget .widgetBody').sortable({
-        cancel: ''
-    }).disableSelection();
-    $('#hashTagsBody').sortable({
-        cancel: ''
-    }).disableSelection();
-    /*
-    // Enables resizable list items
-    $("#sortable>li").resizable({
-        animate: true,
-        ghost: true,
-        resize: function (event, ui) {
-            ui.size.width = ui.originalSize.width;
-        }
-    });
-    */
-    });
 
 function timeSince(date) {
   var d = new Date(date);
