@@ -56,14 +56,13 @@
 <body>
     <input type="hidden" id='followstat'>
     <div id="centering">
-        <img id='head-image'>
-        <script>
-            $('#head-image').attr('src', {{.Event.EventData.Banner}});
-        </script>
         <div id="content" class="container">
             <div>
-                <div class="followers-cont flex">
-                    
+                <div class="followers-cont flex">            
+                    <img id='head-image'>
+                    <script>
+                        $('#head-image').attr('src', {{.Event.EventData.Banner}});
+                    </script>
                     <div class="event-toolbar">
                        
                         {{range $member := .Event.MemberData}}
