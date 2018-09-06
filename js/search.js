@@ -115,6 +115,7 @@ $(function () {
 		case "Events":
 			tabIndex = 2;
 	}
+	console.log("TabIndex is " + tabIndex);
 	$("#searchTabs").tabs({
 		active: tabIndex
 	});
