@@ -1,11 +1,14 @@
 *{
 	font-family:'Raleway', sans-serif
 }
-
+.tab-content{
+    margin-left:-1em;
+}
 #ProjFollowingTab.active,
 #FollowersTab.active,
 #FollowingTab.active {
     display: flex;
+    flex-flow:wrap;
     /*grid-template-columns: repeat(auto-fit, 160px);*/
 }
 
@@ -99,7 +102,7 @@
 	display:inline-block;
 	margin: 0.5em;
 	vertical-align: top;
-    width:25rem;
+    width:24rem;
 }
 .follow-card img {
 	border-radius: 0.5em;

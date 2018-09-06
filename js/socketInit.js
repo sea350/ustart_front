@@ -83,7 +83,6 @@ $.ajax({
             {
             var temp = $.parseJSON(jqXHR.responseText);
                 if (temp.heads != null){
-                    console.log(temp);
                     $('#chatDrop').empty();
                     for(i=temp.heads.length-1; i >= 0; i--){
                     if (!temp.heads[i].Read){

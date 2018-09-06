@@ -144,7 +144,7 @@ function createNextPostContent(icon, name, para, time, like, remove) {
 });*/
 
 $(function () {
-    $('body').confirmation({
+    /*$('body').confirmation({
         selector: '[data-toggle="confirmation"]'
     });
 
@@ -155,7 +155,7 @@ $(function () {
         onCancel: function () {
             alert('cancel')
         }
-    });
+    });*/
     
     //submit button for share
     $('body').on('click', '.odom-submit', function (e) {

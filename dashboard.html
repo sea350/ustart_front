@@ -7,7 +7,13 @@
     <title>ustart</title>
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/dashboard.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/normalize.min.css">
+    <script src="/ustart_front/js/ascii-convert.js"></script>
+    <script src="/ustart_front/js/dashload.js"></script>
+    <script src="/ustart_front/js/createpost2.js"></script>
     <script>
+        var dashTotalHits;
+        var dashScrollID;
+        var dashflag=0;
         $(document).ready(function (){
             $("#leftNavDash").addClass("theActive");
         });
@@ -15,328 +21,40 @@
 </head>
 <body>
     <div id="centering">
+        <div id ="commentModals"></div>
+        <div id ="shareModals"></div>
         <div id="content">
             <div class="container">
             <div class="row">
                 <div class="col-md-2"></div>
-                <div class="col-md-6">
-                    <div class="feedPost">
-                        <div class="feedPostHead">
-                            <div class="feedPostHeadTitle">
-                                Sample Post Title
-                            </div>
-                            <div class="feedPostHeadIcon">
-                                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
-                            </div>
-                            <div class="feedPostHeadTime">
-                                2hr
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="feedPostBody">
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
-                            ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-                            magni dolores eos qui ratione voluptatem sequi nesciunt.
-                            <img src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/p720x720/21688266_730990057111568_180200817155786334_o.jpg?oh=5cf911c1dbc8c777e0fe0d7b369ec1e2&oe=5A51BA20">
-                        </div>
-                        <hr>
-                        <div class="feedPostComments">
-                            <div class="media">
-                                <a class="pull-left" href="#">
-									<img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&amp;oe=5A2D7F0D">
-								</a>
-                                <div class="dropdown pull-right">
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span><span class="caret"></span></a>
-                                    <ul class="dropdown-menu" style="min-width: 0px !important; padding:0px !important;">
-                                        <li>
-                                            <a class="dropdown-item " data-toggle="modal" data-target="#EditModal">
-                                                <h6>Edit</h6>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item " data-toggle="modal" data-target="#confirm-delete">
-                                                <h6>Delete</h6>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="pull-right text-muted time" style="padding-right:4px;">3 hours ago</h6>
-                                    <h5 class="mt-0" style="color:cadetblue;">Ryan Rozbiani</h5>
-                                    <p>Hey guys! We're working on UStart! Watch out for us!
-                                    </p>
-                                </div>
-                                <ul>
-                                    <li><a class="btn btn-danger btn-sm btn-hover like-btn" data-toggle="tooltip" title="" data-original-title="5">Like</a></li>
-                                    <li><a class="btn btn-primary btn-sm btn-hover comment-btn" style="margin-left:5px;" data-toggle="tooltip"
-                                            title="" data-original-title="3">Comment</a></li>
-                                    <li><a class="btn btn-info btn-sm btn-hover share-btn" style="margin-left:5px;" data-toggle="tooltip"
-                                            title="" data-original-title="2">Share</a></li>
-                                </ul>
-                            </div>
-                            <hr>
-                            <div class="dropdown pull-right">
-                                <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span><span class="caret"></span></a>
-                                <ul class="dropdown-menu" style="min-width: 0px !important; padding:0px !important;">
-                                    <li>
-                                        <a class="dropdown-item " data-toggle="modal" data-target="#EditModal">
-                                            <h6>Edit</h6>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" data-toggle="modal" data-target="#confirm-delete">
-                                            <h6>Delete</h6>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <h6 class="pull-right text-muted time" style="padding-right:4px;">13 hours ago</h6>
-                            <h5 class="mt-0" style="color:cadetblue">You shared a post:</h5>
-                            <p style="margin-left:2em">Backend Team making moves!</p>
-                            <div class="media">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <div class="media">
-                                            <a class="pull-left" href="#">
-                            <img class="media-object img-rounded" src="http://ustart.today/img/Profiles/Picture2.jpg" alt="40x40">
-                        </a>
-                                            <div class="media-body">
-                                                <h6 class="pull-right text-muted time">13 hours ago</h6>
-                                                <h5 class="mt-0" style="color:cadetblue;">Steven Armanios</h5>
-                                                <p>Finally! The elastic search is working!!! YES!</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <ul>
-                                    <li><a class="btn btn-danger btn-sm btn-hover like-btn" data-toggle="tooltip" title="" data-original-title="5">Like</a></li>
-                                    <li><a class="btn btn-primary btn-sm btn-hover comment-btn" style="margin-left:5px;" data-toggle="tooltip"
-                                            title="" data-original-title="3">Comment</a></li>
-                                    <li><a class="btn btn-info btn-sm btn-hover share-btn" style="margin-left:5px;" data-toggle="tooltip"
-                                            title="" data-original-title="2">Share</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="feedPost">
-                        <div class="feedPostHead">
-                            <div class="feedPostHeadTitle">
-                                Sample Post Title
-                            </div>
-                            <div class="feedPostHeadIcon">
-                                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
-                            </div>
-                            <div class="feedPostHeadTime">
-                                2hr
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="feedPostBody">
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
-                            ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-                            magni dolores eos qui ratione voluptatem sequi nesciunt.
-                        </div>
-                        <hr>
-                        <div class="feedPostComments">
-                        </div>
-                    </div>
-                    <div class="feedPost">
-                        <div class="feedPostHead">
-                            <div class="feedPostHeadTitle">
-                                Sample Post Title
-                            </div>
-                            <div class="feedPostHeadIcon">
-                                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
-                            </div>
-                            <div class="feedPostHeadTime">
-                                2hr
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="feedPostBody">
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
-                            ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-                            magni dolores eos qui ratione voluptatem sequi nesciunt.
-                            <img src="http://www.indiewire.com/wp-content/uploads/2017/07/rick-and-morty.png?w=780">
-                        </div>
-                        <hr>
-                        <div class="feedPostComments">
-                        </div>
-                    </div>
+                <div id ="dash-posts" class="col-md-6">
                 </div>
-                <!--<div class="col-md-4">
-                    <div class="feedPost">
-                        <div class="feedPostHead">
-                            <div class="feedPostHeadTitle">
-                                Sample Post Title
-                            </div>
-                            <div class="feedPostHeadIcon">
-                                <img src="https://pbs.twimg.com/profile_images/904111545906585601/_H7tRXZx_400x400.jpg">
-                            </div>
-                            <div class="feedPostHeadTime">
-                                2hr
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="feedPostBody">
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
-                            ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                        </div>
-                        <hr>
-                        <div class="feedPostComments">
-                            <div class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object img-rounded" src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&amp;oe=5A2D7F0D">
-                                </a>
-                                <div class="dropdown pull-right">
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span><span class="caret"></span></a>
-                                    <ul class="dropdown-menu" style="min-width: 0px !important; padding:0px !important;">
-                                        <li>
-                                            <a class="dropdown-item " data-toggle="modal" data-target="#EditModal">
-                                                <h6>Edit</h6>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item " data-toggle="modal" data-target="#confirm-delete">
-                                                <h6>Delete</h6>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="pull-right text-muted time" style="padding-right:4px;">3 hours ago</h6>
-                                    <h5 class="mt-0" style="color:cadetblue;">Ryan Rozbiani</h5>
-                                    <p>Hey guys! We're working on UStart! Watch out for us!
-                                    </p>
-                                </div>
-                                <ul>
-                                    <li><a class="btn btn-danger btn-sm btn-hover like-btn" data-toggle="tooltip" title="" data-original-title="5">Like</a></li>
-                                    <li><a class="btn btn-primary btn-sm btn-hover comment-btn" style="margin-left:5px;" data-toggle="tooltip"
-                                            title="" data-original-title="3">Comment</a></li>
-                                    <li><a class="btn btn-info btn-sm btn-hover share-btn" style="margin-left:5px;" data-toggle="tooltip"
-                                            title="" data-original-title="2">Share</a></li>
-                                </ul>
-                            </div>
-                            <hr>
-                            <div class="dropdown pull-right">
-                                <a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span><span class="caret"></span></a>
-                                <ul class="dropdown-menu" style="min-width: 0px !important; padding:0px !important;">
-                                    <li>
-                                        <a class="dropdown-item " data-toggle="modal" data-target="#EditModal">
-                                            <h6>Edit</h6>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" data-toggle="modal" data-target="#confirm-delete">
-                                            <h6>Delete</h6>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <h6 class="pull-right text-muted time" style="padding-right:4px;">13 hours ago</h6>
-                            <h5 class="mt-0" style="color:cadetblue">You shared a post:</h5>
-                            <p style="margin-left:2em">Backend Team making moves!</p>
-                            <div class="media">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <div class="media">
-                                            <a class="pull-left" href="#">
-                                    <img class="media-object img-rounded" src="http://ustart.today/img/Profiles/Picture2.jpg" alt="40x40">
-                                </a>
-                                            <div class="media-body">
-                                                <h6 class="pull-right text-muted time">13 hours ago</h6>
-                                                <h5 class="mt-0" style="color:cadetblue;">Steven Armanios</h5>
-                                                <p>Finally! The elastic search is working!!! YES!</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <ul>
-                                    <li><a class="btn btn-danger btn-sm btn-hover like-btn" data-toggle="tooltip" title="" data-original-title="5">Like</a></li>
-                                    <li><a class="btn btn-primary btn-sm btn-hover comment-btn" style="margin-left:5px;" data-toggle="tooltip"
-                                            title="" data-original-title="3">Comment</a></li>
-                                    <li><a class="btn btn-info btn-sm btn-hover share-btn" style="margin-left:5px;" data-toggle="tooltip"
-                                            title="" data-original-title="2">Share</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="feedPost">
-                        <div class="feedPostHead">
-                            <div class="feedPostHeadTitle">
-                                Sample Post Title
-                            </div>
-                            <div class="feedPostHeadIcon">
-                                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
-                            </div>
-                            <div class="feedPostHeadTime">
-                                2hr
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="feedPostBody">
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
-                            ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-                            magni dolores eos qui ratione voluptatem sequi nesciunt.
-                            <img src="https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/21433037_728917267318847_3110982964792261951_n.png?oh=da5e8127a07edcefb37b7805750eb17e&oe=5A46819E">
-                        </div>
-                        <hr>
-                        <div class="feedPostComments">
-                        </div>
-                    </div>
-                    <div class="feedPost">
-                        <div class="feedPostHead">
-                            <div class="feedPostHeadTitle">
-                                Sample Post Title
-                            </div>
-                            <div class="feedPostHeadIcon">
-                                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
-                            </div>
-                            <div class="feedPostHeadTime">
-                                2hr
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="feedPostBody">
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
-                            ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-                            magni dolores eos qui ratione voluptatem sequi nesciunt.
-                            <img src="https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/p720x720/21688266_730990057111568_180200817155786334_o.jpg?oh=5cf911c1dbc8c777e0fe0d7b369ec1e2&oe=5A51BA20">
-                        </div>
-                        <hr>
-                        <div class="feedPostComments">
-                        </div>
-                    </div>
-                    <div class="feedPost">
-                        <div class="feedPostHead">
-                            <div class="feedPostHeadTitle">
-                                Sample Post Title
-                            </div>
-                            <div class="feedPostHeadIcon">
-                                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
-                            </div>
-                            <div class="feedPostHeadTime">
-                                2hr
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="feedPostBody">
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque
-                            ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-                            magni dolores eos qui ratione voluptatem sequi nesciunt.
-                        </div>
-                        <hr>
-                        <div class="feedPostComments">
-                        </div>
-                    </div>
-                </div>
-                -->
+                 <script>
+                    $.ajax({
+                            type: 'GET',
+                            url: 'http://ustart.today:'+port+'/AjaxDash/',
+                            contentType: "application/json; charset=utf-8",
+                            data: {},
+                            success: function(data) {
+                            },complete: function (jqXHR,status) {
+                                if(status == 'success' || status=='notmodified')
+                                {
+                                var temp = $.parseJSON(jqXHR.responseText);
+                                    dashTotalHits=temp.TotalHits;
+                                    dashScrollID = temp.ScrollID;
+                                    if (temp != null){
+                                        for (i=0; i < temp.JournalEntries.length; i++){
+                                            makeDashPostApplications(temp.JournalEntries[i].ElementID, temp.JournalEntries[i].Username,temp.JournalEntries[i].FirstName, temp.JournalEntries[i].LastName, temp.JournalEntries[i].Image, temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].Element.TimeStamp, temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies, temp.JournalEntries[i].NumShares);
+                                        }
+                                    }
+                                }
+                            }
+                            ,error: function(err) {
+                                console.log('chat initial chat failed: ');
+                                console.log(err);
+                            }
+                    });
+                </script>
                 <div class="col-md-2">
                     <div id="suggestedUser">
                         <div class="dashboard panel panel-default">
@@ -450,7 +168,84 @@
                     
                     
                 </div><!-- end row -->
-                
+                <script>
+
+                         function element_in_scroll(elem)
+                         {
+                            var docViewTop = $(window).scrollTop();
+                            var docViewBottom = docViewTop + $(window).height();
+                            var elemTop = $(elem).offset().top;
+                            var elemBottom = elemTop + $(elem).height();
+                            return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+                         }
+                        (function($, window, undefined) {
+                            var InfiniteScroll = function() {
+                                this.initialize = function() {
+                                    this.setupEvents();
+                                };
+
+                                this.setupEvents = function() {
+                                    $(window).on(
+                                        'scroll',
+                                        this.handleScroll.bind(this)
+                                    );
+                                };
+
+                                this.handleScroll = function() {
+                                    var scrollTop = $(document).scrollTop();
+                                    var windowHeight = $(window).height();
+                                    var height = $(document).height() - windowHeight;
+                                    var scrollPercentage = (scrollTop / height);
+
+                                    // if the scroll is more than 90% from the top, load more content.
+                                    if(scrollPercentage > 0.95) {
+                                        this.doSomething();
+                                    }
+                                }
+
+                                this.doSomething = function() {    
+                                    // Do something.
+                                    console.log("here");
+                                  if (dashflag == 1){
+                                         var url = document.createElement('a');
+                                         url.href = window.location.href;
+                                         var temp = parseQuery(url.search);
+                                         dashflag=0;
+                                         if ( $('.feedPost').length < dashTotalHits){
+                                             console.log("here2")
+                                             $.ajax({
+                                                type: 'GET',
+                                                url: 'http://ustart.today:'+port+'/AjaxDash/',
+                                                contentType: "application/json; charset=utf-8",
+                                                data: {scrollID: dashScrollID},
+                                                success: function(data) {  
+                                                },complete: function (jqXHR,status) {
+                                                     dashflag=1;
+                                                     if(status == 'success' || status=='notmodified')
+                                                     {
+                                                        var temp = $.parseJSON(jqXHR.responseText);
+                                                        if(temp != null){
+                                                          console.log(temp);
+                                                        }
+                                                     }
+                                                },error: function(err) {
+                                                    console.log('chat Load failed: ');
+                                                    console.log(err);
+                                                }
+                                            });
+                                        }
+                                       else dashflag=1;   
+                                 }
+                                }
+
+                                this.initialize();
+                            }
+
+                            $(document).ready(function() {// Initialize scroll
+                                    new InfiniteScroll();
+                            });
+                        })(jQuery, window);
+                </script>
             </div>
             </div>
         </div>
