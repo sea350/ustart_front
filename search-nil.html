@@ -18,6 +18,17 @@
 <body>
     <div id="centering">
         <div id="content" class="container">
+			<ul id="searchTabs" class="nav nav-pills nav-pills-custom-minimal custom-minimal-bottom">
+				<li class="active">
+					<a data-toggle="tab" id="searchUser">Users</a>
+				</li>
+				<li class="">
+					<a data-toggle="tab" id="searchProject">Projects</a>
+				</li>
+				<li class="">
+					<a data-toggle="tab" id="searchEvent">Events</a>
+				</li>
+			</ul>
             <div id="search-filter">
 				<form id="search-filters" action="/search">
 					<h3 style="text-align: center;">Search Filters<span id="search-filter-hider">Show</span></h3>
@@ -155,17 +166,6 @@
 				</form>
 				<div class="clearfit"></div>
 			</div>
-			<ul id="searchTabs" class="nav nav-pills nav-pills-custom-minimal custom-minimal-bottom">
-				<li class="active">
-					<a data-toggle="tab" id="searchUser">Users</a>
-				</li>
-				<li class="">
-					<a data-toggle="tab" id="searchProject">Projects</a>
-				</li>
-				<li class="">
-					<a data-toggle="tab" id="searchEvent">Events</a>
-				</li>
-			</ul>
             <div id="search-results-container" >
 				{{range $searchResult := .ListOfHeads}}
                 <div class="search-result" >

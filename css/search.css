@@ -245,10 +245,10 @@
 
 #searchTabs {
 	position: absolute;
-	top: 8px;
-	left: 0;
-	width: 100vw;
-	padding-left: 8em;
+    top: 8px;
+    width: 130vw;
+    padding-left: 30vw;
+    margin-left: -30vw;
 }
 #content {
 	padding-top: 4em;
