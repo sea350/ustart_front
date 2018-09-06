@@ -1,4 +1,4 @@
-var searchType;
+var searchType = "Users";
 
 function GetQueryStringParams(sParam) {
 	// remove question mark
@@ -105,11 +105,14 @@ $(function () {
 
 	var tabIndex = 0;
 	searchType = GetQueryStringParams("searchFilterGroup");
+	$("#searchFilterGroup").val(searchType);
 	switch(searchType) {
 		case "projects":
+		case "Projects":
 			tabIndex = 1;
 			break;
 		case "events":
+		case "Events":
 			tabIndex = 2;
 	}
 	$("#searchTabs").tabs({
