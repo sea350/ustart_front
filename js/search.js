@@ -102,7 +102,19 @@ $(function () {
 	$("#leftNavSearch").addClass("theActive");
 	var searchQuery = decodeURIComponent(GetQueryStringParams("query").replace(/\+/g, ' '));
 
-	$("#searchFilters").remove();
+	var tabIndex = 0;
+	var searchType = GetQueryStringParams("searchFilterGroup");
+	switch(searchType) {
+		case "projects":
+			tabIndex = 1;
+			break;
+		case "events":
+			tabIndex = 2;
+	}
+	$("#searchTabs").tabs({
+		active: tabIndex
+	});
+
 	$("#searchTerm").text(searchQuery);
 	$("input[name='query']").attr("form", "search-filters");
 	$("input[name='query']").val(searchQuery);
