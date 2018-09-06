@@ -28,23 +28,11 @@
 				<li class="">
 					<a data-toggle="tab" id="searchEvent">Events</a>
 				</li>
+				<input type="hidden" id="searchFilterGroup" name="searchFilterGroup"/>
 			</ul>
             <div id="search-filter">
 				<form id="search-filters" action="/search">
 					<h3 style="text-align: center;">Search Filters<span id="search-filter-hider">Show</span></h3>
-					<div class="panel-group">
-						<div class="panel panel-default">
-							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-type">Search Type</h4>
-							<div id="filter-type" class="panel-collapse collapse in">
-								<input type="radio" id="searchFilterGroupUsers" name="searchFilterGroup" value="users"/>
-								<label for="searchFilterGroupUsers">Users</label>
-								<input type="radio" id="searchFilterGroupProjects" name="searchFilterGroup" value="projects"/>
-								<label for="searchFilterGroupProjects">Projects</label>
-								<input type="radio" id="searchFilterGroupEvents" name="searchFilterGroup" value="events"/>
-								<label for="searchFilterGroupEvents">Events</label>
-							</div>
-						</div>
-					</div>
 					<div id="filOptions" class="panel-group">
 						<div class="panel panel-default">
 							<h4 class="panel-heading panel-title" data-toggle="collapse" href="#filter-sort">Sort by</h4>

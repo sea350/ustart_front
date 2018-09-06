@@ -182,9 +182,6 @@
     color:#fff;
     background-color:#000
 }
-.panel-group:nth-child(2) {
-	display: none!important;
-}
 #search-filters label {
 	font-weight: normal;
 	margin: 0.5em;
@@ -245,7 +242,7 @@
 
 #searchTabs {
 	position: absolute;
-    top: 8px;
+    top: 0;
     width: 130vw;
     padding-left: 30vw;
     margin-left: -30vw;
