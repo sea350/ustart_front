@@ -158,7 +158,7 @@
 					{{ if $searchResult.LastName }}
 						<a class="search-result-pic-link" href="/profile/{{$searchResult.Username}}"><img class="search-result-pic"/></a>
 					{{else}}
-						{{ if $searchResult.Classification 5 }}
+						{{ if eq $searchResult.Classification 5 }}
 						<a class="search-result-pic-link" href="/Event/{{$searchResult.Username}}"><img class="search-result-pic"/></a>
 						{{else}}
 						<a class="search-result-pic-link" href="/Projects/{{$searchResult.Username}}"><img class="search-result-pic"/></a>
@@ -172,7 +172,7 @@
 							{{ if $searchResult.LastName }}
 								<a class="search-result-pic-link" href="/profile/{{$searchResult.Username}}">{{$searchResult.FirstName}} {{$searchResult.LastName}}</a>
 							{{else}}
-								{{ if $searchResult.Classification 5 }}
+								{{ if eq $searchResult.Classification 5 }}
 									<a class="search-result-pic-link" href="/Event/{{$searchResult.Username}}">{{$searchResult.FirstName}}</a>
 								{{else}}
 									<a class="search-result-pic-link" href="/Projects/{{$searchResult.Username}}">{{$searchResult.FirstName}}</a>
