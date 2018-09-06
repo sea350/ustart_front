@@ -242,3 +242,11 @@
     background-color:transparent;
     color:#696565;
 }
+
+#searchTabs {
+	position: absolute;
+	top: 8px;
+	left: 0;
+	width: 100vw;
+	padding-left: 8em;
+}
