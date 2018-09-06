@@ -103,9 +103,9 @@ $(function () {
 	$("#leftNavSearch").addClass("theActive");
 	var searchQuery = decodeURIComponent(GetQueryStringParams("query").replace(/\+/g, ' '));
 
-	var tabIndex = 0;
 	searchType = GetQueryStringParams("searchFilterGroup");
 	$("#searchFilterGroup").val(searchType);
+	var tabIndex = 0;
 	switch(searchType) {
 		case "projects":
 		case "Projects":
@@ -259,11 +259,10 @@ function modifyFilters() {
 			$("#filter-adv-search").parents(".panel-group").show();
 			$("#searchbypersonname").prop("disabled", true).parent().hide();
 			$("#searchbyusername").prop("disabled", true).parent().hide();
-			$("#searchbyprojectname").prop("disabled", false).parent().show();
+			$("#searchbyprojectname").prop("checked", true).prop("disabled", false).parent().show();
 			$("#searchbyeventname").prop("disabled", true).parent().hide();
-			$("#searchbyurl").prop("disabled", false).parent().show();
+			$("#searchbyurl").prop("checked", true).prop("disabled", false).parent().show();
 			$("#searchbyskills + label").text("Tags");
-			$("#searchbymembersneeded").prop("disabled", false).parent().show();
 			break;
 		case "events":
 		case "Events":	
@@ -271,22 +270,20 @@ function modifyFilters() {
 			$("#searchbypersonname").prop("disabled", true).parent().hide();
 			$("#searchbyusername").prop("disabled", true).parent().hide();
 			$("#searchbyprojectname").prop("disabled", false).parent().hide();
-			$("#searchbyeventname").prop("disabled", false).parent().show();
-			$("#searchbyurl").prop("disabled", false).parent().show();
+			$("#searchbyeventname").prop("checked", true).prop("disabled", false).parent().show();
+			$("#searchbyurl").prop("checked", true).prop("disabled", false).parent().show();
 			$("#searchbyskills + label").text("Tags");
-			$("#searchbymembersneeded").prop("disabled", false).parent().hide();
 			break;
 		case "users":
 		case "Users":
 		default:
 			$("#filter-adv-search").parents(".panel-group").show();
-			$("#searchbypersonname").prop("disabled", false).parent().show();
-			$("#searchbyusername").prop("disabled", false).parent().show();
+			$("#searchbypersonname").prop("checked", true).prop("disabled", false).parent().show();
+			$("#searchbyusername").prop("checked", true).prop("disabled", false).parent().show();
 			$("#searchbyprojectname").prop("disabled", true).parent().hide();
 			$("#searchbyeventname").prop("disabled", true).parent().hide();
 			$("#searchbyurl").prop("disabled", true).parent().hide();
 			$("#searchbyskills + label").text("Skills");
-			$("#searchbymembersneeded").prop("disabled", true).parent().hide();
 			break;
 	}
 }
