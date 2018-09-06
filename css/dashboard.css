@@ -2,6 +2,36 @@
     margin: 0.5em;
 }
 
+#content ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 150%;
+    margin-bottom: 0;
+}
+#content ul:not(.dropdown-menu) li {
+    display: inline-block
+}
+
+#content ul li a.btn {
+    font-size: 70%
+}
+
+#content ul li p {
+    display: inline;
+    margin-left:6px;
+}
+#content a {
+    color: #018a65
+}
+
+#content span {
+    color: #018a65
+}
+
+#content a:hover {
+    color: #00C085
+}
+
 #content .row .col-md-6 {
     min-width: 16em;
     margin: 1em 0;
@@ -20,6 +50,15 @@
     cursor: pointer;
 }
 
+.like-btn img{
+   height:30px;
+}
+.comment-btn img{
+   height:30px;
+}
+.share-btn img{
+   height:30px;
+}
 .dashboardMenu #theDashboard {
     background: #455A64;
     color: #ECEFF1;

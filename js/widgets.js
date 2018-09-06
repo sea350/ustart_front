@@ -228,7 +228,7 @@ function tumblrRender(tumblrUsername) {
 	// Using RSS to render custom containers
     $('#widgetBodyTumblr').FeedEk({
       FeedUrl:"http://"+tumblrUsername+".tumblr.com/rss",
-      MaxCount : 12,
+      MaxCount : 11,
       ShowDesc : true,
       ShowPubDate:true,
       DescCharacterLimit:1000,
