@@ -161,11 +161,22 @@
                             
 								{{ end }}
 								{{ if .UserInfo.University }}
-								<div id="edu-link" style="color:#00C085;">
+								<div style="color:#00C085;">
 									<i class="fa fa-graduation-cap" aria-hidden="true" style="color:#00C085;"></i> Education
 									<p style="color:black">{{.UserInfo.University}}</p>
 								</div>
-                                <div id="edu-link" style="color:#00C085;">
+								{{ end }}
+								{{ if .UserInfo.Majors }}
+								<div style="color:#00C085;">
+									<i class="fa fa-graduation-cap" aria-hidden="true" style="color:#00C085;"></i> Education
+									<p style="color:black">
+										{{range $major := .UserInfo.Majors}}
+											{{$major}}
+										{{end}}
+									</p>
+								</div>
+								{{ end }}
+                                <div style="color:#00C085;">
                                     <i class="fa fa-birthday-cake" aria-hidden="true" style="color:#00C085;"></i> DoB
                                     <p style="color:black">
                                    <script>
@@ -174,7 +185,6 @@
                                     </script>
                                     </p>
                                 </div>
-								{{ end }}
 								{{if .UserInfo.Phone}}
 								<div id="contact-phone" style="color:#00C085;">
 									<i class="fa fa-phone" aria-hidden="true" style="color:#00C085;"></i> Phone

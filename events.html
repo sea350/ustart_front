@@ -132,7 +132,11 @@
                             <img id='head-image'/>
                             <script>$('#head-image').attr('src', {{.Event.EventData.Banner}});</script>
                         </div>
-                        <div class="col-sm-5">   
+                        <div class="col-sm-5">
+                            <div id="eventBigDate">
+                                <div id="eventMonth"></div>
+                                <div id="eventDate"></div>
+                            </div>
                             <div class="eventName">{{.Event.EventData.Name}}</div>
                             <div class="eventDesc">
                                 <strong>Details</strong><br/>
@@ -153,13 +157,14 @@
                         {{end}}
                     {{end}}
                             <script>
-                                var Sdate = {{.Event.EventData.EventDateStart}}; 
-                                var Syear = Sdate.slice(0, 4);
-                                var Smonth = Sdate.slice(5, 7);
-                                var SmonthEn = switchMonth(Smonth);
-                                var Sday = Sdate.slice(8, 10);
-                                document.getElementById("event-startDash").innerHTML = "<h5 style='color:#fa3e3e; margin-bottom:0;'>"+SmonthEn +"</h5>"+ "<span style='font-size:3em'>"+Sday+"<span>";
-                            </script> 
+                                var StartDate = {{.Event.EventData.EventDateStart}}; 
+                                var StartYear = StartDate.slice(0, 4);
+                                var StartMonth = StartDate.slice(5, 7);
+                                var StartMonthEn = switchMonth(Smonth);
+                                $("#eventMonth").text(StartMonthEn);
+                                var StartDay = StartDate.slice(8, 10);
+                                $("#eventDate").text(StartDay);
+                            </script>
                             <script>
                                     // Set the date we're counting down to
                                     var countDownDate = new Date({{.Event.EventData.EventDateStart}}).getTime();
@@ -221,14 +226,14 @@
                                     <script>
                                         var S1date = {{.Event.EventData.EventDateStart}}; 
 
-                                        var S1year = Sdate.slice(0, 4);
-                                        var S1month = Sdate.slice(5, 7);
+                                        var S1year = S1date.slice(0, 4);
+                                        var S1month = S1date.slice(5, 7);
                                         
                                         var S1monthEn = switchMonth(S1month);
 
-                                        var S1day = Sdate.slice(8, 10);
-                                        var S1hour = Sdate.slice(11, 13);
-                                        var S1min = Sdate.slice(14, 16);
+                                        var S1day = S1date.slice(8, 10);
+                                        var S1hour = S1date.slice(11, 13);
+                                        var S1min = S1date.slice(14, 16);
 
                                         var S2date = {{.Event.EventData.EventDateEnd}}; 
 
