@@ -40,6 +40,16 @@ function daRender(daUsername, daCount) {
 			$('#widgetBodyDA').text("The URL didn't work");
 		}
 	});*/
+    $('#widgetBodyDA').FeedEk({
+      FeedUrl:"https://backend.deviantart.com/rss.xml?q=gallery%3A" + encodeURI(daUsername),
+      MaxCount : daCount,
+      ShowDesc : true,
+      ShowPubDate:true,
+      DescCharacterLimit:1000,
+      TitleLinkTarget:'_blank',
+      DateFormat: 'MM/DD/YYYY',
+      DateFormatLang:'en'
+    });
 }
 
 function pinRender(pinURL) {
@@ -216,17 +226,6 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 function tumblrRender(tumblrUsername) {
 	console.log('tumblur: '+tumblrUsername);
 	// Using RSS to render custom containers
-	/*$('#widgetBodyTumblr').rss("http://"+tumblrUsername+".tumblr.com/rss", {
-		limit: 12,
-		layoutTemplate: '<ul data-tumblr-username="' + tumblrUsername + '">{entries}</ul>',
-		entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="tumblr-body"><a href="{url}"><h3>{title}</h3><h4>{date}</h4></a>{shortBody}...</div></li>',
-		dateFormat: 'MMM Do, YYYY',
-		effect: 'slideFastSynced',
-		ssl: true,
-		error: function() {
-			$('#widgetBodyTumblr').text("The URL didn't work");
-		}
-	});*/
     $('#widgetBodyTumblr').FeedEk({
       FeedUrl:"http://"+tumblrUsername+".tumblr.com/rss",
       MaxCount : 12,
