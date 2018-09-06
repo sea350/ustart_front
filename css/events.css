@@ -36,7 +36,7 @@
     align-self: center;
 }
 
-#event-name {
+#eventName {
     color: #455a64;
     text-align: center;
     margin: 0;
@@ -44,7 +44,7 @@
     padding: .5em;
 }
 
-#event-detail {
+#eventDesc {
     line-height: 1.5;
     text-overflow: ellipsis;
     overflow: hidden;
