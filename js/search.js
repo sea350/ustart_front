@@ -270,7 +270,7 @@ $(function () {
 document.addEventListener("DOMContentLoaded", function () {
 	document.getElementById("searchUser").addEventListener("click", searchOption);
 	document.getElementById("searchProject").addEventListener("click", searchOption);
-	document.getAnimations("searchEvent").addEventListener("click", searchOption);
+	document.getElementById("searchEvent").addEventListener("click", searchOption);
 })
 
 function searchOption(e) {
@@ -286,7 +286,7 @@ function searchOption(e) {
 			document.getElementById("searchFilterGroupEvents").checked = true;
 			break;
 		default:
-			break;
+			return;
 	}
 	document.getElementById("search-filters").submit();
 }
