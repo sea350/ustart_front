@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function searchOption(e) {
 	var el = e.target;
-	$("#searchFilterGroup").val(el.textContent);
+	$("#searchFilterGroup").val(el.textContent.toLowerCase());
 	searchType = $("#searchFilterGroup").val();
 	modifyFilters();
 }
