@@ -398,7 +398,7 @@ function fitNavbar() {
 
 $(document).ready(function () {
     appendEmptyItem("notifDrop");
-    appendNotifItem("123", "",'Reflector Pinpointer','', 'is following you', '', true);
+    //appendNotifItem("123", "",'Reflector Pinpointer','', 'is following you', '', true);
     /*
     $(window).resize(function() {
         fitNavbar();
