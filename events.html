@@ -132,9 +132,11 @@
                                     {{$memberValidity := $member.Classification}}
                                 {{end}}
                             {{end}}
-                            <a class="btn btn-default col-xs-12" href="#">0 Attending</a>
-                            <a class="btn btn-default col-xs-12" href="#">0 Invited</a>
-                            <a class="btn btn-default col-xs-12" href="#">0 Interested</a>
+                            <div class="btn-group col-xs-12">
+                                <a class="btn btn-default col-md-4 col-xs-12" href="#">0 Attending</a>
+                                <a class="btn btn-default col-md-4 col-xs-12" href="#">0 Invited</a>
+                                <a class="btn btn-default col-md-4 col-xs-12" href="#">0 Interested</a>
+                            </div>
                             {{if le $memberValidity 1}}
                                 <a class="pull-right" href="/EventSettings/{{$eventurl}}">
                                     <button class="btn btn-default" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
