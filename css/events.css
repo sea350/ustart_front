@@ -264,3 +264,294 @@ ul#event-modal-followers-list {
 		border-top: solid 1px #b0cec5;
 	}
 }
+
+#content {
+    margin: 0 auto;
+    position: relative
+}
+
+#followers {
+    font-weight: bold
+}
+
+#event-cont {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px
+}
+
+#back-button {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 15px
+}
+
+#event-name {
+    font-weight: 800;
+    font-size: 28px;
+    word-wrap: break-word;
+    text-align: left
+}
+
+#img-cont {
+    border-radius: 10px;
+    padding: 0.2em
+}
+
+.img-rounded {
+    width: 50%;
+}
+
+#event-img {
+    border-radius: 10px;
+    border: 1px solid #607D8B;
+    margin: 0 auto
+}
+
+#first-row {
+    margin-bottom: 20px
+}
+
+#description-title {
+    display: inline
+}
+
+#desc {
+    margin-top: 15px;
+    word-wrap: break-word;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis
+}
+
+#img-cont {
+    margin-bottom: 10px
+}
+
+@media (max-width: 1600px) {
+    .extra-padding {
+        width:86%
+    }
+}
+
+@media (min-width: 1600px) {
+    .extra-padding {
+        width:70%
+    }
+}
+
+@media (min-width: 1900px) {
+    .extra-padding {
+        width:60%
+    }
+}
+
+#add-icon {
+    padding: 6px 20px;
+    color: #00C085;
+}
+
+@media (max-width: 768px) {
+    #event-img {
+        display:block;
+        max-width: 100%;
+        height: auto
+    }
+
+    #img-cont {
+        min-width: 0px
+    }
+}
+
+@media (min-width: 768px) {
+    #event-img {
+        width:700px;
+        height: 400px
+    }
+}
+
+hr {
+    border-color: #AAA!important
+}
+
+#eventOverview {
+    background-color: white;
+    padding: 1em;
+    margin: 1em 0;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 0.4em;
+    border-color: #B0BEC5;
+    line-height: 1;
+}
+#eventOverview p {
+    margin-top: 0;
+    margin-bottom: 1.5em;
+}
+
+ul.event-tabs {
+	background-color: lightgray;
+	border-radius: 4px 4px 0 0;
+}
+
+ul.event-tabs li,ul.event-tabs li a {
+    -webkit-transition: font-weight 0.5s, color 0.5s;
+    -o-transition: font-weight 0.5s, color 0.5s;
+    transition: font-weight 0.5s, color 0.5s
+}
+
+ul.event-tabs li.active a,ul.event-tabs li.active a:focus,ul.event-tabs li.active a:hover {
+    font-weight: bold;
+    color: #00ac7d
+}
+
+.member {
+    margin: 0.5em;
+    display: inline-block;
+    vertical-align: text-top;
+    margin-top: -2px;
+    
+}
+.member:hover {
+}
+
+.member .member-name{
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.member .member-title,
+.member .member-followers,
+.member .member-events {
+    color: #455A64;
+    overflow: hidden;
+    margin: 0;
+    text-align: center;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    background-color: white;
+    -webkit-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    transition: background-color 0.5s;
+    padding: 0.5em;
+}
+
+.member .member-title,
+.member .member-followers,
+.member .member-events {
+    display: none;
+}
+
+.member .member-name:hover,
+.member .member-title:hover,
+.member .member-followers:hover,
+.member .member-events:hover {
+    background-color: #CFD8DC
+}
+
+#btn2 {
+    cursor: pointer;
+    border-radius: 0.4em;
+    background-color: white;
+    color: #00C085;
+    text-align: center;
+    text-decoration: none;
+    border: solid 1px #B0BEC5;
+    height: 34px;
+    padding: 9px 15px 9px 15px;
+    line-height: 1;
+}
+
+#btn3 {
+    cursor: pointer;
+    border-radius: 0.4em;
+    background-color: white;
+    color: #00C085;
+    text-align: center;
+    text-decoration: none;
+    border: solid 1px #B0BEC5;
+    height: 33px;
+    padding: 0.5em 1.5em;
+    line-height: 4;
+    font-size: 0.5em;
+}
+
+.undisplay {
+    display: none!important
+}
+
+.display {
+    display: block
+}
+
+#btn2:hover {
+    background-color: #00C085;
+    color: white;
+    border: none
+}
+
+#btn3:hover {
+    background-color: #00C085;
+    border: none
+}
+
+#btn3:hover #mailbox-ico {
+    color: white!important
+}
+
+#btn2:focus {
+    outline: none
+}
+
+#btn3:focus {
+    outline: none
+}
+#eventOverview .eventOverviewTitle {
+    font-weight: bold;
+    color: #00C085;
+    margin: 0.5em 0;
+    font-size: 0.9em;
+}
+
+#event-info{
+    text-align: center;
+    margin: auto
+}
+.dashboard-top-right{
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+#event-startDash{
+    text-align: center;
+}
+#event-category{
+    color: #1d2129;
+    display: block;
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 3.5em;
+    margin-right: 12px;
+}
+#event-location{
+    font-size: 14px;
+    line-height: 2em;
+    margin: 2px 12px 0 0;
+}
+
+#eventLabels {
+    margin: 0 0 2em 0;
+}
+
+#eventLabels .row {
+    margin-left: 1em;
+    padding: 0.3em;
+}
