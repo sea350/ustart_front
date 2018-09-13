@@ -27,6 +27,7 @@
 .flex-col { flex-direction: column; }
 .flex-center { align-self: center; }
 .flex-grow { flex-grow: 1; }
+.invis { opacity: 0;}
 
 .dashboard-top-left {
     flex-grow: 1;

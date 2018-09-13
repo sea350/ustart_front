@@ -136,10 +136,10 @@
                                 <a class="btn btn-default col-md-4 col-xs-12" href="#">0 Attending</a>
                                 <a class="btn btn-default col-md-3 col-xs-12" href="#">0 Invited</a>
                                 <a class="btn btn-default col-md-4 col-xs-12" href="#">0 Interested</a>
-                                {{if le $memberValidity 1}}
-                                    <a class="btn btn-default col-md-1" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
-                                {{end}}
                             </div>
+                        {{if le $memberValidity 1}}
+                            <a class="btn btn-default pull-right" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
+                        {{end}}
                         </div>
                     </div>
                 </div>
