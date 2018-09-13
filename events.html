@@ -12,46 +12,38 @@
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/widget-gallery.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/socialMedia.css">
-
-    <link rel="stylesheet" href="/ustart_front/css/evnt.css">
-    <link rel="stylesheet" href="/ustart_front/css/events.css">
-
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/evnt.css">
+    <link rel="stylesheet" type="text/css" href="/ustart_front/css/events.css">
     <link rel="stylesheet" type="text/css" href="/ustart_front/css/profile.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.7.1/slick/slick.min.js"></script>
     <script type="text/javascript" src="https://rawgit.com/swisnl/jQuery-contextMenu/master/dist/jquery.contextMenu.min.js"></script>
+    <script type="text/javascript" src="http://www.youtube.com/player_api"></script>
     <script type="text/javascript" src="/ustart_front/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="/ustart_front/ckeditor/config.js"></script>
     <script type="text/javascript" src="/ustart_front/js/jquery.nicescroll.min.js"></script>
-
-    <!-- there are event.js & event.js-->
+    <script type="text/javascript" src="/ustart_front/js/moment.min.js"></script>
     <script type="text/javascript" src="/ustart_front/js/createPosts.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/jquery.rss.min.js"></script>
+    <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js" data-pin-build="doBuild"></script>
+	<script type="text/javascript" src="/ustart_front/js/layout_tags.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/widget-gallery.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/widgets.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/notify.min.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/ascii-convert.js"></script>
     <script type="text/javascript" src="/ustart_front/js/eventwallload.js"></script>
     <script type="text/javascript" src="/ustart_front/js/event.js"></script>
     {{$userid := .DOCID}}
     {{$eventid := .Event.DocID}}
     {{$eventurl := .Event.EventData.URLName}}
-    <script type="text/javascript" src="/ustart_front/js/jquery.rss.min.js"></script>
-    <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js" data-pin-build="doBuild"></script>
     <script>
         var pageID = {{$eventid}};
         var eventscrollID;
         var maxHits = -1;
     </script>
-    <script src="http://www.youtube.com/player_api"></script>
     {{range $loop := .Event.EventData.EntryIDs}}
     <script>
         IDArray.push({{$loop}});
-    </script>
-    {{end}}
-	<script type="text/javascript" src="/ustart_front/js/layout_tags.js"></script>
-    <script type="text/javascript" src="/ustart_front/js/widget-gallery.js"></script>
-    <script type="text/javascript" src="/ustart_front/js/widgets.js"></script>
-    <script type="text/javascript" src="/ustart_front/js/notify.min.js"></script>
-
-    <script type="text/javascript" src="/ustart_front/js/events.js"></script>
-
-    <script type="text/javascript" src="/ustart_front/js/ascii-convert.js"></script>
-    
+    </script>{{end}}
 </head>
 <body>
     <input type="hidden" id='followstat'>
@@ -60,7 +52,6 @@
             <div>
                 <div class="followers-cont flex">
                     <div class="event-toolbar">
-                       
                         {{range $member := .Event.MemberData}}
                         {{if eq $userid $member.DocID}}
                         {{$memberValidity := $member.Classification}}
@@ -128,77 +119,34 @@
                 <h1></h1>
                 <div class="dashboard-top panel panel-default">
                     <div class="panel-body">
-                        <div class="col-sm-7" style="padding-left:0;">
-                            <img id='head-image'/>
-                            <script>$('#head-image').attr('src', {{.Event.EventData.Banner}});</script>
-                        </div>
-                        <div class="col-sm-5">
-                            <div id="eventBigDate">
-                                <div id="eventMonth"></div>
-                                <div id="eventDate"></div>
+                        <div></div>
+                            <div class="col-sm-7" style="padding-left:0;">
+                                <img id='head-image'/>
+                                <script>$('#head-image').attr('src', {{.Event.EventData.Banner}});</script>
                             </div>
-                            <div class="eventName">{{.Event.EventData.Name}}</div>
-                            <div class="eventDesc">
-                                <strong>Details</strong><br/>
-                                <script>readRuneArray({{.Event.EventData.Description}});</script>
-                            </div>
-                    {{range $member := .Event.MemberData}}
-                        {{if eq $userid $member.DocID}}
-                            {{$memberValidity := $member.Classification}}
-                            {{if le $memberValidity 1}}
-                            <div class="dropdown dropdown-btn">
-                                <button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
-                                <ul class="dropdown-menu dropdown-menu-right" style='left: 1px;'>
-                                    <li><a href="#" style="padding: 0.5em 1em;" data-toggle="modal" data-target="#addUserModal"><i class="fa fa-paw"></i>Recruit Members</a></li>
-                                    <li><a style="padding: 0.5em 1em;" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i> Edit Settings</a></li>
-                                </ul>
-                            </div>
+                            <div class="col-sm-5">
+                                <div class="eventName">{{.Event.EventData.Name}}</div>
+                                <div class="eventDesc">
+                                    <strong>Details</strong><br/>
+                                    <script>readRuneArray({{.Event.EventData.Description}});</script>
+                                </div>
+                        {{range $member := .Event.MemberData}}
+                            {{if eq $userid $member.DocID}}
+                                {{$memberValidity := $member.Classification}}
+                                {{if le $memberValidity 1}}
+                                <div class="dropdown dropdown-btn">
+                                    <button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
+                                    <ul class="dropdown-menu dropdown-menu-right" style='left: 1px;'>
+                                        <li><a href="#" style="padding: 0.5em 1em;" data-toggle="modal" data-target="#addUserModal"><i class="fa fa-paw"></i>Recruit Members</a></li>
+                                        <li><a style="padding: 0.5em 1em;" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i> Edit Settings</a></li>
+                                    </ul>
+                                </div>
+                                {{end}}
                             {{end}}
                         {{end}}
-                    {{end}}
-                            <script>
-                                var StartDate = {{.Event.EventData.EventDateStart}}; 
-                                var StartYear = StartDate.slice(0, 4);
-                                var StartMonth = StartDate.slice(5, 7);
-                                var StartMonthEn = switchMonth(Smonth);
-                                $("#eventMonth").text(StartMonthEn);
-                                var StartDay = StartDate.slice(8, 10);
-                                $("#eventDate").text(StartDay);
-                            </script>
-                            <script>
-                                    // Set the date we're counting down to
-                                    var countDownDate = new Date({{.Event.EventData.EventDateStart}}).getTime();
-                                    
-                                    // Update the count down every 1 second
-                                    var x = setInterval(function() {
-                                    
-                                        // Get todays date and time
-                                        var now = new Date().getTime();
-                                        
-                                        // Find the distance between now and the count down date
-                                        var distance = countDownDate - now;
-                                        
-                                        // Time calculations for days, hours, minutes and seconds
-                                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                                        
-
-                                        // Output the result in an element with id="demo"
-                                        eventCount = document.getElementById("event-startDash")
-                                        eventCount.title = days + "d " + hours + "h "
-                                        + minutes + "m " + seconds + "s ";
-                                        
-                                        // If the count down is over, write some text 
-                                        if (distance < 0) {
-                                            clearInterval(x);
-                                            document.getElementById("event-startDash").title = "EXPIRED";
-                                        }
-                                    }, 1000);               
-                            </script>
+                            </div>
                         </div>
-                        <div class="dashboard-top-mid">
+                        <div>
                             <img id="event-logo" class="img-circle img-responsive"/>
                             <script>
                                 $('#event-logo').attr('src', {{.Event.EventData.Avatar}});
@@ -209,9 +157,7 @@
                                 <button class="event-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
                                     <span>JOIN AS GUEST</span>
                                 </button>
-                            </form>
-                            
-                            {{end}}
+                            </form>{{end}}
                         </div>
                     </div>
                     <hr>
@@ -222,28 +168,13 @@
                                     <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-sm-10">
-                                    <p id='demo1'></p>
+                                    <div id="eventDateRange"></div>
+                                    <div id="eventTimeRange"></div>
                                     <script>
-                                        var S1date = {{.Event.EventData.EventDateStart}}; 
-
-                                        var S1year = S1date.slice(0, 4);
-                                        var S1month = S1date.slice(5, 7);
-                                        
-                                        var S1monthEn = switchMonth(S1month);
-
-                                        var S1day = S1date.slice(8, 10);
-                                        var S1hour = S1date.slice(11, 13);
-                                        var S1min = S1date.slice(14, 16);
-
-                                        var S2date = {{.Event.EventData.EventDateEnd}}; 
-
-                                        var S2year = S2date.slice(0, 4);
-                                        var S2month = S2date.slice(5, 7);
-                                        var S2monthEn = switchMonth(S2month);
-                                        var S2day = S2date.slice(8, 10);
-                                        var S2hour = S2date.slice(11, 13);
-                                        var S2min = S2date.slice(14, 16);                                        
-                                        document.getElementById("demo1").innerHTML = '<p>'+ S1monthEn + ' ' + S1day + ' - ' + S2monthEn + ' ' + S2day +'</p>'+'<h6 class="text-secondary">' + S1monthEn + " " + S1day +" "+ S1hour+" : "+S1min +" to "+ S2monthEn + " " + S2day +" "+ S2hour+" : "+S2min + '</h6>';
+                                        var dS = moment('{{.Event.EventData.EventDateStart}}');
+                                        var dE = moment('{{.Event.EventData.EventDateEnd}}');
+                                        $("#eventDateRange").text(dS.format('MMM Do YY') + " To " + dE.format('MMM Do YY'));
+                                        $("#eventTimeRange").text(dS.format('h:mm:ss a') + "    " + dE.format('h:mm:ss a'));
                                     </script>
                                 </div>                
                             </div>
@@ -271,7 +202,12 @@
                                 </div>  
                             </div>              
                         </div>                        
-                        <div class="col-sm-8">
+                        <div class="col-sm-5">
+                            <!-- Google Maps API -->
+                            MAPS
+                        </div>
+                        <div class="col-sm-3">
+                            Some Buttons
                         </div>
                     </div>
                    
