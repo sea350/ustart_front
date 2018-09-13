@@ -116,29 +116,15 @@
             </div>
             <div class="dashboard-top panel panel-default">
                 <div class="panel-body">
-                    <div class="col-sm-8">
+                    <div class="col-sm-7">
                         <img id='head-image'/>
                         <script>$('#head-image').attr('src', {{.Event.EventData.Banner}});</script>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-5">
                         <div class="eventName">{{.Event.EventData.Name}}</div>
                         <div class="eventDesc">
                             <script>readRuneArray({{.Event.EventData.Description}});</script>
                         </div>
-                {{range $member := .Event.MemberData}}
-                    {{if eq $userid $member.DocID}}
-                        {{$memberValidity := $member.Classification}}
-                        {{if le $memberValidity 1}}
-                        <div class="dropdown dropdown-btn">
-                            <button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
-                            <ul class="dropdown-menu dropdown-menu-right" style='left: 1px;'>
-                                <li><a href="#" style="padding: 0.5em 1em;" data-toggle="modal" data-target="#addUserModal"><i class="fa fa-paw"></i>Recruit Members</a></li>
-                                <li><a style="padding: 0.5em 1em;" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i> Edit Settings</a></li>
-                            </ul>
-                        </div>
-                        {{end}}
-                    {{end}}
-                {{end}}
                     </div>
                 </div>
                 {{if eq ($.Event.RequestAllowed) true}}
@@ -195,13 +181,28 @@
                     </div>
                     <div class="col-sm-3">
                         Some Buttons
+                        {{range $member := .Event.MemberData}}
+                            {{if eq $userid $member.DocID}}
+                                {{$memberValidity := $member.Classification}}
+                                {{if le $memberValidity 1}}
+                                    <a style="padding: 0.5em 1em;" href="/EventSettings/{{$eventurl}}">
+                                        <button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-gear"></i>
+                                        </button>
+                                    </a>
+                                    <a class="btn btn-default" href="#" data-toggle="modal" data-target="#addUserModal">0 Attending</a>
+                                    <a class="btn btn-default" href="#" data-toggle="modal" data-target="#addUserModal">0 Invited</a>
+                                    <a class="btn btn-default" href="#" data-toggle="modal" data-target="#addUserModal">0 Interested</a>
+                                {{end}}
+                            {{end}}
+                        {{end}}
                     </div>
                 </div>
                 <script>
                     var dS = moment('{{.Event.EventData.EventDateStart}}');
                     var dE = moment('{{.Event.EventData.EventDateEnd}}');
-                    $("#eventLabelStart").text(dS.format('MMM Do YY h:mm a'));
-                    $("#eventLabelEnd").text(dE.format('MMM Do YY h:mm a'));
+                    $("#eventLabelStart").text(dS.format('MMMM Do[,] h:mm a'));
+                    $("#eventLabelEnd").text(dE.format('MMMM Do[,] h:mm a'));
                 </script>
             </div>
             <ul class="nav nav-tabs nav-justified event-tabs">
