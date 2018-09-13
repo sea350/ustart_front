@@ -129,7 +129,7 @@
                             {{$memberValidity := 0}}
                             {{range $member := .Event.MemberData}}
                                 {{if eq $userid $member.DocID}}
-                                    {{$memberValidity = $member.Classification}}
+                                    {{$memberValidity := $member.Classification}}
                                 {{end}}
                             {{end}}
                             <a class="btn btn-default col-xs-12" href="#">0 Attending</a>
