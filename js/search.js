@@ -89,17 +89,20 @@ function createSearchResult(username, icon, firstName, lastName, description, ta
 	var resultRedirect = $("<a></a>").addClass('search-result-pic-link').attr("href", "/profile/" + username).text(firstName + " " + lastName);
 	var resultDescription = $("<div></div>").addClass('search-result-description').text(description);
 	var resultTags = $("<div></div>").addClass('search-result-tags');
-	for (i = 0; i < tags.length; i++) {
-		var resultTagsSpan = $("<span></span>").addClass('search-result-tag').text(tags[i]);
-		resultTags.append(resultTagsSpan);
-	}
 	resultTitle.append(resultRedirect);
+    if(tags != null){
+        for (i = 0; i < tags.length; i++) {
+            var resultTagsSpan = $("<span></span>").addClass('search-result-tag').text(tags[i]);
+            resultTags.append(resultTagsSpan);
+        }
+    }
 	resultTextOuterDiv.append(resultTitle, resultDescription, resultTags)
 	resultAnchor.append(userImage);
 	mainSearchDiv.append(resultAnchor, resultTextOuterDiv);
 	$('#search-results-container').append(mainSearchDiv);
 }
 $(function () {
+    
 	$("#leftNavSearch").addClass("theActive");
 	var searchQuery = decodeURIComponent(GetQueryStringParams("query").replace(/\+/g, ' '));
 
@@ -128,9 +131,9 @@ $(function () {
 	}
 	console.log("TabIndex is " + tabIndex);
 	$("#searchTabs").tabs({
-		active: tabIndex
+          active: tabIndex
 	});
-
+    
 	$("#searchTerm").text(searchQuery);
 	$("input[name='query']").attr("form", "search-filters");
 	$("input[name='query']").val(searchQuery);
@@ -169,7 +172,7 @@ $(function () {
 
 	$("[name='searchmusthaveskills']").on('input', function () {
 		var optionvalue = $(this).val();
-
+        
 		// Disable duplicates
 		if ($("select[name='searchmusthaveskills'] option").filter(function () {
 			return $(this).val().toLowerCase() === optionvalue.toLowerCase();
@@ -209,33 +212,77 @@ $(function () {
 	});
 
 	$("form#search-filters").submit(function () {
-		// Clear spaces
-		var searchQuery = $("input[name='query']").val();
-		searchQuery = searchQuery.replace(/[^A-Za-z0-9+#-]+/g, ' ').trim();
-		$("input[name='query']").val(searchQuery);
+        var searchQuery = $("input[name='query']").val();
+        searchQuery = searchQuery.replace(/[^A-Za-z0-9+#-]+/g, ' ').trim();
+        $("input[name='query']").val(searchQuery);
 
-		var majorInputs = $("<input type='hidden' name='searchlistmajors'/>");
-		var skillInputs = $("<input type='hidden' name='searchlistskills'/>");
+        var majorInputs = $("<input type='hidden' name='searchlistmajors'/>");
+        var skillInputs = $("<input type='hidden' name='searchlistskills'/>");
 
-		majorInputs.val("[");
-		$("input[name='searchmajor']").each(function () {
-			majorInputs.val(majorInputs.val() + "\"" + $(this).val() + "\",");
-			$(this).remove();
-		});
-		var majorInputsStringLength = majorInputs.val().length;
-		majorInputs.val(majorInputs.val().slice(0, majorInputsStringLength - 1) + "]");
-		skillInputs.val("[");
-		$("input[name='searchskill']").each(function () {
-			skillInputs.val(skillInputs.val() + "\"" + $(this).val() + "\",");
-			$(this).remove();
-		});
-		var skillInputsStringLength = skillInputs.val().length;
-		skillInputs.val(skillInputs.val().slice(0, skillInputsStringLength - 1) + "]");
+        majorInputs.val("[");
+        $("input[name='searchmajor']").each(function () {
+            majorInputs.val(majorInputs.val() + "\"" + $(this).val() + "\",");
+            $(this).remove();
+        });
+        var majorInputsStringLength = majorInputs.val().length;
+        majorInputs.val(majorInputs.val().slice(0, majorInputsStringLength - 1) + "]");
+        skillInputs.val("[");
+        $("input[name='searchskill']").each(function () {
+            skillInputs.val(skillInputs.val() + "\"" + $(this).val() + "\",");
+            $(this).remove();
+        });
+        var skillInputsStringLength = skillInputs.val().length;
+        skillInputs.val(skillInputs.val().slice(0, skillInputsStringLength - 1) + "]");
 
-		$(this).append(majorInputs, skillInputs);
-		$("[name='searchmusthavemajors'], [name='searchmusthaveskills']").prop("disabled", true);
+        $(this).append(majorInputs, skillInputs);
+        $("[name='searchmusthavemajors'], [name='searchmusthaveskills']").prop("disabled", true);
 	});
+    
+    
+    function showAndDismissAlert(type, message) {
+    var htmlAlert = '<div class="alert alert-' + type + '">' + message + '</div>';
 
+        // Prepend so that alert is on top, could also append if we want new alerts to show below instead of on top.
+        $(".alert-messages").prepend(htmlAlert);
+
+        // Since we are prepending, take the first alert and tell it to fade in and then fade out.
+        // Note: if we were appending, then should use last() instead of first()
+        $(".alert-messages .alert").first().hide().fadeIn(200).delay(2000).fadeOut(1000, function () { $(this).remove(); });
+    }
+    
+    /*$("button#filApply").click(function (e) {
+        e.preventDefault();
+        var searchQuery = $("input[name='query']").val();
+        searchQuery = searchQuery.replace(/[^A-Za-z0-9+#-]+/g, ' ').trim();
+        $("input[name='query']").val(searchQuery);
+
+        var majorInputs = $("<input type='hidden' name='searchlistmajors'/>");
+        var skillInputs = $("<input type='hidden' name='searchlistskills'/>");
+
+        majorInputs.val("[");
+        $("input[name='searchmajor']").each(function () {
+            majorInputs.val(majorInputs.val() + "\"" + $(this).val() + "\",");
+            $(this).remove();
+        });
+        var majorInputsStringLength = majorInputs.val().length;
+        majorInputs.val(majorInputs.val().slice(0, majorInputsStringLength - 1) + "]");
+        skillInputs.val("[");
+        $("input[name='searchskill']").each(function () {
+            skillInputs.val(skillInputs.val() + "\"" + $(this).val() + "\",");
+            $(this).remove();
+        });
+        var skillInputsStringLength = skillInputs.val().length;
+        skillInputs.val(skillInputs.val().slice(0, skillInputsStringLength - 1) + "]");
+
+        $(this).append(majorInputs, skillInputs);
+        //$("[name='searchmusthavemajors'], [name='searchmusthaveskills']").prop("disabled", true);
+        
+        var result = $('form#search-filters').serialize();
+        console.log(result);
+        window.history.pushState("", "", "/search?"+result);
+         showAndDismissAlert('success', 'Your changes have been applied!');
+    });*/
+    
 	loadSearchFilters();
 
 	$("#search-filter-hider").click(function () {

@@ -17,6 +17,14 @@
     width:25rem;
 }
 
+#project-container .card-body{
+    text-align: center;
+}
+
+#project-container hr{
+    margin-top:10px !important;
+    margin-bottom: 20px !important;
+}
 #project-container .card img{
     border-radius: 0.5em;
     margin-left: auto;

@@ -4,8 +4,6 @@ var flag = 1;
  var permission = -1;
 var IDArray= []
 document.addEventListener('DOMContentLoaded', function () { window.scrollTo(0, 200) });
-
-
 $(document).ready(function () {
     if (permission < 0) {
         $("#widget-insert, .fa-pencil, .fa-sort, .fa-trash").remove();

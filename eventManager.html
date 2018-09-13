@@ -64,6 +64,8 @@
 							<h4 class="card-title">
 								<a href="/Event/{{$event.Username}}">{{$event.FirstName}}</a>
 							</h4>
+                             <span class="text-muted mx-auto">{{$event.Category}}</span>
+                            <hr>
 							<p class="card-text">
 								<script>readRuneArray({{ $event.Bio }});</script>
 							</p>

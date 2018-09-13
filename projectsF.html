@@ -931,7 +931,7 @@
                                             {{range $member := .Project.MemberData}}
                                                {{if eq $userid $member.DocID}}
                                                     <!-- new post panel-->
-                                                    <div class="panel panel-default" style="margin-top:20px;" >
+                                                    <div class="panel panel-default">
                                                         <div class="panel-body">
                                                             <div class="media">
                                                                 <a class="pull-left" href="#">
@@ -965,6 +965,15 @@
                         <a class="member" href="/profile/{{$member.Username}}">
                                 <img id="img{{$member.Username}}" class="img-circle img-responsive">
                                 <div class="member-name">{{$member.FirstName}} {{$member.LastName}}</div>
+                                    {{if eq $member.Classification 0}}
+                                        <span class ="text-muted">Creator</span>
+                                    {{else}}
+                                        {{if eq $member.Classification 1}}
+                                            <span class ="text-muted">Moderator</span>
+                                        {{else}}
+                                                <span class ="text-muted">Member</span>
+                                        {{end}}
+                                    {{end}}
 								<script>
 									$('img#img{{$member.Username}}').attr('src', {{$member.Image}});
 								</script>
@@ -1233,7 +1242,7 @@
 									</div>
 									<form id="customCodePenForm" action="/addProjectWidget/" method="POST">
 									<div class="modal-body">
-										<p>Please paste the CodePen embed code in here:</p>
+										<p>Please paste the CodePen Iframe code in here:</p>
 										<div class="form-group">
 											<input type="text" class="form-control" id="code-embed-input" name="codepenInput" pattern="<iframe height='[0-9%]{0,4}' scrolling='no' title='(.*?)' src='\/\/codepen\.io\/(.*?)\/embed\/(.*?)\/?height=[0-9%]{0,4}&theme-id=(.*?)&default-tab=(.*?),result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https:\/\/codepen.io\/(.*?)\/pen\/(.*?)\/'>(.*?)<\/a> by (.*?)\(<a href='https:\/\/codepen.io\/(.*?)'>@(.*?)<\/a>\) on <a href='https:\/\/codepen.io'>CodePen<\/a>. <\/iframe>" required>
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>

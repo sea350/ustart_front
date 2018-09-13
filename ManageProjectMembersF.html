@@ -21,7 +21,7 @@
 					</h3>
 					<ul id="inbox-groups">
                         {{range $loop := .ListOfHeads}}
-                        	{{if or (eq $loop.Classification 0) (eq $loop.Classification 1)}}
+                        	{{if (eq $loop.Classification 2) }}
                                 <!-- for loop for project list here -->
                                 <li class="inbox-group projectList" id="{{$loop.DocID}}">
                                     <a href="/Projects/{{$loop.Username}}">

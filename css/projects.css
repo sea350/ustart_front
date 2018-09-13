@@ -30,7 +30,15 @@
 .flex-col {
     flex-direction: column;
 }
+div.dashboard{
+    padding:0.5em;
+    width:300px;
+    margin-top: 0 !important;
+}
 
+#main{
+    margin-top: 0 !important;
+}
 .flex-grow {
     flex-grow: 1;
     flex-basis: 0;

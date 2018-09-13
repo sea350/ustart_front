@@ -13,7 +13,7 @@
     <script>
         var dashTotalHits;
         var dashScrollID;
-        var dashflag=0;
+        var dashflag=1;
         $(document).ready(function (){
             $("#leftNavDash").addClass("theActive");
         });
@@ -66,7 +66,7 @@
                                             <span id="dismiss">&times;</span>
                                         </div>
                                         <div class="content">
-                                            <img class="avatar" src="http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-126.jpg">
+                                            <img class="avatar" src="https://engineering.nyu.edu/sites/default/files/styles/square_large_620_2x/public/migrated/2009-06/pictures/picture-126.jpg">
                                             <div class="user-card-info">
                                                 <a href="profile.html">
                                                         <strong class="user-card-name">Fred Strauss</strong>
@@ -81,7 +81,7 @@
                                             <span id="dismiss">&times;</span>
                                         </div>
                                         <div class="content">
-                                            <img class="avatar" src="http://engineering.nyu.edu/files/imagecache/img_half/ftp/images/mdabaie/sterling_john2.jpg">
+                                            <img class="avatar" src="https://engineering.nyu.edu/sites/default/files/styles/square_large_620_2x/public/migrated/2009-06/pictures/picture-192.jpg">
                                             <div class="user-card-info">
                                                 <a href="profile.html">
                                                         <strong class="user-card-name">John Sterling</strong>
@@ -96,7 +96,7 @@
                                             <span id="dismiss">&times;</span>
                                         </div>
                                         <div class="content">
-                                            <img class="avatar" src="http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-341.jpg">
+                                            <img class="avatar" src="https://engineering.nyu.edu/sites/default/files/styles/square_large_620_2x/public/migrated/2009-06/pictures/picture-341.jpg">
                                             <div class="user-card-info">
                                                 <a href="profile.html">
                                                         <strong class="user-card-name">Haldun Hadimioglu</strong>
@@ -120,7 +120,7 @@
                                             <span id="dismiss">&times;</span>
                                         </div>
                                         <div class="content">
-                                            <img class="avatar" src="https://pbs.twimg.com/profile_images/898391736078262272/oHO_LQmH_400x400.jpg">
+                                            <img class="avatar" src="/ustart_front/img/image.jpg">
                                             <div class="proj-card-info">
                                                 <a href="projects.html">
                                                         <strong class="proj-card-name">U●Start </strong>
@@ -205,11 +205,8 @@
 
                                 this.doSomething = function() {    
                                     // Do something.
-                                    console.log("here");
+                                    console.log(dashTotalHits);
                                   if (dashflag == 1){
-                                         var url = document.createElement('a');
-                                         url.href = window.location.href;
-                                         var temp = parseQuery(url.search);
                                          dashflag=0;
                                          if ( $('.feedPost').length < dashTotalHits){
                                              console.log("here2")
@@ -225,7 +222,9 @@
                                                      {
                                                         var temp = $.parseJSON(jqXHR.responseText);
                                                         if(temp != null){
-                                                          console.log(temp);
+                                                              for (i=0; i < temp.JournalEntries.length; i++){
+                                                                    makeDashPostApplications(temp.JournalEntries[i].ElementID, temp.JournalEntries[i].Username,temp.JournalEntries[i].FirstName, temp.JournalEntries[i].LastName, temp.JournalEntries[i].Image, temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].Element.TimeStamp, temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies, temp.JournalEntries[i].NumShares);
+                                                                }
                                                         }
                                                      }
                                                 },error: function(err) {
@@ -234,7 +233,9 @@
                                                 }
                                             });
                                         }
-                                       else dashflag=1;   
+                                       else dashflag=1;  
+                                             
+                                            
                                  }
                                 }
 

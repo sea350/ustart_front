@@ -64,6 +64,8 @@
 							<h4 class="card-title">
 								<a href="/Projects/{{$project.Username}}">{{$project.FirstName}}</a>
 							</h4>
+                            <span class="text-muted mx-auto">{{$project.Category}}</span>
+                            <hr>
 							<p class="card-text">
 								<script>readRuneArray({{ $project.Bio }});</script>
 							</p>

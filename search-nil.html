@@ -10,19 +10,82 @@
     <script src="/ustart_front/js/bootstrap-confirmation.min.js"></script>
     <script src="/ustart_front/js/ascii-convert.js"></script>
     <script src="/ustart_front/js/majors.js" defer></script>
-    <script src="/ustart_front/js/search.js" defer></script>
     <script>
         var flag = 1;
+        var scroll = {{.ScrollID}};
     </script>
+    <script src="/ustart_front/js/search.js" defer></script>
 </head>
 <body>
     <div id="centering">
+        <div class ="alert-messages"></div>
         <div id="content" class="container">
 			<ul id="searchTabs" class="nav nav-pills nav-pills-custom-minimal custom-minimal-bottom">
 				<li><a data-toggle="tab" id="searchUser">Users</a></li>
 				<li><a data-toggle="tab" id="searchProject">Projects</a></li>
 				<li><a data-toggle="tab" id="searchEvent">Events</a></li>
 			</ul>
+            <script>
+                    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                            var target = $(e.target).attr("id")
+                            var searchQuery = $("input[name='query']").val();
+                            searchQuery = searchQuery.replace(/[^A-Za-z0-9+#-]+/g, ' ').trim();
+                            $("input[name='query']").val(searchQuery);
+
+                            var majorInputs = $("<input type='hidden' name='searchlistmajors'/>");
+                            var skillInputs = $("<input type='hidden' name='searchlistskills'/>");
+
+                            majorInputs.val("[");
+                            $("input[name='searchmajor']").each(function () {
+                                majorInputs.val(majorInputs.val() + "\"" + $(this).val() + "\",");
+                                $(this).remove();
+                            });
+                            var majorInputsStringLength = majorInputs.val().length;
+                            majorInputs.val(majorInputs.val().slice(0, majorInputsStringLength - 1) + "]");
+                            skillInputs.val("[");
+                            $("input[name='searchskill']").each(function () {
+                                skillInputs.val(skillInputs.val() + "\"" + $(this).val() + "\",");
+                                $(this).remove();
+                            });
+                            var skillInputsStringLength = skillInputs.val().length;
+                            skillInputs.val(skillInputs.val().slice(0, skillInputsStringLength - 1) + "]");
+
+                            $(this).append(majorInputs, skillInputs);
+                            var result = $('form#search-filters').serialize();
+                            window.history.pushState("", "", "/search?"+result);
+                            var url = document.createElement('a');
+                            url.href = window.location.href;
+                            var temp = parseQuery(url.search);
+                            scroll='';
+                            $.ajax({
+                                type: 'GET',
+                                url: 'http://ustart.today:'+port+'/AjaxLoadNext/',
+                                contentType: "application/json; charset=utf-8",
+                                data: {query: temp.query, searchFilterGroup:temp.searchFilterGroup,searchlistmajors:temp.searchlistmajors, searchlistskills:temp.searchlistskills, searchbyprojectname:temp.searchbyprojectname, searchbyurl:temp.searchbyurl, searchbymembersneeded:temp.searchbymembersneeded, searchbyskills:temp.searchbyskills, searchbyeventname: temp.searchbyeventname, searchbyurl: temp.searchbyurl, scrollID: '', searchbymembers: temp.searchbymembers, searchbyguests: temp.searchbyguests, searchbypersonname: temp.searchbypersonname, searchbyusername:temp.searchbyusername},
+                                 beforeSend: function() {
+                                   $('#search-results-container').empty();
+                                   $('#search-results-container').prepend('<div class="loader" ></div>');
+                               },
+                                success: function(data) {  
+                                },complete: function (jqXHR,status) {
+                                     if(status == 'success' || status=='notmodified')
+                                     {
+                                        var tem = $.parseJSON(jqXHR.responseText);
+                                        if(tem != null){
+                                            
+                                            $('#search-results-container').find(".loader").css("display", "none");
+                                            for(var j=0; j<tem.length; j++){
+                                                createSearchResult (tem[j].Username, tem[j].Image, tem[j].FirstName, tem[j].LastName, readRuneArrayThatWorks(tem[j].Bio), tem[j].Tags);
+                                            }
+                                        }
+                                     }
+                                },error: function(err) {
+                                    console.log('tab switch Load failed: ');
+                                    console.log(err);
+                                }
+                            });
+                        });
+            </script>
             <div id="search-filter">
 				<form id="search-filters" action="/search">
 					<input type="hidden" id="searchFilterGroup" name="searchFilterGroup"/>
@@ -203,7 +266,7 @@
 				<h4>Please try searching for someone else.</h4>
 				{{end}}
                 <script>
-
+                        
                          function element_in_scroll(elem)
                          {
                             var docViewTop = $(window).scrollTop();
@@ -257,14 +320,13 @@
                                                      {
                                                         var temp = $.parseJSON(jqXHR.responseText);
                                                         if(temp != null){
-                                                            console.log(temp);
-                                                            for(i=0; i<temp.length; i++){
-                                                                createSearchResult (temp[i].Username, temp[i].Image, temp[i].FirstName, temp[i].LastName, readRuneArrayThatWorks(temp[i].Bio), temp[i].Interface);
+                                                            for(var i=0; i<temp.length; i++){
+                                                                createSearchResult (temp[i].Username, temp[i].Image, temp[i].FirstName, temp[i].LastName, readRuneArrayThatWorks(temp[i].Bio), temp[i].Tags);
                                                             }
                                                         }
                                                      }
                                                 },error: function(err) {
-                                                    console.log('chat Load failed: ');
+                                                    console.log('search Load failed: ');
                                                     console.log(err);
                                                 }
                                             });

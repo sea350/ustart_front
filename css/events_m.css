@@ -28,6 +28,15 @@
 	max-height: 80px;
 }
 
+#event-container .card-body{
+    text-align: center;
+}
+
+#event-container hr{
+    margin-top:10px !important;
+    margin-bottom: 20px !important;
+}
+
 #event-container.card-title, #event-container.card-text{
     overflow: hidden;
     text-overflow: ellipsis;
