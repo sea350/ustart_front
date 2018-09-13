@@ -115,15 +115,31 @@
                 </div>
             </div>
             <div class="dashboard-top panel panel-default">
-                <div class="panel-body">
+                <div class="panel-body flex">
                     <div class="col-sm-7">
                         <img id='head-image'/>
                         <script>$('#head-image').attr('src', {{.Event.EventData.Banner}});</script>
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-5 flex flex-col">
                         <div class="eventName">{{.Event.EventData.Name}}</div>
-                        <div class="eventDesc">
+                        <div class="eventDesc flex-grow">
                             <script>readRuneArray({{.Event.EventData.Description}});</script>
+                        </div>
+                        <div>
+                            {{$memberValidity := 0}}
+                            {{range $member := .Event.MemberData}}
+                                {{if eq $userid $member.DocID}}
+                                    {{$memberValidity = $member.Classification}}
+                                {{end}}
+                            {{end}}
+                            <a class="btn btn-default col-xs-12" href="#">0 Attending</a>
+                            <a class="btn btn-default col-xs-12" href="#">0 Invited</a>
+                            <a class="btn btn-default col-xs-12" href="#">0 Interested</a>
+                            {{if le $memberValidity 1}}
+                                <a class="pull-right" href="/EventSettings/{{$eventurl}}">
+                                    <button class="btn btn-default" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
+                                </a>
+                            {{end}}
                         </div>
                     </div>
                 </div>
@@ -180,21 +196,6 @@
                         MAPS
                     </div>
                     <div class="col-sm-3">
-                        {{range $member := .Event.MemberData}}
-                            {{if eq $userid $member.DocID}}
-                                {{$memberValidity := $member.Classification}}
-                                {{if le $memberValidity 1}}
-                                    <a class="btn btn-default col-xs-12" href="#" data-toggle="modal" data-target="#addUserModal">0 Attending</a>
-                                    <a class="btn btn-default col-xs-12" href="#" data-toggle="modal" data-target="#addUserModal">0 Invited</a>
-                                    <a class="btn btn-default col-xs-12" href="#" data-toggle="modal" data-target="#addUserModal">0 Interested</a>
-                                    <a class="pull-right" href="/EventSettings/{{$eventurl}}">
-                                        <button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                            <i class="fa fa-gear"></i>
-                                        </button>
-                                    </a>
-                                {{end}}
-                            {{end}}
-                        {{end}}
                     </div>
                 </div>
                 <script>

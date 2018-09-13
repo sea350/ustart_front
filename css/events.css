@@ -23,18 +23,13 @@
     max-height: 14em;
 }
 
-.flex {
-    display: flex;
-}
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-center { align-self: center; }
+.flex-grow { flex-grow: 1; }
 
-.flex-col {
-    flex-direction: column;
-}
-.dashboard-top-left{
+.dashboard-top-left {
     flex-grow: 1;
-}
-.flex-center {
-    align-self: center;
 }
 
 .eventName {
