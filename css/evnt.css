@@ -264,11 +264,6 @@ ul.event-tabs li.active a,ul.event-tabs li.active a:focus,ul.event-tabs li.activ
     margin-right: 1em;
 }
 
-.col-sm-2 .glyphicon{
-    padding-top: 1em;
-   
-}
-
 #event-startDash{
     text-align: center;
 }
@@ -284,4 +279,13 @@ ul.event-tabs li.active a,ul.event-tabs li.active a:focus,ul.event-tabs li.activ
     font-size: 14px;
     line-height: 2em;
     margin: 2px 12px 0 0;
+}
+
+#eventLabels {
+    margin: 0 0 2em 0;
+}
+
+#eventLabels .row {
+    margin-left: 1em;
+    padding: 0.3em;
 }

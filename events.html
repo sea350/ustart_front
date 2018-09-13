@@ -160,9 +160,9 @@
                             </form>{{end}}
                         </div>
                         <hr>
-                        <div class="row" style='margin: 0 0 2em 0'>
+                        <div id="eventLabels" class="row">
                             <div class="col-sm-4">
-                                <div class="row" style='margin-left:1em'>
+                                <div class="row">
                                     <div class="col-sm-2">
                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                                     </div>
@@ -170,7 +170,7 @@
                                         <div id="eventLabelStart"></div>
                                     </div>
                                 </div>
-                                <div class="row" style='margin-left:1em'>
+                                <div class="row">
                                     <div class="col-sm-2">
                                         <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                     </div>
@@ -178,7 +178,7 @@
                                         <div id="eventLabelEnd"></div>
                                     </div>
                                 </div>
-                                <div class="row" style='margin-left:1em'>
+                                <div class="row">
                                     <div class="col-sm-2">
                                         <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                                     </div>
@@ -187,18 +187,17 @@
                                         <h6>{{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}</h6>
                                     </div>
                                 </div>
-                                <div class="row" style='margin-left:1em'>
+                                <div class="row">
                                     <div class="col-sm-2">
                                         <span class="glyphicon glyphicon-user" style='padding-top:0' aria-hidden="true"></span>
                                     </div>
                                     <div class="col-sm-10" >
-                                        {{range $member := .Event.MemberData}}
-                                        
+                                    {{range $member := .Event.MemberData}}
                                         {{$memberValidity := $member.Classification}}
                                         {{if le $memberValidity 1}}
                                         <strong>  <a style='color:black;' href="/profile/{{$member.Username}}"> {{$member.FirstName}} {{$member.LastName}}</a></strong> 
                                         {{end}}
-                                        {{end}}
+                                    {{end}}
                                     </div>  
                                 </div>              
                             </div>                        
