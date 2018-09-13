@@ -116,14 +116,13 @@
             </div>
             <div class="dashboard-top panel panel-default">
                 <div class="panel-body">
-                    <div class="col-sm-7">
+                    <div class="col-sm-8">
                         <img id='head-image'/>
                         <script>$('#head-image').attr('src', {{.Event.EventData.Banner}});</script>
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-4">
                         <div class="eventName">{{.Event.EventData.Name}}</div>
                         <div class="eventDesc">
-                            <strong>Details</strong><br/>
                             <script>readRuneArray({{.Event.EventData.Description}});</script>
                         </div>
                 {{range $member := .Event.MemberData}}
