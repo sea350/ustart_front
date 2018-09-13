@@ -4,6 +4,7 @@
 
 .dashboard-top .panel-body {
     padding: 0;
+    padding-top: 1em;
 }
 
 .dashboard-top-mid {
