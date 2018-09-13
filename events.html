@@ -56,7 +56,7 @@
                         {{if eq $userid $member.DocID}}
                         {{$memberValidity := $member.Classification}}
                         <script>
-                            permission= {{$memberValidity}};
+                            permission = {{$memberValidity}};
                         </script>    
 						<form id="event-leave-form" action="/leaveEvent/" style="display:none">
 							<input type="hidden" name="leaverID" value=""/>
@@ -116,97 +116,88 @@
                 {{end}}
                     </div>
                 </div>
-                <h1></h1>
                 <div class="dashboard-top panel panel-default">
                     <div class="panel-body">
-                        <div></div>
-                            <div class="col-sm-7" style="padding-left:0;">
-                                <img id='head-image'/>
-                                <script>$('#head-image').attr('src', {{.Event.EventData.Banner}});</script>
+                        <div class="col-sm-7">
+                            <img id='head-image'/>
+                            <script>$('#head-image').attr('src', {{.Event.EventData.Banner}});</script>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="eventName">{{.Event.EventData.Name}}</div>
+                            <div class="eventDesc">
+                                <strong>Details</strong><br/>
+                                <script>readRuneArray({{.Event.EventData.Description}});</script>
                             </div>
-                            <div class="col-sm-5">
-                                <div class="eventName">{{.Event.EventData.Name}}</div>
-                                <div class="eventDesc">
-                                    <strong>Details</strong><br/>
-                                    <script>readRuneArray({{.Event.EventData.Description}});</script>
-                                </div>
-                        {{range $member := .Event.MemberData}}
-                            {{if eq $userid $member.DocID}}
-                                {{$memberValidity := $member.Classification}}
-                                {{if le $memberValidity 1}}
-                                <div class="dropdown dropdown-btn">
-                                    <button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
-                                    <ul class="dropdown-menu dropdown-menu-right" style='left: 1px;'>
-                                        <li><a href="#" style="padding: 0.5em 1em;" data-toggle="modal" data-target="#addUserModal"><i class="fa fa-paw"></i>Recruit Members</a></li>
-                                        <li><a style="padding: 0.5em 1em;" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i> Edit Settings</a></li>
-                                    </ul>
-                                </div>
-                                {{end}}
+                    {{range $member := .Event.MemberData}}
+                        {{if eq $userid $member.DocID}}
+                            {{$memberValidity := $member.Classification}}
+                            {{if le $memberValidity 1}}
+                            <div class="dropdown dropdown-btn">
+                                <button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
+                                <ul class="dropdown-menu dropdown-menu-right" style='left: 1px;'>
+                                    <li><a href="#" style="padding: 0.5em 1em;" data-toggle="modal" data-target="#addUserModal"><i class="fa fa-paw"></i>Recruit Members</a></li>
+                                    <li><a style="padding: 0.5em 1em;" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i> Edit Settings</a></li>
+                                </ul>
+                            </div>
                             {{end}}
                         {{end}}
+                    {{end}}
+                        </div>
+                    </div>
+                    {{if eq ($.Event.RequestAllowed) true}}
+                    <form action="/AjaxNewGuest/" method="POST" style="display: inline-block;" style='margin-top:0em; margin-bottom:0em;'>
+                        <input type="hidden" name="eventID" value='{{$eventid}}'>
+                        <button class="event-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
+                            <span>JOIN AS GUEST</span>
+                        </button>
+                    </form>{{end}}
+                    <hr>
+                    <div id="eventLabels" class="row">
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-sm-10">
+                                    <div id="eventLabelStart"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <img id="event-logo" class="img-circle img-responsive"/>
-                            <script>
-                                $('#event-logo').attr('src', {{.Event.EventData.Avatar}});
-                            </script>
-                            {{if eq ($.Event.RequestAllowed) true}}
-                            <form action="/AjaxNewGuest/" method="POST" style="display: inline-block;" style='margin-top:0em; margin-bottom:0em;'>
-                                <input type="hidden" name="eventID" value='{{$eventid}}'>
-                                <button class="event-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
-                                    <span>JOIN AS GUEST</span>
-                                </button>
-                            </form>{{end}}
-                        </div>
-                        <hr>
-                        <div id="eventLabels" class="row">
-                            <div class="col-sm-4">
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <div id="eventLabelStart"></div>
-                                    </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <div id="eventLabelEnd"></div>
-                                    </div>
+                                <div class="col-sm-10">
+                                    <div id="eventLabelEnd"></div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <p>{{.Event.EventData.Location.Street}} <p>
-                                        <h6>{{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}</h6>
-                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        <span class="glyphicon glyphicon-user" style='padding-top:0' aria-hidden="true"></span>
-                                    </div>
-                                    <div class="col-sm-10" >
-                                    {{range $member := .Event.MemberData}}
-                                        {{$memberValidity := $member.Classification}}
-                                        {{if le $memberValidity 1}}
-                                        <strong>  <a style='color:black;' href="/profile/{{$member.Username}}"> {{$member.FirstName}} {{$member.LastName}}</a></strong> 
-                                        {{end}}
+                                <div class="col-sm-10">
+                                    <p>{{.Event.EventData.Location.Street}} <p>
+                                    <h6>{{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <span class="glyphicon glyphicon-user" style='padding-top:0' aria-hidden="true"></span>
+                                </div>
+                                <div class="col-sm-10" >
+                                {{range $member := .Event.MemberData}}
+                                    {{$memberValidity := $member.Classification}}
+                                    {{if le $memberValidity 1}}
+                                    <strong>  <a style='color:black;' href="/profile/{{$member.Username}}"> {{$member.FirstName}} {{$member.LastName}}</a></strong> 
                                     {{end}}
-                                    </div>  
-                                </div>              
-                            </div>                        
-                            <div class="col-sm-5"> <!-- Google Maps API -->
-                                MAPS
-                            </div>
-                            <div class="col-sm-3">
-                                Some Buttons
-                            </div>
+                                {{end}}
+                                </div>  
+                            </div>              
+                        </div>
+                        <div class="col-sm-5"> <!-- Google Maps API -->
+                            MAPS
+                        </div>
+                        <div class="col-sm-3">
+                            Some Buttons
                         </div>
                     </div>
                     <script>
@@ -215,7 +206,7 @@
                         $("#eventLabelStart").text(dS.format('MMM Do YY h:mm a'));
                         $("#eventLabelEnd").text(dE.format('MMM Do YY h:mm a'));
                     </script>
-                </div>                
+                </div>
                 <ul class="nav nav-tabs nav-justified event-tabs">
                     <li class="active"><a data-toggle="tab" href="#event-about">Showcase</a></li>
                     <li class=""><a data-toggle="tab" id="Wall-loadAJAX" href="#prof-wall">Posts</a></li>
