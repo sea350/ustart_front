@@ -126,8 +126,9 @@
     margin-bottom: 1em;
 }
 .map-btn div{
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    min-height: 130px;
+    max-height: 160px;
     border: 1px solid black;
     background-color: #c5c5c5;
 }
