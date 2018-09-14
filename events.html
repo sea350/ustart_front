@@ -1522,6 +1522,33 @@
             </div> <!-- modal box -->
         </div>
     </div>
+    <script>
+        function initMap() {
+            var geocoder = new google.maps.Geocoder();
+            var address = '11 waverly place ny, ny 10003';
+            
+            geocoder.geocode({'address': address}, function(results, status) {
+                if (status === 'OK') {
+                    var loc = results[0].geometry.location
+                    console.log('loc',results[0].geometry.location);
+                    //var lat = parseFloat(results[0].geometry.location.lat);
+                    //console.log('lat', lat);
+                    //var lng = parseFloat(results[0].geometry.location.lng);
+                    //console.log('lng', lng);
+                    //var loc = {lat: lat, lng: lng};
+        
+                  var map = new google.maps.Map(
+                document.getElementById('map'), {zoom: 17, center: loc});
+                  var marker = new google.maps.Marker({
+                    map: map,
+                    position: loc
+                  });
+                } else {
+                  alert('Geocode was not successful for the following reason: ' + status);
+                }
+            })
+        }   
+    </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8iSIc3y6_quAsCb3QuUNgy8gqEqDt1kc&callback=initMap">
     </script>
