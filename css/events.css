@@ -610,7 +610,7 @@ span.attend-count, span.like-count {
     }
 }
 #eventLike:hover .heart, #eventLike:hover .heart:after, #eventLike:hover .heart:before{
-    transform: rotate(-30deg);
+    transform: rotate(30deg);
     background-color: red;
 }
 #eventLike:hover{
