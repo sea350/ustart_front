@@ -121,6 +121,10 @@
 .event-btn-followers>strong {
     color: #00ac7d;
 }
+.event-btn{
+    display: flex;
+    flex-direction: column;
+}
 .eventInvite, .like-btn-container, .attend-btn-container{
     display: block;
     margin-bottom: 1em;
@@ -623,7 +627,7 @@ span.attend-count, span.like-count {
 /* Small devices */
 @media (max-width: 767.98px) {
     #event-btn{
-        display: none;
+        flex-direction: row;
     }
 }
 #eventLike:hover .heart, #eventLike:hover .heart:after, #eventLike:hover .heart:before{
