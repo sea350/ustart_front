@@ -125,11 +125,16 @@
     display: block;
     margin-bottom: 1em;
 }
+.map-btn div{
+    width: 100px;
+    height: 100px;
+    background-color: #c5c5c5
+}
 .eventInvite{
     width: 100px;
 }
 .eventInvite:hover{
-    background-color: rgba(0,172,125,0.2)
+    background-color: rgba(0,172,125,0.85)
 }
 button.followButton {
     width: 8em;
