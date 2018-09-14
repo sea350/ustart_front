@@ -376,7 +376,7 @@ div.dashboard {
     background-color: #ECEFF1;
 }
 
-#btn-small {
+.btn-small {
     cursor: pointer;
     border-radius: 0.4em;
     background-color: white;
@@ -394,7 +394,7 @@ div.dashboard {
     transition: background-color 0.2s, color 0.2s;
 }
 
-#btn-small:hover {
+.btn-small:hover {
     background-color: #00C085;
     color: white;
     border: none
