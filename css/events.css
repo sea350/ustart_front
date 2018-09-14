@@ -628,7 +628,14 @@ span.attend-count, span.like-count {
     width: 30px;
   }
   
-  .heart:before,
+  .heart:before{
+    content: "";
+    background-color: red;
+    border-radius: 50%;
+    height: 30px;
+    position: absolute;
+    width: 30px;      
+  }
   .heart:after {
     content: "";
     background-color: red;
