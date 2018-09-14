@@ -618,7 +618,7 @@ span.attend-count, span.like-count {
 }
 /* heart */
 .heart {
-    background-color: red;
+    background-color: white;
     display: inline-block;
     height: 30px;
     margin: 0 10px;
@@ -627,30 +627,22 @@ span.attend-count, span.like-count {
     transform: rotate(-45deg);
     width: 30px;
   }
-  
+  .heart:before,
+  .heart:after{
+    content: "";
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;    
+  }
   .heart:before{
-    content: "";
-    background-color: red;
-    border-radius: 50%;
-    height: 30px;
-    position: absolute;
-    width: 30px;      
+    height: 15px;
+    width: 14px;      
+    top: -7.5px;
+    left: 0.5px;    
   }
   .heart:after {
-    content: "";
-    background-color: red;
-    border-radius: 50%;
-    height: 30px;
-    position: absolute;
-    width: 30px;
-  }
-  
-  .heart:before {
-    top: -15px;
-    left: 0;
-  }
-  
-  .heart:after {
-    left: 15px;
-    top: 0;
+    height: 15px;
+    width: 15px;
+    left: 7.5px;
+    top: 0;    
   }
