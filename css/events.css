@@ -639,11 +639,11 @@ span.attend-count, span.like-count {
   }
   
   .heart:before {
-    top: -15px;
+    top: -7.5px;
     left: 0;
   }
   
   .heart:after {
-    left: 15px;
+    left: 7.5px;
     top: 0;
   }
