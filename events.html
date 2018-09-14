@@ -1525,7 +1525,7 @@
     <script>
         function initMap() {
             var geocoder = new google.maps.Geocoder();
-            var address = '11 waverly place ny, ny 10003';
+            var address = {{.Event.EventData.Location.Street}} {{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}};
             
             geocoder.geocode({'address': address}, function(results, status) {
                 if (status === 'OK') {
