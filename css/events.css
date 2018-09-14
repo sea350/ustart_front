@@ -604,7 +604,7 @@ span.follower-count {
     &:before, &:after{
       content:"";
       position:absolute;
-      background: $colorIcon;
+      background: #ff4848;
       width: 5rem;
       height: 4rem;
       border-radius: 100%;
