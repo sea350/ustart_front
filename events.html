@@ -192,11 +192,11 @@
                     </div>
                     <div class="col-sm-3  col-xs-6 event-btn">
                         <!-- invite --> <!-- onclick show modal -->
-                        <button class="event-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
+                        <button class="eventInvite btn btn-default" onclick = '$(this).closest("form").submit();'>
                             <span>Invite</span>
                         </button>
                         <!-- interest -->
-                        <span class="follow-btn-container">
+                        <span class="like-btn-container">
                             <button id ="eventLike" class="event-like-btn">
                                 <span class ="heart"></span>
                             </button><span class="like-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
