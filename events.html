@@ -171,6 +171,7 @@
                             <div class="col-sm-10">
                                 <p>{{.Event.EventData.Location.Street}} <p>
                                 <h6>{{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}</h6>
+                                <input id="address" type="hidden" value="{{.Event.EventData.Location.Street}} {{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}">
                             </div>
                         </div>
                         <div class="row">
@@ -1525,7 +1526,8 @@
     <script>
         function initMap() {
             var geocoder = new google.maps.Geocoder();
-            var address = {{.Event.EventData.Location.Street}} {{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}};
+            //var address = document.getElementById('address').value;
+            var address = '12 west 9th street, ny, ny 10003';
             
             geocoder.geocode({'address': address}, function(results, status) {
                 if (status === 'OK') {
