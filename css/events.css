@@ -121,7 +121,7 @@
 .event-btn-followers>strong {
     color: #00ac7d;
 }
-.evenInvite, .like-btn-container, .attend-btn-container{
+.eventInvite, .like-btn-container, .attend-btn-container{
     display: block;
     margin-bottom: 1em;
 }
