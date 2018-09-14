@@ -128,7 +128,8 @@
 .map-btn div{
     width: 100px;
     height: 100px;
-    background-color: #c5c5c5
+    border: 1px solid black;
+    background-color: #c5c5c5;
 }
 .eventInvite{
     width: 100px;
