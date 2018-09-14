@@ -193,7 +193,7 @@
                     <div class="col-sm-3 event-btn">
                         <!-- invite --> <!-- onclick show modal -->
                         <button class="project-btn-follow btn btn-default btn-block" onclick = '$(this).closest("form").submit();'>
-                            <span>Invite</span>
+                            <span class='heart'></span>
                         </button>
                         <!-- interest -->
                         <button class="project-btn-follow btn btn-default btn-block" onclick = '$(this).closest("form").submit();'>
@@ -201,7 +201,7 @@
                         </button>                        
                         <!-- attending -->                       
                         <span class="follow-btn-container btn-block">
-                            <button id ="projFollow" class="proj-follow-btn">
+                            <button id ="eventFollow" class="proj-follow-btn">
                                 <span class ="follow-btn-text">Follow</span>
                             </button><span class="follower-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
                         </span>

@@ -547,7 +547,7 @@ ul.event-tabs li.active a,ul.event-tabs li.active a:focus,ul.event-tabs li.activ
     padding: 0.3em;
 }
 
-button#projFollow {
+button#eventFollow {
     width: 80%;
     height: 30px;
     display: inline-block;
@@ -588,3 +588,35 @@ span.follower-count {
         display: none;
     }
 }
+/* heart */
+.heart{
+    width:4rem;
+    height:4rem;
+    background: #ff4848;
+    transform:rotate(45deg);
+    position:relative;
+    line-height: 9rem;
+    text-align: right;
+    font-family: arial;
+    white-space: nowrap;
+    font-weight: 600;
+    color: #393939;
+    &:before, &:after{
+      content:"";
+      position:absolute;
+      background: $colorIcon;
+      width: 5rem;
+      height: 4rem;
+      border-radius: 100%;
+    }
+    &:before{
+      left: -38px;
+      bottom: 0;
+      transform: rotate(0deg);
+    }
+    &:after{
+      top: -30px;
+      right: -8px;
+      transform: rotate(90deg);
+    }
+  }
