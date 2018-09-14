@@ -620,12 +620,12 @@ span.attend-count, span.like-count {
 .heart {
     background-color: red;
     display: inline-block;
-    height: 15px;
+    height: 30px;
     margin: 0 10px;
     position: relative;
     top: 0;
     transform: rotate(-45deg);
-    width: 15px;
+    width: 30px;
   }
   
   .heart:before,
@@ -633,17 +633,17 @@ span.attend-count, span.like-count {
     content: "";
     background-color: red;
     border-radius: 50%;
-    height: 15px;
+    height: 30px;
     position: absolute;
-    width: 15px;
+    width: 30px;
   }
   
   .heart:before {
-    top: -7.5px;
+    top: -15px;
     left: 0;
   }
   
   .heart:after {
-    left: 7.5px;
+    left: 15px;
     top: 0;
   }
