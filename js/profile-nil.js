@@ -312,18 +312,31 @@ function formatTime(time) {
 
 
 $(document).ready(function () {
-    /* $.ajax({
+    //loading in suggested user
+    $.ajax({
             type: 'GET',  
-            url: 'http://ustart.today:'+port+'//',
+            url: 'http://ustart.today:'+port+'/AjaxUserSuggestions/',
             contentType: "application/json; charset=utf-8",
-            data: {userID:userID},
-            success: function(data) {
+            data: {scrollID:''}
+            ,complete: function (jqXHR,status) {
+             if(status == 'success' || status=='notmodified')
+             {
+                  var temp = $.parseJSON(jqXHR.responseText);
+                  if(temp != null){
+                      console.log(temp);
+                      suggestionScrollID = temp.scrollID;
+                      suggestionTotalHits = temp.TotalHits;
+                      for(var i=0; i<temp.SuggestedUsers.length; i++){
+                          createSuggestedUser(temp.SuggestedUsers[i].FirstName,temp.SuggestedUsers[i].LastName, temp.SuggestedUsers[i].Image, temp.SuggestedUsers[i].Username);
+                      }
+                  }
+             }
             },
             error: function(error) {
                 console.log("It just doesn't work");
                 console.log(error);
             }
-        });*/
+        });
     //widget children count
     $('.widgetBody').each(function(){
         if ($(this).children().length > 3){

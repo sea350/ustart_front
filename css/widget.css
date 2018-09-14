@@ -365,52 +365,52 @@ span.ui-icon {
 	min-height: 80px;
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (min-width: 1100px) and (max-width: 1200px){
     #widgetBodySpot iframe {
-        width:49%;
+        width:49% !important;
     }
     .addWidgetBtn{
-        width:10px;
-        height:10em;
+        width:100px !important;
+        height:10em !important;
     }
     #projectDisplay .widgetBody >a{
-        width:109px;
-        height:10em;
-        padding-top: 0em;
+        width:109px !important;
+        height:10em !important;
+        padding-top: 0em !important;
     }
 }
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: 1100px) and (min-width: 992px) {
     #widgetBodySpot iframe {
-        width:49%;
+        width:49% !important;
     }
     .addWidgetBtn{
-        width:100px;
-        height:10em;
+        width:100px !important;
+        height:10em !important;
     }
     #projectDisplay .widgetBody >a{
-        width:100px;
-        height:10em;
-        padding-top: 0em;
+        width:100px !important;
+        height:10em !important;
+        padding-top: 0em !important;
     }
 }
 
 @media only screen and (max-width: 992px) {
     #widgetBodySpot iframe {
-        width:49%;
+        width:49% !important;
     }
     .addWidgetBtn{
-        width:100px;
-        height:10em;
+        width:100px !important;
+        height:10em !important;
     }
     #projectDisplay .widgetBody >a{
-        width:100px;
-        height:10em;
+        width:100px !important;
+        height:10em !important;
     }
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 992px) and (max-width: 1100px){
     #widgetBodySpot iframe {
-        width:32%;
+        width:32% !important;
     }
     
 }
