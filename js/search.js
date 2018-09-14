@@ -21,6 +21,8 @@ function parseQuery(queryString) {
 	}
 	return query;
 }
+
+
 function createSearchOptionMajor(optionvalue) {
 	if (optionvalue === "") {
 		return;
@@ -103,6 +105,68 @@ function createSearchResult(username, icon, firstName, lastName, description, ta
 }
 $(function () {
     
+    //search switching tabs
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("id")
+        var searchQuery = $("input[name='query']").val();
+        searchQuery = searchQuery.replace(/[^A-Za-z0-9+#-]+/g, ' ').trim();
+        $("input[name='query']").val(searchQuery);
+
+        var majorInputs = $("<input type='hidden' name='searchlistmajors'/>");
+        var skillInputs = $("<input type='hidden' name='searchlistskills'/>");
+
+        majorInputs.val("[");
+        $("input[name='searchmajor']").each(function () {
+            majorInputs.val(majorInputs.val() + "\"" + $(this).val() + "\",");
+            $(this).remove();
+        });
+        var majorInputsStringLength = majorInputs.val().length;
+        majorInputs.val(majorInputs.val().slice(0, majorInputsStringLength - 1) + "]");
+        skillInputs.val("[");
+        $("input[name='searchskill']").each(function () {
+            skillInputs.val(skillInputs.val() + "\"" + $(this).val() + "\",");
+            $(this).remove();
+        });
+        var skillInputsStringLength = skillInputs.val().length;
+        skillInputs.val(skillInputs.val().slice(0, skillInputsStringLength - 1) + "]");
+
+        $(this).append(majorInputs, skillInputs);
+        var result = $('form#search-filters').serialize();
+        window.history.pushState("", "", "/search?"+result);
+        var url = document.createElement('a');
+        url.href = window.location.href;
+        var temp = parseQuery(url.search);
+        scroll='';
+        $.ajax({
+            type: 'GET',
+            url: 'http://ustart.today:'+port+'/AjaxLoadNext/',
+            contentType: "application/json; charset=utf-8",
+            data: {query: temp.query, searchFilterGroup:temp.searchFilterGroup,searchlistmajors:temp.searchlistmajors, searchlistskills:temp.searchlistskills, searchbyprojectname:temp.searchbyprojectname, searchbyurl:temp.searchbyurl, searchbymembersneeded:temp.searchbymembersneeded, searchbyskills:temp.searchbyskills, searchbyeventname: temp.searchbyeventname, searchbyurl: temp.searchbyurl, scrollID: scroll, searchbymembers: temp.searchbymembers, searchbyguests: temp.searchbyguests, searchbypersonname: temp.searchbypersonname, searchbyusername:temp.searchbyusername},
+             beforeSend: function() {
+               $('#search-results-container').empty();
+               $('#search-results-container').prepend('<div class="loader" ></div>');
+           },
+            success: function(data) {  
+            },complete: function (jqXHR,status) {
+                 if(status == 'success' || status=='notmodified')
+                 {
+                    var tem = $.parseJSON(jqXHR.responseText);
+                    if(tem != null){
+                        scroll = tem.ScrollID;
+                        totalHits=tem.TotalHits;
+                        $('#search-results-container').find(".loader").css("display", "none");
+                        for(var j=0; j<tem.Results.length; j++){
+                            createSearchResult (tem.Results[j].Username, tem.Results[j].Image, tem.Results[j].FirstName, tem.Results[j].LastName, readRuneArrayThatWorks(tem.Results[j].Bio), tem.Results[j].Tags);
+                        }
+                    }
+                 }
+            },error: function(err) {
+                console.log('tab switch Load failed: ');
+                console.log(err);
+            }
+        });
+    });
+    
 	$("#leftNavSearch").addClass("theActive");
 	var searchQuery = decodeURIComponent(GetQueryStringParams("query").replace(/\+/g, ' '));
 
@@ -129,7 +193,6 @@ $(function () {
 			$("#searchUser").parent().addClass("active");
 			break;
 	}
-	console.log("TabIndex is " + tabIndex);
 	$("#searchTabs").tabs({
           active: tabIndex
 	});
@@ -250,6 +313,8 @@ $(function () {
         $(".alert-messages .alert").first().hide().fadeIn(200).delay(2000).fadeOut(1000, function () { $(this).remove(); });
     }
     
+    
+    
     /*$("button#filApply").click(function (e) {
         e.preventDefault();
         var searchQuery = $("input[name='query']").val();
@@ -346,3 +411,81 @@ function modifyFilters() {
 			break;
 	}
 }
+
+
+//search load more
+function element_in_scroll(elem)
+ {
+    var docViewTop = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+    var elemTop = $(elem).offset().top;
+    var elemBottom = elemTop + $(elem).height();
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+ }
+(function($, window, undefined) {
+    var InfiniteScroll = function() {
+        this.initialize = function() {
+            this.setupEvents();
+        };
+
+        this.setupEvents = function() {
+            $(window).on(
+                'scroll',
+                this.handleScroll.bind(this)
+            );
+        };
+
+        this.handleScroll = function() {
+            var scrollTop = $(document).scrollTop();
+            var windowHeight = $(window).height();
+            var height = $(document).height() - windowHeight;
+            var scrollPercentage = (scrollTop / height);
+
+            // if the scroll is more than 90% from the top, load more content.
+            if(scrollPercentage > 0.95) {
+                this.doSomething();
+            }
+        }
+
+        this.doSomething = function() {    
+            // Do something.
+          if (flag == 1){
+                 var url = document.createElement('a');
+                 url.href = window.location.href;
+                 var temp = parseQuery(url.search);
+                 flag=0;
+                 if ( $('.search-result').length < totalHits){
+                     $.ajax({
+                        type: 'GET',
+                        url: 'http://ustart.today:'+port+'/AjaxLoadNext/',
+                        contentType: "application/json; charset=utf-8",
+                        data: {query: temp.query, searchFilterGroup:temp.searchFilterGroup,searchlistmajors:temp.searchlistmajors, searchlistskills:temp.searchlistskills, searchbyprojectname:temp.searchbyprojectname, searchbyurl:temp.searchbyurl, searchbymembersneeded:temp.searchbymembersneeded, searchbyskills:temp.searchbyskills, searchbyeventname: temp.searchbyeventname, searchbyurl: temp.searchbyurl, scrollID: scroll, searchbymembers: temp.searchbymembers, searchbyguests: temp.searchbyguests, searchbypersonname: temp.searchbypersonname, searchbyusername:temp.searchbyusername},
+                        success: function(data) {  
+                        },complete: function (jqXHR,status) {
+                             flag=1;
+                             if(status == 'success' || status=='notmodified')
+                             {
+                                var temp = $.parseJSON(jqXHR.responseText);
+                                if(temp != null){
+                                    for(var i=0; i<temp.Results.length; i++){
+                                        createSearchResult (temp.Results[i].Username, temp.Results[i].Image, temp.Results[i].FirstName, temp.Results[i].LastName, readRuneArrayThatWorks(temp.Results[i].Bio), temp.Results[i].Tags);
+                                    }
+                                }
+                             }
+                        },error: function(err) {
+                            console.log('search Load failed: ');
+                            console.log(err);
+                        }
+                    });
+                }
+               else flag=1;   
+         }
+        }
+
+        this.initialize();
+    }
+
+    $(document).ready(function() {// Initialize scroll
+            new InfiniteScroll();
+    });
+})(jQuery, window);

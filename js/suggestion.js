@@ -11,7 +11,7 @@ function createSuggestedUser(firstname, lastname , avatar, id){
     var contentfollowBtn =$("<button></button>").addClass('btn btnX btn-small').text('Follow');
     content.append(contentImg, contentCardInfo.append(contentLink.append(contentName), '<br />', contentfollowBtn));
     userDiv.append(dismissOuterDiv, content);
-    $('.suggested-users-cont').append(userDiv);
+    userDiv.appendTo('.suggested-users-cont').hide().fadeIn(1000);
 }
 
 function createSuggestedProject(projectname , avatar, id){
@@ -27,5 +27,17 @@ function createSuggestedProject(projectname , avatar, id){
     var contentfollowBtn =$("<button></button>").addClass('btn btnX btn-small').text('Follow');
     content.append(contentImg, contentCardInfo.append(contentLink.append(contentName), '<br />', contentfollowBtn));
     userDiv.append(dismissOuterDiv, content);
-    $('.suggested-projects-cont').append(userDiv);
+    userDiv.appendTo('.suggested-projects-cont').hide().fadeIn(1000);
 }
+
+
+ $( document ).ready(function() {
+     $('.dismiss-btn').click(function(e) {
+         //ajax call here
+         createSuggestedUser("hello", "world", '', "123");
+     });
+     $('button.btnX').click(function(e) {
+         console.log($(this).closest(".user-card").attr('id'));
+         
+     });
+ });
