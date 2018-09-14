@@ -121,7 +121,10 @@
 .event-btn-followers>strong {
     color: #00ac7d;
 }
-
+.event-btn button{
+    display: block;
+    margin-bottom: 1em;
+}
 button.followButton {
     width: 8em;
     -webkit-transition: background-color 0.2s, color 0.2s, width 0.5s;
@@ -547,7 +550,7 @@ ul.event-tabs li.active a,ul.event-tabs li.active a:focus,ul.event-tabs li.activ
     padding: 0.3em;
 }
 button#eventAttend{
-    width: 80%;
+    width: 80px;
     height: 32px;
     padding: 8px 12px;
     display: inline-block;
@@ -566,7 +569,7 @@ button#eventAttend{
     box-shadow: 0 1px 0 rgba(0,0,0,0.05);
 }
 button#eventLike{
-    width: 80%;
+    width: 80px;
     height: 32px;
     padding: 8px 12px;
     display: inline-block;
@@ -598,7 +601,7 @@ span.attend-count, span.like-count {
     text-align: center;
     white-space: nowrap;
     height: 32px;
-    width: 20%;
+    width: 20px;
     vertical-align: middle;
     line-height: 30px;
     border-radius: 0 5px 5px 0;
