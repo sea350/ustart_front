@@ -190,17 +190,17 @@
                     <div class="col-sm-5"> <!-- Google Maps API -->
                         MAPS
                     </div>
-                    <div class="col-sm-3">
-                        <!-- invite -->
-                        <button class="project-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
+                    <div class="col-sm-3 event-btn">
+                        <!-- invite --> <!-- onclick show modal -->
+                        <button class="project-btn-follow btn btn-default btn-block" onclick = '$(this).closest("form").submit();'>
                             <span>Invite</span>
                         </button>
                         <!-- interest -->
-                        <button class="project-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
-                            <span>Invite</span>
+                        <button class="project-btn-follow btn btn-default btn-block" onclick = '$(this).closest("form").submit();'>
+                            <span>Interest</span>
                         </button>                        
-                        <!-- attending -->
-                        <span class="follow-btn-container">
+                        <!-- attending -->                       
+                        <span class="follow-btn-container btn-block">
                             <button id ="projFollow" class="proj-follow-btn">
                                 <span class ="follow-btn-text">Follow</span>
                             </button><span class="follower-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
