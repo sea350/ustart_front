@@ -43,8 +43,11 @@
                                     dashTotalHits=temp.TotalHits;
                                     dashScrollID = temp.ScrollID;
                                     if (temp != null){
+                                        console.log(temp);
                                         for (i=0; i < temp.JournalEntries.length; i++){
+                                            if (temp.JournalEntries[i].Element.Classification == 0){
                                             makeDashPostApplications(temp.JournalEntries[i].ElementID, temp.JournalEntries[i].Username,temp.JournalEntries[i].FirstName, temp.JournalEntries[i].LastName, temp.JournalEntries[i].Image, temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].Element.TimeStamp, temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies, temp.JournalEntries[i].NumShares);
+                                            }
                                         }
                                     }
                                 }
@@ -223,7 +226,9 @@
                                                         var temp = $.parseJSON(jqXHR.responseText);
                                                         if(temp != null){
                                                               for (i=0; i < temp.JournalEntries.length; i++){
+                                                                  if (temp.JournalEntries[i].Element.Classification == 0){
                                                                     makeDashPostApplications(temp.JournalEntries[i].ElementID, temp.JournalEntries[i].Username,temp.JournalEntries[i].FirstName, temp.JournalEntries[i].LastName, temp.JournalEntries[i].Image, temp.JournalEntries[i].Element.Content,temp.JournalEntries[i].Element.TimeStamp, temp.JournalEntries[i].NumLikes, temp.JournalEntries[i].NumReplies, temp.JournalEntries[i].NumShares);
+                                                                  }
                                                                 }
                                                         }
                                                      }
