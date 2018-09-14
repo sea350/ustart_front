@@ -196,14 +196,16 @@
                             <span>Invite</span>
                         </button>
                         <!-- interest -->
-                        <button class="event-btn-follow btn btn-default btn-block" onclick = '$(this).closest("form").submit();'>
-                            <span class='heart'></span>
-                        </button>                        
-                        <!-- attending -->                       
                         <span class="follow-btn-container btn-block">
-                            <button id ="eventFollow" class="proj-follow-btn">
-                                <span class ="follow-btn-text">Follow</span>
-                            </button><span class="follower-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
+                            <button id ="eventLike" class="event-like-btn">
+                                <span class ="heart"></span>
+                            </button><span class="like-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
+                        </span>                                           
+                        <!-- attending -->                       
+                        <span class="attend-btn-container btn-block">
+                            <button id ="eventAttend" class="event-attend-btn">
+                                <span class ="attend-btn-text">Follow</span>
+                            </button><span class="attend-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
                         </span>
                                                 
                     </div>

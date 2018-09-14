@@ -546,7 +546,7 @@ ul.event-tabs li.active a,ul.event-tabs li.active a:focus,ul.event-tabs li.activ
     margin-left: 1em;
     padding: 0.3em;
 }
-button#eventFollow {
+button#eventAttend, button#eventLike {
     width: 80%;
     height: 32px;
     padding: 8px 12px
@@ -566,7 +566,7 @@ button#eventFollow {
     box-shadow: 0 1px 0 rgba(0,0,0,0.05);
 }
 
-span.follower-count {
+span.attend-count, span.like-count {
     display: inline-block;
     border-left: none;
     padding-left: 7px;
@@ -592,12 +592,12 @@ span.follower-count {
 .heart {
     background-color: red;
     display: inline-block;
-    height: 30px;
+    height: 15px;
     margin: 0 10px;
     position: relative;
     top: 0;
     transform: rotate(-45deg);
-    width: 30px;
+    width: 15px;
   }
   
   .heart:before,
@@ -605,17 +605,17 @@ span.follower-count {
     content: "";
     background-color: red;
     border-radius: 50%;
-    height: 30px;
+    height: 15px;
     position: absolute;
-    width: 30px;
+    width: 15px;
   }
   
   .heart:before {
-    top: -15px;
+    top: -7.5px;
     left: 0;
   }
   
   .heart:after {
-    left: 15px;
+    left: 7.5px;
     top: 0;
   }
