@@ -589,12 +589,18 @@ span.attend-count, span.like-count {
     }
 }
 #eventLike{
-    background-color: rgba(255, 0, 0, .05);
+    background-color: rgb(255, 230, 230);
+}
+#eventLike:hover .heart{
+    transform: scale(1.2);
+    background-color: red;
+}
+#eventLike:hover{
+    background-color: white;
 }
 /* heart */
 .heart {
     background-color: white;
-    border-color: red;
     display: inline-block;
     height: 15px;
     margin: 0 10px;
@@ -607,7 +613,6 @@ span.attend-count, span.like-count {
   .heart:before,
   .heart:after {
     content: "";
-    border-color: red;
     background-color: white;
     border-radius: 50%;
     height: 15px;
