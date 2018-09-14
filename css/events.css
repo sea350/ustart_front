@@ -618,7 +618,7 @@ span.attend-count, span.like-count {
 }
 /* heart */
 .heart {
-    background-color: white;
+    background-color: red;
     display: inline-block;
     height: 15px;
     margin: 0 10px;
@@ -631,7 +631,7 @@ span.attend-count, span.like-count {
   .heart:before,
   .heart:after {
     content: "";
-    background-color: white;
+    background-color: red;
     border-radius: 50%;
     height: 15px;
     position: absolute;
