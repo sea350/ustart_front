@@ -546,10 +546,10 @@ ul.event-tabs li.active a,ul.event-tabs li.active a:focus,ul.event-tabs li.activ
     margin-left: 1em;
     padding: 0.3em;
 }
-button#eventAttend, button#eventLike {
+button#eventAttend{
     width: 80%;
     height: 32px;
-    padding: 8px 12px
+    padding: 8px 12px;
     display: inline-block;
     border: solid 1px transparent;
     outline: 0;
@@ -565,6 +565,27 @@ button#eventAttend, button#eventLike {
     border-radius: 5px 0 0 5px;
     box-shadow: 0 1px 0 rgba(0,0,0,0.05);
 }
+button#eventLike{
+    width: 80%;
+    height: 32px;
+    padding: 8px 12px;
+    display: inline-block;
+    border: solid 1px transparent;
+    outline: 0;
+    background-color: #00ac7d;
+    font-weight: 500;
+    font-size: 12px;
+    text-decoration: none;
+    white-space: nowrap;
+    word-wrap: normal;
+    line-height: normal;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 5px 0 0 5px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05);    
+    background-color: rgb(255, 230, 230);
+}
+
 
 span.attend-count, span.like-count {
     display: inline-block;
@@ -588,10 +609,7 @@ span.attend-count, span.like-count {
         
     }
 }
-#eventLike{
-    background-color: rgb(255, 230, 230);
-}
-#eventLike:hover .heart{
+#eventLike:hover .heart, .heart:after, .heart:before{
     transform: scale(1.2);
     background-color: red;
 }
