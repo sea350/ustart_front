@@ -9,6 +9,7 @@ $(function () {
         $("#leftNavProfile").addClass("theActive");
     });*/
     // Enables drag-n-drop list items (using the header)
+    //widget sorting
     $("#sortable").sortable({
         handle: ".widgetTitle",
         revert: true,
@@ -35,7 +36,7 @@ $(function () {
         }
     });
 
-
+    //project widget sorting
     $('#projSortable').sortable();
     $('#projectWidget .widgetBody').sortable({
         cancel: ''
@@ -76,6 +77,7 @@ $(function () {
     return false;
  });*/
 
+//wall icon hover image
  $('body').on("mouseenter", "a.comment-btn", function(e) {
     var cmtBtnImg = $(this).find('img');
     cmtBtnImg.attr('src', "/ustart_front/ico/comment.png"); 
@@ -310,6 +312,18 @@ function formatTime(time) {
 
 
 $(document).ready(function () {
+    /* $.ajax({
+            type: 'GET',  
+            url: 'http://ustart.today:'+port+'//',
+            contentType: "application/json; charset=utf-8",
+            data: {userID:userID},
+            success: function(data) {
+            },
+            error: function(error) {
+                console.log("It just doesn't work");
+                console.log(error);
+            }
+        });*/
     //widget children count
     $('.widgetBody').each(function(){
         if ($(this).children().length > 3){
@@ -317,13 +331,14 @@ $(document).ready(function () {
         }
     });
     
+    //character limit for posts
     $('#post-msg').keyup(function() {
         var text_length = $('#post-msg').val().length;
         var text_remaining = 5000 - text_length;
         $('#textarea_counter').html(text_remaining + ' characters remaining.');
     });
 
-    //modal box
+    //modal box hover
     $('#menu-item-about').hover(function () {
         $(this).fadeOut(100);
         $(this).fadeIn(100);
@@ -332,6 +347,7 @@ $(document).ready(function () {
     }, function () {
         $("#box").css('max-width', '0');
     });
+    
     $('#menu-item-proj').hover(function () {
         $(this).fadeOut(100);
         $(this).fadeIn(100);
@@ -364,13 +380,20 @@ $(document).ready(function () {
     }, function () {
         $("#box").css('max-width', '0');
     });
+    
     $("#leftNavProfile").addClass("theActive");
     $(".commentOfComment").css("display","none");
+    
+    
+    
     $("img#head-image").on('error', function () {
         $(this).attr('src', "data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=");
     });
+    
+    
     $('[data-toggle="tooltip"]').tooltip();
-
+    
+    //folow handle
     if(followstatus == true){
          $('#btn1').attr('class', 'btn followButton following');
          $('#btn1').text('Following');
