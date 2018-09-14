@@ -6,7 +6,7 @@
     padding: 0;
     padding-top: 1em;
 }
-.col-sm-3 button{
+.col-sm-3 .btn-block{
     margin-bottom: 1em;
 }
 .dashboard-top-mid {
@@ -546,12 +546,9 @@ ul.event-tabs li.active a,ul.event-tabs li.active a:focus,ul.event-tabs li.activ
     margin-left: 1em;
     padding: 0.3em;
 }
-.event-btn-follow{
-    background-color: #00C085;
-}
 button#eventFollow {
     width: 80%;
-    height: 30px;
+    padding: 8px 12px
     display: inline-block;
     border: solid 1px transparent;
     outline: 0;
@@ -587,7 +584,7 @@ span.follower-count {
 
 @media only screen and (max-width: 768px) {
     .event-btn {
-        display: none;
+        
     }
 }
 /* heart */
@@ -603,7 +600,7 @@ span.follower-count {
     white-space: nowrap;
     font-weight: 600;
     color: #393939;
-    &:before, &:after{
+    ::before, ::after{
       content:"";
       position:absolute;
       background: #ff4848;
@@ -611,12 +608,12 @@ span.follower-count {
       height: 4rem;
       border-radius: 100%;
     }
-    &:before{
+    ::before{
       left: -38px;
       bottom: 0;
       transform: rotate(0deg);
     }
-    &:after{
+    ::after{
       top: -30px;
       right: -8px;
       transform: rotate(90deg);
