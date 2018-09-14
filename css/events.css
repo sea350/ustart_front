@@ -614,7 +614,7 @@ span.attend-count, span.like-count {
     background-color: red;
 }
 #eventLike:hover{
-    background-color: black;
+    background-color: white;
 }
 /* heart */
 .heart {
