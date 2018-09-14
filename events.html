@@ -192,6 +192,21 @@
                     </div>
                     <div class="col-sm-3">
                         Invite/Interest/Attending?
+                        <!-- invite -->
+                        <button class="project-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
+                            <span>Invite</span>
+                        </button>
+                        <!-- interest -->
+                        <button class="project-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
+                            <span>Invite</span>
+                        </button>                        
+                        <!-- attending -->
+                        <span class="follow-btn-container">
+                            <button id ="projFollow" class="proj-follow-btn">
+                                <span class ="follow-btn-text">Follow</span>
+                            </button><span class="follower-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
+                        </span>
+                                                
                     </div>
                 </div>
                 <script>
