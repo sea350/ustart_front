@@ -1526,8 +1526,8 @@
     <script>
         function initMap() {
             var geocoder = new google.maps.Geocoder();
-            //var address = document.getElementById('address').value;
-            var address = '12 west 9th street, ny, ny 10003';
+            var address = document.getElementById('address').value;
+            //var address = '12 west 9th street, ny, ny 10003';
             
             geocoder.geocode({'address': address}, function(results, status) {
                 if (status === 'OK') {
