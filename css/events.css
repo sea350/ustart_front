@@ -610,7 +610,7 @@ span.attend-count, span.like-count {
     }
 }
 #eventLike:hover .heart, .heart:after, .heart:before{
-    transform: scale(1.2);
+    transform: rotate(-60deg);
     background-color: red;
 }
 #eventLike:hover{
@@ -635,14 +635,14 @@ span.attend-count, span.like-count {
     position: absolute;    
   }
   .heart:before{
-    height: 15px;
-    width: 14px;      
-    top: -7.5px;
-    left: 0.5px;    
+    height: 13px;
+    width: 13px;
+    top: -6px;
+    left: 1px;    
   }
   .heart:after {
-    height: 15px;
-    width: 15px;
-    left: 7.5px;
-    top: 0;    
+    height: 13px;
+    width: 13px;
+    left: 9px;
+    top: 1px;  
   }
