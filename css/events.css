@@ -125,6 +125,12 @@
     display: block;
     margin-bottom: 1em;
 }
+.eventInvite{
+    width: 100px;
+}
+.eventInvite:hover{
+    background-color: rgba(0,172,125,0.2)
+}
 button.followButton {
     width: 8em;
     -webkit-transition: background-color 0.2s, color 0.2s, width 0.5s;
