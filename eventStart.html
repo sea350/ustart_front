@@ -185,12 +185,12 @@
         }           
     </style>  
     <script>
+        
+        function submit(){
+            var address = $('#street').val() + ', ' + $('#city').val() + +', ' + $('#state').val() + $('#country').val() + $('#zip').val();
+        };
         function initMap() {
             var geocoder = new google.maps.Geocoder();
-
-            function submit(){
-                var address = $('#street').val() + ', ' + $('#city').val() + +', ' + $('#state').val() + $('#country').val() + $('#zip').val();
-            };
             
 
             //var address = '12 west 9th street, ny, ny 10003';
