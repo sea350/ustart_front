@@ -38,6 +38,10 @@
     font-size: 2em;
     text-align: center;
 }
+#map{
+    height: 400px;
+    width: 400px;
+}
 
 #eventDesc {
     line-height: 1.5;
@@ -123,8 +127,11 @@
 }
 .event-btn{
     padding-top: 2em;
-    display: flex;
-    flex-direction: column;
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-evenly;
+
+
 }
 .eventInvite, .like-btn-container, .attend-btn-container{
     display: block;
