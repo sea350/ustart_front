@@ -125,6 +125,15 @@
 .event-btn-followers>strong {
     color: #00ac7d;
 }
+.eventinfo-btn .row {
+    margin-bottom: 1em;
+}
+.eventinfo-btn {
+    font-size: 1.5em;
+}
+.desc{
+    height: 8em;
+}
 .event-btn{
     padding-top: 2em;
     display: flex; 

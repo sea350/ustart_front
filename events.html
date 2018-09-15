@@ -163,7 +163,7 @@
                                 {{end}} 
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row desc">
                             <div class="col-sm-2">
                                 <span class="glyphicon glyphicon-pencil" style='padding-top:0' aria-hidden="true"></span>                                
                             </div>
@@ -173,15 +173,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{$memberValidity := 0}}
-                        {{range $member := .Event.MemberData}}
-                            {{if eq $userid $member.DocID}}
-                                {{$memberValidity := $member.Classification}}
-                            {{end}}
-                        {{end}}
-                    {{if le $memberValidity 1}}
-                        <a class="btn btn-default pull-right" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
-                    {{end}}
                     </div> <!-- end of eventinfo-btn -->          
 
                     <div class="event-btn">
@@ -201,7 +192,15 @@
                                     <span class ="attend-btn-text">Follow</span>
                                 </button><span class="attend-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
                             </span>
-                                                    
+                            {{$memberValidity := 0}}
+                            {{range $member := .Event.MemberData}}
+                                {{if eq $userid $member.DocID}}
+                                    {{$memberValidity := $member.Classification}}
+                                {{end}}
+                            {{end}}
+                            {{if le $memberValidity 1}}
+                                <a class="btn btn-default pull-right" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
+                            {{end}}                                          
                         </div>                    
                 </div>
                 </div>
