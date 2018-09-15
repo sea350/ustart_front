@@ -1523,6 +1523,12 @@
             </div> <!-- modal box -->
         </div>
     </div>
+
+    <form action="/LatLng/" method='POST'>
+        <input type="hidden" id='lat' name='lat'>
+        <input type="hidden" id='lng' name='lng'>
+    </form>
+    
     <script>
         function initMap() {
             var geocoder = new google.maps.Geocoder();
@@ -1545,6 +1551,9 @@
                 //WE store lat & lng in database
                 var lat = marker.getPosition().lat();
                 var lng = marker.getPosition().lng();
+
+                $("#lat").value = lat;
+                $("#lng").value = lng;
                 
             })
         }   
