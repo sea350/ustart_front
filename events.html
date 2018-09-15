@@ -1532,16 +1532,6 @@
             geocoder.geocode({'address': address}, function(results, status) {
                 if (status === 'OK') {
                     var loc = results[0].geometry.location
-                    //console.log('locccccc', loc);
-                    //var lat = results[0].geometry.location.lat;
-                    //var add = results[0].formatted_address;
-                    //console.log('addresssss', add);
-                    //console.log('latitude', lat);
-                    //var lat = parseFloat(results[0].geometry.location.lat);
-                    //console.log('lat', lat);
-                    //var lng = parseFloat(results[0].geometry.location.lng);
-                    //console.log('lng', lng);
-                    //var loc = {lat: lat, lng: lng};
         
                   var map = new google.maps.Map(
                 document.getElementById('map'), {zoom: 17, center: loc});
@@ -1552,8 +1542,10 @@
                 } else {
                   alert('Geocode was not successful for the following reason: ' + status);
                 }
+                //WE store lat & lng in database
                 var lat = marker.getPosition().lat();
-                console.log(lat);
+                var lng = marker.getPosition().lng();
+                
             })
         }   
     </script>
