@@ -42,13 +42,16 @@
     height: 400px;
     width: 400px;
 }
-
+.glyphicon{
+    font-size: 1.5em;
+}
 #eventDesc {
+    font-size: 13px;
     line-height: 1.5;
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 14;
+    -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
 }
 .member{
@@ -619,6 +622,7 @@ button#eventLike{
     border-radius: 5px 0 0 5px;
     box-shadow: 0 1px 0 rgba(0,0,0,0.05);    
     background-color: rgb(255, 230, 230);
+    transition: background-color .5s;
 }
 
 
