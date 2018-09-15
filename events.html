@@ -168,7 +168,7 @@
                                 <span class="glyphicon glyphicon-pencil" style='padding-top:0' aria-hidden="true"></span>                                
                             </div>
                             <div class="col-sm-10">
-                                <div class="eventDesc flex-grow" style='    line-height: 1.5;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 14;-webkit-box-orient: vertical;'>
+                                <div class="eventDesc flex-grow" style='font-size: 13px;line-height: 1.5;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 14;-webkit-box-orient: vertical;'>
                                     <script>readRuneArray({{.Event.EventData.Description}});</script>
                                 </div>
                             </div>
@@ -192,117 +192,19 @@
                                     <span class ="attend-btn-text">Follow</span>
                                 </button><span class="attend-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
                             </span>
-                            {{$memberValidity := 0}}
-                            {{range $member := .Event.MemberData}}
-                                {{if eq $userid $member.DocID}}
-                                    {{$memberValidity := $member.Classification}}
+                            <span>
+                                {{$memberValidity := 0}}
+                                {{range $member := .Event.MemberData}}
+                                    {{if eq $userid $member.DocID}}
+                                        {{$memberValidity := $member.Classification}}
+                                    {{end}}
                                 {{end}}
-                            {{end}}
-                            {{if le $memberValidity 1}}
-                                <a class="btn btn-default pull-right" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
-                            {{end}}                                          
+                                {{if le $memberValidity 1}}
+                                    <a class="btn btn-default pull-right" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
+                                {{end}} 
+                            </span>                                         
                         </div>                    
                 </div>
-                </div>
-                <!-- row ends -->
-            </div>
-            <!--
-            <div class="dashboard-top panel panel-default">
-                <div class="panel-body flex">
-                    <div class="col-sm-7">
-                        <img id='head-image'/>
-                        <script>$('#head-image').attr('src', {{.Event.EventData.Banner}});</script>
-                    </div>
-                    <div class="col-sm-5 flex flex-col">
-                        <div class="eventName">{{.Event.EventData.Name}}</div>
-                        <div class="eventDesc flex-grow" style='    line-height: 1.5;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 14;-webkit-box-orient: vertical;'>
-                            <script>readRuneArray({{.Event.EventData.Description}});</script>
-                        </div>
-                        <div>
-                            {{$memberValidity := 0}}
-                            {{range $member := .Event.MemberData}}
-                                {{if eq $userid $member.DocID}}
-                                    {{$memberValidity := $member.Classification}}
-                                {{end}}
-                            {{end}}
-                        {{if le $memberValidity 1}}
-                            <a class="btn btn-default pull-right" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
-                        {{end}}
-                        </div>
-                    </div>
-                </div>
-                {{if eq ($.Event.RequestAllowed) true}}
-                <form action="/AjaxNewGuest/" method="POST" style="display: inline-block;" style='margin-top:0em; margin-bottom:0em;'>
-                    <input type="hidden" name="eventID" value='{{$eventid}}'>
-                    <button class="event-btn-follow btn btn-default" onclick = '$(this).closest("form").submit();'>
-                        <span>JOIN AS GUEST</span>
-                    </button>
-                </form>{{end}}
-                <hr>
-                <div id="eventLabels" class="row">
-                    <div class="col-sm-4 col-xs-6 eventinfo-btn">
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                            </div>
-                            <div class="col-sm-10">
-                                <div id="eventLabelStart"></div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                            </div>
-                            <div class="col-sm-10">
-                                <div id="eventLabelEnd"></div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                            </div>
-                            <div class="col-sm-10">
-                                <p>{{.Event.EventData.Location.Street}} <p>
-                                <h6>{{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}</h6>
-                                <input id="address" type="hidden" value="{{.Event.EventData.Location.Street}} {{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <span class="glyphicon glyphicon-user" style='padding-top:0' aria-hidden="true"></span>
-                            </div>
-                            <div class="col-sm-10" >
-                            {{range $member := .Event.MemberData}}
-                                {{$memberValidity := $member.Classification}}
-                                {{if le $memberValidity 1}}
-                                <strong>  <a style='color:black;' href="/profile/{{$member.Username}}"> {{$member.FirstName}} {{$member.LastName}}</a></strong> 
-                                {{end}}
-                            {{end}}
-                            </div>  
-                        </div>              
-                    </div>
-                    <div class="col-sm-5 col-xs-6 map-btn"> <!-- Google Maps API -->
-                        <div id='map'></div>
-                    </div>
-                    <div class="col-sm-3  col-xs-6 event-btn">
-                        <!-- invite --> <!-- onclick show modal -->
-                        <button class="eventInvite btn btn-default" onclick = '$(this).closest("form").submit();'>
-                            <span>Invite</span>
-                        </button>
-                        <!-- interest -->
-                        <span class="like-btn-container">
-                            <button id ="eventLike" class="event-like-btn">
-                                <span class ="heart"></span>
-                            </button><span class="like-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
-                        </span>                                           
-                        <!-- attending -->                       
-                        <span class="attend-btn-container">
-                            <button id ="eventAttend" class="event-attend-btn">
-                                <span class ="attend-btn-text">Follow</span>
-                            </button><span class="attend-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
-                        </span>
-                                                
-                    </div>
                 </div>
                 <script>
                     var dS = moment('{{.Event.EventData.EventDateStart}}');
@@ -310,8 +212,9 @@
                     $("#eventLabelStart").text(dS.format('MMMM Do[,] h:mm a'));
                     $("#eventLabelEnd").text(dE.format('MMMM Do[,] h:mm a'));
                 </script>
+                <!-- row ends -->
             </div>
-            -->
+
             <ul class="nav nav-tabs nav-justified event-tabs">
                 <li class="active"><a data-toggle="tab" href="#event-about">Showcase</a></li>
                 <li class=""><a data-toggle="tab" id="Wall-loadAJAX" href="#prof-wall">Posts</a></li>
