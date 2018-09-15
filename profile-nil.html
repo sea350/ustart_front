@@ -25,7 +25,6 @@
 	<script src="/ustart_front/js/jquery.rss.min.js"></script>
 	<script src="/ustart_front/js/profile-nil.js"></script>
     <script src="/ustart_front/js/fadebody.js"></script>
-	<script src="//assets.pinterest.com/js/pinit.js"></script>	
 	<script src="/ustart_front/js/layout_links.js"></script>
 	<script src="http://www.youtube.com/player_api"></script>
     <script src="/ustart_front/js/widgets.js"></script>
@@ -38,8 +37,7 @@
 	<script src="/ustart_front/js/createpost2.js"></script>
 	<script src="//platform.instagram.com/en_US/embeds.js"></script>
     <script src="https://apis.google.com/js/platform.js"></script>	
-     <script src="/ustart_front/js/suggestion.js"></script>
-	
+    <script src="/ustart_front/js/suggestion.js"></script>
     <script type="text/javascript">
     var userID = {{.Page}};
     var doc = {{.DOCID}};
@@ -732,11 +730,11 @@
 									</h4>
 								</div>
 								<div id="widgetBodyPin" class="widgetBody">
-									<script>
-										{{range $loop2 := $loop.Data }}
-											pinRender({{$loop2}});
-										{{end}}
-									</script>
+                                    	{{range $loop2 := $loop.Data }}
+                                        <script>
+                                                pinRender({{$loop2}});
+                                        </script>
+                                        {{end}}
 								</div>
 							</div>
 							</li>
@@ -1077,7 +1075,7 @@
                     </div>
                 </div> -->
                 <!-- Project Display Modal -->
-                <div class="modal fade" id="projectDisplayModal" role="dialog">
+                <div class="modal fade" id="projectDisplayModal" tabindex="-1" role="dialog">
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -1108,7 +1106,7 @@
                     </div>
                 </div>
                 <!-- Tag Modal -->
-                <div class="modal fade" id="tagModal" role="dialog">
+                <div class="modal fade" id="tagModal" tabindex="-1" role="dialog">
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -1136,7 +1134,7 @@
                     </div>
                 </div>
                 <!-- Youtube Modal -->
-                <div class="modal fade" id="youtubeModal" role="dialog">
+                <div class="modal fade" id="youtubeModal" tabindex="-1" role="dialog">
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -1158,7 +1156,7 @@
                     </div>
                 </div><!--end youtube Modal -->
                 <!--text modal-->
-                <div class="modal fade" id="customTextModal" role="dialog">
+                <div class="modal fade" id="customTextModal" tabindex="-1" role="dialog">
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -1182,7 +1180,7 @@
                     </div>
                 </div><!-- end text modal-->
                 <!-- instagram modal -->
-                <div class="modal fade" id="ig-modal" role="dialog">
+                <div class="modal fade" id="ig-modal" tabindex="-1" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -1205,7 +1203,7 @@
                     </div>
                 </div> <!--end instagram modal-->
                 <!--sound cloud widget-->
-                  <div class="modal fade" id="sc-modal" role="dialog">
+                  <div class="modal fade" id="sc-modal" tabindex="-1" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -1228,7 +1226,7 @@
                     </div>
                 </div><!--end soundcloud widget -->
                 <!-- codepen widget -->
-                 <div class="modal fade" id="code-modal" role="dialog">
+                 <div class="modal fade" id="code-modal" tabindex="-1" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -1251,7 +1249,7 @@
                     </div>
                 </div><!-- end codepen widget-->
                 <!--twitch widget -->
-                <div class="modal fade" id="twitch-modal" role="dialog">
+                <div class="modal fade" id="twitch-modal" tabindex="-1" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -1279,7 +1277,7 @@
                     </div>
                 </div> <!--end twitch widget -->
                 <!-- tumblr widget -->
-				<div class="modal fade" id="tumblr-modal" role="dialog">
+				<div class="modal fade" id="tumblr-modal" tabindex="-1" role="dialog">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -1302,7 +1300,7 @@
 					</div>
                 </div> <!--end tumblr widget -->
                 <!-- spotify widget -->
-                <div class="modal fade" id="spot-modal" role="dialog">
+                <div class="modal fade" id="spot-modal" tabindex="-1" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -1327,7 +1325,7 @@
                     </div>
                 </div> <!-- end spotify widget -->
 				<!--pinterest Widget -->
-				<div class="modal fade" id="pin-modal" role="dialog">
+				<div class="modal fade" id="pin-modal" tabindex="-1" role="dialog">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -1354,7 +1352,7 @@
 					</div>
 				</div> <!--end pinterest widget-->
 				<!-- link modal-->
-				<div class="modal fade" id="addLinkModal" role="dialog">
+				<div class="modal fade" id="addLinkModal" tabindex="-1" role="dialog">
 					<div class="modal-dialog">
 						<!-- Modal content-->
 						<div class="modal-content">
@@ -1394,7 +1392,7 @@
 					</div>
 				</div><!-- end linkmodal-->
 				<!-- anchor modal-->
-				<div class="modal fade" id="ar-modal" role="dialog">
+				<div class="modal fade" id="ar-modal" tabindex="-1" role="dialog">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -1421,7 +1419,7 @@
 					</div>
 				</div> <!--end anchor modal-->
 				<!--medium modal-->
-				<div class="modal fade" id="med-modal" role="dialog">
+				<div class="modal fade" id="med-modal" tabindex="-1" role="dialog">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -1467,7 +1465,7 @@
 					</div>
 				</div> <!--end medium-->
 				<!-- deviant art modal-->
-				<div class="modal fade" id="da-modal" role="dialog">
+				<div class="modal fade" id="da-modal" tabindex="-1" role="dialog">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -1502,7 +1500,7 @@
 					</div>
 				</div>
 				<!-- calendar modal -->
-				<div class="modal fade" id="cal-modal" role="dialog">
+				<div class="modal fade" id="cal-modal" tabindex="-1" role="dialog">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -1532,7 +1530,7 @@
 					</div>
                 </div> 
                 <!-- github modal -->
-                <div class="modal fade" id="git-modal" role="dialog">
+                <div class="modal fade" id="git-modal" tabindex="-1" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -1562,7 +1560,7 @@
                     </div>
                 </div>
 				<!--gallery Widget -->
-				<div class="modal fade" id="gallery-modal" role="dialog">
+				<div class="modal fade" id="gallery-modal" tabindex="-1" role="dialog">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -1593,6 +1591,7 @@
     </div> 
     <!-- extra div end centering inside left navbar  THIS IS NORMAL!!!--> 
     <div id="footer-placeholder"></div>
+    <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
 </body>
 
 </html>

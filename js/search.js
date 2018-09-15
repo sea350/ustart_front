@@ -59,6 +59,13 @@ function fillSelectMajorOptions() {
 	}
 }
 
+function fillSelectCategoriesOptions() {
+	var categoryOptGroup = $("optgroup[label='Categories']");
+    for (var i = 0; i < category.length; i++) {
+		categoryOptGroup.append($("<option>" + category[i] + "</option>"));
+	}
+}
+
 function loadSearchFilters() {
 	$("input[name='sortbyfilter'][value='" + GetQueryStringParams("sortbyfilter") + "']").prop("checked", true);
 
@@ -82,13 +89,23 @@ function loadSearchFilters() {
 	}
 }
 
-function createSearchResult(username, icon, firstName, lastName, description, tags) {
+function createSearchResult(username, icon, firstName, lastName, description, tags, target) {
 	var mainSearchDiv = $("<div></div>").addClass('search-result');
+    if (target =="searchProject"){
+        var resultAnchor = $("<a></a>").addClass('search-result-pic-link').attr("href", "/Projects/" + username);
+        var resultRedirect = $("<a></a>").addClass('search-result-pic-link').attr("href", "/Projects/" + username).text(firstName + " " + lastName);
+    }
+    else if (target =="searchUser"){
 	var resultAnchor = $("<a></a>").addClass('search-result-pic-link').attr("href", "/profile/" + username);
+        var resultRedirect = $("<a></a>").addClass('search-result-pic-link').attr("href", "/profile/" + username).text(firstName + " " + lastName);
+    }
+    else{
+        var resultAnchor = $("<a></a>").addClass('search-result-pic-link').attr("href", "/Event/" + username);
+        var resultRedirect = $("<a></a>").addClass('search-result-pic-link').attr("href", "/Event/" + username).text(firstName + " " + lastName);
+    }
 	var userImage = $("<img></img>").addClass('search-result-pic').attr('src', icon);
 	var resultTextOuterDiv = $("<div></div>").addClass('search-result-text');
 	var resultTitle = $("<div></div>").addClass('search-result-title');
-	var resultRedirect = $("<a></a>").addClass('search-result-pic-link').attr("href", "/profile/" + username).text(firstName + " " + lastName);
 	var resultDescription = $("<div></div>").addClass('search-result-description').text(description);
 	var resultTags = $("<div></div>").addClass('search-result-tags');
 	resultTitle.append(resultRedirect);
@@ -156,7 +173,7 @@ $(function () {
                         totalHits=tem.TotalHits;
                         $('#search-results-container').find(".loader").css("display", "none");
                         for(var j=0; j<tem.Results.length; j++){
-                            createSearchResult (tem.Results[j].Username, tem.Results[j].Image, tem.Results[j].FirstName, tem.Results[j].LastName, readRuneArrayThatWorks(tem.Results[j].Bio), tem.Results[j].Tags);
+                            createSearchResult (tem.Results[j].Username, tem.Results[j].Image, tem.Results[j].FirstName, tem.Results[j].LastName, readRuneArrayThatWorks(tem.Results[j].Bio), tem.Results[j].Tags, target);
                         }
                     }
                  }
@@ -202,7 +219,7 @@ $(function () {
 	$("input[name='query']").val(searchQuery);
 	$("#searchFilterFormSubmit").attr("form", "search-filters");
 
-	fillSelectMajorOptions();
+	//fillSelectMajorOptions();
 
 	$("[name='searchmusthavemajors']").change(function () {
 		var optionvalue = $(this).val();
@@ -387,6 +404,9 @@ function modifyFilters() {
 			$("#searchbyeventname").prop("disabled", true).parent().hide();
 			$("#searchbyurl").prop("checked", true).prop("disabled", false).parent().show();
 			$("#searchbyskills + label").text("Tags");
+            $("optgroup[label='Categories']").empty().css("display", "none");
+            $("optgroup[label='Majors']").empty().css("display", "block");
+            fillSelectMajorOptions();
 			break;
 		case "events":
 		case "Events":	
@@ -397,6 +417,9 @@ function modifyFilters() {
 			$("#searchbyeventname").prop("checked", true).prop("disabled", false).parent().show();
 			$("#searchbyurl").prop("checked", true).prop("disabled", false).parent().show();
 			$("#searchbyskills + label").text("Tags");
+            $("optgroup[label='Categories']").empty().css("display", "none");
+            $("optgroup[label='Majors']").empty().css("display", "block");
+            fillSelectMajorOptions();
 			break;
 		case "users":
 		case "Users":
@@ -408,6 +431,9 @@ function modifyFilters() {
 			$("#searchbyeventname").prop("disabled", true).parent().hide();
 			$("#searchbyurl").prop("disabled", true).parent().hide();
 			$("#searchbyskills + label").text("Skills");
+            $("optgroup[label='Majors']").empty().css("display", "none");
+            $("optgroup[label='Categories']").empty().css("display", "block");
+            fillSelectCategoriesOptions();
 			break;
 	}
 }
@@ -466,9 +492,10 @@ function element_in_scroll(elem)
                              if(status == 'success' || status=='notmodified')
                              {
                                 var temp = $.parseJSON(jqXHR.responseText);
+                                var target= $('a[data-toggle="tab"]').parent('.active').children().attr('id');
                                 if(temp != null){
                                     for(var i=0; i<temp.Results.length; i++){
-                                        createSearchResult (temp.Results[i].Username, temp.Results[i].Image, temp.Results[i].FirstName, temp.Results[i].LastName, readRuneArrayThatWorks(temp.Results[i].Bio), temp.Results[i].Tags);
+                                        createSearchResult (temp.Results[i].Username, temp.Results[i].Image, temp.Results[i].FirstName, temp.Results[i].LastName, readRuneArrayThatWorks(temp.Results[i].Bio), temp.Results[i].Tags,target);
                                     }
                                 }
                              }

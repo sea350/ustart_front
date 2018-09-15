@@ -61,7 +61,7 @@ updateChatBadge();
             var temp = $.parseJSON(jqXHR.responseText);
                  if (temp.notifications != null){
                      $('#notifDrop').empty();
-                      for(i=temp.notifications.length-1; i >= 0; i--){
+                      for(i=0; i <temp.notifications.length; i++){
                            appendNotifItem(temp.notifications[i].ID, 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=', '', temp.notifications[i].URL, temp.notifications[i].Message, timeSince(temp.notifications[i].Data.Timestamp), temp.notifications[i].Data.Seen);
                       }
                       newNotifs= $(".notif-label.label-new").length;
@@ -90,7 +90,7 @@ updateChatBadge();
         console.log(temp);
              if (temp.notifications != null){
                  $('#notifDrop').empty();
-                  for(i=temp.notifications.length-1; i >= 0; i--){
+                   for(i=0; i <temp.notifications.length; i++){
                        appendNotifItem(temp.notifications[i].ID, 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=', '', temp.notifications[i].URL, temp.notifications[i].Message, timeSince(temp.notifications[i].Data.Timestamp), temp.notifications[i].Data.Seen);
                       
                   }
