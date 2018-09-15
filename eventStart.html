@@ -158,7 +158,7 @@
                     </div>
                 </div>
                 <div class="row text-center" style="margin-top:1em;">
-                    <button type="submit" style='width:95%;' id='submit' class="btn btn-lg btn-primary center-block" value="Submit" name="send" id="finished" style="display: inline-block">Make Your Event</button>
+                    <button type="submit" style='width:95%;' id='submit' class="btn btn-lg btn-primary center-block" value="Submit" name="send" id="finished" style="display: inline-block" onclick="submit()">Make Your Event</button>
                     <script>
                         $('form#projectCreateForm').submit(function(){
                             $("button#finished").prop('disabled', true);
@@ -188,9 +188,9 @@
         function initMap() {
             var geocoder = new google.maps.Geocoder();
 
-            $('#submit').onclick = function(){
+            function submit(){
                 var address = $('#street').val() + ', ' + $('#city').val() + +', ' + $('#state').val() + $('#country').val() + $('#zip').val();
-            }
+            };
             
 
             //var address = '12 west 9th street, ny, ny 10003';
