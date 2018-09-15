@@ -28,7 +28,7 @@
 .flex { display: flex; }
 .flex-col { flex-direction: column; }
 .flex-center { align-self: center; }
-.flex-grow { flex-grow: 1; }
+/*.flex-grow { flex-grow: 1; }*/
 
 .dashboard-top-left {
     flex-grow: 1;
