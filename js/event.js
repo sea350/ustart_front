@@ -199,6 +199,7 @@ function timeSince(date) {
      shrBtnImg.attr('src', "/ustart_front/ico/not share.png"); 
  });
 $(function () {
+    /*
     $('body').confirmation({
         selector: '[data-toggle="confirmation"]'
     });
@@ -211,6 +212,7 @@ $(function () {
             alert('cancel')
         }
     });
+    */
     
     //submit button for share
     $('body').on('click', '.odom-submit', function (e) {
