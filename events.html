@@ -122,7 +122,7 @@
                     </div>
                     <div class="col-sm-5 flex flex-col">
                         <div class="eventName">{{.Event.EventData.Name}}</div>
-                        <div class="eventDesc flex-grow">
+                        <div class="eventDesc flex-grow" style='    line-height: 1.5;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 14;-webkit-box-orient: vertical;'>
                             <script>readRuneArray({{.Event.EventData.Description}});</script>
                         </div>
                         <div>
