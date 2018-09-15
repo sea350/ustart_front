@@ -153,12 +153,12 @@
                 <div class="row" style='margin-top:1em;'>
                         <div class="col-sm-12">
                         <label for="event_desc" class='sr-only'>Event Description</label>
-                        <textarea maxlength="5000" style="resize: none;" name="event_desc" type="text" class="form-control" id="event_desc" rows="4" placeholder="Please describe your Event" onkeyup="makeAddr()" required></textarea>
+                        <textarea maxlength="5000" style="resize: none;" name="event_desc" type="text" class="form-control" id="event_desc" rows="4" placeholder="Please describe your Event" required></textarea>
                         <span style='float:left'><span id="chars">5000</span> characters remaining</span>
                     </div>
                 </div>
                 <div class="row text-center" style="margin-top:1em;">
-                    <button type="submit" style='width:95%;' id='submit' class="btn btn-lg btn-primary center-block" value="Submit" name="send" id="finished" style="display: inline-block">Make Your Event</button>
+                    <button type="submit" style='width:95%;' id='submit' class="btn btn-lg btn-primary center-block" value="Submit" name="send" id="finished" style="display: inline-block" onclick='addrMake'>Make Your Event</button>
                     <script>
                         $('form#projectCreateForm').submit(function(){
                             $("button#finished").prop('disabled', true);
@@ -186,12 +186,11 @@
     </style>  
     <script>
         
-        var address = '';
-        function makeAddr(){
+        function addrMake(){
             //var address = '12 west 9th street, ny, ny 10003';
             var address = $('#street').val() + ', ' + $('#city').val() + +', ' + $('#state').val() + $('#country').val() + $('#zip').val();
         };
-        console.log(address);
+        
         function initMap() {
             var geocoder = new google.maps.Geocoder();
             
