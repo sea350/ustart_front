@@ -115,59 +115,41 @@
                 </div>
             </div>
             <div class="dashboard-top panel panel-default">
-                <div class='head-image'>
+                <div class='head-image' style='padding: 1em;'>
                     <img id='head-image'/>
                     <script>$('#head-image').attr('src', {{.Event.EventData.Banner}});</script>
                 </div>
-                <div class="row">
+                <div class="row" style='margin: 0px 1em;'>
                 <div id='map' class='col-md-6'></div>    
                 <div class="col-md-6">
                     <div class="eventName">{{.Event.EventData.Name}}</div>
-                    <div class="col-sm-4 col-xs-6 eventinfo-btn">
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                </div>
-                                <div class="col-sm-10">
+                    <div class="eventinfo-btn">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-user" style='padding-top:0' aria-hidden="true"></span>
+                            </div>
+                            <div class="col-sm-10">
                                     <div id="eventLabelStart"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                                </div>
-                                <div class="col-sm-10">
                                     <div id="eventLabelEnd"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                                </div>
-                                <div class="col-sm-10">
                                     <p>{{.Event.EventData.Location.Street}} <p>
                                     <h6>{{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}</h6>
-                                    <input id="address" type="hidden" value="{{.Event.EventData.Location.Street}} {{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <span class="glyphicon glyphicon-user" style='padding-top:0' aria-hidden="true"></span>
-                                </div>
-                                <div class="col-sm-10" >
-                                {{range $member := .Event.MemberData}}
+                                    <input id="address" type="hidden" value="{{.Event.EventData.Location.Street}} {{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}">                                    
+                                    {{range $member := .Event.MemberData}}
                                     {{$memberValidity := $member.Classification}}
                                     {{if le $memberValidity 1}}
                                     <strong>  <a style='color:black;' href="/profile/{{$member.Username}}"> {{$member.FirstName}} {{$member.LastName}}</a></strong> 
                                     {{end}}
-                                {{end}}
-                                </div>  
-                            </div>              
-                        </div>
+                                {{end}}                                    
+                            </div>
+                        </div> <!-- end of row -->
+                    </div> <!-- end of eventinfo-btn -->          
                     <div class="eventDesc flex-grow" style='    line-height: 1.5;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 14;-webkit-box-orient: vertical;'>
                             <script>readRuneArray({{.Event.EventData.Description}});</script>
                     </div>
-                    <div class="col-sm-3  col-xs-6 event-btn">
+                    <div class="event-btn" style='display:flex; flex-direction=row'>
                             <!-- invite --> <!-- onclick show modal -->
                             <button class="eventInvite btn btn-default" onclick = '$(this).closest("form").submit();'>
                                 <span>Invite</span>
