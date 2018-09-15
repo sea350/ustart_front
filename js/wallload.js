@@ -92,7 +92,7 @@
     });
      
 });
-        //render comments
+     //render comments
      $('body').on("click", ".comment-btn", function(e) {
           var postID = e.currentTarget.id;
          console.log(postID);

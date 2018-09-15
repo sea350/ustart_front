@@ -133,6 +133,10 @@ span.ui-icon {
     height: 6em;
 }
 
+#text-box p{
+    overflow-wrap:break-word;
+}
+
 #sc-edit-list,
 #ig-edit-list,
 #pin-edit-list,

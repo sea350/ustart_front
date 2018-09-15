@@ -21,6 +21,10 @@
     height:40px;
 }
 
+#notifDrop .label{
+    position: relative;
+    top:-39px;
+}
 .navbar-form{
     margin-top: 0!important;
 }
