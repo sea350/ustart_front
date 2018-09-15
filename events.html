@@ -1532,11 +1532,11 @@
             geocoder.geocode({'address': address}, function(results, status) {
                 if (status === 'OK') {
                     var loc = results[0].geometry.location
-                    console.log('locccccc', loc);
-                    var lat = results[0].geometry.location.lat;
-                    var add = results[0].formatted_address;
-                    console.log('addresssss', add);
-                    console.log('latitude', lat);
+                    //console.log('locccccc', loc);
+                    //var lat = results[0].geometry.location.lat;
+                    //var add = results[0].formatted_address;
+                    //console.log('addresssss', add);
+                    //console.log('latitude', lat);
                     //var lat = parseFloat(results[0].geometry.location.lat);
                     //console.log('lat', lat);
                     //var lng = parseFloat(results[0].geometry.location.lng);
@@ -1552,11 +1552,16 @@
                 } else {
                   alert('Geocode was not successful for the following reason: ' + status);
                 }
+                var lat = marker.getPosition().lat();
+                console.log(lat);
             })
         }   
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8iSIc3y6_quAsCb3QuUNgy8gqEqDt1kc&callback=initMap">
+    </script>
+    <script src='https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyA8iSIc3y6_quAsCb3QuUNgy8gqEqDt1kc'>
+        
     </script>
 </body>
 </html>
