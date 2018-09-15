@@ -1532,7 +1532,7 @@
             geocoder.geocode({'address': address}, function(results, status) {
                 if (status === 'OK') {
                     var loc = results[0].geometry.location
-                    console.log('loc',results[0].geometry.location);
+                    console.log('locccccc', loc);
                     var lat = results[0].geometry.location.lat;
                     var add = results[0].formatted_address;
                     console.log('addresssss', add);
