@@ -166,6 +166,10 @@
                     </script>
                 </div>
                 <br>
+
+                <input type="hidden" id='lat' name='lat'>
+                <input type="hidden" id='lng' name='lng'>
+
                 </form>                
                 </div>
                 <!-- end of jumbotron -->
@@ -179,7 +183,38 @@
         .btn-primary{
             background-color: #00ac7d!important;
         }           
-    </style>    
+    </style>  
+    <script>
+        function initMap() {
+            var geocoder = new google.maps.Geocoder();
+            var address = $('#street').val() + ', ' + $('#city').val() + +', ' + $('#state').val() + $('#country').val() + $('#zip').val();
+
+            //var address = '12 west 9th street, ny, ny 10003';
+            
+            geocoder.geocode({'address': address}, function(results, status) {
+                if (status === 'OK') {
+                    var loc = results[0].geometry.location
+        
+                  var marker = new google.maps.Marker({
+                    position: loc
+                  });
+
+                } else {
+                  alert('Geocode was not successful for the following reason: ' + status);
+                }
+                //WE store lat & lng in database
+                var lat = marker.getPosition().lat();
+                var lng = marker.getPosition().lng();
+
+                $('#lat').val() = lat;
+                $('#lng').val() = lng;
+                
+            })
+        }           
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8iSIc3y6_quAsCb3QuUNgy8gqEqDt1kc&callback=initMap">
+    </script>      
 </body>
 
 </html>
