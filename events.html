@@ -1548,12 +1548,6 @@
                 } else {
                   alert('Geocode was not successful for the following reason: ' + status);
                 }
-                //WE store lat & lng in database
-                var lat = marker.getPosition().lat();
-                var lng = marker.getPosition().lng();
-
-                $("#lat").value = lat;
-                $("#lng").value = lng;
                 
             })
         }   
