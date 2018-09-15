@@ -48,7 +48,13 @@
 	<script type="text/javascript" src="/ustart_front/js/projwallload.js"></script>
     
 </head>
-<body style='min-height:1000px; max-height:1000px;'>
+<style>
+    body{
+        min-height: 1000px;
+        max-height: 1000px;
+    }
+</style>
+<body>
     <div id="centering">
 		<img id="head-image">
         {{ if eq .Project.ProjectData.Banner ""}}
