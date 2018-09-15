@@ -173,9 +173,15 @@
                                 </div>
                             </div>
                         </div>
-                        {{if le $memberValidity 1}}
-                        <a class="btn btn-default pull-right" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
+                        {{$memberValidity := 0}}
+                        {{range $member := .Event.MemberData}}
+                            {{if eq $userid $member.DocID}}
+                                {{$memberValidity := $member.Classification}}
+                            {{end}}
                         {{end}}
+                    {{if le $memberValidity 1}}
+                        <a class="btn btn-default pull-right" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
+                    {{end}}
                     </div> <!-- end of eventinfo-btn -->          
 
                     <div class="event-btn">
