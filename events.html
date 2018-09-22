@@ -176,6 +176,7 @@
                     </div> <!-- end of eventinfo-btn -->          
 
                     <div class="event-btn">
+                        <!--
                             <!-- invite --> <!-- onclick show modal -->
                             <button class="eventInvite btn btn-default" onclick = '$(this).closest("form").submit();'>
                                 <span>Invite</span>
@@ -192,6 +193,7 @@
                                     <span class ="attend-btn-text">Follow</span>
                                 </button><span class="attend-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
                             </span>
+                        -->                            
                             <span>
                                 {{$memberValidity := 0}}
                                 {{range $member := .Event.MemberData}}
