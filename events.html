@@ -1534,7 +1534,7 @@
         function initMap() {
             var geocoder = new google.maps.Geocoder();
             var address = document.getElementById('address').value;
-            var street = document.getElementById('street').value;
+            //var street = document.getElementById('street').value;
             //var address = '12 west 9th street, ny, ny 10003';
             label: {
                 text: saved_label,
@@ -1551,7 +1551,6 @@
                 document.getElementById('map'), {zoom: 17, center: loc});
                   var marker = new google.maps.Marker({
                     map: map,
-                    label: street,
                     position: loc
                   });
                 } else {
