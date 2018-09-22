@@ -1551,15 +1551,7 @@
                 document.getElementById('map'), {zoom: 17, center: loc});
                   var marker = new google.maps.Marker({
                     map: map,
-                    label: {
-                        text: street,
-                        color: "#4c4c4c",
-                        fontSize: "16px",
-                        fontWeight: "bold"
-                    },
-                    icon: {
-                        labelOrigin: new google.maps.Point(40,33)
-                    },
+                    label: street,
                     position: loc
                   });
                 } else {
