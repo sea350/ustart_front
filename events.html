@@ -175,25 +175,25 @@
                         </div>
                     </div> <!-- end of eventinfo-btn -->          
 
-                    <div class="event-btn">
-                        <!--
+                    <div class="event-btn" >
+                        
                             <!-- invite --> <!-- onclick show modal -->
-                            <button class="eventInvite btn btn-default" onclick = '$(this).closest("form").submit();'>
+                            <button style='display:none;' class="eventInvite btn btn-default" onclick = '$(this).closest("form").submit();'>
                                 <span>Invite</span>
                             </button>
                             <!-- interest -->
-                            <span class="like-btn-container">
+                            <span style='display:none;' class="like-btn-container">
                                 <button id ="eventLike" class="event-like-btn">
                                     <span class ="heart"></span>
                                 </button><span class="like-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
                             </span>                                           
                             <!-- attending -->                       
-                            <span class="attend-btn-container">
+                            <span style='display:none;' class="attend-btn-container">
                                 <button id ="eventAttend" class="event-attend-btn">
                                     <span class ="attend-btn-text">Follow</span>
                                 </button><span class="attend-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
                             </span>
-                        -->                            
+                                                 
                             <span>
                                 {{$memberValidity := 0}}
                                 {{range $member := .Event.MemberData}}
