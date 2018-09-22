@@ -1534,15 +1534,9 @@
         function initMap() {
             var geocoder = new google.maps.Geocoder();
             var address = document.getElementById('address').value;
-            //var street = document.getElementById('street').value;
+            var street = document.getElementById('street').value;
             //var address = '12 west 9th street, ny, ny 10003';
-            label: {
-                text: saved_label,
-                color: 'black',
-                fontSize: '12px',
-                x: '200',
-                y: '100'
-            }
+
             geocoder.geocode({'address': address}, function(results, status) {
                 if (status === 'OK') {
                     var loc = results[0].geometry.location
@@ -1551,6 +1545,10 @@
                 document.getElementById('map'), {zoom: 17, center: loc});
                   var marker = new google.maps.Marker({
                     map: map,
+                    label: {
+                        text: street,
+                        fontSize: '12px',
+                    },
                     position: loc
                   });
                 } else {
@@ -1558,7 +1556,7 @@
                 }
                 
             })
-        }   
+        };  
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8iSIc3y6_quAsCb3QuUNgy8gqEqDt1kc&callback=initMap">
