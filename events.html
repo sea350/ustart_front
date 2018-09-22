@@ -147,7 +147,8 @@
                             <div class="col-sm-10">
                                 <p>{{.Event.EventData.Location.Street}} <p>
                                 <h6>{{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}</h6>
-                                <input id="address" type="hidden" value="{{.Event.EventData.Location.Street}} {{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}">                                    
+                                <input id="address" type="hidden" value="{{.Event.EventData.Location.Street}} {{.Event.EventData.Location.City}}, {{.Event.EventData.Location.State}}, {{.Event.EventData.Location.Country}} {{.Event.EventData.Location.Zip}}">
+                                <input id="street" type="hidden" value="{{.Event.EventData.Location.Street}}">
                             </div>
                         </div>
                         <div class="row">
@@ -1533,8 +1534,15 @@
         function initMap() {
             var geocoder = new google.maps.Geocoder();
             var address = document.getElementById('address').value;
+            var street = document.getElementById('street').value;
             //var address = '12 west 9th street, ny, ny 10003';
-            
+            label: {
+                text: saved_label,
+                color: 'black',
+                fontSize: '12px',
+                x: '200',
+                y: '100'
+            }
             geocoder.geocode({'address': address}, function(results, status) {
                 if (status === 'OK') {
                     var loc = results[0].geometry.location
@@ -1543,7 +1551,11 @@
                 document.getElementById('map'), {zoom: 17, center: loc});
                   var marker = new google.maps.Marker({
                     map: map,
-                    label: address,
+                    label: {
+                        text: street,
+                        x: '200',
+                        y: '100'
+                    },
                     position: loc
                   });
                 } else {
