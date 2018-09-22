@@ -112,6 +112,10 @@ body {
 	background-color: black;
 }
 
+.close{
+    margin-left:10px;
+}
+
 .padded {
     width: 25em;
     max-height: calc(100vh - 13em);

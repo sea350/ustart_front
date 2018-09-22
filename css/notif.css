@@ -1,0 +1,28 @@
+.notif-control{
+position:relative;
+right:10px;
+top:-61px;
+list-style-type:none
+}
+
+.notif-page-msg{
+    display:inline;
+}
+
+.notif-close{
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+}
+.notif-msg-label{
+    margin-right:0.5em;
+}
+
+#notif-posts a{
+    text-decoration: none !important;
+}
