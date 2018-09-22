@@ -1553,9 +1553,13 @@
                     map: map,
                     label: {
                         text: street,
-                        x: '200',
-                        y: '100'
+                        color: "#4c4c4c",
+                        fontSize: "16px",
+                        fontWeight: "bold"
                     },
+                    icon: {
+                        labelOrigin: new google.maps.Point(40,33)
+                    }
                     position: loc
                   });
                 } else {
