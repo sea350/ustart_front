@@ -303,7 +303,7 @@ span.ui-icon {
 }
 
 .insta-feed{
-   flex:0 0 auto;
+   flex:1 1 auto;
 }
 
 .insta-feed iframe{
