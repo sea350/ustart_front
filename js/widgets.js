@@ -128,8 +128,7 @@ function spotifyRender(spotifyURL){
          var spotifyprefix="https://open.spotify.com/embed";
          var iframe = document.createElement( "iframe" );
          var finalURL = spotifyprefix.concat(spotifyID);
-        iframe.setAttribute( "width", "32%" );
-        iframe.setAttribute( "width", "48%" );
+        iframe.setAttribute( "width", "33%" );
          iframe.setAttribute( "height", "380" );
          iframe.setAttribute( "frameborder", "0" );
          iframe.setAttribute( "allowtransparency", true );
@@ -464,10 +463,33 @@ function preventSpam(formID, deleteButtonID){
     }
 
 
+jQuery(window).on('load', function(){
+    try {
+        $('.widgetBodyInstagram').masonry({
+            itemSelector: '.insta-feed',
+            horizontalOrder: true
+        });
+    } catch (error) {
+
+    }
+});
 $(document).ready(function() {
 	if($('#customContent').length) {
 		CKEDITOR.replace('customContent');
     }
+    
+    	
+	try {
+		/*$('.widgetBodyInstagram').masonry({
+			itemSelector: '.insta-feed',
+             columnWidth: 200
+		});*/
+		$('.widgetBodyPin').masonry({
+			itemSelector: '.widgetBodyPin a'
+		});
+	} catch (error) {
+		
+	}
     
     //submit button handling for all widgets
 	$('#customTextForm').submit(function(event) {
@@ -1139,17 +1161,6 @@ $(document).ready(function() {
 			event.preventDefault();
 		}*/
 	});
-	
-	try {
-		$('.widgetBodyInstagram').masonry({
-			itemSelector: '.insta-feed'
-		});
-		$('.widgetBodyPin').masonry({
-			itemSelector: '.widgetBodyPin a'
-		});
-	} catch (error) {
-		
-	}
 	
 	// Limit form versions
 	$('#customInstagramForm').submit(function(event) {

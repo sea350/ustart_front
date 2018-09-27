@@ -313,7 +313,7 @@ function formatTime(time) {
 
 $(document).ready(function () {
     //loading in suggested user
-      $.ajax({
+     /* $.ajax({
         type: 'GET',  
         url: 'http://ustart.today:'+port+'/UserSuggestions/',
         contentType: "application/json; charset=utf-8",
@@ -322,7 +322,7 @@ $(document).ready(function () {
          if(status == 'success' || status=='notmodified')
          {
               var temp = $.parseJSON(jqXHR.responseText);
-              if(temp != null){
+              if(temp.suggestions  != null){
                   console.log(temp);
                   suggestionScrollID = temp.scrollID;
                   suggestionTotalHits = temp.TotalHits;
@@ -336,7 +336,7 @@ $(document).ready(function () {
             console.log("suggestion failed");
             console.log(error);
         }
-    });
+    });*/
     //widget children count
     $('.widgetBody').each(function(){
         if ($(this).children().length > 3){

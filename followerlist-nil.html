@@ -88,6 +88,25 @@
 									<p style="color:black">{{.UserInfo.University}}</p>
 								</div>
 								{{end}}
+								{{ if .UserInfo.Majors }}
+								<div style="color:#00C085;">
+									<i class="fa fa-graduation-cap" aria-hidden="true" style="color:#00C085;"></i> Major
+									<p style="color:black">
+										{{range $major := .UserInfo.Majors}}
+											{{$major}}
+										{{end}}
+									</p>
+								</div>
+								{{ end }}
+                                 <div style="color:#00C085;">
+                                    <i class="fa fa-birthday-cake" aria-hidden="true" style="color:#00C085;"></i> Birthday
+                                    <p style="color:black">
+                                   <script>
+									var dateTime = new Date({{.UserInfo.Dob}});
+                                    document.write(month[dateTime.getUTCMonth()]+" "+ dateTime.getUTCDate()+","+dateTime.getFullYear());
+                                    </script>
+                                    </p>
+                                </div>
 								{{if .UserInfo.Phone}}
 								<div id="contact-phone" style="color:#00C085;">
 									<i class="fa fa-phone" aria-hidden="true" style="color:#00C085;"></i> Phone
