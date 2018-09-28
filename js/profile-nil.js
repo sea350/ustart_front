@@ -120,6 +120,9 @@ $(function () {
 		$('#post-msg').val('');
         $('#New-Post-Form').submit();
     });*/
+    
+    $('button[data-dismiss="modal"]').click(function(){ 
+        $(this).parent().parent().parent().parent().modal('hide'); })
     // like button
      $(".like-btn").click(function (e) {
 		var likeBtnImg = $(this).find('img');

@@ -34,7 +34,35 @@ function updateSkillsCounter(element) {
 }*/
 
 function createTagWidgetElement(element, tag) {
-    var tagspan = $('<button/>').attr({'id': 'skill-'+ tag, 'class': 'btn btn-default projectsColumn'});
+    var tagspan = $('<button/>').attr({'id': 'skill-'+ tag, 'class': 'btn btn-default projectsColumn'}).click(function() {
+        window.location.href='http://ustart.today:5002/search?query=&searchFilterGroup=projects&sortbyfilter=relevance&searchbyprojectname=true&searchbyurl=true&searchbyskills=true&searchbylocationcountry=&usersearchlocationcountry=United+States&usersearchlocationstate=&usersearchlocationstate=NY&searchlistmajors=%5D&searchlistskills=%5B%22'+tag+'%22%5D'
+    });
+    var colDiv = $('<div />').attr({'class': 'columnImage'});
+    var colTitle = $('<div />').attr({'class': 'columnTitle'}).text(tag);
+    colDiv.append(colTitle);
+    tagspan.append(colDiv);
+	//var tagHTML = `
+			//<button class="btn btn-default projectsColumn" id="skill-`+ tag + `">
+			//	<div class="columnImage">
+					//<div class="columnTitle">`+tag+`</div>
+			//	</div>
+		//	</button>
+			//`;
+	if ($(element).find(".projectsColumn").length === 0) {
+		$(element).html("");
+	}
+	$(element).append(tagspan);
+//	taglist.push(tag);
+//	if (taglist.length >= 16) {
+//		$('#tagModal .modal-footer button[name="widgetSubmit"]').attr('disabled', 'true');
+//	}
+//	console.log('REturn')
+}
+
+function createProjectTagWidgetElement(element, tag) {
+    var tagspan = $('<button/>').attr({'id': 'skill-'+ tag, 'class': 'btn btn-default projectsColumn'}).click(function() {
+        window.location.href='http://ustart.today:5002/search?query=&searchFilterGroup=users&sortbyfilter=relevance&searchbyprojectname=true&searchbyurl=true&searchbyskills=true&searchbylocationcountry=&usersearchlocationcountry=United+States&usersearchlocationstate=&usersearchlocationstate=NY&searchlistmajors=%5D&searchlistskills=%5B%22'+tag+'%22%5D'
+    });
     var colDiv = $('<div />').attr({'class': 'columnImage'});
     var colTitle = $('<div />').attr({'class': 'columnTitle'}).text(tag);
     colDiv.append(colTitle);
@@ -186,8 +214,20 @@ function resetTagModal(taggerElement) {
 $(document).ready(function () {
 	$('#tagLineInput').keypress(function (e) {
 		if (e.which == 13 || e.which == 44) {
-			createTagModalElement($(this).val());
-			e.preventDefault();
+            if ($('#tagLineInput').val().length > 0 && $('#tagLineInput').val().length <= 20 ) {
+            var dupCheck =[]
+            $('#hashTags .columnTitle').each(function(index, element) {
+                dupCheck.push($(element).text());
+            });
+            if(jQuery.inArray($('#tagLineInput').val(), dupCheck) != -1) {
+                console.log("is in array");
+                e.preventDefault();
+            } else {
+                console.log("is NOT in array");
+                createTagModalElement($('#tagLineInput').val());
+			    e.preventDefault();
+            } 
+		  }
 		}
 	}).on('input', function(e) {
 		if ($(this).val().length > 0) {
@@ -211,8 +251,20 @@ $(document).ready(function () {
     
     $('#wantedSkillLineInput').keypress(function (e) {
 		if (e.which == 13 || e.which == 44) {
-			createSkillModalElement($(this).val());
-			e.preventDefault();
+            if ($('#wantedSkillLineInput').val().length > 0  && $('#wantedSkillLineInput').val().length <= 20) {
+                var dupCheck =[]
+                $('#hashskills .columnTitle').each(function(index, element) {
+                    dupCheck.push($(element).text());
+                });
+                if(jQuery.inArray($('#wantedSkillLineInput').val(), dupCheck) != -1) {
+                    console.log("is in array");
+                     e.preventDefault();
+                } else {
+                    console.log("is NOT in array");
+                    createSkillModalElement($('#wantedSkillLineInput').val());
+                     e.preventDefault();
+                }
+            }
 		}
 	}).on('input', function(e) {
 		if ($(this).val().length > 0) {
@@ -228,8 +280,18 @@ $(document).ready(function () {
 	
     $('#tag-submit').click(function(e) {
 		if ($('#tagLineInput').val().length > 0  &&  $('#tagLineInput').val().length <= 20 ) {
-			createTagModalElement($('#tagLineInput').val());
-			return;
+			 var dupCheck =[]
+            $('#hashTags .columnTitle').each(function(index, element) {
+                dupCheck.push($(element).text());
+            });
+            if(jQuery.inArray($('#tagLineInput').val(), dupCheck) != -1) {
+                console.log("is in array");
+                return;
+            } else {
+                console.log("is NOT in array");
+                createTagModalElement($('#tagLineInput').val());
+			    return;
+            }
 		}
 		
         var skillList = [];
@@ -253,8 +315,18 @@ $(document).ready(function () {
     });
     $('#tag-project-submit').click(function(e) {
 		if ($('#tagLineInput').val().length > 0 && $('#tagLineInput').val().length <= 20 ) {
-			createTagModalElement($('#tagLineInput').val());
-			return;
+            var dupCheck =[]
+            $('#hashTags .columnTitle').each(function(index, element) {
+                dupCheck.push($(element).text());
+            });
+            if(jQuery.inArray($('#tagLineInput').val(), dupCheck) != -1) {
+                console.log("is in array");
+                return;
+            } else {
+                console.log("is NOT in array");
+                createTagModalElement($('#tagLineInput').val());
+			    return;
+            } 
 		}
         var skillList = [];
         $('#hashTags .columnTitle').each(function(index, element) {
@@ -271,7 +343,7 @@ $(document).ready(function () {
 				$('#tag-project-submit').text('Done');
                 $(skillList).each(function(index, element) {
                     var tag = element;
-					createTagWidgetElement("#hashTagsBody", tag);
+					createProjectTagWidgetElement("#hashTagsBody", tag);
                 });
                 $("#tagModal").modal('hide');
             }
@@ -279,9 +351,18 @@ $(document).ready(function () {
     });
     $('#wantedSkill-project-submit').click(function(e) {
 		if ($('#wantedSkillLineInput').val().length > 0  && $('#wantedSkillLineInput').val().length <= 20) {
-            console.log("creating");
-			createSkillModalElement($('#wantedSkillLineInput').val());
-			return;
+            var dupCheck =[]
+            $('#hashskills .columnTitle').each(function(index, element) {
+                dupCheck.push($(element).text());
+            });
+            if(jQuery.inArray($('#wantedSkillLineInput').val(), dupCheck) != -1) {
+                console.log("is in array");
+                return;
+            } else {
+                console.log("is NOT in array");
+                createSkillModalElement($('#wantedSkillLineInput').val());
+			    return;
+            }
 		}
         var skillNeededList = [];
         $('#hashskills .columnTitle').each(function(index, element) {
@@ -299,8 +380,7 @@ $(document).ready(function () {
                 console.log(skillNeededList);
                 $(skillNeededList).each(function(index, element) {
                     var tag = element;
-                    console.log(tag);
-					createTagWidgetElement("#hashskillsBody", tag);
+					createProjectTagWidgetElement("#hashskillsBody", tag);
                 });
                 $("#wantedSkillModal").modal('hide');
             }

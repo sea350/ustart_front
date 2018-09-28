@@ -462,6 +462,9 @@ jQuery(window).on('load', function(){
             itemSelector: '.insta-feed',
             horizontalOrder: true
         });
+        $('.widgetBodyPin').masonry({
+			itemSelector: '.widgetBodyPin a'
+		});
     } catch (error) {
 
     }
@@ -470,19 +473,6 @@ $(document).ready(function() {
 	if($('#customContent').length) {
 		CKEDITOR.replace('customContent');
     }
-    
-    	
-	try {
-		/*$('.widgetBodyInstagram').masonry({
-			itemSelector: '.insta-feed',
-             columnWidth: 200
-		});*/
-		$('.widgetBodyPin').masonry({
-			itemSelector: '.widgetBodyPin a'
-		});
-	} catch (error) {
-		
-	}
     
     //submit button handling for all widgets
 	$('#customTextForm').submit(function(event) {
