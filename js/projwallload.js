@@ -187,6 +187,8 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
        var postID = e.currentTarget.id;
        var content = $("#commentContent"+postID).val();
        $(e.currentTarget).css("pointer-events", "none");
+       $(this).prop('disabled', true);
+       $(this).unbind( "click" );
       if (content != ""){
         $.ajax({
                 type: 'GET',
@@ -204,6 +206,9 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                            $(e.currentTarget).css("pointer-events", "auto"); 
                            var count = $(".standard-comment").length;
                            $("#num-replies"+postID).text(count);
+                            $(e.currentTarget).css("pointer-events", "auto");
+                        $(this).prop('disabled', false);
+                        $(this).bind( "click" );
                        }
                      }
                 },error: function(err) {
@@ -254,6 +259,8 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
        var postID = e.currentTarget.id;
        var content = $("#comment2Content"+postID).val();
        $(e.currentTarget).css("pointer-events", "none");
+       $(this).prop('disabled', true);
+       $(this).unbind( "click" );
        if (content != ""){
         $.ajax({
                 type: 'GET',
@@ -282,7 +289,9 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                               $('#replies'+postID).data('replycount', updated);
                               $("#comment2Content"+postID).val('');
                          }
-                        $(e.currentTarget).css("pointer-events", "auto"); 
+                        $(e.currentTarget).css("pointer-events", "auto");
+                        $(this).prop('disabled', false);
+                        $(this).bind( "click" );
                        }
                      }
                 },error: function(err) {
@@ -396,6 +405,9 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
       var temp = e.currentTarget.id;
       var postID = temp.replace("removeComment",'');
       e.preventDefault();
+      $(e.currentTarget).css("pointer-events", "none");
+      $(this).prop('disabled', true);
+      $(this).unbind( "click" );
       $.ajax({
                 type: 'GET',
                 url: 'http://ustart.today:'+port+'/deletePost/',
@@ -411,6 +423,9 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                                console.log(temp);
                                 var newcount = $(".standard-comment").length;
                                 $("#num-replies"+temp).text(newcount);
+                              $(e.currentTarget).css("pointer-events", "auto");
+                                $(this).prop('disabled', false);
+                                $(this).bind( "click" );
                           }
                      }
                 },error: function(err) {
@@ -423,6 +438,10 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
  $('body').on("click", ".remove-comment-o-comment", function(e) {
       var temp = e.currentTarget.id;
       var postID = temp.replace("removecomment2",'');
+      e.preventDefault();
+     $(e.currentTarget).css("pointer-events", "none");
+     $(e.currentTarget).prop('disabled', true);
+      $(this).unbind( "click" )
       $.ajax({
                 type: 'GET',
                 url: 'http://ustart.today:'+port+'/deletePost/',
@@ -433,6 +452,9 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                      if(status == 'success' || status=='notmodified')
                      {
                          $("#commentOComment-media"+postID).remove();
+                         $(e.currentTarget).css("pointer-events", "auto");
+                        $(this).prop('disabled', false);
+                        $(this).bind( "click" );
                      }
                 },error: function(err) {
                     console.log('comment Load failed: ');

@@ -476,10 +476,10 @@
 											}
 										</script>
 										<span class="pull-right fa fa-2x fa-pencil" onclick="ApplyTextModalID(this)"></span>
-										<form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+										<form id="delete{{index $loop.ID}}delete" action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
 											<input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-											<span name="delete" class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+											 <span name="delete" id="delete{{index $loop.ID}}" class="pull-right fa fa-2x fa-trash delete-widget"></span>
 										</form>
                                         <h4 id="text-title" name="textEditorHeader">
                                              {{index $loop.Data 0}}
@@ -499,10 +499,10 @@
                                     <div class="widgetTitle">
                                         <span class="pull-right fa fa-2x fa-sort"></span>
                                         <span class="pull-right fa fa-2x fa-pencil" id="ig-edit" onclick="instagramEditor(this)"></span>
-                                        <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                        <form id="delete{{index $loop.ID}}delete" action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                              <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
-                                            <span name="delete" class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                            <span name="delete" id="delete{{index $loop.ID}}" class="pull-right fa fa-2x fa-trash delete-widget"></span>
                                         </form>
                                         <h4>Instagram</h4>
                                     </div>
@@ -526,10 +526,10 @@
                                     <div class="widgetTitle">
                                         <span class="pull-right fa fa-2x fa-sort"></span>
                                         <span class="pull-right fa fa-2x fa-pencil" id="sc-edit" onclick="ApplyIDToModal('sc-modal', this)"></span>
-                                        <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                        <form id="delete{{index $loop.ID}}delete" action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
-                                            <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                            <span name="delete" id="delete{{index $loop.ID}}" class="pull-right fa fa-2x fa-trash delete-widget"></span>
                                         </form>
                                         <h4>Soundcloud</h4>
                                     </div>
@@ -545,10 +545,10 @@
                                     <div class="widgetTitle">
                                         <span class="pull-right fa fa-2x fa-sort"></span>
                                         <span class="pull-right fa fa-2x fa-pencil" id="yt-edit" onclick="ApplyIDToModal('youtubeModal', this)"></span>
-                                        <form id='delete{{index $loop.ID}}' action="/deleteProjectWidget/" method="POST">
+                                        <form id='delete{{index $loop.ID}}delete' action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
 											<input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
-											<span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+											 <span name="delete" id="delete{{index $loop.ID}}" class="pull-right fa fa-2x fa-trash delete-widget"></span>
                                         </form>
                                         <h4>Youtube</h4>
                                     </div>
@@ -569,10 +569,10 @@
                                     <div class="widgetTitle">
                                         <span class="pull-right fa fa-2x fa-sort"></span>
                                         <span class="pull-right fa fa-2x fa-pencil" id="code-edit" onclick="ApplyIDToModal('code-modal', this)"></span>
-                                        <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                        <form id="delete{{index $loop.ID}}delete" action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
-                                            <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                            <span name="delete" id="delete{{index $loop.ID}}" class="pull-right fa fa-2x fa-trash delete-widget"></span>
                                         </form>
                                         <h4 name="textEditorHeader">CodePen</h4>
                                     </div>
@@ -588,10 +588,10 @@
                                     <div class="widgetTitle">
                                         <span class="pull-right fa fa-2x fa-sort"></span>
                                         <span class="pull-right fa fa-2x fa-pencil" id="tumblr-edit"onclick="ApplyIDToModal('tumblr-modal', this)"></span>
-                                        <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                        <form id="delete{{index $loop.ID}}delete" action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
-                                            <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                            <span name="delete" id="delete{{index $loop.ID}}" class="pull-right fa fa-2x fa-trash delete-widget"></span>
                                         </form>
                                         <h4 name="textEditorHeader">Tumblr</h4>
                                     </div>
@@ -609,10 +609,10 @@
                             <div class="widgetTitle">
                                 <span class="pull-right fa fa-2x fa-sort"></span>
                                 <span class="pull-right fa fa-2x fa-pencil" id="pin-edit" onclick="pinterestEditor(this)"></span>
-                                <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                <form id="delete{{index $loop.ID}}delete" action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                     <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
-                                    <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                     <span name="delete" id="delete{{index $loop.ID}}" class="pull-right fa fa-2x fa-trash delete-widget"></span>
                                 </form>
                                 <h4 name="textEditorHeader">
                                     Pinterest
@@ -634,10 +634,10 @@
                             <div class="widgetTitle">
                                 <span class="pull-right fa fa-2x fa-sort"></span>
                                 <span class="pull-right fa fa-2x fa-pencil" id="spot-edit" onclick="spotifyEditor(this)"></span>
-                                <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                <form id="delete{{index $loop.ID}}delete" action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                     <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                    <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                    <span name="delete" id="delete{{index $loop.ID}}" class="pull-right fa fa-2x fa-trash delete-widget"></span>
                                 </form>
                                 <h4 name="textEditorHeader">Spotify</h4>
                             </div>
@@ -657,10 +657,10 @@
                                     <div class="widgetTitle">
                                     <span class="pull-right fa fa-2x fa-sort"></span>
                                     <span class="pull-right fa fa-2x fa-pencil" id="twitch-edit" onclick="ApplyIDToModal('twitch-modal', this)"></span>
-                                    <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                    <form id="delete{{index $loop.ID}}delete" action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                        <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                         <span name="delete" id="delete{{index $loop.ID}}" class="pull-right fa fa-2x fa-trash delete-widget"></span>
                                     </form>
                                     <h4>Twitch</h4>
                                     </div>
@@ -679,10 +679,10 @@
                                     <div class="widgetTitle">
                                     <span class="pull-right fa fa-2x fa-sort"></span>
                                     <span class="pull-right fa fa-2x fa-pencil" id="ar-edit" onclick="anchorEditor(this)"></span>
-                                    <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                    <form id="delete{{index $loop.ID}}delete" action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                        <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                         <span name="delete" id="delete{{index $loop.ID}}" class="pull-right fa fa-2x fa-trash delete-widget"></span>
                                     </form>
                                     <h4>Anchor</h4>
                                     </div>
@@ -702,10 +702,10 @@
                                     <div class="widgetTitle">
                                     <span class="pull-right fa fa-2x fa-sort"></span>
                                     <span class="pull-right fa fa-2x fa-pencil" id="med-edit" onclick="ApplyIDToModal('med-modal', this)"></span>
-                                    <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                    <form id="delete{{index $loop.ID}}delete" action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                        <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                        <span name="delete" id="delete{{index $loop.ID}}" class="pull-right fa fa-2x fa-trash delete-widget"></span>
                                     </form>
                                     <h4>Medium</h4>
                                     </div>
@@ -722,10 +722,10 @@
                                     <div class="widgetTitle">
                                     <span class="pull-right fa fa-2x fa-sort"></span>
                                     <span class="pull-right fa fa-2x fa-pencil" id="da-edit"  onclick="ApplyIDToModal('da-modal', this)"></span>
-                                    <form id="delete{{index $loop.ID}}" action="/deleteProjectWidget/" method="POST">
+                                    <form id="delete{{index $loop.ID}}delete" action="/deleteProjectWidget/" method="POST">
                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
-                                        <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
+                                         <span name="delete" id="delete{{index $loop.ID}}" class="pull-right fa fa-2x fa-trash delete-widget"></span>
                                     </form>
                                     <h4>DeviantArt</h4>
                                     </div>

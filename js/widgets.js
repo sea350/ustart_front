@@ -42,13 +42,7 @@ function daRender(daUsername, daCount) {
 	});*/
     $('#widgetBodyDA').FeedEk({
       FeedUrl:"https://backend.deviantart.com/rss.xml?q=gallery%3A" + encodeURI(daUsername),
-      MaxCount : daCount,
-      ShowDesc : true,
-      ShowPubDate:true,
-      DescCharacterLimit:1000,
-      TitleLinkTarget:'_blank',
-      DateFormat: 'MM/DD/YYYY',
-      DateFormatLang:'en'
+      MaxCount : daCount
     });
 }
 
@@ -182,7 +176,6 @@ function TwitchRender(twitchID, widgetID) {
 }
 
 function mediumRender (medUsername, medPublication, medTag, medCount) {
-	
 	if (medUsername !== '') {
 		$('#widgetBodyMed').rss("https://medium.com/feed/@" +encodeURI(medUsername), {
 			limit: medCount,

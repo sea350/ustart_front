@@ -262,7 +262,6 @@
      $('body').on("click", "a.like-btn", function(e) {
           $(e.currentTarget).prop('disabled', true);
            var likepostID = $(this).closest('.feedPost').attr('id');
-           console.log(likepostID);
            $.ajax({
                     type: 'GET',
                     url: 'http://ustart.today:'+port+'/Like/',
@@ -359,6 +358,8 @@
            var postID = e.currentTarget.id;
            var content = $("#commentContent"+postID).val();
            $(e.currentTarget).css("pointer-events", "none");
+          $(e.currentTarget).prop('disabled', true);
+            $(this).unbind( "click" );
           if (content != ""){
             $.ajax({
                     type: 'GET',
@@ -377,6 +378,8 @@
                                $(e.currentTarget).css("pointer-events", "auto"); 
                                var count = $(".standard-comment").length;
                                $("#num-replies"+postID).text(count);
+                               $(e.currentTarget).prop('disabled', false);
+                             $(this).bind( "click" );
                            }
                          }
                     },error: function(err) {
@@ -393,6 +396,8 @@
            var postID = e.currentTarget.id;
            var content = $("#comment2Content"+postID).val();
            $(e.currentTarget).css("pointer-events", "none");
+              $(e.currentTarget).prop('disabled', true);
+            $(this).unbind( "click" )
            if (content != ""){
             $.ajax({
                     type: 'GET',
@@ -422,6 +427,8 @@
                                   $("#comment2Content"+postID).val('');
                              }
                             $(e.currentTarget).css("pointer-events", "auto"); 
+                               $(e.currentTarget).prop('disabled', false);
+                             $(this).bind( "click" );
                            }
                          }
                     },error: function(err) {
@@ -464,6 +471,9 @@
           var temp = e.currentTarget.id;
           var tempID = temp.replace("removeComment",'');
           e.preventDefault();
+          $(e.currentTarget).css("pointer-events", "none");
+           $(this).prop('disabled', true);
+           $(this).unbind( "click" );
           $.ajax({
                     type: 'GET',
                     url: 'http://ustart.today:'+port+'/deletePost/',
@@ -480,6 +490,9 @@
                               if (temp != null){
                                     var newcount = $(".standard-comment").length;
                                     $("#num-replies"+temp).text(newcount);
+                                    $(e.currentTarget).css("pointer-events", "auto");
+                                    $(this).prop('disabled', false);
+                                    $(this).bind( "click" );
                               }
                          }
                     },error: function(err) {
@@ -494,6 +507,9 @@
           var temp = e.currentTarget.id;
           var tempID = temp.replace("removecomment2",'');
            e.preventDefault();
+          $(e.currentTarget).css("pointer-events", "none");
+           $(this).prop('disabled', true);
+           $(this).unbind( "click" );
           $.ajax({
                     type: 'GET',
                     url: 'http://ustart.today:'+port+'/deletePost/',
@@ -505,6 +521,9 @@
                          {
                              //CHANGE FROM tempID
                              $("#commentOCommnet-media"+tempID).remove();
+                              $(e.currentTarget).css("pointer-events", "auto");
+                                    $(this).prop('disabled', false);
+                                    $(this).bind( "click" );
                          }
                     },error: function(err) {
                         //here problem
