@@ -374,7 +374,7 @@
 										</div>
 										<div class="col-sm-9">
 											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis" id="zipVis"  checked><span class="slider round"></span></label>-->
-											<input id="zip" class="form-control" name="zip" placeholder="Zip" value="{{.Project.ProjectData.Location.Zip}}" required />
+											<input id="zip" class="form-control" name="zip" placeholder="Zip" pattern="^\s*?\d{5}(?:[-\s]\d{4})?\s*?$" value="{{.Project.ProjectData.Location.Zip}}" required />
 										</div>
 									</div>	
 									<div class='row'>

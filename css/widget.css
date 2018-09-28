@@ -233,7 +233,10 @@ span.ui-icon {
 #widgetBodyTumblr {
 	max-height: 30em;
 }
-
+#widgetBodySpot{
+    max-height: 380px;
+    padding-right: 10px;
+}
 #widgetBodyMed ul,
 #widgetBodyGit ul,
 #widgetBodyDA ul,

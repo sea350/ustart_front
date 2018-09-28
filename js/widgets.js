@@ -122,6 +122,7 @@ function spotifyRender(spotifyURL){
          var spotifyprefix="https://open.spotify.com/embed";
          var iframe = document.createElement( "iframe" );
          var finalURL = spotifyprefix.concat(spotifyID);
+        iframe.setAttribute( "class", "spotify-iframe" );
         iframe.setAttribute( "width", "33%" );
          iframe.setAttribute( "height", "380" );
          iframe.setAttribute( "frameborder", "0" );
@@ -533,6 +534,10 @@ $(document).ready(function() {
     $('#customSpotifyForm').submit(function(event) {
         if( $('#spot-embed-input').val() == "") {
               event.preventDefault();
+        }
+        if($(".spotify-iframe").length >= 6){
+            event.preventDefault();
+            alert("you have reached the maximum number of spotify embeds");
         }
         $('#spot-modal').modal('hide'); 
 	});
