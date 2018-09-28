@@ -163,6 +163,11 @@
 									<i class="fa fa-graduation-cap" aria-hidden="true" style="color:#00C085;"></i> Education
 									<p style="color:black">{{.UserInfo.University}}</p>
 								</div>
+                                {{else}}
+                                    <div style="color:#00C085;">
+									<i class="fa fa-graduation-cap" aria-hidden="true" style="color:#00C085;"></i> Education
+									<p style="color:black">Please update your Education in <a href="/Settings/">settings.</a></p>
+								</div>
 								{{ end }}
 								{{ if .UserInfo.Majors }}
 								<div style="color:#00C085;">

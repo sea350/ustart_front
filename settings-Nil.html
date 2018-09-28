@@ -351,10 +351,10 @@
                                         {{if .UserInfo.Location.ZipVis}}
 										<label for="zip">Zip</label>
 										<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis" checked><span class="slider round"></span></label>
-										<input id="zip" class="form-control" name="zip" value="{{.UserInfo.Location.Zip}}" placeholder="Zip" required />{{else}}
+										<input id="zip" class="form-control" name="zip" pattern="^\s*?\d{5}(?:[-\s]\d{4})?\s*?$" value="{{.UserInfo.Location.Zip}}" placeholder="Zip" required />{{else}}
                                         <label for="zip">Zip</label>
 										<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis"><span class="slider round"></span></label>
-										<input id="zip" class="form-control" name="zip" value="{{.UserInfo.Location.Zip}}" placeholder="Zip" required disabled/>
+										<input id="zip" class="form-control" name="zip" pattern="^\s*?\d{5}(?:[-\s]\d{4})?\s*?$" value="{{.UserInfo.Location.Zip}}" placeholder="Zip" required disabled/>
                                         {{end}}
 
 										<br>
