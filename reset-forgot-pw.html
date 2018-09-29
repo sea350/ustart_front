@@ -11,13 +11,27 @@
 </head>
 
 <body>
+	<style>
+		.container {
+			display: flex;
+			justify-content: center;
+			margin-top: 4em;
+		}	
+		button.btn.btn-grass {
+			color: #fff;
+			background-color: #00ac7d!important;
+			border-color: #00ac7d!important;
+			float: right;
+		}			
+
+	</style>
 	<div id="navBar-placeholder"></div>
     <div id="centering">
-	<div class="container" style="flex-grow: 1;">
+	<div class="container">
 		<form id="passprompt">
 			<h2>Forgot Your Password?</h2>
 			<br/>
-            <label for="email">You will receive instructions on how to reset your password in your email</label>
+            <label for="email">You will receive instructions on <br> how to reset your password in your email</label>
 			<div class="input-group" action="/SendPassReset">
 				<span class="input-group-addon glyphicon glyphicon-envelope"></span>
 				<input id="email" type="text" class="form-control" name="email" placeholder="Email Address" required/>
