@@ -26,11 +26,26 @@
                         <script>
                             $('body').on("click", "span.notif-close", function(e) {
                                 var notifID = $(this).closest('div.panel').attr("notifid");
-                                console.log( notifID);
+                                 $.ajax({
+                                        type: 'GET',
+                                        url: 'http://ustart.today:'+port+'/AjaxMarkAsSeen/',
+                                        contentType: "application/json; charset=utf-8",
+                                        data: {notifID:notifID},
+                                        success: function(data) { 
+                                        },complete: function (jqXHR,status) {
+                                             if(status == 'success' || status=='notmodified')
+                                             {
+                                                $(this).closest('div.panel[notifid='+notifID+']').remove(); 
+                                             }
+                                        },error: function(err) {
+                                            console.log('remove notif failed: ');
+                                            console.log(err);
+                                        }
+                            }); 
                             });
                             $.ajax({
                                 type: 'GET',  
-                                url: 'http://ustart.today:5002/AjaxScrollNotifications/',
+                                url: 'http://ustart.today:'+port+'/AjaxScrollNotifications/',
                                 contentType: "application/json; charset=utf-8",
                                 data: {scrollID:notifScrollID},
                                 success: function(data) {
