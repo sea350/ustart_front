@@ -458,15 +458,16 @@ function preventSpam(formID, deleteButtonID){
 
 
 $(document).ready(function() {
-    setTimeout(function(){
-    try {
-        $('.widgetBodyInstagram').masonry({
-            itemSelector: '.insta-feed'
-        });
-    } catch (error) {
+    $('.widgetBodyInstagram').ready(function() {
+        setTimeout(function(){
+        try {
+            $('.widgetBodyInstagram').masonry({
+                itemSelector: '.insta-feed'
+            });
+        } catch (error) {
 
-    }}, 1500);
-    
+        }}, 1000);
+    });
 	if($('#customContent').length) {
 		CKEDITOR.replace('customContent');
     }
