@@ -807,7 +807,9 @@
                                     </div>
                                     <div id="widgetBodyMed" class="widgetBody"></div>
                                         <script>
+                                            $(document).ready(function() {
                                             mediumRender({{index $loop.Data 0}},{{index $loop.Data 1}},{{index $loop.Data 2}},{{index $loop.Data 3}});
+                                            });
                                         </script>
                                 </div>
                             </li>
