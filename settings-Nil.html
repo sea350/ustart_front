@@ -137,6 +137,7 @@
 															size: 'original'
 														}).then(function (resp) {
 															$('#hidden-image-data').val(resp);
+                                                            console.log($('#hidden-image-data').val());
 															$('#img-form').submit();
 														});
 													});
