@@ -459,23 +459,26 @@ function preventSpam(formID, deleteButtonID){
 
 $(document).ready(function() {
     $(".widgetBodyInstagram").load($(this).attr("href"),function(){
+        setTimeout(function(){
         try {
             $('.widgetBodyInstagram').masonry({
                 itemSelector: '.insta-feed'
             });
         } catch (error) {
 
-        }
+        }}, 1000);
     });
     
     $(".insta-feed").bind('getheight', function() {
+        console.log("height changed");
+        setTimeout(function(){
         try {
             $('.widgetBodyInstagram').masonry({
                 itemSelector: '.insta-feed'
             });
         } catch (error) {
 
-        }
+        }}, 1000);
     });
     
 	if($('#customContent').length) {
