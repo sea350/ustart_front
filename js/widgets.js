@@ -456,17 +456,19 @@ function preventSpam(formID, deleteButtonID){
         form.submit();
     }
 
+$(window).on('load', function () {
+      console.log("window loaded");
+        setTimeout(function(){
+        try {
+            $('.widgetBodyInstagram').masonry({
+                itemSelector: '.insta-feed'
+            });
+        } catch (error) {
+
+        }}, 1000);
+});
 
 $(document).ready(function() {
-    setTimeout(function(){
-    try {
-        $('.widgetBodyInstagram').masonry({
-            itemSelector: '.insta-feed'
-        });
-    } catch (error) {
-
-    }}, 1500);
-    
 	if($('#customContent').length) {
 		CKEDITOR.replace('customContent');
     }
