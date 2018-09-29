@@ -322,7 +322,7 @@
 										<select id="country" class="form-control" name="country" required></select>	
                                         {{else}}
                                        <!-- <label class="switch usr-vis-opt"><input type="checkbox" name="countryVis"><span class="slider round"></span></label>-->
-										<select id="country" class="form-control" name="country" required disabled></select>	
+										<select id="country" class="form-control" name="country" required ></select>	
                                         
                                         {{end}}
 
@@ -333,7 +333,7 @@
                                     
                                         {{else}}
                                       <!--  <label class="switch usr-vis-opt"><input type="checkbox" name="stateVis"><span class="slider round"></span></label>-->
-										<select id="state" class="form-control" name="state" required disabled></select>
+										<select id="state" class="form-control" name="state" required></select>
                                         {{end}}
                                         <script language="javascript">
 											populateCountries("country", "state");
@@ -348,7 +348,7 @@
                                         {{else}}
                                         <label for="city">City</label>
 										<!--<label class="switch usr-vis-opt"><input type="checkbox" name="cityVis"><span class="slider round"></span></label>-->
-										<input id="city" class="form-control" name="city" value="{{.UserInfo.Location.City}}" placeholder="City" required disabled/>
+										<input id="city" class="form-control" name="city" value="{{.UserInfo.Location.City}}" placeholder="City" required/>
                                         {{end}}
                                         {{if .UserInfo.Location.ZipVis}}
 										<label for="zip">Zip</label>
@@ -356,7 +356,7 @@
 										<input id="zip" class="form-control" name="zip" pattern="^\s*?\d{5}(?:[-\s]\d{4})?\s*?$" value="{{.UserInfo.Location.Zip}}" placeholder="Zip" required />{{else}}
                                         <label for="zip">Zip</label>
 										<!--<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis"><span class="slider round"></span></label>-->
-										<input id="zip" class="form-control" name="zip" pattern="^\s*?\d{5}(?:[-\s]\d{4})?\s*?$" value="{{.UserInfo.Location.Zip}}" placeholder="Zip" required disabled/>
+										<input id="zip" class="form-control" name="zip" pattern="^\s*?\d{5}(?:[-\s]\d{4})?\s*?$" value="{{.UserInfo.Location.Zip}}" placeholder="Zip" required/>
                                         {{end}}
 
 										<br>
