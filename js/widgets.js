@@ -456,9 +456,8 @@ function preventSpam(formID, deleteButtonID){
         form.submit();
     }
 
-
-$(document).ready(function() {
-    $('.widgetBodyInstagram').ready(function() {
+$(window).load(function() {
+      console.log("window loaded");
         setTimeout(function(){
         try {
             $('.widgetBodyInstagram').masonry({
@@ -467,7 +466,9 @@ $(document).ready(function() {
         } catch (error) {
 
         }}, 1000);
-    });
+});
+
+$(document).ready(function() {
 	if($('#customContent').length) {
 		CKEDITOR.replace('customContent');
     }
