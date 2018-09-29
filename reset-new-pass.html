@@ -1,6 +1,7 @@
 <head>
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
+    <script type="text/javascript" src="/ustart_front/js/zxcvbn.js"></script>    
     <script type="text/javascript" src="/ustart_front/js/reg-check.js"></script>    
     <title>U Start - Forgot Password</title>
     <script type="text/javascript" src="/ustart_front/js/zxcvbn.js"></script>
@@ -58,6 +59,23 @@
     </script>
 </head>
 <body>
+    <style>
+        #centering {
+            position: relative;
+            display: flex;
+            top: 3.5em;
+            margin: 0 auto;
+        }
+        .form-control {
+            width: 300px;
+        }
+        .btn-primary {
+            color: #fff;
+            background-color: #00ac7d!important;
+            border-color: #00ac7d!important;
+            float: right;
+        }                      
+    </style>
     {{ if .ErrorOutput }}
     <div id="dup-email-alert" class="alert alert-danger alert-dismissible fade in" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
