@@ -28,7 +28,7 @@
                                 var notifID = $(this).closest('div.panel').attr("notifid");
                                 console.log(notifID);
                                  $.ajax({
-                                        type: 'POST',
+                                        type: 'GET',
                                         url: 'http://ustart.today:'+port+'/AjaxMarkAsSeen/',
                                         contentType: "application/json; charset=utf-8",
                                         data: {notifID:notifID},
@@ -36,8 +36,8 @@
                                         },complete: function (jqXHR,status) {
                                              if(status == 'success' || status=='notmodified')
                                              {
-                                                 console.log($(this).closest('div.panel'));
-                                                $(this).closest('div.panel').remove(); 
+                                                console.log($('div[notifid="'+notifID+'"]'));
+                                                $('div[notifid="'+notifID+'"]').remove(); 
                                              }
                                         },error: function(err) {
                                             console.log('remove notif failed: ');
