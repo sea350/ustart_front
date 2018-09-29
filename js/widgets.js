@@ -457,17 +457,17 @@ function preventSpam(formID, deleteButtonID){
     }
 
 
-$(".widgetBodyInstagram").load($(this).attr("href"),function(){
-    try {
-        $('.widgetBodyInstagram').masonry({
-            itemSelector: '.insta-feed'
-        });
-    } catch (error) {
-
-    }
-});
 $(document).ready(function() {
-    
+    $(".widgetBodyInstagram").load($(this).attr("href"),function(){
+        try {
+            $('.widgetBodyInstagram').masonry({
+                itemSelector: '.insta-feed'
+            });
+        } catch (error) {
+
+        }
+    });
+
 	if($('#customContent').length) {
 		CKEDITOR.replace('customContent');
     }
