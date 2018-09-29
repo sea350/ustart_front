@@ -35,7 +35,7 @@
                                         },complete: function (jqXHR,status) {
                                              if(status == 'success' || status=='notmodified')
                                              {
-                                                $(this).closest('div.panel[notifid='+notifID+']').remove(); 
+                                                $(this).closest('div.panel').remove(); 
                                              }
                                         },error: function(err) {
                                             console.log('remove notif failed: ');
