@@ -26,8 +26,9 @@
                         <script>
                             $('body').on("click", "span.notif-close", function(e) {
                                 var notifID = $(this).closest('div.panel').attr("notifid");
+                                console.log(notifID);
                                  $.ajax({
-                                        type: 'GET',
+                                        type: 'POST',
                                         url: 'http://ustart.today:'+port+'/AjaxMarkAsSeen/',
                                         contentType: "application/json; charset=utf-8",
                                         data: {notifID:notifID},
@@ -35,6 +36,7 @@
                                         },complete: function (jqXHR,status) {
                                              if(status == 'success' || status=='notmodified')
                                              {
+                                                 console.log($(this).closest('div.panel'));
                                                 $(this).closest('div.panel').remove(); 
                                              }
                                         },error: function(err) {
