@@ -457,22 +457,26 @@ function preventSpam(formID, deleteButtonID){
     }
 
 
-jQuery(window).on('load', function(){
+$(".widgetBodyInstagram").load($(this).attr("href"),function(){
     try {
         $('.widgetBodyInstagram').masonry({
-            itemSelector: '.insta-feed',
-            horizontalOrder: true
+            itemSelector: '.insta-feed'
         });
-        $('.widgetBodyPin').masonry({
-			itemSelector: '.widgetBodyPin a'
-		});
     } catch (error) {
 
     }
 });
 $(document).ready(function() {
+    
 	if($('#customContent').length) {
 		CKEDITOR.replace('customContent');
+    }
+    try {
+        $('.widgetBodyPin').masonry({
+                itemSelector: '.widgetBodyPin a'
+            });
+    }catch (error) {
+
     }
     
     //submit button handling for all widgets
