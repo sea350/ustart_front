@@ -459,6 +459,7 @@ function preventSpam(formID, deleteButtonID){
 
 $(document).ready(function() {
     $(".widgetBodyInstagram").load($(this).attr("href"),function(){
+        console.log("div loaded");
         setTimeout(function(){
         try {
             $('.widgetBodyInstagram').masonry({
@@ -466,19 +467,7 @@ $(document).ready(function() {
             });
         } catch (error) {
 
-        }}, 1000);
-    });
-    
-    $(".insta-feed").bind('getheight', function() {
-        console.log("height changed");
-        setTimeout(function(){
-        try {
-            $('.widgetBodyInstagram').masonry({
-                itemSelector: '.insta-feed'
-            });
-        } catch (error) {
-
-        }}, 1000);
+        }}, 1500);
     });
     
 	if($('#customContent').length) {
