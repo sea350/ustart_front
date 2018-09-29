@@ -108,6 +108,7 @@ $(document).ready(function() {
     var pass = document.getElementById('inputPassword');
     //passreset for password rest page
     var passreset = document.getElementById('ChangePassword');
+
     var mcont = document.getElementById('meter-cont');
     var meter = document.getElementById('meter');
     var empty = document.getElementById('left-empty');
@@ -116,62 +117,7 @@ $(document).ready(function() {
     empty.style.display = "none";
     bad.style.display = "none";
     mcont.style.display = "none";
-
-    var arr1 = [pass, passreset];
-    for (var i=0; i<arr1.length; i++) {
-        arr1[i].addEventListener('input', function(){
-            var val = arr1[i].value;
-            meter.style.display = "block";
-            if (val == '') {
-                empty.style.display = "block";
-                bad.style.display = "none";
-                meter.style.display = "none";
-                mcont.style.display = "none";
     
-            }   
-            // pass into function to measure strength
-            var result = zxcvbn(val);         
-
-            // Password progress bar
-            var $bar = $('#meter');            
-            if (result.score == 0) {
-                if (val == '') {
-                    empty.style.display = "block";
-                    bad.style.display = "none";
-                    meter.style.display = "none";
-                    mcont.style.display = "block";
-    
-                } else {
-                    $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '0%');
-                    bad.style.display = "block";
-                    empty.style.display = "none";
-                    mcont.style.display = "block";
-                }
-    
-            } else if (result.score == 1) {
-                $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '25%');
-                bad.style.display = "block";
-                empty.style.display = "none";
-    
-            } else if (result.score == 2) {
-    
-                $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '50%');
-                bad.style.display = "block";
-                empty.style.display = "none";
-            } else if (result.score == 3) {
-    
-                $bar.attr('class', 'progress-bar progress-bar-warning').css('width', '75%');
-                bad.style.display = "none";
-                empty.style.display = "none";
-            } else { // score == 4
-                $bar.attr('class', 'progress-bar progress-bar-success').css('width', '100%');
-                bad.style.display = "none";
-                empty.style.display = "none";
-            }
-        });            
-    };  
-    
-    /*
     pass.addEventListener('input', function() {
 
         var val = pass.value;
@@ -225,7 +171,61 @@ $(document).ready(function() {
             empty.style.display = "none";
         }
     });
-    */
+
+    //passreset
+    passreset.addEventListener('input', function() {
+
+        var val = passreset.value;
+
+        meter.style.display = "block";
+        if (val == '') {
+            empty.style.display = "block";
+            bad.style.display = "none";
+            meter.style.display = "none";
+            mcont.style.display = "none";
+
+        }
+        // pass into function to measure strength
+        var result = zxcvbn(val);
+
+        // Password progress bar
+        var $bar = $('#meter');
+
+        if (result.score == 0) {
+            if (val == '') {
+                empty.style.display = "block";
+                bad.style.display = "none";
+                meter.style.display = "none";
+                mcont.style.display = "block";
+
+            } else {
+                $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '0%');
+                bad.style.display = "block";
+                empty.style.display = "none";
+                mcont.style.display = "block";
+            }
+
+        } else if (result.score == 1) {
+            $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '25%');
+            bad.style.display = "block";
+            empty.style.display = "none";
+
+        } else if (result.score == 2) {
+
+            $bar.attr('class', 'progress-bar progress-bar-danger').css('width', '50%');
+            bad.style.display = "block";
+            empty.style.display = "none";
+        } else if (result.score == 3) {
+
+            $bar.attr('class', 'progress-bar progress-bar-warning').css('width', '75%');
+            bad.style.display = "none";
+            empty.style.display = "none";
+        } else { // score == 4
+            $bar.attr('class', 'progress-bar progress-bar-success').css('width', '100%');
+            bad.style.display = "none";
+            empty.style.display = "none";
+        }
+    });    
     
     //autocomplete 
     $("#uni").autocomplete({
