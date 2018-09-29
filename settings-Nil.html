@@ -293,11 +293,11 @@
 											
 
 											<label for="lname">Last Name</label>
-											<label class="switch usr-vis-opt"><input type="checkbox" name="lnameVis" checked /><span class="slider round"></span></label>
+											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="lnameVis" checked /><span class="slider round"></span></label>-->
 											<input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" value="{{.UserInfo.LastName}}" required />																						
 
 											<label for="dob">DOB</label>
-											<label class="switch usr-vis-opt"><input type="checkbox" name="dobVis" checked /><span class="slider round"></span></label>
+											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="dobVis" checked /><span class="slider round"></span></label>-->
 											<input type="date" class="form-control" id="dob" name="dob" placeholder="Date Of Birth" value="" required />																						
 											<script>
 												let dob = {{.UserInfo.Dob}}.slice(0,10);
@@ -318,7 +318,7 @@
 										</script>
 										<label for="country">Country</label>																			
                                         {{if .UserInfo.Location.CountryVis}}
-										<label class="switch usr-vis-opt"><input type="checkbox" name="countryVis" checked><span class="slider round"></span></label>
+										<!--<label class="switch usr-vis-opt"><input type="checkbox" name="countryVis" checked><span class="slider round"></span></label>-->
 										<select id="country" class="form-control" name="country" required></select>	
                                         {{else}}
                                         <label class="switch usr-vis-opt"><input type="checkbox" name="countryVis"><span class="slider round"></span></label>
@@ -328,11 +328,11 @@
 
 										<label for="state">State</label>
                                         {{if .UserInfo.Location.StateVis}}
-										<label class="switch usr-vis-opt"><input type="checkbox" name="stateVis" checked><span class="slider round"></span></label>
+										<!--<label class="switch usr-vis-opt"><input type="checkbox" name="stateVis" checked><span class="slider round"></span></label>-->
 										<select id="state" class="form-control" name="state" required></select>	
                                     
                                         {{else}}
-                                        <label class="switch usr-vis-opt"><input type="checkbox" name="stateVis"><span class="slider round"></span></label>
+                                      <!--  <label class="switch usr-vis-opt"><input type="checkbox" name="stateVis"><span class="slider round"></span></label>-->
 										<select id="state" class="form-control" name="state" required disabled></select>
                                         {{end}}
                                         <script language="javascript">
@@ -343,19 +343,19 @@
 										</script>
                                         {{if .UserInfo.Location.CityVis}}
 										<label for="city">City</label>
-										<label class="switch usr-vis-opt"><input type="checkbox" name="cityVis" checked><span class="slider round"></span></label>
+										<!--<label class="switch usr-vis-opt"><input type="checkbox" name="cityVis" checked><span class="slider round"></span></label>-->
 										<input id="city" class="form-control" name="city" value="{{.UserInfo.Location.City}}" placeholder="City" required />
                                         {{else}}
                                         <label for="city">City</label>
-										<label class="switch usr-vis-opt"><input type="checkbox" name="cityVis"><span class="slider round"></span></label>
+										<!--<label class="switch usr-vis-opt"><input type="checkbox" name="cityVis"><span class="slider round"></span></label>-->
 										<input id="city" class="form-control" name="city" value="{{.UserInfo.Location.City}}" placeholder="City" required disabled/>
                                         {{end}}
                                         {{if .UserInfo.Location.ZipVis}}
 										<label for="zip">Zip</label>
-										<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis" checked><span class="slider round"></span></label>
+										<!--<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis" checked><span class="slider round"></span></label>-->
 										<input id="zip" class="form-control" name="zip" pattern="^\s*?\d{5}(?:[-\s]\d{4})?\s*?$" value="{{.UserInfo.Location.Zip}}" placeholder="Zip" required />{{else}}
                                         <label for="zip">Zip</label>
-										<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis"><span class="slider round"></span></label>
+										<!--<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis"><span class="slider round"></span></label>-->
 										<input id="zip" class="form-control" name="zip" pattern="^\s*?\d{5}(?:[-\s]\d{4})?\s*?$" value="{{.UserInfo.Location.Zip}}" placeholder="Zip" required disabled/>
                                         {{end}}
 
