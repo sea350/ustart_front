@@ -467,7 +467,17 @@ $(document).ready(function() {
 
         }
     });
+    
+    $(".insta-feed").bind('getheight', function() {
+        try {
+            $('.widgetBodyInstagram').masonry({
+                itemSelector: '.insta-feed'
+            });
+        } catch (error) {
 
+        }
+    });
+    
 	if($('#customContent').length) {
 		CKEDITOR.replace('customContent');
     }
