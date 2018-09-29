@@ -456,7 +456,7 @@ function preventSpam(formID, deleteButtonID){
         form.submit();
     }
 
-$(window).load(function() {
+$(window).on('load', function () {
       console.log("window loaded");
         setTimeout(function(){
         try {
