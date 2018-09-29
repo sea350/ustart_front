@@ -42,13 +42,7 @@ function daRender(daUsername, daCount) {
 	});*/
     $('#widgetBodyDA').FeedEk({
       FeedUrl:"https://backend.deviantart.com/rss.xml?q=gallery%3A" + encodeURI(daUsername),
-      MaxCount : daCount,
-      ShowDesc : true,
-      ShowPubDate:true,
-      DescCharacterLimit:1000,
-      TitleLinkTarget:'_blank',
-      DateFormat: 'MM/DD/YYYY',
-      DateFormatLang:'en'
+      MaxCount : daCount
     });
 }
 
@@ -128,8 +122,8 @@ function spotifyRender(spotifyURL){
          var spotifyprefix="https://open.spotify.com/embed";
          var iframe = document.createElement( "iframe" );
          var finalURL = spotifyprefix.concat(spotifyID);
-        iframe.setAttribute( "width", "32%" );
-        iframe.setAttribute( "width", "48%" );
+        iframe.setAttribute( "class", "spotify-iframe" );
+        iframe.setAttribute( "width", "33%" );
          iframe.setAttribute( "height", "380" );
          iframe.setAttribute( "frameborder", "0" );
          iframe.setAttribute( "allowtransparency", true );
@@ -183,7 +177,6 @@ function TwitchRender(twitchID, widgetID) {
 }
 
 function mediumRender (medUsername, medPublication, medTag, medCount) {
-	
 	if (medUsername !== '') {
 		$('#widgetBodyMed').rss("https://medium.com/feed/@" +encodeURI(medUsername), {
 			limit: medCount,
@@ -465,8 +458,38 @@ function preventSpam(formID, deleteButtonID){
 
 
 $(document).ready(function() {
+    $(".widgetBodyInstagram").load($(this).attr("href"),function(){
+        setTimeout(function(){
+        try {
+            $('.widgetBodyInstagram').masonry({
+                itemSelector: '.insta-feed'
+            });
+        } catch (error) {
+
+        }}, 1000);
+    });
+    
+    $(".insta-feed").bind('getheight', function() {
+        console.log("height changed");
+        setTimeout(function(){
+        try {
+            $('.widgetBodyInstagram').masonry({
+                itemSelector: '.insta-feed'
+            });
+        } catch (error) {
+
+        }}, 1000);
+    });
+    
 	if($('#customContent').length) {
 		CKEDITOR.replace('customContent');
+    }
+    try {
+        $('.widgetBodyPin').masonry({
+                itemSelector: '.widgetBodyPin a'
+            });
+    }catch (error) {
+
     }
     
     //submit button handling for all widgets
@@ -528,6 +551,10 @@ $(document).ready(function() {
     $('#customSpotifyForm').submit(function(event) {
         if( $('#spot-embed-input').val() == "") {
               event.preventDefault();
+        }
+        if($(".spotify-iframe").length >= 6){
+            event.preventDefault();
+            alert("you have reached the maximum number of spotify embeds");
         }
         $('#spot-modal').modal('hide'); 
 	});
@@ -1139,17 +1166,6 @@ $(document).ready(function() {
 			event.preventDefault();
 		}*/
 	});
-	
-	try {
-		$('.widgetBodyInstagram').masonry({
-			itemSelector: '.insta-feed'
-		});
-		$('.widgetBodyPin').masonry({
-			itemSelector: '.widgetBodyPin a'
-		});
-	} catch (error) {
-		
-	}
 	
 	// Limit form versions
 	$('#customInstagramForm').submit(function(event) {

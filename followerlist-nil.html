@@ -82,12 +82,36 @@
 								    </div>
                                 {{ end }}
 								{{ end }}
-								{{if .UserInfo.University}}
-								<div id="edu-link" style="color:#00C085;">
+								{{ if .UserInfo.University }}
+								<div style="color:#00C085;">
 									<i class="fa fa-graduation-cap" aria-hidden="true" style="color:#00C085;"></i> Education
 									<p style="color:black">{{.UserInfo.University}}</p>
 								</div>
-								{{end}}
+                                {{else}}
+                                    <div style="color:#00C085;">
+									<i class="fa fa-graduation-cap" aria-hidden="true" style="color:#00C085;"></i> Education
+									<p style="color:black">Please update your Education in <a href="/Settings/">settings.</a></p>
+								</div>
+								{{ end }}
+								{{ if .UserInfo.Majors }}
+								<div style="color:#00C085;">
+									<i class="fa fa-graduation-cap" aria-hidden="true" style="color:#00C085;"></i> Major
+									<p style="color:black">
+										{{range $major := .UserInfo.Majors}}
+											{{$major}}
+										{{end}}
+									</p>
+								</div>
+								{{ end }}
+                                 <div style="color:#00C085;">
+                                    <i class="fa fa-birthday-cake" aria-hidden="true" style="color:#00C085;"></i> Birthday
+                                    <p style="color:black">
+                                   <script>
+									var dateTime = new Date({{.UserInfo.Dob}});
+                                    document.write(month[dateTime.getUTCMonth()]+" "+ dateTime.getUTCDate()+","+dateTime.getFullYear());
+                                    </script>
+                                    </p>
+                                </div>
 								{{if .UserInfo.Phone}}
 								<div id="contact-phone" style="color:#00C085;">
 									<i class="fa fa-phone" aria-hidden="true" style="color:#00C085;"></i> Phone
@@ -130,18 +154,29 @@
 						<div id="user-nums">
 							<div id="followers">
                                 <h4>Followers </h4>
-                                <a data-toggle="tooltip" data-placement="top" title="{{.Followers}} Followers"><span id="num-followers" style="font-weight: bold">{{.Followers}}</span></a>
+                                <a id="followerTabRedirect" data-toggle="tooltip" data-placement="top" title="{{.Followers}} Followers"><span id="num-followers" style="font-weight: bold">{{.Followers}}</span></a>
                                 <h6>USERS</h6>
 							</div>
 							<div id="following">
                                  <h4>Following </h4>
                                 <ul  id ="container-follow">
-								<li><a data-toggle="tooltip" data-placement="top" title="{{.UserFollowing}} User Following">
+								<li><a id="followingTabRedirect" data-toggle="tooltip" data-placement="top" title="{{.UserFollowing}} User Following">
 								<span id="num-following" style="font-weight: bold">{{.UserFollowing}}</span> <h6>USERS</h6></a></li>
                                     
-                                <li><a data-toggle="tooltip" data-placement="top" title="{{.ProjFollowing}} Project Following"> <span id="proj-following" style="font-weight: bold">{{.ProjFollowing}}</span><h6> PROJECTS</h6> </a></li>
+                                <li><a id="projfollowingTabRedirect" data-toggle="tooltip" data-placement="top" title="{{.ProjFollowing}} Project Following"> <span id="proj-following" style="font-weight: bold">{{.ProjFollowing}}</span><h6> PROJECTS</h6> </a></li>
                                 </ul>
 							</div>
+                              <script>
+                                 $("#followerTabRedirect").click(function() {
+                                    $('a[href="#FollowersTab"]').tab('show');
+                                 });
+                                $("#followingTabRedirect").click(function() {
+                                    $('a[href="#FollowingTab"]').tab('show');
+                                 });
+                                $("#projfollowingTabRedirect").click(function() {
+                                    $('a[href="#ProjFollowingTab"]').tab('show');
+                                 });
+                            </script>
 							<button class="btn btn-default message-btn" style="display: none;"><i class="fa fa-envelope"></i></button>
 							<!-- if user is visiting the page -->
 							{{if ne ($.Page) ($.DOCID)}}
