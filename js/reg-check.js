@@ -105,9 +105,9 @@ function formatRegPages() {
 }
 
 $(document).ready(function() {
-    //var pass = document.getElementById('inputPassword');
+    var pass = document.getElementById('inputPassword');
     //passreset for password rest page
-    //var passreset = document.getElementById('ChangePassword');
+    var passreset = document.getElementById('ChangePassword');
     var mcont = document.getElementById('meter-cont');
     var meter = document.getElementById('meter');
     var empty = document.getElementById('left-empty');
@@ -117,7 +117,7 @@ $(document).ready(function() {
     bad.style.display = "none";
     mcont.style.display = "none";
 
-    var arr1 = document.getElementById('inputPassword').document.getElementById('ChangePassword');
+    var arr1 = [pass, passreset];
     for (var i=0; i<arr1.length; i++) {
         arr1[i].addEventListener('input', function(){
             var val = arr1[i].value;
