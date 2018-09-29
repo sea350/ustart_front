@@ -118,6 +118,7 @@ $(document).ready(function() {
     bad.style.display = "none";
     mcont.style.display = "none";
     
+    if pass{
     pass.addEventListener('input', function() {
 
         var val = pass.value;
@@ -170,9 +171,11 @@ $(document).ready(function() {
             bad.style.display = "none";
             empty.style.display = "none";
         }
-    });
+    })
+    };
 
     //passreset
+    if(passreset){
     passreset.addEventListener('input', function() {
 
         var val = passreset.value;
@@ -225,7 +228,8 @@ $(document).ready(function() {
             bad.style.display = "none";
             empty.style.display = "none";
         }
-    });    
+    })
+    }    
     
     //autocomplete 
     $("#uni").autocomplete({
