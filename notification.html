@@ -24,6 +24,10 @@
                     <hr>
                     <div id ="notif-posts" class="panel-group">
                         <script>
+                            $('body').on("click", "span.notif-close", function(e) {
+                                var notifID = $(this).closest('div.panel').attr("notifid");
+                                console.log( notifID);
+                            });
                             $.ajax({
                                 type: 'GET',  
                                 url: 'http://ustart.today:5002/AjaxScrollNotifications/',
