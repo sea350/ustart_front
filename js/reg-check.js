@@ -118,7 +118,7 @@ $(document).ready(function() {
     bad.style.display = "none";
     mcont.style.display = "none";
     
-    if pass{
+    if (pass){
     pass.addEventListener('input', function() {
 
         var val = pass.value;
