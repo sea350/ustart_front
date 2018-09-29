@@ -7,17 +7,19 @@
 	<meta name="viewport" content="width=device-width">
 	<title>UStart Forgot Password?</title>
 	<link rel="stylesheet" type="text/css"href="css/forgotpw.css"/>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 
 <body>
 	<div id="navBar-placeholder"></div>
+    <div id="centering">
 	<div class="container" style="flex-grow: 1;">
 		<form id="passprompt">
 			<h2>Forgot Your Password?</h2>
 			<br/>
+            <label for="email">You will receive instructions on how to reset your password in your email</label>
 			<div class="input-group" action="/SendPassReset">
-				<label for="email">Email</label>
-				<span class="input-group-addon"><i class="fa fa-envelope-open"></i></span>
+				<span class="input-group-addon glyphicon glyphicon-envelope"></span>
 				<input id="email" type="text" class="form-control" name="email" placeholder="Email Address" required/>
 			</div>
 			<br/>
@@ -25,6 +27,12 @@
 				<button type="submit" class="btn btn-grass">Send Reset Instructions</button>
 			</div>
 		</form>
+        <script>
+            $( ".btn-grass").submit(function(e) {
+                $(this).prop( "disabled", true );
+            });
+        </script>
 	</div>
+    </div>
 </body>
 </html>
