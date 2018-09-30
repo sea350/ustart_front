@@ -118,13 +118,15 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 									if((!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0){
 										if (event.keyCode == 17 && event.keyCode == 13){
 											$(this).siblings('.share-postSubmit').click();  
+                                            $(this).siblings('.share-postSubmit').unbind("click");  
 											console.log("working FINE");                                                                                                        
 										}
 									}
 									//FireFox
 									if(typeof InstallTrigger !== 'undefined'){
 										if (event.keyCode == 224 && event.keyCode == 13){
-											$(this).siblings('.share-postSubmit').click();  
+											$(this).siblings('.share-postSubmit').click(); 
+                                            $(this).siblings('.share-postSubmit').unbind("click"); 
 											console.log("working FINE");                                                                                                        
 										}											
 
@@ -132,7 +134,8 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 									//Safari
 									if(/constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification))){
 										if (event.keyCode == 91 || event.keyCode == 93 && event.keyCode == 13){
-											$(this).siblings('.share-postSubmit').click();  
+											$(this).siblings('.share-postSubmit').click(); 
+                                            $(this).siblings('.share-postSubmit').unbind("click"); 
 											console.log("working FINE");                                                                                                        
 										}  
 									}
@@ -141,6 +144,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 									if(!!document.documentMode){
 										if (event.ctrlKey && event.keyCode == 13){
 											$(this).siblings('.share-postSubmit').click();	
+                                            $(this).siblings('.share-postSubmit').unbind("click"); 
 											console.log("working FINE");																										
 										}
 									}
@@ -154,6 +158,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 									if(!!window.chrome && !!window.chrome.webstore){
 										if (event.keyCode == 91 || event.keyCode == 93 && event.keyCode == 13){
 											$(this).siblings('.share-postSubmit').click();  
+                                            $(this).siblings('.share-postSubmit').unbind("click"); 
 											console.log("working FINE");                                                                                                        
 										}  
 									}
@@ -165,6 +170,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 								else{
 									if (event.ctrlKey && event.keyCode == 13){
 										$(this).siblings('.share-postSubmit').click();	
+                                        $(this).siblings('.share-postSubmit').unbind("click"); 
 										console.log("working FINE");																										
 									}
 								}
@@ -281,6 +287,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 								$(this).attr("id",$(this).attr("id").concat(elementID)).keydown(function(event){
 									if (event.keyCode === 13){
 										$(this).siblings('.new-comment-submit').click();
+                                        $(this).siblings('.new-comment-submit').unbind("click");
 										console.log("working");
 									}
 								});
@@ -396,7 +403,8 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 										//OPERA
 										if((!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0){
 											if (event.keyCode == 17 && event.keyCode == 13){
-												$(this).siblings('.share-postSubmit').click();  
+												$(this).siblings('.share-postSubmit').click(); 
+                                                $(this).siblings('.share-postSubmit').unbind("click");
 												console.log("working FINE");                                                                                                        
 											}
 										}
@@ -404,6 +412,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 										if(typeof InstallTrigger !== 'undefined'){
 											if (event.keyCode == 224 && event.keyCode == 13){
 												$(this).siblings('.share-postSubmit').click();  
+                                                 $(this).siblings('.share-postSubmit').unbind("click");
 												console.log("working FINE");                                                                                                        
 											}											
 
@@ -412,6 +421,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 										if(/constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification))){
 											if (event.keyCode == 91 || event.keyCode == 93 && event.keyCode == 13){
 												$(this).siblings('.share-postSubmit').click();  
+                                                 $(this).siblings('.share-postSubmit').unbind("click");
 												console.log("working FINE");                                                                                                        
 											}  
 										}
@@ -419,6 +429,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 										if(/*@cc_on!@*/false || !!document.documentMode){
 											if (event.ctrlKey && event.keyCode == 13){
 												$(this).siblings('.share-postSubmit').click();	
+                                                 $(this).siblings('.share-postSubmit').unbind("click");
 												console.log("working FINE");																										
 											}
 										}
@@ -431,7 +442,8 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 										//Chrome
 										if(!!window.chrome && !!window.chrome.webstore){
 											if (event.keyCode == 91 || event.keyCode == 93 && event.keyCode == 13){
-												$(this).siblings('.share-postSubmit').click();  
+												$(this).siblings('.share-postSubmit').click();
+                                                 $(this).siblings('.share-postSubmit').unbind("click");
 												console.log("working FINE");                                                                                                        
 											}  
 										}
@@ -443,6 +455,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 									else{
 										if (event.ctrlKey && event.keyCode == 13){
 											$(this).siblings('.share-postSubmit').click();	
+                                             $(this).siblings('.share-postSubmit').unbind("click");
 											console.log("working FINE");																										
 										}
 									}
@@ -490,6 +503,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 								$(this).attr("id",$(this).attr("id").concat(elementID)).keydown(function(event){
 									if (event.keyCode === 13){
 										$(this).siblings('.new-comment-submit').click();
+                                        $(this).siblings('.new-comment-submit').unbind("click");
 										console.log("working");
 									}
 								});
@@ -726,6 +740,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 								$(this).attr({"id": $(this).attr("id").concat(elementID)}).keydown(function(event){
 									if (event.keyCode === 13){
 										$(this).siblings('.new-comment-submit').click();
+                                        $(this).siblings('.new-comment-submit').unbind("click");
 										console.log("working");
 									}
 								});
@@ -802,6 +817,7 @@ function makeCommentApplications(parentID, image, fName,lName, content, postID,n
 				$(this).attr("id",$(this).attr("id").concat(postID)).keydown(function(event){
 					if (event.keyCode === 13){
 						$(this).siblings('.new-comment-o-comment-submit').click();
+                        $(this).siblings('.new-comment-o-comment-submit').unbind("click");
 						console.log("working");						
 					}
 				}) ;
@@ -855,6 +871,7 @@ function makeBasicCommentApplications(parentID, image, fName,lName, content, pos
 				$(this).attr("id",$(this).attr("id").concat(postID)).keydown(function(event){
 					if (event.keyCode === 13){
 						$(this).siblings('.new-comment-o-comment-submit').click();
+                        $(this).siblings('.new-comment-o-comment-submit').unbind("click");
 						console.log("working");						
 					}
 				}) ;
@@ -928,6 +945,7 @@ function makeNewCommentApplications(parentID, image, fName,lName, content, postI
 				$(this).attr("id",$(this).attr("id").concat(postID)).keydown(function(event){
 					if (event.keyCode === 13){
 						$(this).siblings('.new-comment-o-comment-submit').click();
+                        $(this).siblings('.new-comment-o-comment-submit').unbind("click");
 						console.log("working");						
 					}
 				}) ;
@@ -1249,6 +1267,7 @@ function createSharedPost(parentImage, image, fName,lName,elementID, content, sh
 								$(this).attr("id",$(this).attr("id").concat(elementID)).keydown(function(event){
 									if (event.keyCode === 13){
 										$(this).siblings('.new-comment-submit').click();
+                                        $(this).siblings('.new-comment-submit').unbind("click");
 										console.log("working");
 									}
 								});
@@ -1380,6 +1399,7 @@ function createBasicSharedPost(parentImage,image, fName,lName,elementID, content
 								$(this).attr("id",$(this).attr("id").concat(elementID)).keydown(function(event){
 									if (event.keyCode === 13){
 										$(this).siblings('.new-comment-submit').click();
+                                        $(this).siblings('.new-comment-submit').unbind("click");
 										console.log("working");
 									}
 								});

@@ -358,6 +358,7 @@
           var postID = temp.replace("share-btn",'');
           var content = $("#shared-content"+postID).val();
           $(e.currentTarget).prop('disabled', true);
+         $(e.currentTarget).unbind("click");
           $.ajax({
                     type: 'GET',
                     url: 'http://ustart.today:'+port+'/shareEntry/',
@@ -369,6 +370,7 @@
                          {
                           $(e.currentTarget).prop('disabled', false);
                           $("#share-modal"+postID).modal('toggle'); 
+                          $(e.currentTarget).bind("click");
                          }
                     },error: function(err) {
                         console.log('comment Load failed: ');
