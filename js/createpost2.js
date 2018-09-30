@@ -841,7 +841,7 @@ function makeBasicCommentApplications(parentID, image, fName,lName, content, pos
 				$('<a>',{'class':'view-replies'}).attr({'id':'openReplies','name':'replies','myvalue':''+postID,'data-replycount':numReplies}).each(function(){
 					//$(this).attr({"id": $(this).attr("id").concat(postID),'myvalue': $(this).attr("myvalue").concat(postID)}).text(numReplies.concat(' Replies'));
 					$(this).attr({"id":$(this).attr("id").concat(postID),'myvalue':$(this).attr("myvalue").concat(postID)});
-					$(this).text(numReplies.concat(' Replies'));
+					$(this).text(numReplies+'Replies');
                     if(numReplies <= 0)
 					$(this).hide();
 				})
