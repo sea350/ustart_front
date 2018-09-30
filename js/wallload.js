@@ -235,6 +235,8 @@
      //submit new comment
       $('body').on("click", ".new-comment-submit", function(e) {
            var postID = e.currentTarget.id;
+        console.log("clicked");
+          console.log(postID);
            var content = $("#commentContent"+postID).val();
            $(e.currentTarget).css("pointer-events", "none");
            $(this).prop("disabled", true);
