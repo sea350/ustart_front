@@ -250,16 +250,16 @@
                          if(status == 'success' || status=='notmodified')
                          {
                            var temp = $.parseJSON(jqXHR.responseText);
-                           
                            if (temp != null){
+                               console.log(temp);
                                makeNewCommentApplications(postID, temp[0].Image, temp[0].FirstName, temp[0].LastName, temp[0].Element.Content, temp[0].ElementID,temp[0].NumReplies,temp[0].Element.TimeStamp);
                                $("#commentContent"+postID).val('');
-                               $(e.currentTarget).css("pointer-events", "auto"); 
                                var count = $(".standard-comment").length;
                                $("#num-replies"+postID).text(count);
-                               $(this).prop("disabled", false);
-                                $(this).bind( "click" );
                            }
+                           $(e.currentTarget).css("pointer-events", "auto"); 
+                           $(this).prop("disabled", false);
+                           $(this).bind( "click" );
                          }
                     },error: function(err) {
                         console.log('comment Load failed: ');
