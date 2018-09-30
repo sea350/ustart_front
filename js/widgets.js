@@ -275,7 +275,8 @@ function anchorEditor(element) {
 		
 		// Add List Items
 		$('.anchor-feed').each(function(idx, element) {
-			var arSource = new URL($(this).children('iframe').attr('src'));
+			var arEmbedSource = new URL($(this).children('iframe').attr('src'));
+            var arSource = arEmbedSource.replace("/embed/",'/');
 			var arListItem = '<li><form action="/deleteLinkFromWidget/" method="POST"><input name="deleteURL" type="text" value="'+ arSource.pathname +'" readonly/> <input name="editID" type="hidden" value="' + $('#ar-modal #editID').val() + '" readonly="readonly" /><button type="submit"><i class="fa fa-times"></i></button></form></li>'
 			$('#ar-edit-list').append(arListItem);
 		});
