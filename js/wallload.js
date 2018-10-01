@@ -237,6 +237,7 @@
            var content = $("#commentContent"+postID).val();
            $("#commentContent"+postID).val('');
            $(e.currentTarget).css("pointer-events", "none");
+          $(e.currentTarget).unbind("click");
           if (content != ""){
             $.ajax({
                     type: 'GET',
@@ -254,9 +255,9 @@
                                var count = $(".standard-comment").length;
                                $("#num-replies"+postID).text(count);
                            }
+                           $(e.currentTarget).css("pointer-events", "auto"); 
+                           $(e.currentTarget).bind("click");
                          }
-                        $(e.currentTarget).css("pointer-events", "auto"); 
-                        $(e.currentTarget).bind("click");
                     },error: function(err) {
                         console.log('comment Load failed: ');
                         console.log(err);
