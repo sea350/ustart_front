@@ -117,7 +117,6 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 									//OPERA
 									if((!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0){
 										if (event.keyCode == 17 && event.keyCode == 13){
-                                             $(this).unbind('keydown');
 											$(this).siblings('.share-postSubmit').click();  
                                             $(this).siblings('.share-postSubmit').unbind("click");  
 											console.log("working FINE");                                                                                                        
@@ -126,7 +125,6 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 									//FireFox
 									if(typeof InstallTrigger !== 'undefined'){
 										if (event.keyCode == 224 && event.keyCode == 13){
-                                             $(this).unbind('keydown');
 											$(this).siblings('.share-postSubmit').click(); 
                                             $(this).siblings('.share-postSubmit').unbind("click"); 
 											console.log("working FINE");                                                                                                        
@@ -136,7 +134,6 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 									//Safari
 									if(/constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification))){
 										if (event.keyCode == 91 || event.keyCode == 93 && event.keyCode == 13){
-                                             $(this).unbind('keydown');
 											$(this).siblings('.share-postSubmit').click(); 
                                             $(this).siblings('.share-postSubmit').unbind("click"); 
 											console.log("working FINE");                                                                                                        
@@ -145,7 +142,6 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 
 									//IE
 									if(!!document.documentMode){
-                                         $(this).unbind('keydown');
 										if (event.ctrlKey && event.keyCode == 13){
 											$(this).siblings('.share-postSubmit').click();	
                                             $(this).siblings('.share-postSubmit').unbind("click"); 
@@ -161,7 +157,6 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 									//Chrome
 									if(!!window.chrome && !!window.chrome.webstore){
 										if (event.keyCode == 91 || event.keyCode == 93 && event.keyCode == 13){
-                                             $(this).unbind('keydown');
 											$(this).siblings('.share-postSubmit').click();  
                                             $(this).siblings('.share-postSubmit').unbind("click"); 
 											console.log("working FINE");                                                                                                        
@@ -174,7 +169,6 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 								//NOT mac
 								else{
 									if (event.ctrlKey && event.keyCode == 13){
-                                         $(this).unbind('keydown');
 										$(this).siblings('.share-postSubmit').click();	
                                         $(this).siblings('.share-postSubmit').unbind("click"); 
 										console.log("working FINE");																										
@@ -409,7 +403,6 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 										//OPERA
 										if((!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0){
 											if (event.keyCode == 17 && event.keyCode == 13){
-                                                $(this).unbind('keydown');
 												$(this).siblings('.share-postSubmit').click(); 
                                                 $(this).siblings('.share-postSubmit').unbind("click");
 												console.log("working FINE");                                    
@@ -418,7 +411,6 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 										//FireFox
 										if(typeof InstallTrigger !== 'undefined'){
 											if (event.keyCode == 224 && event.keyCode == 13){
-                                                 $(this).unbind('keydown');
 												$(this).siblings('.share-postSubmit').click();  
                                                  $(this).siblings('.share-postSubmit').unbind("click");
 												console.log("working FINE");                                                                                                        
@@ -428,7 +420,6 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 										//Safari
 										if(/constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification))){
 											if (event.keyCode == 91 || event.keyCode == 93 && event.keyCode == 13){
-                                                 $(this).unbind('keydown');
 												$(this).siblings('.share-postSubmit').click();  
                                                  $(this).siblings('.share-postSubmit').unbind("click");
 												console.log("working FINE");                                                                                                        
@@ -437,7 +428,6 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 										//IE
 										if(/*@cc_on!@*/false || !!document.documentMode){
 											if (event.ctrlKey && event.keyCode == 13){
-                                                 $(this).unbind('keydown');
 												$(this).siblings('.share-postSubmit').click();	
                                                  $(this).siblings('.share-postSubmit').unbind("click");
 												console.log("working FINE");																										
@@ -452,7 +442,6 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 										//Chrome
 										if(!!window.chrome && !!window.chrome.webstore){
 											if (event.keyCode == 91 || event.keyCode == 93 && event.keyCode == 13){
-                                                 $(this).unbind('keydown');
 												$(this).siblings('.share-postSubmit').click();
                                                  $(this).siblings('.share-postSubmit').unbind("click");
 												console.log("working FINE");                                                                                                        
@@ -465,7 +454,6 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 									//NOT mac
 									else{
 										if (event.ctrlKey && event.keyCode == 13){
-                                             $(this).unbind('keydown');
 											$(this).siblings('.share-postSubmit').click();	
                                              $(this).siblings('.share-postSubmit').unbind("click");
 											console.log("working FINE");																										
@@ -514,7 +502,6 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 							$('<input>',{'class':'form-control'}).attr({'id':'commentContent','name':'commentz','placeholder':'Add a comment'}).each(function(){
 								$(this).attr("id",$(this).attr("id").concat(elementID)).keydown(function(event){
 									if (event.keyCode === 13){
-                                         $(this).unbind('keydown');
 										$(this).siblings('.new-comment-submit').click();
                                         $(this).siblings('.new-comment-submit').unbind("click");
 										console.log("working");
@@ -752,7 +739,6 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 							$('<input>',{'class':'form-control'}).attr({'id':'commentContent','name':'commentz','placeholder':'Add a comment'}).each(function(){
 								$(this).attr({"id": $(this).attr("id").concat(elementID)}).keydown(function(event){
 									if (event.keyCode === 13){
-                                         $(this).unbind('keydown');
 										$(this).siblings('.new-comment-submit').click();
                                         $(this).siblings('.new-comment-submit').unbind("click");
 										console.log("working");
@@ -830,7 +816,6 @@ function makeCommentApplications(parentID, image, fName,lName, content, postID,n
 			$('<input>',{'class':'form-control'}).attr({'placeholder':'Add a reply','type':'text','id':'comment2Content','name':'body'}).each(function(){
 				$(this).attr("id",$(this).attr("id").concat(postID)).keydown(function(event){
 					if (event.keyCode === 13){
-                         $(this).unbind('keydown');
 						$(this).siblings('.new-comment-o-comment-submit').click();
                         $(this).siblings('.new-comment-o-comment-submit').unbind("click");
 						console.log("working");						
@@ -885,7 +870,6 @@ function makeBasicCommentApplications(parentID, image, fName,lName, content, pos
 			$('<input>',{'class':'form-control'}).attr({'placeholder':'Add a reply','type':'text','id':'comment2Content','name':'body'}).each(function(){
 				$(this).attr("id",$(this).attr("id").concat(postID)).keydown(function(event){
 					if (event.keyCode === 13){
-                         $(this).unbind('keydown');
 						$(this).siblings('.new-comment-o-comment-submit').click();
                         $(this).siblings('.new-comment-o-comment-submit').unbind("click");
 						console.log("working");						
@@ -960,7 +944,6 @@ function makeNewCommentApplications(parentID, image, fName,lName, content, postI
 			$('<input>',{'class':'form-control'}).attr({'placeholder':'Add a reply','type':'text','id':'comment2Content','name':'body'}).each(function(){
 				$(this).attr("id",$(this).attr("id").concat(postID)).keydown(function(event){
 					if (event.keyCode === 13){
-                         $(this).unbind('keydown');
 						$(this).siblings('.new-comment-o-comment-submit').click();
                         $(this).siblings('.new-comment-o-comment-submit').unbind("click");
 						console.log("working");						
@@ -1283,7 +1266,6 @@ function createSharedPost(parentImage, image, fName,lName,elementID, content, sh
 							$('<input>',{'class':'form-control'}).attr({'id':'commentContent','name':'commentz','placeholder':'Add a comment'}).each(function(){
 								$(this).attr("id",$(this).attr("id").concat(elementID)).keydown(function(event){
 									if (event.keyCode === 13){
-                                         $(this).unbind('keydown');
 										$(this).siblings('.new-comment-submit').click();
                                         $(this).siblings('.new-comment-submit').unbind("click");
 										console.log("working");
@@ -1416,7 +1398,6 @@ function createBasicSharedPost(parentImage,image, fName,lName,elementID, content
 							$('<input>',{'class':'form-control'}).attr({'id':'commentContent','name':'commentz','placeholder':'Add a comment'}).each(function(){
 								$(this).attr("id",$(this).attr("id").concat(elementID)).keydown(function(event){
 									if (event.keyCode === 13){
-                                         $(this).unbind('keydown');
 										$(this).siblings('.new-comment-submit').click();
                                         $(this).siblings('.new-comment-submit').unbind("click");
 										console.log("working");

@@ -270,6 +270,7 @@
      $('body').on("click", ".new-comment-o-comment-submit", function(e) {
            var postID = e.currentTarget.id;
            var content = $("#comment2Content"+postID).val();
+           $("#comment2Content"+postID).val('');
            $(e.currentTarget).css("pointer-events", "none");
            $(e.currentTarget).unbind("click");
            if (content != ""){
@@ -302,7 +303,6 @@
                              }
                             $(e.currentTarget).css("pointer-events", "auto"); 
                             $(e.currentTarget).bind("click");
-                            $("#comment2Content"+postID).bind("keydown");
                            }
                          }
                     },error: function(err) {
@@ -357,6 +357,7 @@
           var temp = e.currentTarget.id;
           var postID = temp.replace("share-btn",'');
           var content = $("#shared-content"+postID).val();
+          $("#shared-content"+postID).val('');
           $(e.currentTarget).prop('disabled', true);
          $(e.currentTarget).unbind("click");
           $.ajax({
@@ -371,7 +372,6 @@
                           $(e.currentTarget).prop('disabled', false);
                           $("#share-modal"+postID).modal('toggle'); 
                           $(e.currentTarget).bind("click");
-                          $("#share-content"+postID).bind("keydown");
                          }
                     },error: function(err) {
                         console.log('comment Load failed: ');
