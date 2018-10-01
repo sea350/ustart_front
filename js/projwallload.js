@@ -182,43 +182,40 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
         });
   });
 
- //submit new comment
-  $('body').on("click", ".new-comment-submit", function(e) {
-       var postID = e.currentTarget.id;
-       var content = $("#commentContent"+postID).val();
-       $(e.currentTarget).css("pointer-events", "none");
-       $(this).prop('disabled', true);
-       $(this).unbind( "click" );
-      if (content != ""){
-        $.ajax({
-                type: 'GET',
-                url: 'http://ustart.today:'+port+'/AddComment2/',
-                contentType: "application/json; charset=utf-8",
-                data: {postID:postID, body:content},
-                success: function(data) {
-                },complete: function (jqXHR,status) {
-                     if(status == 'success' || status=='notmodified')
-                     {
-                       var temp = $.parseJSON(jqXHR.responseText);
-                       if (temp != null){
-                           makeNewCommentApplications(postID, temp[0].Image, temp[0].FirstName, temp[0].LastName, temp[0].Element.Content, temp[0].ElementID,temp[0].NumReplies,temp[0].Element.TimeStamp);
-                           $("#commentContent"+postID).val('');
+  //submit new comment
+      $('body').on("click", ".new-comment-submit", function(e) {
+           var postID = e.currentTarget.id;
+           var content = $("#commentContent"+postID).val();
+           $("#commentContent"+postID).val('');
+           $(e.currentTarget).css("pointer-events", "none");
+          $(e.currentTarget).unbind("click");
+          if (content != ""){
+            $.ajax({
+                    type: 'GET',
+                    url: 'http://ustart.today:'+port+'/AddComment2/',
+                    contentType: "application/json; charset=utf-8",
+                    data: {postID:postID, body:content},
+                    success: function(data) {
+                    },complete: function (jqXHR,status) {
+                         if(status == 'success' || status=='notmodified')
+                         {
+                           var temp = $.parseJSON(jqXHR.responseText);
+                           if (temp != null){
+                               console.log(temp);
+                               makeNewCommentApplications(postID, temp[0].Image, temp[0].FirstName, temp[0].LastName, temp[0].Element.Content, temp[0].ElementID,temp[0].NumReplies,temp[0].Element.TimeStamp);
+                               var count = $(".standard-comment").length;
+                               $("#num-replies"+postID).text(count);
+                           }
                            $(e.currentTarget).css("pointer-events", "auto"); 
-                           var count = $(".standard-comment").length;
-                           $("#num-replies"+postID).text(count);
-                            $(e.currentTarget).css("pointer-events", "auto");
-                        $(this).prop('disabled', false);
-                        $(this).bind( "click" );
-                       }
-                     }
-                },error: function(err) {
-                    console.log('comment Load failed: ');
-                    console.log(err);
-
-                }
-        });
-      }
-  });
+                           $(e.currentTarget).bind("click");
+                         }
+                    },error: function(err) {
+                        console.log('comment Load failed: ');
+                        console.log(err);
+                    }
+            });
+          }
+      });
 
  //submit new post
   $('body').on("click", "#new-postSubmit", function(e) {
@@ -258,9 +255,9 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
  $('body').on("click", ".new-comment-o-comment-submit", function(e) {
        var postID = e.currentTarget.id;
        var content = $("#comment2Content"+postID).val();
-       $(e.currentTarget).css("pointer-events", "none");
-       $(this).prop('disabled', true);
-       $(this).unbind( "click" );
+       $("#comment2Content"+postID).val('');
+           $(e.currentTarget).css("pointer-events", "none");
+           $(e.currentTarget).unbind("click");
        if (content != ""){
         $.ajax({
                 type: 'GET',
@@ -289,9 +286,8 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                               $('#replies'+postID).data('replycount', updated);
                               $("#comment2Content"+postID).val('');
                          }
-                        $(e.currentTarget).css("pointer-events", "auto");
-                        $(this).prop('disabled', false);
-                        $(this).bind( "click" );
+                        $(e.currentTarget).css("pointer-events", "auto"); 
+                        $(e.currentTarget).bind("click");
                        }
                      }
                 },error: function(err) {

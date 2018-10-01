@@ -357,9 +357,9 @@
       $('body').on("click", ".new-comment-submit", function(e) {
            var postID = e.currentTarget.id;
            var content = $("#commentContent"+postID).val();
+           $("#commentContent"+postID).val('');
            $(e.currentTarget).css("pointer-events", "none");
-          $(e.currentTarget).prop('disabled', true);
-            $(this).unbind( "click" );
+          $(e.currentTarget).unbind("click");
           if (content != ""){
             $.ajax({
                     type: 'GET',
@@ -371,21 +371,18 @@
                          if(status == 'success' || status=='notmodified')
                          {
                            var temp = $.parseJSON(jqXHR.responseText);
-                           
                            if (temp != null){
+                               console.log(temp);
                                makeNewCommentApplications(postID, temp[0].Image, temp[0].FirstName, temp[0].LastName, temp[0].Element.Content, temp[0].ElementID,temp[0].NumReplies,temp[0].Element.TimeStamp);
-                               $("#commentContent"+postID).val('');
-                               $(e.currentTarget).css("pointer-events", "auto"); 
                                var count = $(".standard-comment").length;
                                $("#num-replies"+postID).text(count);
-                               $(e.currentTarget).prop('disabled', false);
-                             $(this).bind( "click" );
                            }
+                           $(e.currentTarget).css("pointer-events", "auto"); 
+                           $(e.currentTarget).bind("click");
                          }
                     },error: function(err) {
                         console.log('comment Load failed: ');
                         console.log(err);
-
                     }
             });
           }
@@ -395,9 +392,9 @@
      $('body').on("click", ".new-comment-o-comment-submit", function(e) {
            var postID = e.currentTarget.id;
            var content = $("#comment2Content"+postID).val();
+           $("#comment2Content"+postID).val('');
            $(e.currentTarget).css("pointer-events", "none");
-              $(e.currentTarget).prop('disabled', true);
-            $(this).unbind( "click" )
+           $(e.currentTarget).unbind("click");
            if (content != ""){
             $.ajax({
                     type: 'GET',
@@ -427,8 +424,7 @@
                                   $("#comment2Content"+postID).val('');
                              }
                             $(e.currentTarget).css("pointer-events", "auto"); 
-                               $(e.currentTarget).prop('disabled', false);
-                             $(this).bind( "click" );
+                            $(e.currentTarget).bind("click");
                            }
                          }
                     },error: function(err) {
@@ -439,6 +435,7 @@
             });
            }
       });
+
 
 
      $('body').on("click", ".share-postSubmit", function(e) {
