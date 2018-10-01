@@ -404,8 +404,8 @@ function modifyFilters() {
 			$("#searchbyeventname").prop("disabled", true).parent().hide();
 			$("#searchbyurl").prop("checked", true).prop("disabled", false).parent().show();
 			$("#searchbyskills + label").text("Tags");
-            $("optgroup[label='Categories']").empty().css("display", "none");
-            $("optgroup[label='Majors']").empty().css("display", "block");
+            $("optgroup[label='Majors']").empty().css("display", "none");
+            $("optgroup[label='Categories']").empty().css("display", "block");
             fillSelectCategoriesOptions();
 			break;
 		case "events":
@@ -417,8 +417,8 @@ function modifyFilters() {
 			$("#searchbyeventname").prop("checked", true).prop("disabled", false).parent().show();
 			$("#searchbyurl").prop("checked", true).prop("disabled", false).parent().show();
 			$("#searchbyskills + label").text("Tags");
-            $("optgroup[label='Categories']").empty().css("display", "none");
-            $("optgroup[label='Majors']").empty().css("display", "block");
+            $("optgroup[label='Majors']").empty().css("display", "none");
+            $("optgroup[label='Categories']").empty().css("display", "block");
             fillSelectCategoriesOptions();
 			break;
 		case "users":
@@ -431,8 +431,8 @@ function modifyFilters() {
 			$("#searchbyeventname").prop("disabled", true).parent().hide();
 			$("#searchbyurl").prop("disabled", true).parent().hide();
 			$("#searchbyskills + label").text("Skills");
-            $("optgroup[label='Majors']").empty().css("display", "none");
-            $("optgroup[label='Categories']").empty().css("display", "block");
+            $("optgroup[label='Categories']").empty().css("display", "none");
+            $("optgroup[label='Majors']").empty().css("display", "block");
             fillSelectMajorOptions();
 			break;
 	}
