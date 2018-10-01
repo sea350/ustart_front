@@ -235,6 +235,7 @@
       $('body').on("click", ".new-comment-submit", function(e) {
            var postID = e.currentTarget.id;
            var content = $("#commentContent"+postID).val();
+           $("#commentContent"+postID).val('');
            $(e.currentTarget).css("pointer-events", "none");
           if (content != ""){
             $.ajax({
@@ -256,7 +257,6 @@
                          }
                         $(e.currentTarget).css("pointer-events", "auto"); 
                         $(e.currentTarget).bind("click");
-                        $("#commentContent"+postID).val('');
                     },error: function(err) {
                         console.log('comment Load failed: ');
                         console.log(err);

@@ -292,7 +292,6 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 							$('<input>',{'class':'form-control'}).attr({'id':'commentContent','name':'commentz','placeholder':'Add a comment'}).each(function(){
 								$(this).attr("id",$(this).attr("id").concat(elementID)).keydown(function(event){
 									if (event.keyCode === 13){
-                                        event.preventDefault();
 										$(this).siblings('.new-comment-submit').click();
                                         $(this).siblings('.new-comment-submit').unbind("click");
 										console.log("working");
