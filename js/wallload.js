@@ -257,7 +257,6 @@
                         $(e.currentTarget).css("pointer-events", "auto"); 
                         $(e.currentTarget).bind("click");
                         $("#commentContent"+postID).val('');
-                        $("#commentContent"+postID).bind("keydown");
                     },error: function(err) {
                         console.log('comment Load failed: ');
                         console.log(err);
