@@ -236,7 +236,6 @@
            var postID = e.currentTarget.id;
            var content = $("#commentContent"+postID).val();
            $(e.currentTarget).css("pointer-events", "none");
-           $(e.currentTarget).unbind("click");
           if (content != ""){
             $.ajax({
                     type: 'GET',
@@ -257,7 +256,7 @@
                            }
                            $(e.currentTarget).css("pointer-events", "auto"); 
                            $(e.currentTarget).bind("click");
-                           $("#commentContent"+postID).bind("keydown");
+                           $("#commentContent"+postID).attr('disabled', false);
                          }
                     },error: function(err) {
                         console.log('comment Load failed: ');
