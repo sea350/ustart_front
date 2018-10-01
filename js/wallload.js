@@ -253,9 +253,9 @@
                                var count = $(".standard-comment").length;
                                $("#num-replies"+postID).text(count);
                            }
-                           $(e.currentTarget).css("pointer-events", "auto"); 
-                           $(e.currentTarget).bind("click");
                          }
+                        $(e.currentTarget).css("pointer-events", "auto"); 
+                        $(e.currentTarget).bind("click");
                         $("#commentContent"+postID).val('');
                         $("#commentContent"+postID).bind("keydown");
                     },error: function(err) {
