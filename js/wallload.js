@@ -250,18 +250,17 @@
                            if (temp != null){
                                console.log(temp);
                                makeNewCommentApplications(postID, temp[0].Image, temp[0].FirstName, temp[0].LastName, temp[0].Element.Content, temp[0].ElementID,temp[0].NumReplies,temp[0].Element.TimeStamp);
-                               $("#commentContent"+postID).val('');
                                var count = $(".standard-comment").length;
                                $("#num-replies"+postID).text(count);
                            }
                            $(e.currentTarget).css("pointer-events", "auto"); 
                            $(e.currentTarget).bind("click");
-                           $("#commentContent"+postID).attr('disabled', false);
                          }
+                        $("#commentContent"+postID).val('');
+                        $("#commentContent"+postID).bind("keydown");
                     },error: function(err) {
                         console.log('comment Load failed: ');
                         console.log(err);
-
                     }
             });
           }
