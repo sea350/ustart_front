@@ -37,6 +37,7 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                      {
                         var temp = $.parseJSON(jqXHR.responseText);
                         if (temp.JournalEntries!= null){
+                            console.log(temp);
                             projscrollID = temp.ScrollID;
                             maxHits = temp.TotalHits;
                             $('#wall-dataF').empty();
