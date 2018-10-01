@@ -31,7 +31,8 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                 url: 'http://ustart.today:'+port+'/AjaxLoadProjectEntries/',
                 contentType: "application/json; charset=utf-8",
                 data: {userID:pageID, scrollID:""},
-                success: function(data) {  
+                success: function(data) {
+                    console.log(data);
                 },complete: function (jqXHR,status) {
                      if(status == 'success' || status=='notmodified')
                      {
