@@ -257,6 +257,7 @@
                            }
                            $(e.currentTarget).css("pointer-events", "auto"); 
                            $(e.currentTarget).bind("click");
+                           $("#commentContent"+postID).bind("keydown");
                          }
                     },error: function(err) {
                         console.log('comment Load failed: ');
@@ -303,6 +304,7 @@
                              }
                             $(e.currentTarget).css("pointer-events", "auto"); 
                             $(e.currentTarget).bind("click");
+                            $("#comment2Content"+postID).bind("keydown");
                            }
                          }
                     },error: function(err) {
@@ -371,6 +373,7 @@
                           $(e.currentTarget).prop('disabled', false);
                           $("#share-modal"+postID).modal('toggle'); 
                           $(e.currentTarget).bind("click");
+                          $("#share-content"+postID).bind("keydown");
                          }
                     },error: function(err) {
                         console.log('comment Load failed: ');
