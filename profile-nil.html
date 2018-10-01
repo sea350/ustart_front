@@ -898,7 +898,9 @@
                                     </div>
                                     <div id="widgetBodyGit" class="widgetBody">
                                         <script>
-											   githubRender({{index $loop.Data 0}}, {{index $loop.Data 1}});
+                                            $(document).ready(function() {
+											   githubRender({{index $loop.Data 0}}, parseInt({{index $loop.Data 1}}));
+                                            });
 										</script>
                                     </div>
                                 </div>
