@@ -600,7 +600,6 @@
                                         <script>
                                              $(document).ready(function() {
 											   tumblrRender({{index $loop.Data 0}});
-                                             });
 										</script>
                                     </div>
                                 </div>
@@ -751,6 +750,7 @@
 										<span class="pull-right fa fa-2x fa-sort"></span>
 										<span class="pull-right fa fa-2x fa-pencil" id="cal-edit" onclick="ApplyIDToModal('cal-modal', this)"></span>
 										<form id="delete{{index $loop.ID}}delete" action="/deleteProjectWidget/" method="POST">
+                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
 											<input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
 											<span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
 										</form>
@@ -771,6 +771,7 @@
                                         <span class="pull-right fa fa-2x fa-sort"></span>
                                         <span class="pull-right fa fa-2x fa-pencil" id="git-edit" onclick="ApplyIDToModal('git-modal', this)"></span>
 										<form id="delete{{index $loop.ID}}delete" action="/deleteProjectWidget/" method="POST">
+                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
 											<input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
 											<span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
 										</form>
@@ -796,6 +797,7 @@
                                         <span class="pull-right fa fa-2x fa-sort"></span>
                                         <span class="pull-right fa fa-2x fa-pencil" id="gallery-edit" onclick="ApplyIDToModal('gallery-modal', this)"></span>
 										<form id="delete{{index $loop.ID}}delete" action="/deleteProjectWidget/" method="POST">
+                                             <input id="deleteProjectURL" class="form-control" name="deleteProjectURL" type="hidden" value="{{$projecturl}}" required/>
 											<input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
 											<span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
 										</form>
