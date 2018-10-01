@@ -190,7 +190,6 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
        var content = $("#commentContent"+postID).val();
         $("#commentContent"+postID).val('');
        $(e.currentTarget).css("pointer-events", "none");
-       $(this).prop('disabled', true);
       if (content != ""){
         $.ajax({
                 type: 'GET',
@@ -209,7 +208,6 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                            var count = $(".standard-comment").length;
                            $("#num-replies"+postID).text(count);
                             $(e.currentTarget).css("pointer-events", "auto");
-                        $(this).prop('disabled', false);
                        }
                      }
                 },error: function(err) {
@@ -261,7 +259,6 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
        var content = $("#comment2Content"+postID).val();
        $("#comment2Content"+postID).val('');
        $(e.currentTarget).css("pointer-events", "none");
-       $(this).prop('disabled', true);
        if (content != ""){
         $.ajax({
                 type: 'GET',
@@ -291,7 +288,6 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                               $("#comment2Content"+postID).val('');
                          }
                         $(e.currentTarget).css("pointer-events", "auto");
-                        $(this).prop('disabled', false);
                        }
                      }
                 },error: function(err) {
