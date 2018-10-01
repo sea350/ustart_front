@@ -178,7 +178,7 @@ function TwitchRender(twitchID, widgetID) {
 
 function mediumRender (medUsername, medPublication, medTag, medCount) {
 	if (medUsername !== '') {
-		$('#widgetBodyMed').rss("https://medium.com/feed/@" +encodeURI(medUsername), {
+		$('#widgetBodyMed').rss("https://medium.com/feed/@"+medUsername, {
 			limit: medCount,
 			layoutTemplate: '<ul data-med-username="' + medUsername + '">{entries}</ul>',
 			entryTemplate: '<li style="background-image:url(\'{teaserImageUrl}\')"><div class="medium-body"><a href="{url}"><h3>{title}</h3></a>{shortBody}...</div></li>',
@@ -188,7 +188,7 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 				$('#widgetBodyMed').text("The URL didn't work");
 			}
 		});
-	} else {
+	} /*else {
 		var medTag = $('#med-embed-tag').val();
 		if (medTag === '') {
 			$('#widgetBodyMed').rss("https://medium.com/feed/@" + encodeURI(medPublication), {
@@ -213,7 +213,7 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 				}
 			});
 		}
-	}
+	}*/
 }
 
 function tumblrRender(tumblrUsername) {
