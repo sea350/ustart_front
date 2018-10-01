@@ -406,7 +406,7 @@ function modifyFilters() {
 			$("#searchbyskills + label").text("Tags");
             $("optgroup[label='Categories']").empty().css("display", "none");
             $("optgroup[label='Majors']").empty().css("display", "block");
-            fillSelectMajorOptions();
+            fillSelectCategoriesOptions();
 			break;
 		case "events":
 		case "Events":	
@@ -419,7 +419,7 @@ function modifyFilters() {
 			$("#searchbyskills + label").text("Tags");
             $("optgroup[label='Categories']").empty().css("display", "none");
             $("optgroup[label='Majors']").empty().css("display", "block");
-            fillSelectMajorOptions();
+            fillSelectCategoriesOptions();
 			break;
 		case "users":
 		case "Users":
@@ -433,7 +433,7 @@ function modifyFilters() {
 			$("#searchbyskills + label").text("Skills");
             $("optgroup[label='Majors']").empty().css("display", "none");
             $("optgroup[label='Categories']").empty().css("display", "block");
-            fillSelectCategoriesOptions();
+            fillSelectMajorOptions();
 			break;
 	}
 }

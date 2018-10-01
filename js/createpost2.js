@@ -405,7 +405,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 											if (event.keyCode == 17 && event.keyCode == 13){
 												$(this).siblings('.share-postSubmit').click(); 
                                                 $(this).siblings('.share-postSubmit').unbind("click");
-												console.log("working FINE");                                                                                                        
+												console.log("working FINE");                                    
 											}
 										}
 										//FireFox
