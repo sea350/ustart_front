@@ -3,7 +3,7 @@ var twitterSetting;
 var twitterSettingDown = '<i class="glyphicon glyphicon-menu-down"></i>';
 var widgetScrollSpeed = 400;
 var medUrlType = 0;
-
+var instaARR=[];
 
 function escapeOutput(toOutput){
     return toOutput.replace(/\&/g, '&amp;')
@@ -360,10 +360,11 @@ function instagramEditor(element) {
 		$('#ig-modal #editID').val($('.insta-feed').closest('li').attr('id'));
 	else
 		$('#ig-modal #editID').val(0);
+    
 	$('#ig-modal').on('show.bs.modal', function() {
 		// Clean List Items
+        instaARR=[];
 		$('#ig-edit-list').children('li').remove();
-		var instaARR=[];
 		// Add List Items
 		$('.insta-feed').each(function(idx, element) {
 			var igSource = $(this).children('iframe')[0].src;
@@ -376,7 +377,7 @@ function instagramEditor(element) {
             e.preventDefault();
             var instaTarget = $(this).siblings("input[name=deleteURL]").val();
             var widgetDeleteID = $(this).siblings("input[name=editID]").val();
-            if (instaARR.length == 1){
+            if (instaARR.length === 1){
                 instaARR=[];
                 var pathName = window.location.pathname;
                 if (window.location.pathname.indexOf('/profile/') > -1){
@@ -400,7 +401,7 @@ function instagramEditor(element) {
                     });
                  }
             }
-            else if (instaARR.length >= 1){
+            else if (instaARR.length > 1){
                 instaARR.splice($.inArray(instaTarget, arr),1);
                  if (window.location.pathname.indexOf('/profile/') > -1){
                     $.ajax({
