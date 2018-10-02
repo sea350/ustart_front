@@ -385,7 +385,7 @@ function instagramEditor(element) {
                     $.ajax({
                        type: "POST",
                        url: "/deleteWidget/",
-                       data: {deleteID:widgetDeleteID}, // serializes the form's elements.
+                       data: {deleteID:widgetDeleteID},
                        success: function(data)
                        {
                            $(this).prop("disabled", "false");
@@ -397,7 +397,7 @@ function instagramEditor(element) {
                       $.ajax({
                        type: "POST",
                        url: "/deleteProjectWidget/",
-                       data: {deleteID:widgetDeleteID}, // serializes the form's elements.
+                       data: {deleteID:widgetDeleteID},
                        success: function(data)
                        {
                             $(this).prop("disabled", "false");
@@ -411,8 +411,8 @@ function instagramEditor(element) {
                  if (window.location.pathname.indexOf('/profile/') > -1){
                     $.ajax({
                        type: "POST",
-                       url: "/deleteWidget/",
-                       data: {editID:widgetDeleteID, instagramInput: JSON.stringify(instaARR)}, // serializes the form's elements.
+                       url: "/addWidget/",
+                       data: {editID:widgetDeleteID, instagramInput: JSON.stringify(instaARR)}, 
                        success: function(data)
                        {
                             $(this).prop("disabled", "false");
