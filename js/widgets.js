@@ -475,7 +475,7 @@ function spotifyEditor(element) {
 	$('#spot-modal').on('show.bs.modal', function() {
 		// Clean List Items
 		$('#spot-edit-list').children('li').remove();
-		
+		spotArr=[];
 		// Add List Items
 		$('#widgetBodySpot iframe').each(function(idx, element) {
 			var spotSource = $(this).attr('src');
