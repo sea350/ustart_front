@@ -360,17 +360,22 @@ function instagramEditor(element) {
 		$('#ig-modal #editID').val($('.insta-feed').closest('li').attr('id'));
 	else
 		$('#ig-modal #editID').val(0);
-	
 	$('#ig-modal').on('show.bs.modal', function() {
 		// Clean List Items
 		$('#ig-edit-list').children('li').remove();
-		
+		var instaARR=[];
 		// Add List Items
 		$('.insta-feed').each(function(idx, element) {
 			var igSource = $(this).children('iframe')[0].src;
-			var igListItem = '<li><form action="/deleteLinkFromWidget/"><input name="deleteURL" type="text" value="' + igSource.substring(0, igSource.indexOf('embed')) + '" readonly="readonly"/> <button type="submit"><i class="fa fa-times"></i></button><input name="editID" type="hidden" value="' + $('#ig-modal #editID').val() + '" /></form></li>';
+            instaARR.append(igSource);
+			var igListItem = '<li><input name="deleteURL" type="text" value="' + igSource.substring(0, igSource.indexOf('embed')) + '" readonly="readonly"/> <button class="insta-delete" type="submit"><i class="fa fa-times"></i></button><input name="editID" type="hidden" value="' + $('#ig-modal #editID').val() + '" /></li>';
 			$('#ig-edit-list').append(igListItem);
 		});
+        
+        $('#insta-delete').click(function(){
+            var instaTarget = $(this).siblings("input[name=deleteURL]").val();
+            console.log(instaTarget);
+        }
 		
 		// Show/hide the text above the list
 		if ($('#ig-edit-list').children('li').length == 0) {
