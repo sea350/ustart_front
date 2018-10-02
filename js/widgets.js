@@ -377,7 +377,7 @@ function instagramEditor(element) {
         
         $('.insta-delete').click(function(e){
             e.preventDefault();
-            $(this).prop("disabled", "true");
+            $(this).unbind("click");
             var instaTarget = $(this).siblings("input[name=deleteURL]").val();
             var widgetDeleteID = $(this).siblings("input[name=editID]").val();
             if (instaARR.length === 1){
@@ -419,7 +419,6 @@ function instagramEditor(element) {
                        data: {editID:widgetDeleteID, widgetSubmit:4, instagramInput:JSON.stringify(instaARR)}, 
                        success: function(data)
                        {
-                            $(this).prop("disabled", "false");
                             location.reload();
                        }
                      });
@@ -431,7 +430,6 @@ function instagramEditor(element) {
                        data: {editID:widgetDeleteID, widgetSubmit:4, instagramInput:JSON.stringify(instaARR)}, 
                        success: function(data)
                        {
-                            $(this).prop("disabled", "false");
                             location.reload();
                        }
                      });
