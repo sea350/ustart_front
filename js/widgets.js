@@ -408,6 +408,8 @@ function instagramEditor(element) {
             }
             else if (instaARR.length > 1){
                 instaARR.splice($.inArray(instaTarget, instaARR),1);
+                console.log(widgetDeleteID);
+                console.log(instaARR);
                  if (window.location.pathname.indexOf('/profile/') > -1){
                     $.ajax({
                        type: "POST",
