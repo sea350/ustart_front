@@ -375,7 +375,7 @@ function instagramEditor(element) {
         $('#insta-delete').click(function(){
             var instaTarget = $(this).siblings("input[name=deleteURL]").val();
             console.log(instaTarget);
-        }
+        });
 		
 		// Show/hide the text above the list
 		if ($('#ig-edit-list').children('li').length == 0) {
