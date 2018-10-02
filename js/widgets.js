@@ -288,6 +288,7 @@ function anchorEditor(element) {
             e.preventDefault();
             $(this).unbind("click");
             var anchrTarget = $(this).siblings("input[name=deleteURL]").val();
+            console.log(anchrTarget);
             var widgetDeleteID = $(this).siblings("input[name=editID]").val();
             if (anchrArr.length === 1){
                 var pathName = window.location.pathname;
@@ -323,7 +324,7 @@ function anchorEditor(element) {
                     $.ajax({
                        type: "POST",
                        url: "/addWidget/",
-                       data: {editID:widgetDeleteID, widgetSubmit:11, spotInput:JSON.stringify(anchrArr)}, 
+                       data: {editID:widgetDeleteID, widgetSubmit:11, arInput:JSON.stringify(anchrArr)}, 
                        success: function(data)
                        {
                             location.reload();
