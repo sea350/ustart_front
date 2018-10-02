@@ -490,8 +490,8 @@ function spotifyEditor(element) {
             $(this).unbind("click");
             var spotTarget = $(this).siblings("input[name=deleteURL]").val();
             var widgetDeleteID = $(this).siblings("input[name=editID]").val();
-            if (spotARR.length === 1){
-                spotARR=[];
+            if (spotArr.length === 1){
+                spotArr=[];
                 var pathName = window.location.pathname;
                 if (window.location.pathname.indexOf('/profile/') > -1){
                     $.ajax({
@@ -517,12 +517,12 @@ function spotifyEditor(element) {
                  }
             }
             else if (instaARR.length > 1){
-                spotARR.splice($.inArray(spotTarget, spotARR),1);
+                spotArr.splice($.inArray(spotTarget, spotArr),1);
                  if (window.location.pathname.indexOf('/profile/') > -1){
                     $.ajax({
                        type: "POST",
                        url: "/addWidget/",
-                       data: {editID:widgetDeleteID, widgetSubmit:10, spotInput:JSON.stringify(spotARR)}, 
+                       data: {editID:widgetDeleteID, widgetSubmit:10, spotInput:JSON.stringify(spotArr)}, 
                        success: function(data)
                        {
                             location.reload();
@@ -533,7 +533,7 @@ function spotifyEditor(element) {
                     $.ajax({
                        type: "POST",
                        url: "/addProjectWidget/",
-                       data: {editID:widgetDeleteID, widgetSubmit:10, spotInput:JSON.stringify(spotARR)}, 
+                       data: {editID:widgetDeleteID, widgetSubmit:10, spotInput:JSON.stringify(spotArr)}, 
                        success: function(data)
                        {
                             location.reload();
