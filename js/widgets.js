@@ -336,7 +336,7 @@ function anchorEditor(element) {
                     $.ajax({
                        type: "POST",
                        url: "/addProjectWidget/",
-                       data: {projectWidget:pageID,editID:widgetDeleteID, widgetSubmit:11, spotInput:JSON.stringify(anchrArr)}, 
+                       data: {projectWidget:pageID,editID:widgetDeleteID, widgetSubmit:11, arInput:JSON.stringify(anchrArr)}, 
                        success: function(data)
                        {
                             location.reload();
