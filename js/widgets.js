@@ -407,7 +407,7 @@ function instagramEditor(element) {
                  }
             }
             else if (instaARR.length > 1){
-                instaARR.splice($.inArray(instaTarget, arr),1);
+                instaARR.splice($.inArray(instaTarget, instaARR),1);
                  if (window.location.pathname.indexOf('/profile/') > -1){
                     $.ajax({
                        type: "POST",
