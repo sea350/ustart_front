@@ -375,6 +375,7 @@ function instagramEditor(element) {
         
         $('.insta-delete').click(function(e){
             e.preventDefault();
+            $(this).prop("disabled", "true");
             var instaTarget = $(this).siblings("input[name=deleteURL]").val();
             var widgetDeleteID = $(this).siblings("input[name=editID]").val();
             if (instaARR.length === 1){
@@ -387,6 +388,8 @@ function instagramEditor(element) {
                        data: {deleteID:widgetDeleteID}, // serializes the form's elements.
                        success: function(data)
                        {
+                           $(this).prop("disabled", "false");
+                           location.reload();
                        }
                     });
                 }
@@ -397,6 +400,8 @@ function instagramEditor(element) {
                        data: {deleteID:widgetDeleteID}, // serializes the form's elements.
                        success: function(data)
                        {
+                            $(this).prop("disabled", "false");
+                            location.reload();
                        }
                     });
                  }
@@ -410,7 +415,8 @@ function instagramEditor(element) {
                        data: {editID:widgetDeleteID, instagramInput: JSON.stringify(instaARR)}, // serializes the form's elements.
                        success: function(data)
                        {
-
+                            $(this).prop("disabled", "false");
+                            location.reload();
                        }
                      });
                  }
