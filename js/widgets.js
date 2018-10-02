@@ -368,13 +368,14 @@ function instagramEditor(element) {
 		$('.insta-feed').each(function(idx, element) {
 			var igSource = $(this).children('iframe')[0].src;
             instaARR.push(igSource);
-			var igListItem = '<li><input name="deleteURL" type="text" value="' + igSource.substring(0, igSource.indexOf('embed')) + '" readonly="readonly"/> <button class="insta-delete" type="button"><i class="fa fa-times"></i></button><input name="editID" type="hidden" value="' + $('#ig-modal #editID').val() + '" /></li>';
+			var igListItem = '<li><input style="width:100%" name="deleteURL" type="text" value="' + igSource.substring(0, igSource.indexOf('embed')) + '" readonly="readonly"/> <button class="insta-delete" type="button"><i class="fa fa-times"></i></button><input name="editID" type="hidden" value="' + $('#ig-modal #editID').val() + '" /></li>';
 			$('#ig-edit-list').append(igListItem);
 		});
         
-        $('#insta-delete').click(function(e){
+        $('.insta-delete').click(function(e){
             e.preventDefault();
             var instaTarget = $(this).siblings("input[name=deleteURL]").val();
+            console.log(instaARR);
             console.log(instaTarget);
         });
 		
