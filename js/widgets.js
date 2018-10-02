@@ -274,7 +274,7 @@ function anchorEditor(element) {
 	$('#ar-modal').on('show.bs.modal', function() {
 		// Clean List Items
 		$('#ar-edit-list').children('li').remove();
-		
+		anchrArr=[];
 		// Add List Items
 		$('.anchor-feed').each(function(idx, element) {
 			var arEmbedSource = new URL($(this).children('iframe').attr('src'));
