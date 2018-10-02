@@ -280,9 +280,74 @@ function anchorEditor(element) {
 			var arEmbedSource = new URL($(this).children('iframe').attr('src'));
             var arSource = arEmbedSource.pathname.replace("/embed/",'/');
             arSource= "https://anchor.fm"+arSource;
-			var arListItem = '<li><input name="deleteURL" type="text" value="'+ arSource +'" readonly/> <input name="editID" type="hidden" value="' + $('#ar-modal #editID').val() + '" readonly="readonly" /><button class="anchr-delete" type="button"><i class="fa fa-times"></i></button></li>';
+			var arListItem = '<li><input name="deleteURL" type="text" value="'+ arSource +'" readonly/> <input style="width:100%" name="editID" type="hidden" value="' + $('#ar-modal #editID').val() + '" readonly="readonly" /><button class="anchr-delete" type="button"><i class="fa fa-times"></i></button></li>';
+            anchrArr.push(arSource);
 			$('#ar-edit-list').append(arListItem);
 		});
+        
+        $('.anchr-delete').click(function(e){
+            e.preventDefault();
+            $(this).unbind("click");
+            var anchrTarget = $(this).siblings("input[name=deleteURL]").val();
+            var widgetDeleteID = $(this).siblings("input[name=editID]").val();
+            if (anchrArr.length === 1){
+                var pathName = window.location.pathname;
+                if (window.location.pathname.indexOf('/profile/') > -1){
+                    $.ajax({
+                       type: "POST",
+                       url: "/deleteWidget/",
+                       data: {deleteID:widgetDeleteID},
+                       success: function(data)
+                       {
+                           anchrArr=[];
+                           location.reload();
+                       }
+                    });
+                }
+                 if (window.location.pathname.indexOf('/Projects/') > -1){
+                      var projectDeleteID = window.location.pathname.split("/").pop();
+                      $.ajax({
+                       type: "POST",
+                       url: "/deleteProjectWidget/",
+                       data: {deleteProjectURL: projectDeleteID, deleteID:widgetDeleteID},
+                       success: function(data)
+                       {
+                            anchrArr=[];
+                            location.reload();
+                       }
+                    });
+                 }
+            }
+            else if (anchrArr.length > 1){
+                anchrArr.splice($.inArray(anchrTarget, anchrArr),1);
+                 if (window.location.pathname.indexOf('/profile/') > -1){
+                    $.ajax({
+                       type: "POST",
+                       url: "/addWidget/",
+                       data: {editID:widgetDeleteID, widgetSubmit:11, spotInput:JSON.stringify(anchrArr)}, 
+                       success: function(data)
+                       {
+                            location.reload();
+                       }
+                     });
+                 }
+                if (window.location.pathname.indexOf('/Projects/') > -1){
+                     var projectDeleteID = window.location.pathname.split("/").pop();
+                    $.ajax({
+                       type: "POST",
+                       url: "/addProjectWidget/",
+                       data: {projectWidget:pageID,editID:widgetDeleteID, widgetSubmit:11, spotInput:JSON.stringify(anchrArr)}, 
+                       success: function(data)
+                       {
+                            location.reload();
+                       }
+                     });
+                }
+            }
+            else{
+                console.log("oopsie an error has occured");
+            }
+        });
 		
 		// Show/hide the text above the list
 		if ($('#ar-edit-list').children('li').length == 0) {
@@ -487,7 +552,6 @@ function spotifyEditor(element) {
             spotArr.push(spotSource);
 			$('#spot-edit-list').append(spotListItem);
 		});
-        console.log(spotArr.length);
 		
         $('.spotify-delete').click(function(e){
             e.preventDefault();
