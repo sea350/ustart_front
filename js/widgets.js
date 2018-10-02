@@ -367,7 +367,7 @@ function instagramEditor(element) {
 		// Add List Items
 		$('.insta-feed').each(function(idx, element) {
 			var igSource = $(this).children('iframe')[0].src;
-            instaARR.append(igSource);
+            instaARR.push(igSource);
 			var igListItem = '<li><input name="deleteURL" type="text" value="' + igSource.substring(0, igSource.indexOf('embed')) + '" readonly="readonly"/> <button class="insta-delete" type="submit"><i class="fa fa-times"></i></button><input name="editID" type="hidden" value="' + $('#ig-modal #editID').val() + '" /></li>';
 			$('#ig-edit-list').append(igListItem);
 		});
