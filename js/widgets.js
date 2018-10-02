@@ -485,7 +485,7 @@ function spotifyEditor(element) {
 			$('#spot-edit-list').append(spotListItem);
 		});
 		
-        $('.spotitfy-delete').click(function(e){
+        $('.spotify-delete').click(function(e){
             e.preventDefault();
             $(this).unbind("click");
             var spotTarget = $(this).siblings("input[name=deleteURL]").val();
