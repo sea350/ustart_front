@@ -374,7 +374,7 @@ function instagramEditor(element) {
 			var igListItem = '<li><input style="width:100%" name="deleteURL" type="text" value="' + igSource.substring(0, igSource.indexOf('embed')) + '" readonly="readonly"/> <button class="insta-delete" type="button"><i class="fa fa-times"></i></button><input name="editID" type="hidden" value="' + $('#ig-modal #editID').val() + '" /></li>';
 			$('#ig-edit-list').append(igListItem);
 		});
-        
+        console.log(instaARR.length);
         $('.insta-delete').click(function(e){
             e.preventDefault();
             $(this).unbind("click");
@@ -484,6 +484,7 @@ function spotifyEditor(element) {
             spotArr.push(spotSource);
 			$('#spot-edit-list').append(spotListItem);
 		});
+        console.log(spotArr.length);
 		
         $('.spotify-delete').click(function(e){
             e.preventDefault();
