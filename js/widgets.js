@@ -425,6 +425,16 @@ function instagramEditor(element) {
                      });
                  }
                 if (window.location.pathname.indexOf('/Projects/') > -1){
+                    $.ajax({
+                       type: "POST",
+                       url: "/addProjectWidget/",
+                       data: {editID:widgetDeleteID, widgetSubmit:4, instagramInput:JSON.stringify(instaARR)}, 
+                       success: function(data)
+                       {
+                            $(this).prop("disabled", "false");
+                            location.reload();
+                       }
+                     });
                 }
             }
             else{
