@@ -381,7 +381,6 @@ function instagramEditor(element) {
             var instaTarget = $(this).siblings("input[name=deleteURL]").val();
             var widgetDeleteID = $(this).siblings("input[name=editID]").val();
             if (instaARR.length === 1){
-                instaARR=[];
                 var pathName = window.location.pathname;
                 if (window.location.pathname.indexOf('/profile/') > -1){
                     $.ajax({
@@ -390,17 +389,20 @@ function instagramEditor(element) {
                        data: {deleteID:widgetDeleteID},
                        success: function(data)
                        {
+                           instaARR=[];
                            location.reload();
                        }
                     });
                 }
                  if (window.location.pathname.indexOf('/Projects/') > -1){
+                     var projectDeleteID = window.location.pathname.split("/").pop()
                       $.ajax({
                        type: "POST",
                        url: "/deleteProjectWidget/",
-                       data: {deleteID:widgetDeleteID},
+                       data: {deleteProjectURL: projectDeleteID, deleteID:widgetDeleteID},
                        success: function(data)
                        {
+                            instaARR=[];
                             location.reload();
                        }
                     });
@@ -492,7 +494,6 @@ function spotifyEditor(element) {
             var spotTarget = $(this).siblings("input[name=deleteURL]").val();
             var widgetDeleteID = $(this).siblings("input[name=editID]").val();
             if (spotArr.length === 1){
-                spotArr=[];
                 var pathName = window.location.pathname;
                 if (window.location.pathname.indexOf('/profile/') > -1){
                     $.ajax({
@@ -501,17 +502,20 @@ function spotifyEditor(element) {
                        data: {deleteID:widgetDeleteID},
                        success: function(data)
                        {
+                           spotArr=[];
                            location.reload();
                        }
                     });
                 }
                  if (window.location.pathname.indexOf('/Projects/') > -1){
+                      var projectDeleteID = window.location.pathname.split("/").pop();
                       $.ajax({
                        type: "POST",
                        url: "/deleteProjectWidget/",
-                       data: {deleteID:widgetDeleteID},
+                       data: {deleteProjectURL: projectDeleteID, deleteID:widgetDeleteID},
                        success: function(data)
                        {
+                            spotArr=[];
                             location.reload();
                        }
                     });
