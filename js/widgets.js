@@ -390,7 +390,6 @@ function instagramEditor(element) {
                        data: {deleteID:widgetDeleteID},
                        success: function(data)
                        {
-                           $(this).prop("disabled", "false");
                            location.reload();
                        }
                     });
@@ -402,7 +401,6 @@ function instagramEditor(element) {
                        data: {deleteID:widgetDeleteID},
                        success: function(data)
                        {
-                            $(this).prop("disabled", "false");
                             location.reload();
                        }
                     });
@@ -481,11 +479,73 @@ function spotifyEditor(element) {
 		// Add List Items
 		$('#widgetBodySpot iframe').each(function(idx, element) {
 			var spotSource = $(this).attr('src');
-            spotSource = spotSource.replace("/embed/", "/")
-			var spotListItem = '<li><form action="/deleteLinkFromWidget/"><input name="deleteURL" type="text" value="' + spotSource + '" readonly="readonly"/> <button type="submit"><i class="fa fa-times"></i></button><input name="editID" type="hidden" value="' + $('#spot-modal #editID').val() + '" /></form></li>';
+            spotSource = spotSource.replace("/embed/", "/");
+			var spotListItem = '<li><input style="width:100%" name="deleteURL" type="text" value="' + spotSource + '" readonly="readonly"/> <button class="spotify-delete" type="button"><i class="fa fa-times"></i></button><input name="editID" type="hidden" value="' + $('#spot-modal #editID').val() + '" /></li>';
+            spotArr.push(spotSource);
 			$('#spot-edit-list').append(spotListItem);
 		});
 		
+        $('.spotitfy-delete').click(function(e){
+            e.preventDefault();
+            $(this).unbind("click");
+            var spotTarget = $(this).siblings("input[name=deleteURL]").val();
+            var widgetDeleteID = $(this).siblings("input[name=editID]").val();
+            if (spotARR.length === 1){
+                spotARR=[];
+                var pathName = window.location.pathname;
+                if (window.location.pathname.indexOf('/profile/') > -1){
+                    $.ajax({
+                       type: "POST",
+                       url: "/deleteWidget/",
+                       data: {deleteID:widgetDeleteID},
+                       success: function(data)
+                       {
+                           location.reload();
+                       }
+                    });
+                }
+                 if (window.location.pathname.indexOf('/Projects/') > -1){
+                      $.ajax({
+                       type: "POST",
+                       url: "/deleteProjectWidget/",
+                       data: {deleteID:widgetDeleteID},
+                       success: function(data)
+                       {
+                            location.reload();
+                       }
+                    });
+                 }
+            }
+            else if (instaARR.length > 1){
+                spotARR.splice($.inArray(spotTarget, spotARR),1);
+                 if (window.location.pathname.indexOf('/profile/') > -1){
+                    $.ajax({
+                       type: "POST",
+                       url: "/addWidget/",
+                       data: {editID:widgetDeleteID, widgetSubmit:10, spotInput:JSON.stringify(spotARR)}, 
+                       success: function(data)
+                       {
+                            location.reload();
+                       }
+                     });
+                 }
+                if (window.location.pathname.indexOf('/Projects/') > -1){
+                    $.ajax({
+                       type: "POST",
+                       url: "/addProjectWidget/",
+                       data: {editID:widgetDeleteID, widgetSubmit:10, spotInput:JSON.stringify(spotARR)}, 
+                       success: function(data)
+                       {
+                            location.reload();
+                       }
+                     });
+                }
+            }
+            else{
+                console.log("oopsie an error has occured");
+            }
+        });
+        
 		// Show/hide the text above the list
 		if ($('#spot-edit-list').children('li').length == 0) {
 			$('#spot-list-title').hide();
