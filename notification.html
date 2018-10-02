@@ -29,7 +29,7 @@
                                 console.log(notifID);
                                  $.ajax({
                                         type: 'GET',
-                                        url: 'http://ustart.today:'+port+'/AjaxMarkAsSeen/',
+                                        url: 'http://ustart.today:'+port+'/AjaxRemoveNotification/',
                                         contentType: "application/json; charset=utf-8",
                                         data: {notifID:notifID},
                                         success: function(data) { 
