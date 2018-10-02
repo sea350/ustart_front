@@ -4,6 +4,8 @@ var twitterSettingDown = '<i class="glyphicon glyphicon-menu-down"></i>';
 var widgetScrollSpeed = 400;
 var medUrlType = 0;
 var instaARR=[];
+var spotArr=[];
+var anchrArr=[];
 
 function escapeOutput(toOutput){
     return toOutput.replace(/\&/g, '&amp;')
@@ -414,7 +416,7 @@ function instagramEditor(element) {
                     $.ajax({
                        type: "POST",
                        url: "/addWidget/",
-                       data: {editID:widgetDeleteID, instagramInput: JSON.stringify(instaARR)}, 
+                       data: {editID:widgetDeleteID, widgetSubmit:4, instagramInput:JSON.stringify(instaARR)}, 
                        success: function(data)
                        {
                             $(this).prop("disabled", "false");
@@ -422,9 +424,11 @@ function instagramEditor(element) {
                        }
                      });
                  }
+                if (window.location.pathname.indexOf('/Projects/') > -1){
+                }
             }
             else{
-                console.log("oopsie");
+                console.log("oopsie an error has occured");
             }
         });
 		
