@@ -395,7 +395,7 @@ function instagramEditor(element) {
                     });
                 }
                  if (window.location.pathname.indexOf('/Projects/') > -1){
-                     var projectDeleteID = window.location.pathname.split("/").pop()
+                     var projectDeleteID = window.location.pathname.split("/").pop();
                       $.ajax({
                        type: "POST",
                        url: "/deleteProjectWidget/",
@@ -427,7 +427,7 @@ function instagramEditor(element) {
                     $.ajax({
                        type: "POST",
                        url: "/addProjectWidget/",
-                       data: {editID:widgetDeleteID, widgetSubmit:4, instagramInput:JSON.stringify(instaARR)}, 
+                       data: { projectWidget:pageID, editID:widgetDeleteID, widgetSubmit:4, instagramInput:JSON.stringify(instaARR)}, 
                        success: function(data)
                        {
                             location.reload();
@@ -535,10 +535,11 @@ function spotifyEditor(element) {
                      });
                  }
                 if (window.location.pathname.indexOf('/Projects/') > -1){
+                     var projectDeleteID = window.location.pathname.split("/").pop();
                     $.ajax({
                        type: "POST",
                        url: "/addProjectWidget/",
-                       data: {editID:widgetDeleteID, widgetSubmit:10, spotInput:JSON.stringify(spotArr)}, 
+                       data: {projectWidget:pageID,editID:widgetDeleteID, widgetSubmit:10, spotInput:JSON.stringify(spotArr)}, 
                        success: function(data)
                        {
                             location.reload();
