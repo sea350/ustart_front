@@ -367,7 +367,7 @@ function instagramEditor(element) {
 		// Add List Items
 		$('.insta-feed').each(function(idx, element) {
 			var igSource = $(this).children('iframe')[0].src;
-            instaARR.push(igSource);
+            instaARR.push(igSource.substring(0, igSource.indexOf('embed')));
 			var igListItem = '<li><input style="width:100%" name="deleteURL" type="text" value="' + igSource.substring(0, igSource.indexOf('embed')) + '" readonly="readonly"/> <button class="insta-delete" type="button"><i class="fa fa-times"></i></button><input name="editID" type="hidden" value="' + $('#ig-modal #editID').val() + '" /></li>';
 			$('#ig-edit-list').append(igListItem);
 		});
@@ -375,8 +375,48 @@ function instagramEditor(element) {
         $('.insta-delete').click(function(e){
             e.preventDefault();
             var instaTarget = $(this).siblings("input[name=deleteURL]").val();
-            console.log(instaARR);
-            console.log(instaTarget);
+            var widgetDeleteID = $(this).siblings("input[name=editID]").val();
+            if (instaARR.length == 1){
+                instaARR=[];
+                var pathName = window.location.pathname;
+                if (window.location.pathname.indexOf('/profile/') > -1){
+                    $.ajax({
+                       type: "POST",
+                       url: "/deleteWidget/",
+                       data: {deleteID:widgetDeleteID}, // serializes the form's elements.
+                       success: function(data)
+                       {
+                       }
+                    });
+                }
+                 if (window.location.pathname.indexOf('/Projects/') > -1){
+                      $.ajax({
+                       type: "POST",
+                       url: "/deleteProjectWidget/",
+                       data: {deleteID:widgetDeleteID}, // serializes the form's elements.
+                       success: function(data)
+                       {
+                       }
+                    });
+                 }
+            }
+            else if (instaARR.length >= 1){
+                instaARR.splice($.inArray(instaTarget, arr),1);
+                 if (window.location.pathname.indexOf('/profile/') > -1){
+                    $.ajax({
+                       type: "POST",
+                       url: "/deleteWidget/",
+                       data: {editID:widgetDeleteID, instagramInput: JSON.stringify(instaARR)}, // serializes the form's elements.
+                       success: function(data)
+                       {
+
+                       }
+                     });
+                 }
+            }
+            else{
+                console.log("oopsie");
+            }
         });
 		
 		// Show/hide the text above the list
