@@ -516,7 +516,7 @@ function spotifyEditor(element) {
                     });
                  }
             }
-            else if (instaARR.length > 1){
+            else if (spotArr.length > 1){
                 spotArr.splice($.inArray(spotTarget, spotArr),1);
                  if (window.location.pathname.indexOf('/profile/') > -1){
                     $.ajax({
