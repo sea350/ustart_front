@@ -29,15 +29,15 @@
 	<div id="navBar-placeholder"></div>
     <div id="centering">
 	<div class="container">
+        {{ if .ErrorOutput }}
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
+            </div>
+        {{end}} 
 		<form id="passprompt">
-            {{ if .ErrorOutput }}
-                <div id="dup-email-alert" class="alert alert-danger alert-dismissible fade in" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
-                </div>
-            {{end}} 
 			<h2>Forgot Your Password?</h2>
 			<br/>
             <label for="email">You will receive instructions on <br> how to reset your password in your email</label>
