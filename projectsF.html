@@ -114,9 +114,10 @@
                                             tolerance: "pointer",
                                             items: "> li.sortable",
                                             update: function(event, ui) {
-                                                    // Update {{.UserInfo.UserWidgets}} with $("#sortable").sortable("toArray")
+                                                    $("#sortable").sortable("toArray")
                                                     var asortedWidgets = $("#sortable").sortable("toArray");
-                                                    var projectPageID= window.location.pathname.split("/").pop();
+                                                    var projectPageID= location.pathname.split("/").pop();
+                                                    console.log(projectPageID);
                                                     $.ajax({
                                                         type: 'GET',
                                                         url: 'http://ustart.today:'+port+'/sortProjectWidgets/',
