@@ -63,8 +63,8 @@ $('body').on("click", ".dismiss-btn", function(e) {
      $(this).prop( "disabled", true );
     console.log(suggestionScrollID);
     var followID = $(this).closest('.user-card').attr('id');
-    //$('#'+followID).fadeOut(1000, function() { $(this).remove(); });
-    /* $.ajax({
+    $('#'+followID).fadeOut(1000, function() { $(this).remove(); });
+     $.ajax({
         type: 'GET',  
         url: 'http://ustart.today:'+port+'/AjaxUserSuggestions/',
         contentType: "application/json; charset=utf-8",
@@ -72,19 +72,19 @@ $('body').on("click", ".dismiss-btn", function(e) {
         success: function(data) {
              if(temp.suggestions  != null){
                   console.log(temp);
-                  suggestionScrollID = temp.scrollID;
+                 $('#'+followID).fadeOut(1000, function() { $(this).remove(); 
                   for(var i=0; i<temp.suggestions.length; i++){
                       createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].DocID);
                   }
                   $(this).prop( "disabled", false );
-                  $('#'+followID).fadeOut(1000, function() { $(this).remove(); });
+                });
               }
         },
         error: function(error) {
             console.log("It just doesn't work");
             console.log(error);
         }
-    });*/
+    });
 });
  $('body').on("click", "button.btnX", function(e) {
     $(this).prop( "disabled", true );
