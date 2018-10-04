@@ -114,7 +114,6 @@
                                             tolerance: "pointer",
                                             items: "> li.sortable",
                                             update: function(event, ui) {
-                                                if (userID == doc){
                                                     // Update {{.UserInfo.UserWidgets}} with $("#sortable").sortable("toArray")
                                                     var asortedWidgets = $("#sortable").sortable("toArray");
                                                     var projectPageID= window.location.pathname.split("/").pop();
@@ -133,10 +132,8 @@
                                                             console.log(err);
                                                         }
                                                     });
-                                                }
                                             }
                                         });
-
 
                                         $('#projSortable').sortable();
                                         $('#projectWidget .widgetBody').sortable({
