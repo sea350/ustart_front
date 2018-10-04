@@ -147,7 +147,7 @@
 								{{end}}
 								{{if ne $memberValidity 0}}<li><a style="padding: 0.5em 1em;" href="#" data-toggle="modal" data-target="#project-leave"><i class="fa fa-fire"></i> Leave Project</a></li>{{end}}
                                 {{if eq $memberValidity 0}}
-                                <li><a style="padding: 0.5em 1em;" href="#" data-toggle="modal" data-target="#project-delete"><i class="fa fa-fire"></i> Leave and Delete Project</a></li>
+                                <li><a style="padding: 0.5em 1em;" href="#" data-toggle="modal" data-target="#project-delete"><i class="fa fa-fire"></i> Delete Project</a></li>
                                 {{end}}
 							</ul>
 						</div>
@@ -164,7 +164,9 @@
                                         <h4 class="modal-title">Leaving Project</h4>
                                     </div>
                                     <div class="modal-body">
-										Confirm that you want to leave this project
+                                         <p class="text-danger">
+										  Confirm that you want to leave this project
+                                        </p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-danger" form="project-leave-form">Leave</button>
@@ -183,13 +185,13 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Leaving Project</h4>
+                                        <h4 class="modal-title">Deleting Project</h4>
                                     </div>
                                     <div class="modal-body">
-										Confirm that you want to LEAVE and DELETE this project, YOU CANNOT UNDO THIS ACTION!
+                                        <p class="text-danger">Confirm that you want to LEAVE and DELETE this project, YOU CANNOT UNDO THIS ACTION!</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn btn-danger" form="project-delete-form">AGREE</button>
+                                        <button type="submit" class="btn btn-danger" form="project-delete-form">Agree</button>
                                         <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
                                     </div>
                                 </div>
