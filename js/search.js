@@ -404,7 +404,7 @@ function modifyFilters() {
 			$("#searchbyeventname").prop("disabled", true).parent().hide();
 			$("#searchbyurl").prop("checked", true).prop("disabled", false).parent().show();
 			$("#searchbyskills + label").text("Skills Wanted");
-            $("#searchmusthaveskills + label").text("Add Tags");
+             $("label[for='searchmusthaveskills']").text("Add Tags");
             $("optgroup[label='Majors']").empty().css("display", "none");
             $("optgroup[label='Categories']").empty().css("display", "block");
             fillSelectCategoriesOptions();
@@ -418,7 +418,7 @@ function modifyFilters() {
 			$("#searchbyeventname").prop("checked", true).prop("disabled", false).parent().show();
 			$("#searchbyurl").prop("checked", true).prop("disabled", false).parent().show();
 			$("#searchbyskills + label").text("Skills Wanted");
-            $("#searchmusthaveskills + label").text("Add Tags");
+            $("label[for='searchmusthaveskills']").text("Add Tags");
             $("optgroup[label='Majors']").empty().css("display", "none");
             $("optgroup[label='Categories']").empty().css("display", "block");
             fillSelectCategoriesOptions();
@@ -433,7 +433,7 @@ function modifyFilters() {
 			$("#searchbyeventname").prop("disabled", true).parent().hide();
 			$("#searchbyurl").prop("disabled", true).parent().hide();
 			$("#searchbyskills + label").text("Skills");
-            $("#searchmusthaveskills + label").text("Add Skills");
+            $("label[for='searchmusthaveskills']").text("Add Skills");
             $("optgroup[label='Categories']").empty().css("display", "none");
             $("optgroup[label='Majors']").empty().css("display", "block");
             fillSelectMajorOptions();
