@@ -90,9 +90,10 @@ function createLink(existingSite, siteDescription) {
 			$(this).attr('src', '/ustart_front/img/ie.png');
 		}).tooltip();
 		$(linkObject.children('.cross-mark')).click(function(event) {
+            $(event.currentTarget).parent().removeAttr('href');
+            $(event.currentTarget).parent().css("pointer-events", "none");
 			event.preventDefault();
             console.log($(event.currentTarget).parent());
-            $(event.currentTarget).parent().prop("disabled", "true");
             $(event.currentTarget).css("pointer-events", "none");
 			removeLink($(this));
 		});
