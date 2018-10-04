@@ -407,6 +407,8 @@ function modifyFilters() {
              $("label[for='searchmusthaveskills']").text("Add Tags");
             $("optgroup[label='Majors']").empty().css("display", "none");
             $("optgroup[label='Categories']").empty().css("display", "block");
+            //remove this when ready
+            $("#filOptions").css("display", "none");
             fillSelectCategoriesOptions();
 			break;
 		case "events":
@@ -421,6 +423,8 @@ function modifyFilters() {
             $("label[for='searchmusthaveskills']").text("Add Tags");
             $("optgroup[label='Majors']").empty().css("display", "none");
             $("optgroup[label='Categories']").empty().css("display", "block");
+            //remove this when ready
+            $("#filOptions").css("display", "none");
             fillSelectCategoriesOptions();
 			break;
 		case "users":
@@ -436,6 +440,8 @@ function modifyFilters() {
             $("label[for='searchmusthaveskills']").text("Add Skills");
             $("optgroup[label='Categories']").empty().css("display", "none");
             $("optgroup[label='Majors']").empty().css("display", "block");
+             //remove this when ready
+            $("#filOptions").css("display", "none");
             fillSelectMajorOptions();
 			break;
 	}
