@@ -32,11 +32,12 @@ $(function () {
             if (userID == doc){
                 // Update {{.UserInfo.UserWidgets}} with $("#sortable").sortable("toArray")
                 var asortedWidgets = $("#sortable").sortable("toArray");
+                var projectPageID= window.location.pathname.split("/").pop();
                 $.ajax({
                     type: 'GET',
-                    url: 'http://ustart.today:'+port+'/sortUserWidgets/',
+                    url: 'http://ustart.today:'+port+'/sortProjectWidgets/',
                     contentType: "application/json; charset=utf-8",
-                    data: {sortedWidgets: JSON.stringify(asortedWidgets), pageID: userID},
+                    data: {sortedWidgets: JSON.stringify(asortedWidgets), pageID: projectPageID},
                     success: function(data) {
                         console.log(userID);
                         console.log(asortedWidgets);
