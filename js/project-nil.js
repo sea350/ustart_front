@@ -23,7 +23,7 @@ $(function () {
         $("#leftNavProfile").addClass("theActive");
     });*/
     // Enables drag-n-drop list items (using the header)
-    $("#sortable").sortable({
+    /*$("#sortable").sortable({
         handle: ".widgetTitle",
         revert: true,
         tolerance: "pointer",
@@ -60,7 +60,6 @@ $(function () {
     $('#hashTagsBody').sortable({
         cancel: ''
     }).disableSelection();
-    /*
     // Enables resizable list items
     $("#sortable>li").resizable({
         animate: true,
