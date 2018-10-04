@@ -47,7 +47,7 @@ $(document).ready(function () {
                   console.log(temp);
                   suggestionScrollID = temp.scrollID;
                   for(var i=0; i<temp.suggestions.length; i++){
-                      createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].DocID);
+                      createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].Username);
                   }
               }
          }
@@ -75,7 +75,7 @@ $('body').on("click", ".dismiss-btn", function(e) {
              if(temp.suggestions  != null){
                  $('#'+followID).fadeOut(1000, function() { $(this).remove(); 
                   for(var i=0; i<temp.suggestions.length; i++){
-                      createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].DocID);
+                      createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].Username);
                   }
                   $(this).prop( "disabled", false );
                 });
