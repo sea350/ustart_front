@@ -362,6 +362,7 @@ $(document).ready(function() {
     });
 	
 	$('#form1').submit(function() {
+        $("#finished").prop("disabled", "true");
 		saveInputs();
 	});
 
