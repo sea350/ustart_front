@@ -177,7 +177,7 @@
                         </div>
                         {{end}}
                         {{if eq $memberValidity 0}}
-                        <form id="project-delete-form" action="/deleteProject/" style="display:none">
+                        <form id="project-delete-form" action="/DeleteProject/" style="display:none">
 							<input type="hidden" name="projectID" value='{{$projectid}}'/>
 						</form>
                         <div id="project-delete" class="modal fade" role="dialog">
