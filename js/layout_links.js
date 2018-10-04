@@ -91,7 +91,7 @@ function createLink(existingSite, siteDescription) {
 		}).tooltip();
 		$(linkObject.children('.cross-mark')).click(function(event) {
 			event.preventDefault();
-            $(event.currentTarget).parent("a").preventDefault();
+            $(event.currentTarget).parent().preventDefault();
             $(event.currentTarget).css("pointer-events", "none");
 			removeLink($(this));
 		});
