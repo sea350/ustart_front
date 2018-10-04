@@ -316,7 +316,7 @@ function formatTime(time) {
 
 $(document).ready(function () {
     //loading in suggested user
-     /* $.ajax({
+      $.ajax({
         type: 'GET',  
         url: 'http://ustart.today:'+port+'/UserSuggestions/',
         contentType: "application/json; charset=utf-8",
@@ -339,7 +339,7 @@ $(document).ready(function () {
             console.log("suggestion failed");
             console.log(error);
         }
-    });*/
+    });
     //widget children count
     $('.widgetBody').each(function(){
         if ($(this).children().length > 3){
