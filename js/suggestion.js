@@ -69,7 +69,8 @@ $('body').on("click", ".dismiss-btn", function(e) {
         url: 'http://ustart.today:'+port+'/AjaxUserSuggestions/',
         contentType: "application/json; charset=utf-8",
         data: {userID:followID, scrollID: suggestionScrollID},
-        success: function(data) {
+        complete: function (jqXHR,status) {
+             var temp = $.parseJSON(jqXHR.responseText);
              if(temp.suggestions  != null){
                   console.log(temp);
                  $('#'+followID).fadeOut(1000, function() { $(this).remove(); 
