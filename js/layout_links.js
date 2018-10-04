@@ -92,7 +92,7 @@ function createLink(existingSite, siteDescription) {
 		$(linkObject.children('.cross-mark')).click(function(event) {
 			event.preventDefault();
             console.log($(event.currentTarget).parent());
-            $(event.currentTarget).parent().unbind("click");
+            $(event.currentTarget).parent().prop("disabled", "true");
             $(event.currentTarget).css("pointer-events", "none");
 			removeLink($(this));
 		});
