@@ -1,3 +1,4 @@
+port=window.location.port;
 $("#userSettings").hover(function() {
     $(this).children('i').addClass('fa-spin');
 }, function() {
