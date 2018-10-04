@@ -71,8 +71,8 @@ $('body').on("click", ".dismiss-btn", function(e) {
         data: {userID:followID, scrollID: suggestionScrollID},
         complete: function (jqXHR,status) {
              var temp = $.parseJSON(jqXHR.responseText);
+             console.log(temp);
              if(temp.suggestions  != null){
-                  console.log(temp);
                  $('#'+followID).fadeOut(1000, function() { $(this).remove(); 
                   for(var i=0; i<temp.suggestions.length; i++){
                       createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].DocID);
