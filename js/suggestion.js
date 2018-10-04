@@ -1,4 +1,5 @@
 var suggestionScrollID;
+var suggestionProjectScrollID;
 function createSuggestedUser(firstname, lastname , avatar, id){
 	var userDiv = $("<div></div>").addClass('user-card').attr("id", id);
     var dismissOuterDiv = $("<div></div>").addClass('dismiss');
@@ -44,7 +45,6 @@ $(document).ready(function () {
               var temp = $.parseJSON(jqXHR.responseText);
                console.log(temp);
               if(temp.suggestions  != null){
-                  console.log(temp);
                   suggestionScrollID = temp.scrollID;
                   for(var i=0; i<temp.suggestions.length; i++){
                       createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].Username);
@@ -98,6 +98,25 @@ $('body').on("click", ".dismiss-btn", function(e) {
         success: function(data) {
              $(this).prop( "disabled", false );
              $('#'+followID).fadeOut(1000, function() { $(this).remove(); });
+             //load more users
+             $.ajax({
+                    type: 'GET',  
+                    url: 'http://ustart.today:'+port+'/AjaxUserSuggestions/',
+                    contentType: "application/json; charset=utf-8",
+                    data: {userID:followID, scrollID: suggestionScrollID},
+                    complete: function (jqXHR,status) {
+                         var temp = $.parseJSON(jqXHR.responseText);
+                         if(temp.suggestions  != null){
+                              for(var i=0; i<temp.suggestions.length; i++){
+                                  createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].Username);
+                              }
+                    }
+                    },
+                    error: function(error) {
+                        console.log("It just doesn't work");
+                        console.log(error);
+                    }
+             });
         },
         error: function(error) {
             console.log("It just doesn't work");
