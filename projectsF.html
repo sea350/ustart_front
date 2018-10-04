@@ -146,8 +146,12 @@
                                 </script>
 								{{end}}
 								{{if ne $memberValidity 0}}<li><a style="padding: 0.5em 1em;" href="#" data-toggle="modal" data-target="#project-leave"><i class="fa fa-fire"></i> Leave Project</a></li>{{end}}
+                                {{if eq $memberValidity 0}}
+                                <li><a style="padding: 0.5em 1em;" href="#" data-toggle="modal" data-target="#project-delete"><i class="fa fa-fire"></i> Leave and Delete Project</a></li>
+                                {{end}}
 							</ul>
 						</div>
+                        {{if ne $memberValidity 0}}
 						<form id="project-leave-form" action="/leaveProject/" style="display:none">
 							<input type="hidden" name="leaverID" value={{$userid}}/>
 							<input type="hidden" name="projectID" value='{{$projectid}}'/>
@@ -163,12 +167,35 @@
 										Confirm that you want to leave this project
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary" form="project-leave-form">Leave</button>
+                                        <button type="submit" class="btn btn-danger" form="project-leave-form">Leave</button>
                                         <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {{end}}
+                        {{if eq $memberValidity 0}}
+                        <form id="project-delete-form" action="/deleteProject/" style="display:none">
+							<input type="hidden" name="projectID" value='{{$projectid}}'/>
+						</form>
+                        <div id="project-delete" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Leaving Project</h4>
+                                    </div>
+                                    <div class="modal-body">
+										Confirm that you want to LEAVE and DELETE this project, YOU CANNOT UNDO THIS ACTION!
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-danger" form="project-delete-form">AGREE</button>
+                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{end}}
 						{{if le $memberValidity 2}}
                         <div id="floating-widget-editor">
                             <span id="widget-status">Edit Mode</span>
