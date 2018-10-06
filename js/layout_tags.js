@@ -35,7 +35,7 @@ function updateSkillsCounter(element) {
 
 function createTagWidgetElement(element, tag) {
     var tagspan = $('<button/>').attr({'id': 'skill-'+ tag, 'class': 'btn btn-default projectsColumn'}).click(function() {
-        window.location.href='http://ustart.today:5002/search?query=&searchFilterGroup=projects&sortbyfilter=relevance&searchbyprojectname=true&searchbyurl=true&searchbyskills=true&searchbylocationcountry=&usersearchlocationcountry=United+States&usersearchlocationstate=&usersearchlocationstate=NY&searchlistmajors=%5D&searchlistskills=%5B%22'+tag+'%22%5D'
+        window.location.href='http://ustart.today:'+window.location.port'/search?query=&searchFilterGroup=projects&sortbyfilter=relevance&searchbyprojectname=true&searchbyurl=true&searchbyskills=true&searchbylocationcountry=&usersearchlocationcountry=United+States&usersearchlocationstate=&usersearchlocationstate=NY&searchlistmajors=%5D&searchlistskills=%5B%22'+tag+'%22%5D'
     });
     var colDiv = $('<div />').attr({'class': 'columnImage'});
     var colTitle = $('<div />').attr({'class': 'columnTitle'}).text(tag);
@@ -61,7 +61,7 @@ function createTagWidgetElement(element, tag) {
 
 function createProjectTagWidgetElement(element, tag) {
     var tagspan = $('<button/>').attr({'id': 'skill-'+ tag, 'class': 'btn btn-default projectsColumn'}).click(function() {
-        window.location.href='http://ustart.today:5002/search?query=&searchFilterGroup=users&sortbyfilter=relevance&searchbyprojectname=true&searchbyurl=true&searchbyskills=true&searchbylocationcountry=&usersearchlocationcountry=United+States&usersearchlocationstate=&usersearchlocationstate=NY&searchlistmajors=%5D&searchlistskills=%5B%22'+tag+'%22%5D'
+        window.location.href='http://ustart.today:'+window.location.port'/search?query=&searchFilterGroup=users&sortbyfilter=relevance&searchbyprojectname=true&searchbyurl=true&searchbyskills=true&searchbylocationcountry=&usersearchlocationcountry=United+States&usersearchlocationstate=&usersearchlocationstate=NY&searchlistmajors=%5D&searchlistskills=%5B%22'+tag+'%22%5D'
     });
     var colDiv = $('<div />').attr({'class': 'columnImage'});
     var colTitle = $('<div />').attr({'class': 'columnTitle'}).text(tag);

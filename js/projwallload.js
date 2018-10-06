@@ -204,7 +204,6 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                        if (temp != null){
                            makeNewCommentApplications(postID, temp[0].Image, temp[0].FirstName, temp[0].LastName, temp[0].Element.Content, temp[0].ElementID,temp[0].NumReplies,temp[0].Element.TimeStamp);
                            $("#commentContent"+postID).val('');
-                           $(e.currentTarget).css("pointer-events", "auto"); 
                            var count = $(".standard-comment").length;
                            $("#num-replies"+postID).text(count);
                             $(e.currentTarget).css("pointer-events", "auto");
