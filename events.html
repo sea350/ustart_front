@@ -33,6 +33,7 @@
     <script type="text/javascript" src="/ustart_front/js/event.js"></script>
     {{$userid := .DOCID}}
     {{$eventid := .Event.DocID}}
+    console.log({{"this is eventid",$eventid}})
     {{$eventurl := .Event.EventData.URLName}}
     <script>
         var pageID = {{$eventid}};
@@ -45,6 +46,7 @@
     </script>{{end}}
 </head>
 <body>
+    <span>{{$eventid}}</span>
     <input type="hidden" id='followstat'>
     <div id="centering">
         <div id="content" class="container" style="margin-top: 1em;">
