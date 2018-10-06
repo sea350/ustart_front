@@ -1,6 +1,6 @@
 var suggestionScrollID;
 var suggestionProjectScrollID;
-function createSuggestedUser(firstname, lastname , avatar, id){
+function createSuggestedUser(firstname, lastname , avatar, id, username){
 	var userDiv = $("<div></div>").addClass('user-card').attr("id", id);
     var dismissOuterDiv = $("<div></div>").addClass('dismiss');
     var dismissBtn = $("<span></span>").addClass('dismiss-btn').text('×');
@@ -8,7 +8,7 @@ function createSuggestedUser(firstname, lastname , avatar, id){
     var content = $("<div></div>").addClass('content');
     var contentCardInfo = $("<div></div>").addClass('user-card-info');
     var contentImg = $("<img></img>").addClass('avatar').attr("src", avatar);
-    var contentLink = $("<a></a>").attr("href", '/profile/'+id);
+    var contentLink = $("<a></a>").attr("href", '/profile/'+username);
     var contentName = $("<strong></strong>").addClass('user-card-name').text(firstname+' '+lastname);
     var contentfollowBtn =$("<button></button>").addClass('btn btnX btn-small').text('Follow');
     content.append(contentImg, contentCardInfo.append(contentLink.append(contentName), '<br />', contentfollowBtn));
@@ -47,7 +47,7 @@ $(document).ready(function () {
               if(temp.suggestions  != null){
                   suggestionScrollID = temp.scrollID;
                   for(var i=0; i<temp.suggestions.length; i++){
-                      createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].Username);
+                      createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].DocID,temp.suggestions[i].Username);
                   }
               }
          }
@@ -75,7 +75,7 @@ $('body').on("click", ".dismiss-btn", function(e) {
              if(temp.suggestions  != null){
                  $('#'+followID).fadeOut(1000, function() { $(this).remove(); 
                   for(var i=0; i<temp.suggestions.length; i++){
-                      createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].Username);
+                      createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].DocID,temp.suggestions[i].Username);
                   }
                   $(this).prop( "disabled", false );
                 });
@@ -108,7 +108,7 @@ $('body').on("click", ".dismiss-btn", function(e) {
                          var temp = $.parseJSON(jqXHR.responseText);
                          if(temp.suggestions  != null){
                               for(var i=0; i<temp.suggestions.length; i++){
-                                  createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].Username);
+                                  createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].DocID,temp.suggestions[i].Username);
                               }
                     }
                     },
