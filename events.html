@@ -409,7 +409,8 @@
                                 </button>     -->                                                                                                                  
                             </div>
                         </div>
-                    </li>                            
+                    </li>  
+                    <!-- tag widget NOT WORKING as of now -->                          
                     <li class="ui-state-default">
                             <div id="tagsWidget" class="eventsWidgetCont">
                                 <div class="widgetTitle">
@@ -430,7 +431,7 @@
                             </div>                                
                         </li><!--end tags widget -->                                                            
                     
-                        <!-- link widget-->
+                        <!-- link widget NOT WORKING as of now -->
                         <script src="/ustart_front/js/layout_links.js"></script>
                         <li class="ui-state-default widgetListItem sortable">
                             <div id="linksWidget" class="eventsWidgetCont">
@@ -452,6 +453,7 @@
                                 </div>
                             </div>
                         </li><!--end link widget -->
+                        <span>EVENT.EVENTDATA.URLNAME {{.Event.EventData.URLName}}</span>
                         {{$eventurl := .Event.EventData.URLName}}
                         {{range $loop := .Widgets }}
                         {{if eq $loop.Classification 0}}<!-- if is text -->  
@@ -523,7 +525,8 @@
                             </div>
                         </li>
                     {{end}}<!--end soundcloud -->
-                    {{if eq $loop.Classification 6}}   
+                    {{if eq $loop.Classification 6}} 
+                    <span>index loop ID {{index $loop.ID}}</span>
                     <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                         <div class="eventsWidgetCont">
                             <div class="widgetTitle">
@@ -808,6 +811,7 @@
                         <div id= "deleteModals" role="dialog"> </div>
                         <div id= "editModals" role="dialog"> </div>                            
                         
+                        <span>.Evetn.MemberData</span>{{.Event.MemberData}}
                         {{range $member := .Event.MemberData}}
                         <!-- new post panel-->
                         <div class="panel panel-default">
