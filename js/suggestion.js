@@ -85,7 +85,6 @@ $(document).ready(function () {
 
 $('body').on("click", ".dismiss-btn", function(e) {
      $(this).prop( "disabled", true );
-    console.log(suggestionScrollID);
     var followID = $(this).closest('.user-card').attr('id');
     $('#'+followID).fadeOut(1000, function() { $(this).remove(); });
      $.ajax({
@@ -95,8 +94,8 @@ $('body').on("click", ".dismiss-btn", function(e) {
         data: {scrollID: suggestionScrollID},
         complete: function (jqXHR,status) {
              var temp = $.parseJSON(jqXHR.responseText);
-             console.log(temp);
              if(temp.SuggestedUsers  != null){
+                console.log(temp);
                  $('#'+followID).fadeOut(1000, function() { $(this).remove(); 
                   for(var i=0; i<temp.SuggestedUsers.length; i++){
                       createSuggestedUser(temp.SuggestedUsers[i].FirstName,temp.SuggestedUsers[i].LastName, temp.SuggestedUsers[i].Image, temp.SuggestedUsers[i].DocID,temp.SuggestedUsers[i].Username);
@@ -114,7 +113,6 @@ $('body').on("click", ".dismiss-btn", function(e) {
 
 $('body').on("click", ".dismiss-btn-proj", function(e) {
     $(this).prop( "disabled", true );
-    console.log(suggestionScrollID);
     var followID = $(this).closest('.user-card').attr('id');
     $('#'+followID).fadeOut(1000, function() { $(this).remove(); });
      $.ajax({
