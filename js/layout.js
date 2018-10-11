@@ -253,7 +253,32 @@ function appendNotifItem(notifID, image, title, link, message, timestamp, unread
     
     var OuterMostLink= $('<a></a>').attr('href', link);
     OuterMostLink.append(notifIconHolder, notifMessageContainer);
-    var notifItem = $('<li></li>').addClass('media alert fade in').attr("id", "notifID"+notifID).append(OuterMostLink);
+    var notifItem = $('<li></li>').addClass('media alert fade in').attr("id", "notifID"+notifID).append(OuterMostLink).click(function(e) {
+            var notifID = e.currentTarget.id.replace('notifID','');
+            $.ajax({
+                type: 'GET',
+                url: 'http://ustart.today:'+port+'/AjaxMarkAsSeen/',
+                contentType: "application/json; charset=utf-8",
+                data: {notifID:notifID},
+                success: function(data) { 
+                },complete: function (jqXHR,status) {
+                     if(status == 'success' || status=='notmodified')
+                     {
+                     }
+                },error: function(err) {
+                    console.log('notif mark as seen failed: ');
+                    console.log(err);
+                }
+            }); 
+            var newLabel = $(this).find('.label-new');
+            if (newLabel.length > 0) {
+                newLabel.removeClass('label-new');
+                newLabel.fadeOut('fast');
+                newLabel.text('');
+                newNotifs= $(".notif-label.label-new").length;
+                updateNotifBadge();
+            }
+    });
     $('#notifDrop').prepend(notifItem);
 }
 
@@ -413,6 +438,8 @@ $(document).ready(function () {
                  if(status == 'success' || status=='notmodified')
                  {
                     $('#notifID'+notifID).remove();
+                     newNotifs= $(".notif-label.label-new").length;
+                     updateNotifBadge();
                  }
             },error: function(err) {
                 console.log('remove notif failed: ');
