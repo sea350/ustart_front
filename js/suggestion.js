@@ -19,7 +19,7 @@ function createSuggestedUser(firstname, lastname , avatar, id, username){
 function createSuggestedProject(projectname , avatar, id){
 	var userDiv = $("<div></div>").addClass('user-card').attr("id", id);
     var dismissOuterDiv = $("<div></div>").addClass('dismiss');
-    var dismissBtn = $("<span></span>").addClass('dismiss-btn').text('×');
+    var dismissBtn = $("<span></span>").addClass('dismiss-btn-proj').text('×');
     dismissOuterDiv.append(dismissBtn);
     var content = $("<div></div>").addClass('content');
     var contentCardInfo = $("<div></div>").addClass('user-card-info');
