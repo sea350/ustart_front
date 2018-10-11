@@ -44,10 +44,10 @@ $(document).ready(function () {
          {
               var temp = $.parseJSON(jqXHR.responseText);
                console.log(temp);
-              if(temp.suggestions  != null){
+              if(temp.SuggestedUsers != null){
                   suggestionScrollID = temp.scrollID;
-                  for(var i=0; i<temp.suggestions.length; i++){
-                      createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].DocID,temp.suggestions[i].Username);
+                  for(var i=0; i<temp.SuggestedUsers.length; i++){
+                      createSuggestedUser(temp.SuggestedUsers[i].FirstName,temp.SuggestedUsers[i].LastName, temp.SuggestedUsers[i].Image, temp.SuggestedUsers[i].DocID,temp.SuggestedUsers[i].Username);
                   }
               }
          }
@@ -58,7 +58,7 @@ $(document).ready(function () {
         }
     });
      //loading in suggested project
-     /* $.ajax({
+     $.ajax({
         type: 'GET',  
         url: 'http://ustart.today:'+port+'/AjaxProjectSuggestions/',
         contentType: "application/json; charset=utf-8",
@@ -68,10 +68,10 @@ $(document).ready(function () {
          {
               var temp = $.parseJSON(jqXHR.responseText);
                console.log(temp);
-              if(temp.suggestions  != null){
+              if(temp.SuggestedProjects  != null){
                   suggestionProjectScrollID = temp.scrollID;
-                  for(var i=0; i<temp.suggestions.length; i++){
-                     createSuggestedProject(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].DocID);
+                  for(var i=0; i<temp.SuggestedProjects.length; i++){
+                     createSuggestedProject(temp.SuggestedProjects[i].FirstName,temp.SuggestedProjects[i].LastName, temp.SuggestedProjects[i].Image, temp.SuggestedProjects[i].DocID);
                   }
               }
          }
@@ -80,7 +80,7 @@ $(document).ready(function () {
             console.log("suggestion failed");
             console.log(error);
         }
-    });*/
+    });
 });
 
 $('body').on("click", ".dismiss-btn", function(e) {
