@@ -1,6 +1,6 @@
 var linkList = [];
 var linkDesc = [];
-var port=5002;
+var port=window.location.port;
 
 function updateCounter() {
     var currentPostCount = (16 - $(".links-container  a").length);

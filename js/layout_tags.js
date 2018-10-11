@@ -1,7 +1,7 @@
 var taglist = [];
 var skilllist = [];
 var MAXTAGS = 16;
-var port=5002;
+var port=window.location.port;
 const maxTagLength = 20;
 
 function updateTagsCounter(element) {
