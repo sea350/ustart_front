@@ -98,8 +98,8 @@ $('body').on("click", ".dismiss-btn", function(e) {
              console.log(temp);
              if(temp.suggestions  != null){
                  $('#'+followID).fadeOut(1000, function() { $(this).remove(); 
-                  for(var i=0; i<temp.suggestions.length; i++){
-                      createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].DocID,temp.suggestions[i].Username);
+                  for(var i=0; i<temp.SuggestedUsers.length; i++){
+                      createSuggestedUser(temp.SuggestedUsers[i].FirstName,temp.SuggestedUsers[i].LastName, temp.SuggestedUsers[i].Image, temp.SuggestedUsers[i].DocID,temp.SuggestedUsers[i].Username);
                   }
                   $(this).prop( "disabled", false );
                 });
@@ -160,9 +160,9 @@ $('body').on("click", ".dismiss-btn-proj", function(e) {
                     data: {scrollID: suggestionScrollID},
                     complete: function (jqXHR,status) {
                          var temp = $.parseJSON(jqXHR.responseText);
-                         if(temp.suggestions  != null){
-                              for(var i=0; i<temp.suggestions.length; i++){
-                                  createSuggestedUser(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].DocID,temp.suggestions[i].Username);
+                         if(temp.SuggestedUsers != null){
+                              for(var i=0; i<temp.SuggestedUsers.length; i++){
+                                  createSuggestedUser(temp.SuggestedUsers[i].FirstName,temp.SuggestedUsers[i].LastName, temp.SuggestedUsers[i].Image, temp.SuggestedUsers[i].DocID,temp.SuggestedUsers[i].Username);
                               }
                     }
                     },
