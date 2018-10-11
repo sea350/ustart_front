@@ -61,7 +61,7 @@ updateChatBadge();
         var temp = $.parseJSON(jqXHR.responseText);
         console.log(temp);
              if (temp.notifications!= null){
-                 console.log(temp.notifications.length);
+                 console.log(temp.notifications[0].id);
                  $('#notifDrop').empty();
                    for(i=0; i <temp.notifications.length; i++){
                        appendNotifItem(temp.notifications[i].ID, 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=', '', temp.notifications[i].URL, temp.notifications[i].Message, timeSince(temp.notifications[i].Data.Timestamp), temp.notifications[i].Data.Seen);

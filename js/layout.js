@@ -255,6 +255,7 @@ function appendNotifItem(notifID, image, title, link, message, timestamp, unread
     var OuterMostLink= $('<a></a>').attr('href', link);
     OuterMostLink.append(notifIconHolder, notifMessageContainer);
     var notifItem = $('<li></li>').addClass('media alert fade in').attr("id", "notifID"+notifID).append(OuterMostLink);
+    $('#notifDrop').prepend(notifItem);
 }
 
 
@@ -413,7 +414,6 @@ $(document).ready(function () {
                  {
                     $('#notifID'+notifID).remove();
                  }
-                 $(e.currentTarget).prop('disabled', false);
             },error: function(err) {
                 console.log('remove notif failed: ');
                 console.log(err);
