@@ -47,6 +47,38 @@ $(window).resize(checkWidth);
 var newMsgReceived = false;
 chatNotifCount = $(".chat-label.label-new").length;
 updateChatBadge();
+
+//notifications
+  $.ajax({
+    type: 'GET',
+    url: 'http://ustart.today:'+port+'/AjaxNotifications/',
+    contentType: "application/json; charset=utf-8",
+    data: {},
+    success: function(data) {
+    },complete: function (jqXHR,status) {
+        if(status == 'success' || status=='notmodified')
+        {
+        var temp = $.parseJSON(jqXHR.responseText);
+        console.log(temp);
+             if (temp.notifications!= null){
+                 $('#notifDrop').empty();
+                   for(i=0; i <temp.notifications.length; i++){
+                       appendNotifItem(temp.notifications[i].ID, 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=', '', temp.notifications[i].URL, temp.notifications[i].Message, timeSince(temp.notifications[i].Data.Timestamp), temp.notifications[i].Data.Seen);
+                  }
+             }
+            else{
+                appendEmptyItem("notifDrop");
+            }
+            newNotifs= $(".notif-label.label-new").length;
+            updateNotifBadge();
+        }
+    }
+    ,error: function(err) {
+        console.log('chat initial chat failed: ');
+        console.log(err);
+    }
+});
+
 //normal notification
  setInterval(function(){
     $.ajax({
@@ -75,38 +107,6 @@ updateChatBadge();
         }
     });
 }, 60000);
-
-//notifications
-  $.ajax({
-    type: 'GET',
-    url: 'http://ustart.today:'+port+'/AjaxNotifications/',
-    contentType: "application/json; charset=utf-8",
-    data: {},
-    success: function(data) {
-    },complete: function (jqXHR,status) {
-        if(status == 'success' || status=='notmodified')
-        {
-        var temp = $.parseJSON(jqXHR.responseText);
-        console.log(temp);
-             if (temp.notifications != null){
-                 $('#notifDrop').empty();
-                   for(i=0; i <temp.notifications.length; i++){
-                       appendNotifItem(temp.notifications[i].ID, 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=', '', temp.notifications[i].URL, temp.notifications[i].Message, timeSince(temp.notifications[i].Data.Timestamp), temp.notifications[i].Data.Seen);
-                      
-                  }
-             }
-            else{
-                appendEmptyItem("notifDrop");
-            }
-            newNotifs= $(".notif-label.label-new").length;
-            updateNotifBadge();
-        }
-    }
-    ,error: function(err) {
-        console.log('chat initial chat failed: ');
-        console.log(err);
-    }
-});
 
 
 //chat notification
@@ -149,6 +149,8 @@ $.ajax({
             console.log(err);
         }
 });
+
+
 
 function chatNotifstart(){
     //initial set up
