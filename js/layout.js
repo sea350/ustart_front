@@ -232,9 +232,8 @@ function appendNotifItem(notifID, image, title, link, message, timestamp, unread
     var notifIcon = $('<img></img>').addClass('media-object img-rounded notif-icon');
     $(notifIcon).attr('alt', '40x40').attr('src', image);
     
-    var notifDismisser = $('<a></a>').addClass('close notifbell-close').attr("notifid", notifID).attr('aria-label', 'close').text('×');
-    var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI(link)).text(title);
-    
+    var notifDismisser = $('<a></a>').addClass('close notifbell-close').attr("notifid", notifID).attr('aria-label', 'close').attr('href', '#').text('×');
+    var notifPersonLabelLink = $('<div></div>');
     if (!unreadStatus) {
          var notifNewLabel = $('<span></span>').addClass('label-new label label-info notif-label').text("new");
          newNotifs= $(".notif-label.label-new").length;
@@ -401,6 +400,7 @@ $(document).ready(function () {
     */
     
     $('body').on("click", ".notifbell-close", function(e) {
+        e.preventDefault();
         $(e.currentTarget).prop('disabled', true);
         var notifID =  $(e.currentTarget).attr('notifid');
         console.log(notifID);
