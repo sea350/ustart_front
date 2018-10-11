@@ -402,7 +402,7 @@ $(document).ready(function () {
     
     $('body').on("click", ".notifbell-close", function(e) {
         $(e.currentTarget).prop('disabled', true);
-        var notifID = $(this).attr('notifid');
+        var notifID =  $(e.currentTarget).attr('notifid');
         console.log(notifID);
          $.ajax({
             type: 'GET',
