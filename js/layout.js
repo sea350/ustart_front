@@ -403,8 +403,7 @@ $(document).ready(function () {
         e.preventDefault();
         $(e.currentTarget).prop('disabled', true);
         var notifID =  $(e.currentTarget).attr('notifid');
-        console.log(notifID);
-        /* $.ajax({
+         $.ajax({
             type: 'GET',
             url: 'http://ustart.today:'+port+'/AjaxRemoveNotification/',
             contentType: "application/json; charset=utf-8",
@@ -420,7 +419,7 @@ $(document).ready(function () {
                 console.log(err);
                 $(e.currentTarget).prop('disabled', false);
             }
-        });  */
+        }); 
     });
     
     $('#spaced .help-block').slideUp();
