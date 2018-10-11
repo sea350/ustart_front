@@ -17,7 +17,7 @@
 }
 
 #dash-posts{
-    margin-top:2.5em;
+    margin-top:2.5em !important;
 }
 #content ul li p {
     display: inline;
