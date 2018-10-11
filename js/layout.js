@@ -232,7 +232,7 @@ function appendNotifItem(notifID, image, title, link, message, timestamp, unread
     var notifIcon = $('<img></img>').addClass('media-object img-rounded notif-icon');
     $(notifIcon).attr('alt', '40x40').attr('src', image);
     
-    var notifDismisser = $('<a></a>').addClass('close').attr("notifID", notifID).attr('aria-label', 'close').text('×');
+    var notifDismisser = $('<a></a>').addClass('close notifbell-close').attr("notifID", notifID).attr('aria-label', 'close').text('×');
     var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI(link)).text(title);
     
     if (!unreadStatus) {
@@ -258,7 +258,7 @@ function appendNotifItem(notifID, image, title, link, message, timestamp, unread
         var notifID = e.currentTarget.id.replace('notifID','');
         $.ajax({
             type: 'GET',
-            url: 'http://ustart.today:'+port+'/AjaxMarkAsSeen/',
+            url: 'http://ustart.today:'+port+'/AjaxRemoveNotification/',
             contentType: "application/json; charset=utf-8",
             data: {notifID:notifID},
             success: function(data) { 
@@ -425,7 +425,7 @@ $(document).ready(function () {
     fitNavbar();
     */
     
-    $('body').on("click", ".close", function(e) {
+    $('body').on("click", ".notifbell-close", function(e) {
         $(e.currentTarget).prop('disabled', true);
         var notifID = $(this).attr('notifid');
          $.ajax({

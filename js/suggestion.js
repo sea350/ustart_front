@@ -68,7 +68,7 @@ $(document).ready(function () {
          {
               var temp = $.parseJSON(jqXHR.responseText);
                console.log(temp);
-              if(temp.SuggestedProjects  != null){
+              if(temp.SuggestedProjects != null){
                   suggestionProjectScrollID = temp.scrollID;
                   for(var i=0; i<temp.SuggestedProjects.length; i++){
                      createSuggestedProject(temp.SuggestedProjects[i].FirstName,temp.SuggestedProjects[i].LastName, temp.SuggestedProjects[i].Image, temp.SuggestedProjects[i].DocID);
@@ -111,6 +111,36 @@ $('body').on("click", ".dismiss-btn", function(e) {
         }
     });
 });
+
+$('body').on("click", ".dismiss-btn-proj", function(e) {
+    $(this).prop( "disabled", true );
+    console.log(suggestionScrollID);
+    var followID = $(this).closest('.user-card').attr('id');
+    $('#'+followID).fadeOut(1000, function() { $(this).remove(); });
+     $.ajax({
+        type: 'GET',  
+        url: 'http://ustart.today:'+port+'/AjaxProjectSuggestions/',
+        contentType: "application/json; charset=utf-8",
+        data: {scrollID: suggestionScrollID},
+        complete: function (jqXHR,status) {
+             var temp = $.parseJSON(jqXHR.responseText);
+             console.log(temp);
+             if(temp.suggestions  != null){
+                 $('#'+followID).fadeOut(1000, function() { $(this).remove(); 
+                  for(var i=0; i<temp.suggestions.length; i++){
+                     createSuggestedProject(temp.SuggestedProjects[i].FirstName,temp.SuggestedProjects[i].LastName, temp.SuggestedProjects[i].Image, temp.SuggestedProjects[i].DocID);
+                  }
+                  $(this).prop( "disabled", false );
+                });
+              }
+        },
+        error: function(error) {
+            console.log("It just doesn't work");
+            console.log(error);
+        }
+    });
+});
+
  $('body').on("click", "button.btnX", function(e) {
     $(this).prop( "disabled", true );
     var followID = $(this).closest('.user-card').attr('id');
