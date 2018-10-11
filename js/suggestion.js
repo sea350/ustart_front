@@ -1,5 +1,5 @@
-var suggestionScrollID;
-var suggestionProjectScrollID;
+var suggestionScrollID='';
+var suggestionProjectScrollID='';
 function createSuggestedUser(firstname, lastname , avatar, id, username){
 	var userDiv = $("<div></div>").addClass('user-card').attr("id", id);
     var dismissOuterDiv = $("<div></div>").addClass('dismiss');
@@ -36,7 +36,7 @@ $(document).ready(function () {
       //loading in suggested user
       $.ajax({
         type: 'GET',  
-        url: 'http://ustart.today:'+port+'/UserSuggestions/',
+        url: 'http://ustart.today:'+port+'/AjaxUserSuggestions/',
         contentType: "application/json; charset=utf-8",
         data: {scrollID:''}
         ,complete: function (jqXHR,status) {
@@ -68,7 +68,7 @@ $('body').on("click", ".dismiss-btn", function(e) {
         type: 'GET',  
         url: 'http://ustart.today:'+port+'/AjaxUserSuggestions/',
         contentType: "application/json; charset=utf-8",
-        data: {userID:followID, scrollID: suggestionScrollID},
+        data: {scrollID: suggestionScrollID},
         complete: function (jqXHR,status) {
              var temp = $.parseJSON(jqXHR.responseText);
              console.log(temp);
@@ -103,7 +103,7 @@ $('body').on("click", ".dismiss-btn", function(e) {
                     type: 'GET',  
                     url: 'http://ustart.today:'+port+'/AjaxUserSuggestions/',
                     contentType: "application/json; charset=utf-8",
-                    data: {userID:followID, scrollID: suggestionScrollID},
+                    data: {scrollID: suggestionScrollID},
                     complete: function (jqXHR,status) {
                          var temp = $.parseJSON(jqXHR.responseText);
                          if(temp.suggestions  != null){
