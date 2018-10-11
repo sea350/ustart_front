@@ -232,30 +232,9 @@ function appendNotifItem(notifID, image, title, link, message, timestamp, unread
     var notifIcon = $('<img></img>').addClass('media-object img-rounded notif-icon');
     $(notifIcon).attr('alt', '40x40').attr('src', image);
     
-    var notifDismisser = $('<a></a>').addClass('close notifbell-close').attr("notifID", notifID).attr('aria-label', 'close').text('×');
-    var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI(link)).text(title);
-    
-    if (!unreadStatus) {
-         var notifNewLabel = $('<span></span>').addClass('label-new label label-info notif-label').text("new");
-         newNotifs= $(".notif-label.label-new").length;
-         updateNotifBadge();
-    }
-    else{
-         var notifNewLabel = $('<span></span>').addClass('label label-info notif-label');
-         newNotifs= $(".notif-label.label-new").length;
-         updateNotifBadge();
-    }
-    var notifIconHolder = $('<div></div>').addClass('media-left').append(notifIcon, notifNewLabel);
-    var notifPersonLabel = $('<strong></strong>').append(notifPersonLabelLink, notifDismisser);
-    var notifPersonContainer = $('<div></div>').append(notifPersonLabel);
-    var notifMessage = $('<div></div>').addClass('notif-message').text(message);
-    var notifMessageTime = $('<div></div>').addClass('notif-timestamp').text(timestamp);
-    var notifMessageContainer = $('<div></div>').addClass('message-container media-body').append(notifPersonContainer, notifMessage, notifMessageTime);
-    
-    var OuterMostLink= $('<a></a>').attr('href', link);
-    OuterMostLink.append(notifIconHolder, notifMessageContainer);
-    var notifItem = $('<li></li>').addClass('media alert fade in').attr("id", "notifID"+notifID).append(OuterMostLink).click(function(e) {
-        var notifID = e.currentTarget.id.replace('notifID','');
+    var notifDismisser = $('<a></a>').addClass('close notifbell-close').attr("notifID", notifID).attr('aria-label', 'close').text('×').click(function(e) {
+        var notifID = $(e.currentTarget).attr('notifid');
+        console.log(notifID);
         $.ajax({
             type: 'GET',
             url: 'http://ustart.today:'+port+'/AjaxRemoveNotification/',
@@ -280,6 +259,28 @@ function appendNotifItem(notifID, image, title, link, message, timestamp, unread
             updateNotifBadge();
         }
     });
+    var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI(link)).text(title);
+    
+    if (!unreadStatus) {
+         var notifNewLabel = $('<span></span>').addClass('label-new label label-info notif-label').text("new");
+         newNotifs= $(".notif-label.label-new").length;
+         updateNotifBadge();
+    }
+    else{
+         var notifNewLabel = $('<span></span>').addClass('label label-info notif-label');
+         newNotifs= $(".notif-label.label-new").length;
+         updateNotifBadge();
+    }
+    var notifIconHolder = $('<div></div>').addClass('media-left').append(notifIcon, notifNewLabel);
+    var notifPersonLabel = $('<strong></strong>').append(notifPersonLabelLink, notifDismisser);
+    var notifPersonContainer = $('<div></div>').append(notifPersonLabel);
+    var notifMessage = $('<div></div>').addClass('notif-message').text(message);
+    var notifMessageTime = $('<div></div>').addClass('notif-timestamp').text(timestamp);
+    var notifMessageContainer = $('<div></div>').addClass('message-container media-body').append(notifPersonContainer, notifMessage, notifMessageTime);
+    
+    var OuterMostLink= $('<a></a>').attr('href', link);
+    OuterMostLink.append(notifIconHolder, notifMessageContainer);
+    var notifItem = $('<li></li>').addClass('media alert fade in').attr("id", "notifID"+notifID).append(OuterMostLink);
     $('#notifDrop').prepend(notifItem);
 }
 
