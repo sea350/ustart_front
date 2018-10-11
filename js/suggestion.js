@@ -93,16 +93,17 @@ $('body').on("click", ".dismiss-btn", function(e) {
         contentType: "application/json; charset=utf-8",
         data: {scrollID: suggestionScrollID},
         complete: function (jqXHR,status) {
-             var temp = $.parseJSON(jqXHR.responseText);
-             if(temp.SuggestedUsers  != null){
-                console.log(temp);
-                 $('#'+followID).fadeOut(1000, function() { $(this).remove(); 
-                  for(var i=0; i<temp.SuggestedUsers.length; i++){
-                      createSuggestedUser(temp.SuggestedUsers[i].FirstName,temp.SuggestedUsers[i].LastName, temp.SuggestedUsers[i].Image, temp.SuggestedUsers[i].DocID,temp.SuggestedUsers[i].Username);
+             if(status == 'success' || status=='notmodified')
+             {
+                 var temp = $.parseJSON(jqXHR.responseText);
+                 if(temp.SuggestedUsers  != null){
+                    console.log(temp);
+                      for(var i=0; i<temp.SuggestedUsers.length; i++){
+                          createSuggestedUser(temp.SuggestedUsers[i].FirstName,temp.SuggestedUsers[i].LastName, temp.SuggestedUsers[i].Image, temp.SuggestedUsers[i].DocID,temp.SuggestedUsers[i].Username);
+                      }
+                      $(this).prop( "disabled", false );
                   }
-                  $(this).prop( "disabled", false );
-                });
-              }
+            }
         },
         error: function(error) {
             console.log("It just doesn't work");
@@ -121,16 +122,17 @@ $('body').on("click", ".dismiss-btn-proj", function(e) {
         contentType: "application/json; charset=utf-8",
         data: {scrollID: suggestionProjectScrollID},
         complete: function (jqXHR,status) {
+             if(status == 'success' || status=='notmodified')
+             {
              var temp = $.parseJSON(jqXHR.responseText);
              console.log(temp);
              if(temp.suggestions  != null){
-                 $('#'+followID).fadeOut(1000, function() { $(this).remove(); 
                   for(var i=0; i<temp.SuggestedProjects.length; i++){
                      createSuggestedProject(temp.SuggestedProjects[i].FirstName,temp.SuggestedProjects[i].LastName, temp.SuggestedProjects[i].Image, temp.SuggestedProjects[i].DocID);
                   }
                   $(this).prop( "disabled", false );
-                });
               }
+             }
         },
         error: function(error) {
             console.log("It just doesn't work");
@@ -157,12 +159,15 @@ $('body').on("click", ".dismiss-btn-proj", function(e) {
                     contentType: "application/json; charset=utf-8",
                     data: {scrollID: suggestionScrollID},
                     complete: function (jqXHR,status) {
+                         if(status == 'success' || status=='notmodified')
+                        {
                          var temp = $.parseJSON(jqXHR.responseText);
                          if(temp.SuggestedUsers != null){
                               for(var i=0; i<temp.SuggestedUsers.length; i++){
                                   createSuggestedUser(temp.SuggestedUsers[i].FirstName,temp.SuggestedUsers[i].LastName, temp.SuggestedUsers[i].Image, temp.SuggestedUsers[i].DocID,temp.SuggestedUsers[i].Username);
                               }
-                    }
+                        }
+                        }
                     },
                     error: function(error) {
                         console.log("It just doesn't work");
@@ -193,6 +198,8 @@ $('body').on("click", ".dismiss-btn-proj", function(e) {
                 contentType: "application/json; charset=utf-8",
                 data: {scrollID: suggestionProjectScrollID},
                 complete: function (jqXHR,status) {
+                     if(status == 'success' || status=='notmodified')
+                    {
                      var temp = $.parseJSON(jqXHR.responseText);
                      console.log(temp);
                      if(temp.SuggestedProjects  != null){
@@ -203,6 +210,7 @@ $('body').on("click", ".dismiss-btn-proj", function(e) {
                           $(this).prop( "disabled", false );
                         });
                       }
+                    }
                 },
                 error: function(error) {
                     console.log("It just doesn't work");
