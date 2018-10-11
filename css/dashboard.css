@@ -16,6 +16,9 @@
     font-size: 70%
 }
 
+#dash-posts{
+    margin-top:2.5em;
+}
 #content ul li p {
     display: inline;
     margin-left:6px;
