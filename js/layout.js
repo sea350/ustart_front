@@ -403,6 +403,7 @@ $(document).ready(function () {
     $('body').on("click", ".notifbell-close", function(e) {
         $(e.currentTarget).prop('disabled', true);
         var notifID = $(this).attr('notifid');
+        console.log(notifID);
          $.ajax({
             type: 'GET',
             url: 'http://ustart.today:'+port+'/AjaxRemoveNotification/',
@@ -420,7 +421,6 @@ $(document).ready(function () {
                 $(e.currentTarget).prop('disabled', false);
             }
         });  
-        
     });
     
     $('#spaced .help-block').slideUp();
