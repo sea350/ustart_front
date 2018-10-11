@@ -46,6 +46,21 @@ function validateEmail() {
     }
 }
 
+
+function validateEmail2() {
+    var elementValue = document.getElementById('inputEmail');
+    var notEDUmsg = document.getElementById('notedu');
+    // checks if email is valid edu email
+    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (emailPattern.test(elementValue.value)) {
+            notEDUmsg.style.display = "none";
+            return true;
+    } else {
+        notEDUmsg.style.display = "block";
+        return false;
+    }
+}
+
 function saveInputs() {
 	sessionStorage.setItem('firstName', $('#fName').val());
 	sessionStorage.setItem('lastName', $('#lName').val());

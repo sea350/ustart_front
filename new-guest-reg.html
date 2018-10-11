@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src https:">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <title>UStart Registration</title>
+    <script type="text/javascript" src="/ustart_front/js/zxcvbn.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/majors.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/countries.js"></script>
+    <script type="text/javascript" src="/ustart_front/js/reg-check.js"></script>
+</head>
+
+<body>
+
+    <div id="centering" style="top: 6em;">
+        <div id="content">
+            <div class="container">
+                {{ if .ErrorOutput }}
+                <div id="dup-email-alert" class="alert alert-danger alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Oops! Here's an error: {{.ErrorOutput}}</strong>
+                </div>
+                {{end}}                
+                <h2 style=" text-align:center; padding:0;">Sign up</h2>
+
+                <form class="form-signup" id="form1" action="/welcome/" method="post">
+                    <div class="jumbotron col-md-8 col-md-offset-2">
+                        <div class="page " pagenumber="1">
+                            <!-- Name -->
+                            <div class="row">
+                                <div class="dropdown col-md-6">
+                                    <div class="input-group input-groupz">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-text-color"></i></span>
+                                    <input type="text" id="fName" name="firstName" class="form-control" placeholder="Please Enter your Firstname" required autocomplete="given-name">
+                                    </div>
+                                </div>
+                                <div class="dropdown col-md-6">
+                                    <div class="input-group input-groupz">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-text-background"></i></span>
+                                    <input type="text" id="lName" name="lastName" class="form-control" placeholder="Please Enter your Lastname" required autocomplete="family-name">
+                                </div>
+                                </div>                            
+                            </div>
+                        
+                        <!-- Username/Email -->
+                            <div class="row">
+                                <div class="dropdown col-md-6">
+                                    <div class="input-group input-groupz">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                            <input type="text" id="uName" name="username" class="form-control" placeholder="Please Enter your Username" autocomplete="Please Enter your Username" pattern="[A-Za-z\d][\w\d-]+[A-Za-z\d]"
+                                            required />
+                                    </div>  
+                                    <p id="uDup" style="color:red; display:none;">Username is already being used. Try another username.</p>
+                                </div>
+
+                                <div class="dropdown col-md-6">
+                                        <div class="input-group input-groupz">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                            <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Please Enter your Email address" onblur="validateEmail2()"
+                                        required autocomplete="email">
+                                        </div>                        
+                                        <span id="notedu" style="color: red;">You need a proper email format.</span>        
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="page" pagenumber="2">
+                            <!-- Password -->
+                            <div class="row">
+                                <div class="dropdown col-md-6">
+                                    <div class="input-group input-groupz">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Please Enter your Password" required autocomplete="new-password">                                           
+                                    </div>
+                                    <div id="meter-cont" class="progress password-progress" style=" margin-top: 5px; margin-bottom: 5px;">
+                                            <div id="meter" class="progress-bar" role="progressbar" style="width: 0;"></div>
+                                    </div>
+                                        <div id="bad-pass" style="display: none">
+                                            <span style="color: red;">Password not strong enough.</span>
+                                        </div>
+                                        <div id="left-empty" style="display: none">
+                                            <span style="color: red;">You must enter a password.</span>
+                                    </div>                                         
+                                </div>                                    
+
+                                <div class="dropdown col-md-6">
+                                    <div class="input-group input-groupz">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-ok"></i></span>
+                                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm Password" required>
+                                    </div>
+                                    <span id="pwNoMatch" style="color:red;">Sorry, passwords do not match.</span>
+                                </div>
+                             </div>
+                             </div>
+
+                        <div class="page" pagenumber="3">
+
+                            <button class="btn btn-default btn-block" id='collapseLocationbtn' type="button" data-toggle="collapse" data-target="#collapseLocation" aria-expanded="false" aria-controls="collapseLocation">
+                                (Location data) Click to enter Location information
+                            </button> 
+                            <div class="collapse" id="collapseLocation">
+                            <div class="row">
+                                <div class="dropdown col-md-6">
+                                    <div class="input-group input-groupz">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                                        <select id="country" name="country" class="form-control" autocomplete="country-name"></select>
+                                    </div>
+                                </div>
+                                <div class="dropdown col-md-6">
+                                        <div class="input-group input-groupz">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
+                                            <select name="state" id="state" class="form-control" autocomplete="state"></select>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="dropdown col-md-6">
+                                    <div class="input-group input-groupz">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> 
+                                        <input id="city" name="city" class="form-control" placeholder="Please Enter your City" autocomplete="city">
+                                    </div>
+                                </div>
+                                <div class="dropdown col-md-6">
+                                    <div class="input-group input-groupz">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span> 
+                                        <input id="zip" name="zip" class="form-control" placeholder="Please Enter your Zip" autocomplete="postal-code">
+                                    </div>
+                                </div>
+                            </div>
+
+                            </div> <!-- end of collapse -->
+                        
+                            <!-- School / Majors -->
+                            <div class="row">
+                                <div class="dropdown col-md-6">
+                                    <div class="input-group input-groupz">
+                                            
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span> 
+                                        <input name="universityName" class="form-control" id="uni" placeholder="Please Enter your University/College" required>
+                                    </div> 
+                                </div>
+                                <div class="dropdown col-md-6">
+                                    <div class="input-group input-groupz">     
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span> 
+                                        <input type="text" id="maj" name="majors" class="form-control" placeholder="Please Enter your Major" / required>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Year / DOB -->
+                            <div class="row">
+                                <div class="dropdown col-md-6">
+                                    <div class="input-group input-groupz">
+                                            
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-sort-by-attributes-alt"></i></span> 
+                                        <select id="inYr" name="year" class="form-control">
+                                                <option value=''>Select Year</option>
+                                                <option value="Freshman">Freshman</option>
+                                                <option value="Sophomore">Sophomore</option>
+                                                <option value="Junior">Junior</option>
+                                                <option value="Senior">Senior</option>
+                                                <option value="Graduate">Graduate</option>
+                                                <option value="Post-Graduate">Post-Graduate</option>
+                                        </select>                                        
+                                    </div>
+                                </div>
+                                <div class="dropdown col-md-6">
+                                    <div class="input-group input-groupz">
+                                        <span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span> 
+                                        <input id="birthday" type="date" placeholder="Date of Birth (mm/dd/yyyy)" class="form-control" name="dob" required />
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="dropdown col-md-3"></div>
+                                  <div class="dropdown col-md-6">
+                                    <div class="input-group input-groupz">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-eye-open"></i></span> 
+                                        <input id="code" name="accessCode" class="form-control" placeholder="Please Enter your permission code" autocomplete="city">
+                                    </div>
+                                </div>
+                            </div> 
+                        </div> 
+                            
+                    <div class="page" pagenumber="4">
+                        <br>
+                        <!-- captcha check -->
+                        <div style="margin-left:auto; margin-right:auto; width: 305px;">
+                            <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6Lc-aS4UAAAAAMwN6widYlOeos0ilDifkmf21rQZ"></div>
+                        </div>
+                        <div id="termsReader">
+                            <input id="termsRead" type="checkbox" required />
+                            <label for="termsRead">I agree that I have read the
+                                <a href="U-Start Terms and Conditions Draft.htm" target="_blank">terms and conditions</a>.</label>
+                        </div>
+                    </div>
+                    <!-- <button type="button" class="btn btn-lg btn-primary" id="back" disabled>Back</button> -->
+                    <button type="submit" class="btn btn-md btn-primary pull-right" id="finished">Continue</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer id="foot"></footer>
+    <style>
+            .input-p{
+                font-size:13px;
+                min-width: 80px;
+            }
+            .jumbotron{
+                background-color:#ffff;
+            }
+            .btn-primary{
+                background-color: #00ac7d!important;
+            }
+            .navbar-form{
+                margin-top:0px!important;
+            }
+        </style>
+</body>
+
+</html>
