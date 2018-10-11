@@ -168,6 +168,7 @@ $(function () {
                  if(status == 'success' || status=='notmodified')
                  {
                     var tem = $.parseJSON(jqXHR.responseText);
+                    console.log(tem);
                     if(tem.Results != null){
                         scroll = tem.ScrollID;
                         totalHits=tem.TotalHits;
