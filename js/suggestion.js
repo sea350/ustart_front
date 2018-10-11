@@ -121,13 +121,13 @@ $('body').on("click", ".dismiss-btn-proj", function(e) {
         type: 'GET',  
         url: 'http://ustart.today:'+port+'/AjaxProjectSuggestions/',
         contentType: "application/json; charset=utf-8",
-        data: {scrollID: suggestionScrollID},
+        data: {scrollID: suggestionProjectScrollID},
         complete: function (jqXHR,status) {
              var temp = $.parseJSON(jqXHR.responseText);
              console.log(temp);
              if(temp.suggestions  != null){
                  $('#'+followID).fadeOut(1000, function() { $(this).remove(); 
-                  for(var i=0; i<temp.suggestions.length; i++){
+                  for(var i=0; i<temp.SuggestedProjects.length; i++){
                      createSuggestedProject(temp.SuggestedProjects[i].FirstName,temp.SuggestedProjects[i].LastName, temp.SuggestedProjects[i].Image, temp.SuggestedProjects[i].DocID);
                   }
                   $(this).prop( "disabled", false );
@@ -189,6 +189,28 @@ $('body').on("click", ".dismiss-btn-proj", function(e) {
         success: function(data) {
              $(this).prop( "disabled", false );
              $('#'+followID).fadeOut(1000, function() { $(this).remove(); });
+             $.ajax({
+                type: 'GET',  
+                url: 'http://ustart.today:'+port+'/AjaxProjectSuggestions/',
+                contentType: "application/json; charset=utf-8",
+                data: {scrollID: suggestionProjectScrollID},
+                complete: function (jqXHR,status) {
+                     var temp = $.parseJSON(jqXHR.responseText);
+                     console.log(temp);
+                     if(temp.suggestions  != null){
+                         $('#'+followID).fadeOut(1000, function() { $(this).remove(); 
+                          for(var i=0; i<temp.SuggestedProjects.length; i++){
+                             createSuggestedProject(temp.SuggestedProjects[i].FirstName,temp.SuggestedProjects[i].LastName, temp.SuggestedProjects[i].Image, temp.SuggestedProjects[i].DocID);
+                          }
+                          $(this).prop( "disabled", false );
+                        });
+                      }
+                },
+                error: function(error) {
+                    console.log("It just doesn't work");
+                    console.log(error);
+                }
+            });
         },
         error: function(error) {
             console.log("It just doesn't work");
