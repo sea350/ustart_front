@@ -232,33 +232,7 @@ function appendNotifItem(notifID, image, title, link, message, timestamp, unread
     var notifIcon = $('<img></img>').addClass('media-object img-rounded notif-icon');
     $(notifIcon).attr('alt', '40x40').attr('src', image);
     
-    var notifDismisser = $('<a></a>').addClass('close notifbell-close').attr("notifID", notifID).attr('aria-label', 'close').text('×').click(function(e) {
-        var notifID = $(e.currentTarget).attr('notifid');
-        console.log(notifID);
-        $.ajax({
-            type: 'GET',
-            url: 'http://ustart.today:'+port+'/AjaxRemoveNotification/',
-            contentType: "application/json; charset=utf-8",
-            data: {notifID:notifID},
-            success: function(data) { 
-            },complete: function (jqXHR,status) {
-                 if(status == 'success' || status=='notmodified')
-                 {
-                 }
-            },error: function(err) {
-                console.log('remove notif failed: ');
-                console.log(err);
-            }
-        }); 
-        var newLabel = $(this).find('.label-new');
-        if (newLabel.length > 0) {
-            newLabel.removeClass('label-new');
-            newLabel.fadeOut('fast');
-            newLabel.text('');
-            newNotifs= $(".notif-label.label-new").length;
-            updateNotifBadge();
-        }
-    });
+    var notifDismisser = $('<a></a>').addClass('close notifbell-close').attr("notifid", notifID).attr('aria-label', 'close').text('×');
     var notifPersonLabelLink = $('<a></a>').attr('href', encodeURI(link)).text(title);
     
     if (!unreadStatus) {
@@ -425,6 +399,29 @@ $(document).ready(function () {
     });
     fitNavbar();
     */
+    
+    $('body').on("click", ".notifbell-close", function(e) {
+        $(e.currentTarget).prop('disabled', true);
+        var notifID = $(this).attr('notifid');
+         $.ajax({
+            type: 'GET',
+            url: 'http://ustart.today:'+port+'/AjaxRemoveNotification/',
+            contentType: "application/json; charset=utf-8",
+            data: {notifID:notifID},
+            success: function(data) { 
+            },complete: function (jqXHR,status) {
+                 if(status == 'success' || status=='notmodified')
+                 {
+                    $('#notifID'+notifID).remove();
+                 }
+            },error: function(err) {
+                console.log('remove notif failed: ');
+                console.log(err);
+                $(e.currentTarget).prop('disabled', false);
+            }
+        });  
+        
+    });
     
     $('#spaced .help-block').slideUp();
     $('#theLogIn form').submit(function(e) {
