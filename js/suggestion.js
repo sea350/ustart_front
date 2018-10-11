@@ -96,7 +96,7 @@ $('body').on("click", ".dismiss-btn", function(e) {
         complete: function (jqXHR,status) {
              var temp = $.parseJSON(jqXHR.responseText);
              console.log(temp);
-             if(temp.suggestions  != null){
+             if(temp.SuggestedUsers  != null){
                  $('#'+followID).fadeOut(1000, function() { $(this).remove(); 
                   for(var i=0; i<temp.SuggestedUsers.length; i++){
                       createSuggestedUser(temp.SuggestedUsers[i].FirstName,temp.SuggestedUsers[i].LastName, temp.SuggestedUsers[i].Image, temp.SuggestedUsers[i].DocID,temp.SuggestedUsers[i].Username);
@@ -197,7 +197,7 @@ $('body').on("click", ".dismiss-btn-proj", function(e) {
                 complete: function (jqXHR,status) {
                      var temp = $.parseJSON(jqXHR.responseText);
                      console.log(temp);
-                     if(temp.suggestions  != null){
+                     if(temp.SuggestedProjects  != null){
                          $('#'+followID).fadeOut(1000, function() { $(this).remove(); 
                           for(var i=0; i<temp.SuggestedProjects.length; i++){
                              createSuggestedProject(temp.SuggestedProjects[i].FirstName,temp.SuggestedProjects[i].LastName, temp.SuggestedProjects[i].Image, temp.SuggestedProjects[i].DocID);
