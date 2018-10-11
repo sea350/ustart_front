@@ -57,6 +57,30 @@ $(document).ready(function () {
             console.log(error);
         }
     });
+     //loading in suggested project
+     /* $.ajax({
+        type: 'GET',  
+        url: 'http://ustart.today:'+port+'/AjaxProjectSuggestions/',
+        contentType: "application/json; charset=utf-8",
+        data: {scrollID:''}
+        ,complete: function (jqXHR,status) {
+         if(status == 'success' || status=='notmodified')
+         {
+              var temp = $.parseJSON(jqXHR.responseText);
+               console.log(temp);
+              if(temp.suggestions  != null){
+                  suggestionProjectScrollID = temp.scrollID;
+                  for(var i=0; i<temp.suggestions.length; i++){
+                     createSuggestedProject(temp.suggestions[i].FirstName,temp.suggestions[i].LastName, temp.suggestions[i].Image, temp.suggestions[i].DocID);
+                  }
+              }
+         }
+        },
+        error: function(error) {
+            console.log("suggestion failed");
+            console.log(error);
+        }
+    });*/
 });
 
 $('body').on("click", ".dismiss-btn", function(e) {
