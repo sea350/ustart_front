@@ -168,15 +168,14 @@ $(function () {
                  if(status == 'success' || status=='notmodified')
                  {
                     var tem = $.parseJSON(jqXHR.responseText);
-                     console.log(tem);
                     if(tem.Results != null){
                         scroll = tem.ScrollID;
                         totalHits=tem.TotalHits;
-                        $('#search-results-container').find(".loader").css("display", "none");
                         for(var j=0; j<tem.Results.length; j++){
                             createSearchResult (tem.Results[j].Username, tem.Results[j].Image, tem.Results[j].FirstName, tem.Results[j].LastName, readRuneArrayThatWorks(tem.Results[j].Bio), tem.Results[j].Tags, target);
                         }
                     }
+                    $('#search-results-container').find(".loader").css("display", "none");
                  }
             },error: function(err) {
                 console.log('tab switch Load failed: ');
@@ -503,7 +502,7 @@ function element_in_scroll(elem)
                              {
                                 var temp = $.parseJSON(jqXHR.responseText);
                                 var target= $('a[data-toggle="tab"]').parent('.active').children().attr('id');
-                                if(temp != null){
+                                if(temp.Results != null){
                                     for(var i=0; i<temp.Results.length; i++){
                                         createSearchResult (temp.Results[i].Username, temp.Results[i].Image, temp.Results[i].FirstName, temp.Results[i].LastName, readRuneArrayThatWorks(temp.Results[i].Bio), temp.Results[i].Tags,target);
                                     }
