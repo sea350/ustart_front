@@ -168,7 +168,8 @@ $(function () {
                  if(status == 'success' || status=='notmodified')
                  {
                     var tem = $.parseJSON(jqXHR.responseText);
-                    if(tem != null){
+                     console.log(tem);
+                    if(tem.Results != null){
                         scroll = tem.ScrollID;
                         totalHits=tem.TotalHits;
                         $('#search-results-container').find(".loader").css("display", "none");
