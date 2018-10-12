@@ -190,7 +190,7 @@
                         {{end}}
                         {{end}}              
                         <span>
-                            {{$memberValidity := 0}}
+                            
                             {{range $member := .Event.MemberData}}
                                 {{if eq $userid $member.DocID}}
                                     {{$memberValidity := $member.Classification}}
