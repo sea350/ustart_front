@@ -317,6 +317,19 @@ function anchorEditor(element) {
                        }
                     });
                  }
+                if (window.location.pathname.indexOf('/Event/') > -1){
+                      var eventDeleteID = window.location.pathname.split("/").pop();
+                      $.ajax({
+                       type: "POST",
+                       url: "/deleteEventWidget/",
+                       data: {deleteEventURL: eventDeleteID, deleteID:widgetDeleteID},
+                       success: function(data)
+                       {
+                            anchrArr=[];
+                            location.reload();
+                       }
+                    });
+                 }
             }
             else if (anchrArr.length > 1){
                 anchrArr.splice($.inArray(anchrTarget, anchrArr),1);
@@ -336,7 +349,19 @@ function anchorEditor(element) {
                     $.ajax({
                        type: "POST",
                        url: "/addProjectWidget/",
-                       data: {projectWidget:pageID,editID:widgetDeleteID, widgetSubmit:11, arInput:JSON.stringify(anchrArr)}, 
+                       data: {projectWidget:projectDeleteID,editID:widgetDeleteID, widgetSubmit:11, arInput:JSON.stringify(anchrArr)}, 
+                       success: function(data)
+                       {
+                            location.reload();
+                       }
+                     });
+                }
+                if (window.location.pathname.indexOf('/Event/') > -1){
+                     var projectDeleteID = window.location.pathname.split("/").pop();
+                    $.ajax({
+                       type: "POST",
+                       url: "/addEventWidget/",
+                       data: {eventWidget:projectDeleteID,editID:widgetDeleteID, widgetSubmit:11, arInput:JSON.stringify(anchrArr)}, 
                        success: function(data)
                        {
                             location.reload();
@@ -473,6 +498,19 @@ function instagramEditor(element) {
                        }
                     });
                  }
+                 if (window.location.pathname.indexOf('/Event/') > -1){
+                     var projectDeleteID = window.location.pathname.split("/").pop();
+                      $.ajax({
+                       type: "POST",
+                       url: "/deleteEventWidget/",
+                       data: {deleteEventURL: projectDeleteID, deleteID:widgetDeleteID},
+                       success: function(data)
+                       {
+                            instaARR=[];
+                            location.reload();
+                       }
+                    });
+                 }
             }
             else if (instaARR.length > 1){
                 instaARR.splice($.inArray(instaTarget, instaARR),1);
@@ -490,10 +528,23 @@ function instagramEditor(element) {
                      });
                  }
                 if (window.location.pathname.indexOf('/Projects/') > -1){
+                     var projectDeleteID = window.location.pathname.split("/").pop();
                     $.ajax({
                        type: "POST",
                        url: "/addProjectWidget/",
-                       data: { projectWidget:pageID, editID:widgetDeleteID, widgetSubmit:4, instagramInput:JSON.stringify(instaARR)}, 
+                       data: { projectWidget:projectDeleteID, editID:widgetDeleteID, widgetSubmit:4, instagramInput:JSON.stringify(instaARR)}, 
+                       success: function(data)
+                       {
+                            location.reload();
+                       }
+                     });
+                }
+                  if (window.location.pathname.indexOf('/Event/') > -1){
+                       var projectDeleteID = window.location.pathname.split("/").pop();
+                    $.ajax({
+                       type: "POST",
+                       url: "/addEventWidget/",
+                       data: { eventWidget:projectDeleteID, editID:widgetDeleteID, widgetSubmit:4, instagramInput:JSON.stringify(instaARR)}, 
                        success: function(data)
                        {
                             location.reload();
@@ -585,6 +636,19 @@ function spotifyEditor(element) {
                        }
                     });
                  }
+                if (window.location.pathname.indexOf('/Event/') > -1){
+                      var projectDeleteID = window.location.pathname.split("/").pop();
+                      $.ajax({
+                       type: "POST",
+                       url: "/deleteEventWidget/",
+                       data: {deleteEventURL: projectDeleteID, deleteID:widgetDeleteID},
+                       success: function(data)
+                       {
+                            spotArr=[];
+                            location.reload();
+                       }
+                    });
+                 }
             }
             else if (spotArr.length > 1){
                 spotArr.splice($.inArray(spotTarget, spotArr),1);
@@ -604,7 +668,19 @@ function spotifyEditor(element) {
                     $.ajax({
                        type: "POST",
                        url: "/addProjectWidget/",
-                       data: {projectWidget:pageID,editID:widgetDeleteID, widgetSubmit:10, spotInput:JSON.stringify(spotArr)}, 
+                       data: {projectWidget:projectDeleteID,editID:widgetDeleteID, widgetSubmit:10, spotInput:JSON.stringify(spotArr)}, 
+                       success: function(data)
+                       {
+                            location.reload();
+                       }
+                     });
+                }
+                if (window.location.pathname.indexOf('/Event/') > -1){
+                     var projectDeleteID = window.location.pathname.split("/").pop();
+                    $.ajax({
+                       type: "POST",
+                       url: "/addEventWidget/",
+                       data: {eventWidget:projectDeleteID,editID:widgetDeleteID, widgetSubmit:10, spotInput:JSON.stringify(spotArr)}, 
                        success: function(data)
                        {
                             location.reload();
