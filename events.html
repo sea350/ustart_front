@@ -177,19 +177,17 @@
                         </div>
                     </div> <!-- end of eventinfo-btn -->          
 
+
                     <div class="event-btn" >
                         <span>
+                            {{$memberValidity := 0}}
                             {{range $member := .Event.MemberData}}
                                 {{if eq $userid $member.DocID}}
                                     {{$memberValidity := $member.Classification}}
-                                <script>
-                                    permission= {{$memberValidity}};
-                                </script>
-                                <button class="project-options btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
-                                <span style="display:none">{{$memberValidity}}</span>
-								{{if le $memberValidity 0}}
-								<!--<li><a href="#" style="padding: 0.5em 1em;" data-toggle="modal" data-target="#project-member-add"><i class="fa fa-paw"></i>Recruit Members</a></li> -->
-								<li><a style="padding: 0.5em 1em;" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i> Edit Settings</a></li>                                
+                                {{end}}
+                            {{end}}
+                            {{if le $memberValidity 1}}
+                                <a class="btn btn-default pull-right" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
                                 <script>
                                     $(function () {
                                         // Enables drag-n-drop list items (using the header)
@@ -228,7 +226,7 @@
                                         }).disableSelection();
                                     });                                    
                                 </script>
-                            {{end}}
+                            {{end}} 
                         </span>                         
                         
                             <!-- invite --> <!-- onclick show modal -->
