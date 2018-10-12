@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>ustart</title>
+	<link href="/ustart_front/css/normalize.min.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="/ustart_front/css/inbox.css">
+    <link rel="stylesheet" href="/ustart_front/css/manageProject.css">
+	<script src="/ustart_front/js/ascii-convert.js"></script>
+    <script src="/ustart_front/js/manageEvent.js"></script>
+</head>
+<body>
+	<div id="centering" style="top: 0; padding-top: 5em; padding-bottom: 1em; width:80%; margin: 0 auto;">
+		<div id="content">
+			<div id="container-full">
+				<div class="container-left">
+					<h3 class="container-left-header" style="margin-bottom:0;">
+						Projects
+					</h3>
+					<ul id="inbox-groups">
+                        {{range $loop := .ListOfHeads}}
+                        	{{if (eq $loop.Classification 5) }} 
+                                <!-- for loop for event list here -->
+                                <li class="inbox-group eventList" id="{{$loop.DocID}}">
+                                    <a href="/Event/{{$loop.Username}}">
+                                    <img class="inbox-icon" id="img{{$loop.DocID}}" src="" />
+                                    </a>
+                                    <span class="group-header">{{$loop.FirstName}}</span>
+                                    <span id="totalRequests{{$loop.DocID}}" class="badge pull-right">{{$loop.Notifications}}</span>
+                                    <script>
+                                        $('img#img{{$loop.DocID}}').attr('src', {{$loop.Image}});
+                                    </script>    
+                                </li>
+                            {{end}}
+                        {{end}}
+                        <script>
+                        </script>
+                        <!-- end for loop -->
+					</ul>
+				</div>
+				<div class="container-right">
+					<div id="0" class="box-chat">
+						<h3 class="message-head">Requests
+                        <!-- member bar feature hidden
+                        <a id="sidebarCollapse" style="float:right;">
+				            <i class="fa fa-angle-double-left" style="color:#00ac7d;"></i>
+						</a>
+                        -->
+                        </h3>
+                        <div class="box-section">
+							<div class="inner-section-left">
+                                 <ul id="request-groups">
+                                </ul>
+                            </div>
+                            <!--
+                            <div class="section-right">
+								<div class="wrapper">
+                                    <nav id="sidebar">
+                                           <div class="sidebar-header">
+                                               <div class="projectMembers">R</div>
+                                               <strong>Ryan Rozbiani <a href="#"><i class="fa fa-sign-out"></i></a></strong>
+                                            </div>
+                                            <div class="sidebar-header">
+                                               <div class="projectMembers">C</div>
+                                               <strong>Cyka Blyat <a href="#"><i class="fa fa-sign-out"></i></a></strong>
+                                            </div>
+                                    </nav>
+
+                                </div>
+							</div>
+                            -->
+                        </div>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer id="foot"></footer>
+	<script src="/ustart_front/js/fadebody.js"></script>
+</body>
+
+</html>

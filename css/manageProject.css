@@ -69,6 +69,20 @@
     margin: 0.5em;
     display:inline-block;
 }
+.eventMembers {
+    background-color: #607D8B;
+    height: 2em;
+    width: 2em;
+    border-radius: 1em;
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    line-height: 2;
+    font-size: 1.2em;
+    margin: 0.5em;
+    display:inline-block;
+}
+
 
 #request-groups {
     margin: 0;
