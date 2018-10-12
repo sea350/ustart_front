@@ -45,7 +45,6 @@
     </script>{{end}}
 </head>
 <body>
-    <span>no eventid {{$eventid}}</span>
     <input type="hidden" id='followstat'>
     <div id="centering">
         <div id="content" class="container" style="margin-top: 1em;">
@@ -454,7 +453,6 @@
                                 </div>
                             </div>
                         </li><!--end link widget -->
-                        <span>EVENT.EVENTDATA.URLNAME {{.Event.EventData.URLName}}</span>
                         {{$eventurl := .Event.EventData.URLName}}
                         {{range $loop := .Widgets }}
                         {{if eq $loop.Classification 0}}<!-- if is text -->  
@@ -527,7 +525,6 @@
                         </li>
                     {{end}}<!--end soundcloud -->
                     {{if eq $loop.Classification 6}} 
-                    <span>index loop ID {{index $loop.ID}}</span>
                     <li class="ui-state-default widgetListItem sortable" id={{index $loop.ID}}>
                         <div class="eventsWidgetCont">
                             <div class="widgetTitle">
