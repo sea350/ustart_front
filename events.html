@@ -194,9 +194,8 @@
                             {{range $member := .Event.MemberData}}
                                 {{if eq $userid $member.DocID}}
                                     {{$memberValidity := $member.Classification}}
-                                    <span>MEMBER VALIDITY{{$memberValidity}}</span>
+                                    
                                 {{end}}
-                            {{end}}
                             {{if le $memberValidity 1}}
                                 <a class="btn btn-default pull-right" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
                                 <script>
@@ -238,6 +237,7 @@
                                     });                                    
                                 </script>
                             {{end}} 
+                            
                         </span>                         
                         
                             <!-- invite --> <!-- onclick show modal -->
@@ -255,10 +255,9 @@
                                 <button id ="eventAttend" class="event-attend-btn">
                                     <span class ="attend-btn-text">Follow</span>
                                 </button><span class="attend-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
-                            </span>
-                                                 
-                                        
-                        </div>                    
+                            </span>      
+                        </div>     
+                        {{end}}                
                 </div>
                 </div>
                 <script>
