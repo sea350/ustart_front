@@ -680,9 +680,9 @@
                             </div>
                             <div id="widgetBodyMed" class="widgetBody"></div>
                             <script>
-                                $( document ).ready(function() {
-                                mediumRender({{index $loop.Data 0}},{{index $loop.Data 1}},{{index $loop.Data 2}},{{index $loop.Data 3}});
-                                });
+                                $(document).ready(function() {
+                                            mediumRender({{index $loop.Data 0}},{{index $loop.Data 1}},{{index $loop.Data 2}},parseInt({{index $loop.Data 3}}));
+                                            });
                             </script>
                         </div>
                     </li>
@@ -748,9 +748,9 @@
                             </div>
                             <div id="widgetBodyGit" class="widgetBody">
                                 <script>
-                                    $( document ).ready(function() {
-                                        githubRender({{index $loop.Data 0}});
-                                    });
+                                       $(document).ready(function() {
+											   githubRender({{index $loop.Data 0}}, parseInt({{index $loop.Data 1}}));
+                                            });
                                 </script>
                             </div>
                         </div>
@@ -1313,6 +1313,7 @@
                                         <i>https://calendar.google.com/calendar/embed?src= Your Calendar ID</i>
                                     </div>
                                 </label>
+                                  <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
                             </form>
                         </div>
@@ -1343,6 +1344,7 @@
                                     <span class="input-group-addon">Shown Events Count</span>
                                     <input type="number" class="form-control" id="git-count" min='1' max='12' value='4'/>
                                 </div>
+                                 <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
                             </form>
                         </div>
@@ -1368,6 +1370,7 @@
                             <form id="imageWidgetUpload" action="/addEventWidget/" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <input type="file" class="form-control" id="gallery-embed-input" name="galleryImageInput" placeholder="Gallery Image" required>
+                                  <input class="eventWidget" class="form-control" name="eventWidget" type="hidden" value='{{$eventid}}' required/>
                                 <input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
                             </div>
                             </form>
