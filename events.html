@@ -180,13 +180,15 @@
 
                     <div class="event-btn" >
                         {{range $member := .Event.MemberData}}
+                        {{if eq ($.Event.RequestAllowed) true}}
                         <form action="/GuestRequestToJoin/" method="POST" style="display: inline-block;">
                             <input type="hidden" name="eventID" value='{{$eventid}}'>
                             <button class="event-btn-guest btn btn-default" onclick = '$(this).closest("form").submit();'>
                                 <span>Request to join as guest</span>
                             </button>
                         </form>  
-                        {{end}}                      
+                        {{end}}
+                        {{end}}              
                         <span>
                             {{$memberValidity := 0}}
                             {{range $member := .Event.MemberData}}
