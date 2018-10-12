@@ -195,7 +195,7 @@
                                 {{if eq $userid $member.DocID}}
                                     {{$memberValidity := $member.Classification}}
                                     
-                                {{end}}
+                                
                             {{if le $memberValidity 0}}
                                 <a class="btn btn-default pull-right" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
                                 <script>
@@ -238,7 +238,8 @@
                                 </script>
                         </span>          
                         {{end}} 
-                        {{end}}                 
+                        {{end}} 
+                        {{end}}                
                         
                             <!-- invite --> <!-- onclick show modal -->
                             <button style='display:none;' class="eventInvite btn btn-default" onclick = '$(this).closest("form").submit();'>
