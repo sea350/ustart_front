@@ -446,7 +446,7 @@
                                         }
                                     </script>
                                     <span class="pull-right fa fa-2x fa-pencil" onclick="ApplyTextModalID(this)"></span>
-                                    <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                    <form id="delete{{index $loop.ID}}delete" action="/deleteEventWidget/" method="POST">
                                         <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                         <span name="delete" class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
@@ -469,7 +469,7 @@
                                 <div class="widgetTitle">
                                     <span class="pull-right fa fa-2x fa-sort"></span>
                                     <span class="pull-right fa fa-2x fa-pencil" id="ig-edit" onclick="instagramEditor(this)"></span>
-                                    <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                    <form id="delete{{index $loop.ID}}delete" action="/deleteEventWidget/" method="POST">
                                         <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
                                             <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
                                         <span name="delete" class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
@@ -491,7 +491,7 @@
                                 <div class="widgetTitle">
                                     <span class="pull-right fa fa-2x fa-sort"></span>
                                     <span class="pull-right fa fa-2x fa-pencil" id="sc-edit" onclick="ApplyIDToModal('sc-modal', this)"></span>
-                                    <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                    <form id="delete{{index $loop.ID}}delete" action="/deleteEventWidget/" method="POST">
                                         <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
                                         <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
@@ -510,7 +510,7 @@
                             <div class="widgetTitle">
                                 <span class="pull-right fa fa-2x fa-sort"></span>
                                 <span class="pull-right fa fa-2x fa-pencil" id="yt-edit" onclick="ApplyIDToModal('youtubeModal', this)"></span>
-                                <form id=delete{{index $loop.ID}} action="/deleteEventWidget/" method="POST">
+                                <form id=delete{{index $loop.ID}}delete action="/deleteEventWidget/" method="POST">
                                     <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
                                     <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
                                     <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
@@ -534,7 +534,7 @@
                                 <div class="widgetTitle">
                                     <span class="pull-right fa fa-2x fa-sort"></span>
                                     <span class="pull-right fa fa-2x fa-pencil" id="code-edit" onclick="ApplyIDToModal('code-modal', this)"></span>
-                                    <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                    <form id="delete{{index $loop.ID}}delete" action="/deleteEventWidget/" method="POST">
                                         <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
                                         <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
@@ -553,7 +553,7 @@
                                 <div class="widgetTitle">
                                     <span class="pull-right fa fa-2x fa-sort"></span>
                                     <span class="pull-right fa fa-2x fa-pencil" id="tumblr-edit"onclick="ApplyIDToModal('tumblr-modal', this)"></span>
-                                    <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                    <form id="delete{{index $loop.ID}}delete" action="/deleteEventWidget/" method="POST">
                                         <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
                                         <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
                                         <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
@@ -576,7 +576,7 @@
                         <div class="widgetTitle">
                             <span class="pull-right fa fa-2x fa-sort"></span>
                             <span class="pull-right fa fa-2x fa-pencil" id="pin-edit" onclick="pinterestEditor(this)"></span>
-                            <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                            <form id="delete{{index $loop.ID}}delete" action="/deleteEventWidget/" method="POST">
                                     <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
                                 <input id="deleteID" class="form-control" name="deleteID" type="hidden" value={{index $loop.ID}} required/>
                                 <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
@@ -603,7 +603,7 @@
                         <div class="widgetTitle">
                             <span class="pull-right fa fa-2x fa-sort"></span>
                             <span class="pull-right fa fa-2x fa-pencil" id="spot-edit" onclick="spotifyEditor(this)"></span>
-                            <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                            <form id="delete{{index $loop.ID}}delete" action="/deleteEventWidget/" method="POST">
                                     <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
                                 <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                 <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
@@ -624,7 +624,7 @@
                                 <div class="widgetTitle">
                                 <span class="pull-right fa fa-2x fa-sort"></span>
                                 <span class="pull-right fa fa-2x fa-pencil" id="twitch-edit" onclick="ApplyIDToModal('twitch-modal', this)"></span>
-                                <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                <form id="delete{{index $loop.ID}}delete" action="/deleteEventWidget/" method="POST">
                                         <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
                                     <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                     <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
@@ -646,7 +646,7 @@
                                 <div class="widgetTitle">
                                 <span class="pull-right fa fa-2x fa-sort"></span>
                                 <span class="pull-right fa fa-2x fa-pencil" id="ar-edit" onclick="anchorEditor(this)"></span>
-                                <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                                <form id="delete{{index $loop.ID}}delete" action="/deleteEventWidget/" method="POST">
                                         <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
                                     <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                     <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
@@ -671,7 +671,7 @@
                             <div class="widgetTitle">
                             <span class="pull-right fa fa-2x fa-sort"></span>
                             <span class="pull-right fa fa-2x fa-pencil" id="med-edit" onclick="ApplyIDToModal('med-modal', this)"></span>
-                            <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                            <form id="delete{{index $loop.ID}}delete" action="/deleteEventWidget/" method="POST">
                                     <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
                                 <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                 <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
@@ -693,7 +693,7 @@
                             <div class="widgetTitle">
                             <span class="pull-right fa fa-2x fa-sort"></span>
                             <span class="pull-right fa fa-2x fa-pencil" id="da-edit"  onclick="ApplyIDToModal('da-modal', this)"></span>
-                            <form id="delete{{index $loop.ID}}" action="/deleteEventWidget/" method="POST">
+                            <form id="delete{{index $loop.ID}}delete" action="/deleteEventWidget/" method="POST">
                                     <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
                                 <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                 <span class="pull-right fa fa-2x fa-trash" onclick="$(this).closest('form').submit();"></span>
@@ -718,7 +718,8 @@
                             <div class="widgetTitle">
                                 <span class="pull-right fa fa-2x fa-sort"></span>
                                 <span class="pull-right fa fa-2x fa-pencil" id="cal-edit" onclick="ApplyIDToModal('cal-modal', this)"></span>
-                                <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
+                                <form id="delete{{index $loop.ID}}delete" action="/deleteEventWidget/" method="POST">
+                                     <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
                                     <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                     <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
                                 </form>
@@ -738,7 +739,8 @@
                             <div class="widgetTitle">
                                 <span class="pull-right fa fa-2x fa-sort"></span>
                                 <span class="pull-right fa fa-2x fa-pencil" id="git-edit" onclick="ApplyIDToModal('git-modal', this)"></span>
-                                <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
+                                <form id="delete{{index $loop.ID}}delete" action="/deleteEventWidget/" method="POST">
+                                     <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
                                     <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                     <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
                                 </form>
@@ -763,7 +765,8 @@
                                 {{if eq ($.Page) ($.DOCID)}}
                                 <span class="pull-right fa fa-2x fa-sort"></span>
                                 <span class="pull-right fa fa-2x fa-pencil" id="gallery-edit" onclick="ApplyIDToModal('gallery-modal', this)"></span>
-                                <form id="delete{{index $loop.ID}}delete" action="/deleteWidget/" method="POST">
+                                <form id="delete{{index $loop.ID}}delete" action="/deleteEventWidget/" method="POST">
+                                     <input id="deleteEventURL" class="form-control" name="deleteEventURL" type="hidden" value="{{$eventurl}}" required/>
                                     <input id="deleteID" class="form-control" name="deleteID" type="hidden" value="{{index $loop.ID}}" required/>
                                     <span class="pull-right fa fa-2x fa-trash delete-widget" id="delete{{index $loop.ID}}"></span>
                                 </form>
