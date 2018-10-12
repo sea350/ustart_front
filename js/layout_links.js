@@ -12,8 +12,24 @@ function removeLink(element) {
 	var httpURL = element.parent().attr('href');
 	var userlinkdesc = element.parent().find('.links-website-title').text();
 	var projectInputID = $('input[name="projectID"]');
+	var eventInputID = $('input[name="eventID"]');
 	
-	if (projectInputID.length) {
+	if (eventInputID.length){
+		$.ajax({
+			type: 'GET',  
+			url: 'http://ustart.today:'+port+'/DeleteEventQuickLink/',
+			contentType: "application/json; charset=utf-8",
+			data: {deleteEventLink:httpURL, deleteEventLinkDesc:userlinkdesc, eventID:eventInputID.val()},
+			success: function(data) {
+				$(element).parent().hide("slow", function() {
+					linkList.splice($.inArray($(element).href, linkList),1);
+					$(element).remove();
+					updateCounter();
+				});
+			}
+		});
+	}
+	else if (projectInputID.length) {
 		$.ajax({
 			type: 'GET',  
 			url: 'http://ustart.today:'+port+'/DeleteProjectLink/',
@@ -132,6 +148,38 @@ $(document).ready(function() {
 		$('input[name$="webURL"]').val('');
 		$('input[name$="webTitle"]').val('');
 	});
+
+	$('#link-event-submit-btn').click(function(event) {
+		var httpURL = $('input[name$="webURL"]').val();
+		var eventlinkdesc = $('input[name$="webTitle"]').val();
+		var eventid = $('input[name$="eventD"]').val();
+		if (linkList.length < 16) {
+			if ($.inArray(httpURL, linkList) == -1) {
+				$.ajax({
+					type: 'GET',
+					url: 'http://ustart.today:'+port+'/AddEventQuickLink/',
+					contentType: "application/json; charset=utf-8",
+					data: {eventLink:httpURL, eventLinkDesc:eventlinkdesc, eventID:eventid},
+					success: function(data) {
+						console.log('eventID ' + eventid);
+						createLink(httpURL, eventlinkdesc);
+						linkList.push(httpURL);
+						linkDesc.push(eventlinkdesc);
+						updateCounter();
+						$('#addLinkModal').modal('hide');
+					}
+				});
+			} else {
+				alert("You have already added " + httpURL);
+			}
+		} else {
+			alert("Maximum amount of links is 16.");
+		}
+		$('input[name$="webURL"]').val('');
+		$('input[name$="webTitle"]').val('');
+	});
+	
+	
 	$('#link-project-submit-btn').click(function(event) {
 		var httpURL = $('input[name$="webURL"]').val();
 		var projectlinkdesc = $('input[name$="webTitle"]').val();
