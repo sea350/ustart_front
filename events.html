@@ -186,7 +186,7 @@
                                     {{$memberValidity := $member.Classification}}
                                 {{end}}
                             {{end}}
-                            {{if le $memberValidity 1}}
+                            {{if le $memberValidity 0}}
                                 <a class="btn btn-default pull-right" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
                                 <script>
                                     $(function () {
