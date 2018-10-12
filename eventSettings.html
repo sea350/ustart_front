@@ -26,7 +26,7 @@
         var bwidth;
         var vwidth;
         var vheight;
-        var poster = {{.UserInfo.Banner}};
+        var poster = {{.Event.EventData.Banner}};
         var cwidth = $(window).width();
         if(cwidth <= 1100 && cwidth >= 320){
             bwidth = cwidth/3;
@@ -266,7 +266,7 @@
                                                                     if(height < 300 && width < 600){
                                                                         $('#upload2').val('');
                                                                         $("#sizeModal").modal();							
-                                                                       poster = {{.UserInfo.Banner}};
+                                                                       poster = {{.Event.EventData.Banner}};
                                                                        resizeCroppie(vwidth, vheight, bwidth, poster);
                                                                        setTimeout(function(){
                                                                         $('#upload-demo2').croppie('setZoom', '1.0');
