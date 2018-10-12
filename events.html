@@ -196,7 +196,7 @@
                                     {{$memberValidity := $member.Classification}}
                                     
                                 {{end}}
-                            {{if le $memberValidity 1}}
+                            {{if le $memberValidity 0}}
                                 <a class="btn btn-default pull-right" href="/EventSettings/{{$eventurl}}"><i class="fa fa-gear"></i></a>
                                 <script>
                                     $(function () {
@@ -236,9 +236,9 @@
                                         }).disableSelection();
                                     });                                    
                                 </script>
-                            {{end}} 
-                            
-                        </span>                         
+                        </span>          
+                        {{end}} 
+                        {{end}}                 
                         
                             <!-- invite --> <!-- onclick show modal -->
                             <button style='display:none;' class="eventInvite btn btn-default" onclick = '$(this).closest("form").submit();'>
@@ -257,7 +257,7 @@
                                 </button><span class="attend-count" followers ={{.Followers}}><script>document.write(intToString({{.Followers}}));</script></span>
                             </span>      
                         </div>     
-                        {{end}}                
+                                      
                 </div>
                 </div>
                 <script>
