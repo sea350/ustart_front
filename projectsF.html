@@ -1573,31 +1573,6 @@
                                 </div>
                             </div>
                         </div>
-                        <script type="text/javascript">
-                            $('button[data-dismiss="modal"]').click(function(){ 
-                                $(this).parent().parent().parent().parent().modal('hide'); })
-                            var usersToAdd = new Array("A Ryan", "B Ryan", "C Ryan", "D Ryan", "E Ryan", "F Ryan", "G Ryan", "H Ryan", "I Ryan", "J Ryan", "K Ryan", "L Ryan", "M Ryan", "N Ryan", "O Ryan", "P Ryan", "Q Ryan", "R Ryan", "S Ryan", "T Ryan", "U Ryan", "W Ryan", "X Ryan", "Y Ryan", "Z Ryan");
-                            $(document).ready(function () {
-                                $("input[name='project-member-add']").autocomplete({
-                                    source: function (request, response) {
-                                        var results = $.ui.autocomplete.filter(usersToAdd, request.term);
-                                        response(results.slice(0, 10));
-                                    },
-                                    select: function (event, ui) {
-                                        $('.project-member-adder').attr('disabled', false);
-                                    }
-                                });
-                                $('.project-member-adder').click(function () {
-                                    if (usersToAdd.indexOf($("input[name='project-member-add']").val()) < 0) {
-                                        alert('Invalid User');
-                                    } else {
-                                        loadMembers($("input[name='project-member-add']").val());
-                                        $('#project-member-add').modal('hide');
-                                        $('.proj-tabs a[href="#proj-team"]').tab('show');
-                                    }
-                                });
-                            });
-                        </script>
                         <style>
                             .ui-autocomplete {
                                 z-index: 30000 !important;
