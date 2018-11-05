@@ -411,7 +411,7 @@
 									{{range $member := .Event.MemberData}}
 									<div class="card" style="height:auto">
 										<div class="container-s">
-											<img id="img{{$member.Username}}" class="image" src="{{$member.Image}}" alt="" onclick="location.href='/profile/{{$member.Username}}'" />
+											<img style="width:200px; height:200px;" id="img{{$member.Username}}" class="image" src="{{$member.Image}}" alt="" onclick="location.href='/profile/{{$member.Username}}'" />
 											<h4><b>{{$member.FirstName}} {{$member.LastName}}</b></h4>
 											<select class="role_select" class="form-control" name="newRank" style="margin: 0 auto; width:10em;">
 												<option {{if not $member.Classification}} selected{{end}} hidden disabled>Select Role</option>
