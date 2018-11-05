@@ -25,6 +25,11 @@
     max-height: 14em;
 }
 
+#eventMember img{
+    width:200px;
+    height: 200px;
+}
+
 .flex { display: flex; }
 .flex-col { flex-direction: column; }
 .flex-center { align-self: center; }
