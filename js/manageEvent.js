@@ -42,7 +42,7 @@ function makeEventApplications(name, avatar,docID, projectID, link){
 };
 
 $(document).ready(function () {
-	var port = location.port;
+	var port = window.location.port;;
 	//GET THE REQUESTS FOR A SPECIFIC EVENT
    $('.eventList').on( "click", function(e) {
 	   var eventID = e.currentTarget.id;

@@ -42,7 +42,7 @@ function makeProjectApplications(name, avatar,docID, projectID, link){
 };
 
 $(document).ready(function () {
-	var port = location.port;
+	var port = window.location.port;;
 	//GET THE REQUESTS FOR A SPECIFIC PROJECT
    $('.projectList').on( "click", function(e) {
 	   var projectID = e.currentTarget.id;

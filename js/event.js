@@ -1,5 +1,5 @@
 // globals
-var port = location.port;
+var port = window.location.port;;
 var flag = 1;
  var permission = -1;
 var IDArray= []

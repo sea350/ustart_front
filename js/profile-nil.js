@@ -1,5 +1,5 @@
 // globals
-var port = location.port;
+var port = window.location.port;;
 var flag = 1;
 document.addEventListener('DOMContentLoaded', function () { window.scrollTo(0, 200) });
 
