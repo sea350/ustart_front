@@ -212,7 +212,7 @@
                                                     var eventPageID= location.pathname.split("/").pop();
                                                     $.ajax({
                                                         type: 'GET',
-                                                        url: 'http://ustart.today:'+port+'/sortEventWidgets/',
+                                                        url: 'http://k12start.today:'+port+'/sortEventWidgets/',
                                                         contentType: "application/json; charset=utf-8",
                                                         data: {sortedWidgets: JSON.stringify(asortedWidgets), pageID: eventPageID},
                                                         success: function(data) {
