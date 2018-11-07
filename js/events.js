@@ -48,7 +48,7 @@ $(document).ready(function() {
 			// Do Follow
 			$.ajax({
 				type: 'GET',  
-				url: 'http://k12start.today:5004/callme/',
+				url: 'https://k12start.today:5004/callme/',
 				contentType: "application/json; charset=utf-8",
 				data: {userID:"123"},
 				dataType: "json",
@@ -62,7 +62,7 @@ $(document).ready(function() {
 			// Do Unfollow
 			$.ajax({
 				type: 'GET',  
-				url: 'http://k12start.today:5004/callme/',
+				url: 'https://k12start.today:5004/callme/',
 				contentType: "application/json; charset=utf-8",
 				data: {userID:"123"},
 				dataType: "json",

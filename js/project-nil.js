@@ -35,7 +35,7 @@ $(function () {
                 var projectPageID= window.location.pathname.split("/").pop();
                 $.ajax({
                     type: 'GET',
-                    url: 'http://k12start.today:'+port+'/sortProjectWidgets/',
+                    url: 'https://k12start.today:'+port+'/sortProjectWidgets/',
                     contentType: "application/json; charset=utf-8",
                     data: {sortedWidgets: JSON.stringify(asortedWidgets), pageID: projectPageID},
                     success: function(data) {

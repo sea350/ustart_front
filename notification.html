@@ -29,7 +29,7 @@
                                 console.log(notifID);
                                  $.ajax({
                                         type: 'GET',
-                                        url: 'http://k12start.today:'+port+'/AjaxRemoveNotification/',
+                                        url: 'https://k12start.today:'+port+'/AjaxRemoveNotification/',
                                         contentType: "application/json; charset=utf-8",
                                         data: {notifID:notifID},
                                         success: function(data) { 
@@ -47,7 +47,7 @@
                             });
                             $.ajax({
                                 type: 'GET',  
-                                url: 'http://k12start.today:'+port+'/AjaxScrollNotifications/',
+                                url: 'https://k12start.today:'+port+'/AjaxScrollNotifications/',
                                 contentType: "application/json; charset=utf-8",
                                 data: {scrollID:notifScrollID},
                                 success: function(data) {
@@ -109,7 +109,7 @@
                                              notifflag=0;
                                              $.ajax({
                                                 type: 'GET',
-                                                url: 'http://k12start.today:'+port+'/AjaxScrollNotifications/',
+                                                url: 'https://k12start.today:'+port+'/AjaxScrollNotifications/',
                                                 contentType: "application/json; charset=utf-8",
                                                 data: {scrollID:notifScrollID},
                                                 success: function(data) {  

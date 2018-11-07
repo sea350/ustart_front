@@ -49,7 +49,7 @@ $(document).ready(function () {
        $(this).prop('disabled', true);
 	   $.ajax({
 		   type: 'GET',
-		   url: 'http://k12start.today:'+port+'/LoadGuestJoinRequests/',
+		   url: 'https://k12start.today:'+port+'/LoadGuestJoinRequests/',
 		   contentType: "application/json; charset=utf-8",
 		   data: {eventID:eventID},
 		   success: function(data) {
@@ -93,7 +93,7 @@ $(document).ready(function () {
 	   that.off('click'); // remove handler
 	   $.ajax({
 		   type: 'GET',
-		   url: 'http://k12start.today:'+port+'/AcceptGuestJoinRequest/',
+		   url: 'https://k12start.today:'+port+'/AcceptGuestJoinRequest/',
 		   contentType: "application/json; charset=utf-8",
 		   data: {userID:usrID, role:role, projectID: projID},
 		   success: function(result) {
@@ -127,7 +127,7 @@ $(document).ready(function () {
 	   that.off('click'); // remove handler
 		$.ajax({
 		   type: 'GET',
-		   url: 'http://k12start.today:'+port+'/RejectEventGuestJoinRequest/',
+		   url: 'https://k12start.today:'+port+'/RejectEventGuestJoinRequest/',
 		   contentType: "application/json; charset=utf-8",
 		   data: {userID:usrID, eventID: eventID},
 		   success: function(result) {

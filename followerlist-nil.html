@@ -224,7 +224,7 @@
                             $( "#btn1" ).prop( "disabled", true );
                             $.ajax({
                                 type: 'GET',  
-                                url: 'http://k12start.today:'+port+'/AjaxUserFollowsUser/',
+                                url: 'https://k12start.today:'+port+'/AjaxUserFollowsUser/',
                                 contentType: "application/json; charset=utf-8",
                                 data: {userID:pageID},
                                 success: function(data) {
@@ -313,7 +313,7 @@
                                    var docID = e.currentTarget.id;
                                    $.ajax({
 											type: 'GET',  
-											url: 'http://k12start.today:'+port+'/AjaxUserFollowsUser/',
+											url: 'https://k12start.today:'+port+'/AjaxUserFollowsUser/',
 											contentType: "application/json; charset=utf-8",
 											data: {userID:docID},
 											success: function(data) {
@@ -373,7 +373,7 @@
                                    var unfollowdocID = e.currentTarget.id;
                                    $.ajax({
                                         type: 'GET',  
-                                        url: 'http://k12start.today:'+port+'/AjaxUserFollowsUser/',
+                                        url: 'https://k12start.today:'+port+'/AjaxUserFollowsUser/',
                                         contentType: "application/json; charset=utf-8",
                                         data: {userID:unfollowdocID},
                                         success: function(data) {
@@ -434,7 +434,7 @@
                                    var unfollowdocID = e.currentTarget.id;
                                    $.ajax({
                                         type: 'GET',  
-                                        url: 'http://k12start.today:'+port+'/AjaxUserFollowProjectToggle/',
+                                        url: 'https://k12start.today:'+port+'/AjaxUserFollowProjectToggle/',
                                         contentType: "application/json; charset=utf-8",
                                         data: {projectID:unfollowdocID},
                                         success: function(data) {
