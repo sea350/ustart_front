@@ -154,7 +154,7 @@
 						</div>
                         {{if ne $memberValidity 0}}
 						<form id="project-leave-form" action="/leaveProject/" style="display:none">
-							<input type="hidden" name="leaverID" value={{$userid}}/>
+							<input type="hidden" name="leaverID" value={{.DOCID}}/>
 							<input type="hidden" name="projectID" value='{{$projectid}}'/>
 						</form>
                         <div id="project-leave" class="modal fade" role="dialog">
