@@ -128,7 +128,7 @@
 										//e.preventDefault();
 										$.ajax({
 											type: 'GET',  
-											url: 'https://k12start.today:'+port+'/callme/',
+											url: 'http://k12start.today:'+port+'/callme/',
 											contentType: "application/json; charset=utf-8",
 											data: {userID:pageID, Following:followstatus},
 											success: function(data) {
@@ -211,7 +211,7 @@
                                    console.log(docID);
                                    $.ajax({
 											type: 'GET',  
-											url: 'https://k12start.today:'+port+'/callme/',
+											url: 'http://k12start.today:'+port+'/callme/',
 											contentType: "application/json; charset=utf-8",
 											data: {userID:docID, Following:followerstat},
 											success: function(data) {
@@ -256,7 +256,7 @@
                                    console.log(followerstat);
                                    $.ajax({
                                         type: 'GET',  
-                                        url: 'https://k12start.today:'+port+'/callme/',
+                                        url: 'http://k12start.today:'+port+'/callme/',
                                         contentType: "application/json; charset=utf-8",
                                         data: {userID:unfollowdocID, Following:followerstat},
                                         success: function(data) {

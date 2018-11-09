@@ -257,7 +257,7 @@ function appendNotifItem(notifID, image, title, link, message, timestamp, unread
             var notifID = e.currentTarget.id.replace('notifID','');
             $.ajax({
                 type: 'GET',
-                url: 'https://k12start.today:'+port+'/AjaxMarkAsSeen/',
+                url: 'http://k12start.today:'+port+'/AjaxMarkAsSeen/',
                 contentType: "application/json; charset=utf-8",
                 data: {notifID:notifID},
                 success: function(data) { 
@@ -430,7 +430,7 @@ $(document).ready(function () {
         var notifID =  $(e.currentTarget).attr('notifid');
          $.ajax({
             type: 'GET',
-            url: 'https://k12start.today:'+port+'/AjaxRemoveNotification/',
+            url: 'http://k12start.today:'+port+'/AjaxRemoveNotification/',
             contentType: "application/json; charset=utf-8",
             data: {notifID:notifID},
             success: function(data) { 

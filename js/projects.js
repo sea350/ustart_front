@@ -114,7 +114,7 @@ $(document).ready(function() {
         $( "#projFollow" ).prop( "disabled", true );
         $.ajax({
             type: 'GET',  
-            url: 'https://k12start.today:'+port+'/AjaxUserFollowProjectToggle/',
+            url: 'http://k12start.today:'+port+'/AjaxUserFollowProjectToggle/',
             contentType: "application/json; charset=utf-8",
             data: {projectID: pageID},
             success: function(data) {

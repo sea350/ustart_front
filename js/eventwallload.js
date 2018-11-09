@@ -28,7 +28,7 @@ $(document).ready(function() {
         });
         $.ajax({
                     type: 'GET',
-                    url: 'https://k12start.today:'+port+'/AjaxLoadEventEntries/',
+                    url: 'http://k12start.today:'+port+'/AjaxLoadEventEntries/',
                     contentType: "application/json; charset=utf-8",
                     data: {userID:pageID, scrollID:""},
                     success: function(data) {  
@@ -91,7 +91,7 @@ $(document).ready(function() {
               var postID = temp.replace("like-btn",'');
                $.ajax({
                         type: 'GET',
-                        url: 'https://k12start.today:'+port+'/Like/',
+                        url: 'http://k12start.today:'+port+'/Like/',
                         contentType: "application/json; charset=utf-8",
                         data: {PostID:postID},
                         success: function(data) {
@@ -114,7 +114,7 @@ $(document).ready(function() {
           var postID = e.currentTarget.id;
           $.ajax({
                     type: 'GET',
-                    url: 'https://k12start.today:'+port+'/AjaxLoadComments/',
+                    url: 'http://k12start.today:'+port+'/AjaxLoadComments/',
                     contentType: "application/json; charset=utf-8",
                     data: {postID:postID},
                     success: function(data) { 
@@ -150,7 +150,7 @@ $(document).ready(function() {
            var postID =  e.currentTarget.getAttribute('myvalue');
             $.ajax({
                     type: 'GET',
-                    url: 'https://k12start.today:'+port+'/getComments/',
+                    url: 'http://k12start.today:'+port+'/getComments/',
                     contentType: "application/json; charset=utf-8",
                     data: {PostID:postID},
                     success: function(data) {
@@ -190,7 +190,7 @@ $(document).ready(function() {
           if (content != ""){
             $.ajax({
                     type: 'GET',
-                    url: 'https://k12start.today:'+port+'/AddComment2/',
+                    url: 'http://k12start.today:'+port+'/AddComment2/',
                     contentType: "application/json; charset=utf-8",
                     data: {postID:postID, body:content},
                     success: function(data) {
@@ -222,7 +222,7 @@ $(document).ready(function() {
            if (content != ""){
                 $.ajax({
                         type: 'GET',
-                        url: 'https://k12start.today:'+port+'/EventMakeEntry/',
+                        url: 'http://k12start.today:'+port+'/EventMakeEntry/',
                         contentType: "application/json; charset=utf-8",
                         data: {docID:pageID, text:content},
                         success: function(data) {
@@ -259,7 +259,7 @@ $(document).ready(function() {
            if (content != ""){
             $.ajax({
                     type: 'GET',
-                    url: 'https://k12start.today:'+port+'/AddComment2/',
+                    url: 'http://k12start.today:'+port+'/AddComment2/',
                     contentType: "application/json; charset=utf-8",
                     data: {postID:postID, body:content},
                     success: function(data) {
@@ -303,7 +303,7 @@ $(document).ready(function() {
           var x = document.getElementsByClassName("wallPosts");
           $.ajax({
                     type: 'GET',
-                    url: 'https://k12start.today:'+port+'/AjaxDeleteEventEntry/',
+                    url: 'http://k12start.today:'+port+'/AjaxDeleteEventEntry/',
                     contentType: "application/json; charset=utf-8",
                     data: {eventID:pageID, entryID:postID},
                     success: function(data) {
@@ -347,7 +347,7 @@ $(document).ready(function() {
           $(e.currentTarget).prop('disabled', true);
           $.ajax({
                     type: 'GET',
-                    url: 'https://k12start.today:'+port+'/shareEntry/',
+                    url: 'http://k12start.today:'+port+'/shareEntry/',
                     contentType: "application/json; charset=utf-8",
                     data: {postid:postID, content:content},
                     success: function(data) {
@@ -372,7 +372,7 @@ $(document).ready(function() {
           $(e.currentTarget).prop('disabled', true);
           $.ajax({
                     type: 'GET',
-                    url: 'https://k12start.today:'+port+'/editPost/',
+                    url: 'http://k12start.today:'+port+'/editPost/',
                     contentType: "application/json; charset=utf-8",
                     data: {postid:postID, content:content},
                     success: function(data) {
@@ -400,7 +400,7 @@ $(document).ready(function() {
           e.preventDefault();
           $.ajax({
                     type: 'GET',
-                    url: 'https://k12start.today:'+port+'/deletePost/',
+                    url: 'http://k12start.today:'+port+'/deletePost/',
                     contentType: "application/json; charset=utf-8",
                     data: {postid:postID},
                     success: function(data) {
@@ -427,7 +427,7 @@ $(document).ready(function() {
           var postID = temp.replace("removecomment2",'');
           $.ajax({
                     type: 'GET',
-                    url: 'https://k12start.today:'+port+'/deletePost/',
+                    url: 'http://k12start.today:'+port+'/deletePost/',
                     contentType: "application/json; charset=utf-8",
                     data: {postid:postID},
                     success: function(data) {
@@ -487,7 +487,7 @@ $(document).ready(function() {
                      if ($(".wallPosts").length < maxHits){
                      $.ajax({
                         type: 'GET',
-                        url: 'https://k12start.today:'+port+'/AjaxLoadEventEntries/',
+                        url: 'http://k12start.today:'+port+'/AjaxLoadEventEntries/',
                         contentType: "application/json; charset=utf-8",
                         data: {userID:pageID, scrollID: eventscrollID},
                         success: function(data) {   

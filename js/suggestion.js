@@ -36,7 +36,7 @@ $(document).ready(function () {
       //loading in suggested user
       $.ajax({
         type: 'GET',  
-        url: 'https://k12start.today:'+port+'/AjaxUserSuggestions/',
+        url: 'http://k12start.today:'+port+'/AjaxUserSuggestions/',
         contentType: "application/json; charset=utf-8",
         data: {scrollID:''}
         ,complete: function (jqXHR,status) {
@@ -60,7 +60,7 @@ $(document).ready(function () {
      //loading in suggested project
      $.ajax({
         type: 'GET',  
-        url: 'https://k12start.today:'+port+'/AjaxProjectSuggestions/',
+        url: 'http://k12start.today:'+port+'/AjaxProjectSuggestions/',
         contentType: "application/json; charset=utf-8",
         data: {scrollID:''}
         ,complete: function (jqXHR,status) {
@@ -89,7 +89,7 @@ $('body').on("click", ".dismiss-btn", function(e) {
     $('#'+followID).fadeOut(1000, function() { $(this).remove(); });
      $.ajax({
         type: 'GET',  
-        url: 'https://k12start.today:'+port+'/AjaxUserSuggestions/',
+        url: 'http://k12start.today:'+port+'/AjaxUserSuggestions/',
         contentType: "application/json; charset=utf-8",
         data: {scrollID: suggestionScrollID},
         complete: function (jqXHR,status) {
@@ -118,7 +118,7 @@ $('body').on("click", ".dismiss-btn-proj", function(e) {
     $('#'+followID).fadeOut(1000, function() { $(this).remove(); });
      $.ajax({
         type: 'GET',  
-        url: 'https://k12start.today:'+port+'/AjaxProjectSuggestions/',
+        url: 'http://k12start.today:'+port+'/AjaxProjectSuggestions/',
         contentType: "application/json; charset=utf-8",
         data: {scrollID: suggestionProjectScrollID},
         complete: function (jqXHR,status) {
@@ -146,7 +146,7 @@ $('body').on("click", ".dismiss-btn-proj", function(e) {
     var followID = $(this).closest('.user-card').attr('id');
      $.ajax({
         type: 'GET',  
-        url: 'https://k12start.today:'+port+'/AjaxUserFollowsUser/',
+        url: 'http://k12start.today:'+port+'/AjaxUserFollowsUser/',
         contentType: "application/json; charset=utf-8",
         data: {userID:followID},
         success: function(data) {
@@ -155,7 +155,7 @@ $('body').on("click", ".dismiss-btn-proj", function(e) {
              //load more users
              $.ajax({
                     type: 'GET',  
-                    url: 'https://k12start.today:'+port+'/AjaxUserSuggestions/',
+                    url: 'http://k12start.today:'+port+'/AjaxUserSuggestions/',
                     contentType: "application/json; charset=utf-8",
                     data: {scrollID: suggestionScrollID},
                     complete: function (jqXHR,status) {
@@ -186,7 +186,7 @@ $('body').on("click", ".dismiss-btn-proj", function(e) {
     var followID = $(this).closest('.user-card').attr('id');
      $.ajax({
         type: 'GET',  
-        url: 'https://k12start.today:'+port+'/AjaxUserFollowsUser/',
+        url: 'http://k12start.today:'+port+'/AjaxUserFollowsUser/',
         contentType: "application/json; charset=utf-8",
         data: {userID:followID},
         success: function(data) {
@@ -194,7 +194,7 @@ $('body').on("click", ".dismiss-btn-proj", function(e) {
              $('#'+followID).fadeOut(1000, function() { $(this).remove(); });
              $.ajax({
                 type: 'GET',  
-                url: 'https://k12start.today:'+port+'/AjaxProjectSuggestions/',
+                url: 'http://k12start.today:'+port+'/AjaxProjectSuggestions/',
                 contentType: "application/json; charset=utf-8",
                 data: {scrollID: suggestionProjectScrollID},
                 complete: function (jqXHR,status) {
