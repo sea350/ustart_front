@@ -216,7 +216,7 @@ $(function () {
 			// Do Follow
 			$.ajax({
 				type: 'GET',  
-				url: 'http://ustart.today:5002/callme/',
+				url: 'http://ustart.today:5004/callme/',
 				contentType: "application/json; charset=utf-8",
 				data: {userID:"123"},
 				dataType: "json",
@@ -230,7 +230,7 @@ $(function () {
 			// Do Unfollow
 			$.ajax({
 				type: 'GET',  
-				url: 'http://ustart.today:5002/callme/',
+				url: 'http://ustart.today:5004/callme/',
 				contentType: "application/json; charset=utf-8",
 				data: {userID:"123"},
 				dataType: "json",
@@ -525,7 +525,7 @@ $(document).ready(function () {
     //loadNextSharedPost($(".share-btn"));
     $("#commentform").submit(function (event) {
         event.preventDefault();
-        createNextPostContent("https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500290_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D", "Ryan Rozbiani", $("#commentform input").val(), formatTime(new Date().getTime()), "Like", "Remove");
+        createNextPostContent("https://scontent-lga3-1.xx.fbcdn.net/v/t31.0-8/12514060_499384470233859_6798591731419500490_o.jpg?oh=329ea2ff03ab981dad7b19d9172152b7&oe=5A2D7F0D", "Ryan Rozbiani", $("#commentform input").val(), formatTime(new Date().getTime()), "Like", "Remove");
         $("#commentform input.form-control").val('');
     });
 	
