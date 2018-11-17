@@ -32,6 +32,7 @@
         var projscrollID;
         var maxHits = -1;
         followstatus={{.FollowingStatus}};
+        console.log({{$userid}});
     </script>
     <script src="http://www.youtube.com/player_api"></script>
     {{range $loop := .Project.ProjectData.EntryIDs}}
