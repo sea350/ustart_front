@@ -42,14 +42,14 @@ function makeProjectApplications(name, avatar,docID, projectID, link){
 };
 
 $(document).ready(function () {
-	var port = location.port;
+	var port = window.location.port;;
 	//GET THE REQUESTS FOR A SPECIFIC PROJECT
    $('.projectList').on( "click", function(e) {
 	   var projectID = e.currentTarget.id;
        $(this).prop('disabled', true);
 	   $.ajax({
 		   type: 'GET',
-		   url: 'http://ustart.today:'+port+'/LoadJoinRequests/',
+		   url: 'http://k12start.today:'+port+'/LoadJoinRequests/',
 		   contentType: "application/json; charset=utf-8",
 		   data: {projID:projectID},
 		   success: function(data) {
@@ -93,7 +93,7 @@ $(document).ready(function () {
 	   that.off('click'); // remove handler
 	   $.ajax({
 		   type: 'GET',
-		   url: 'http://ustart.today:'+port+'/AcceptJoinRequest/',
+		   url: 'http://k12start.today:'+port+'/AcceptJoinRequest/',
 		   contentType: "application/json; charset=utf-8",
 		   data: {userID:usrID, role:role, projectID: projID},
 		   success: function(result) {
@@ -127,7 +127,7 @@ $(document).ready(function () {
 	   that.off('click'); // remove handler
 		$.ajax({
 		   type: 'GET',
-		   url: 'http://ustart.today:'+port+'/RejectJoinRequest/',
+		   url: 'http://k12start.today:'+port+'/RejectJoinRequest/',
 		   contentType: "application/json; charset=utf-8",
 		   data: {userID:usrID, projectID: projID},
 		   success: function(result) {

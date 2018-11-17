@@ -216,7 +216,11 @@ $(function () {
 			// Do Follow
 			$.ajax({
 				type: 'GET',  
+<<<<<<< HEAD
+				url: 'http://k12start.today:5002/callme/',
+=======
 				url: 'http://ustart.today:5004/callme/',
+>>>>>>> master
 				contentType: "application/json; charset=utf-8",
 				data: {userID:"123"},
 				dataType: "json",
@@ -230,7 +234,11 @@ $(function () {
 			// Do Unfollow
 			$.ajax({
 				type: 'GET',  
+<<<<<<< HEAD
+				url: 'http://k12start.today:5002/callme/',
+=======
 				url: 'http://ustart.today:5004/callme/',
+>>>>>>> master
 				contentType: "application/json; charset=utf-8",
 				data: {userID:"123"},
 				dataType: "json",

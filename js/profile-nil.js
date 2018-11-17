@@ -1,5 +1,5 @@
 // globals
-var port = location.port;
+var port = window.location.port;;
 var flag = 1;
 document.addEventListener('DOMContentLoaded', function () { window.scrollTo(0, 200) });
 
@@ -21,7 +21,7 @@ $(function () {
                 var asortedWidgets = $("#sortable").sortable("toArray");
                 $.ajax({
                     type: 'GET',
-                    url: 'http://ustart.today:'+port+'/sortUserWidgets/',
+                    url: 'http://k12start.today:'+port+'/sortUserWidgets/',
                     contentType: "application/json; charset=utf-8",
                     data: {sortedWidgets: JSON.stringify(asortedWidgets), pageID: userID},
                     success: function(data) {
@@ -411,7 +411,7 @@ $(document).ready(function () {
          console.log(userID);
         $.ajax({
             type: 'GET',  
-            url: 'http://ustart.today:'+port+'/AjaxUserFollowsUser/',
+            url: 'http://k12start.today:'+port+'/AjaxUserFollowsUser/',
             contentType: "application/json; charset=utf-8",
             data: {userID:userID},
             success: function(data) {

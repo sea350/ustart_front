@@ -1,5 +1,5 @@
 // globals
-var port = location.port;
+var port = window.location.port;;
 var flag = 1;
  var permission = -1;
 var IDArray= []
@@ -35,7 +35,7 @@ $(function () {
                 var projectPageID= window.location.pathname.split("/").pop();
                 $.ajax({
                     type: 'GET',
-                    url: 'http://ustart.today:'+port+'/sortProjectWidgets/',
+                    url: 'http://k12start.today:'+port+'/sortProjectWidgets/',
                     contentType: "application/json; charset=utf-8",
                     data: {sortedWidgets: JSON.stringify(asortedWidgets), pageID: projectPageID},
                     success: function(data) {

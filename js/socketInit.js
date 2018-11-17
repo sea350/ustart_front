@@ -51,7 +51,7 @@ updateChatBadge();
 //notifications
   $.ajax({
     type: 'GET',
-    url: 'http://ustart.today:'+port+'/AjaxNotifications/',
+    url: 'http://k12start.today:'+port+'/AjaxNotifications/',
     contentType: "application/json; charset=utf-8",
     data: {},
     success: function(data) {
@@ -83,7 +83,7 @@ updateChatBadge();
  setInterval(function(){
     $.ajax({
         type: 'GET',
-        url: 'http://ustart.today:'+port+'/AjaxNotifications/',
+        url: 'http://k12start.today:'+port+'/AjaxNotifications/',
         contentType: "application/json; charset=utf-8",
         data: {},
         success: function(data) {
@@ -112,7 +112,7 @@ updateChatBadge();
 //chat notification
 $.ajax({
         type: 'GET',
-        url: 'http://ustart.today:'+port+'/AjaxChatNotifications/',
+        url: 'http://k12start.today:'+port+'/AjaxChatNotifications/',
         contentType: "application/json; charset=utf-8",
         data: {},
         success: function(data) {
