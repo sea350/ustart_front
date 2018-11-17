@@ -453,7 +453,7 @@
 									{{range $loop := .Project.ProjectData.Tags}}
 									{{if ne ($loop) ""}}
 									<script>
-								        createTagWidgetElement("#hashTagsBody", {{$loop}});
+								       createProjectTagWidgetElement("#hashTagsBody", {{$loop}});
 									</script>
 									{{end}}
 									{{end}}
@@ -471,7 +471,7 @@
 									{{range $loop := .Project.ProjectData.ListNeeded}}
 									{{if ne ($loop) ""}}
 									<script>
-											createTagWidgetElement("#hashskillsBody", {{$loop}});
+											createProjectTagWidgetElement("#hashskillsBody", {{$loop}});
 									</script>
 									{{end}}
 									{{end}}
