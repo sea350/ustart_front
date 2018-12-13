@@ -49,22 +49,11 @@
 	  }
     </style>
     <script>
-        function makeImage(imageURL)
-        {
-          var canvas = document.createElement("canvas");
-          context = canvas.getContext('2d');
-          base_image = new Image();
-          base_image.src = imageURL;
-          base_image.onload = function(){
-           context.drawImage(base_image, 0,0);
-          }
-          return canvas.toDataURL();
-        }
         var bwidth;
         var vwidth;
         var vheight;
-        var poster = makeImage({{.UserInfo.Banner}});
-        var avatar = makeImage({{.UserInfo.Avatar}});
+        var poster = {{.UserInfo.Banner}};
+        var avatar = {{.UserInfo.Avatar}};
         console.log(avatar);
         var cwidth = $(window).width();
         if(cwidth <= 1100 && cwidth >= 320){
@@ -120,6 +109,7 @@
 												<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
 												<script type="text/javascript">
 													$uploadCrop = $('#upload-demo').croppie({
+                                                        url:avatar,
 														enforceBoundary: true,
 														viewport: {
 															width: 250,
@@ -133,7 +123,6 @@
 													});
                                                     console.log(avatar);
 													$uploadCrop.croppie('bind', {
-                                                        url: avatar,
                                                         zoom: 1
                                                     });
 													$('#upload').on('change', function () {
