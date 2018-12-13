@@ -53,7 +53,6 @@
         var vwidth;
         var vheight;
         var poster = {{.UserInfo.Banner}};
-        var avatar = {{.UserInfo.Avatar}};
         var cwidth = $(window).width();
         if(cwidth <= 1100 && cwidth >= 320){
             bwidth = cwidth/3;
@@ -120,7 +119,7 @@
 														}
 													});
                                                     
-                                                    $uploadCrop.croppie('bind', avatar).then(function(){ 
+                                                    $uploadCrop.croppie('bind', {{.UserInfo.Avatar}}).then(function(){ 
                                                        $uploadCrop.croppie('setZoom', 0)
                                                      });
 													$('#upload').on('change', function () {
