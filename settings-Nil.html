@@ -119,9 +119,10 @@
 															height: 300
 														}
 													});
+                                                    console.log(avatar);
 													$uploadCrop.croppie('bind', {
                                                         url: avatar,
-                                                        zoom:0
+                                                        zoom: 1
                                                     });
 													$('#upload').on('change', function () {
                                                         console.log(this.files[0].size);
