@@ -307,7 +307,7 @@
                                                                     if(height < 300 && width < 600){
                                                                         $('#upload2').val('');
                                                                         $("#sizeModal").modal();							
-                                                                       poster = {{.Event.EventData.Banner}};
+                                                                       poster = {{.Project.ProjectData.Banner}};
                                                                        resizeCroppie(vwidth, vheight, bwidth, poster);
                                                                        setTimeout(function(){
                                                                         $('#upload-demo2').croppie('setZoom', '1.0');

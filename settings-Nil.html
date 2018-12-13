@@ -120,7 +120,7 @@
 														}
 													});
 													$uploadCrop.croppie('bind', {
-                                                        url: 'https://ustart-bucket.s3.amazonaws.com/PpX7I2cBxVkTFt_R7PPl.png',
+                                                        url: avatar,
                                                         zoom:0
                                                     });
 													$('#upload').on('change', function () {
@@ -252,7 +252,7 @@
                                                                     if(height < 300 && width < 600){
                                                                         $('#upload2').val('');
                                                                         $("#sizeModal").modal();							
-                                                                       poster = {{.Event.EventData.Banner}};
+                                                                       poster = {{.UserInfo.Banner}};
                                                                        resizeCroppie(vwidth, vheight, bwidth, poster);
                                                                        setTimeout(function(){
                                                                         $('#upload-demo2').croppie('setZoom', '1.0');
