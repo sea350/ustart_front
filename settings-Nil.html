@@ -63,6 +63,7 @@
         var vheight;
         var poster = makeImage({{.UserInfo.Banner}});
         var avatar = makeImage({{.UserInfo.Avatar}});
+        console.log(avatar);
         var cwidth = $(window).width();
         if(cwidth <= 1100 && cwidth >= 320){
             bwidth = cwidth/3;
