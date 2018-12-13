@@ -109,7 +109,7 @@
 												<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
 												<script type="text/javascript">
 													$uploadCrop = $('#upload-demo').croppie({
-                                                        url:avatar,
+                                                        url: avatar,
 														enforceBoundary: true,
 														viewport: {
 															width: 250,
@@ -122,9 +122,6 @@
 														}
 													});
                                                     console.log(avatar);
-													$uploadCrop.croppie('bind', {
-                                                        zoom: 1
-                                                    });
 													$('#upload').on('change', function () {
                                                         if(this.files[0].size > 2097152){
                                                            alert("File is too big! 2MB or lower");
