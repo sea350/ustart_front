@@ -123,8 +123,8 @@
 														zoom: 0
 													});
 													$('#upload').on('change', function () {
-                                                        console.log($('#upload')[0].size);
-                                                        if($('#upload')[0].size > 2097152){
+                                                        console.log(this.files[0].size);
+                                                        if(this.files[0].size > 2097152){
                                                            alert("File is too big! 2MB or lower");
                                                            this.value = "";
                                                         }
@@ -233,7 +233,7 @@
                                                     });
                                                     
                                                         $('#upload2').on('change', function () { 
-                                                            if($('#upload2')[0].size > 2097152){
+                                                            if(this.files[0].size > 2097152){
                                                                alert("File is too big! 2MB or lower");
                                                                this.value = "";
                                                             }
