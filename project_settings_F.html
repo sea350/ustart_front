@@ -186,15 +186,20 @@
 													}
 												});
 												$('#upload').on('change', function () { 
-													var reader = new FileReader();
-													reader.onload = function (e) {
-														$uploadCrop.croppie('bind', {
-															url: e.target.result
-														}).then(function(){
-															console.log('jQuery bind complete');
-														});
-													}
-													reader.readAsDataURL(this.files[0]);
+												    if($('#upload')[0].size > 2097152){
+                                                       alert("File is too big! 2MB or lower");
+                                                       this.value = "";
+                                                    }
+                                                    else{
+                                                        var reader = new FileReader();
+                                                        reader.onload = function (e) {
+                                                            $uploadCrop.croppie('bind', {
+                                                                url: e.target.result,
+                                                                zoom: 1
+                                                            });
+                                                        }
+                                                        reader.readAsDataURL(this.files[0]); 
+                                                    }
 												});
 												 $('#upload-result').on('click', function (ev) {
 													$uploadCrop.croppie('result', {
@@ -284,10 +289,14 @@
                                                     });
                                                     
                                                         $('#upload2').on('change', function () { 
+                                                            if($('#upload2')[0].size > 2097152){
+                                                               alert("File is too big! 2MB or lower");
+                                                               this.value = "";
+                                                            }
+                                                            else{
                                                             var file = $('#upload2')[0];
                                                             var reader2 = new FileReader();
                                                             reader2.readAsDataURL(file.files[0])
-
                                                             reader2.onload = function (e) {
                                                                 var image = new Image();
                                                                 image.src = e.target.result;
@@ -298,19 +307,20 @@
                                                                     if(height < 300 && width < 600){
                                                                         $('#upload2').val('');
                                                                         $("#sizeModal").modal();							
-                                                                       poster = {{.UserInfo.Banner}};
+                                                                       poster = {{.Event.EventData.Banner}};
                                                                        resizeCroppie(vwidth, vheight, bwidth, poster);
                                                                        setTimeout(function(){
-                                                                        $('#upload-demo2').croppie('setZoom', '0');
+                                                                        $('#upload-demo2').croppie('setZoom', '1.0');
                                                                         },50);
                                                                     }
                                                                     else{
                                                                         resizeCroppie(vwidth, vheight, bwidth, poster);
                                                                         setTimeout(function(){
-                                                                        $('#upload-demo2').croppie('setZoom', '0');
+                                                                        $('#upload-demo2').croppie('setZoom', '1.0');
                                                                         },50);
                                                                     }
                                                                 };
+                                                            }
                                                             }
                                                         });
                                                         $('#upload-result2').on('click', function (ev) {
