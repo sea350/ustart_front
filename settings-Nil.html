@@ -119,10 +119,10 @@
 															height: 300
 														}
 													});
-													$uploadCrop.croppie("bind", {
-														url: "https://ustart-bucket.s3.amazonaws.com/PpX7I2cBxVkTFt_R7PPl-banner.png",
-														zoom: 0
-													});
+													$uploadCrop.croppie('bind', {
+                                                        url: 'https://ustart-bucket.s3.amazonaws.com/PpX7I2cBxVkTFt_R7PPl.png',
+                                                        zoom:0
+                                                    });
 													$('#upload').on('change', function () {
                                                         console.log(this.files[0].size);
                                                         if(this.files[0].size > 2097152){
