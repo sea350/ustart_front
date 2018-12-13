@@ -54,7 +54,6 @@
         var vheight;
         var poster = {{.UserInfo.Banner}};
         var avatar = {{.UserInfo.Avatar}};
-        console.log(avatar);
         var cwidth = $(window).width();
         if(cwidth <= 1100 && cwidth >= 320){
             bwidth = cwidth/3;
@@ -109,7 +108,6 @@
 												<button type="button" class="btn btn-info" id="upload-result">Upload Image</button>
 												<script type="text/javascript">
 													$uploadCrop = $('#upload-demo').croppie({
-                                                        url: avatar,
 														enforceBoundary: true,
 														viewport: {
 															width: 250,
@@ -121,7 +119,10 @@
 															height: 300
 														}
 													});
-                                                    console.log(avatar);
+                                                    
+                                                    $uploadCrop.croppie('bind', avatar).then(function(){ 
+                                                       $uploadCrop.croppie('setZoom', 0)
+                                                     });
 													$('#upload').on('change', function () {
                                                         if(this.files[0].size > 2097152){
                                                            alert("File is too big! 2MB or lower");
