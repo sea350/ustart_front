@@ -133,6 +133,7 @@
                                                         else{
                                                             var reader = new FileReader();
                                                             reader.onload = function (e) {
+                                                                console.log(e.target.result);
                                                                 $uploadCrop.croppie('bind', {
                                                                     url: e.target.result,
                                                                     zoom: 1
