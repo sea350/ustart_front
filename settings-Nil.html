@@ -51,10 +51,12 @@
     <script>
         function makeImage(imageURL)
         {
+          var canvas = document.createElement("canvas");
+          context = canvas.getContext('2d');
           base_image = new Image();
           base_image.src = imageURL;
           base_image.onload = function(){
-            context.drawImage(base_image, 100, 100);
+           context.drawImage(base_image, 100, 100);
           }
           return canvas.toDataURL();
         }
