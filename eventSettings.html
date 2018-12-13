@@ -210,9 +210,8 @@
 										<button type="button" class="btn btn-info" id="upload-result2">Upload Banner</button>
 										</div>
 										<script type="text/javascript">
-											 function createCroppie(viewportWidth, viewportHeight, boundaryWidth, image) {
+											       function createCroppie(viewportWidth, viewportHeight, boundaryWidth, image) {
                                                         $uploadCrop2 = $('#upload-demo2').croppie({
-                                                        url:image,
                                                         viewport: {
                                                         width: viewportWidth,
                                                         height: viewportHeight
@@ -222,7 +221,10 @@
                                                         height:350
                                                         }
                                                         });
-                                                    };
+                                                        $uploadCrop2.croppie('bind', image).then(function(){ 
+                                                           $uploadCrop2.croppie('setZoom', 0)
+                                                        });
+                                                    }
                                                     
                                                     function resizeCroppie(width, height, bwidth, image) {
                                                          $('#upload-demo2').croppie('destroy');
