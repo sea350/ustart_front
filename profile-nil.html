@@ -446,6 +446,7 @@
 									</div>
 									<div class="widgetBody">
 									{{range $project := .ListOfHeads}}
+                                        {{if eq ($.Page) ($.DOCID)}}
 										<a  class = "projectsColumn btn btn-default" href="/Projects/{{$project.Username}}" data-project="{{$project.DocID}}" data-project-visible="{{$project.Followed}}">
 											<div class="columnImage" data-toggle="tooltip" data-placement="top" title="{{$project.FirstName}}">
 												<img id="proj-preview{{$project.DocID}}" class="img-responsive" src=""/>
@@ -455,6 +456,19 @@
 												<div class="columnTitle">{{$project.FirstName}}</div>
 											</div>
 										</a>
+                                        {{else}}
+                                            {{ if $project.Followed}}
+                                            <a  class = "projectsColumn btn btn-default" href="/Projects/{{$project.Username}}" data-project="{{$project.DocID}}">
+                                                <div class="columnImage" data-toggle="tooltip" data-placement="top" title="{{$project.FirstName}}">
+                                                    <img id="proj-preview{{$project.DocID}}" class="img-responsive" src=""/>
+                                                    <script>
+                                                        $("#proj-preview{{$project.DocID}}").attr('src', {{$project.Image}});
+                                                    </script>
+                                                    <div class="columnTitle">{{$project.FirstName}}</div>
+                                                </div>
+                                            </a>
+                                            {{end}}
+                                        {{end}}
 									{{end}}
                                         </div>
 									</div>
