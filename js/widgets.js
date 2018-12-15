@@ -167,8 +167,6 @@ function TwitchRender(twitchID, widgetID) {
     var iframe = document.createElement( "iframe" );
     var twitchurlprefix="https://player.twitch.tv/?channel=";
     var finaltwitchURL = twitchurlprefix.concat(twitchID);
-    console.log(finalDest);
-    console.log(finaltwitchURL);
     iframe.setAttribute( "frameborder", "0" );
     iframe.setAttribute( "scrolling", "no" );
     iframe.setAttribute( "allowfullscreen", "true" );
@@ -219,7 +217,6 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 }
 
 function tumblrRender(tumblrUsername) {
-	console.log('tumblur: '+tumblrUsername);
 	// Using RSS to render custom containers
     $('#widgetBodyTumblr').FeedEk({
       FeedUrl:"http://"+tumblrUsername+".tumblr.com/rss",
@@ -288,7 +285,6 @@ function anchorEditor(element) {
             e.preventDefault();
             $(this).unbind("click");
             var anchrTarget = $(this).siblings("input[name=deleteURL]").val();
-            console.log(anchrTarget);
             var widgetDeleteID = $(this).siblings("input[name=editID]").val();
             if (anchrArr.length === 1){
                 var pathName = window.location.pathname;
@@ -415,7 +411,6 @@ function pinterestEditor(element) {
 		// Add List Items
 		$('#widgetBodyPin>span').each(function(idx, element) {
 			var igSource = $(element).children('span').attr('data-pin-href');
-            console.log(igSource);
 			var igListItem = '<li><form action="/deleteLinkFromWidget/" method="POST"><input name="deleteURL" type="text" value="'+ igSource +'" readonly/> <input name="editID" type="hidden" value="' + $('#pin-modal #editID').val() + '" readonly="readonly" /><button type="submit"><i class="fa fa-times"></i></button></form></li>';
 			$('#pin-edit-list').append(igListItem);
 		});
@@ -465,7 +460,6 @@ function instagramEditor(element) {
 			var igListItem = '<li><input style="width:100%" name="deleteURL" type="text" value="' + igSource.substring(0, igSource.indexOf('embed')) + '" readonly="readonly"/> <button class="insta-delete" type="button"><i class="fa fa-times"></i></button><input name="editID" type="hidden" value="' + $('#ig-modal #editID').val() + '" /></li>';
 			$('#ig-edit-list').append(igListItem);
 		});
-        console.log(instaARR.length);
         $('.insta-delete').click(function(e){
             e.preventDefault();
             $(this).unbind("click");
@@ -514,8 +508,6 @@ function instagramEditor(element) {
             }
             else if (instaARR.length > 1){
                 instaARR.splice($.inArray(instaTarget, instaARR),1);
-                console.log(widgetDeleteID);
-                console.log(instaARR);
                  if (window.location.pathname.indexOf('/profile/') > -1){
                     $.ajax({
                        type: "POST",
@@ -1310,7 +1302,6 @@ $(document).ready(function() {
     
     $( ".delete-widget" ).click(function( event ) {
         var target= event.target.id;
-        console.log(target);
         $("#"+target+"delete").submit();
         $("#"+target).unbind( "click" );
     });
