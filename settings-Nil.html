@@ -82,7 +82,12 @@
 					var port = location.port;
 					$("#leftNavSettings").addClass("theActive");
 			</script>
-			<div class="panel-group col-sm-10 col-sm-offset-1">
+            <div class="col-sm-offset-1" style="margin-top: 3em;" href="/Profile/{{.UserInfo.Username}}" >
+                <a class="btn btn-primary navbar-btn pull-left">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Back to profile
+                </a>
+            </div>
+			<div class="panel-group col-sm-10 col-sm-offset-1" style="margin-top: 0em;">
 					<div class="row">
 						<div class="vertical-menu col-sm-3">
 							<ul>
