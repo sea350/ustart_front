@@ -1,5 +1,5 @@
 var categories = new Array("Art", "Comics", "Crafts", "Dance", "Design", "Fashion", "Film & Video", "Food", "Games", "Journalism", "Music", "Photography", "Publishing", "Technology", "Theater");
-var eventCategories = new Array("Project Showcase","Member Recruiment","Info Session","Mingling Event","Conference","Expo","Career Fair","General Meeting");
+var eventCategories = new Array("Project Showcase","Member Recruiment","Coaching","Info Session","Mingling Event","Conference","Expo","Career Fair","General Meeting");
 
 function list_categories(categoryId){
 	var category_name = document.getElementById(categoryId);
