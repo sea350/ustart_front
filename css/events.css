@@ -45,6 +45,7 @@
     text-overflow: ellipsis;
     font-size: 2em;
     text-align: center;
+    margin-bottom: 1em;
 }
 #map{
     height: 400px;
