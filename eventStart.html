@@ -106,9 +106,9 @@
                         </button> 
                         <div class="collapse" id="collapseLocation">
                         <div class="row">
-                           <div id="locationField">
-                              <input id="autocomplete" placeholder="Enter your address"
-                                     onFocus="geolocate()" type="text"></input>
+                           <div class="input-group input-groupz" id="locationField">
+                              <input id="autocomplete" class="form-control" placeholder="Enter your address"
+                                     onFocus="geolocate()" type="text"/>
                             </div>
                         </div>
                         <div id="address">
@@ -117,32 +117,28 @@
                                     <label for="country" class='sr-only'>Country</label>
                                     <div class="input-group input-groupz">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>                                
-                                        <select id="country" name="country" class="form-control field" autocomplete="country-name"></select>
+                                        <input id="country" name="country" class="form-control field"  type="text" />
                                     </div>  
                                 </div>
                                 <div class="dropdown col-md-3 col-sm-6">
                                     <label for="state" class='sr-only'>State</label>
                                     <div class="input-group input-groupz">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>                                
-                                        <select name="state" id="administrative_area_level_1" class="form-control field" autocomplete="state"></select>
+                                        <input name="state" id="administrative_area_level_1" class="form-control field" type="text"/>
                                     </div>
                                 </div>
-                                <script language="javascript">
-                                    populateCountries("country", "state");
-                                </script>
                                 <div class="col-md-3 col-sm-6">
                                     <label for="city" class='sr-only'>City</label>
                                     <div class="input-group input-groupz">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>                                 
-                                        <input id="locality" name="city" class="form-control field" placeholder="City" autocomplete="city">
+                                        <input id="locality" name="city" class="form-control field" placeholder="City">
                                     </div>    
                                 </div>
                                 <div class="col-md-3 col-sm-6">
                                     <label for="zip" class='sr-only'>Zip Code</label>
                                     <div class="input-group input-groupz">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>                                 
-                                        <input id="postal_code"
- name="zip" class="form-control field" placeholder="Zip" autocomplete="postal-code">
+                                        <input id="postal_code" name="zip" class="form-control field" placeholder="Zip">
                                     </div>
                                 </div>
                             </div>
@@ -151,7 +147,7 @@
                                     <label for="street" class='sr-only'>Street</label>
                                     <div class="input-group input-groupz">
                                         <span class="input-group-addon"><i class="fa fa-street-view"></i></span>                             
-                                        <input id="street_number" name="street" class="form-control field" placeholder="Street" autocomplete="street">       <input id="route" name="route" class="form-control field" placeholder="Street" autocomplete="street">                       
+                                        <input id="street_number" name="street" class="form-control field" placeholder="Street"><input id="route" name="route" class="form-control field" >                       
                                     </div>
                                 </div>
                             </div>
