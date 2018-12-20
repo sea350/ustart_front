@@ -54,6 +54,7 @@ $(document).ready(function () {
 		   data: {eventID:eventID},
 		   success: function(data) {
 			   var temp = JSON.parse(data);
+               console.log(temp);
 			   if (temp != null){
 				   $("#totalRequests"+eventID).show();   
 				   $("#totalRequests"+eventID).text(temp.length);
