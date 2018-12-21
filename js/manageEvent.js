@@ -44,13 +44,13 @@ function makeMemberEventApplications(name, avatar,docID, projectID, link){
 				$(this).attr({"id": $(this).attr("id").concat(projectID)});
 			}).append([
 				$('<div>',{'class':'btn-group'}).append([
-					$('<button>',{'class':'btn btn-default y-btn'}).attr({'id':'accept','name':'accept','type':'submit'}).each(function(){
+					$('<button>',{'class':'btn btn-default y-btn-2'}).attr({'id':'accept','name':'accept','type':'submit'}).each(function(){
 					$(this).attr("id", $(this).attr("id").concat(docID));
 				}).append([
 						$('<i>',{'class':'glyphicon glyphicon-ok'})
 					])
 				])
-				,$('<button>',{'class':'btn btn-default x-btn'}).attr({'id':'reject','name':'reject','type':'submit'}).each(function(){
+				,$('<button>',{'class':'btn btn-default x-btn-2'}).attr({'id':'reject','name':'reject','type':'submit'}).each(function(){
 					$(this).attr("id", $(this).attr("id").concat(docID));
 				}).append([
 					$('<i>',{'class':'glyphicon glyphicon-remove'})
@@ -153,6 +153,40 @@ $(document).ready(function () {
 		   }
 		});
    });
+     $('body').on("click", ".y-btn-2", function(e) {
+	  e.preventDefault();
+      $(this).prop('disabled', true);
+	   var that = $(this);
+	   var temp = e.currentTarget.id;
+	   var usrID=temp.replace("accept", "");
+	   var eventID = $(e.target).closest('.parentID').attr('id');
+	   var totalReq = $("#totalRequests"+eventID).text();
+	   that.off('click'); // remove handler
+	   $.ajax({
+		   type: 'GET',
+		   url: 'http://k12start.today:'+port+'/AcceptMemberJoinRequest/',
+		   contentType: "application/json; charset=utf-8",
+		   data: {userID:usrID, eventID: eventID},
+		   success: function(result) {
+			   //update notification
+               console.log(result);
+				var testresult = parseInt(result);
+				if (testresult <=0){
+				   $("#totalRequests"+eventID).hide();    
+				}
+				else{
+				   $("#totalRequests"+eventID).text(testresult);
+				}
+               $(this).prop('disabled', false);
+			   $("#"+usrID).empty();
+			   $("#"+usrID).remove();
+		   },
+		   error: function(err) {
+			   console.log('Request failed: ');
+			   console.log(err);
+		   }
+		});
+   });
    $('body').on("click", ".x-btn", function(e) {
 	   e.preventDefault();
        $(this).prop('disabled', true);
@@ -165,6 +199,38 @@ $(document).ready(function () {
 		$.ajax({
 		   type: 'GET',
 		   url: 'http://k12start.today:'+port+'/RejectEventGuestJoinRequest/',
+		   contentType: "application/json; charset=utf-8",
+		   data: {userID:usrID, eventID: eventID},
+		   success: function(result) {
+				var testresult = parseInt(result);
+				if (testresult <=0){
+				   $("#totalRequests"+eventID).hide();    
+				}
+				else{
+				   $("#totalRequests"+eventID).text(testresult);
+				}
+               $(this).prop('disabled', false);
+			   $("#"+usrID).empty();
+			   $("#"+usrID).remove();
+		   },
+		   error: function(err) {
+			   console.log('Request failed: ');
+			   console.log(err);
+		   }
+		});
+   });
+    $('body').on("click", ".x-btn-2", function(e) {
+	   e.preventDefault();
+       $(this).prop('disabled', true);
+	   var that = $(this);
+	   var temp = e.currentTarget.id;
+	   var usrID=temp.replace("reject", "");
+	   var eventID = $(e.target).closest('.parentID').attr('id');
+	   var totalReq = $("#totalRequests"+eventID).text();
+	   that.off('click'); // remove handler
+		$.ajax({
+		   type: 'GET',
+		   url: 'http://k12start.today:'+port+'/RejectEventMemberJoinRequest/',
 		   contentType: "application/json; charset=utf-8",
 		   data: {userID:usrID, eventID: eventID},
 		   success: function(result) {
