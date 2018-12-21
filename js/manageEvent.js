@@ -91,19 +91,19 @@ $(document).ready(function () {
 				   $("#totalRequests"+eventID).text(temp.length);
 				   if ($('#request-groups').contents().length == 0){
                        for (i=0; i < temp.MemberRequests.length; i++){
-                            makeMemberEventApplications(temp[i].MemberRequests.FirstName, temp[i].MemberRequests.Image,temp[i].MemberRequests.DocID,eventID,temp[i].MemberRequests.Username);
+                            makeMemberEventApplications(temp.MemberRequests[i].FirstName, temp.MemberRequests[i].Image,temp.MemberRequests[i].DocID,eventID,temp.MemberRequests[i].Username);
 					   }
 					   for (i=0; i < temp.GuestRequests.length; i++){
-                            makeEventApplications(temp[i].GuestRequests.FirstName, temp[i].GuestRequests.Image,temp[i].GuestRequests.DocID,eventID,temp[i].GuestRequests.Username);
+                            makeEventApplications(temp.GuestRequests[i].FirstName, temp.GuestRequests[i].Image,temp.GuestRequests[i].DocID,eventID,temp.GuestRequests[i].Username);
 					   }
 				   }
 				   else{
 					   $("#request-groups").empty();
 						for (i=0; i < temp.MemberRequests.length; i++){
-                            makeMemberEventApplications(temp[i].MemberRequests.FirstName, temp[i].MemberRequests.Image,temp[i].MemberRequests.DocID,eventID,temp[i].MemberRequests.Username);
+                            makeMemberEventApplications(temp.MemberRequests[i].FirstName, temp.MemberRequests[i].Image,temp.MemberRequests[i].DocID,eventID,temp.MemberRequests[i].Username);
 					   }
 					   for (i=0; i < temp.GuestRequests.length; i++){
-                            makeEventApplications(temp[i].GuestRequests.FirstName, temp[i].GuestRequests.Image,temp[i].GuestRequests.DocID,eventID,temp[i].GuestRequests.Username);
+                            makeEventApplications(temp.GuestRequests[i].FirstName, temp.GuestRequests[i].Image,temp.GuestRequests[i].DocID,eventID,temp.GuestRequests[i].Username);
 					   }
 				   }
 			   }
