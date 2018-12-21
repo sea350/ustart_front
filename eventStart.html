@@ -111,13 +111,14 @@
                                   <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>  
                                   <input id="autocomplete" class="form-control" placeholder="Enter your address"
                                          onFocus="geolocate()" type="text"/>
-                                  <!---- when all fails -->
-                                  <input class="field" id="street_number" type='hidden'/>
-                                  <input class="field" id="route"  type='hidden'/>
-                                  <input class="field" id="locality"type='hidden'/>
-                                  <input class="field" id="administrative_area_level_1" type='hidden'/>
-                                  <input class="field" id="country" type='hidden'/>
-                                  <input class="field" id="postal_code" type='hidden'/>
+                                  <!---- address fields -->
+                                  <input class="field" id="street_number" type='hidden' disabled="true"/>
+                                  <input class="field" id="route"  type='hidden' disabled="true"/>
+                                  <input class="field" name="street" id='fullAddress' type='hidden'/>
+                                  <input class="field" name="city" id="locality" type='hidden' disabled="true"/>
+                                  <input class="field" name="state" id="administrative_area_level_1" type='hidden' disabled="true"/>
+                                  <input class="field" name="country" id="country" type='hidden' disabled="true"/>
+                                  <input class="field" name="zip" id="postal_code" type='hidden' disabled="true"/>
                                 </div>
                             </div>
                         </div>
@@ -272,6 +273,7 @@
                 document.getElementById(addressType).value = val;
               }
             }
+            document.getElementById('fullAddress').value = place.address_components[0]['long_name'] + ' ' +place.address_components[1]['long_name'];
         }
 
         
