@@ -348,7 +348,24 @@
 									</form>
 
 									<form id="locChange" action="/eventLocationChang/" method="POST">
-									<input type="hidden" name="eventID" value="{{$eventid}}" />                              
+									<input type="hidden" name="eventID" value="{{$eventid}}" />      
+                                    <div  class='row'>
+                                        <div class="col-sm-12">
+                                            <div class="input-group input-groupz" id="locationField">
+                                              <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>  
+                                              <input id="autocomplete" class="form-control" placeholder="Enter your address"
+                                                     onFocus="geolocate()" type="text"/>
+                                              <!---- address fields -->
+                                              <input class="field" id="street_number" type='hidden' disabled="true"/>
+                                              <input class="field" id="route"  type='hidden' disabled="true"/>
+                                              <input class="field" name="street" id='fullAddress' type='hidden'/>
+                                              <input class="field" name="city" id="locality" type='hidden' disabled="true"/>
+                                              <input class="field" name="state" id="administrative_area_level_1" type='hidden' disabled="true"/>
+                                              <input class="field" name="country" id="country" type='hidden' disabled="true"/>
+                                              <input class="field" name="zip" id="postal_code" type='hidden' disabled="true"/>
+                                            </div>
+                                        </div>
+                                    </div>
 									<!--<div class='row'>
 										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
 											<label for="country">Country</label>
@@ -510,7 +527,53 @@
 						$("#"+$(this).data('target')).show().siblings("div").hide();
 					}); 
 				});
-			</script>									
+                
+                var placeSearch, autocomplete;
+                var componentForm = {
+                    street_number: 'short_name',
+                    route: 'long_name',
+                    locality: 'long_name',
+                    administrative_area_level_1: 'short_name',
+                    country: 'long_name',
+                    postal_code: 'short_name'
+                };
+                
+                function initAutocomplete() {
+                    // Create the autocomplete object, restricting the search to geographical
+                    // location types.
+                    autocomplete = new google.maps.places.Autocomplete(
+                        /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+                        {types: ['geocode']});
+
+                    // When the user selects an address from the dropdown, populate the address
+                    // fields in the form.
+                    autocomplete.addListener('place_changed', fillInAddress);
+                }
+
+        
+                function fillInAddress() {
+                    // Get the place details from the autocomplete object.
+                    var place = autocomplete.getPlace();
+
+                    for (var component in componentForm) {
+                      document.getElementById(component).value = '';
+                      document.getElementById(component).disabled = false;
+                    }
+
+                    // Get each component of the address from the place details
+                    // and fill the corresponding field on the form.
+                    for (var i = 0; i < place.address_components.length; i++) {
+                      var addressType = place.address_components[i].types[0];
+                      if (componentForm[addressType]) {
+                        var val = place.address_components[i][componentForm[addressType]];
+                        document.getElementById(addressType).value = val;
+                      }
+                    }
+                    document.getElementById('fullAddress').value = place.address_components[0]['long_name'] + ' ' +place.address_components[1]['long_name'];
+                }
+			</script>		
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpukq-MPMYM_r5EpHaglwGccrOgZxON1s&libraries=places&callback=initAutocomplete"
+        async defer></script>
 		</div>
 		<!-- end of centering -->
 
