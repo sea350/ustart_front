@@ -7,16 +7,10 @@ function makeEventApplications(name, avatar,docID, projectID, link){
 				$(this).attr({"id": $(this).attr("id").concat(projectID)});
 			}).append([
 				$('<div>',{'class':'btn-group'}).append([
-					$('<button>',{'class':'btn btn-default dropdown-toggle'}).attr({'type':'button','data-toggle':'dropdown','aria-haspopup':'true','aria-expanded':'false'}).append([
+					$('<button>',{'class':'btn btn-default y-btn'}).attr({'id':'accept','name':'accept','type':'submit'}).each(function(){
+					$(this).attr("id", $(this).attr("id").concat(docID));
+				}).append([
 						$('<i>',{'class':'glyphicon glyphicon-ok'})
-					])
-					,$('<div>',{'class':'dropdown-menu'}).append([
-						$('<a>',{'class':'dropdown-item y-btn'}).attr({'id':'accept'}).text('Member').each(function(){
-							$(this).attr("id", $(this).attr("id").concat(docID));
-						})
-						,$('<a>',{'class':'dropdown-item y-btn'}).attr({'id':'accept'}).text('Moderator').each(function(){
-							$(this).attr("id", $(this).attr("id").concat(docID));
-						})
 					])
 				])
 				,$('<button>',{'class':'btn btn-default x-btn'}).attr({'id':'reject','name':'reject','type':'submit'}).each(function(){
@@ -87,7 +81,6 @@ $(document).ready(function () {
       $(this).prop('disabled', true);
 	   var that = $(this);
 	   var temp = e.currentTarget.id;
-	   var role = $(e.currentTarget).text();
 	   var usrID=temp.replace("accept", "");
 	   var projID = $(e.target).closest('.parentID').attr('id');
 	   var totalReq = $("#totalRequests"+projID).text();
@@ -96,7 +89,7 @@ $(document).ready(function () {
 		   type: 'GET',
 		   url: 'http://k12start.today:'+port+'/AcceptGuestJoinRequest/',
 		   contentType: "application/json; charset=utf-8",
-		   data: {userID:usrID, role:role, projectID: projID},
+		   data: {userID:usrID, projectID: projID},
 		   success: function(result) {
 			   //update notification
                console.log(result);
