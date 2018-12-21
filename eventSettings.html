@@ -349,12 +349,11 @@
 
 									<form id="locChange" action="/eventLocationChang/" method="POST">
 									<input type="hidden" name="eventID" value="{{$eventid}}" />                              
-									<div class='row'>
+									<!--<div class='row'>
 										<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
 											<label for="country">Country</label>
 										</div>
 										<div class="col-sm-9">
-											<!--<label class="switch usr-vis-opt"><input type="checkbox" id="countryVis" name="countryVis" checked><span class="slider round"></span></label>-->
 											<select id="country" class="form-control" name="country" required></select>
 										</div>
 									</div>
@@ -363,7 +362,6 @@
 											<label for="state">State</label>
 										</div>
 										<div class="col-sm-9">
-											<!--<label class="switch usr-vis-opt"><input type="checkbox" id="stateVis" name="stateVis" checked><span class="slider round"></span></label>-->
 											<select id="state" class="form-control" name="state" required></select>
 										</div>
 										<script language="javascript">
@@ -378,7 +376,6 @@
 											<label for="city">City</label>
 										</div>
 										<div class="col-sm-9">
-											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="cityVis" id="cityVis" checked><span class="slider round"></span></label>-->
 											<input id="city" class="form-control" name="city" placeholder="City" value="{{.Event.EventData.Location.City}}" required/>
 										</div>
 									</div>
@@ -387,7 +384,7 @@
 											<label for="street">Street</label>
 										</div>
 										<div class="col-sm-9">
-											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="streetVis" id="cityVis" checked><span class="slider round"></span></label>-->
+										
 											<input id="street" class="form-control" name="street" placeholder="Street" value="{{.Event.EventData.Location.Street}}" required/>
 										</div>
 									</div>											
@@ -396,10 +393,9 @@
 											<label for="zip">Zip</label>
 										</div>
 										<div class="col-sm-9">
-											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="zipVis" id="zipVis"  checked><span class="slider round"></span></label>-->
 											<input id="zip" class="form-control" name="zip" placeholder="Zip" value="{{.Event.EventData.Location.Zip}}" required />
 										</div>
-									</div>	
+									</div>	-->
 									<input type="submit" class="btn btn-info" name="name_submit" value="Change Location" />
 									<div class="save-message fade"></div>									
 								</form>	

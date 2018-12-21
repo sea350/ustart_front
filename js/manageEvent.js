@@ -80,7 +80,7 @@ $(document).ready(function () {
        $(this).prop('disabled', true);
        $.ajax({
 		   type: 'GET',
-		   url: 'http://k12start.today:'+port+'/LoadMemberJoinRequests/',
+		   url: 'http://k12start.today:'+port+'/LoadEventRequests/',
 		   contentType: "application/json; charset=utf-8",
 		   data: {eventID:eventID},
 		   success: function(data) {
