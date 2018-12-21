@@ -89,7 +89,7 @@ $(document).ready(function () {
 		   type: 'GET',
 		   url: 'http://k12start.today:'+port+'/AcceptGuestJoinRequest/',
 		   contentType: "application/json; charset=utf-8",
-		   data: {userID:usrID, projectID: projID},
+		   data: {userID:usrID, eventID: eventID},
 		   success: function(result) {
 			   //update notification
                console.log(result);
