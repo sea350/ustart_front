@@ -83,7 +83,7 @@ $(document).ready(function () {
 	   var temp = e.currentTarget.id;
 	   var usrID=temp.replace("accept", "");
 	   var eventID = $(e.target).closest('.parentID').attr('id');
-	   var totalReq = $("#totalRequests"+projID).text();
+	   var totalReq = $("#totalRequests"+eventID).text();
 	   that.off('click'); // remove handler
 	   $.ajax({
 		   type: 'GET',
@@ -117,7 +117,7 @@ $(document).ready(function () {
 	   var temp = e.currentTarget.id;
 	   var usrID=temp.replace("reject", "");
 	   var eventID = $(e.target).closest('.parentID').attr('id');
-	   var totalReq = $("#totalRequests"+projID).text();
+	   var totalReq = $("#totalRequests"+eventID).text();
 	   that.off('click'); // remove handler
 		$.ajax({
 		   type: 'GET',
