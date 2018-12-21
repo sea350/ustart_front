@@ -78,6 +78,39 @@ $(document).ready(function () {
    $('.eventList').on( "click", function(e) {
 	   var eventID = e.currentTarget.id;
        $(this).prop('disabled', true);
+       $.ajax({
+		   type: 'GET',
+		   url: 'http://k12start.today:'+port+'/LoadMemberJoinRequests/',
+		   contentType: "application/json; charset=utf-8",
+		   data: {eventID:eventID},
+		   success: function(data) {
+			   var temp = JSON.parse(data);
+               console.log(temp);
+			   if (temp != null){
+				   $("#totalRequests"+eventID).show();   
+				   $("#totalRequests"+eventID).text(temp.length);
+				   if ($('#request-groups').contents().length == 0){
+					   for (i=0; i < temp.length; i++){
+                            makeMemberEventApplications(temp[i].FirstName, temp[i].Image,temp[i].DocID,eventID,temp[i].Username);
+					   }
+				   }
+				   else{
+					   $("#request-groups").empty();
+						for (i=0; i < temp.length; i++){
+                            makeMemberEventApplications(temp[i].FirstName, temp[i].Image,temp[i].DocID,eventID,temp[i].Username);
+					   }
+				   }
+			   }
+			   else{
+				   $("#request-groups").empty();
+			   }
+               $(this).prop('disabled', false);
+		   },
+		   error: function(err) {
+			   console.log('Event failed: ');
+			   console.log(err);
+		   }
+	   });
 	   $.ajax({
 		   type: 'GET',
 		   url: 'http://k12start.today:'+port+'/LoadGuestJoinRequests/',
