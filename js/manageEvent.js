@@ -30,7 +30,44 @@ function makeEventApplications(name, avatar,docID, projectID, link){
 				})
 			])
 			,$('<br>')
-			,$('<span>',{'class':'invitation-message'}).text('would like to join your event!')
+			,$('<span>',{'class':'invitation-message'}).text('would like to join your event as a guest!')
+		])		
+	])
+};
+
+function makeMemberEventApplications(name, avatar,docID, projectID, link){
+	$('#request-groups').append([
+		$('<li>',{'class':'request-group'}).attr('id','').each(function(){
+			$(this).attr("id", $(this).attr("id").concat(docID));
+		}).append([
+			$('<div>',{'class':'input-group-btn1 parentID'}).attr({'id':''}).each(function(){
+				$(this).attr({"id": $(this).attr("id").concat(projectID)});
+			}).append([
+				$('<div>',{'class':'btn-group'}).append([
+					$('<button>',{'class':'btn btn-default y-btn'}).attr({'id':'accept','name':'accept','type':'submit'}).each(function(){
+					$(this).attr("id", $(this).attr("id").concat(docID));
+				}).append([
+						$('<i>',{'class':'glyphicon glyphicon-ok'})
+					])
+				])
+				,$('<button>',{'class':'btn btn-default x-btn'}).attr({'id':'reject','name':'reject','type':'submit'}).each(function(){
+					$(this).attr("id", $(this).attr("id").concat(docID));
+				}).append([
+					$('<i>',{'class':'glyphicon glyphicon-remove'})
+				])
+			])
+			,$('<a>').attr({'href':'/profile/'}).each(function(){
+				$(this).attr("href", $(this).attr("href").concat(link));
+			}).append([
+				$('<img>',{'class':'inbox-icon'}).attr({'id':'avatar','src':''}).each(function(){
+					$(this).attr({"id": $(this).attr("id").concat(docID),'src':$(this).attr("src").concat(avatar)});
+				})
+				,$('<span>',{'class':'group-header'}).each(function(){
+					$(this).text(name);
+				})
+			])
+			,$('<br>')
+			,$('<span>',{'class':'invitation-message'}).text('would like to join your event as a member!')
 		])		
 	])
 };
