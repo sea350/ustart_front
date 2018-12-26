@@ -90,21 +90,29 @@ $(document).ready(function () {
 				   $("#totalRequests"+eventID).show();   
 				   $("#totalRequests"+eventID).text(temp.length);
 				   if ($('#request-groups').contents().length == 0){
-                       for (i=0; i < temp.MemberRequests.length; i++){
-                            makeMemberEventApplications(temp.MemberRequests[i].FirstName, temp.MemberRequests[i].Image,temp.MemberRequests[i].DocID,eventID,temp.MemberRequests[i].Username);
-					   }
-					   for (i=0; i < temp.GuestRequests.length; i++){
-                            makeEventApplications(temp.GuestRequests[i].FirstName, temp.GuestRequests[i].Image,temp.GuestRequests[i].DocID,eventID,temp.GuestRequests[i].Username);
-					   }
+                       if (temp.MemberRequests!= null){
+                           for (i=0; i < temp.MemberRequests.length; i++){
+                                makeMemberEventApplications(temp.MemberRequests[i].FirstName, temp.MemberRequests[i].Image,temp.MemberRequests[i].DocID,eventID,temp.MemberRequests[i].Username);
+                           }
+                       }
+                       if (temp.GuestRequests!= null){
+                           for (i=0; i < temp.GuestRequests.length; i++){
+                                makeEventApplications(temp.GuestRequests[i].FirstName, temp.GuestRequests[i].Image,temp.GuestRequests[i].DocID,eventID,temp.GuestRequests[i].Username);
+                           }
+                       }
 				   }
 				   else{
 					   $("#request-groups").empty();
-						for (i=0; i < temp.MemberRequests.length; i++){
-                            makeMemberEventApplications(temp.MemberRequests[i].FirstName, temp.MemberRequests[i].Image,temp.MemberRequests[i].DocID,eventID,temp.MemberRequests[i].Username);
-					   }
-					   for (i=0; i < temp.GuestRequests.length; i++){
-                            makeEventApplications(temp.GuestRequests[i].FirstName, temp.GuestRequests[i].Image,temp.GuestRequests[i].DocID,eventID,temp.GuestRequests[i].Username);
-					   }
+				       if (temp.MemberRequests!= null){
+                           for (i=0; i < temp.MemberRequests.length; i++){
+                                makeMemberEventApplications(temp.MemberRequests[i].FirstName, temp.MemberRequests[i].Image,temp.MemberRequests[i].DocID,eventID,temp.MemberRequests[i].Username);
+                           }
+                       }
+                       if (temp.GuestRequests!= null){
+                           for (i=0; i < temp.GuestRequests.length; i++){
+                                makeEventApplications(temp.GuestRequests[i].FirstName, temp.GuestRequests[i].Image,temp.GuestRequests[i].DocID,eventID,temp.GuestRequests[i].Username);
+                           }
+                       }
 				   }
 			   }
 			   else{
