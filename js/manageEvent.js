@@ -1,3 +1,10 @@
+function getNum(val) {
+   if (isNaN(val)) {
+     return 0;
+   }
+   return val;
+}
+
 function makeEventApplications(name, avatar,docID, projectID, link){
 	$('#request-groups').append([
 		$('<li>',{'class':'request-group'}).attr('id','').each(function(){
@@ -86,7 +93,7 @@ $(document).ready(function () {
 		   success: function(data) {
 			   var temp = JSON.parse(data);
 			   if (temp != null){
-                   var requestCount = temp.MemberRequests.length+ temp.GuestRequests.length;
+                   var requestCount = getNum(temp.MemberRequests.length)+ getNum(temp.GuestRequests.length);
 				   $("#totalRequests"+eventID).show();   
 				   $("#totalRequests"+eventID).text(requestCount);
 				   if ($('#request-groups').contents().length == 0){
