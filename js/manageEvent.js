@@ -226,6 +226,7 @@ $(document).ready(function () {
 	   var temp = e.currentTarget.id;
 	   var usrID=temp.replace("reject", "");
 	   var eventID = $(e.target).closest('.parentID').attr('id');
+       console.log(eventID);
 	   var totalReq = $("#totalRequests"+eventID).text();
 	   that.off('click'); // remove handler
 		$.ajax({
