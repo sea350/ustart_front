@@ -85,10 +85,10 @@ $(document).ready(function () {
 		   data: {eventID:eventID},
 		   success: function(data) {
 			   var temp = JSON.parse(data);
-               console.log(temp);
 			   if (temp != null){
+                   var requestCount = temp.MemberRequests.length+ temp.GuestRequests.length;
 				   $("#totalRequests"+eventID).show();   
-				   $("#totalRequests"+eventID).text(temp.length);
+				   $("#totalRequests"+eventID).text(requestCount);
 				   if ($('#request-groups').contents().length == 0){
                        if (temp.MemberRequests!= null){
                            for (i=0; i < temp.MemberRequests.length; i++){
