@@ -93,7 +93,20 @@ $(document).ready(function () {
 		   success: function(data) {
 			   var temp = JSON.parse(data);
 			   if (temp != null){
-                   var requestCount = parseInt(temp.MemberRequests.length)+ parseInt(temp.GuestRequests.length);
+                    switch(temp){
+                        case (temp.MemberRequests != null && temp.GuestRequests != null):
+                            var requestCount = parseInt(temp.MemberRequests.length)+ parseInt(temp.GuestRequests.length);
+                            break;
+                        case (temp.MemberRequests == null && temp.GuestRequests != null):
+                            var requestCount = 0+ parseInt(temp.GuestRequests.length);
+                            break;
+                        case (temp.GuestRequests == null && temp.MemberRequests != null):
+                             var requestCount = 0+ parseInt(temp.MemberRequests.length);
+                             break;
+                        case (temp.GuestRequests == null && temp.MemberRequests == null):
+                             var requestCount = 0;
+                             break;
+                    }
 				   $("#totalRequests"+eventID).show();   
 				   $("#totalRequests"+eventID).text(requestCount);
 				   if ($('#request-groups').contents().length == 0){
