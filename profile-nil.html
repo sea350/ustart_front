@@ -59,6 +59,20 @@
 			text-overflow: ellipsis;
 			overflow: hidden;		
 		}
+        .beta-badge{
+            position: absolute;
+            background: rgba(0,0,255,1);
+            height:2rem;
+            top:1rem;
+            right:1.5rem;
+            width:2rem;
+            text-align: center;
+            line-height: 2rem;;
+            font-size: 1rem;
+            border-radius: 50%;
+            color:white;
+            border:1px solid blue;
+        }
 		/*
 		.hashTagsBody span{
 		}
@@ -276,6 +290,16 @@
 							<div class="dashboard panel panel-default">
 								<div id="dash-header">
 									<h4>Suggested Projects</h4>
+									<div class="suggested-projects-cont">
+									</div>
+								</div>
+							</div>
+						</div>
+                        <div id="suggestedMentor" class="margin-top">
+                            <span class="beta-badge">Beta</span>
+							<div class="dashboard panel panel-default">
+								<div id="dash-header">
+									<h4>Suggested Mentors</h4>
 									<div class="suggested-projects-cont">
 									</div>
 								</div>
