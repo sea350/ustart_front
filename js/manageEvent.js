@@ -93,7 +93,7 @@ $(document).ready(function () {
 		   success: function(data) {
 			   var temp = JSON.parse(data);
 			   if (temp != null){
-                   var requestCount = getNum(temp.MemberRequests.length)+ getNum(temp.GuestRequests.length);
+                   var requestCount = parseInt(temp.MemberRequests.length)+ parseInt(temp.GuestRequests.length);
 				   $("#totalRequests"+eventID).show();   
 				   $("#totalRequests"+eventID).text(requestCount);
 				   if ($('#request-groups').contents().length == 0){
