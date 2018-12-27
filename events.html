@@ -853,6 +853,7 @@
                         <div id= "editModals" role="dialog"> </div>                            
                         
                         {{range $member := .Event.MemberData}}
+                        {{if eq $userid $member.DocID}}
                         <!-- new post panel-->
                         <div class="panel panel-default">
                             <div class="panel-body">
@@ -869,7 +870,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+                        {{end}}
                         {{end}}
                         <!-- end new post -->
                         <div id="wallNewPost"></div>
