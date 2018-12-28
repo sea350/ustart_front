@@ -495,7 +495,7 @@ form#shareCommentForm .btn {
 }
 
 
-@media (min-width: 768px) and (max-width: 1200px) {
+@media (min-width: 1060px) and (max-width: 1200px) {
     div#content, #head-image {
          width:100%
     }
@@ -512,12 +512,7 @@ form#shareCommentForm .btn {
     }
 }
 
-@media (min-width: 768px) and (max-width: 1060px){
-  .main{
-        width: calc( 100% - 134px);
-    }
-}
-@media (min-width: 1px) and (max-width: 768px) {
+@media (min-width: 1px) and (max-width: 500px) {
     img#head-image {
         display: none;
     }
@@ -567,7 +562,6 @@ form#shareCommentForm .btn {
         padding-left: 0 !important;
         padding-right: 0!important;
         margin-top: 1em !important;
-        margin-left: 1em !important;
     }
     div.menu-wrap-inner {
         padding: 0;
