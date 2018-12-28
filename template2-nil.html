@@ -144,18 +144,21 @@
         </div>
         <script>
             $('#searchFilters').hide();
-            
             (function($) {
                 var $window = $(window),
-                    $navrbar= $('#right-navBar');
+                    $html = $('#right-navBar');
 
-                $window.resize(function resize(){
+                function resize() {
                     if ($window.width() > 768) {
-                        return $navrbar.addClass('navbar-right');
+                        return $html.addClass('navbar-right');
                     }
 
-                    $navrbar.removeClass('navbar-right');
-                }).trigger('resize');
+                    $html.removeClass('navbar-right');
+                }
+
+                $window
+                    .resize(resize)
+                    .trigger('resize');
             })(jQuery);
         </script>
     </nav>
