@@ -592,7 +592,7 @@ input {
       font-size:20px;
     }
     .navbar-nav .open .dropdown-menu {
-        position: relative;
+        position: absolute;
     }
     #notifDrop {
         width: 350px;
