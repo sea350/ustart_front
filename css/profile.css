@@ -494,7 +494,7 @@ form#shareCommentForm .btn {
     }
 }
 
-@media (max-width: 1200px) {
+@media (min-width: 768px) and (max-width: 1200px) {
     div#content, #head-image {
          width:100%
     }
@@ -511,12 +511,12 @@ form#shareCommentForm .btn {
     }
 }
 
-@media (max-width: 1060px){
+@media (min-width: 768px) and (max-width: 1060px){
   .main{
         width: calc( 100% - 134px);
     }
 }
-@media (max-width: 500px) {
+@media (min-width: 1px) and (max-width: 500px) {
     img#head-image {
         display: none;
     }
