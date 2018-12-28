@@ -612,6 +612,13 @@ input {
     z-index: 5000;
 }
 
+@media (min-width: 1px) and (max-width: 768px) {
+	.navbar-nav {
+        position: relative;
+        right:0;
+    }
+}
+
 @media (max-width: 600px) {
 	.modal-dialog {
 		max-width: 98%;
@@ -630,6 +637,7 @@ input {
         position:fixed;
         top: 2.5em;
     }
+    
     .navbar-right #optionDrop {
         right: 0;
         left: auto;
