@@ -286,8 +286,7 @@ div.navbar-filler-filter {
     margin-left: 1em
 }
 
-/*
-@media (max-width: 768px) {
+@media (min-width: 768px){
     .navbar {
         border-radius: 4px;
         min-width: 320px;
@@ -439,6 +438,7 @@ div.navbar-filler-filter {
 		max-width: 12em;
 	}
 }
+/*
 @media (max-width: 768px) {
     #drop {
         position: absolute!important;
