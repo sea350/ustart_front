@@ -285,6 +285,8 @@ div.navbar-filler-filter {
     width: 90%;
     margin-left: 1em
 }
+
+/*
 @media (max-width: 768px) {
     .navbar {
         border-radius: 4px;
@@ -443,6 +445,7 @@ div.navbar-filler-filter {
         background-color: black!important
     }
 }
+*/
 .nav-item,
 .navbar-nav>li>a {
     padding-top: 0;
