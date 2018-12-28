@@ -285,7 +285,7 @@ div.navbar-filler-filter {
     width: 90%;
     margin-left: 1em
 }
-
+/*
 @media (min-width: 768px) {
     .navbar {
         border-radius: 4px;
@@ -433,11 +433,11 @@ div.navbar-filler-filter {
     /*.navbar-form {
         margin-left: 0em!important;
         position: absolute
-    } */
+    } 
     #search-box {
 		max-width: 12em;
 	}
-}
+}*/
 /*
 @media (max-width: 768px) {
     #drop {
