@@ -302,7 +302,7 @@
 									<div class="col-sm-6">
 										<form id="nameChange" action="" method="POST">	
 											<script type="text/javascript">
-												$( "#nameChange" ).attr( 'action', 'https://ustart.today:'+port +'/changeName/' );
+												$( "#nameChange" ).attr( 'action', 'http://k12start.today:'+port +'/changeName/' );
 											</script>
 											<label for="fname" style='text-align:center; font-weight:bold;'>First Name</label>										
 											<!--<label class="switch usr-vis-opt"><input type="checkbox" name="fnameVis" checked /><span class="slider round"></span></label>	-->										
@@ -331,7 +331,7 @@
 									<div class="col-sm-6" id='wborder'>
 										<form id="locChange" action="" method="POST">										
 										<script type="text/javascript">
-											$( "#locChange" ).attr( 'action', 'https://ustart.today:'+port +'/changeLoc/' );
+											$( "#locChange" ).attr( 'action', 'http://k12start.today:'+port +'/changeLoc/' );
 										</script>
 										<label for="country">Country</label>																			
                                         {{if .UserInfo.Location.CountryVis}}
@@ -385,7 +385,7 @@
 								<div class="row">
 									<form id="UpdateDescription" action="" method="POST">
 										<script type="text/javascript">
-											$( "#UpdateDescription" ).attr( 'action', 'https://ustart.today:'+port +'/UpdateDescription/' );
+											$( "#UpdateDescription" ).attr( 'action', 'http://k12start.today:'+port +'/UpdateDescription/' );
 										</script>										
 										<label for="inputDesc">Description</label>
 										<textarea type="text" class="form-control" id="inputDesc" name="inputDesc" rows="4" placeholder="Update your bio." maxlength="5000" value="readRuneArrayThatWorks({{.UserInfo.Description}})"></textarea>
@@ -405,7 +405,7 @@
 								<div id='education'>
 									<form id="eduChange" action="" method="POST">
 										<script type="text/javascript">
-											$( "#eduChange" ).attr( 'action', 'https://ustart.today:'+port +'/changeEDU/' );
+											$( "#eduChange" ).attr( 'action', 'http://k12start.today:'+port +'/changeEDU/' );
 										</script>									
 										<div class='row'>
 											<div class="col-sm-3" style='text-align:center; font-weight:bold;'>
@@ -524,7 +524,7 @@
 								<div id='password'>
 									<form id="passChange" action="" method="POST" >
 											<script type="text/javascript">
-															$( "#passChange" ).attr( 'action', 'https://ustart.today:'+port +'/changePass/' );
+															$( "#passChange" ).attr( 'action', 'http://k12start.today:'+port +'/changePass/' );
 											</script>
 											<!--
 											<div class="alert alert-info alert-dismissable fade in">
@@ -595,7 +595,7 @@
 													</div>
 													<form id="deleteAccountForm" action="" method="POST">
 														<script type="text/javascript">
-																		$( "#deleteAccountForm" ).attr( 'action', 'https://ustart.today:'+port +'/deleteAccount/' );
+																		$( "#deleteAccountForm" ).attr( 'action', 'http://k12start.today:'+port +'/deleteAccount/' );
 														</script>
 														<input type="submit" class="btn btn-danger" name="name_submit" value="Delete Account" />
 													</form>

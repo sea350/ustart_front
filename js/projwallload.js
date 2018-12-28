@@ -28,7 +28,7 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
     });
     $.ajax({
                 type: 'GET',
-                url: 'https://ustart.today:'+port+'/AjaxLoadProjectEntries/',
+                url: 'http://k12start.today:'+port+'/AjaxLoadProjectEntries/',
                 contentType: "application/json; charset=utf-8",
                 data: {userID:pageID, scrollID:""},
                 success: function(data) {
@@ -93,7 +93,7 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
           var postID = temp.replace("like-btn",'');
            $.ajax({
                     type: 'GET',
-                    url: 'https://ustart.today:'+port+'/Like/',
+                    url: 'http://k12start.today:'+port+'/Like/',
                     contentType: "application/json; charset=utf-8",
                     data: {PostID:postID},
                     success: function(data) {
@@ -116,7 +116,7 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
       var postID = e.currentTarget.id;
       $.ajax({
                 type: 'GET',
-                url: 'https://ustart.today:'+port+'/AjaxLoadComments/',
+                url: 'http://k12start.today:'+port+'/AjaxLoadComments/',
                 contentType: "application/json; charset=utf-8",
                 data: {postID:postID},
                 success: function(data) { 
@@ -152,7 +152,7 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
        var postID =  e.currentTarget.getAttribute('myvalue');
         $.ajax({
                 type: 'GET',
-                url: 'https://ustart.today:'+port+'/getComments/',
+                url: 'http://k12start.today:'+port+'/getComments/',
                 contentType: "application/json; charset=utf-8",
                 data: {PostID:postID},
                 success: function(data) {
@@ -193,7 +193,7 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
       if (content != ""){
         $.ajax({
                 type: 'GET',
-                url: 'https://ustart.today:'+port+'/AddComment2/',
+                url: 'http://k12start.today:'+port+'/AddComment2/',
                 contentType: "application/json; charset=utf-8",
                 data: {postID:postID, body:content},
                 success: function(data) {
@@ -225,7 +225,7 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
        if (content != ""){
             $.ajax({
                     type: 'GET',
-                    url: 'https://ustart.today:'+port+'/ProjectMakeEntry/',
+                    url: 'http://k12start.today:'+port+'/ProjectMakeEntry/',
                     contentType: "application/json; charset=utf-8",
                     data: {docID:pageID, text:content},
                     success: function(data) {
@@ -261,7 +261,7 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
        if (content != ""){
         $.ajax({
                 type: 'GET',
-                url: 'https://ustart.today:'+port+'/AddComment2/',
+                url: 'http://k12start.today:'+port+'/AddComment2/',
                 contentType: "application/json; charset=utf-8",
                 data: {postID:postID, body:content},
                 success: function(data) {
@@ -305,7 +305,7 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
       var x = document.getElementsByClassName("wallPosts");
       $.ajax({
                 type: 'GET',
-                url: 'https://ustart.today:'+port+'/AjaxDeleteProjectEntry/',
+                url: 'http://k12start.today:'+port+'/AjaxDeleteProjectEntry/',
                 contentType: "application/json; charset=utf-8",
                 data: {projID:pageID, entryID:postID},
                 success: function(data) {
@@ -349,7 +349,7 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
       $(e.currentTarget).prop('disabled', true);
       $.ajax({
                 type: 'GET',
-                url: 'https://ustart.today:'+port+'/shareEntry/',
+                url: 'http://k12start.today:'+port+'/shareEntry/',
                 contentType: "application/json; charset=utf-8",
                 data: {postid:postID, content:content},
                 success: function(data) {
@@ -374,7 +374,7 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
       $(e.currentTarget).prop('disabled', true);
       $.ajax({
                 type: 'GET',
-                url: 'https://ustart.today:'+port+'/editPost/',
+                url: 'http://k12start.today:'+port+'/editPost/',
                 contentType: "application/json; charset=utf-8",
                 data: {postid:postID, content:content},
                 success: function(data) {
@@ -405,7 +405,7 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
       $(this).unbind( "click" );
       $.ajax({
                 type: 'GET',
-                url: 'https://ustart.today:'+port+'/deletePost/',
+                url: 'http://k12start.today:'+port+'/deletePost/',
                 contentType: "application/json; charset=utf-8",
                 data: {postid:postID},
                 success: function(data) {
@@ -439,7 +439,7 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
       $(this).unbind( "click" )
       $.ajax({
                 type: 'GET',
-                url: 'https://ustart.today:'+port+'/deletePost/',
+                url: 'http://k12start.today:'+port+'/deletePost/',
                 contentType: "application/json; charset=utf-8",
                 data: {postid:postID},
                 success: function(data) {
@@ -502,7 +502,7 @@ $('body').on("click", "#Wall-loadAJAX", function(e) {
                  if ($(".wallPosts").length < maxHits){
                  $.ajax({
                     type: 'GET',
-                    url: 'https://ustart.today:'+port+'/AjaxLoadProjectEntries/',
+                    url: 'http://k12start.today:'+port+'/AjaxLoadProjectEntries/',
                     contentType: "application/json; charset=utf-8",
                     data: {userID:pageID, scrollID: projscrollID},
                     success: function(data) {   

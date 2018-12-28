@@ -17,7 +17,7 @@ function removeLink(element) {
 	if (eventInputID.length){
 		$.ajax({
 			type: 'GET',  
-			url: 'https://ustart.today:'+port+'/DeleteEventQuickLink/',
+			url: 'http://k12start.today:'+port+'/DeleteEventQuickLink/',
 			contentType: "application/json; charset=utf-8",
 			data: {deleteEventLink:httpURL, deleteEventLinkDesc:userlinkdesc, eventID:eventInputID.val()},
 			success: function(data) {
@@ -32,7 +32,7 @@ function removeLink(element) {
 	else if (projectInputID.length) {
 		$.ajax({
 			type: 'GET',  
-			url: 'https://ustart.today:'+port+'/DeleteProjectLink/',
+			url: 'http://k12start.today:'+port+'/DeleteProjectLink/',
 			contentType: "application/json; charset=utf-8",
 			data: {deleteProjectLink:httpURL, deleteProjectLinkDesc:userlinkdesc, projectID:projectInputID.val()},
 			success: function(data) {
@@ -46,7 +46,7 @@ function removeLink(element) {
 	} else {
 		$.ajax({
 			type: 'GET',  
-			url: 'https://ustart.today:'+port+'/deleteLink/',
+			url: 'http://k12start.today:'+port+'/deleteLink/',
 			contentType: "application/json; charset=utf-8",
 			data: {userLink:httpURL, userLinkDesc:userlinkdesc},
 			success: function(data) {
@@ -128,7 +128,7 @@ $(document).ready(function() {
 			if ($.inArray(httpURL, linkList) == -1) {
 				$.ajax({
 					type: 'GET',  
-					url: 'https://ustart.today:'+port+'/addLink/',
+					url: 'http://k12start.today:'+port+'/addLink/',
 					contentType: "application/json; charset=utf-8",
 					data: {userLink:httpURL, userLinkDesc:userlinkdesc},
 					success: function(data) {
@@ -157,7 +157,7 @@ $(document).ready(function() {
 			if ($.inArray(httpURL, linkList) == -1) {
 				$.ajax({
 					type: 'GET',
-					url: 'https://ustart.today:'+port+'/AddEventQuickLink/',
+					url: 'http://k12start.today:'+port+'/AddEventQuickLink/',
 					contentType: "application/json; charset=utf-8",
 					data: {eventLink:httpURL, eventLinkDesc:eventlinkdesc, eventID:eventid},
 					success: function(data) {
@@ -188,7 +188,7 @@ $(document).ready(function() {
 			if ($.inArray(httpURL, linkList) == -1) {
 				$.ajax({
 					type: 'GET',
-					url: 'https://ustart.today:'+port+'/AddProjectLink/',
+					url: 'http://k12start.today:'+port+'/AddProjectLink/',
 					contentType: "application/json; charset=utf-8",
 					data: {projectLink:httpURL, projectLinkDesc:projectlinkdesc, projectID:projectid},
 					success: function(data) {

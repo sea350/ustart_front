@@ -49,7 +49,7 @@ $(document).ready(function() {
 			$.ajax({
 				type: 'GET',  
 <<<<<<< HEAD
-				url: 'https://ustart.today:5002/callme/',
+				url: 'http://k12start.today:5002/callme/',
 =======
 				url: 'http://ustart.today:5004/callme/',
 >>>>>>> master
@@ -67,7 +67,7 @@ $(document).ready(function() {
 			$.ajax({
 				type: 'GET',  
 <<<<<<< HEAD
-				url: 'https://ustart.today:5002/callme/',
+				url: 'http://k12start.today:5002/callme/',
 =======
 				url: 'http://ustart.today:5004/callme/',
 >>>>>>> master
