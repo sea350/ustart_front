@@ -82,7 +82,7 @@ body {
 }
 #centering {
     position: relative;
-    top: 3.5em;
+    top: 0em !important
 }
 
 .navbar-nav.navbar-right:last-child {
