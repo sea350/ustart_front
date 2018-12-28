@@ -591,7 +591,7 @@ input {
 @media (min-width: 767px) {
     
     .navbar-nav .open .dropdown-menu {
-        position: relative;
+        position: static;
     }
 }
 
