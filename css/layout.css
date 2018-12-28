@@ -615,6 +615,9 @@ input {
     ul.navbar-nav {
         right: 0
     }
+    form.navbar-form {
+        margin-left: 10px;    
+    }
 }
 .navbar-nav>li>.dropdown-menu {
     z-index: 5000;
@@ -663,7 +666,7 @@ input {
     }
     form.navbar-form {
         margin-left: 59px;    
-}
+    }
 }
 @media (max-width: 360px) {
  #logo-brand>span{
