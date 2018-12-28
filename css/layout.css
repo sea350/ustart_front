@@ -588,9 +588,6 @@ input {
     #logo-brand>span{
       font-size:20px;
     }
-    .navbar-nav .open .dropdown-menu {
-        position: absolute;
-    }
     #notifDrop {
         width: 350px;
     }
