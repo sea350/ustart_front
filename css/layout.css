@@ -596,13 +596,13 @@ input {
 }
 
 @media (max-width: 767px) {
+    body{padding-top:100px;}
     #logo-brand>span{
       font-size:20px;
     }
     .navbar-nav .open .dropdown-menu {
         position: relative;
     }
-    
     #notifDrop {
         width: 350px;
     }
