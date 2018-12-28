@@ -35,7 +35,7 @@ function updateSkillsCounter(element) {
 
 function createTagWidgetElement(element, tag) {
     var tagspan = $('<button/>').attr({'id': 'skill-'+ tag, 'class': 'btn btn-default projectsColumn'}).click(function() {
-        window.location.href='http://k12start.today:'+window.location.port+'/search?query=&searchFilterGroup=projects&sortbyfilter=relevance&searchbyprojectname=true&searchbyurl=true&searchbyskills=true&searchbylocationcountry=&usersearchlocationcountry=United+States&usersearchlocationstate=&usersearchlocationstate=NY&searchlistmajors=%5D&searchlistskills=%5B%22'+tag+'%22%5D'
+        window.location.href='https://ustart.today:'+window.location.port+'/search?query=&searchFilterGroup=projects&sortbyfilter=relevance&searchbyprojectname=true&searchbyurl=true&searchbyskills=true&searchbylocationcountry=&usersearchlocationcountry=United+States&usersearchlocationstate=&usersearchlocationstate=NY&searchlistmajors=%5D&searchlistskills=%5B%22'+tag+'%22%5D'
     });
     var colDiv = $('<div />').attr({'class': 'columnImage'});
     var colTitle = $('<div />').attr({'class': 'columnTitle'}).text(tag);
@@ -61,7 +61,7 @@ function createTagWidgetElement(element, tag) {
 
 function createProjectTagWidgetElement(element, tag) {
     var tagspan = $('<button/>').attr({'id': 'skill-'+ tag, 'class': 'btn btn-default projectsColumn'}).click(function() {
-        window.location.href='http://k12start.today:'+window.location.port+'/search?query=&searchFilterGroup=users&sortbyfilter=relevance&searchbyprojectname=true&searchbyurl=true&searchbyskills=true&searchbylocationcountry=&usersearchlocationcountry=United+States&usersearchlocationstate=&usersearchlocationstate=NY&searchlistmajors=%5D&searchlistskills=%5B%22'+tag+'%22%5D'
+        window.location.href='https://ustart.today:'+window.location.port+'/search?query=&searchFilterGroup=users&sortbyfilter=relevance&searchbyprojectname=true&searchbyurl=true&searchbyskills=true&searchbylocationcountry=&usersearchlocationcountry=United+States&usersearchlocationstate=&usersearchlocationstate=NY&searchlistmajors=%5D&searchlistskills=%5B%22'+tag+'%22%5D'
     });
     var colDiv = $('<div />').attr({'class': 'columnImage'});
     var colTitle = $('<div />').attr({'class': 'columnTitle'}).text(tag);
@@ -300,7 +300,7 @@ $(document).ready(function () {
         });
         $.ajax({
             type: 'GET',  
-            url: 'http://k12start.today:'+port+'/addSkill/',
+            url: 'https://ustart.today:'+port+'/addSkill/',
             contentType: "application/json; charset=utf-8",
             data: {skillArray:JSON.stringify(skillList)},
             success: function(data) {
@@ -334,7 +334,7 @@ $(document).ready(function () {
         });
         $.ajax({
             type: 'GET',
-            url: 'http://k12start.today:'+port+'/UpdateProjectTags/',
+            url: 'https://ustart.today:'+port+'/UpdateProjectTags/',
             contentType: "application/json; charset=utf-8",
             data: {skillArray:JSON.stringify(skillList), projectWidget: $('#tagModal .projectWidget').val()},
             success: function(data) {
@@ -370,7 +370,7 @@ $(document).ready(function () {
         });
         $.ajax({
             type: 'GET',
-            url: 'http://k12start.today:'+port+'/UpdateProjectWantedSkills/',
+            url: 'https://ustart.today:'+port+'/UpdateProjectWantedSkills/',
             contentType: "application/json; charset=utf-8",
             data: {skillArray:JSON.stringify(skillNeededList), projectWidget: $('#wantedSkillModal .projectWidget').val()},
             success: function(data) {

@@ -87,7 +87,7 @@ $(document).ready(function () {
        $(this).prop('disabled', true);
        $.ajax({
 		   type: 'GET',
-		   url: 'http://k12start.today:'+port+'/LoadEventRequests/',
+		   url: 'https://ustart.today:'+port+'/LoadEventRequests/',
 		   contentType: "application/json; charset=utf-8",
 		   data: {eventID:eventID},
 		   success: function(data) {
@@ -158,7 +158,7 @@ $(document).ready(function () {
 	   that.off('click'); // remove handler
 	   $.ajax({
 		   type: 'GET',
-		   url: 'http://k12start.today:'+port+'/AcceptGuestJoinRequest/',
+		   url: 'https://ustart.today:'+port+'/AcceptGuestJoinRequest/',
 		   contentType: "application/json; charset=utf-8",
 		   data: {userID:usrID, eventID: eventID},
 		   success: function(result) {
@@ -192,7 +192,7 @@ $(document).ready(function () {
 	   that.off('click'); // remove handler
 	   $.ajax({
 		   type: 'GET',
-		   url: 'http://k12start.today:'+port+'/AcceptMemberJoinRequest/',
+		   url: 'https://ustart.today:'+port+'/AcceptMemberJoinRequest/',
 		   contentType: "application/json; charset=utf-8",
 		   data: {userID:usrID, eventID: eventID},
 		   success: function(result) {
@@ -226,7 +226,7 @@ $(document).ready(function () {
 	   that.off('click'); // remove handler
 		$.ajax({
 		   type: 'GET',
-		   url: 'http://k12start.today:'+port+'/RejectGuestJoinRequest/',
+		   url: 'https://ustart.today:'+port+'/RejectGuestJoinRequest/',
 		   contentType: "application/json; charset=utf-8",
 		   data: {userID:usrID, eventID: eventID},
 		   success: function(result) {
@@ -259,7 +259,7 @@ $(document).ready(function () {
 	   that.off('click'); // remove handler
 		$.ajax({
 		   type: 'GET',
-		   url: 'http://k12start.today:'+port+'/RejectMemberJoinRequest/',
+		   url: 'https://ustart.today:'+port+'/RejectMemberJoinRequest/',
 		   contentType: "application/json; charset=utf-8",
 		   data: {userID:usrID, eventID: eventID},
 		   success: function(result) {

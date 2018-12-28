@@ -224,7 +224,7 @@
            $("#main-modal"+postID).modal();
           $.ajax({
                     type: 'GET',
-                    url: 'http://k12start.today:'+port+'/AjaxLoadComments/',
+                    url: 'https://ustart.today:'+port+'/AjaxLoadComments/',
                     contentType: "application/json; charset=utf-8",
                     data: {postID:postID},
                     success: function(data) { 
@@ -264,7 +264,7 @@
            var likepostID = $(this).closest('.feedPost').attr('id');
            $.ajax({
                     type: 'GET',
-                    url: 'http://k12start.today:'+port+'/Like/',
+                    url: 'https://ustart.today:'+port+'/Like/',
                     contentType: "application/json; charset=utf-8",
                     data: {PostID:likepostID},
                     success: function(data) {
@@ -287,7 +287,7 @@
            var postValue =  e.currentTarget.getAttribute('myvalue');
             $.ajax({
                     type: 'GET',
-                    url: 'http://k12start.today:'+port+'/getComments/',
+                    url: 'https://ustart.today:'+port+'/getComments/',
                     contentType: "application/json; charset=utf-8",
                     data: {PostID:postValue},
                     success: function(data) {
@@ -326,7 +326,7 @@
            if (content != ""){
                 $.ajax({
                         type: 'GET',
-                        url: 'http://k12start.today:'+port+'/addPost/',
+                        url: 'https://ustart.today:'+port+'/addPost/',
                         contentType: "application/json; charset=utf-8",
                         data: {text:content},
                         success: function(data) {
@@ -362,7 +362,7 @@
           if (content != ""){
             $.ajax({
                     type: 'GET',
-                    url: 'http://k12start.today:'+port+'/AddComment2/',
+                    url: 'https://ustart.today:'+port+'/AddComment2/',
                     contentType: "application/json; charset=utf-8",
                     data: {postID:postID, body:content},
                     success: function(data) {
@@ -395,7 +395,7 @@
            if (content != ""){
             $.ajax({
                     type: 'GET',
-                    url: 'http://k12start.today:'+port+'/AddComment2/',
+                    url: 'https://ustart.today:'+port+'/AddComment2/',
                     contentType: "application/json; charset=utf-8",
                     data: {postID:postID, body:content},
                     success: function(data) {
@@ -441,7 +441,7 @@
           $(e.currentTarget).prop('disabled', true);
           $.ajax({
                     type: 'GET',
-                    url: 'http://k12start.today:'+port+'/shareEntry/',
+                    url: 'https://ustart.today:'+port+'/shareEntry/',
                     contentType: "application/json; charset=utf-8",
                     data: {postid:postID, content:content},
                     success: function(data) {
@@ -469,7 +469,7 @@
            $(this).unbind( "click" );
           $.ajax({
                     type: 'GET',
-                    url: 'http://k12start.today:'+port+'/deletePost/',
+                    url: 'https://ustart.today:'+port+'/deletePost/',
                     contentType: "application/json; charset=utf-8",
                     //CHANGE FROM postid
                     data: {postid:tempID},
@@ -505,7 +505,7 @@
            $(this).unbind( "click" );
           $.ajax({
                     type: 'GET',
-                    url: 'http://k12start.today:'+port+'/deletePost/',
+                    url: 'https://ustart.today:'+port+'/deletePost/',
                     contentType: "application/json; charset=utf-8",
                     data: {postid:tempID},
                     success: function(data) {
@@ -529,7 +529,7 @@
 
  $.ajax({
     type: 'GET',
-    url: 'http://k12start.today:'+port+'/AjaxDash/',
+    url: 'https://ustart.today:'+port+'/AjaxDash/',
     contentType: "application/json; charset=utf-8",
     data: {},
     success: function(data) {
@@ -596,7 +596,7 @@ function element_in_scroll(elem)
                      console.log("here2")
                      $.ajax({
                         type: 'GET',
-                        url: 'http://k12start.today:'+port+'/AjaxDash/',
+                        url: 'https://ustart.today:'+port+'/AjaxDash/',
                         contentType: "application/json; charset=utf-8",
                         data: {scrollID: dashScrollID},
                         success: function(data) {  

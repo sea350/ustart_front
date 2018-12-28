@@ -79,7 +79,7 @@
                                                      else{
                                                          $.ajax({
                                                             type: 'GET',
-                                                            url: 'http://k12start.today:'+port+'/AjaxLoadMoreChat/',
+                                                            url: 'https://ustart.today:'+port+'/AjaxLoadMoreChat/',
                                                             contentType: "application/json; charset=utf-8",
                                                             data: {chatID: urlid, index:chatIndex},
                                                             beforeSend: function() {
@@ -127,7 +127,7 @@
                                                     roomflag=0;
                                                    /*  $.ajax({
                                                         type: 'GET',
-                                                        url: 'http://k12start.today:'+port+'//',
+                                                        url: 'https://ustart.today:'+port+'//',
                                                         contentType: "application/json; charset=utf-8",
                                                         data: {postIndex:JSON.stringify(roomArr)},
                                                         success: function(data) {   
@@ -176,7 +176,7 @@
                                                            // $('#inbox-groups').prepend($('li#'+$.escapeSelector(urlid)));
                                                             $.ajax({
                                                                 type: 'GET',
-                                                                url: 'http://k12start.today:'+port+'/AjaxLoadChat/',
+                                                                url: 'https://ustart.today:'+port+'/AjaxLoadChat/',
                                                                 contentType: "application/json; charset=utf-8",
                                                                 data: {chatUrl:urlid},
                                                                   beforeSend: function() {
@@ -237,7 +237,7 @@
                                                                 $('#sidebar').toggleClass('active');
                                                              }
                                                         });
-                                                        socket = new WebSocket('ws://' + window.location.host + '/ws/'+urlid);
+                                                        socket = new WebSocket('wss://' + window.location.host + '/ws/'+urlid);
                                                         socket.onopen = function(){
                                                             console.log('Socket Status: '+socket.readyState+'(open)');
                                                             sockets.push(socket);
@@ -294,7 +294,7 @@
                                             
                                            $.ajax({
                                                   type: 'GET',
-                                                    url: 'http://k12start.today:'+port+'/AjaxChatNotifications/',
+                                                    url: 'https://ustart.today:'+port+'/AjaxChatNotifications/',
                                                     contentType: "application/json; charset=utf-8",
                                                     data: {},
                                                     success: function(data) {

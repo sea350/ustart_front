@@ -122,7 +122,7 @@
                                                     console.log(projectPageID);
                                                     $.ajax({
                                                         type: 'GET',
-                                                        url: 'http://k12start.today:'+port+'/sortProjectWidgets/',
+                                                        url: 'https://ustart.today:'+port+'/sortProjectWidgets/',
                                                         contentType: "application/json; charset=utf-8",
                                                         data: {sortedWidgets: JSON.stringify(asortedWidgets), pageID: projectPageID},
                                                         success: function(data) {
