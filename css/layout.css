@@ -653,7 +653,7 @@ input {
         right: 0;
         left: auto;
         width: 100vw;
-    }*/
+    }
     .leftnavbar-nav>li>.dropdown-menu {
         position: fixed;
         left: 0;
@@ -666,7 +666,7 @@ input {
     }
     form.navbar-form {
         margin-left: 59px;    
-    }
+    }*/
 }
 @media (max-width: 360px) {
  #logo-brand>span{
