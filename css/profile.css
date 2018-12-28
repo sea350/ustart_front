@@ -454,6 +454,9 @@ form#shareCommentForm .btn {
     img#head-image {
          width:100%
     }
+    .menu-wrap{
+        padding-left: 1em; !important
+    }
         
     #content .menu-wrap {
         /*margin-left: 1em;*/
