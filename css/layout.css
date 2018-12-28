@@ -605,7 +605,7 @@ input {
     
     #centering {
         position: relative;
-        top: auto !important;
+        padding-top: 31em !important;
     }
     
     #notifDrop {
