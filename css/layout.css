@@ -286,7 +286,7 @@ div.navbar-filler-filter {
     margin-left: 1em
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) {
     .navbar {
         border-radius: 4px;
         min-width: 320px;
