@@ -587,6 +587,14 @@ input {
     background-color: #00ac7d;
     border-color: #607D8B;
 }
+
+@media (min-width: 767px) {
+    
+    .navbar-nav .open .dropdown-menu {
+        position: relative;
+    }
+}
+
 @media (max-width: 767px) {
     #logo-brand>span{
       font-size:20px;
