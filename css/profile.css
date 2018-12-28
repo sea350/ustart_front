@@ -564,10 +564,10 @@ form#shareCommentForm .btn {
     }
     div.menu-wrap {
         position: relative;
-        padding-left: 0;
-        padding-right: 0;
-        margin-top: 1em; !important
-        margin-left: 1em; !important
+        padding-left: 0 !important;
+        padding-right: 0!important;
+        margin-top: 1em !important;
+        margin-left: 1em !important;
     }
     div.menu-wrap-inner {
         padding: 0;
