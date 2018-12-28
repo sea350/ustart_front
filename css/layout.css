@@ -602,6 +602,12 @@ input {
     .navbar-nav .open .dropdown-menu {
         position: relative;
     }
+    
+    #centering {
+        position: relative;
+        top: 31em;
+    }
+    
     #notifDrop {
         width: 350px;
     }
