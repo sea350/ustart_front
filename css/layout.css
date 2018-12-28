@@ -612,7 +612,7 @@ input {
     z-index: 5000;
 }
 
-@media (min-width: 1px) and (max-width: 768px) {
+@media (min-width: 1px) and (max-width: 767px) {
 	.navbar-nav {
         position: relative;
         right:0;
