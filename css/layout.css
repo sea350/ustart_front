@@ -591,7 +591,9 @@ input {
 @media (min-width: 767px) {
     
     .navbar-nav .open .dropdown-menu {
-        position: static;
+        position: relative;
+        top: 20px; /* assign the correct value of the top line height */
+        left: 0px;
     }
 }
 
