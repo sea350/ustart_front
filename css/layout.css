@@ -603,11 +603,6 @@ input {
         position: relative;
     }
     
-    #centering {
-        position: relative;
-        padding-top: 31em !important;
-    }
-    
     #notifDrop {
         width: 350px;
     }
