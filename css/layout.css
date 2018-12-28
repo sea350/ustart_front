@@ -596,7 +596,7 @@ input {
 }
 
 @media (max-width: 767px) {
-    body{padding-top:120px;}
+    body{padding-top:185px;}
     #logo-brand>span{
       font-size:20px;
     }
