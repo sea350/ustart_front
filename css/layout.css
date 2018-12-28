@@ -380,7 +380,7 @@ div.navbar-filler-filter {
     .navbar-nav.navbar-right:last-child {
         margin-right: -15px
     }
-    .navbar-form .form-group {
+    /*.navbar-form .form-group {
         display: inline-block;
         margin-bottom: 0;
         vertical-align: middle
@@ -421,7 +421,7 @@ div.navbar-filler-filter {
     }
     .navbar-form.navbar-right:last-child {
         margin-right: -15px
-    }
+    }*/
     .navbar-text {
         float: left;
         margin-right: 15px;
@@ -430,10 +430,10 @@ div.navbar-filler-filter {
     .navbar-text.navbar-right:last-child {
         margin-right: 0
     }
-    .navbar-form {
+    /*.navbar-form {
         margin-left: 0em!important;
         position: absolute
-    }
+    } */
     #search-box {
 		max-width: 12em;
 	}
