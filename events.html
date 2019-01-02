@@ -187,9 +187,7 @@
                                 <span>Join as guest</span>
                             </button>
                         </form>  
-                        {{end}}
                         <br>
-                         {{if eq ($.Event.RequestAllowed) true}}
                         <form action="/MemberRequestToJoin/" method="POST" style="display: inline-block;">
                             <input type="hidden" name="eventID" value='{{$eventid}}'>
                             <button class="event-btn-guest btn btn-default" onclick = '$(this).closest("form").submit();'>
