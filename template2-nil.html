@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-default" style="margin-bottom: 0; border-radius: 0;"></nav>
+    <nav class="navbar navbar-default" style="margin-bottom: 0; border-radius: 0; display:none;"></nav>
     <nav class="navbar navbar-fixed-top" style="margin-bottom: 0; border-radius: 0;">
         <div class="navbar-header">
             <div class="navbar-filler navbar-left"></div>
@@ -63,28 +63,24 @@
                                 </a>
                             </div>
                         </div>
-                        <!--<footer class="footer" style ="border-top: 1px solid white;">
-                            <a style="margin-left:1em;" href="/ch/">See All Messages</a>
-                        </footer>-->
                     </ul>
                 </li>
                 <li class="navbar-btn nav-item" data-toggle="tooltip" data-placement="left" title="Messages">
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <i class="fa fa-comments fa-2x" style="color:white;"></i>
                             <span class="badge chatBadge"></span>
+                            <span class="mobile-text">Messages</span>
                         </a>
                         <ul class="dropdown-menu pull-right" >
                             <div id ="chatDrop" class = "padded">
                             </div>
-                        <!--<footer class="footer" style ="border-top: 1px solid white;">
-                            <a style="margin-left:1em;" href="/ch/">See All Messages</a>
-                        </footer>-->
                         </ul>
                 </li>
                 <li class="navbar-btn nav-item dropdown" data-toggle="tooltip" data-placement="left" title="Notifications">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-2x" style="color:white;"></i>
                         <span class="badge notifBadge" style="display:none;"></span>
+                         <span class="mobile-text">Notifications</span>
                     </a>
                     <ul class="dropdown-menu pull-right">
                          <div id="notifDrop" class = "padded">
@@ -97,6 +93,7 @@
                 <li class="navbar-btn nav-item dropdown" data-toggle="tooltip" data-placement="left" title="Options">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-chevron-circle-down fa-2x" style="color:white;"></i>
+                        <span class="mobile-text">Options</span>
                     </a>
                     <ul id="optionDrop" class="dropdown-menu pull-right">
                         <li>
@@ -151,7 +148,8 @@
 
                 function resize() {
                     if ($window.width() > 768) {
-                        return $html.addClass('navbar-right');
+                        $html.addClass('navbar-right');
+                        return;
                     }
 
                     $html.removeClass('navbar-right');
