@@ -629,10 +629,10 @@ input {
       width: 1em;
     }
     
-    .create-container > .card{
+    .create-container .card{
         width:12rem !important;
     }
-    .create-container+a{
+    .create-container a:first-child {
         margin-right:3.5em !important;
     }
     .dropdown{
