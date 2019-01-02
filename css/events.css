@@ -697,3 +697,10 @@ span.attend-count, span.like-count {
     padding: 0.5em 0.1em;
     display: inline-block;
     width: 109px;
+}
+@media (min-width: 1px) and (max-width: 767px) {
+    #map{
+        height:300px !important;
+        width: 300px !important;
+    }
+}
