@@ -676,6 +676,9 @@ input {
     .modal-dialog {
 		max-width: 98%;
 	}
+    .leftNavPop {
+        top: 5em !important;
+    }
 }
 
 
