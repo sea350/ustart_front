@@ -34,7 +34,7 @@
         followstatus={{.FollowingStatus}};
         console.log({{$userid}});
     </script>
-    <script src="http://www.youtube.com/player_api"></script>
+    <script src="https://www.youtube.com/player_api"></script>
     {{range $loop := .Project.ProjectData.EntryIDs}}
     <script>IDArray.push({{$loop}}); </script>
 	{{end}}
@@ -1304,7 +1304,7 @@
 										<p>Please paste your Pinterest Profile URL here:</p>
 										<form id="customPinterestForm" action="/addProjectWidget/" method="POST">
 										<div class="form-group">
-											<input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="http://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+' required>
+											<input type="text" class="form-control" id="pin-embed-input" name="pinInput" placeholder="https://www.pinterest.com/pinterest/" pattern='https:\/\/www\.pinterest\.com\/.+' required>
 											<!-- Regexp: pin\/([0-9A-Za-z\-_]{87}|[0-9A-Za-z\-_]{55}|[0-9]{18})\/? -->
 											<input id="editID" class="form-control" name="editID" type="hidden" value="0" required/>
 											<input class="projectWidget" class="form-control" name="projectWidget" type="hidden" value='{{$projectid}}' required/>
