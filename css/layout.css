@@ -604,12 +604,6 @@ input {
 
 
 
-@media (max-width: 767px) {
-    /*body{padding-top:185px;}*/
-}
-
-
-
 @media (min-width: 767px) {
     .navbar-nav .open .dropdown-menu {
         position: absolute;
