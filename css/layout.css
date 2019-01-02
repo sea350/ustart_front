@@ -617,11 +617,22 @@ input {
     .mobile-text{
         display:none;
     }
+     #logo-brand>span{
+      display: block;
+      font-size:20px;
+    }
+    #logo-brand>img{
+      display:none;
+    }
 }
 
 @media (min-width: 1px) and (max-width: 767px) {
     #logo-brand>span{
-      font-size:20px;
+      display: none;
+    }
+    #logo-brand>img{
+      display:block;
+      width: 0.5em;
     }
     
     .dropdown{
