@@ -625,7 +625,13 @@ input {
     }
     .navbar-nav .open .dropdown-menu {
         position: absolute;
-        width: 100%;
+        width: 100vw;
+        text-align: center;
+    }
+    .padded{
+        width:100vw;
+        max-height: calc(100vh - 13em);
+        overflow-y: auto;
     }
     #notifDrop {
         width: 350px;
