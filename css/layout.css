@@ -623,6 +623,10 @@ input {
     #logo-brand>span{
       font-size:20px;
     }
+    
+    .dropdown{
+        position: static;
+    }
     .navbar-nav .open .dropdown-menu {
         position: absolute;
         width: 100vw;
