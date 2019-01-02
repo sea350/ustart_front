@@ -631,6 +631,7 @@ input {
         position: absolute;
         width: 100vw;
         text-align: center;
+        margin-top: -13px;
     }
     .padded{
         width:100vw;
