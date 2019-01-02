@@ -307,7 +307,7 @@ ul.proj-tabs li.active a,ul.proj-tabs li.active a:focus,ul.proj-tabs li.active a
         padding-right: 1.5em;
     }
     #project-logo{
-        width:8em;
-        height:auto;
+        width:8em !important;
+        height:auto !important;
     }
 }
