@@ -632,7 +632,7 @@ input {
     }
     #logo-brand>img{
       display:block;
-      width: 0.5em;
+      width: 1em;
     }
     
     .dropdown{
