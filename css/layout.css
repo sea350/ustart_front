@@ -679,7 +679,7 @@ input {
     .leftNavPop {
         top: 5em !important;
     }
-    LeftNavBar-placeholder{
+    #LeftNavBar-placeholder{
         top: 42px !important;
     }
 }
