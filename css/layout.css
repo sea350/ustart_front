@@ -637,13 +637,6 @@ input {
         max-height: calc(100vh - 13em);
         overflow-y: auto;
     }
-    #notifDrop {
-        width: 350px;
-    }
-    #optionDrop {
-        width: 200px;
-        min-width: 0!important;
-    }
     div.navbar-filler {
         width: 0
     }
