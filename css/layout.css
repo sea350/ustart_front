@@ -625,7 +625,7 @@ input {
     }
     
     .dropdown{
-        position: static;
+        position: static !important;
     }
     .navbar-nav .open .dropdown-menu {
         position: absolute;
