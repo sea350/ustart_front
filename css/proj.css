@@ -304,7 +304,8 @@ ul.proj-tabs li.active a,ul.proj-tabs li.active a:focus,ul.proj-tabs li.active a
 }
 @media (min-width: 1px) and (max-width: 767px) {
     .dashboard-top-mid{
-        padding-right: 1.5em;
+        padding-right: 0.5em;
+        padding-left: 0.5em;
     }
     #project-logo{
         width:8em !important;
