@@ -261,7 +261,7 @@
                                     <!-- <p><a id="project-website" href="http://www.k12start.today/">http://www.k12start.today/</a></p> -->
                                 <!-- </div> -->
                             <!-- </div> -->
-                            <div class="col-xs-4">
+                            <div class="col-xm-4">
                                 <div class="detail-head"><i class="fa fa-clock-o" aria-hidden="true"></i> Creation Date</div>
                                 <div id="project-create-date" class="detail-content">
 									<script>
@@ -270,7 +270,7 @@
                                 </div>
                             </div>
 							{{if .Project.ProjectData.Category}}
-                            <div class="col-xs-4">
+                            <div class="col-xm-4">
                                 <div class="detail-head"><i class="fa fa-list-ul" aria-hidden="true"></i> Category</div>
                                 <div id="project-category" class="detail-content">
 									{{.Project.ProjectData.Category}}
@@ -279,14 +279,14 @@
 							{{end}}
 							
 							{{if and .Project.ProjectData.Location.Country .Project.ProjectData.Location.State .Project.ProjectData.Location.City }}
-                            <div class="col-xs-4">
+                            <div class="col-xm-4">
                                 <div class="detail-head"><i class="fa fa-map-marker" aria-hidden="true"></i> Location</div>
                                 <div id="project-location" class="detail-content">
 									{{.Project.ProjectData.Location.City}}, {{.Project.ProjectData.Location.State}}, {{.Project.ProjectData.Location.Country}}
                                 </div>
                             </div>
                             {{else}}
-                                <div class="col-xs-4">
+                                <div class="col-xm-4">
                                 <div class="detail-head"><i class="fa fa-map-marker" aria-hidden="true"></i> Location</div>
                                 <div id="project-location" class="detail-content">
 									Not Specified
