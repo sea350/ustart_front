@@ -49,33 +49,35 @@
 	  }
     </style>
     <script>
-        var bwidth;
-        var vwidth;
-        var vheight;
+        var resolution = {
+            bwidth: 700,
+            vwidth: 650,
+            vheight:200
+        }
         var poster = {{.UserInfo.Banner}};
         var cwidth = $(window).width();
         switch (cwidth) {
         case (cwidth <= 500):
-            bwidth = 350;
-            vwidth = 325;
-            vheight=100;
+            resolution.bwidth = 350;
+            resolution.vwidth = 325;
+            resolution.vheight=100;
             break;   
         case (cwidth <= 1150 && cwidth >= 768):
-            bwidth = 600;
-            vwidth=500;
-            vheight= 154;
+            resolution.bwidth = 600;
+            resolution.vwidth=500;
+            resolution.vheight= 154;
             break;
         case(cwidth >= 2300):
-            bwidth = 1100;
-            vwidth = 975;
-            vheight=300;
+            resolution.bwidth = 1100;
+            resolution.vwidth = 975;
+            resolution.vheight=300;
             break;
         default:
-            bwidth = 700;
-            vwidth=650;
-            vheight= 200;
+            resolution.bwidth = 700;
+            resolution.vwidth=650;
+            resolution.vheight= 200;
         }
-        console.log(bwidth);
+        console.log(resolution.bwidth);
         console.log(cwidth);
 </script>
 </head>
@@ -209,11 +211,11 @@
                                                     
                                                     function resizeCroppie(width, height, bwidth, image) {
                                                          $('#upload-demo2').croppie('destroy');
-                                                         createCroppie(vwidth, vheight, bwidth, image);
+                                                         createCroppie(resolution.vwidth, resolution.vheight, resolution.bwidth, image);
                                                     }
 
                                                     $(document).ready(function () {
-                                                        createCroppie(vwidth, vheight, bwidth, poster);
+                                                        createCroppie(resolution.vwidth, resolution.vheight, resolution.bwidth, poster);
                                                     });
                                                     
                                                     $( window ).resize(function() {
@@ -221,26 +223,26 @@
                                                         cwidth = $(window).width();
                                                        switch (cwidth) {
                                                         case (cwidth <= 500):
-                                                            bwidth = 350;
-                                                            vwidth = 325;
-                                                            vheight=100;
+                                                            resolution.bwidth = 350;
+                                                            resolution.vwidth = 325;
+                                                            resolution.vheight=100;
                                                             break;   
                                                         case (cwidth <= 1150 && cwidth >= 768):
-                                                            bwidth = 700;
-                                                            vwidth=650;
-                                                            vheight= 200;
+                                                            resolution.bwidth = 600;
+                                                            resolution.vwidth=500;
+                                                            resolution.vheight= 154;
                                                             break;
                                                         case(cwidth >= 2300):
-                                                            bwidth = 1100;
-                                                            vwidth = 975;
-                                                            vheight=300;
+                                                            resolution.bwidth = 1100;
+                                                            resolution.vwidth = 975;
+                                                            resolution.vheight=300;
                                                             break;
                                                         default:
-                                                            bwidth = 800;
-                                                            vwidth=650;
-                                                            vheight= 200;
+                                                            resolution.bwidth = 600;
+                                                            resolution.vwidth=650;
+                                                            resolution.vheight= 200;
                                                         }
-                                                        resizeCroppie(vwidth, vheight, bwidth, poster);
+                                                        resizeCroppie(resolution.vwidth, resolution.vheight, resolution.bwidth, poster);
                                                        
                                                     });
                                                     
@@ -264,13 +266,13 @@
                                                                         $('#upload2').val('');
                                                                         $("#sizeModal").modal();							
                                                                        poster = {{.UserInfo.Banner}};
-                                                                       resizeCroppie(vwidth, vheight, bwidth, poster);
+                                                                       resizeCroppie(resolution.vwidth, resolution.vheight, resolution.bwidth, poster);
                                                                        setTimeout(function(){
                                                                         $('#upload-demo2').croppie('setZoom', '1.0');
                                                                         },50);
                                                                     }
                                                                     else{
-                                                                        resizeCroppie(vwidth, vheight, bwidth, poster);
+                                                                        resizeCroppie(resolution.vwidth, resolution.vheight, resolution.bwidth, poster);
                                                                         setTimeout(function(){
                                                                         $('#upload-demo2').croppie('setZoom', '1.0');
                                                                         },50);
