@@ -301,7 +301,7 @@ textarea#inputDesc {
     margin-right: 1em;
 }
 
-@media (min-width: 1px) and (max-width: 767px) {
+@media (min-width: 1px) and (max-width: 1100px) {
     #banner-form{
         margin: 0em 0em !important;
     }
