@@ -179,7 +179,7 @@
 
 
                     <div class="event-btn" >
-                        {{range $member := .Event.MemberData}}
+    
                         {{if eq ($.Event.RequestAllowed) true}}
                         <form action="/GuestRequestToJoin/" method="POST" style="display: inline-block;">
                             <input type="hidden" name="eventID" value='{{$eventid}}'>
@@ -194,8 +194,7 @@
                                 <span>Join as Staff</span>
                             </button>
                         </form>  
-                        {{end}}
-                        {{end}}              
+                        {{end}}             
                         <span>
                             
                             {{range $member := .Event.MemberData}}
