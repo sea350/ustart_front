@@ -230,9 +230,9 @@
                                                                 return;
                                                             }
                                                             else if ($window.width() <= 1150 && $window.width() >= 768) { 
-                                                                $resolution.bwidth = 600;
-                                                                $resolution.vwidth=500;
-                                                                $resolution.vheight= 154;
+                                                                $resolution.bwidth = 400;
+                                                                $resolution.vwidth=375;
+                                                                $resolution.vheight= 115;
                                                                 createCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
                                                                 return;
                                                             }
@@ -254,37 +254,7 @@
                                                             .resize(resize($resolution))
                                                             .trigger('createResize', $resolution);
                                                     })(jQuery);
-                                                    $(document).ready(function () {
-                                                        console.log($resolution.bwidth);
-                                                    });
                                                     
-                                                    /*$( window ).resize(function() {
-                                                        
-                                                        cwidth = $(window).width();
-                                                       switch (cwidth) {
-                                                        case (cwidth <= 500):
-                                                            resolution.bwidth = 350;
-                                                            resolution.vwidth = 325;
-                                                            resolution.vheight=100;
-                                                            break;   
-                                                        case (cwidth <= 1150 && cwidth >= 768):
-                                                            resolution.bwidth = 600;
-                                                            resolution.vwidth=500;
-                                                            resolution.vheight= 154;
-                                                            break;
-                                                        case(cwidth >= 2300):
-                                                            resolution.bwidth = 1100;
-                                                            resolution.vwidth = 975;
-                                                            resolution.vheight=300;
-                                                            break;
-                                                        default:
-                                                            resolution.bwidth = 600;
-                                                            resolution.vwidth=650;
-                                                            resolution.vheight= 200;
-                                                        }
-                                                        resizeCroppie(resolution.vwidth, resolution.vheight, resolution.bwidth, poster);
-                                                       
-                                                    });*/
                                                     
                                                         $('#upload2').on('change', function () { 
                                                             if(this.files[0].size > 2097152){
