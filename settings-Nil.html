@@ -55,30 +55,6 @@
             vheight:200
         }
         var poster = {{.UserInfo.Banner}};
-        var cwidth = $(window).width();
-        switch (cwidth) {
-        case (cwidth <= 500):
-            resolution.bwidth = 350;
-            resolution.vwidth = 325;
-            resolution.vheight=100;
-            break;   
-        case (cwidth <= 1150 && cwidth >= 768):
-            resolution.bwidth = 600;
-            resolution.vwidth=500;
-            resolution.vheight= 154;
-            break;
-        case(cwidth >= 2300):
-            resolution.bwidth = 1100;
-            resolution.vwidth = 975;
-            resolution.vheight=300;
-            break;
-        default:
-            resolution.bwidth = 700;
-            resolution.vwidth=650;
-            resolution.vheight= 200;
-        }
-        console.log(resolution.bwidth);
-        console.log(cwidth);
 </script>
 </head>
 
@@ -215,6 +191,30 @@
                                                     }
 
                                                     $(document).ready(function () {
+                                                        var cwidth = $(window).width();
+                                                        switch (cwidth) {
+                                                        case (cwidth <= 500):
+                                                            resolution.bwidth = 350;
+                                                            resolution.vwidth = 325;
+                                                            resolution.vheight=100;
+                                                            break;   
+                                                        case (cwidth <= 1150 && cwidth >= 768):
+                                                            resolution.bwidth = 600;
+                                                            resolution.vwidth=500;
+                                                            resolution.vheight= 154;
+                                                            break;
+                                                        case(cwidth >= 2300):
+                                                            resolution.bwidth = 1100;
+                                                            resolution.vwidth = 975;
+                                                            resolution.vheight=300;
+                                                            break;
+                                                        default:
+                                                            resolution.bwidth = 700;
+                                                            resolution.vwidth=650;
+                                                            resolution.vheight= 200;
+                                                        }
+                                                        console.log(resolution.bwidth);
+                                                        console.log(cwidth);
                                                         createCroppie(resolution.vwidth, resolution.vheight, resolution.bwidth, poster);
                                                     });
                                                     
