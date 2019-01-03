@@ -194,7 +194,7 @@
                                                     
                                                     (function($) {
                                                         var $window = $(window),
-                                                        function resize() {
+                                                        function resize($resolution) {
                                                             if ($window.width() < 500) {
                                                                 $resolution.bwidth = 350;
                                                                 $resolution.vwidth = 325;
@@ -221,7 +221,7 @@
                                                                 return;
                                                             }
                                                         }
-                                                        function createResize() {
+                                                        function createResize($resolution) {
                                                             if ($window.width() < 500) {
                                                                 $resolution.bwidth = 350;
                                                                 $resolution.vwidth = 325;
@@ -251,8 +251,8 @@
                                                         
 
                                                         $window
-                                                            .resize(resize)
-                                                            .trigger('createResize');
+                                                            .resize(resize($resolution))
+                                                            .trigger('createResize', $resolution);
                                                     })(jQuery);
                                                     $(document).ready(function () {
                                                         console.log($resolution.bwidth);
