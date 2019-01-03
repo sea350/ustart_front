@@ -1,5 +1,5 @@
 <?php
-$conn_string = "host= k12start.today port=5432 dbname=ustart user=ustart password=~m3lanKollymemes";
+$conn_string = "host= ustart.today port=5432 dbname=ustart user=ustart password=~m3lanKollymemes";
 $dbconn = pg_connect($conn_string) or die("Connection failed");
 if (isset($_POST['name']) && isset($_POST['email'])) {
     $name = $_POST['name'];
@@ -97,7 +97,7 @@ if (isset($_POST['name']) && isset($_POST['email'])) {
 						<diV id="socialsBox">
 							<TABlE Id=socialsBox stYLE="user-select: none; -moz-user-select: none;">
 								<tR>
-									<td><a style="text-decoration: none;" Id="instagramIcon" HREF="https://www.instagram.com/k12start.today" ClAss="fa fa-instagram" tArGET="_blank"></a></TD>
+									<td><a style="text-decoration: none;" Id="instagramIcon" HREF="https://www.instagram.com/ustart.today" ClAss="fa fa-instagram" tArGET="_blank"></a></TD>
 									<tD><A style="text-decoration: none;" iD="snapchatIcon" href="https://www.snapchat.com/add/ustarttoday" ClAss="fa fa-snapchat-ghost" targEt="_blank"></A>
 									<td><a style="text-decoration: none;" ID="facebookIcon" hRef="https://www.facebook.com/ustarttoday/" cLASS="fa fa-facebook" Target=_blank></A></td>
 									<TD><a style="text-decoration: none;" Id="twitterIcon" hrEF="https://twitter.com/ustarttoday" cLAss="fa fa-twitter" TargET="_blank"></a>
