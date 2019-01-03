@@ -203,9 +203,9 @@
                                                                 return;
                                                             }
                                                             else if ($window.width() <= 1150 && $window.width() >= 768) { 
-                                                                $resolution.bwidth = 600;
-                                                                $resolution.vwidth=500;
-                                                                $resolution.vheight= 154;
+                                                                $resolution.bwidth = 400;
+                                                                $resolution.vwidth=375;
+                                                                $resolution.vheight= 115;
                                                                 resizeCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
                                                                 return;
                                                             }
@@ -223,9 +223,9 @@
                                                         }
                                                         function createResize($resolution) {
                                                             if ($window.width() < 500) {
-                                                                $resolution.bwidth = 300;
-                                                                $resolution.vwidth = 325;
-                                                                $resolution.vheight=100;
+                                                               $resolution.bwidth = 300;
+                                                                $resolution.vwidth = 275;
+                                                                $resolution.vheight=85;
                                                                 createCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
                                                                 return;
                                                             }
