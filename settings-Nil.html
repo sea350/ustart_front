@@ -196,9 +196,9 @@
                                                         var $window = $(window);
                                                         function resize($resolution) {
                                                             if ($window.width() < 500) {
-                                                                $resolution.bwidth = 350;
-                                                                $resolution.vwidth = 325;
-                                                                $resolution.vheight=100;
+                                                                $resolution.bwidth = 300;
+                                                                $resolution.vwidth = 275;
+                                                                $resolution.vheight=85;
                                                                 resizeCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
                                                                 return;
                                                             }
@@ -223,7 +223,7 @@
                                                         }
                                                         function createResize($resolution) {
                                                             if ($window.width() < 500) {
-                                                                $resolution.bwidth = 350;
+                                                                $resolution.bwidth = 300;
                                                                 $resolution.vwidth = 325;
                                                                 $resolution.vheight=100;
                                                                 createCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);

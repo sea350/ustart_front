@@ -300,3 +300,9 @@ textarea#inputDesc {
 #UpdateDescription{
     margin-right: 1em;
 }
+
+@media (min-width: 1px) and (max-width: 767px) {
+    #banner-form{
+    margin: 0 auto !important;
+    }
+}
