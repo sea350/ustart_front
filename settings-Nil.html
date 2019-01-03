@@ -54,13 +54,17 @@
         var vheight;
         var poster = {{.UserInfo.Banner}};
         var cwidth = $(window).width();
-        if(cwidth <= 1100 && cwidth >= 320){
-            bwidth = cwidth/3;
+        if(cwidth <= 500){
+            bwidth = 300;
+            vwidth = 162.5;
+            vheight=75;
+        }
+        if(cwidth <= 1150 && cwidth >= 500){
+            bwidth = 400;
             vwidth = 325;
             vheight=100;
         }
         else if (cwidth >= 2300){
-            
             bwidth = 1100;
             vwidth = 975;
             vheight=300;
@@ -213,9 +217,9 @@
                                                         
                                                         cwidth = $(window).width();
                                                         if(cwidth <= 500){
-                                                            bwidth = 200;
+                                                            bwidth = 300;
                                                             vwidth = 162.5;
-                                                            vheight=50;
+                                                            vheight=75;
                                                         }
                                                         if(cwidth <= 1150 && cwidth >= 500){
                                                             bwidth = 400;
