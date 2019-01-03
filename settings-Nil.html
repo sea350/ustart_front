@@ -49,11 +49,12 @@
 	  }
     </style>
     <script>
-        resolution = {
-            bwidth: 700,
-            vwidth: 650,
-            vheight:200
+        $resolution = {
+                bwidth: 700,
+                vwidth: 650,
+                vheight:200
         }
+
         var poster = {{.UserInfo.Banner}};
 </script>
 </head>
@@ -193,12 +194,6 @@
                                                     
                                                     (function($) {
                                                         var $window = $(window),
-                                                            $resolution = {
-                                                                    bwidth: 700,
-                                                                    vwidth: 650,
-                                                                    vheight:200
-                                                            }
-
                                                         function resize() {
                                                             if ($window.width() < 500) {
                                                                 $resolution.bwidth = 350;
@@ -311,13 +306,13 @@
                                                                         $('#upload2').val('');
                                                                         $("#sizeModal").modal();							
                                                                        poster = {{.UserInfo.Banner}};
-                                                                       resizeCroppie(resolution.vwidth, resolution.vheight, resolution.bwidth, poster);
+                                                                       resizeCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
                                                                        setTimeout(function(){
                                                                         $('#upload-demo2').croppie('setZoom', '1.0');
                                                                         },50);
                                                                     }
                                                                     else{
-                                                                        resizeCroppie(resolution.vwidth, resolution.vheight, resolution.bwidth, poster);
+                                                                        resizeCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
                                                                         setTimeout(function(){
                                                                         $('#upload-demo2').croppie('setZoom', '1.0');
                                                                         },50);
