@@ -227,6 +227,9 @@
                                                                 $resolution.vwidth = 275;
                                                                 $resolution.vheight=85;
                                                                 createCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
+                                                                 setTimeout(function(){
+                                                                    $('#upload-demo2').croppie('setZoom', '1.0');
+                                                                 },50);
                                                                 return;
                                                             }
                                                             else if ($window.width() <= 1150 && $window.width() >= 768) { 
@@ -234,6 +237,9 @@
                                                                 $resolution.vwidth=375;
                                                                 $resolution.vheight= 115;
                                                                 createCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
+                                                                 setTimeout(function(){
+                                                                    $('#upload-demo2').croppie('setZoom', '1.0');
+                                                                 },50);
                                                                 return;
                                                             }
                                                             else if ($window.width() >= 2300){
@@ -241,10 +247,16 @@
                                                                  $resolution.vwidth = 975;
                                                                  $resolution.vheight=300;
                                                                  createCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
+                                                                 setTimeout(function(){
+                                                                    $('#upload-demo2').croppie('setZoom', '1.0');
+                                                                 },50);
                                                                  return;
                                                             }
                                                             else{
                                                                 createCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
+                                                                 setTimeout(function(){
+                                                                    $('#upload-demo2').croppie('setZoom', '1.0');
+                                                                 },50);
                                                                 return;
                                                             }
                                                         }

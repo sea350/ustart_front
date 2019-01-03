@@ -23,26 +23,12 @@
 	</style>
 	{{$projectid := .Project.DocID}}
     <script>
-        var bwidth;
-        var vwidth;
-        var vheight;
+        $resolution = {
+                bwidth: 700,
+                vwidth: 650,
+                vheight:200
+        }
         var poster = {{.Project.ProjectData.Banner}};
-        var cwidth = $(window).width();
-        if(cwidth <= 1100 && cwidth >= 320){
-            bwidth = cwidth/3;
-            vwidth = 325;
-            vheight=100;
-        }
-        else if (cwidth >= 2300){
-            bwidth = 1100;
-            vwidth = 975;
-            vheight=300;
-        }
-        else{
-            bwidth = 700;
-            vwidth=650
-            vheight= 200;
-        }	
     </script>
 </head>
 
@@ -267,36 +253,83 @@
                                                     
                                                     function resizeCroppie(width, height, bwidth, image) {
                                                          $('#upload-demo2').croppie('destroy');
-                                                         createCroppie(vwidth, vheight, bwidth, image);
+                                                         createCroppie(width, height, bwidth, image);
                                                     };
 
-                                                    $(document).ready(function () {
-                                                        createCroppie(vwidth, vheight, bwidth, poster);
-                                                        setTimeout(function(){
-                                                            $('#upload-demo2').croppie('setZoom', '0');
-                                                        },50);
-                                                    });
-                                                    
-                                                    $( window ).resize(function() {
-                                                        
-                                                        cwidth = $(window).width();
-                                                        if(cwidth <= 1100 && cwidth >= 320){
-                                                                bwidth = cwidth/3;
-                                                                vwidth = 325;
-                                                                vheight=100;
+                                                     (function($) {
+                                                        var $window = $(window);
+                                                        function resize($resolution) {
+                                                            if ($window.width() < 500) {
+                                                                $resolution.bwidth = 300;
+                                                                $resolution.vwidth = 275;
+                                                                $resolution.vheight=85;
+                                                                resizeCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
+                                                                return;
                                                             }
-                                                            else if (cwidth >= 2300){
-                                                                bwidth = 1100;
-                                                                vwidth = 975;
-                                                                vheight=300;
+                                                            else if ($window.width() <= 1150 && $window.width() >= 768) { 
+                                                                $resolution.bwidth = 400;
+                                                                $resolution.vwidth=375;
+                                                                $resolution.vheight= 115;
+                                                                resizeCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
+                                                                return;
+                                                            }
+                                                            else if ($window.width() >= 2300){
+                                                                 $resolution.bwidth = 1100;
+                                                                 $resolution.vwidth = 975;
+                                                                 $resolution.vheight=300;
+                                                                 resizeCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
+                                                                 return;
                                                             }
                                                             else{
-                                                                bwidth = 700;
-                                                                vwidth=650
-                                                                vheight= 200;
-                                                            }	height= 200;
-                                                        resizeCroppie(vwidth, vheight, bwidth, poster);
-                                                    });
+                                                                resizeCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
+                                                                return;
+                                                            }
+                                                        }
+                                                        function createResize($resolution) {
+                                                            if ($window.width() < 500) {
+                                                               $resolution.bwidth = 300;
+                                                                $resolution.vwidth = 275;
+                                                                $resolution.vheight=85;
+                                                                createCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
+                                                                setTimeout(function(){
+                                                                    $('#upload-demo2').croppie('setZoom', '1.0');
+                                                                 },50);
+                                                                return;
+                                                            }
+                                                            else if ($window.width() <= 1150 && $window.width() >= 768) { 
+                                                                $resolution.bwidth = 400;
+                                                                $resolution.vwidth=375;
+                                                                $resolution.vheight= 115;
+                                                                createCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
+                                                                setTimeout(function(){
+                                                                    $('#upload-demo2').croppie('setZoom', '1.0');
+                                                                },50);
+                                                                return;
+                                                            }
+                                                            else if ($window.width() >= 2300){
+                                                                 $resolution.bwidth = 1100;
+                                                                 $resolution.vwidth = 975;
+                                                                 $resolution.vheight=300;
+                                                                 createCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
+                                                                 setTimeout(function(){
+                                                                    $('#upload-demo2').croppie('setZoom', '1.0');
+                                                                 },50);
+                                                                 return;
+                                                            }
+                                                            else{
+                                                                createCroppie($resolution.vwidth, $resolution.vheight, $resolution.bwidth, poster);
+                                                                setTimeout(function(){
+                                                                    $('#upload-demo2').croppie('setZoom', '1.0');
+                                                                },50);
+                                                                return;
+                                                            }
+                                                        }
+                                                        
+
+                                                        $window
+                                                            .resize(resize($resolution))
+                                                            .trigger('createResize', $resolution);
+                                                    })(jQuery);
                                                     
                                                         $('#upload2').on('change', function () { 
                                                             if(this.files[0].size > 2097152){
