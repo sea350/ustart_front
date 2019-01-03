@@ -54,24 +54,25 @@
         var vheight;
         var poster = {{.UserInfo.Banner}};
         var cwidth = $(window).width();
-        if(cwidth <= 500){
-            bwidth = 300;
-            vwidth = 162.5;
-            vheight=75;
-        }
-        if(cwidth <= 1150 && cwidth >= 500){
-            bwidth = 400;
+        switch (cwidth) {
+        case (cwidth <= 500):
+            bwidth = 350;
             vwidth = 325;
             vheight=100;
-        }
-        else if (cwidth >= 2300){
+            break;   
+        case (cwidth <= 1150 && cwidth >= 768):
+            bwidth = 700;
+            vwidth=650;
+            vheight= 200;
+            break;
+        case(cwidth >= 2300):
             bwidth = 1100;
             vwidth = 975;
             vheight=300;
-        }
-        else{
-            bwidth = 700;
-            vwidth=650
+            break;
+        default:
+            bwidth = 800;
+            vwidth=650;
             vheight= 200;
         }
 </script>
@@ -216,24 +217,25 @@
                                                     $( window ).resize(function() {
                                                         
                                                         cwidth = $(window).width();
-                                                        if(cwidth <= 500){
-                                                            bwidth = 300;
-                                                            vwidth = 162.5;
-                                                            vheight=75;
-                                                        }
-                                                        if(cwidth <= 1150 && cwidth >= 500){
-                                                            bwidth = 400;
+                                                       switch (cwidth) {
+                                                        case (cwidth <= 500):
+                                                            bwidth = 350;
                                                             vwidth = 325;
                                                             vheight=100;
-                                                        }
-                                                        else if (cwidth >= 2300){
+                                                            break;   
+                                                        case (cwidth <= 1150 && cwidth >= 768):
+                                                            bwidth = 700;
+                                                            vwidth=650;
+                                                            vheight= 200;
+                                                            break;
+                                                        case(cwidth >= 2300):
                                                             bwidth = 1100;
                                                             vwidth = 975;
                                                             vheight=300;
-                                                        }
-                                                        else{
-                                                            bwidth = 700;
-                                                            vwidth=650
+                                                            break;
+                                                        default:
+                                                            bwidth = 800;
+                                                            vwidth=650;
                                                             vheight= 200;
                                                         }
                                                         resizeCroppie(vwidth, vheight, bwidth, poster);
