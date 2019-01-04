@@ -680,6 +680,8 @@ input {
     }
     #right-navBar{
         width:100%;
+        display: flex;
+        justify-content: flex-end;
     }
     .nav > li {
     position: relative;
