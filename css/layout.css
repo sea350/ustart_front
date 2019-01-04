@@ -620,7 +620,7 @@ input {
     }
      form.navbar-form {
         margin-left: 10px;    
-        display: inline !important;
+        display: inline-block !important;
     }
 }
 
