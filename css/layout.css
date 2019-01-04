@@ -618,15 +618,13 @@ input {
     #logo-brand>img{
       display:none;
     }
-    #search-form{
-        display: inline;
+     form.navbar-form {
+        margin-left: 10px;    
+        display: inline !important;
     }
 }
 
 @media (min-width: 1px) and (max-width: 767px) {
-    #search-form{
-        display: table !important;
-    }
     #logo-brand>span{
       display: none;
     }
@@ -663,6 +661,7 @@ input {
     }
     form.navbar-form {
         margin-left: 10px;    
+        display: table !important;
     }
 	.navbar-nav {
         position: relative;
