@@ -272,3 +272,18 @@ div.alert-messages {
 #content {
 	padding-top: 4em;
 }
+
+@media (min-width: 1px) and (max-width: 767px) {
+    #search-filter{
+        background-color: #fff;
+        padding: 0.8em;
+        border-radius: .5em;
+        border: 1px solid #ddd;
+        margin: 1em 1em !important;
+        width: 18em !important;
+        position: static !important;
+        right: 0;
+        top: -9999px;
+        z-index: 1;
+    }
+}
