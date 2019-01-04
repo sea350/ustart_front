@@ -618,9 +618,15 @@ input {
     #logo-brand>img{
       display:none;
     }
+    #search-form{
+        display: inline;
+    }
 }
 
 @media (min-width: 1px) and (max-width: 767px) {
+    #search-form{
+        display: table !important;
+    }
     #logo-brand>span{
       display: none;
     }
@@ -682,38 +688,4 @@ input {
     #LeftNavBar-placeholder{
         top: 42px !important;
     }
-}
-
-
-@media (max-width: 499px) {
-    
-    /*.navbar-right .dropdown-menu {
-        right: 0!important;
-        left: auto!important
-    }
-    #notifDrop {
-        width: 100vw;
-        right: 0;
-        position:fixed;
-        top: 2.5em;
-    }
-    
-    .navbar-right #optionDrop {
-        right: 0;
-        left: auto;
-        width: 100vw;
-    }
-    .leftnavbar-nav>li>.dropdown-menu {
-        position: fixed;
-        left: 0;
-        border: none;
-        height: calc(100vh - 3.5em);
-        width: 100%;
-    }
-    .dropdown-menu > li > a {
-        padding: 1em 2em;
-    }
-    form.navbar-form {
-        margin-left: 59px;    
-    }*/
 }
