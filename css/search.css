@@ -288,3 +288,12 @@ div.alert-messages {
         z-index: 1;
     }
 }
+
+@media screen and (min-aspect-ratio: 13/9) and (max-height: 420px){
+    #centering{
+        padding-top: 0em !important;
+    }
+    .container-left {
+        display: none;
+    }
+} // landscape
