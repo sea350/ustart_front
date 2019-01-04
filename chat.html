@@ -399,14 +399,17 @@
                                         
                                         (function($) {
                                             var $window = $(window),
-                                                $leftchat = $('.container-left');
+                                                $leftchat = $('.container-left'),
+                                                $chathead = $('.message-head');
 
                                             function resize() {
                                                 if ($window.height() < 420) {
                                                     $leftchat.css("display", "none");
+                                                    $chathead.css("display", "none");
                                                     return;
                                                 }
                                                 $leftchat.css("display", "block");
+                                                 $chathead.css("display", "block");
                                             }
 
                                             $window
