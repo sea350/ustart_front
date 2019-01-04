@@ -358,7 +358,7 @@ $(document).ready(function() {
 	$("form#deleteAccountForm").submit(function(event) {
 		//event.preventDefault();
 		if (confirm("Wait! The account will be no longer accessible. However, the account won't be deleted on the server.")) {
-			window.location.replace("http://ustart.tech/index2.html");
+			window.location.replace("https://ustart.tech/index2.html");
 		}
 	});
 	

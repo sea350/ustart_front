@@ -3,7 +3,7 @@ function createProjectObj(projectName, projectImage, projectDescription, project
 	$(projectObj).addClass('project-obj col-sm-5');
 	
 	if (projectImage.length > 0) {
-		$(projectObj).css("background-image", 'url("'+projectImage+'"), url("http://via.placeholder.com/400x200")');
+		$(projectObj).css("background-image", 'url("'+projectImage+'"), url("https://via.placeholder.com/400x200")');
 	}
 	
 	var projectObjContent = document.createElement('div');
@@ -40,8 +40,8 @@ $(document).ready(function() {
 	
 	// Load user projects here. There might be more or different parameters in the future under consideration.
 	
-	//createProjectObj("Project Kitten", "http://placekitten.com/302/200", "Fill the world with cat pictures to brighten the mood. Man. We need more kittens. More projects in progress.", "Seven eons ago", $('#project-container'));
-	//createProjectObj("Project Pizza", "http://lorempizza.com/400/200", "Pizza is such a nice lunch meal. Fill the world with pizza pies to appease those stomachs. Satisfy world hunger.", "Seven eons ago", $('#project-container'));
+	//createProjectObj("Project Kitten", "https://placekitten.com/302/200", "Fill the world with cat pictures to brighten the mood. Man. We need more kittens. More projects in progress.", "Seven eons ago", $('#project-container'));
+	//createProjectObj("Project Pizza", "https://lorempizza.com/400/200", "Pizza is such a nice lunch meal. Fill the world with pizza pies to appease those stomachs. Satisfy world hunger.", "Seven eons ago", $('#project-container'));
 	//createProjectObj("Project Placeholder", "", "Really long description. I mean a really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really, really long description.", "Seven eons ago", $('#project-container'));
-	//createProjectObj("Project Kitten 2", "http://placekitten.com/300/201", "Fill the world with cat pictures to brighten the mood. Man. We need more kittens. More projects in progress.", "Seven eons ago", $('#project-container-2'));
+	//createProjectObj("Project Kitten 2", "https://placekitten.com/300/201", "Fill the world with cat pictures to brighten the mood. Man. We need more kittens. More projects in progress.", "Seven eons ago", $('#project-container-2'));
 });

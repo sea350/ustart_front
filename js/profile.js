@@ -217,9 +217,9 @@ $(function () {
 			$.ajax({
 				type: 'GET',  
 <<<<<<< HEAD
-				url: 'http://k12start.today:5002/callme/',
+				url: 'https://ustart.today:5002/callme/',
 =======
-				url: 'http://ustart.today:5004/callme/',
+				url: 'https://ustart.today:5004/callme/',
 >>>>>>> master
 				contentType: "application/json; charset=utf-8",
 				data: {userID:"123"},
@@ -235,9 +235,9 @@ $(function () {
 			$.ajax({
 				type: 'GET',  
 <<<<<<< HEAD
-				url: 'http://k12start.today:5002/callme/',
+				url: 'https://ustart.today:5002/callme/',
 =======
-				url: 'http://ustart.today:5004/callme/',
+				url: 'https://ustart.today:5004/callme/',
 >>>>>>> master
 				contentType: "application/json; charset=utf-8",
 				data: {userID:"123"},
@@ -480,11 +480,11 @@ $(document).ready(function () {
         var max = 9,
             min = 0;
         var user_names = ["Nasir Memon", "Phyllis Frankyl", "Boris Aronov", "Linda Sellie", "Itay Tal", "Daniel Katz-Braunchweig", "Guido Gerig", "Justin Cappos", "Lisa Hellerstein", "Keith W. Ross"];
-        var user_img = ["http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-336.jpg", "http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-310.jpg", "http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-474.jpg", "http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-5953.jpg", "http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-5952.jpg", "http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-197.jpg",
-            "http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-5945.jpg", "http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-4253.jpg", "http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-328.jpg", "http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-362.jpg"
+        var user_img = ["https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-336.jpg", "https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-310.jpg", "https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-474.jpg", "https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-5953.jpg", "https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-5952.jpg", "https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-197.jpg",
+            "https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-5945.jpg", "https://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-4253.jpg", "https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-328.jpg", "https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-362.jpg"
         ];
         var proj_names = ["Google", "Pied Piper", "MTA Project: Faster Trains", "MTA: Cheaper Fairs", "UBER", "Project Pizza", "Project Kitty", "Project Water", "Android", "Microsoft"];
-        var proj_img = ["https://pbs.twimg.com/profile_images/839721704163155970/LI_TRk1z_400x400.jpg", "http://www.piedpiper.com/app/themes/pied-piper/dist/images/logo.svg", "http://www.mta.info/sites/all/themes/mta/images/mta_info.gif", "http://www.mta.info/sites/all/themes/mta/images/mta_info.gif", "https://pbs.twimg.com/profile_images/839711043056132097/2F8DZeeB_400x400.jpg", "https://pbs.twimg.com/profile_images/847417284641476617/WIScfa4Q_400x400.jpg", "https://pbs.twimg.com/profile_images/848471660860538880/pevXVsIp_400x400.jpg", "https://pbs.twimg.com/profile_images/553653588690362368/g0zxIbu8_400x400.png", "https://pbs.twimg.com/profile_images/875443327835025408/ZvmtaSXW_400x400.jpg", "https://pbs.twimg.com/profile_images/875388334003986432/eUsjmVRJ_400x400.jpg"]
+        var proj_img = ["https://pbs.twimg.com/profile_images/839721704163155970/LI_TRk1z_400x400.jpg", "https://www.piedpiper.com/app/themes/pied-piper/dist/images/logo.svg", "https://www.mta.info/sites/all/themes/mta/images/mta_info.gif", "https://www.mta.info/sites/all/themes/mta/images/mta_info.gif", "https://pbs.twimg.com/profile_images/839711043056132097/2F8DZeeB_400x400.jpg", "https://pbs.twimg.com/profile_images/847417284641476617/WIScfa4Q_400x400.jpg", "https://pbs.twimg.com/profile_images/848471660860538880/pevXVsIp_400x400.jpg", "https://pbs.twimg.com/profile_images/553653588690362368/g0zxIbu8_400x400.png", "https://pbs.twimg.com/profile_images/875443327835025408/ZvmtaSXW_400x400.jpg", "https://pbs.twimg.com/profile_images/875388334003986432/eUsjmVRJ_400x400.jpg"]
 
         var index = Math.floor(Math.random() * (max - min + 1) + min);
 
@@ -505,8 +505,8 @@ $(document).ready(function () {
         var max = 9,
             min = 0;
         var user_names = ["Nasir Memon", "Phyllis Frankyl", "Boris Aronov", "Linda Sellie", "Itay Tal", "Daniel Katz-Braunchweig", "Guido Gerig", "Justin Cappos", "Lisa Hellerstein", "Keith W. Ross"];
-        var user_img = ["http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-336.jpg", "http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-310.jpg", "http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-474.jpg", "http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-5953.jpg", "http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-5952.jpg", "http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-197.jpg",
-            "http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-5945.jpg", "http://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-4253.jpg", "http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-328.jpg", "http://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-362.jpg"
+        var user_img = ["https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-336.jpg", "https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-310.jpg", "https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-474.jpg", "https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-5953.jpg", "https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-5952.jpg", "https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-197.jpg",
+            "https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-5945.jpg", "https://engineering.nyu.edu/files/imagecache/img_col_3_140/pictures/picture-4253.jpg", "https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-328.jpg", "https://engineering.nyu.edu/files/imagecache/profile_full/pictures/picture-362.jpg"
         ];
         var index = Math.floor(Math.random() * (max - min + 1) + min);
 
@@ -519,7 +519,7 @@ $(document).ready(function () {
             min = 0;
         console.log($(this).parent().parent().parent().html());
         var proj_names = ["Google", "Pied Piper", "MTA Project: Faster Trains", "MTA: Cheaper Fairs", "UBER", "Project Pizza", "Project Kitty", "Project Water", "Android", "Microsoft"];
-        var proj_img = ["https://pbs.twimg.com/profile_images/839721704163155970/LI_TRk1z_400x400.jpg", "http://www.piedpiper.com/app/themes/pied-piper/dist/images/logo.svg", "http://www.mta.info/sites/all/themes/mta/images/mta_info.gif", "http://www.mta.info/sites/all/themes/mta/images/mta_info.gif", "https://pbs.twimg.com/profile_images/839711043056132097/2F8DZeeB_400x400.jpg", "https://pbs.twimg.com/profile_images/847417284641476617/WIScfa4Q_400x400.jpg", "https://pbs.twimg.com/profile_images/848471660860538880/pevXVsIp_400x400.jpg", "https://pbs.twimg.com/profile_images/553653588690362368/g0zxIbu8_400x400.png", "https://pbs.twimg.com/profile_images/875443327835025408/ZvmtaSXW_400x400.jpg", "https://pbs.twimg.com/profile_images/875388334003986432/eUsjmVRJ_400x400.jpg"]
+        var proj_img = ["https://pbs.twimg.com/profile_images/839721704163155970/LI_TRk1z_400x400.jpg", "https://www.piedpiper.com/app/themes/pied-piper/dist/images/logo.svg", "https://www.mta.info/sites/all/themes/mta/images/mta_info.gif", "https://www.mta.info/sites/all/themes/mta/images/mta_info.gif", "https://pbs.twimg.com/profile_images/839711043056132097/2F8DZeeB_400x400.jpg", "https://pbs.twimg.com/profile_images/847417284641476617/WIScfa4Q_400x400.jpg", "https://pbs.twimg.com/profile_images/848471660860538880/pevXVsIp_400x400.jpg", "https://pbs.twimg.com/profile_images/553653588690362368/g0zxIbu8_400x400.png", "https://pbs.twimg.com/profile_images/875443327835025408/ZvmtaSXW_400x400.jpg", "https://pbs.twimg.com/profile_images/875388334003986432/eUsjmVRJ_400x400.jpg"]
 
         var index = Math.floor(Math.random() * (max - min + 1) + min);
 

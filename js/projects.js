@@ -114,7 +114,7 @@ $(document).ready(function() {
         $( "#projFollow" ).prop( "disabled", true );
         $.ajax({
             type: 'GET',  
-            url: 'http://k12start.today:'+port+'/AjaxUserFollowProjectToggle/',
+            url: 'https://ustart.today:'+port+'/AjaxUserFollowProjectToggle/',
             contentType: "application/json; charset=utf-8",
             data: {projectID: pageID},
             success: function(data) {
@@ -186,7 +186,7 @@ $(document).ready(function() {
 });
 
 function populateFollowerList(num) {
-	var generateurl = "https://cors.now.sh/http://pokeapi.co/api/v2/pokemon/" + num;
+	var generateurl = "https://cors.now.sh/https://pokeapi.co/api/v2/pokemon/" + num;
 	$.getJSON(generateurl, function( data ) {
 		followerCallback(data);
 	});

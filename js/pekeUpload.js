@@ -1,14 +1,14 @@
 /*
  *  PekeUpload 2.0 - jQuery plugin
  *  written by Pedro Molina
- *  http://www.pekebyte.com/
+ *  https://www.pekebyte.com/
  *
- *  Copyright (c) 2015 Pedro Molina (http://pekebyte.com)
+ *  Copyright (c) 2015 Pedro Molina (https://pekebyte.com)
  *  Dual licensed under the MIT (MIT-LICENSE.txt)
  *  and GPL (GPL-LICENSE.txt) licenses.
  *
  *  Built for jQuery library
- *  http://jquery.com
+ *  https://jquery.com
  *
  */
 (function($) {

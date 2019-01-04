@@ -17,7 +17,7 @@ function removeLink(element) {
 	if (eventInputID.length){
 		$.ajax({
 			type: 'GET',  
-			url: 'http://k12start.today:'+port+'/DeleteEventQuickLink/',
+			url: 'https://ustart.today:'+port+'/DeleteEventQuickLink/',
 			contentType: "application/json; charset=utf-8",
 			data: {deleteEventLink:httpURL, deleteEventLinkDesc:userlinkdesc, eventID:eventInputID.val()},
 			success: function(data) {
@@ -32,7 +32,7 @@ function removeLink(element) {
 	else if (projectInputID.length) {
 		$.ajax({
 			type: 'GET',  
-			url: 'http://k12start.today:'+port+'/DeleteProjectLink/',
+			url: 'https://ustart.today:'+port+'/DeleteProjectLink/',
 			contentType: "application/json; charset=utf-8",
 			data: {deleteProjectLink:httpURL, deleteProjectLinkDesc:userlinkdesc, projectID:projectInputID.val()},
 			success: function(data) {
@@ -46,7 +46,7 @@ function removeLink(element) {
 	} else {
 		$.ajax({
 			type: 'GET',  
-			url: 'http://k12start.today:'+port+'/deleteLink/',
+			url: 'https://ustart.today:'+port+'/deleteLink/',
 			contentType: "application/json; charset=utf-8",
 			data: {userLink:httpURL, userLinkDesc:userlinkdesc},
 			success: function(data) {
@@ -63,11 +63,11 @@ function removeLink(element) {
 function urlHTTP_OLD(url) {
 	// Attempts to check the URL via character check
 	url = url.toLowerCase();
-	if (url.startsWith("http://")) {
+	if (url.startsWith("https://")) {
 		if (url.startsWith("www.", 7)) {
 			return url;
 		}
-		return "http://www." + url.substring(7);
+		return "https://www." + url.substring(7);
 	}
 	if (url.startsWith("https://")) {
 		if (url.startsWith("www.", 8)) {
@@ -76,9 +76,9 @@ function urlHTTP_OLD(url) {
 		return "https://www." + url.substring(8);
 	}
 	if (url.startsWith("www.")) {
-		return "http://" + url;
+		return "https://" + url;
 	}
-	return "http://www." + url;
+	return "https://www." + url;
 }
 
 function importLinks() {
@@ -128,7 +128,7 @@ $(document).ready(function() {
 			if ($.inArray(httpURL, linkList) == -1) {
 				$.ajax({
 					type: 'GET',  
-					url: 'http://k12start.today:'+port+'/addLink/',
+					url: 'https://ustart.today:'+port+'/addLink/',
 					contentType: "application/json; charset=utf-8",
 					data: {userLink:httpURL, userLinkDesc:userlinkdesc},
 					success: function(data) {
@@ -157,7 +157,7 @@ $(document).ready(function() {
 			if ($.inArray(httpURL, linkList) == -1) {
 				$.ajax({
 					type: 'GET',
-					url: 'http://k12start.today:'+port+'/AddEventQuickLink/',
+					url: 'https://ustart.today:'+port+'/AddEventQuickLink/',
 					contentType: "application/json; charset=utf-8",
 					data: {eventLink:httpURL, eventLinkDesc:eventlinkdesc, eventID:eventid},
 					success: function(data) {
@@ -188,7 +188,7 @@ $(document).ready(function() {
 			if ($.inArray(httpURL, linkList) == -1) {
 				$.ajax({
 					type: 'GET',
-					url: 'http://k12start.today:'+port+'/AddProjectLink/',
+					url: 'https://ustart.today:'+port+'/AddProjectLink/',
 					contentType: "application/json; charset=utf-8",
 					data: {projectLink:httpURL, projectLinkDesc:projectlinkdesc, projectID:projectid},
 					success: function(data) {

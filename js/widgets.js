@@ -219,7 +219,7 @@ function mediumRender (medUsername, medPublication, medTag, medCount) {
 function tumblrRender(tumblrUsername) {
 	// Using RSS to render custom containers
     $('#widgetBodyTumblr').FeedEk({
-      FeedUrl:"http://"+tumblrUsername+".tumblr.com/rss",
+      FeedUrl:"https://"+tumblrUsername+".tumblr.com/rss",
       MaxCount : 11,
       ShowDesc : true,
       ShowPubDate:true,

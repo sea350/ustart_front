@@ -89,7 +89,7 @@
         return arr[(arr.length + index + (offset % arr.length)) % arr.length];
     }
 
-    // Credits to : Andrew Dupont - http://andrewdupont.net/2009/08/28/deep-extending-objects-in-javascript/
+    // Credits to : Andrew Dupont - https://andrewdupont.net/2009/08/28/deep-extending-objects-in-javascript/
     function deepExtend(destination, source) {
         destination = destination || {};
         for (var property in source) {
@@ -133,7 +133,7 @@
         }
     }
 
-    //http://jsperf.com/vanilla-css
+    //https://jsperf.com/vanilla-css
     function css(el, styles, val) {
         if (typeof (styles) === 'string') {
             var tmp = styles;

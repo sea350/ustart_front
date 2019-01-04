@@ -51,7 +51,7 @@ updateChatBadge();
 //notifications
   $.ajax({
     type: 'GET',
-    url: 'http://k12start.today:'+port+'/AjaxNotifications/',
+    url: 'https://ustart.today:'+port+'/AjaxNotifications/',
     contentType: "application/json; charset=utf-8",
     data: {},
     success: function(data) {
@@ -83,7 +83,7 @@ updateChatBadge();
  setInterval(function(){
     $.ajax({
         type: 'GET',
-        url: 'http://k12start.today:'+port+'/AjaxNotifications/',
+        url: 'https://ustart.today:'+port+'/AjaxNotifications/',
         contentType: "application/json; charset=utf-8",
         data: {},
         success: function(data) {
@@ -112,7 +112,7 @@ updateChatBadge();
 //chat notification
 $.ajax({
         type: 'GET',
-        url: 'http://k12start.today:'+port+'/AjaxChatNotifications/',
+        url: 'https://ustart.today:'+port+'/AjaxChatNotifications/',
         contentType: "application/json; charset=utf-8",
         data: {},
         success: function(data) {
@@ -158,7 +158,7 @@ function chatNotifstart(){
         console.log("you need a browser that supports web sockets");
         }else{
             try{
-            roomSocket= new WebSocket('ws://' + window.location.host + '/cN/');
+            roomSocket= new WebSocket('wss://' + window.location.host + '/cN/');
             roomSocket.onopen = function(){
                 //console.log('Chat Nofitication Socket Status: '+roomSocket.readyState+'(open)');
                 if(window.chattimerID){ /* a setInterval has been fired */

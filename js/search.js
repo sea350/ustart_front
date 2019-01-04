@@ -156,7 +156,7 @@ $(function () {
         scroll='';
         $.ajax({
             type: 'GET',
-            url: 'http://k12start.today:'+port+'/AjaxLoadNext/',
+            url: 'https://ustart.today:'+port+'/AjaxLoadNext/',
             contentType: "application/json; charset=utf-8",
             data: {query: temp.query, searchFilterGroup:temp.searchFilterGroup,searchlistmajors:temp.searchlistmajors, searchlistskills:temp.searchlistskills, searchbyprojectname:temp.searchbyprojectname, searchbyurl:temp.searchbyurl, searchbymembersneeded:temp.searchbymembersneeded, searchbyskills:temp.searchbyskills, searchbyeventname: temp.searchbyeventname, searchbyurl: temp.searchbyurl, scrollID: scroll, searchbymembers: temp.searchbymembers, searchbyguests: temp.searchbyguests, searchbypersonname: temp.searchbypersonname, searchbyusername:temp.searchbyusername},
              beforeSend: function() {
@@ -493,7 +493,7 @@ function element_in_scroll(elem)
                  if ( $('.search-result').length < totalHits){
                      $.ajax({
                         type: 'GET',
-                        url: 'http://k12start.today:'+port+'/AjaxLoadNext/',
+                        url: 'https://ustart.today:'+port+'/AjaxLoadNext/',
                         contentType: "application/json; charset=utf-8",
                         data: {query: temp.query, searchFilterGroup:temp.searchFilterGroup,searchlistmajors:temp.searchlistmajors, searchlistskills:temp.searchlistskills, searchbyprojectname:temp.searchbyprojectname, searchbyurl:temp.searchbyurl, searchbymembersneeded:temp.searchbymembersneeded, searchbyskills:temp.searchbyskills, searchbyeventname: temp.searchbyeventname, searchbyurl: temp.searchbyurl, scrollID: scroll, searchbymembers: temp.searchbymembers, searchbyguests: temp.searchbyguests, searchbypersonname: temp.searchbypersonname, searchbyusername:temp.searchbyusername},
                         success: function(data) {  

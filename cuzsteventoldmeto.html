@@ -84,7 +84,7 @@
     created: function() {
         var self = this;
         var id = window.location.href.match(/\/([^\/]+)\/?$/)[1];
-        this.ws = new WebSocket('ws://' + window.location.host + '/ws/'+id);
+        this.ws = new WebSocket('wss://' + window.location.host + '/ws/'+id);
         this.ws.addEventListener('message', function(e) {
             var msg = JSON.parse(e.data);
             console.log(msg);
@@ -130,7 +130,7 @@
         },
 
         gravatarURL: function(email) {
-            return 'http://www.gravatar.com/avatar/' + CryptoJS.MD5(email);
+            return 'https://www.gravatar.com/avatar/' + CryptoJS.MD5(email);
         }
     }
 });

@@ -21,7 +21,7 @@ $(function () {
                 var asortedWidgets = $("#sortable").sortable("toArray");
                 $.ajax({
                     type: 'GET',
-                    url: 'http://k12start.today:'+port+'/sortUserWidgets/',
+                    url: 'https://ustart.today:'+port+'/sortUserWidgets/',
                     contentType: "application/json; charset=utf-8",
                     data: {sortedWidgets: JSON.stringify(asortedWidgets), pageID: userID},
                     success: function(data) {
@@ -411,7 +411,7 @@ $(document).ready(function () {
          console.log(userID);
         $.ajax({
             type: 'GET',  
-            url: 'http://k12start.today:'+port+'/AjaxUserFollowsUser/',
+            url: 'https://ustart.today:'+port+'/AjaxUserFollowsUser/',
             contentType: "application/json; charset=utf-8",
             data: {userID:userID},
             success: function(data) {
