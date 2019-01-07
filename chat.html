@@ -354,6 +354,9 @@
                                                 var temp = window.location.href.indexOf("ch");
                                                 var id = window.location.href.substring(temp+3);
                                                 if(socket.readyState === socket.OPEN){
+                                                    if ($('#messager'+$.escapeSelector(id)).val().length > 500) {
+                                                        $('#messager'+$.escapeSelector(id)).val($('#messager'+$.escapeSelector(id)).val().substring(0, 500));
+                                                    }
                                                     if ($('#messager'+$.escapeSelector(id)).val()!= '') {
                                                         socket.send(JSON.stringify({
                                                             Content:  $('#messager'+$.escapeSelector(id)).val()
