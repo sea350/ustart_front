@@ -84,6 +84,7 @@
                                                             data: {chatID: urlid, index:chatIndex},
                                                             beforeSend: function() {
                                                                 $('#chat'+$.escapeSelector(urlid)).find(".loader").css("display", "block");
+                                                                $('.inputMessages').prop('disabled', true);
                                                                },complete: function (jqXHR,status) {
                                                                  chatflag=1;
                                                                  if(status == 'success' || status=='notmodified')
@@ -113,6 +114,8 @@
                                                                  if (oldtimeStamp.text() === newTimeStamp.attr("date")) {
                                                                     oldtimeStamp.insertBefore($('#chat'+$.escapeSelector(urlid)).find(".message-user").first());
                                                                  }
+                                                                //reenable message input
+                                                                $('.inputMessages').prop('disabled', false);
                                                                 }
                                                             },error: function(err) {
                                                                 console.log('chat Load failed: ');
