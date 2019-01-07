@@ -370,7 +370,12 @@
                                                     }
                                                     
                                                 }
-                                                window.setTimeout(function(){$('.inputMessages').prop('disabled', false);}, 1000);
+                                                if ($('.message-user-message').length > 0){
+                                                    window.setTimeout(function(){$('.inputMessages').prop('disabled', false);}, 200);
+                                                }
+                                                else{
+                                                    window.setTimeout(function(){$('.inputMessages').prop('disabled', false);}, 1000);
+                                                }
                                                 
                                                 
                                             });
