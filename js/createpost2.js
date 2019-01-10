@@ -493,7 +493,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 								$('<h5>',{'class':'mt-0'}).each(function(){
 									$(this).text(fName.concat(' ').concat(lName));
 								}) ,
-								$('<p>').text(readRuneArrayThatWorks(content)).replace(/\n\r?/g, '<br />');
+								$('<p>').text(readRuneArrayThatWorks(content)).replace(/\n\r?/g, '<br />')
 								])
 							])
 						]) ,
@@ -1257,7 +1257,7 @@ function createSharedPost(parentImage, image, fName,lName,elementID, content, sh
 								$('<h5>',{'class':'mt-0'}).each(function(){
 									$(this).text(fName.concat(' ').concat(lName));
 								}) ,
-								$('<p>').text(readRuneArrayThatWorks(content)).replace(/\n\r?/g, '<br />');
+								$('<p>').text(readRuneArrayThatWorks(content)).replace(/\n\r?/g, '<br />')
 								])
 							])
 						]) ,
@@ -1389,7 +1389,7 @@ function createBasicSharedPost(parentImage,image, fName,lName,elementID, content
 								$('<h5>',{'class':'mt-0'}).each(function(){
 									$(this).text(fName.concat(' ').concat(lName));
 								}) ,
-								$('<p>').text(readRuneArrayThatWorks(content)).replace(/\n\r?/g, '<br />');
+								$('<p>').text(readRuneArrayThatWorks(content)).replace(/\n\r?/g, '<br />')
 								])
 							])
 						]) ,
