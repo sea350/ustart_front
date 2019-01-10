@@ -904,7 +904,7 @@ function makeNewCommentApplications(parentID, image, fName,lName, content, postI
 			$(this).text(fName.concat(' ').concat(lName));
 		}),
 		$('<p>').each(function(){
-			$(this).text(readRuneArrayThatWorks(content)replace(/\n\r?/g, '<br />'));
+			$(this).text(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />'));
 		}),
 		$('<p>').append([
 			$('<small>').append(
