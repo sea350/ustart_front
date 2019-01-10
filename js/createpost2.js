@@ -35,7 +35,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 			$(this).text(fName.concat(' ').concat(lName));
 		})),
 		$('<p>',{'class':'post-message'}).attr('id','post-msg').each(function(){
-			$(this).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;")).attr({"id": $(this).attr("id").concat(elementID)}); 
+			$(this).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />')).attr({"id": $(this).attr("id").concat(elementID)}); 
 		}) ]),
 		$('<ul>').append([
 			$('<li>').append([
@@ -103,7 +103,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 									$(this).text(fName.concat(' ').concat(lName));
 								}) ,
 								$('<p>').each(function(){
-									$(this).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"));
+									$(this).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'));
 								})
 								])
 
@@ -216,7 +216,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 
 								$('<div>',{'class':'form-group'}).append([
 									$('<textarea>',{'class':'form-control'}).attr({'id':'content','placeholder':''}).each(function(){
-										$(this).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;")).attr({"id": $(this).attr("id").concat(elementID)});
+										$(this).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />')).attr({"id": $(this).attr("id").concat(elementID)});
 									})
 									])
 								])
@@ -277,7 +277,7 @@ function makePostApplications(image, fName,lName, content, elementID,numLikes,nu
 								$('<h5>',{'class':'mt-0'}).each(function(){
 									$(this).text(fName.concat(' ').concat(lName));
 								}) ,
-								$('<p>').html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"))
+								$('<p>').html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'))
 								])
 							])
 						]) ,
@@ -325,7 +325,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 			$(this).text(fName.concat(' ').concat(lName));
 		})),
 		$('<p>',{'class':'post-message'}).attr('id','post-msg').each(function(){
-			$(this).attr("id", $(this).attr("id").concat(elementID)).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"));
+			$(this).attr("id", $(this).attr("id").concat(elementID)).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'));
 		}) ]),
 		$('<ul/>').append([
 			$('<li>').append([
@@ -389,7 +389,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 									$(this).text(fName.concat(' ').concat(lName));
 								}) ,
 								$('<p>').each(function(){
-									$(this).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"));
+									$(this).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'));
 								})
 
 								]),
@@ -493,7 +493,7 @@ function makeBasicPostApplications(image, fName,lName, content, elementID,numLik
 								$('<h5>',{'class':'mt-0'}).each(function(){
 									$(this).text(fName.concat(' ').concat(lName));
 								}) ,
-								$('<p>').html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"))
+								$('<p>').html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'))
 								])
 							])
 						]) ,
@@ -560,7 +560,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 			$(this).text(fName.concat(' ').concat(lName));
 		})),
 		$('<p>',{'class':'post-message'}).attr('id','post-msg').each(function(){
-			$(this).attr("id", $(this).attr("id").concat(elementID)).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"));
+			$(this).attr("id", $(this).attr("id").concat(elementID)).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'));
 		}) ]),
 		$('<ul/>').append([
 			$('<li>').append([
@@ -626,7 +626,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 									$(this).text(fName.concat(' ').concat(lName));
 								}) ,
 								$('<p>').each(function(){
-									$(this).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"));
+									$(this).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'));
 								})
 								])
 
@@ -668,7 +668,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 
 								$('<div>',{'class':'form-group'}).append([
 									$('<textarea>',{'class':'form-control'}).attr({'id':'content','placeholder':''}).each(function(){
-										$(this).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;")).attr({'id':$(this).attr('id').concat(elementID)});
+										$(this).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />')).attr({'id':$(this).attr('id').concat(elementID)});
 									})
 									])
 								])
@@ -730,7 +730,7 @@ function makeNewPostApplications(image, fName,lName, content, elementID,numLikes
 								$('<h5>',{'class':'mt-0'}).each(function(){
 									$(this).text(fName.concat(' ').concat(lName));
 								}) ,
-								$('<p>').html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"))
+								$('<p>').html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'))
 								])
 							])
 						]) ,
@@ -782,7 +782,7 @@ function makeCommentApplications(parentID, image, fName,lName, content, postID,n
 			$(this).text(fName.concat(' ').concat(lName));
 		}),
 		$('<p>').each(function(){
-			$(this).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"));
+			$(this).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'));
 		}),
 		$('<p>').append([
 			$('<small>').append(
@@ -849,7 +849,7 @@ function makeBasicCommentApplications(parentID, image, fName,lName, content, pos
 			$(this).text(fName.concat(' ').concat(lName));
 		}),
 		$('<p>').each(function(){
-			$(this).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"));
+			$(this).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'));
 		}),
 		$('<p>').append([
 			$('<small>').append(
@@ -904,7 +904,7 @@ function makeNewCommentApplications(parentID, image, fName,lName, content, postI
 			$(this).text(fName.concat(' ').concat(lName));
 		}),
 		$('<p>').each(function(){
-			$(this).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"));
+			$(this).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'));
 		}),
 		$('<p>').append([
 			$('<small>').append(
@@ -978,7 +978,7 @@ function makeCommentOfCommentsApplications(parentID, image, fName,lName, content
 				$(this).text(fName.concat(' ').concat(lName));
 			}),
 			$('<p>').each(function(){
-				$(this).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"));
+				$(this).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'));
 			}),
 			$('<p>').append(
 				$('<small>').append(
@@ -1011,7 +1011,7 @@ function makeBasicCommentOfCommentsApplications(parentID, image, fName,lName, co
 				$(this).text(fName.concat(' ').concat(lName));
 			}),
 			$('<p>').each(function(){
-				$(this).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"));
+				$(this).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'));
 			})
 			])
 		])
@@ -1037,7 +1037,7 @@ function makeBasicCommentOfCommentsApplications(parentID, image, fName,lName, co
 				$(this).text(fName.concat(' ').concat(lName));
 			}),
 			$('<p>').each(function(){
-				$(this).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"));
+				$(this).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'));
 			})
 			])
 			])
@@ -1064,7 +1064,7 @@ function makeNewCommentOfCommentsApplications(parentID, image, fName,lName, cont
 				$(this).text(fName.concat(' ').concat(lName));
 			}),
 			$('<p>').each(function(){
-				$(this).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"));
+				$(this).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'));
 			}),
 			$('<p>').append(
 				$('<small>').append(
@@ -1108,7 +1108,7 @@ function createSharedPost(parentImage, image, fName,lName,elementID, content, sh
 			$(this).text(fName.concat(' ').concat(lName).concat(' shared a post: '));
 		}),
 		$('<p>').each(function(){
-			     $(this).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"));
+			     $(this).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'));
 		}),
 		$('<div>', {'class':'media'}).append([			
 		$('<div>',{'class':'panel panel-default'}).append([
@@ -1135,7 +1135,7 @@ function createSharedPost(parentImage, image, fName,lName,elementID, content, sh
                                 $(this).text("Content has been deleted"); 
                             }
                             else{
-                                $(this).html(readRuneArrayThatWorks(sharedContent).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"));
+                                $(this).html(readRuneArrayThatWorks(sharedContent).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'));
                             }
 						})
 						])
@@ -1195,7 +1195,7 @@ function createSharedPost(parentImage, image, fName,lName,elementID, content, sh
 
 								$('<div>',{'class':'form-group'}).append([
 									$('<textarea>',{'class':'form-control'}).attr({'id':'content','placeholder':''}).each(function(){
-										$(this).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;")).attr("id",$(this).attr("id").concat(elementID));
+										$(this).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />')).attr("id",$(this).attr("id").concat(elementID));
 									})
 									])
 								])
@@ -1257,7 +1257,7 @@ function createSharedPost(parentImage, image, fName,lName,elementID, content, sh
 								$('<h5>',{'class':'mt-0'}).each(function(){
 									$(this).text(fName.concat(' ').concat(lName));
 								}) ,
-								$('<p>').html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"))
+								$('<p>').html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'))
 								])
 							])
 						]) ,
@@ -1302,7 +1302,7 @@ function createBasicSharedPost(parentImage,image, fName,lName,elementID, content
 			$(this).text(fName.concat(' ').concat(lName).concat('shared a post: '));
 		}),
 		$('<p>').each(function(){
-			$(this).html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"));
+			$(this).html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'));
 		}),
 		$('<div>', {'class':'media'}).append([			
 		$('<div>',{'class':'panel panel-default'}).append([
@@ -1331,7 +1331,7 @@ function createBasicSharedPost(parentImage,image, fName,lName,elementID, content
                                 $(this).text("Content has been removed");	   
                             }
                             else{
-                                $(this).html(readRuneArrayThatWorks(sharedContent).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"));
+                                $(this).html(readRuneArrayThatWorks(sharedContent).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'));
                             }
 						})
 						])
@@ -1389,7 +1389,7 @@ function createBasicSharedPost(parentImage,image, fName,lName,elementID, content
 								$('<h5>',{'class':'mt-0'}).each(function(){
 									$(this).text(fName.concat(' ').concat(lName));
 								}) ,
-								$('<p>').html(readRuneArrayThatWorks(content).replace(/\n\r?/g, '<br />').replace("<", "&lt;").replace(">", "&gt;"))
+								$('<p>').html(readRuneArrayThatWorks(content).replace("<", "&lt;").replace(">", "&gt;").replace(/\n\r?/g, '<br />'))
 								])
 							])
 						]) ,
