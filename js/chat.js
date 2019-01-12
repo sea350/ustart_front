@@ -223,7 +223,9 @@ function populateNewMessageModified(parentid, msgid, username, message, icon, ti
     $('#chat'+$.escapeSelector(parentid)).append(listItem);
     var roomHeight = ($('#chat'+$.escapeSelector(parentid))[0].scrollHeight - $('#chat'+$.escapeSelector(parentid)).height()); // Get the height of the div
     var roomScroll = $('#chat'+$.escapeSelector(parentid)).scrollTop(); // Get the vertical scroll position
-    var isScrolledToEnd = (roomScroll + 100 > roomHeight)
+    var isScrolledToEnd = (roomScroll + 200 > roomHeight);
+    console.log(roomScroll);
+    console.log(roomHeight);
     if(!originuser){
         if(isScrolledToEnd){
             console.log("scrolled to end");
